@@ -1,21 +1,19 @@
 原版模组入门教程
 ===
 
-+ ==理论==
-	1. [简介](#§1-简介)
-	2. [数据包](§2-数据包)
-	3. [资源包](§3-资源包)
-	4. [规划](§4-规划)
-+ ==实践==
-	5. [合成](§5-合成)
-	6. [熔炼和酿造](§6-熔炼和酿造)
-	7. [交易](§7-交易)
-	8. [探测与触发](§8-探测与触发)
-	9. [机器实例](§9-机器实例)
-	10. [ 随机结构](§10-随机结构)
-	11. [种植](§11-种植)
-	12. [连锁挖矿](§12-连锁挖矿)
-	13. [§13 磁力效果](§13-磁力效果)
+1. [简介](#§1-简介)
+2. [数据包](§2-数据包)
+3. [资源包](§3-资源包)
+4. [规划](§4-规划)
+5. [合成](§5-合成)
+6. [熔炼和酿造](§6-熔炼和酿造)
+7. [交易](§7-交易)
+8. [探测与触发](§8-探测与触发)
+9. [机器实例](§9-机器实例)
+10. [ 随机结构](§10-随机结构)
+11. [种植](§11-种植)
+12. [连锁挖矿](§12-连锁挖矿)
+13. [§13 磁力效果](§13-磁力效果)
 
 阅读时请注意内容的适用版本，有任何错误和疑问请联系我，谢谢！
 
@@ -63,9 +61,9 @@
 + **[Notepad++](https://notepad-plus-plus.org/)**
 可从 [mcfunction 的语言样式和自动补全](http://www.mcbbs.net/thread-806816-1-1.html)帖中下载相关文件并导入，另外请将 Notepad++ 中`设置->首选项->其它->自动检测字符编码`选项关闭。
 
-*小贴士* 右下角也可以看到LF或CRLF，分别表示两种换行符，二者均可正常使用，建议使用LF。
+右下角也可以看到LF或CRLF，分别表示两种换行符，二者均可正常使用，建议使用LF。
 
-*小贴士* 注意不要误选了 UTF-8 with BOM 格式。
+注意不要误选了 UTF-8 with BOM 格式。
 
 #### 压缩工具
 数据包和资源包均可以为文件夹或 zip 压缩文件格式。游戏本体和模组本体的 jar 文件也需要压缩工具来打开。
@@ -73,7 +71,7 @@
 + **[7-zip](http://www.7-zip.org/)** 免费软件。
 + **winrar** 付费软件。
 
-*小贴士* jar 文件可以通过重命名为 zip 文件直接用 Windows 资源管理器打开。显然，这不如`右键->7-zip->打开压缩包`方便。
+jar 文件可以通过重命名为 zip 文件直接用 Windows 资源管理器打开。显然，这不如`右键->7-zip->打开压缩包`方便。
 
 #### nbt工具
 推荐使用 [nbtexplorer](http://www.mcbbs.net/thread-735265-1-1.html) 来打开 dat 和其它 nbt 格式文件。
@@ -143,7 +141,7 @@ datapacks
 ```
 `data` 下所有文件和文件夹需使用小写英文、数字或-,_来命名，**不可使用大写字母**，所有文本文件使用 UTF-8 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。
 
-*小贴士* 压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 mcmeta 文件和 data 文件夹。稳妥的做法是`打开文件夹->全选->右键->发送到->压缩文件夹`。
+压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 mcmeta 文件和 data 文件夹。稳妥的做法是`打开文件夹->全选->右键->发送到->压缩文件夹`。
 
 游戏内输入 `\datapack list` 可以列出所有的数据包。
 
@@ -172,7 +170,7 @@ datapacks
 
 编写时，使用空格或制表符(Tab)缩进，以便于查看括号匹配和层次。`.mcmeta` 文件也是 JSON 文件，所以格式是相同的。
 
-*小贴士* wiki 上有关页面使用了 NBT 的数据类型标注，但其实并不适用于 JSON 格式。
+wiki 上有关页面使用了 NBT 的数据类型标注，但其实并不适用于 JSON 格式。
 
 ### §2.1 `pack.mcmeta`
 Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的。例：
@@ -194,11 +192,11 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 
 标签文件，即 `tags` 中的文件内容默认追加而不是覆盖。因此标签文件是用来解决数据包冲突、联动的有力工具。
 
-*小贴士* 数据包加载顺序并不固定，因此不要在不同数据包中同一命名空间下使用相同的文件名。原版 `minecraft` 下内容总是最先被加载。可以在游戏内通过手动开启/关闭来调整加载次序。
+数据包加载顺序并不固定，因此不要在不同数据包中同一命名空间下使用相同的文件名。原版 `minecraft` 下内容总是最先被加载。可以在游戏内通过手动开启/关闭来调整加载次序。
 
 进度、战利品表、函数、结构、标签、断言等文件的调用格式均为`命名空间:文件夹/文件名`对应`命名空间/xxx/文件夹/文件名.后缀`文件，`xxx` 为 `advancements, loot_tables, functions, strutures, tags/blocks, tags/items` 等。
 
-*小贴士* 若命名空间为 `minecraft`，则可直接省略 `minecraft:`。
+若命名空间为 `minecraft`，则可直接省略 `minecraft:`。
 
 ### §2.3 进度
 可参考
@@ -575,7 +573,7 @@ resourcepacks
 
 `assets` 下所有文件和文件夹需使用小写英文、数字或-,_来命名，**不可使用大写字母**，所有文本文件为使用 UTF-8 编码的 JSON文件，图片使用 `png` 格式。发布时可将所有内容压缩为一个 zip 文件。
 
-*小贴士* 压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是`打开文件夹->全选->右键->发送到->压缩文件夹`。
+压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是`打开文件夹->全选->右键->发送到->压缩文件夹`。
 
 在资源包菜单中，加载次序由下至上，因此上方的资源包内容会覆盖下方的资源包同名内容。由于原版模组往往会修改原版物品模型，因此同时安装多个原版模组的资源包时，很容易出现文件冲突，此时需要玩家手动合并资源包方可使用。具体而言，对比两个资源包的同名文件，将相同的模型文件的 `overrides` 合并，其它内容选择需要的留下即可。
 
@@ -583,7 +581,7 @@ resourcepacks
 
 本文中我们仅对资源包做简单介绍，更详细的文件说明请参阅[资源包 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/%E8%B5%84%E6%BA%90%E5%8C%85)或论坛材质资源版相关内容。
 
-*小贴士* 材质包和资源包是不同的东西，目前 Minecraft Java 只有资源包，请不要使用错误的名称。
+材质包和资源包是不同的东西，目前 Minecraft Java 只有资源包，请不要使用错误的名称。
 
 ### §3.1 `pack.mcmeta` 和 `pack.png`
 
@@ -623,36 +621,42 @@ Minecraft 通过 `pack.mcmeta` 来识别资源包，因此该文件是不可或�
 
 模型和材质的调用格式均为`命名空间:文件夹/文件名`对应`命名空间/xxx/文件夹/文件名.后缀`文件，`xxx` 为 `models` 或 `textures`。
 
-*小贴士* 若命名空间为 `minecraft`，则可直接省略 `minecraft:`。
+若命名空间为 `minecraft`，则可直接省略 `minecraft:`。
 
 建议和数据包使用相同的命名空间名。
 
 ### §3.3 语言文件
-语言文件可以放在任一命名空间下的lang文件夹下。建议至少支持中文简体(zh_cn)、繁体(zh_tw)和英文(en_us)三种语言。英文用于确定条目的唯一名称(id:"namespace:item_name")，中文则便于国人使用。建议所有物品、进度、游戏提示等文本均采用translate文本。语言文件中可以使用样式代码来实现彩色文字。
+语言文件可以放在任一命名空间下的 `lang` 文件夹下。语言文件中可以使用样式代码来实现彩色文字。
 
-**例** assets/命名空间/lang/zh_cn.json
+建议至少支持中文简体(`zh_cn`)、繁体(`zh_tw`)和英文(`en_us`)三种语言。建议所有物品、进度、游戏提示等文本均采用 `translate` 文本。
+
+例如：`assets/命名空间/lang/zh_cn.json`
 ```
 {
 	"item.cpp.magnet":"§r磁铁",
 	...
 }
-```assets/命名空间/lang/en_us.json
+```
+`assets/命名空间/lang/en_us.json`
 ```
 {
 	"item.cpp.magnet":"§rMagnet",
 	...
 }
 ```
-也可以用此方法修改默认物品的名称等内容。
-**例** assets/命名空间/lang/zh_cn.json
+也可以用此方法修改物品的默认名称等内容。例如：
+
+`assets/命名空间/lang/zh_cn.json`
 ```
 {
 	"item.minecraft.potion.effect.empty": "§r神秘药水",
 	...
 }
-```则未知的药水的名称不再是“不可合成的药水”，而是“神秘药水”。
+```
+则未知的药水的名称不再是`不可合成的药水`，而是`神秘药水`。
 
-translate还有个有趣但不一定实用的用法。```
+`translate` 还有个有趣但不一定实用的用法。
+```
 {
 	"The":"§a原版模组《更多的合成》已成功加载,",      
 	"resourcepack":"版本",
@@ -664,14 +668,21 @@ translate还有个有趣但不一定实用的用法。```
 	"Launch":"§aRubberTree",
 	...
 }
-```则在数据包中输出相应文本时，若无资源包或资源包错误，则会显示```
-The resourcepack does not Installl correctly or Launch.```以提示玩家资源包未加载。
+```
+则在数据包中输出相应文本时，若无资源包或资源包错误，则会显示
+```
+The resourcepack does not Installl correctly or Launch.
+```
+以提示玩家资源包未加载。
 
-### §3.4 物品模型
-由于1.14添加了CustomModelData的nbt，我们可以拥有几乎无穷多的物品模型。但是为了便于他人整合，我们建议将custom_model_data的前四位确定模组的独有区段，后四位作为模组不同模型的值，例如12970000-12979999之间。此外，建议custom_model_data不要超过16777216，原因见(https://www.mcbbs.net/thread-867051-1-1.html]custom_model_data的使用限制]。
+### §3.4 `CustomModelData` 物品模型
+由于1.14添加了 `CustomModelData`，我们可以拥有几乎无穷多的物品模型。为了便于他人整合，我们建议将 `custom_model_data` 的前四位确定模组的独有区段，后四位作为模组不同模型的值，例如 `12970000-12979999` 之间。此外，建议 `custom_model_data` 不要超过 `16777216`，原因见[custom_model_data的使用限制](https://www.mcbbs.net/thread-867051-1-1.html)。
 
-我们会给出一个例子来说明实现流程。首先在minecraft下的物品模型中添加额外的模型，然后引用我们自定义的命名空间下的模型，并在模型中引用我们绘制好的材质。
-assets/minecraft/models/item/carrot_on_a_stick.json
+我们会给出一个例子来说明实现流程。
+
+首先在 `minecraft` 下的胡萝卜钓竿物品模型中添加额外的模型(`overrides`)，并引用我们自定义的模型
+
+`assets/minecraft/models/item/carrot_on_a_stick.json`
 ```
 {
 	"parent": "item/handheld",
@@ -687,9 +698,12 @@ assets/minecraft/models/item/carrot_on_a_stick.json
 		{ "predicate": { "custom_model_data": 12970006 }, "model": "cpp:element/red_force_of_fire"}
 	]
 }
-```注意custom_model_data需要按照从小往大的次序，否则会导致使用时得不到想要的模型。
+```
+注意 `custom_model_data` 需要按照从小往大的次序，否则会导致后面的覆盖前面的。
 
-assets/cpp/models/element/red_force_of_fire.json
+然后创建自定义的模型
+
+`assets/cpp/models/element/red_force_of_fire.json`
 ```
 {
 	"parent": "item/handheld",
@@ -697,12 +711,20 @@ assets/cpp/models/element/red_force_of_fire.json
 		"layer0": "cpp:element/red_force_of_fire"
 	}
 }
-```然后我们需要添加png图片(正方形大小)文件在assets/craftingpp/textures/element/red_force_of_fire.png。这样我们就设计好了这个物品模型，在§4.2我们将会说明如何使用该模型。
+```
 
-模型本身只是一个JSON文件，只有minecraft命名空间下特定名称的文件才对应特定的物品/方块模型。例如minecraft/models/item/carrot_on_a_stick.json表示胡萝卜钓竿的物品模型，minecraft/models/block/stone.json表示石头的方块模型。材质文件也是类似的。
+最后绘制材质，并将其保存为
+
+`assets/craftingpp/textures/element/red_force_of_fire.png`
+
+这样我们就设计好了这个物品模型，在[§4.4 物品设计](#§4.2-物品设计)我们将会说明如何使用该模型。
+
+### §3.5 模型语法
+模型本身只是一个 JSON 文件，只有 `minecraft` 命名空间下特定名称的文件才对应特定的物品/方块模型。例如 `minecraft/models/item/carrot_on_a_stick.json` 表示胡萝卜钓竿的物品模型，`minecraft/models/block/stone.json` 表示石头的方块模型。
 
 模型可以理解成一些可以旋转的长方体的拼接，每个长方体的若干个面贴上了材质图案。长方体的厚度可以为0，材质也可以只贴若干个面。
-我们来理解下模型文件的语法。parent表示继承的模型，可以没有该项，若有则相当于将其文件内容复制到该位置。例如物品的平面模型、方块模型、玻璃板模型等，我们都可以直接调用而无需自己编写。或者需要多次使用的模型，我们也可以写好后在其它模型中直接调用。例子中继承的模型minecraft:item/handheld为手持物品的平面模型：
+
+我们通过几个例子来理解下模型文件的语法。这个例子使用的是 Minecraft 自带的物品模型，并修改了在部分位置的显示：
 ```
 {
 	"parent": "item/generated",
@@ -730,7 +752,7 @@ assets/cpp/models/element/red_force_of_fire.json
 	}
 }
 ```
-我们可以看到，它又继承了模型minecraft:item/generated
+我们可以看到，它继承了模型 `minecraft:item/generated`
 ```
 {
 	"parent": "builtin/generated",
@@ -762,95 +784,246 @@ assets/cpp/models/element/red_force_of_fire.json
 	}
 }
 ```
-最后这个 `builtin/generated` 是 Minecraft 中内建的模型，一般手持物采用的就是该模型。
+最后这个 `builtin/generated` 是 Minecraft 中内建的模型，不能修改。
 
-display确定物品在不同位置
-
-+ ground 掉落物
-+ head 头部
-+ thirdperson_righthand 第三人称右手
-+ thirdperson_lefthand 第三人称左手
-+ firstperson_righthand 第一人称右手
-+ firstperson_lefthand 第一人称左手
-+ fixed 物品展示框
-+ gui 背包或容器
-的放缩(scale)、旋转(rotation)和平移(translation)，注意这些数值均有范围限制，例如scale至多为4。
-如果我们想要立体的模型，我们可以继承minecraft:block/block或者其中很多的方块模型模板，也可以自行撰写。我们来看一个自定义的模型例子。```
+如果我们想要立体的模型，我们可以继承 `minecraft:block/block` 或者其中很多的方块模型模板，也可以自行撰写。我们来看一个自定义模型的例子。
+```
 {
 	"parent": "block/block",
 	"display": {
 		"head": {
-			"scale": [ 2.18, 2.18, 2.18 ]
+			"scale": [ 3.28, 3.28, 3.28 ]
 		},
 		"gui": {
 			"rotation": [ 30, 225, 0 ],
-			"scale": [ 0.67, 0.67, 0.67 ]
+			"translation": [0, -2, 0],
+			"scale": [ 1.6, 1.6, 1.6 ]
+		},
+		"ground": {
+			"rotation": [ 0, 0, 0 ],
+			"translation": [ 0, 3, 0],
+			"scale":[ 0.64, 0.64, 0.64 ]
+		},
+		"fixed": {
+			"rotation": [ 0, 0, 0 ],
+			"translation": [ 0, 0, 0],
+			"scale":[ 1.28, 1.28, 1.28 ]
+		},
+		"thirdperson_righthand": {
+			"rotation": [ 75, 45, 0 ],
+			"translation": [ 0, 2.5, 0],
+			"scale": [ 0.96, 0.96, 0.96 ]
+		},
+		"firstperson_righthand": {
+			"rotation": [ 0, 45, 0 ],
+			"translation": [ 0, 0, 0 ],
+			"scale": [ 1.02, 1.02, 1.02 ]
+		},
+		"firstperson_lefthand": {
+			"rotation": [ 0, 225, 0 ],
+			"translation": [ 0, 0, 0 ],
+			"scale": [ 1.02, 1.02, 1.02 ]
 		}
 	},
 	"textures": {
-		"particle": "entity/chicken",
-		"layer": "entity/chicken"
+		"particle": "entity/rabbit/brown",
+		"layer": "entity/rabbit/brown"
 	},
 	"elements": [
 		{
-			"from": [ 4, 2, 5 ],
-			"to": [ 12, 14, 11 ],
+			"from": [ 5.5, 6, 5.5 ],
+			"to": [ 10.5, 10, 10.5 ],
 			"faces": {
-				"east": { "uv": [ 0,    1.5, 0.75, 4.5 ], "texture": "#layer" },
-				"north":{ "uv": [ 0.75, 1.5, 1.75, 4.5 ], "texture": "#layer" },
-				"west": { "uv": [ 1.75, 1.5, 2.5,  4.5 ], "texture": "#layer" },
-				"south":{ "uv": [ 2.5,  1.5, 3.5,  4.5 ], "texture": "#layer" },
-				"up":   { "uv": [ 0.75, 0,   1.75, 1.5 ], "texture": "#layer", "rotation": 180},
-				"down": { "uv": [ 1.75, 0,   2.75, 1.5 ], "texture": "#layer" }
+				"east":	{ "uv": [ 8, 2.5, 9.25, 4.5 ], "texture": "#layer" },
+				"north":{ "uv": [ 9.25, 2.5, 10.5, 4.5 ], "texture": "#layer"},
+				"west":	{ "uv": [ 10.5, 2.5, 11.75, 4.5 ], "texture": "#layer" },
+				"south":{ "uv": [ 11.75, 2.5, 13, 4.5 ], "texture": "#layer" },
+				"up":	{ "uv": [ 9.25, 0, 10.5, 2.5 ], "texture": "#layer", "rotation": 180},
+				"down":	{ "uv": [ 10.5, 0, 11.75, 2.5 ], "texture": "#layer" }
 			}
 		},
 		{
-			"from": [ 4, 6, 1 ],
-			"to": [ 12, 10, 5 ],
+			"from": [ 7.5, 7.5, 5 ],
+			"to": [ 8.5, 8.5, 6 ],
 			"faces": {
-				"east": { "uv": [ 3.5, 1, 4,   2 ], "texture": "#layer" },
-				"north":{ "uv": [ 4,   1, 5,   2 ], "texture": "#layer" },
-				"west": { "uv": [ 5,   1, 5.5, 2 ], "texture": "#layer" },
-				"south":{ "uv": [ 5.5, 1, 6.5, 2 ], "texture": "#layer" },
-				"up":   { "uv": [ 4,   0, 5,   1 ], "texture": "#layer", "rotation": 180},
-				"down": { "uv": [ 5,   0, 6,   1 ], "texture": "#layer" }
+				"east":	{ "uv": [ 8, 5, 8.25, 5.5 ], "texture": "#layer" },
+				"north":{ "uv": [ 8.25, 5, 8.5, 5.5 ], "texture": "#layer"},
+				"west":	{ "uv": [ 8.5, 5, 8.75, 5.5 ], "texture": "#layer" },
+				"south":{ "uv": [ 8.75, 5, 9, 5.5 ], "texture": "#layer" },
+				"up":	{ "uv": [ 8.25, 4.5, 8.5, 5 ], "texture": "#layer", "rotation": 180},
+				"down":	{ "uv": [ 8.5, 4.5, 8.75, 5 ], "texture": "#layer" }
 			}
 		},
 		{
-			"from": [ 6, 2, 3 ],
-			"to": [ 10, 6, 5 ],
+			"from": [ 5.5, 10, 9.5 ],
+			"to": [ 7.5, 15, 10.5 ],
+			"rotation": {
+				"origin": [6.5, 10, 10], "axis": "y", "angle": -22.5
+			},
 			"faces": {
-				"east": { "uv": [ 3.5, 3, 4,   4 ], "texture": "#layer" },
-				"north":{ "uv": [ 4,   3, 4.5, 4 ], "texture": "#layer" },
-				"west": { "uv": [ 4.5, 3, 5,   4 ], "texture": "#layer" },
-				"south":{ "uv": [ 5,   3, 5.5, 4 ], "texture": "#layer" },
-				"up":   { "uv": [ 4,   2, 4.5, 3 ], "texture": "#layer", "rotation": 180},
-				"down": { "uv": [ 4.5, 2, 5,   3 ], "texture": "#layer" }
+				"east":	{ "uv": [ 14.5, 0.5, 14.75, 3 ], "texture": "#layer" },
+				"north":{ "uv": [ 14.75, 0.5, 15.25, 3 ], "texture": "#layer"},
+				"west":	{ "uv": [ 15.25, 0.5, 15.5, 3 ], "texture": "#layer" },
+				"south":{ "uv": [ 15.5, 0.5, 16, 3 ], "texture": "#layer" },
+				"up":	{ "uv": [ 14.75, 0, 15.25, 0.5 ], "texture": "#layer", "rotation": 180},
+				"down":	{ "uv": [ 15.25, 0, 15.75, 0.5 ], "texture": "#layer" }
+			}
+		},
+		{
+			"from": [ 8.5, 10, 9.5 ],
+			"to": [ 10.5, 15, 10.5 ],
+			"rotation": {
+				"origin": [9.5, 10, 10], "axis": "y", "angle": 22.5
+			},
+			"faces": {
+				"east":	{ "uv": [ 13, 0.5, 13.25, 3 ], "texture": "#layer" },
+				"north":{ "uv": [ 13.25, 0.5, 13.75, 3 ], "texture": "#layer"},
+				"west":	{ "uv": [ 13.75, 0.5, 14, 3 ], "texture": "#layer" },
+				"south":{ "uv": [ 14, 0.5, 14.5, 3 ], "texture": "#layer" },
+				"up":	{ "uv": [ 13.25, 0, 13.75, 0.5 ], "texture": "#layer", "rotation": 180},
+				"down":	{ "uv": [ 13.75, 0, 14.25, 0.5 ], "texture": "#layer" }
 			}
 		}
 	]
 }
-```我们先继承minecraft:block/block中display的设定，然后修改模型在头部和背包的放缩和位移。
+```
+我们先继承了 `minecraft:block/block` 中 `display` 的设定，然后修改模型在头部和背包的放缩和位移。
 
-textures确定模型使用的材质文件位置，这里#layer被赋值为entity/chicken这个材质。直接把#layer换成entity/chicken也是可以的，但是使用#layer更便于修改。如果模型文件作为模板使用，可以不写textures，而是在其它模型引用它时再指定来确定最终的模型样子。
+具体的语法如下，见[模型 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/模型)
++ `parent` 表示继承的模型，可以没有该项，若有则相当于将其文件内容复制到该位置。例如物品的平面模型、方块模型、玻璃板模型等，我们都可以直接调用而无需自己编写。或者需要多次使用的模型，我们也可以写好后在其它模型中直接调用。例子中继承的模型 `minecraft:item/handheld` 为手持物品的平面模型，这样我们可以免去调整物品在背包和展示框内的显示。
++ `display` 确定物品在不同位置
+	+ `ground` 掉落物
+	+ `head` 头部
+	+ `thirdperson_righthand` 第三人称右手
+	+ `thirdperson_lefthand` 第三人称左手
+	+ `firstperson_righthand` 第一人称右手
+	+ `firstperson_lefthand` 第一人称左手
+	+ `fixed` 物品展示框
+	+ `gui` 背包或容器
+		+ 放缩(`scale`)
+		+ 旋转(`rotation`)
+		+ 平移(`translation`)
+	
+	注意这些数值均有范围限制，例如`scale`至多为4。
++ `textures` 确定模型使用的材质文件位置，这里 `#layer` 被赋值为 `entity/chicken` 这个材质。直接把 `#layer` 换成 `entity/chicken` 也是可以的，但是使用 `#layer` 更便于修改。如果模型文件作为模板使用，可以不写 	`textures`，而是在其它模型引用它时再指定以确定最终的样子。
+	+ `particle` 表示方块被破坏/物品被消耗时的粒子效果采用的材质。
++ `elements`
+	+ `from` 和 `to` 确定长方体的范围。`from` 和 `to` 中的 `x,y,z` 范围为`-16`到`32`之间，不做放缩时，`0~16`即一个方块的完整大小。
+	+ `rotation` 旋转这个长方体
+		+ `origin` 旋转中心
+		+ `axis` 沿哪个轴旋转
+		+ `angle` 旋转的角度，只能是`0, 22.5, 45, -22.5, -45`
+	+ `faces` 为方块的6个面材质信息。我们放置方块时，离我们最近的为方块的北方(north)，然后站在方块的视角按前北后南(z轴)，左西右东(x轴)确定其6个面的朝向。
+		+ `texture` 确定了所使用的材质。我们建议按次序东北西南上下的次序写以便于想象。可以在材质文件中按照 ![](https://i.loli.net/2019/05/24/5ce786a746fe972611.png) 的相对位置来绘制材质，也可以分为6个单独的材质。
+		+ `uv` 确定了选取材质的哪一部分。将材质划分为16×16个区域，该数值指定了便是所选的区域。例如材质文件为`64×64`大小，则`"uv": [ 3.5, 3, 4, 4 ]`使用的是横向`14-16`纵向`12-16`的`2×4`个像素。
+		+ `rotation` 旋转材质，值为`0,90,180,270`。
 
-particle表示方块被破坏/物品被消耗时的粒子效果采用的材质。
+由于 `scale` 至多为`4`，而 `from to` 至多为`-16`到`32`，因此模型最多可以放大至`12`倍。想要更大的模型可以通过分段来旋转拼接而成，参阅
++ [因为不知道发到哪里只好发过来了 也不知道火没火星 毕竟我没有画材质的朋友。。。](https://www.mcbbs.net/thread-637959-1-1.html)
++ [四十米长的大刀？我在minecraft里做1200米的！](https://www.bilibili.com/video/av24626290)
++ [【魔改材质包】数体积专用-3轴标尺](https://www.bilibili.com/video/av39646162)
 
-elements中的from和to确定长方体区域。我们放置方块时，离我们最近的为方块的北方(north)，然后站在方块的视角按前北后南(z轴)，左西右东(x轴)确定其6个面的朝向。faces为方块的6个面，我们建议按次序东北西南上下的次序写以便于想象。可以在材质文件中按照
-[img]https://i.loli.net/2019/05/24/5ce786a746fe972611.png[/img]
-的相对位置来绘制材质，也可以分为6个单独的材质。from和to中的x,y,z范围为-16到32之间，faces中的每个面使用的是texture中材质的一个长方形区域，将材质划分为16×16个区域，faces中的每个面的每个值决定了使用哪个区域的材质。例如材质文件为64×64大小，则"uv": [ 3.5, 3, 4, 4 ]使用的是横向14-16纵向12-16的2×4个像素。rotation可以旋转材质，值为0,90,180,270。实际上每个from to也可以旋转，但角度只能是0, 22.5, 45, -22.5, -45。例如兔子的耳朵就是旋转22.5得到的。
+模型在不同位置仅有放缩旋转平移的差别，想要实现视觉上的明显不同，可参阅[【1.14】物品头部/背包/手持显示不同材质/模型](https://www.mcbbs.net/thread-833056-1-1.html)。
 
-由于scale至多为4，而from to至多为-16到32，因此模型最多可以放大为12×12的大小。想要更大的模型可以参阅
-+ (https://www.mcbbs.net/thread-637959-1-1.html]因为不知道发到哪里只好发过来了 也不知道火没火星 毕竟我没有画材质的朋友。。。]
-+ (https://www.bilibili.com/video/av24626290]四十米长的大刀？我在minecraft里做1200米的！]
-+ (https://www.bilibili.com/video/av39646162]【魔改材质包】数体积专用-3轴标尺]
+方块状态我们一般不会用到，而且语法比较简单，可直接参阅 wiki，这里不做赘述。
+
+### §3.6 材质
+材质的绘制需要用到诸如 Photoshop 之类的画图软件，具体请参考材质版或网络上的相关教程。
+
+当模型调用的材质不存在时，会显示紫黑色的材质。如果模型是正确的，你仍然可以看出正确的模型样子。
+
+材质可以是动态的。材质的高度为宽度的x倍时，动态材质可以有x帧，分别对应材质自上而下划分的x个块。动态材质还需要一个 `mcmeta` 文件，例如 `foo.png` 对应 `foo.png.mcmeta`，内容为
+```
+{
+  	"animation": {
+    	"interpolate": false,
+    	"frametime": 4,
+		"frames": [
+			0,
+			1,
+			2,
+			3,
+			{"index":4,"time": 2},
+			5
+		]
+  	}
+}
+```
+这里
++ `interpolate` 是否需要插值过渡。可以省略。
++ `frametime` 每一帧的默认时长(刻)。
++ `frames` 指定播放帧的次序
+	+ `数字` 从0开始
+	+ `index` 和 `time` 可以单独指定这一帧的时长(刻)
+
+### §3.7 声音
+音效文件为 `assets/命名空间/sounds.json`，它调用的是 `assets/命名空间/sounds` 文件夹下的 `ogg` 文件。例如：
+```
+{
+    "juicer": {
+        "category": "block",
+        "sounds": [
+            "rf:juicer"
+        ]
+    },
+	"swing": {
+		"sounds": [
+			"rf:lightsaber/swing1",
+			"rf:lightsaber/swing2",
+			"rf:lightsaber/swing3",
+			"rf:lightsaber/swing4"
+		],
+		"category": "hostile"
+	}
+}
+```
+其中自定义名称下包括
++ `replace` 是否覆盖原有的声音信息，默认为`false`，即不覆盖。
++ `sounds` 音效文件列表，触发时会随机选择一个播放。
++ `subtitle` 显示的字幕。
++ `category` 种类，在`选项->音乐和声音中`可以选择开启/关闭特定种类的声音。
+
+### §3.8 字体
+添加 `assets/minecraft/font/default.json` 文件可以追加/覆盖特殊字符的字体显示，例如
+```
+{
+	"providers": [
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/mana0.png",
+			"height": 91,
+			"ascent": 85,
+			"chars": ["\ue010"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/mana1.png",
+			"height": 91,
+			"ascent": 85,
+			"chars": ["\ue011"]
+		}
+	]
+}
+```
+我们追加了字符 `\ue010` 和 `\ue011` 的材质，其中
++ `file` 指定了所用的材质，这里调用了 `minecraft/textures/font/mana0.png` 等材质
++ `height` 该字符的高度
++ `ascent` 该字符向上移动的长度
++ `chars` 对应的字符列表
+
+我们可以用 `\u` 开头来表示不容易打出的字符，参见[Unicode® Character Table](https://unicode-table.com)。
+
+利用这种方式，我们可以做到在成书、玩家快捷栏上方、聊天区域、物品名称等地方显示图片，见[【1.13】如何添加图片?](https://www.mcbbs.net/thread-835539-1-1.html)。特别地，如果可以包含了使用负长度的空格的字体，还可以实现更为炫酷的效果，例如[字体黑科技 —— 潜影盒内容预览](https://www.bilibili.com/video/av67508247)。
+
+### §3.9 着色器
+着色器可以对游戏内的视觉效果进行修改，目前可以通过
++ 旁观特定生物，可使用 `/spectate` 命令强制旁观；
++ 屏幕中有发光的实体
+两种情形来达成。
+
+着色器文件为位于 `assets/minecraft/shaders/program` 下方的 `fsh` 文件，具体用法可参考[原版着色器指导](https://www.mcbbs.net/thread-916150-1-1.html)和[几个原版着色器示例](https://www.mcbbs.net/thread-917679-1-1.html)。
 
 
-物品在不同位置仅有放缩旋转平移的差别，想要实现视觉上的明显不同，可参阅(https://www.mcbbs.net/thread-833056-1-1.html]【1.14】物品头部/背包/手持显示不同材质/模型]。
-
-材质的绘制需要用到诸如photoshop之类的画图软件，具体请参考材质版或网络上的相关教程。
-
-[page]
 ## §4 规划
 当我们有了一定的命令基础和数据包与资源包的相关知识之后，我们可以开始考虑做一个模组了。模组的目的是在原版的基础上做出一定的修改，模组的核心是内容，命令和技巧都只是为实现这一目的的手段。通常的设计路线如下图所示：
 [align=center][img]https://i.loli.net/2018/05/01/5ae7f0a5105f4.png[/img][/align]平衡性可以从合成难度和触发条件等方面来调整。
