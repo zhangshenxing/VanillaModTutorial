@@ -21,7 +21,7 @@
 + [§13 磁力效果](#13-磁力效果)
 
 ## §1 简介
-原版模组(vanilla mod)一般指在不修改Minecraft游戏本体的前提下，通过命令方块、一键命令(OOC)、数据包(datapack)、资源包(resourcepack)等方式对游戏的可玩性做出修改。而自Minecraft Java版1.13起的数据包概念问世之后，原版模组的制作已变得十分便捷。然而纵观论坛，原版模组仍然不够繁荣。因此我将为首次接触此概念的玩家做一个简单的入门，以期抛砖引玉。
+原版模组(vanilla mod)一般指在不修改Minecraft游戏本体的前提下，通过命令方块、一键命令(OOC)、数据包(datapack)、资源包(resourcepack)等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。然而纵观论坛，原版模组仍然不够繁荣。因此我将为首次接触此概念的玩家做一个简单的入门，以期抛砖引玉。
 
 部分段落常为部分读者所熟知，若如此可直接跳至自己所需段落。对于首次接触者，请耐心阅读。
 
@@ -51,20 +51,20 @@
 
 ### §1.2 工具准备
 #### 文本编辑器
-我们所涉及的所有文本文件，包括函数文件(.mcfunction)、JSON文件(.json, .mcmeta)，均需使用 UTF-8 编码格式。以下列出的文本编辑器默认均为 UTF-8 编码，可以在编辑页面的右下角状态栏看到。
+我们所涉及的所有文本文件，包括函数文件(.mcfunction)、JSON文件(.json, .mcmeta)，均需使用 `UTF-8` 编码格式。以下列出的文本编辑器默认均为 `UTF-8` 编码，可以在编辑页面的右下角状态栏看到。
 
 + **[VS Code](https://code.visualstudio.com/)** 下载安装后，可以安装如下插件：
 	+ *Chinese (Simplified) Language Pack for Visual Studio Code* 支持中文语言
 	+ *datapack helper plus (JSON)* 支持 JSON 语法补全，高亮等
 	+ *language-mcfunction* 支持 mcfunction 语法和高亮
 	+ *mcfunction* 支持 mcfunction 语法和高亮
-+ **记事本** 为 Windows 系统自带。Windows10 最新版本的记事本已经默认是 UTF-8 编码了。点击`查看->状态栏`可以在右下角状态栏看到，因此可以正常使用。旧版本的记事本仍然不是，请勿使用。
++ **记事本** 为 Windows 系统自带。Windows10 最新版本的记事本已经默认是 `UTF-8` 编码了。点击`查看->状态栏`可以在右下角状态栏看到，因此可以正常使用。旧版本的记事本仍然不是，请勿使用。
 + **[Notepad++](https://notepad-plus-plus.org/)**
 可从 [mcfunction 的语言样式和自动补全](http://www.mcbbs.net/thread-806816-1-1.html)帖中下载相关文件并导入，另外请将 Notepad++ 中`设置->首选项->其它->自动检测字符编码`选项关闭。
 
-右下角也可以看到LF或CRLF，分别表示两种换行符，二者均可正常使用，建议使用LF。
+右下角也可以看到 `LF` 或 `CRLF`，分别表示两种换行符，二者均可正常使用，建议使用 `LF`。
 
-注意不要误选了 UTF-8 with BOM 格式。
+注意不要误选了 `UTF-8 with BOM` 格式。
 
 #### 压缩工具
 数据包和资源包均可以为文件夹或 zip 压缩文件格式。游戏本体和模组本体的 jar 文件也需要压缩工具来打开。
@@ -140,7 +140,7 @@ datapacks
 					functions
 					entity_types
 ```
-`data` 下所有文件和文件夹需使用小写英文、数字或-,_来命名，**不可使用大写字母**，所有文本文件使用 UTF-8 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。
+`data` 下所有文件和文件夹需使用小写英文、数字或-,_来命名，**不可使用大写字母**，所有文本文件使用 `UTF-8` 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。
 
 压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 mcmeta 文件和 data 文件夹。稳妥的做法是`打开文件夹->全选->右键->发送到->压缩文件夹`。
 
@@ -572,7 +572,7 @@ resourcepacks
 ```
 其中 `assets` 的文件结构和 [§1.4 文件结构](#14-文件结构)中版本 `.jar/assets` 的结构是一样的。
 
-`assets` 下所有文件和文件夹需使用小写英文、数字或-,_来命名，**不可使用大写字母**，所有文本文件为使用 UTF-8 编码的 JSON文件，图片使用 `png` 格式。发布时可将所有内容压缩为一个 zip 文件。
+`assets` 下所有文件和文件夹需使用小写英文、数字或-,_来命名，**不可使用大写字母**，所有文本文件为使用 `UTF-8` 编码的 JSON文件，图片使用 `png` 格式。发布时可将所有内容压缩为一个 zip 文件。
 
 压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是`打开文件夹->全选->右键->发送到->压缩文件夹`。
 
@@ -1236,24 +1236,24 @@ give @s minecraft:filled_map{map:10000}
 `cpp/recipes/sheep_spawn_egg.json`
 ```
 {
-		"type": "minecraft:crafting_shaped",
-		"pattern": [
-				"###",
-				"#*#",
-				"###"
-		],
-		"key": {
-				"*": {
-						"item": "minecraft:egg"
-				},
-				"#": {
-						"tag": "cpp:wools"
-				}
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"###",
+		"#*#",
+		"###"
+	],
+	"key": {
+		"*": {
+			"item": "minecraft:egg"
 		},
-		"result": {
-				"item": "minecraft:sheep_spawn_egg",
-				"count":2
+		"#": {
+			"tag": "cpp:wools"
 		}
+	},
+	"result": {
+		"item": "minecraft:sheep_spawn_egg",
+		"count":2
+	}
 }
 ```
 这里`cpp:wools`为自定义的包含所有颜色羊毛的物品标签。
@@ -1264,22 +1264,22 @@ give @s minecraft:filled_map{map:10000}
 `cpp/recipes/red_sand.json`
 ```
 {
-		"type": "minecraft:crafting_shapeless",
-		"ingredients": [
-				{
-								"item": "minecraft:sand"
-				},
-				{
-								"item": "minecraft:sand"
-				},
-				{
-								"item": "minecraft:redstone"
-				}
-		],
-		"result": {
-				"item": "minecraft:red_sand",
-				"count":2
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "minecraft:sand"
+		},
+		{
+			"item": "minecraft:sand"
+		},
+		{
+			"item": "minecraft:redstone"
 		}
+	],
+	"result": {
+		"item": "minecraft:red_sand",
+		"count":2
+	}
 }
 ```
 配料可以重复。单个物品配方请使用有序合成而不是无序合成。
@@ -1304,30 +1304,30 @@ give @s minecraft:filled_map{map:10000}
 `cpp/recipes/rabbit_hide_from_smelting.json`
 ```
 {
-		"type": "minecraft:smelting",
-		"ingredient": [
-				{
-						"item": "minecraft:rotten_flesh"
-				},
-				{
-						"item": "minecraft:leather_helmet"
-				},
-				{
-						"item": "minecraft:leather_chestplate"
-				},
-				{
-						"item": "minecraft:leather_leggings"
-				},
-				{
-						"item": "minecraft:leather_boots"
-				},
-				{
-						"item": "minecraft:saddle"
-				}
-		],
-		"result": "minecraft:rabbit_hide",
-		"experience": 0.1,
-		"cookingtime": 200
+	"type": "minecraft:smelting",
+	"ingredient": [
+		{
+			"item": "minecraft:rotten_flesh"
+		},
+		{
+			"item": "minecraft:leather_helmet"
+		},
+		{
+			"item": "minecraft:leather_chestplate"
+		},
+		{
+			"item": "minecraft:leather_leggings"
+		},
+		{
+			"item": "minecraft:leather_boots"
+		},
+		{
+			"item": "minecraft:saddle"
+		}
+	],
+	"result": "minecraft:rabbit_hide",
+	"experience": 0.1,
+	"cookingtime": 200
 }
 ```
 
@@ -1339,22 +1339,22 @@ give @s minecraft:filled_map{map:10000}
 `minecraft/recipes/oak_stairs.json`
 ```
 {
-		"type": "minecraft:crafting_shaped",
-		"group": "wooden_stairs",
-		"pattern": [
-				"#  ",
-				"## ",
-				"###"
-		],
-		"key": {
-				"#": {
-						"item": "minecraft:oak_planks"
-				}
-		},
-		"result": {
-				"item": "minecraft:oak_stairs",
-				"count": 8
+	"type": "minecraft:crafting_shaped",
+	"group": "wooden_stairs",
+	"pattern": [
+		"#  ",
+		"## ",
+		"###"
+	],
+	"key": {
+		"#": {
+			"item": "minecraft:oak_planks"
 		}
+	},
+	"result": {
+		"item": "minecraft:oak_stairs",
+		"count": 8
+	}
 }
 ```
 例：将原版白色床+墨囊=黑色床的合成配方修改为任意床+墨囊=黑色床。
@@ -1362,43 +1362,43 @@ give @s minecraft:filled_map{map:10000}
 `cpp/tags/items/beds.json`
 ```
 {
-		"replace": false,
-		"values": [
-				"minecraft:white_bed",
-				"minecraft:orange_bed",
-				"minecraft:magenta_bed",
-				"minecraft:light_blue_bed",
-				"minecraft:yellow_bed",
-				"minecraft:lime_bed",
-				"minecraft:pink_bed",
-				"minecraft:gray_bed",
-				"minecraft:light_gray_bed",
-				"minecraft:cyan_bed",
-				"minecraft:purple_bed",
-				"minecraft:blue_bed",
-				"minecraft:brown_bed",
-				"minecraft:green_bed",
-				"minecraft:red_bed",
-				"minecraft:black_bed"
-		]
+	"replace": false,
+	"values": [
+		"minecraft:white_bed",
+		"minecraft:orange_bed",
+		"minecraft:magenta_bed",
+		"minecraft:light_blue_bed",
+		"minecraft:yellow_bed",
+		"minecraft:lime_bed",
+		"minecraft:pink_bed",
+		"minecraft:gray_bed",
+		"minecraft:light_gray_bed",
+		"minecraft:cyan_bed",
+		"minecraft:purple_bed",
+		"minecraft:blue_bed",
+		"minecraft:brown_bed",
+		"minecraft:green_bed",
+		"minecraft:red_bed",
+		"minecraft:black_bed"
+	]
 }
 ```
 `minecraft/recipes/black_bed_from_white_bed.json`
 ```
 {
-		"type": "crafting_shapeless",
-		"group": "dyed_bed",
-		"ingredients": [
-				{
-						"tag": "cpp:beds"
-				},
-				{
-						"item": "minecraft:black_dye"
-				}
-		],
-		"result": {
-				"item": "minecraft:black_bed"
+	"type": "crafting_shapeless",
+	"group": "dyed_bed",
+	"ingredients": [
+		{
+			"tag": "cpp:beds"
+		},
+		{
+			"item": "minecraft:black_dye"
 		}
+	],
+	"result": {
+		"item": "minecraft:black_bed"
+	}
 }
 ```
 如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为`{}`时会被认为是错误文件而无法覆盖原配方。
@@ -1614,7 +1614,9 @@ execute store result block ~ ~ ~ Items[{Slot:0b}].Count byte 1 run scoreboard pl
 
 放置与破坏部分我们省略，注意放置时如果想要合成器的朝向与放置时的朝向有关，添加额外的语句判断并在放置盔甲架标记时指定朝向即可。
 
-GUI以及背景板、外观的模型设计这里省略，以后我们还会提及。
+外观的模型、GUI以及背景板设计参考[§4.4 物品设计](#44-物品设计)和[§7 机器设计](#7-机器设计)。
+
+
 Stopped Here
 
 `cpp/functions/block/crafting_machine/tick.mcfunction`
