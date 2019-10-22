@@ -4,7 +4,7 @@
 
 本文参考和吸取了大量其他玩家的意见、建议、教程等。
 
-本文 §§1-3 为理论部分，§§4-6 为设计部分，§§5-13 为实例部分。阅读时请注意内容的适用版本，有任何错误和疑问请联系我，谢谢！
+阅读时请注意内容的适用版本，有任何错误和疑问请联系我，谢谢！
 
 ## 目录
 
@@ -37,23 +37,60 @@
 	+ [§4.2 调试](#42-调试)
 	+ [§4.3 前置与附属](#43-前置与附属)
 	+ [§4.4 物品设计](#44-物品设计)
-	+ [§4.5 方块设计](#45-方块设计)
-	+ [§4.5 发布](#46-发布)
-+ [§5 合成与烧炼配方](#5-合成与烧炼配方)
-	+ [§5.1 语法](#51-语法)
-	+ [§5.2 有序合成](#52-有序合成)
-	+ [§5.3 无序合成](#53-无序合成)
-	+ [§5.4 切石机配方](#54-切石机配方)
-	+ [§5.5 烧炼配方](#55-烧炼配方)
-	+ [§5.6 覆盖原版配方](#56-覆盖原版配方)
-+ [§6 NBT 物品合成、烧炼与酿造](#6-NBT-物品合成、烧炼与酿造)
-+ [§7 交易](#7-交易)
-+ [§8 探测与触发](#8-探测与触发)
-+ [§9 机器实例](#9-机器实例)
-+ [§10 随机结构](#10-随机结构)
-+ [§11 种植](#11-种植)
-+ [§12 连锁挖矿](#12-连锁挖矿)
-+ [§13 磁力效果](#13-磁力效果)
+	+ [§4.5 方块设计](#45-方块设计) (WIP)
+	+ [§4.6 发布](#46-发布)
++ [§5 机器设计](#5-机器设计) (WIP)
+	+ [§5.1 GUI 设计](#51-GUI-设计)
+	+ [§5.2 背景处理](#52-背景处理)
+	+ [§5.3 清理与消耗](#53-清理与消耗)
+	+ [§5.4 选项](#54-选项)
+	+ [§5.5 输出](#55-输出)
+	+ [§5.6 容器扩展](#56-容器扩展)
+	+ [§5.7 接口](#57-接口)
+	+ [§5.8 管道](#58-管道)
+	+ [§5.9 物流](#59-物流)
++ [§6 合成与烧炼配方](#6-合成与烧炼配方)
+	+ [§6.1 语法](#61-语法)
+	+ [§6.2 有序合成](#62-有序合成)
+	+ [§6.3 无序合成](#63-无序合成)
+	+ [§6.4 切石机配方](#64-切石机配方)
+	+ [§6.5 烧炼配方](#65-烧炼配方)
+	+ [§6.6 覆盖原版配方](#66-覆盖原版配方)
++ [§7 NBT 物品合成、烧炼与酿造](#7-NBT-物品合成、烧炼与酿造) (WIP)
+	+ [§7.1 地板合成](#71-地板合成)
+	+ [§7.2 实体背包合成](#71-实体背包合成)
+	+ [§7.3 容器合成](#71-容器合成)
++ [§8 探测与触发](#8-探测与触发) (WIP)
+	+ [§8.1 胡萝卜钓竿](#81-胡萝卜钓竿)
+	+ [§8.2 投掷物](#82-投掷物)
+	+ [§8.3 装备效果](#83-装备效果)
+	+ [§8.4 方块交互](#84-方块交互)
++ [§9 植物和食物](#9-植物和食物) (WIP)
+	+ [§9.1 作物](#91-作物)
+	+ [§9.2 花草](#92-花草)
+	+ [§9.3 树](#93-树)
+	+ [§9.4 食物](#94-食物)
+	+ [§10.5 药水](#105-药水)
++ [§10 实体操作](#10-实体操作) (WIP)
+	+ [§10.1 交易](#101-交易)
+	+ [§10.2 移动](#102-移动)
+	+ [§10.3 传送](#103-传送)
+	+ [§11.4 随机物品](#114-随机物品)
++ [§11 方块操作](#11-方块操作) (WIP)
+	+ [§11.1 方块放置](#111-方块放置)
+	+ [§11.2 自动种植](#112-自动种植)
+	+ [§11.3 连锁挖矿](#113-连锁挖矿)
++ [§12 世界生成](#12-世界生成) (WIP)
+	+ [§12.1 随机结构](#121-随机结构)
+	+ [§12.2 水处理](#122-水处理)
+	+ [§12.3 下界处理](#123-下界处理)
+	+ [§12.4 维度模拟](#124-维度模拟)
++ [§13 算法与数据结构](#13-算法与数据结构) (WIP)
+	+ [§13.1 数组](#131-数组)
+	+ [§13.2 循环](#132-循环)
+	+ [§13.3 递归](#133-递归)
+	+ [§13.4 位运算](#134-位运算)
+	+ [§13.5 种子操作](#135-种子操作)
 
 ## §1 简介
 原版模组(vanilla mod)一般指在不修改Minecraft游戏本体的前提下，通过命令方块、一键命令(OOC)、数据包(datapack)、资源包(resourcepack)等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。然而纵观论坛，原版模组仍然不够繁荣。因此我将为首次接触此概念的玩家做一个简单的入门，以期抛砖引玉。
@@ -1241,15 +1278,15 @@ give @s minecraft:filled_map{map:10000}
 + [自定义方块(玩家头颅) ](https://www.mcbbs.net/thread-824528-1-1.html)
 + [【原版模组】【前置】方块通用处理](https://www.mcbbs.net/thread-916294-1-1.html)
 
+模型设置（WIP）
+
 ### §4.6 发布
 当你设计并制作好全部内容且通过测试后，将你的数据包以及其它可能的内容，如地图、`data`文件、资源包等一同发布。采用合适的版本号管理，并在发布时注明你所使用的命名空间、记分板、组、标签、地图区段、资源包等内容，以便于其他开发者整合或避免冲突。
 
 [page]
 
-从此处起，我们将通过一系列的例子来说明常见的效果时如何实现的。
-
-## §5 合成与烧炼配方
-### §5.1 语法
+## §6 合成与烧炼配方
+### §6.1 语法
 原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别nbt，因此只能实现原版物品的合成和烧炼。同时模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。
 
 配方的通用语法为
@@ -1277,7 +1314,7 @@ give @s minecraft:filled_map{map:10000}
 + `experience` 烧炼配方产生的经验值，可以为小数
 + `cookingtime` 烧炼耗时(刻)。若缺省则使用默认的时间，熔炉烟熏炉为`200`，高炉营火为`100`。
 
-### §5.2 有序合成
+### §6.2 有序合成
 例：使用8羊毛+鸡蛋有序合成两个羊刷怪蛋。
 
 `cpp/recipes/sheep_spawn_egg.json`
@@ -1305,7 +1342,7 @@ give @s minecraft:filled_map{map:10000}
 ```
 这里`cpp:wools`为自定义的包含所有颜色羊毛的物品标签。
 
-### §5.3 无序合成
+### §6.3 无序合成
 例：2沙子+红石=2红沙。
 
 `cpp/recipes/red_sand.json`
@@ -1331,7 +1368,7 @@ give @s minecraft:filled_map{map:10000}
 ```
 配料可以重复。单个物品配方请使用有序合成而不是无序合成。
 
-### §5.4 切石机配方
+### §6.4 切石机配方
 例：使用切石机切割橡木木板为2台阶。
 
 `cpp/recipes/stonecutting/oak_slab.json`
@@ -1345,7 +1382,7 @@ give @s minecraft:filled_map{map:10000}
 	"count": 2
 }
 ```
-### §5.5 烧炼配方
+### §6.5 烧炼配方
 例：熔炉烧炼皮革装备、腐肉、鞍为兔子皮。
 
 `cpp/recipes/rabbit_hide_from_smelting.json`
@@ -1378,7 +1415,7 @@ give @s minecraft:filled_map{map:10000}
 }
 ```
 
-### §5.6 覆盖原版配方
+### §6.6 覆盖原版配方
 如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 `.jar` 文件，依次打开 `data/minecraft/recipes`，找到相应的配方文件，然后在自己的数据包中的相同位置(必然是 `minecraft` 命名空间下)放入同名文件即可覆盖默认的配方。
 
 例：将橡木台阶合成数量改为8。
@@ -1449,6 +1486,131 @@ give @s minecraft:filled_map{map:10000}
 }
 ```
 如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为`{}`时会被认为是错误文件而无法覆盖原配方。
+
++ [§5 机器设计](#5-机器设计) (WIP)
+	+ [§5.1 GUI 设计](#51-GUI-设计)
+	+ [§5.2 背景处理](#52-背景处理)
+	+ [§5.3 清理与消耗](#53-清理与消耗)
+	+ [§5.4 选项](#54-选项)
+	+ [§5.5 输出](#55-输出)
+	+ [§5.6 容器扩展](#56-容器扩展)
+	+ [§5.7 接口](#57-接口)
+	+ [§5.8 管道](#58-管道)
+	+ [§5.9 物流](#59-物流)
+## §6 机器设计
+我们来看一个较为复杂的机器例子。
+
+![](https://i.loli.net/2019/10/18/cCQ43JTrN8EPBSn.png)
+
+这个机器
++ 原型是木桶
++ 整体 GUI 是左上槽位的一个物品放大一定倍数并平移之后得到的
++ 左侧3个按钮实际上其位置的右方一格的物品，这么做的好处时点击时不会看到按钮晃动
++ 进度条也是一个物品
++ 右侧经验也是一个物品
++ 其余位置除了输入的3个和输出的2个物品槽位外，均有透明物品模型
+
+## §6.1 模型
+
+
+
+
+
+
+## §6.2 GUI 命令
+
+## §6.3 机器配方
+
+## §6.4 输出控制
+
+首先将机器背景板、进度条、左侧按钮、右侧经验槽的材质全部画好，这里经验槽采用了动态材质。通过修改模型和display的放缩，一个物品的大小最多可以放大12倍。通过修改z轴高度可调整材质的覆盖次序(感谢@⊙v⊙)。
+
+然后与高仿工作台类似，编写处理方块放置与破坏、背景的清理等内容。之后，检测机器的左侧按键槽位是否为空，若空则切换之。
+
+cpp:all_in_one_machine/option/pressure
+```
+scoreboard players add @s cppPressure 1
+scoreboard players set @s[scores={cppPressure=3..}] cppPressure 0
+scoreboard players set @s[tag=!cpp_high_pressure,scores={cppPressure=2}] cppPressure 0
+scoreboard players set @s[tag=!cpp_low_pressure,scores={cppPressure=0}] cppPressure 1
+
+execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971051}
+execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971052}
+execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971053}
+
+execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.low_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
+execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.normal_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
+execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.high_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
+```然后探测经验槽是否需要添加经验，若需要则将附魔之瓶转化为经验槽中的经验并切换材质。然后根据当前模式来分类
+cpp:all_in_one_machine/type/all
+```
+execute as @s[scores={cppTemperature=0,cppPressure=0}] run function cpp:all_in_one_machine/type/ll
+execute as @s[scores={cppTemperature=0,cppPressure=1}] run function cpp:all_in_one_machine/type/ln
+execute as @s[scores={cppTemperature=0,cppPressure=2}] run function cpp:all_in_one_machine/type/lh
+execute as @s[scores={cppTemperature=1,cppPressure=0}] run function cpp:all_in_one_machine/type/nl
+execute as @s[scores={cppTemperature=1,cppPressure=1}] run function cpp:all_in_one_machine/type/nn
+execute as @s[scores={cppTemperature=1,cppPressure=2}] run function cpp:all_in_one_machine/type/nh
+execute as @s[scores={cppTemperature=2,cppPressure=0}] run function cpp:all_in_one_machine/type/hl
+execute as @s[scores={cppTemperature=2,cppPressure=1}] run function cpp:all_in_one_machine/type/hn
+execute as @s[scores={cppTemperature=2,cppPressure=2}] run function cpp:all_in_one_machine/type/hh```然后探测物品是否满足要求，若满足则进行计时。计时完成且经验达标后执行下一步。
+cpp:all_in_one_machine/type/ln
+```
+execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:cobblestone_plugin"}}]} run scoreboard players set @s cppMacType 1
+execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:cobblestone_plugin"}}]} run scoreboard players set @s cppMacType 1
+
+execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:stone_plugin"}}]} run scoreboard players set @s cppMacType 2
+execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:stone_plugin"}}]} run scoreboard players set @s cppMacType 2
+
+execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:obsidian_plugin"}}]} run scoreboard players set @s cppMacType 3
+execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:obsidian_plugin"}}]} run scoreboard players set @s cppMacType 4
+
+scoreboard players add @s[scores={cppMacType=1..2,cppStoredxp=1..}] cppTick 60
+scoreboard players add @s[scores={cppMacType=3..4,cppStoredxp=4..}] cppTick 6
+execute if entity @s[scores={cppMacType=1..2,cppStoredxp=1..}] if score @s cppTick >= #all_in_one_machine_cd cppValue run function cpp:all_in_one_machine/done
+execute if entity @s[scores={cppMacType=3..4,cppStoredxp=4..}] if score @s cppTick >= #all_in_one_machine_cd cppValue run function cpp:all_in_one_machine/done```分类输出朝向 cpp:all_in_one_machine/done
+```
+execute as @s[scores={cppOutpUTFace=1}] positioned ~1 ~ ~ run function cpp:all_in_one_machine/to_chest
+execute as @s[scores={cppOutpUTFace=2}] positioned ~ ~ ~1 run function cpp:all_in_one_machine/to_chest
+execute as @s[scores={cppOutpUTFace=3}] positioned ~-1 ~ ~ run function cpp:all_in_one_machine/to_chest
+execute as @s[scores={cppOutpUTFace=4}] positioned ~ ~ ~-1 run function cpp:all_in_one_machine/to_chest
+execute as @s[scores={cppOutpUTFace=5}] positioned ~ ~-1 ~ run function cpp:all_in_one_machine/to_chest
+execute as @s[scores={cppOutpUTFace=6}] positioned ~ ~1 ~ run function cpp:all_in_one_machine/to_chest
+
+execute as @s[scores={cppSlotsDown=26..}] run function cpp:all_in_one_machine/to_self
+
+scoreboard players reset @s cppSlotsDown
+scoreboard players reset @s cppTick```若相应位置可输出，则调整其包含的物品槽位，否则输出在机器内 cpp:all_in_one_machine/to_chest
+```
+execute store result score @s cppSlotsDown run data get block ~ ~ ~ Items
+execute unless block ~ ~ ~ #cpp:container run scoreboard players set @s cppSlotsDown 27
+
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=0}] run function cpp:all_in_one_machine/dist/ll
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=1}] run function cpp:all_in_one_machine/dist/ln
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=2}] run function cpp:all_in_one_machine/dist/lh
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=0}] run function cpp:all_in_one_machine/dist/nl
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=1}] run function cpp:all_in_one_machine/dist/nn
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=2}] run function cpp:all_in_one_machine/dist/nh
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=0}] run function cpp:all_in_one_machine/dist/hl
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=1}] run function cpp:all_in_one_machine/dist/hn
+execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=2}] run function cpp:all_in_one_machine/dist/hh```最后输出物品到箱子内，并清除输入材料 cpp:all_in_one_machine/dist/ln
+```
+scoreboard players remove @s[scores={cppMacType=1..2}] cppStoredxp 1
+scoreboard players remove @s[scores={cppMacType=3..4}] cppStoredxp 4
+
+execute as @s[scores={cppMacType=1}] run loot insert ~ ~ ~ loot blocks/cobblestone
+execute as @s[scores={cppMacType=2}] run loot insert ~ ~ ~ loot cpp:items/stone
+execute as @s[scores={cppMacType=3..4}] run loot insert ~ ~ ~ loot blocks/obsidian
+execute as @s[scores={cppMacType=3..4}] run loot insert ~ ~ ~ loot cpp:items/bucket
+
+execute at @s store result score #temp cppValue run data get block ~ ~ ~ Items[4].Count
+execute at @s as @s[scores={cppMacType=4}] store result block ~ ~ ~ Items[4].Count byte 1 run scoreboard players remove #temp cppValue 1
+execute at @s store result score #temp cppValue run data get block ~ ~ ~ Items[3].Count
+execute at @s as @s[scores={cppMacType=3}] store result block ~ ~ ~ Items[3].Count byte 1 run scoreboard players remove #temp cppValue 1```
+
+如果你擅长绘制UI的话，可以制作出很精美的UI。例如(https://www.youtube.com/watch?v=bv_wYNs5L6M]该视频]中：
+[img]http://attachment.mcbbs.net/forum/201807/10/112312zdtxrrt8tyfhunr8.png[/img]
+[img]http://attachment.mcbbs.net/forum/201807/10/112327brktztj6jrj11zrv.png[/img]
+均是采用物品材质绘制的。
 
 ## §6 NBT 物品合成、烧炼与酿造
 ### §6.1 地板合成
@@ -1796,6 +1958,52 @@ execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:1
 execute store result block ~ ~ ~ Items[{Slot:1b}].Count byte 1 run scoreboard players remove #temp cppValue 1```如果不借助额外的实体，我们可以通过与容器交互的计分板判据和(http://www.mcbbs.net/thread-771638-1-1.html]方块追踪]来实现。
 **例** 当朝上的发射器内正中间包含一个泥土时，右击其上方的工作台将泥土替换为钻石。
 创建计分板
+
+
+
+
+
+
+## 8 触发与探测
+### 
+
+## 9 植物和食物
+### 9.1 作物
+### 9.2 花草
+### 9.3 食物
+### 9.4 药水
+
+## 10 实体操作
+### 10.1 交易
+### 10.2 移动
+### 10.3 传送
+### 10.4 炼药锅
+### 10.5 随机方块
+
+## 11 方块操作
+### 11.1 方块放置
+### 11.2 自动种植
+### 11.3 连锁挖矿
+
+## 12 世界生成
+### 12.1 随机结构
+### 12.2 水处理
+### 12.3 下界处理
+### 12.4 维度模拟
+
+## 13 算法与数据结构
+### 13.1 位运算
+### 13.2 数组
+### 13.3 循环
+### 13.4 递归
+### 13.5 MD5运算
+
+
+
+
+
+
+
 
 
 
@@ -2464,102 +2672,6 @@ data remove block ~ ~-1 ~ Items
 tag @s remove cpp_rituals_item
 tag @s remove cpp_rituals_item_power
 tag @s remove cpp_rituals_ticks```如果容器无需打开交互，则可直接为方块物品添加BlockEntityTag:{Lock:"zsx<3wtt"}这种nbt来锁住，可避免采用上述tp玩家至远处来强行关闭GUI。
-
-[page]    
-	
-
-## ### §9 机器实例
-我们来看一个较为复杂的机器例子。
-[img]https://i.loli.net/2018/07/15/5b4ad908501c8.png[/img]
-
-首先将机器背景板、进度条、左侧按钮、右侧经验槽的材质全部画好，这里经验槽采用了动态材质。通过修改模型和display的放缩，一个物品的大小最多可以放大12倍。通过修改z轴高度可调整材质的覆盖次序(感谢@⊙v⊙)。
-
-然后与高仿工作台类似，编写处理方块放置与破坏、背景的清理等内容。之后，检测机器的左侧按键槽位是否为空，若空则切换之。
-
-cpp:all_in_one_machine/option/pressure
-```
-scoreboard players add @s cppPressure 1
-scoreboard players set @s[scores={cppPressure=3..}] cppPressure 0
-scoreboard players set @s[tag=!cpp_high_pressure,scores={cppPressure=2}] cppPressure 0
-scoreboard players set @s[tag=!cpp_low_pressure,scores={cppPressure=0}] cppPressure 1
-
-execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971051}
-execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971052}
-execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971053}
-
-execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.low_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
-execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.normal_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
-execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.high_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
-```然后探测经验槽是否需要添加经验，若需要则将附魔之瓶转化为经验槽中的经验并切换材质。然后根据当前模式来分类
-cpp:all_in_one_machine/type/all
-```
-execute as @s[scores={cppTemperature=0,cppPressure=0}] run function cpp:all_in_one_machine/type/ll
-execute as @s[scores={cppTemperature=0,cppPressure=1}] run function cpp:all_in_one_machine/type/ln
-execute as @s[scores={cppTemperature=0,cppPressure=2}] run function cpp:all_in_one_machine/type/lh
-execute as @s[scores={cppTemperature=1,cppPressure=0}] run function cpp:all_in_one_machine/type/nl
-execute as @s[scores={cppTemperature=1,cppPressure=1}] run function cpp:all_in_one_machine/type/nn
-execute as @s[scores={cppTemperature=1,cppPressure=2}] run function cpp:all_in_one_machine/type/nh
-execute as @s[scores={cppTemperature=2,cppPressure=0}] run function cpp:all_in_one_machine/type/hl
-execute as @s[scores={cppTemperature=2,cppPressure=1}] run function cpp:all_in_one_machine/type/hn
-execute as @s[scores={cppTemperature=2,cppPressure=2}] run function cpp:all_in_one_machine/type/hh```然后探测物品是否满足要求，若满足则进行计时。计时完成且经验达标后执行下一步。
-cpp:all_in_one_machine/type/ln
-```
-execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:cobblestone_plugin"}}]} run scoreboard players set @s cppMacType 1
-execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:cobblestone_plugin"}}]} run scoreboard players set @s cppMacType 1
-
-execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:stone_plugin"}}]} run scoreboard players set @s cppMacType 2
-execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:stone_plugin"}}]} run scoreboard players set @s cppMacType 2
-
-execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:obsidian_plugin"}}]} run scoreboard players set @s cppMacType 3
-execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:obsidian_plugin"}}]} run scoreboard players set @s cppMacType 4
-
-scoreboard players add @s[scores={cppMacType=1..2,cppStoredxp=1..}] cppTick 60
-scoreboard players add @s[scores={cppMacType=3..4,cppStoredxp=4..}] cppTick 6
-execute if entity @s[scores={cppMacType=1..2,cppStoredxp=1..}] if score @s cppTick >= #all_in_one_machine_cd cppValue run function cpp:all_in_one_machine/done
-execute if entity @s[scores={cppMacType=3..4,cppStoredxp=4..}] if score @s cppTick >= #all_in_one_machine_cd cppValue run function cpp:all_in_one_machine/done```分类输出朝向 cpp:all_in_one_machine/done
-```
-execute as @s[scores={cppOutpUTFace=1}] positioned ~1 ~ ~ run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=2}] positioned ~ ~ ~1 run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=3}] positioned ~-1 ~ ~ run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=4}] positioned ~ ~ ~-1 run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=5}] positioned ~ ~-1 ~ run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=6}] positioned ~ ~1 ~ run function cpp:all_in_one_machine/to_chest
-
-execute as @s[scores={cppSlotsDown=26..}] run function cpp:all_in_one_machine/to_self
-
-scoreboard players reset @s cppSlotsDown
-scoreboard players reset @s cppTick```若相应位置可输出，则调整其包含的物品槽位，否则输出在机器内 cpp:all_in_one_machine/to_chest
-```
-execute store result score @s cppSlotsDown run data get block ~ ~ ~ Items
-execute unless block ~ ~ ~ #cpp:container run scoreboard players set @s cppSlotsDown 27
-
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=0}] run function cpp:all_in_one_machine/dist/ll
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=1}] run function cpp:all_in_one_machine/dist/ln
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=2}] run function cpp:all_in_one_machine/dist/lh
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=0}] run function cpp:all_in_one_machine/dist/nl
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=1}] run function cpp:all_in_one_machine/dist/nn
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=2}] run function cpp:all_in_one_machine/dist/nh
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=0}] run function cpp:all_in_one_machine/dist/hl
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=1}] run function cpp:all_in_one_machine/dist/hn
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=2}] run function cpp:all_in_one_machine/dist/hh```最后输出物品到箱子内，并清除输入材料 cpp:all_in_one_machine/dist/ln
-```
-scoreboard players remove @s[scores={cppMacType=1..2}] cppStoredxp 1
-scoreboard players remove @s[scores={cppMacType=3..4}] cppStoredxp 4
-
-execute as @s[scores={cppMacType=1}] run loot insert ~ ~ ~ loot blocks/cobblestone
-execute as @s[scores={cppMacType=2}] run loot insert ~ ~ ~ loot cpp:items/stone
-execute as @s[scores={cppMacType=3..4}] run loot insert ~ ~ ~ loot blocks/obsidian
-execute as @s[scores={cppMacType=3..4}] run loot insert ~ ~ ~ loot cpp:items/bucket
-
-execute at @s store result score #temp cppValue run data get block ~ ~ ~ Items[4].Count
-execute at @s as @s[scores={cppMacType=4}] store result block ~ ~ ~ Items[4].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute at @s store result score #temp cppValue run data get block ~ ~ ~ Items[3].Count
-execute at @s as @s[scores={cppMacType=3}] store result block ~ ~ ~ Items[3].Count byte 1 run scoreboard players remove #temp cppValue 1```
-
-如果你擅长绘制UI的话，可以制作出很精美的UI。例如(https://www.youtube.com/watch?v=bv_wYNs5L6M]该视频]中：
-[img]http://attachment.mcbbs.net/forum/201807/10/112312zdtxrrt8tyfhunr8.png[/img]
-[img]http://attachment.mcbbs.net/forum/201807/10/112327brktztj6jrj11zrv.png[/img]
-均是采用物品材质绘制的。
 
 [page]
 ## ## ### §10 随机结构
