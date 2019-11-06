@@ -1,10 +1,9 @@
 原版模组入门教程
 ===
-作者： `ruhuasiyu`
+作者： `ruhuasiyu` 最后更新：`2019/11/07`
 
-本文参考和吸取了大量其他玩家的意见、建议、教程等。
+本文参考和吸取了大量其他玩家的意见、建议、教程等。阅读时请注意内容的适用版本，有任何错误和疑问请联系我，谢谢！
 
-阅读时请注意内容的适用版本，有任何错误和疑问请联系我，谢谢！
 
 ## 目录
 
@@ -18,10 +17,11 @@
 	+ [§2.2 命名空间](#22-命名空间)
 	+ [§2.3 进度](#23-进度)
 	+ [§2.4 函数](#24-函数)
-	+ [§2.5 战利品表](#25-战利品表和断言)
-	+ [§2.6 配方](#26-配方)
-	+ [§2.7 结构](#27-结构)
-	+ [§2.8 标签](#28-标签)
+	+ [§2.5 战利品表](#25-战利品表)
+	+ [§2.6 断言](#26-断言)
+	+ [§2.7 配方](#27-配方)
+	+ [§2.8 结构](#28-结构)
+	+ [§2.9 标签](#29-标签)
 + [§3 资源包](#3-资源包)
 	+ [§3.1 pack.mcmeta 和 pack.png](#31-packmcmeta-和-packpng)
 	+ [§3.2 命名空间](#32-命名空间)
@@ -32,23 +32,17 @@
 	+ [§3.7 声音](#37-声音)
 	+ [§3.8 字体](#38-字体)
 	+ [§3.9 着色器](#39-着色器)
-+ [§4 模组、物品和方块规划](#4-模组、物品和方块规划)
++ [§4 模组规划和物品设计](#4-模组规划和物品设计)
 	+ [§4.1 名称设计](#41-名称设计)
 	+ [§4.2 调试](#42-调试)
 	+ [§4.3 前置与附属](#43-前置与附属)
 	+ [§4.4 物品设计](#44-物品设计)
-	+ [§4.5 方块设计](#45-方块设计) (WIP)
-	+ [§4.6 发布](#46-发布)
-+ [§5 机器设计](#5-机器设计) (WIP)
-	+ [§5.1 GUI 设计](#51-GUI-设计)
-	+ [§5.2 背景处理](#52-背景处理)
-	+ [§5.3 清理与消耗](#53-清理与消耗)
-	+ [§5.4 选项](#54-选项)
-	+ [§5.5 输出](#55-输出)
-	+ [§5.6 容器扩展](#56-容器扩展)
-	+ [§5.7 接口](#57-接口)
-	+ [§5.8 管道](#58-管道)
-	+ [§5.9 物流](#59-物流)
+	+ [§4.5 发布](#45-发布)
++ [§5 方块设计](#5-方块设计)
+	+ [§5.1 视线追踪法](#51-视线追踪法)
+	+ [§5.2 计算交点法](#52-计算交点法)
+	+ [§5.3 破坏事件](#53-破坏事件)
+	+ [§5.4 模型设置](#54-模型设置)
 + [§6 合成与烧炼配方](#6-合成与烧炼配方)
 	+ [§6.1 语法](#61-语法)
 	+ [§6.2 有序合成](#62-有序合成)
@@ -56,41 +50,56 @@
 	+ [§6.4 切石机配方](#64-切石机配方)
 	+ [§6.5 烧炼配方](#65-烧炼配方)
 	+ [§6.6 覆盖原版配方](#66-覆盖原版配方)
-+ [§7 NBT 物品合成、烧炼与酿造](#7-NBT-物品合成、烧炼与酿造) (WIP)
-	+ [§7.1 地板合成](#71-地板合成)
-	+ [§7.2 实体背包合成](#71-实体背包合成)
-	+ [§7.3 容器合成](#71-容器合成)
-+ [§8 探测与触发](#8-探测与触发) (WIP)
-	+ [§8.1 胡萝卜钓竿](#81-胡萝卜钓竿)
-	+ [§8.2 投掷物](#82-投掷物)
-	+ [§8.3 装备效果](#83-装备效果)
-	+ [§8.4 方块交互](#84-方块交互)
-+ [§9 植物和食物](#9-植物和食物) (WIP)
-	+ [§9.1 作物](#91-作物)
-	+ [§9.2 花草](#92-花草)
-	+ [§9.3 树](#93-树)
-	+ [§9.4 食物](#94-食物)
++ [§7 机器设计](#7-机器设计)
+	+ [§7.1 GUI 材质模型](#71-GUI-材质模型)
+	+ [§7.2 GUI 背景处理](#72-GUI-背景处理)
+	+ [§7.3 GUI 命令](#73-GUI-命令)
+	+ [§7.4 物品输出](#74-物品输出)
+	+ [§7.5 配方处理](#75-配方处理)
+	+ [§7.6 插件](#76-插件)
+	+ [§7.7 容器扩展](#77-容器扩展) (WIP)
+	+ [§7.8 接口](#78-接口) (WIP)
+	+ [§7.9 管道](#79-管道) (WIP)
+	+ [§7.10 物流](#710-物流) (WIP)
++ [§8 NBT 物品合成、烧炼与酿造](#8-NBT-物品合成、烧炼与酿造) (WIP)
+	+ [§8.1 地板合成](#81-地板合成)
+	+ [§8.2 实体背包合成](#81-实体背包合成)
+	+ [§8.3 容器合成](#81-容器合成)
++ [§9 探测与触发](#9-探测与触发) (WIP)
+	+ [§9.1 胡萝卜钓竿](#91-胡萝卜钓竿)
+	+ [§9.2 投掷物](#92-投掷物)
+	+ [§9.3 装备效果](#93-装备效果)
+	+ [§9.4 方块交互](#94-方块交互)
++ [§10 植物和食物](#10-植物和食物) (WIP)
+	+ [§10.1 作物](#101-作物)
+	+ [§10.2 花草](#102-花草)
+	+ [§10.3 树](#103-树)
+	+ [§10.4 食物](#104-食物)
 	+ [§10.5 药水](#105-药水)
-+ [§10 实体操作](#10-实体操作) (WIP)
-	+ [§10.1 交易](#101-交易)
-	+ [§10.2 移动](#102-移动)
-	+ [§10.3 传送](#103-传送)
++ [§11 实体操作](#10-实体操作) (WIP)
+	+ [§11.1 交易](#111-交易)
+	+ [§11.2 移动](#112-移动)
+	+ [§11.3 传送](#113-传送)
 	+ [§11.4 随机物品](#114-随机物品)
-+ [§11 方块操作](#11-方块操作) (WIP)
-	+ [§11.1 方块放置](#111-方块放置)
-	+ [§11.2 自动种植](#112-自动种植)
-	+ [§11.3 连锁挖矿](#113-连锁挖矿)
-+ [§12 世界生成](#12-世界生成) (WIP)
-	+ [§12.1 随机结构](#121-随机结构)
-	+ [§12.2 水处理](#122-水处理)
-	+ [§12.3 下界处理](#123-下界处理)
-	+ [§12.4 维度模拟](#124-维度模拟)
-+ [§13 算法与数据结构](#13-算法与数据结构) (WIP)
-	+ [§13.1 数组](#131-数组)
-	+ [§13.2 循环](#132-循环)
-	+ [§13.3 递归](#133-递归)
-	+ [§13.4 位运算](#134-位运算)
-	+ [§13.5 种子操作](#135-种子操作)
++ [§12 方块操作](#12-方块操作) (WIP)
+	+ [§11.1 方块放置](#121-方块放置)
+	+ [§11.2 填充](#122-填充)
+	+ [§11.3 自动种植](#123-自动种植)
+	+ [§11.4 连锁挖矿](#124-连锁挖矿)
++ [§13 世界生成](#13-世界生成) (WIP)
+	+ [§13.1 随机结构](#131-随机结构)
+	+ [§13.2 水处理](#132-水处理)
+	+ [§13.3 下界处理](#133-下界处理)
+	+ [§13.4 维度模拟](#134-维度模拟)
++ [§14 绘画与颗粒](#14-绘画与颗粒) (WIP)
+	+ [§14.1 绘制图案](#141-绘制图案)
+	+ [§14.2 颗粒](#142-颗粒)
++ [§15 算法与数据结构](#15-算法与数据结构) (WIP)
+	+ [§15.1 数组](#151-数组)
+	+ [§15.2 循环](#152-循环)
+	+ [§15.3 递归](#153-递归)
+	+ [§15.4 位运算](#154-位运算)
+	+ [§15.5 种子操作](#155-种子操作)
 
 ## §1 简介
 原版模组(vanilla mod)一般指在不修改Minecraft游戏本体的前提下，通过命令方块、一键命令(OOC)、数据包(datapack)、资源包(resourcepack)等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。然而纵观论坛，原版模组仍然不够繁荣。因此我将为首次接触此概念的玩家做一个简单的入门，以期抛砖引玉。
@@ -341,7 +350,7 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 + `rewards` 奖励
 	+ `function` 奖励函数，完成进度时执行之。不可为函数标签。
 	+ `loot` 奖励战利品表。
-	+ `recipes` 解锁配方。配方也需要有相应进度来解锁，通常检测玩家拥有配方材料后触发，参考[§2.5 配方](#25-配方)。
+	+ `recipes` 解锁配方。配方也需要有相应进度来解锁，通常检测玩家拥有配方材料后触发，参考[§2.7 配方](#27-配方)。
 	+ `experience` 奖励经验，建议仅在高难度进度完成时给予。
 
 进度配合奖励函数剥夺玩家该进度，则该进度可反复触发。可用于诸如检测玩家生物群系、饮食等需要循环检测的情形。
@@ -355,7 +364,7 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 + 在游戏内或函数文件中使用诸如 `function namespace:foo/bar` 命令来依次执行函数的每一条命令。
 + 在进度完成后奖励函数。
 
-### §2.5 战利品表和断言
+### §2.5 战利品表
 可参考
 + [[CBL∫2b]Loottable - 创造一个看脸讲玄的世界 总索引](http://www.mcbbs.net/thread-619468-1-1.html)
 + [【CBL｜SPG】［1.14］战利品表：从入门到重新入门](http://www.mcbbs.net/thread-831542-1-1.html)
@@ -515,6 +524,9 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 + 修改玩家背包物品，见[修改玩家背包物品信息](https://www.mcbbs.net/thread-860954-1-1.html)，[戴帽子](https://www.mcbbs.net/thread-879073-1-1.html)。
 + 将特定物品输出至容器内，见[物品分类器](https://www.mcbbs.net/thread-898170-1-1.html)。
 
+这里提及一点，第二条链接中给出的方法常常可以用于将不定的物品输入到玩家背包或容器中，这在[§7 机器设计](#7-机器设计)中常常会用到。
+
+### §2.6 断言
 断言(predicate)可以认为是战利品中的条件，单独抽出来可以直接用于
 + 命令 `execute (if|unless) predicate foo:bar`
 + 实体选择器参数 `predicate={foo:bar}`
@@ -526,12 +538,12 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 
 诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用断言无疑方便更多。
 
-### §2.6 配方
-配方(recipes)包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，**不支持带 nbt 标签。具体格式见[§5 合成与烧炼配方](#5-合成与烧炼配方)。想要实现带 nbt 的合成需要藉由其它方式，见[§5 合成与烧炼配方](#5-合成与烧炼配方)。
+### §2.7 配方
+配方(recipes)包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，**不支持带 nbt 标签。具体格式见[§6 合成与烧炼配方](#6-合成与烧炼配方)。想要实现带 nbt 的合成需要藉由其它方式，见[§6 合成与烧炼配方](#6-合成与烧炼配方)。
 
 在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，但是未获得的不会在配方书中显示，因此建议为你的自定义配方添加合适的进度来获取该配方。
 
-### §2.7 结构
+### §2.8 结构
 可参考
 + [建筑党也能愉快享用结构方块-图文并茂教会你使用结构方块](http://www.mcbbs.net/thread-652937-1-1.html)
 + [如何使用结构方块](http://www.mcbbs.net/thread-801350-1-1.html)
@@ -550,7 +562,7 @@ setblock ~ ~1 ~ minecraft:redstone_block
 setblock ~ ~1 ~ minecraft:air
 ```
 
-### §2.8 标签
+### §2.9 标签
 标签(tags)根据子文件夹不同分为5种。Minecraft 中有很多内容都叫做标签，注意区分它们。
 
 例如方块标签 `cpp/tags/blocks/fluid.json`
@@ -591,7 +603,7 @@ setblock ~ ~1 ~ minecraft:air
 ```
 就包含了所有6种原木、木头、去皮原木、去皮木头。
 
-#### §2.8.1 方块标签
+#### §2.9.1 方块标签
 位于 `tags/blocks` 文件夹下，用于在命令中用于检测/调用多个方块。例：当玩家眼睛位置不是流体(空气、水等)时，输出 I'm stucked!
 
 并执行命令
@@ -600,26 +612,25 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #cpp:fluid run say I'm stuc
 ```
 因为命令执行地点为实体的脚，所以我们使用 `anchored eyes` 来使得局部坐标的位置变为玩家的眼睛。
 
-
 调试模式(F3)下，玩家指向方块时会显示含有该方块的所有方块标签；
 
-#### §2.8.2 物品标签
+#### §2.9.2 物品标签
 位于 `tags/items` 文件夹下，用于
 + 在 `clear` 命令中用于清除多个不同 `id` 物品
 + 在配方文件中表示合成/烧炼时所需的物品可以为标签中的任一种
 + 进度判定
 + 战利品表类型
 
-#### §2.8.3 函数标签
+#### §2.9.3 函数标签
 位于 `tags/functions` 文件夹下，用于在 `function` 命令中一次性按次序执行多个函数。
 
-#### §2.8.4 实体类型标签
+#### §2.9.4 实体类型标签
 位于 `tags/blocks` 文件夹下，用于在选择器 `@e` 的选项 `type` 中指定多种不同实体，例如 `@e[type=#cpp:hostiles]`。
 
-#### §2.8.5 流体标签
+#### §2.9.5 流体标签
 位于 `tags/blocks` 文件夹下。
 
-#### §2.8.6 预设标签
+#### §2.9.6 预设标签
 `minecraft` 命名空间中预设了一些标签。其中
 + `minecraft/tags/functions/load.json` 中的函数会在加载时被执行一次，我们常称之为加载函数、load函数。用于初始化的函数应当添加至该标签。
 + `minecraft/tags/functions/tick.json` 中的函数每刻会被执行一次，我们常称之为循环函数、主函数、tick函数。需要高频执行的函数应当添加至该标签。
@@ -770,7 +781,7 @@ The resourcepack does not Installl correctly or Launch.
 `assets/minecraft/models/item/carrot_on_a_stick.json`
 ```
 {
-	"parent": "item/handheld",
+	"parent": "item/handheld_rod",
 	"textures": {
 		"layer0": "item/carrot_on_a_stick"
 	},
@@ -802,7 +813,7 @@ The resourcepack does not Installl correctly or Launch.
 
 `assets/craftingpp/textures/element/red_force_of_fire.png`
 
-这样我们就设计好了这个物品模型，在[§4.4 物品设计](#42-物品设计)我们将会说明如何使用该模型。
+这样我们就设计好了这个物品模型，在[§4.4 物品设计](#44-物品设计)我们将会说明如何使用该模型。
 
 ### §3.5 模型
 模型本身只是一个 JSON 文件，只有 `minecraft` 命名空间下特定名称的文件才对应特定的物品/方块模型。例如 `minecraft/models/item/carrot_on_a_stick.json` 表示胡萝卜钓竿的物品模型，`minecraft/models/block/stone.json` 表示石头的方块模型。
@@ -1109,7 +1120,7 @@ The resourcepack does not Installl correctly or Launch.
 着色器文件为位于 `assets/minecraft/shaders/program` 下方的 `fsh` 文件，具体用法可参考[原版着色器指导](https://www.mcbbs.net/thread-916150-1-1.html)和[几个原版着色器示例](https://www.mcbbs.net/thread-917679-1-1.html)。
 
 
-## §4 模组、物品和方块规划
+## §4 模组规划与物品设计
 当我们有了一定的命令基础和数据包与资源包的相关知识之后，我们可以开始考虑做一个模组了。模组的目的是在原版的基础上做出一定的修改，模组的核心是内容，命令和技巧都只是为实现这一目的的手段。通常的设计路线如下图所示：
 
 ![](https://i.loli.net/2018/05/01/5ae7f0a5105f4.png)
@@ -1174,21 +1185,21 @@ function #cpp:item_processer
 那么其它开发者就可以通过在函数标签`#cpp:item_processer`中添加相应的函数命令来实现更多的机器配方。
 
 ### §4.4 物品设计
-由于原版模组从不添加原版不存在的物品，所以我们需要采取一些办法来区分。通常，我们建议使用`tag.id`来作为物品的唯一标记，`CustomModelData`确定物品的材质模型。
+由于原版模组从不添加原版不存在的物品，所以我们需要采取一些办法来区分。
 
-例如：添加物品`红色火之力 (cpp:red_force_of_fire)`，不可叠加，效果为右键执行若干命令。我们可使用
+例如：添加物品`红色火之力 (cpp:red_force_of_fire)`，不可叠加，右键触发执行命令。我们可使用
 ```
 minecraft:carrot_on_a_stick{id:"cpp:red_force_of_fire",CustomModelData:12970013,display:{Name:'{"translate":"item.cpp.red_force_of_fire"}'}}
 ```
 物品原型为胡萝卜钓竿，这样可以便于右键检测。
-+ 物品模组`id`为`cpp:red_force_of_fire`。建议使用模组对应的`命名空间:物品名称`来表示，以与其它模组的物品区分。
++ 物品模组`id`为`cpp:red_force_of_fire`，使用模组对应的`命名空间:物品名称`来表示，以与其它模组的物品区分。我们建议使用该`nbt`来识别模组物品。
 + 使用胡萝卜钓竿的第`12970013`个`custom_model_data`模型。建议前4位数字为模组固定的编号，以与其它模组区分以便于整合，后4位表示该模组下同种原版物品对应的不同材质模型。在资源包中添加相应的模型。使用时注意[custom_model_data的使用限制](https://www.mcbbs.net/thread-867051-1-1.html)。
-+ 显示名称为 `item.cpp.red_force_of_fire` 对应的翻译文本。在资源包中添加相应的翻译文本。
++ 显示名称为 `item.cpp.red_force_of_fire` 对应的翻译文本。在资源包中添加相应的翻译文本以支持多种语言。
 + 添加模型
 `assets/minecraft/models/item/carrot_on_a_stick.json`
 	```
 	{
-		"parent": "item/handheld",
+		"parent": "item/handheld_rod",
 		"textures": {
 			"layer0": "item/carrot_on_a_stick"
 		},
@@ -1202,7 +1213,7 @@ minecraft:carrot_on_a_stick{id:"cpp:red_force_of_fire",CustomModelData:12970013,
 	`assets/cpp/models/element/red_force_of_fire.json`
 	```
 	{
-		"parent": "item/handheld",
+		"parent": "item/handheld_rod",
 		"textures": {
 			"layer0": "cpp:element/red_force_of_fire"
 		}
@@ -1211,7 +1222,7 @@ minecraft:carrot_on_a_stick{id:"cpp:red_force_of_fire",CustomModelData:12970013,
 	并添加相应材质 `assets/cpp/textures/element/red_force_of_fire.png`。
 
 
-对于同类物品，我们可以添加额外的标签来注明。例如：使用`Byte型`nbt来标记物品的类别，以便于探测；使用`List型`nbt 来标记诸如属性之类的内容，以及需要探测是否处于该类别的物品。
+对于同类物品，我们可以添加额外的标签来注明。例如：使用`Byte 型` nbt 来标记物品的类别，以便于探测；使用`List 型` nbt 来标记诸如属性之类的内容，以及需要探测是否处于该类别的物品。
 
 对于科技类的模组，我们推荐使用[原版模组矿物辞典](https://www.mcmod.cn/post/927.html)标准来便于不同的原版模组/插件相互引用。
 
@@ -1271,17 +1282,323 @@ give @s minecraft:filled_map{map:10000}
 ```
 选择负数的自定义地图的编号，或者手动将`data`文件夹中的`idcounts`调大，可避免和玩家在游戏内生成的地图编号冲突。
 
-### §4.5 方块设计
+### §4.5 发布
+当你设计并制作好全部内容且通过测试后，将你的数据包以及其它可能的内容，如地图、`data`文件、资源包等一同发布。采用合适的版本号管理，并在发布时注明你所使用的命名空间、记分板、组、标签、地图区段、资源包等内容，以便于其他开发者整合或避免冲突。
+
+[page]
+
+## §5 方块设计
+
 原版模组无法添加方块，一般的做法是修改方块物品的`CustomModelData`的模型后，使用视线追踪法来判断放置的方块位置，并在方块位置生成盔甲架，并头戴相应物品。参考
 + [使用局部坐标做到找到玩家指的地方](https://www.mcbbs.net/thread-771638-1-1.html)
 + [完美的自定义方块堆叠](https://www.mcbbs.net/thread-825546-1-1.html)
 + [自定义方块(玩家头颅) ](https://www.mcbbs.net/thread-824528-1-1.html)
 + [【原版模组】【前置】方块通用处理](https://www.mcbbs.net/thread-916294-1-1.html)
 
-模型设置（WIP）
+首先我们根据[§4.4 物品设计](#44-物品设计)来将方块对应的物品设计好。
 
-### §4.6 发布
-当你设计并制作好全部内容且通过测试后，将你的数据包以及其它可能的内容，如地图、`data`文件、资源包等一同发布。采用合适的版本号管理，并在发布时注明你所使用的命名空间、记分板、组、标签、地图区段、资源包等内容，以便于其他开发者整合或避免冲突。
+### §5.1 视线追踪法
+例如：放置`stone{id:"foo:bar"}`。
+
+`foo/advancements/block/bar.json`
+```
+{
+	"criteria": {
+		"put_furnace": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"item": {
+					"nbt":"{id:\"foo:bar\"}"
+				}
+			}
+		}
+	},
+	"rewards": {
+		"function": "foo:block/bar/reset"
+	}
+}
+```
+
+`foo/functions/block/bar/reset.mcfunction`
+```
+advancement revoke @s only foo:block/bar
+execute anchored eyes run function foo:block/bar/ray
+execute unless entity @e[type=area_effect_cloud,distance=..7,tag=foo_block_pos] positioned ~ ~1 ~ anchored eyes run function foo:block/bar/ray
+execute unless entity @e[type=area_effect_cloud,distance=..7,tag=foo_block_pos] positioned ~ ~-1 ~ anchored eyes run function foo:block/bar/ray
+execute at @e[type=area_effect_cloud,distance=..7,tag=foo_block_pos] run function foo:block/bar/put
+```
+
+`foo/functions/block/bar/ray.mcfunction`
+```
+execute if entity @s[distance=..7] positioned ^ ^ ^ if block ~ ~ ~ stone align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=minecraft:armor_stand,distance=..0.5,tag=foo_block] run summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["foo_block_pos"]}
+execute if entity @s[distance=..7] unless entity @e[type=minecraft:area_effect_cloud,distance=..6,tag=foo_block_pos] positioned ^ ^ ^0.005 anchored feet run function foo:block/bar/ray
+```
+
+`foo/functions/block/bar/put.mcfunction`
+```
+summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["foo_block","foo_bar"]}
+loot replace entity @e[type=armor_stand,limit=1,distance=..0.01] armor.head 1 loot foo:bar
+kill @e[type=area_effect_cloud,distance=..0.01,tag=foo_block_pos]
+```
+
+使用进度判断玩家放置了某物品，然后剥夺进度，递归获取该方块位置。如果视线上没有该方块，有可能是玩家将其对准下台阶或上台阶放置的，此时需要向上或向下平移一格检测。最后获取该方块位置，放置盔甲架，并将相应物品`loot`进盔甲架头部位置。
+
+注意到我们在视线追踪是进行了当前方块内是否已有`foo_block`标签的盔甲架的判断。这在处理完整方块时是可以省略的，但是对于非完整方块，视线上可能已经有之前放置过的模组物品对应的盔甲架，使用该项判断可以避免在一个格子内放置两个盔甲架，而忽略掉后放的方块。
+
+然而，这个做法仍然对其它模组的方块无效，因为你无法知道其它模组使用了何种标签。所以更严格的做法是判断当前方块处是否有头部佩戴拥有`tag.id`物品的盔甲架。尽管这也不能保证万无一失，但确实可以降低冲突率。具体代码读者可自行实现。
+
+最后，判断玩家主副手，并将相应的物品信息直接复制到盔甲架头部而非`loot`固定的物品，可以在之后的破坏事件中保留原物品的额外信息。例如玩家对该物品进行了重命名。
+
+### §5.2 计算交点法
+例如：放置某模组的所有方块，`CustomModelData`位于`12970000-12979999`。
+
+向物品标签`cpp:blocks`添加所有原版的方块，然后添加断言来判断玩家主手是不是方块。
+`cpp/predicates/block_on_mainhand.json`
+```
+{
+	"condition": "minecraft:entity_properties",
+	"entity": "this",
+	"predicate": {
+		"equipment": {
+			"mainhand":{
+				"tag": "cpp:blocks"
+			}
+		}
+	}
+}
+```
+
+`cpp/advancements/blocks/put_mod_block.json`
+```
+{
+	"criteria": {
+		"machine": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"item": {
+					"tag":"cpp:blocks"
+				}
+			}
+		}
+	},
+	"rewards": {
+		"function": "cpp:blocks/reset"
+	}
+}
+```
+
+`cpp/functions/blocks/reset.mcfunction`
+```
+advancement revoke @s only cpp:blocks/put_mod_block
+execute as @s[predicate=cpp:block_on_mainhand] if data entity @s SelectedItem.tag.id run function cpp:blocks/pos_main
+execute as @s[predicate=!cpp:block_on_mainhand] if data entity @s Inventory[{Slot:-106b}].tag.id run function cpp:blocks/pos_off
+```
+
+根据主副手获取物品信息并存储。
+`cpp/functions/blocks/pos_main.mcfunction`
+```
+data modify storage cpp:putted_block Item set from entity @s SelectedItem
+execute store result score #put_block_cmd cppValue run data get storage cpp:putted_block Item.tag.CustomModelData
+execute if score #put_block_cmd cppValue matches 12970000..12979999 run function cpp:blocks/pos
+```
+`cpp/functions/blocks/pos_off.mcfunction`
+```
+data modify storage cpp:putted_block Item set from entity @s Inventory[{Slot:-106b}]
+data remove storage cpp:putted_block Item.Slot
+execute store result score #put_block_cmd cppValue run data get storage cpp:putted_block Item.tag.CustomModelData
+execute if score #put_block_cmd cppValue matches 12970000..12979999 run function cpp:blocks/pos
+```
+
+进行计算的初始化。
+
+`cpp/functions/blocks/pos.mcfunction`
+```
+# 调整数量
+data modify storage cpp:putted_block Item.Count set value 1b
+# 然后记录玩家和视线坐标
+execute anchored eyes run summon armor_stand ^ ^ ^ {Tags:["cpp_block_ray_as"],Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b}
+execute store result score #x cppValue run data get entity @e[type=armor_stand,distance=..3,tag=cpp_block_ray_as,limit=1] Pos[0] 1000
+execute store result score #y cppValue run data get entity @e[type=armor_stand,distance=..3,tag=cpp_block_ray_as,limit=1] Pos[1] 1000
+execute store result score #z cppValue run data get entity @e[type=armor_stand,distance=..3,tag=cpp_block_ray_as,limit=1] Pos[2] 1000
+execute anchored eyes run summon armor_stand ^ ^ ^1 {Tags:["cpp_face_mk"],Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b}
+execute store result score #f cppValue run data get entity @e[type=armor_stand,distance=..3,tag=cpp_face_mk,limit=1] Pos[0] 1000
+execute store result score #g cppValue run data get entity @e[type=armor_stand,distance=..3,tag=cpp_face_mk,limit=1] Pos[1] 1000
+execute store result score #h cppValue run data get entity @e[type=armor_stand,distance=..3,tag=cpp_face_mk,limit=1] Pos[2] 1000
+kill @e[type=armor_stand,tag=cpp_face_mk]
+# 玩家位置是否是特定方块
+execute as @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as] at @s align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,distance=..0.1,tag=cpp_block] unless block ~ ~ ~ #cpp:fluid run function cpp:blocks/compare
+# 记录朝向的坐标
+scoreboard players operation #f cppValue -= #x cppValue
+scoreboard players operation #g cppValue -= #y cppValue
+scoreboard players operation #h cppValue -= #z cppValue
+# 记录朝向的符号
+scoreboard players operation #sf cppValue = #f cppValue
+scoreboard players operation #sg cppValue = #g cppValue
+scoreboard players operation #sh cppValue = #h cppValue
+# 根据朝向符号调整坐标值
+execute if score #sf cppValue matches ..-1 run scoreboard players operation #x cppValue *= #-1 cppValue
+execute if score #sg cppValue matches ..-1 run scoreboard players operation #y cppValue *= #-1 cppValue
+execute if score #sh cppValue matches ..-1 run scoreboard players operation #z cppValue *= #-1 cppValue
+execute if score #sf cppValue matches ..-1 run scoreboard players operation #f cppValue *= #-1 cppValue
+execute if score #sg cppValue matches ..-1 run scoreboard players operation #g cppValue *= #-1 cppValue
+execute if score #sh cppValue matches ..-1 run scoreboard players operation #h cppValue *= #-1 cppValue
+# 获取与方块交点
+execute unless entity @e[type=armor_stand,distance=..9,tag=cpp_block_put_pos] run function cpp:blocks/loop
+# 若未找到，尝试找上方一格位置
+execute unless entity @e[type=armor_stand,distance=..9,tag=cpp_block_put_pos] as @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as] at @s run tp ~ ~1 ~
+execute as @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as] at @s align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,distance=..0.1,tag=cpp_block] unless block ~ ~ ~ #cpp:fluid run function cpp:blocks/compare
+# 若未找到，尝试找下方一格位置
+execute unless entity @e[type=armor_stand,distance=..9,tag=cpp_block_put_pos] as @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as] at @s run tp ~ ~-2 ~
+execute as @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as] at @s align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,distance=..0.1,tag=cpp_block] unless block ~ ~ ~ #cpp:fluid run function cpp:blocks/compare
+# 放置盔甲架
+execute at @e[type=armor_stand,distance=..9,tag=cpp_block_put_pos,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function cpp:blocks/put
+kill @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as]
+```
+
+递归计算视线上的每一个方块交点。
+
+`cpp/functions/blocks/loop.mcfunction`
+```
+tag @e[type=armor_stand,distance=..0.01,tag=cpp_block_ray_as,tag=cpp_temp] remove cpp_temp
+# 计算三交点参数
+scoreboard players operation #t1 cppValue = #x cppValue
+scoreboard players operation #t1 cppValue *= #-1 cppValue
+scoreboard players operation #t1 cppValue %= #1000 cppValue
+execute if score #t1 cppValue matches 0..1 run scoreboard players add #t1 cppValue 1000
+scoreboard players operation #t1 cppValue *= #1000 cppValue
+scoreboard players operation #t1 cppValue /= #f cppValue
+
+scoreboard players operation #t2 cppValue = #y cppValue
+scoreboard players operation #t2 cppValue *= #-1 cppValue
+scoreboard players operation #t2 cppValue %= #1000 cppValue
+execute if score #t2 cppValue matches 0..1 run scoreboard players add #t2 cppValue 1000
+scoreboard players operation #t2 cppValue *= #1000 cppValue
+scoreboard players operation #t2 cppValue /= #g cppValue
+
+scoreboard players operation #t3 cppValue = #z cppValue
+scoreboard players operation #t3 cppValue *= #-1 cppValue
+scoreboard players operation #t3 cppValue %= #1000 cppValue
+execute if score #t3 cppValue matches 0..1 run scoreboard players add #t3 cppValue 1000
+scoreboard players operation #t3 cppValue *= #1000 cppValue
+scoreboard players operation #t3 cppValue /= #h cppValue
+# 比较交点远近
+scoreboard players set #align cppValue 1
+execute if score #t1 cppValue > #t2 cppValue if score #t3 cppValue > #t2 cppValue run scoreboard players set #align cppValue 2
+execute if score #t1 cppValue > #t3 cppValue if score #t2 cppValue > #t3 cppValue run scoreboard players set #align cppValue 3
+execute if score #align cppValue matches 1 run scoreboard players operation #t cppValue = #t1 cppValue
+execute if score #align cppValue matches 2 run scoreboard players operation #t cppValue = #t2 cppValue
+execute if score #align cppValue matches 3 run scoreboard players operation #t cppValue = #t3 cppValue
+# 计算交点坐标
+scoreboard players operation #s1 cppValue = #f cppValue
+scoreboard players operation #s2 cppValue = #g cppValue
+scoreboard players operation #s3 cppValue = #h cppValue
+scoreboard players operation #s1 cppValue *= #t cppValue
+scoreboard players operation #s2 cppValue *= #t cppValue
+scoreboard players operation #s3 cppValue *= #t cppValue
+scoreboard players operation #s1 cppValue /= #1000 cppValue
+scoreboard players operation #s2 cppValue /= #1000 cppValue
+scoreboard players operation #s3 cppValue /= #1000 cppValue
+scoreboard players operation #x cppValue += #s1 cppValue
+scoreboard players operation #y cppValue += #s2 cppValue
+scoreboard players operation #z cppValue += #s3 cppValue
+# 存储交点
+summon armor_stand ~ ~ ~ {Tags:["cpp_block_ray_as","cpp_temp"],Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b}
+execute if score #sf cppValue matches 0.. store result entity @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp,limit=1] Pos[0] double 0.001 run scoreboard players get #x cppValue
+execute if score #sg cppValue matches 0.. store result entity @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp,limit=1] Pos[1] double 0.001 run scoreboard players get #y cppValue
+execute if score #sh cppValue matches 0.. store result entity @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp,limit=1] Pos[2] double 0.001 run scoreboard players get #z cppValue
+# 根据朝向符号调整坐标
+execute if score #sf cppValue matches ..-1 store result entity @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp,limit=1] Pos[0] double -0.001 run scoreboard players get #x cppValue
+execute if score #sg cppValue matches ..-1 store result entity @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp,limit=1] Pos[1] double -0.001 run scoreboard players get #y cppValue
+execute if score #sh cppValue matches ..-1 store result entity @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp,limit=1] Pos[2] double -0.001 run scoreboard players get #z cppValue
+# 玩家位置是否是特定方块
+execute as @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp] at @s align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,distance=..0.1,tag=cpp_block] run function cpp:blocks/compare
+tellraw @p {"nbt":"Pos","entity":"@e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp,limit=1]"}
+# 若未找到，循环
+execute unless entity @e[type=armor_stand,distance=..9,tag=cpp_block_put_pos] at @e[type=armor_stand,distance=..9,tag=cpp_block_ray_as,tag=cpp_temp] if entity @s[distance=..6] run function cpp:blocks/loop
+```
+
+判断当前方块是否为我们所需的。
+
+`cpp/functions/blocks/loop.mcfunction`
+```
+loot replace entity @s weapon.mainhand 1 mine ~ ~ ~ shears{Enchantments:[{id:"minecraft:silk_touch",lvl:1s}]}
+execute store result score @s cppValue run data modify entity @s HandItems[0].id set from storage cpp:putted_block Item.id
+tag @s[scores={cppValue=0}] add cpp_block_put_pos
+```
+
+在找到的位置处放置盔甲架。对于特殊的方块物品，我们需要对盔甲架进行预处理或调整，例如
++ 有朝向的我们需要根据玩家朝向来放置不同朝向的方块。
++ 告示牌我们需要根据朝向来调整盔甲架位置和朝向。
++ 树苗花草作物我们需要放置后调整`CustomModelData`，因为一般手持为平面材质模型。
++ 需要添加额外标签以便于处理的。
+
+`cpp/functions/blocks/put.mcfunction`
+```
+# 预处理朝向、标签
+execute if block ~ ~ ~ barrel run function cpp:blocks/put/barrel
+execute if block ~ ~ ~ chest run function cpp:blocks/put/chest
+execute if block ~ ~ ~ oak_sign run function cpp:blocks/put/oak_sign
+execute if block ~ ~ ~ oak_wall_sign run function cpp:blocks/put/oak_wall_sign
+# 放置头部物
+execute unless entity @e[type=armor_stand,distance=..0.5,tag=cpp_block] run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["cpp_block"]}
+data modify entity @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] ArmorItems[3] set from storage cpp:putted_block Item
+# 调整头部物
+execute if block ~ ~ ~ acacia_leaves as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function cpp:blocks/put/acacia_leaves1
+execute if block ~ ~ ~ acacia_sapling as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function cpp:blocks/put/acacia_sapling1
+execute if block ~ ~ ~ barrel as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function cpp:blocks/put/barrel1
+execute if block ~ ~ ~ carved_pumpkin as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function cpp:blocks/put/carved_pumpkin1
+execute if block ~ ~ ~ chest as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function cpp:blocks/put/chest1
+execute if block ~ ~ ~ gold_block as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function cpp:blocks/put/gold_block1
+execute if block ~ ~ ~ oak_sign as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function cpp:blocks/put/oak_sign1
+execute if block ~ ~ ~ oak_wall_sign as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function cpp:blocks/put/oak_wall_sign1
+# 重置存储
+data remove storage cpp:putted_block Item
+```
+
+尽管看上去比较长，但是递归的次数很少，命令数比视线追踪法还是要少很多。
+
+### §5.3 破坏事件
+例如：破坏自定义的树叶。
+
+`cpp/functions/tick.mcfunction`
+```
+execute as @e[type=armor_stand,tag=cpp_leaves] at @s unless block ~ ~ ~ acacia_leaves run function cpp:blocks/break/acacia_leaves
+```
+`cpp/functions/blocks/break/acacia_leaves.mcfunction`
+```
+# 树叶
+tag @e[type=item,sort=nearest,nbt={Age:0s,Item:{id:"minecraft:acacia_leaves",Count:1b}},limit=1,distance=..2] add cpp_block_drop
+tag @e[type=item,sort=nearest,nbt={Age:1s,Item:{id:"minecraft:acacia_leaves",Count:1b}},limit=1,distance=..2] add cpp_block_drop
+data modify entity @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..2] Item set from entity @s ArmorItems[3]
+tag @e[type=item,distance=..2,tag=cpp_block_drop] remove cpp_block_drop
+# 树苗
+tag @e[type=item,sort=nearest,nbt={Age:0s,Item:{id:"minecraft:acacia_sapling",Count:1b}},limit=1,distance=..2] add cpp_block_drop
+tag @e[type=item,sort=nearest,nbt={Age:1s,Item:{id:"minecraft:acacia_sapling",Count:1b}},limit=1,distance=..2] add cpp_block_drop
+execute as @s[tag=cpp_ore_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..2] run loot spawn ~ ~ ~ loot cpp:ore_sapling
+execute as @s[tag=cpp_wool_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..2] run loot spawn ~ ~ ~ loot cpp:wool_sapling
+execute as @s[tag=cpp_fruit_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..2] run loot spawn ~ ~ ~ loot cpp:fruit_sapling
+kill @e[type=item,distance=..2,tag=cpp_block_drop]
+kill @s
+```
+我们将最近的`Age:0s`(挖掘)和`Age:1s`(自然腐烂)的物品添加标签，然后修改其为盔甲架头部存储物。
+
+### §5.4 模型设置
+使用如下的`display`来放缩物品在头部的大小，可以保证其与坐标轴基本对齐。
+```
+{
+	"parent": "block/cube_all",
+	"display": {
+		"head": {
+			"rotation": [ 0, 0, 0 ],
+			"translation": [ 0, -14.65, 0 ],
+			"scale": [ 2.29, 2.29, 2.29 ]
+		}
+	},
+    "textures": {
+        "all": "cpp:material/moon_stone"
+    }
+}
+```
 
 [page]
 
@@ -1487,133 +1804,576 @@ give @s minecraft:filled_map{map:10000}
 ```
 如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为`{}`时会被认为是错误文件而无法覆盖原配方。
 
-+ [§5 机器设计](#5-机器设计) (WIP)
-	+ [§5.1 GUI 设计](#51-GUI-设计)
-	+ [§5.2 背景处理](#52-背景处理)
-	+ [§5.3 清理与消耗](#53-清理与消耗)
-	+ [§5.4 选项](#54-选项)
-	+ [§5.5 输出](#55-输出)
-	+ [§5.6 容器扩展](#56-容器扩展)
-	+ [§5.7 接口](#57-接口)
-	+ [§5.8 管道](#58-管道)
-	+ [§5.9 物流](#59-物流)
-## §6 机器设计
-我们来看一个较为复杂的机器例子。
+## §7 机器设计
+本节我们将通过一个较为复杂的机器的例子，来了解如何设计一个机器。
+
+首先参考[§4.4 物品设计](#44-物品设计)和[§5 方块设计](#5-方块设计)将机器方块设计好，我们这里选择木桶，如果有必要，使用箱子也可以。
+
+`cpp/loot_tables/all_in_one_machine.json`
+```
+{
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:barrel",
+					"functions": [
+						{
+							"function": "minecraft:set_nbt",
+							"tag": "{display:{Name:\"{\\\"translate\\\":\\\"item.cpp.all_in_one_machine\\\"}\"},id:\"cpp:all_in_one_machine\",CustomModelData:12970001,hasGUI:1b}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
+```
+
+然后绘制 GUI
 
 ![](https://i.loli.net/2019/10/18/cCQ43JTrN8EPBSn.png)
 
-这个机器
-+ 原型是木桶
-+ 整体 GUI 是左上槽位的一个物品放大一定倍数并平移之后得到的
-+ 左侧3个按钮实际上其位置的右方一格的物品，这么做的好处时点击时不会看到按钮晃动
-+ 进度条也是一个物品
-+ 右侧经验也是一个物品
-+ 其余位置除了输入的3个和输出的2个物品槽位外，均有透明物品模型
++ 整体是左上槽位的一个物品放大一定倍数并平移之后得到的。
++ 按钮、进度条、经验均为物品模型。
++ 其余背景位置以及输出槽均为完全透明物品的模型。
++ 注意这些物品不可以为方块的自定义模型，因为方块的模型的透明部分会变成黑色或白色（1.15快照版本特性）。
 
-## §6.1 模型
+## §7.1 GUI 材质模型
+物品的默认大小为`16×16`，所以如果我们想要将其放大n倍，就需要绘制`16n×16n`的整数倍大小的材质，以对齐边缘和像素。
 
+该模型用于机器的GUI，我们将其大小放大了12倍，也就是`192×192`大小。所以我们需要绘制这个大小的整数倍的材质。通过修改 `z` 轴高度可调整材质的覆盖次序。
 
+`assets/cpp/models/machine/gui/temp.json`
+```
+{
+    "elements": [
+        {
+			"from": [ -16, -16, 0 ],
+            "to": [ 32, 32, 1 ],
+            "faces": {
+                "south": { "uv":[0,0,16,16],"texture": "#layer1"}
+            }
+        }
+    ],
+    "display": {
+        "gui": {
+            "scale": [ 4, 4, 1 ],
+			"translation": [ 79, -52, -80]
+        },
+        "ground": {
+            "scale": [ 0.1, 0.1, 0.1 ]
+        }
+    }
+}
+```
+`assets/cpp/models/machine/gui/all_in_one_machine.json`
+```
+{
+    "parent": "cpp:machine/gui/temp",
+    "textures": {
+        "layer1": "cpp:machine/gui/all_in_one_machine"
+    }
+}
+```
+这个图片大小为`192×192`，同时左下角物品栏距离左下角的距离为`8×14`，这样当该物品放置在木桶的左上方时，经过上述平移，最终这个物品栏就正好和木桶的物品栏对齐了。
 
+![all_in_one_machine.png](https://i.loli.net/2019/11/06/MsPO7dIeSRi8Ygf.png)
 
+若想要绘制各边缘超过这个距离限制的，可以重新调整 `display.gui.translation` 来对齐。
 
+对于机器的按钮，为了保证我们点击时不会出现按钮乱跑的问题，我们可以在按钮的实际模型放置在点击处的右一格。具体函数实现见后文。
+`cpp/models/machine/option/temp.json`
+```
+{
+	"parent": "item/generated",
+	"display": {
+		"gui": {
+			"translation": [ -18, 0, 1 ]
+		}
+	}
+}
+```
+`cpp/models/machine/option/high_pressure.json`
+```
+{
+	"parent": "cpp:machine/option/temp",
+	"textures": {
+		"layer0": "cpp:machine/option/high_pressure"
+	}
+}
+```
 
-## §6.2 GUI 命令
+如果你擅长绘制UI的话，可以制作出很精美的UI。例如[该视频](https://www.youtube.com/watch?v=bv_wYNs5L6M)中：
 
-## §6.3 机器配方
+![](http://attachment.mcbbs.net/forum/201807/10/112312zdtxrrt8tyfhunr8.png)
 
-## §6.4 输出控制
+![](http://attachment.mcbbs.net/forum/201807/10/112327brktztj6jrj11zrv.png)
 
-首先将机器背景板、进度条、左侧按钮、右侧经验槽的材质全部画好，这里经验槽采用了动态材质。通过修改模型和display的放缩，一个物品的大小最多可以放大12倍。通过修改z轴高度可调整材质的覆盖次序(感谢@⊙v⊙)。
+均是采用物品材质绘制的。
 
-然后与高仿工作台类似，编写处理方块放置与破坏、背景的清理等内容。之后，检测机器的左侧按键槽位是否为空，若空则切换之。
+## §7.2 GUI 背景处理
+我们为所有的机器背景物品添加 `cppMachineBg:1b`。我们假设这个物品都是 `petrified_oak_slab`。如果是多种物品的话，我们可以将这些物品id添加至一个物品标签内来处理。
 
-cpp:all_in_one_machine/option/pressure
+清理玩家背包和地面的相应物品。
+
+`cpp/functions/tick.mcfunction`
+```
+clear @a petrified_oak_slab{cppMachineBg:1b}
+kill @e[type=item,nbt={Item:{tag:{cppMachineBg:1b}}}]
+execute as @e[type=armor_stand,tag=cpp_machine] at @s run function cpp:blocks/machine
+```
+
+清理机器下方的漏斗矿车内物品，将下方漏斗的冷却时间高频设置为2。
+
+`cpp/functions/blocks/machine.mcfunction`
+```
+execute positioned ~-1 ~-2 ~-1 as @e[type=hopper_minecart,dx=2,dy=2,dz=2] run data modify entity @s TransferCooldown set value 2
+execute if block ~ ~-1 ~ hopper run data modify block ~ ~-1 ~ TransferCooldown set value 2
+```
+
+## §7.3 GUI 命令
+我们需要对机器高频固定住其GUI，同时对于玩家误放入的物品进行弹出处理。
+
+`cpp/functions/all_in_one_machine/tick.mcfunction`
+```
+# 处理误放入附魔之瓶栏的其它物品
+execute if data block ~ ~ ~ Items[{Slot:6b}] unless data block ~ ~ ~ Items[{Slot:6b,id:"minecraft:experience_bottle"}] run function cpp:all_in_one_machine/dist6
+# 处理误放入背景的物品，以及背景被玩家拿走的情形
+execute unless block ~ ~ ~ barrel{Items:[{Slot:0b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/0"}},{Slot:1b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/1"}},{Slot:2b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/2"}},{Slot:5b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/5"}},{Slot:7b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/7"}},{Slot:8b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/8"}},{Slot:9b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/9"}},{Slot:10b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/10"}},{Slot:11b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/11"}},{Slot:12b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/12"}},{Slot:13b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/13"}},{Slot:14b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/14"}},{Slot:15b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/15"}},{Slot:16b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/16"}},{Slot:17b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/17"}},{Slot:18b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/18"}},{Slot:19b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/19"}},{Slot:20b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/20"}},{Slot:23b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/23"}},{Slot:24b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/24"}},{Slot:25b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/25"}},{Slot:26b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/26"}}]} run function cpp:all_in_one_machine/reset
+execute unless data block ~ ~ ~ Items[{Slot:21b}] run replaceitem block ~ ~ ~ container.21 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/21"}
+execute unless data block ~ ~ ~ Items[{Slot:22b}] run replaceitem block ~ ~ ~ container.22 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/22"}
+# 经验槽
+function cpp:all_in_one_machine/option/xp
+# 配方
+tag @s remove cpp_machine_work
+function cpp:check_power
+execute as @s[tag=!cpp_redstone_powered,scores={cppStoredxp=1..}] if block ~ ~ ~ barrel{Items:[{Slot:21b,tag:{id:"cpp:gui/all_in_one_machine/21"}},{Slot:22b,tag:{id:"cpp:gui/all_in_one_machine/22"}}]} run function cpp:all_in_one_machine/type/all
+# 物品输出
+execute unless data block ~ ~ ~ Items[{Slot:21b,tag:{cppMachineBg:1b}}] run function cpp:all_in_one_machine/dist21
+execute unless data block ~ ~ ~ Items[{Slot:22b,tag:{cppMachineBg:1b}}] run function cpp:all_in_one_machine/dist22
+# 空闲时进度条和外观
+scoreboard players set @s[tag=!cpp_machine_work] cppTick 0
+execute as @s[scores={cppTick=0}] run data modify block ~ ~ ~ Items[{Slot:12b}].tag.CustomModelData set value 12971020
+data modify entity @s[tag=!cpp_machine_work] ArmorItems[3].tag.CustomModelData set value 12970001
+```
+
+对于玩家误放入附魔之瓶或背景的物品，我们使用[§2.5 战利品表](#25-战利品表)中提及的修改潜影盒战利品表的技巧，将物品返回到玩家背包。
+
+`cpp/functions/all_in_one_machine/dist6.mcfunction`
+```
+setblock ~ 255 ~ shulker_box
+data modify block ~ 255 ~ Items append from block ~ ~ ~ Items[{Slot:6b}]
+loot give @p mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
+setblock ~ 255 ~ air
+data remove block ~ ~ ~ Items[{Slot:6b}]
+```
+`cpp/functions/all_in_one_machine/reset.mcfunction`
+```
+# 弹出误放入背景的物品
+setblock ~ 255 ~ shulker_box
+data modify block ~ 255 ~ Items set from block ~ ~ ~ Items
+data remove block ~ 255 ~ Items[{tag:{cppMachineBg:1b}}]
+data remove block ~ 255 ~ Items[{Slot:3b}]
+data remove block ~ 255 ~ Items[{Slot:4b}]
+data remove block ~ 255 ~ Items[{Slot:6b}]
+data remove block ~ 255 ~ Items[{Slot:21b}]
+data remove block ~ 255 ~ Items[{Slot:22b}]
+loot give @p mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
+setblock ~ 255 ~ air
+# 玩家点击了选项按钮
+execute unless data block ~ ~ ~ Items[{Slot:1b}] run function cpp:all_in_one_machine/option/pressure
+execute unless data block ~ ~ ~ Items[{Slot:10b}] run function cpp:all_in_one_machine/option/temperature
+execute unless data block ~ ~ ~ Items[{Slot:19b}] run function cpp:all_in_one_machine/option/output
+# 重置GUI
+replaceitem block ~ ~ ~ container.0 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971011,id:"cpp:gui/all_in_one_machine/0"}
+execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.low_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/1"}
+execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.normal_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/1"}
+execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.high_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/1"}
+execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971051,id:"cpp:gui/all_in_one_machine/2"}
+execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971052,id:"cpp:gui/all_in_one_machine/2"}
+execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971053,id:"cpp:gui/all_in_one_machine/2"}
+replaceitem block ~ ~ ~ container.5 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/5"}
+replaceitem block ~ ~ ~ container.7 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/7"}
+replaceitem block ~ ~ ~ container.8 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/8"}
+
+replaceitem block ~ ~ ~ container.9 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/9"}
+execute as @s[scores={cppTemperature=0}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.low_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/10"}
+execute as @s[scores={cppTemperature=1}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.normal_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/10"}
+execute as @s[scores={cppTemperature=2}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.high_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/10"}
+execute as @s[scores={cppTemperature=0}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971054,id:"cpp:gui/all_in_one_machine/11"}
+execute as @s[scores={cppTemperature=1}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971055,id:"cpp:gui/all_in_one_machine/11"}
+execute as @s[scores={cppTemperature=2}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971056,id:"cpp:gui/all_in_one_machine/11"}
+replaceitem block ~ ~ ~ container.12 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.process_shower"}'},CustomModelData:12971020,id:"cpp:gui/all_in_one_machine/12"}
+replaceitem block ~ ~ ~ container.13 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.process_shower"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/13"}
+replaceitem block ~ ~ ~ container.14 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/14"}
+replaceitem block ~ ~ ~ container.15 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/15"}
+replaceitem block ~ ~ ~ container.16 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/16"}
+replaceitem block ~ ~ ~ container.17 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12972000,id:"cpp:gui/all_in_one_machine/17"}
+
+replaceitem block ~ ~ ~ container.18 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/18"}
+execute as @s[scores={cppOutputFace=1}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_east"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
+execute as @s[scores={cppOutputFace=2}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_south"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
+execute as @s[scores={cppOutputFace=3}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_west"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
+execute as @s[scores={cppOutputFace=4}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_north"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
+execute as @s[scores={cppOutputFace=5}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_down"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
+execute as @s[scores={cppOutputFace=6}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_up"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
+execute as @s[scores={cppOutputFace=1}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971041,id:"cpp:gui/all_in_one_machine/20"}
+execute as @s[scores={cppOutputFace=2}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971042,id:"cpp:gui/all_in_one_machine/20"}
+execute as @s[scores={cppOutputFace=3}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971043,id:"cpp:gui/all_in_one_machine/20"}
+execute as @s[scores={cppOutputFace=4}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971044,id:"cpp:gui/all_in_one_machine/20"}
+execute as @s[scores={cppOutputFace=5}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971045,id:"cpp:gui/all_in_one_machine/20"}
+execute as @s[scores={cppOutputFace=6}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971046,id:"cpp:gui/all_in_one_machine/20"}
+replaceitem block ~ ~ ~ container.23 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/23"}
+replaceitem block ~ ~ ~ container.24 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/24"}
+replaceitem block ~ ~ ~ container.25 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/25"}
+replaceitem block ~ ~ ~ container.26 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/26"}
+```
+
+当玩家点击按钮时，调整选项。
+
+`cpp/functions/all_in_one_machine/option/pressure.mcfunction`
 ```
 scoreboard players add @s cppPressure 1
 scoreboard players set @s[scores={cppPressure=3..}] cppPressure 0
 scoreboard players set @s[tag=!cpp_high_pressure,scores={cppPressure=2}] cppPressure 0
 scoreboard players set @s[tag=!cpp_low_pressure,scores={cppPressure=0}] cppPressure 1
+```
 
-execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971051}
-execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971052}
-execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.2 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.all_in_one_machine\"}"},CustomModelData:12971053}
+调整经验条的显示，我们使用告示牌来显示分数，然后转移到机器中。
 
-execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.low_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
-execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.normal_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
-execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.1 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.high_pressure\"}",Lore:["{\"translate\":\"lore.cpp.switch\"}"]},CustomModelData:12971000}
-```然后探测经验槽是否需要添加经验，若需要则将附魔之瓶转化为经验槽中的经验并切换材质。然后根据当前模式来分类
-cpp:all_in_one_machine/type/all
+`cpp/functions/all_in_one_machine/option/xp.mcfunction`
+```
+execute if score @s cppStoredxp matches ..39 if data block ~ ~ ~ Items[{Slot:6b,id:"minecraft:experience_bottle"}] run function cpp:all_in_one_machine/option/add_xp
+setblock ~ 255 ~ oak_sign
+scoreboard players operation #t cppValue = @s cppStoredxp
+data modify block ~ 255 ~ Text1 set value '[{"score":{"name":"#t","objective":"cppValue"},"color":"green","italic":"false"},{"text":"/48"}]'
+execute store result block ~ ~ ~ Items[{Slot:17b}].tag.CustomModelData int 1 run scoreboard players add #t cppValue 12972000
+data modify block ~ ~ ~ Items[{Slot:8b}].tag.display.Lore[0] set from block ~ 255 ~ Text1
+data modify block ~ ~ ~ Items[{Slot:17b}].tag.display.Lore[0] set from block ~ 255 ~ Text1
+data modify block ~ ~ ~ Items[{Slot:26b}].tag.display.Lore[0] set from block ~ 255 ~ Text1
+setblock ~ 255 ~ air
+```
+
+当经验栏经验不足且有附魔之瓶时，添加经验值。
+
+`cpp/functions/all_in_one_machine/option/add_xp.mcfunction`
+```
+execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:6b}].Count
+execute store result block ~ ~ ~ Items[{Slot:6b}].Count byte 1 run scoreboard players remove #temp cppValue 1
+scoreboard players add @s cppStoredxp 9
+```
+
+然后判断机器处是否有红石信号强充能。这里我们将元件分为方块标签：按钮拉杆、压力板、侦测器红石中继器红石比较器拌线钩，来判断。
+`cpp/functions/check_power.mcfunction`
+```
+tag @s remove cpp_redstone_powered
+execute if block ~ ~-1 ~ #cpp:lever_and_buttons[powered=true,face=ceiling] run tag @s add cpp_redstone_powered
+execute if block ~ ~-1 ~ #cpp:redstone_torchs[lit=true] run tag @s add cpp_redstone_powered
+execute if block ~ ~-1 ~ observer[powered=true,facing=down] run tag @s add cpp_redstone_powered
+
+execute if block ~ ~1 ~ #cpp:lever_and_buttons[powered=true,face=floor] run tag @s add cpp_redstone_powered
+execute if block ~ ~1 ~ #cpp:pressure_plates[powered=true] run tag @s add cpp_redstone_powered
+execute if block ~ ~1 ~ observer[powered=true,facing=up] run tag @s add cpp_redstone_powered
+
+execute if block ~1 ~ ~ #cpp:lever_and_buttons[powered=true,face=wall,facing=east] run tag @s add cpp_redstone_powered
+execute if block ~-1 ~ ~ #cpp:lever_and_buttons[powered=true,face=wall,facing=west] run tag @s add cpp_redstone_powered
+execute if block ~ ~ ~1 #cpp:lever_and_buttons[powered=true,face=wall,facing=south] run tag @s add cpp_redstone_powered
+execute if block ~ ~ ~-1 #cpp:lever_and_buttons[powered=true,face=wall,facing=north] run tag @s add cpp_redstone_powered
+
+execute if block ~1 ~ ~ #cpp:power_side[powered=true,facing=east] run tag @s add cpp_redstone_powered
+execute if block ~-1 ~ ~ #cpp:power_side[powered=true,facing=west] run tag @s add cpp_redstone_powered
+execute if block ~ ~ ~1 #cpp:power_side[powered=true,facing=south] run tag @s add cpp_redstone_powered
+execute if block ~ ~ ~-1 #cpp:power_side[powered=true,facing=north] run tag @s add cpp_redstone_powered
+```
+
+当机器未被强充能、有经验值、有输入物、输出栏空闲时，进入配方判断。这里我们根据要求的温度压强来分类。
+
+`cpp/functions/all_in_one_machine/type/all.mcfunction`
 ```
 execute as @s[scores={cppTemperature=0,cppPressure=0}] run function cpp:all_in_one_machine/type/ll
 execute as @s[scores={cppTemperature=0,cppPressure=1}] run function cpp:all_in_one_machine/type/ln
 execute as @s[scores={cppTemperature=0,cppPressure=2}] run function cpp:all_in_one_machine/type/lh
-execute as @s[scores={cppTemperature=1,cppPressure=0}] run function cpp:all_in_one_machine/type/nl
-execute as @s[scores={cppTemperature=1,cppPressure=1}] run function cpp:all_in_one_machine/type/nn
+execute as @s[scores={cppTemperature=1,cppPressure=0,cppStoredxp=4..}] run function cpp:all_in_one_machine/type/nl
+execute as @s[scores={cppTemperature=1,cppPressure=1,cppStoredxp=2..}] run function cpp:all_in_one_machine/type/nn
 execute as @s[scores={cppTemperature=1,cppPressure=2}] run function cpp:all_in_one_machine/type/nh
-execute as @s[scores={cppTemperature=2,cppPressure=0}] run function cpp:all_in_one_machine/type/hl
+execute as @s[scores={cppTemperature=2,cppPressure=0,cppStoredxp=4..}] run function cpp:all_in_one_machine/type/hl
 execute as @s[scores={cppTemperature=2,cppPressure=1}] run function cpp:all_in_one_machine/type/hn
-execute as @s[scores={cppTemperature=2,cppPressure=2}] run function cpp:all_in_one_machine/type/hh```然后探测物品是否满足要求，若满足则进行计时。计时完成且经验达标后执行下一步。
-cpp:all_in_one_machine/type/ln
+execute as @s[scores={cppTemperature=2,cppPressure=2,cppStoredxp=4..}] run function cpp:all_in_one_machine/type/hh
+# 接口
+function #cpp:all_in_one_machine
+execute unless data block ~ ~ ~ Items[{Slot:21b,tag:{id:"cpp:gui/all_in_one_machine/21"}}] run function cpp:all_in_one_machine/clear
+# 工作时进度条和外观
+execute as @s[scores={cppTick=1..}] run function cpp:all_in_one_machine/option/process
+data modify entity @s[tag=cpp_machine_work] ArmorItems[3].tag.CustomModelData set value 12971001
 ```
-execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:cobblestone_plugin"}}]} run scoreboard players set @s cppMacType 1
-execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:cobblestone_plugin"}}]} run scoreboard players set @s cppMacType 1
 
-execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:stone_plugin"}}]} run scoreboard players set @s cppMacType 2
-execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:stone_plugin"}}]} run scoreboard players set @s cppMacType 2
+显示进度条。这里我们预先计算了半个进度条的刻数，然后加到当前刻数，计算后取整出来的进度条更加准确。
 
-execute if block ~ ~ ~ barrel{Items:[{Slot:3b,id:"minecraft:lava_bucket"},{Slot:4b,tag:{id:"cpp:obsidian_plugin"}}]} run scoreboard players set @s cppMacType 3
-execute if block ~ ~ ~ barrel{Items:[{Slot:4b,id:"minecraft:lava_bucket"},{Slot:3b,tag:{id:"cpp:obsidian_plugin"}}]} run scoreboard players set @s cppMacType 4
-
-scoreboard players add @s[scores={cppMacType=1..2,cppStoredxp=1..}] cppTick 60
-scoreboard players add @s[scores={cppMacType=3..4,cppStoredxp=4..}] cppTick 6
-execute if entity @s[scores={cppMacType=1..2,cppStoredxp=1..}] if score @s cppTick >= #all_in_one_machine_cd cppValue run function cpp:all_in_one_machine/done
-execute if entity @s[scores={cppMacType=3..4,cppStoredxp=4..}] if score @s cppTick >= #all_in_one_machine_cd cppValue run function cpp:all_in_one_machine/done```分类输出朝向 cpp:all_in_one_machine/done
+`cpp/functions/all_in_one_machine/option/process.mcfunction`
 ```
-execute as @s[scores={cppOutpUTFace=1}] positioned ~1 ~ ~ run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=2}] positioned ~ ~ ~1 run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=3}] positioned ~-1 ~ ~ run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=4}] positioned ~ ~ ~-1 run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=5}] positioned ~ ~-1 ~ run function cpp:all_in_one_machine/to_chest
-execute as @s[scores={cppOutpUTFace=6}] positioned ~ ~1 ~ run function cpp:all_in_one_machine/to_chest
-
-execute as @s[scores={cppSlotsDown=26..}] run function cpp:all_in_one_machine/to_self
-
-scoreboard players reset @s cppSlotsDown
-scoreboard players reset @s cppTick```若相应位置可输出，则调整其包含的物品槽位，否则输出在机器内 cpp:all_in_one_machine/to_chest
+scoreboard players set #t cppValue 16
+scoreboard players operation #t cppValue *= @s cppTick
+scoreboard players operation #t cppValue += #process_pre cppValue
+scoreboard players operation #t cppValue /= #allInOneMachinePeriod cppValue
+execute store result block ~ ~ ~ Items[{Slot:12b}].tag.CustomModelData int 1 run scoreboard players add #t cppValue 12971020
 ```
-execute store result score @s cppSlotsDown run data get block ~ ~ ~ Items
-execute unless block ~ ~ ~ #cpp:container run scoreboard players set @s cppSlotsDown 27
 
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=0}] run function cpp:all_in_one_machine/dist/ll
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=1}] run function cpp:all_in_one_machine/dist/ln
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=0,cppPressure=2}] run function cpp:all_in_one_machine/dist/lh
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=0}] run function cpp:all_in_one_machine/dist/nl
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=1}] run function cpp:all_in_one_machine/dist/nn
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=1,cppPressure=2}] run function cpp:all_in_one_machine/dist/nh
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=0}] run function cpp:all_in_one_machine/dist/hl
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=1}] run function cpp:all_in_one_machine/dist/hn
-execute as @s[scores={cppSlotsDown=0..25,cppTemperature=2,cppPressure=2}] run function cpp:all_in_one_machine/dist/hh```最后输出物品到箱子内，并清除输入材料 cpp:all_in_one_machine/dist/ln
+最后我们将输出栏的物品输入到邻近的容器内。
+
+`cpp/functions/all_in_one_machine/dist21.mcfunction`
 ```
-scoreboard players remove @s[scores={cppMacType=1..2}] cppStoredxp 1
-scoreboard players remove @s[scores={cppMacType=3..4}] cppStoredxp 4
+data modify storage cpp:dist Item set from block ~ ~ ~ Items[{Slot:21b}]
+function cpp:dist/type
+data remove storage cpp:dist Item
+execute as @s[tag=cpp_dist_success] run replaceitem block ~ ~ ~ container.21 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/21"}
+```
 
-execute as @s[scores={cppMacType=1}] run loot insert ~ ~ ~ loot blocks/cobblestone
-execute as @s[scores={cppMacType=2}] run loot insert ~ ~ ~ loot cpp:items/stone
-execute as @s[scores={cppMacType=3..4}] run loot insert ~ ~ ~ loot blocks/obsidian
-execute as @s[scores={cppMacType=3..4}] run loot insert ~ ~ ~ loot cpp:items/bucket
+## §7.4 物品输出
+上一节我们调用了一个函数用于输出物品。
 
-execute at @s store result score #temp cppValue run data get block ~ ~ ~ Items[4].Count
-execute at @s as @s[scores={cppMacType=4}] store result block ~ ~ ~ Items[4].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute at @s store result score #temp cppValue run data get block ~ ~ ~ Items[3].Count
-execute at @s as @s[scores={cppMacType=3}] store result block ~ ~ ~ Items[3].Count byte 1 run scoreboard players remove #temp cppValue 1```
+`function cpp:dist/type`
+```
+execute as @s[scores={cppOutputFace=1}] positioned ~1 ~ ~ run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=2}] positioned ~ ~ ~1 run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=3}] positioned ~-1 ~ ~ run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=4}] positioned ~ ~ ~-1 run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=5}] positioned ~ ~-1 ~ run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=6}] positioned ~ ~1 ~ run function cpp:dist/pos
+```
 
-如果你擅长绘制UI的话，可以制作出很精美的UI。例如(https://www.youtube.com/watch?v=bv_wYNs5L6M]该视频]中：
-[img]http://attachment.mcbbs.net/forum/201807/10/112312zdtxrrt8tyfhunr8.png[/img]
-[img]http://attachment.mcbbs.net/forum/201807/10/112327brktztj6jrj11zrv.png[/img]
-均是采用物品材质绘制的。
+对于大箱子情形调整输出的位置。这里我们把容器、大箱子添加至方块标签中，将计算容器的栏位数添加为函数标签，以便于扩充。
 
-## §6 NBT 物品合成、烧炼与酿造
-### §6.1 地板合成
+`cpp/function/dist/pos.mcfunction`
+```
+tag @s remove cpp_dist_success
+execute store result score @s container run data get block ~ ~ ~ Items
+function #container:check
+execute unless block ~ ~ ~ #container:all run scoreboard players set @s container 0
+execute as @s[scores={container=..-1}] run summon area_effect_cloud ~ ~ ~ {Tags:["cpp_dist_pos"]}
+execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=east] positioned ~ ~ ~-1 run function cpp:dist/double
+execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=west] positioned ~ ~ ~1 run function cpp:dist/double
+execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=south] positioned ~1 ~ ~ run function cpp:dist/double
+execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=north] positioned ~-1 ~ ~ run function cpp:dist/double
+execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=left,facing=east] positioned ~ ~ ~1 run function cpp:dist/double
+execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=left,facing=west] positioned ~ ~ ~-1 run function cpp:dist/double
+execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=left,facing=south] positioned ~-1 ~ ~ run function cpp:dist/double
+execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=left,facing=north] positioned ~1 ~ ~ run function cpp:dist/double
+execute at @e[type=area_effect_cloud,tag=cpp_dist_pos] run function cpp:dist/dist
+```
+
+函数标签`#container:check`包括函数
+```
+execute if block ~ ~ ~ hopper run scoreboard players remove @s container 5
+execute if block ~ ~ ~ #container:slots9 run scoreboard players remove @s container 9
+execute if block ~ ~ ~ #container:slots27 run scoreboard players remove @s container 27
+```
+
+`cpp/functions/dist/double.mcfunction`
+```
+execute store result score @s container run data get block ~ ~ ~ Items
+scoreboard players remove @s container 27
+execute as @s[scores={container=..-1}] run summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["cpp_dist_pos"]}
+```
+
+最后使用潜影盒技巧输出。
+`cpp/functions/dist/dist.mcfunction`
+```
+tag @s add cpp_dist_success
+setblock ~ 255 ~ shulker_box
+data modify block ~ 255 ~ Items[{Slot:0b}] merge from storage cpp:dist Item
+loot insert ~ ~ ~ mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
+setblock ~ 255 ~ air
+kill @e[type=area_effect_cloud,tag=cpp_dist_pos,distance=..1,limit=1]
+```
+`minecraft/loot_tables/blocks/shulker_box.json`
+```
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:dynamic",
+							"name": "minecraft:contents",
+							"conditions": [
+								{
+									"condition": "minecraft:match_tool",
+									"predicate": {
+										"nbt":"{isShulkerMarker:1b}"
+									}
+								}
+							]
+						},
+						{
+							"type": "minecraft:item",
+							"functions": [
+								{
+									"function": "minecraft:copy_name",
+									"source": "block_entity"
+								},
+								{
+									"function": "minecraft:copy_nbt",
+									"source": "block_entity",
+									"ops": [
+										{
+											"source": "Lock",
+											"target": "BlockEntityTag.Lock",
+											"op": "replace"
+										},
+										{
+											"source": "LootTable",
+											"target": "BlockEntityTag.LootTable",
+											"op": "replace"
+										},
+										{
+											"source": "LootTableSeed",
+											"target": "BlockEntityTag.LootTableSeed",
+											"op": "replace"
+										}
+									]
+								},
+								{
+									"function": "minecraft:set_contents",
+									"entries": [
+										{
+											"type": "minecraft:dynamic",
+											"name": "minecraft:contents"
+										}
+									]
+								}
+							],
+							"name": "minecraft:shulker_box"
+						}
+					]
+				}
+			]
+		}
+	]
+}
+```
+
+## §7.5 配方处理
+首先我们以常温常压模式下使用肥料增殖农作物为例。
+
+`cpp/functions/all_in_one_machine/type/nn/fertilizer.mcfunction`
+```
+execute as @s[tag=!cpp_machine_work] if block ~ ~ ~ barrel{Items:[{id:"minecraft:wheat_seeds"}]} run function cpp:all_in_one_machine/type/nn/fertilizer_wheat_seeds
+execute as @s[tag=!cpp_machine_work] if block ~ ~ ~ barrel{Items:[{id:"minecraft:beetroot_seeds"}]} run function cpp:all_in_one_machine/type/nn/fertilizer_beetroot_seeds
+execute as @s[tag=!cpp_machine_work] if block ~ ~ ~ barrel{Items:[{id:"minecraft:carrot"}]} run function cpp:all_in_one_machine/type/nn/fertilizer_carrot
+```
+
+`cpp/functions/all_in_one_machine/type/nn/fertilizer_wheat_seeds.mcfunction`
+```
+tag @s add cpp_machine_work
+scoreboard players add @s cppTick 30
+execute if score @s cppTick >= #allInOneMachinePeriod cppValue run scoreboard players remove @s cppStoredxp 1
+execute if score @s cppTick >= #allInOneMachinePeriod cppValue run loot replace block ~ ~ ~ container.21 2 loot cpp:items/nn/fertilizer_wheat_seeds
+```
+
+这样，输出槽就产生了物品，然后通过上一节中相关函数命令，进入清理环节。
+
+`cpp/functions/all_in_one_machine/clear.mcfunction`
+```
+scoreboard players set @s cppTick 0
+execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:4b}].Count
+execute store result block ~ ~ ~ Items[{Slot:4b}].Count byte 1 run scoreboard players remove #temp cppValue 1
+execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:3b}].Count
+execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 1 run scoreboard players remove #temp cppValue 1
+```
+
+对于特殊的物品，例如药水、水桶等，我们可能希望能够返还玻璃瓶、桶等，此时我们需要进行额外的预处理。
+
+```
+execute if data block ~ ~ ~ Items[{id:"minecraft:water_bucket"}] run function cpp:crafting_machine/craft/clear/water_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:lava_bucket"}] run function cpp:crafting_machine/craft/clear/lava_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:milk_bucket"}] run function cpp:crafting_machine/craft/clear/milk_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:potion"}] run function cpp:crafting_machine/craft/clear/potion
+execute if data block ~ ~ ~ Items[{id:"minecraft:honey_bottle"}] run function cpp:crafting_machine/craft/clear/honey_bottle
+```
+
+我们通过计算单个堆叠和多个堆叠的栏位数，来得到该有多少玻璃瓶进入输出的容器。如果容器满了，计算进入玩家背包的数量，处理应当留下的数量。
+
+`cpp/functions/crafting_machine/craft/clear/honey_bottle.mcfunction`
+```
+data modify storage cpp:temp Items set from block ~ ~ ~ Items
+execute store result score #t1 cppValue run data remove storage cpp:temp Items[{id:"minecraft:honey_bottle",Count:1b}]
+execute store result score #t2 cppValue run data remove storage cpp:temp Items[{id:"minecraft:honey_bottle"}]
+
+data modify storage cpp:dist Item set value {id:"minecraft:glass_bottle",Count:1b}
+execute store result storage cpp:dist Item.Count byte 1 run scoreboard players operation #t1 cppValue += #t2 cppValue
+function cpp:dist
+data remove storage cpp:dist Item
+
+execute as @s[tag=!cpp_dist_success] run data remove block ~ ~ ~ Items[{id:"minecraft:honey_bottle",Count:1b}].tag
+execute as @s[tag=!cpp_dist_success] if data block ~ ~ ~ Items[{id:"minecraft:honey_bottle",Count:1b}] run data modify block ~ ~ ~ Items[{id:"minecraft:honey_bottle",Count:1b}] merge value {id:"minecraft:glass_bottle",Count:2b}
+execute as @s[tag=!cpp_dist_success] run setblock ~ 255 ~ shulker_box{Items:[{Slot:0b,Count:1b,id:"minecraft:glass_bottle"}]}
+execute as @s[tag=!cpp_dist_success] store result block ~ 255 ~ Items[0].Count byte 1 run scoreboard players get #t2 cppValue
+execute as @s[tag=!cpp_dist_success] run loot give @p mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
+execute as @s[tag=!cpp_dist_success] run setblock ~ 255 ~ air
+```
+
+## §7.6 插件
+前面我们提到机器有多种模式，包括温度和压强的调整。我们可以要求玩家使用特定物品插件shift右击机器来安装。插件原型为胡萝卜钓竿。
+
+我们省略副手情形的处理。
+
+`cpp/functions/tick.mcfunction`
+```
+execute as @a[scores={cppUseCSt=1..}] run function cpp:use_cst/type
+```
+`cpp/functions/use_cst/type.mcfunction`
+```
+execute as @s[nbt={SelectedItem:{id:"minecraft:carrot_on_a_stick"}}] run function cpp:use_cst/mainhand
+execute as @s[nbt=!{SelectedItem:{id:"minecraft:carrot_on_a_stick"}}] run function cpp:use_cst/offhand
+scoreboard players reset @s cppUseCSt
+```
+`cpp/functions/use_cst/mainhand.mcfunction`
+```
+execute as @s[nbt={SelectedItem:{tag:{MachinePlugin:1b}}}] at @a anchored eyes run function cpp:all_in_one_machine/ray
+```
+`cpp/functions/all_in_one_machine/ray.mcfunction`
+```
+execute as @s[distance=..6] if block ~ ~ ~ barrel align xyz positioned ~0.5 ~ ~0.5 run function cpp:all_in_one_machine/install
+execute as @s[distance=..6] unless block ~ ~ ~ barrel positioned ^ ^ ^0.005 anchored feet run function cpp:all_in_one_machine/ray
+```
+`cpp/functions/all_in_one_machine/install.mcfunction`
+```
+execute as @s[nbt=!{SelectedItem:{tag:{MachinePlugin:1b}}}] run function cpp:all_in_one_machine/install/off
+execute as @s[nbt={SelectedItem:{tag:{MachinePlugin:1b}}}] run function cpp:all_in_one_machine/install/main
+```
+`cpp/functions/all_in_one_machine/install/main.mcfunction`
+```
+execute as @s[nbt={SelectedItem:{tag:{id:"cpp:high_pressure_plugin"}}}] if entity @e[type=armor_stand,nbt={ArmorItems:[{},{},{},{tag:{id:"cpp:all_in_one_machine"}}]},distance=..0.5,limit=1,tag=!cpp_high_pressure] run function cpp:all_in_one_machine/install/hp
+
+execute as @s[nbt={SelectedItem:{tag:{id:"cpp:low_pressure_plugin"}}}] if entity @e[type=armor_stand,nbt={ArmorItems:[{},{},{},{tag:{id:"cpp:all_in_one_machine"}}]},distance=..0.5,limit=1,tag=!cpp_low_pressure] run function cpp:all_in_one_machine/install/lp
+
+execute as @s[nbt={SelectedItem:{tag:{id:"cpp:high_temperature_plugin"}}}] if entity @e[type=armor_stand,nbt={ArmorItems:[{},{},{},{tag:{id:"cpp:all_in_one_machine"}}]},distance=..0.5,limit=1,tag=!cpp_high_temperature] run function cpp:all_in_one_machine/install/ht
+
+execute as @s[nbt={SelectedItem:{tag:{id:"cpp:low_temperature_plugin"}}}] if entity @e[type=armor_stand,nbt={ArmorItems:[{},{},{},{tag:{id:"cpp:all_in_one_machine"}}]},distance=..0.5,limit=1,tag=!cpp_low_temperature] run function cpp:all_in_one_machine/install/lt
+```
+`cpp/functions/all_in_one_machine/install/hp.mcfunction`
+```
+tellraw @s [{"translate":"info.cpp.high_pressure_plugin"}]
+tag @e[type=armor_stand,nbt={ArmorItems:[{},{},{},{tag:{id:"cpp:all_in_one_machine"}}]},distance=..0.5,limit=1,tag=!cpp_high_pressure] add cpp_high_pressure
+replaceitem entity @s[gamemode=!creative,nbt=!{SelectedItem:{tag:{MachinePlugin:1b}}}] weapon.offhand air
+replaceitem entity @s[gamemode=!creative,nbt={SelectedItem:{tag:{MachinePlugin:1b}}}] weapon.mainhand air
+```
+
+## §7.7 容器扩展
+## §7.8 接口
+## §7.9 管道
+## §7.10 物流
+
+
+## §8 NBT 物品合成、烧炼与酿造
+### §8.1 地板合成
 将物品扔在地面进行合成，是模组配方数量少时采用的一种便捷做法。优点是无需设计 `GUI`。
 
 例：将磁铁(`id:"cpp:magnet"`)和4个钻石合成为充能指南针(`id:"cpp:powered_magnet"`)
@@ -1629,7 +2389,7 @@ kill @s
 summon item ~ ~ ~ {Item:{id:"minecraft:compass",Count:1b,tag:{id:"cpp:powered_magnet"}}}
 ```
 
-### §6.2 实体背包合成
+### §8.2 实体背包合成
 利用玩家的背包、末影箱、箱子矿车、驴等生物的背包用于合成，也是一种较为便捷的方式，不受方块的限制。
 
 由于玩家的 NBT 难以修改，玩家背包和末影箱并不便于合成处理，而且一般只能用于有序合成。其它情形可以通过不指定`Slot`来实现无序合成。
@@ -1678,7 +2438,7 @@ replaceitem entity @s inventory.15 minecraft:air
 replaceitem entity @s inventory.17 minecraft:air
 ```
 
-### §6.3 容器合成
+### §8.3 容器合成
 使用投掷器、箱子等容器可以更为便捷地实现合成。
 可选的输出方式有：弹出、输出在原页面(投掷器)、输出在空余槽位(箱子)、输出到其它容器。
 
@@ -1816,7 +2576,7 @@ execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:0
 execute store result block ~ ~ ~ Items[{Slot:0b}].Count byte 1 run scoreboard players remove #temp cppValue 1
 ```
 
-### §6.4 GUI 设计
+### §8.4 GUI 设计
 我们可以使用桶而非投掷器来实现，同时我们设计 GUI 来使得合成页面更为美观。
 
 例如：使用桶(合成器 `id:"cpp:crafting_machine"`)合成并在页面内得到产物。
