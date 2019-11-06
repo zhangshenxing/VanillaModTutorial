@@ -1285,7 +1285,6 @@ give @s minecraft:filled_map{map:10000}
 ### §4.5 发布
 当你设计并制作好全部内容且通过测试后，将你的数据包以及其它可能的内容，如地图、`data`文件、资源包等一同发布。采用合适的版本号管理，并在发布时注明你所使用的命名空间、记分板、组、标签、地图区段、资源包等内容，以便于其他开发者整合或避免冲突。
 
-[page]
 
 ## §5 方块设计
 
@@ -1599,8 +1598,6 @@ kill @s
     }
 }
 ```
-
-[page]
 
 ## §6 合成与烧炼配方
 ### §6.1 语法
@@ -2900,7 +2897,7 @@ tag @s add cpp_tpback```配合战利品表还可方便地实现随机合成。
 
 
 如果我们希望合成需要一定的时长，我们可以添加一个记分板，然后每刻对相应的实体分数+1，最后操作达到指定分数的实体，并重置分数。计时在制作机器时几乎是必需的。总之合成方式可以有千万种做法，选择一种适合自己模组的即可。
-[page]    
+
 ### ### §6 ## 烧炼和酿造
 ### §6.1 ### 原版烧炼
 ### ### §6.2 自定义烧炼
@@ -3079,7 +3076,7 @@ execute as @s[scores={cppSlotsDown=3}] store result score @s cppCount run data g
 execute as @s[scores={cppSlotsDown=3}] store result block ~ ~ ~ Items[3].Count byte 1 run scoreboard players remove @s cppCount 1
 tag @s remove cpp_potion_of_long```加强、喷溅、滞留版本的方法类似，这里省略了。
 
-[page]    
+
 ### §7 ## 交易
 在RPG模组中，使用村民交易是一种常见的特殊物品获得方式。需要注意的是，如果不希望交易产生经验值，需将rewardExp设置为0b，例如
 ```
@@ -3216,7 +3213,6 @@ execute store result entity @s Offers.Recipes[11].buy.Count byte 1 run scoreboar
 scoreboard players reset @s tppRandom
 ```这里的random函数采用的是(http://www.mcbbs.net/thread-706030-1-4.html]2b的random(min,max)随机模块]。
 
-[page]    
 ### §8 ## 探测与触发
 ### ### §8.1 右击可投掷物
 如果物品为喷溅、投掷药水、弓、雪球、鸡蛋、末影珍珠、末影之眼(有条件)，则右键后探测相应投射物并触发函数即可。如果是胡萝卜钓竿，则可由相应记分板判据探测。
@@ -3433,7 +3429,6 @@ tag @s remove cpp_rituals_item
 tag @s remove cpp_rituals_item_power
 tag @s remove cpp_rituals_ticks```如果容器无需打开交互，则可直接为方块物品添加BlockEntityTag:{Lock:"zsx<3wtt"}这种nbt来锁住，可避免采用上述tp玩家至远处来强行关闭GUI。
 
-[page]
 ## ## ### §10 随机结构
 **例** 世界生成时，随机生成羊毛树。
 
@@ -3504,7 +3499,6 @@ execute if score #generate_modcrops cppValue matches 1.. as @s[nbt={Item:{tag:{i
 kill @s
 ```生成羊毛树部分略。
 
-[page]
 ## ## ### §11 种植
 **例** 种植铁种子，收获种子和铁锭，可由骨粉催熟。
 
@@ -3543,7 +3537,6 @@ execute as @s[tag=cpp_iron_seeds] as @e[type=item,nbt={Item:{id:"minecraft:beetr
 
 实际上，我们也可以通过盔甲架手持物品来实现自定义材质的作物。
 
-[page]
 ## ## ### §12 连锁挖矿
 
 加载
@@ -3658,7 +3651,6 @@ kill @e[type=item,nbt={Item:{tag:{isRdMark:1b}}},distance=..1,limit=1]```
 ```
 
 
-[page]
 ## §13 磁力效果
 核心部分：将物品的Motion修改为玩家的坐标减去物品的坐标即可。
 ```
