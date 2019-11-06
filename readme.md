@@ -8,98 +8,98 @@
 ## 目录
 
 + [§1 简介](#1-简介)
-	+ [§1.1 新人指引](#11-新人指引)
-	+ [§1.2 工具准备](#12-工具准备)
-	+ [§1.3 文件类型](#13-文件类型)
-	+ [§1.4 文件结构](#14-文件结构)
+    + [§1.1 新人指引](#11-新人指引)
+    + [§1.2 工具准备](#12-工具准备)
+    + [§1.3 文件类型](#13-文件类型)
+    + [§1.4 文件结构](#14-文件结构)
 + [§2 数据包](#2-数据包)
-	+ [§2.1 pack.mcmeta](#21-packmcmeta)
-	+ [§2.2 命名空间](#22-命名空间)
-	+ [§2.3 进度](#23-进度)
-	+ [§2.4 函数](#24-函数)
-	+ [§2.5 战利品表](#25-战利品表)
-	+ [§2.6 断言](#26-断言)
-	+ [§2.7 配方](#27-配方)
-	+ [§2.8 结构](#28-结构)
-	+ [§2.9 标签](#29-标签)
+    + [§2.1 pack.mcmeta](#21-packmcmeta)
+    + [§2.2 命名空间](#22-命名空间)
+    + [§2.3 进度](#23-进度)
+    + [§2.4 函数](#24-函数)
+    + [§2.5 战利品表](#25-战利品表)
+    + [§2.6 断言](#26-断言)
+    + [§2.7 配方](#27-配方)
+    + [§2.8 结构](#28-结构)
+    + [§2.9 标签](#29-标签)
 + [§3 资源包](#3-资源包)
-	+ [§3.1 pack.mcmeta 和 pack.png](#31-packmcmeta-和-packpng)
-	+ [§3.2 命名空间](#32-命名空间)
-	+ [§3.3 语言文件](#33-语言文件)
-	+ [§3.4 CustomModelData 物品模型](#34-CustomModelData-物品模型)
-	+ [§3.5 模型](#35-模型)
-	+ [§3.6 材质](#36-材质)
-	+ [§3.7 声音](#37-声音)
-	+ [§3.8 字体](#38-字体)
-	+ [§3.9 着色器](#39-着色器)
+    + [§3.1 pack.mcmeta 和 pack.png](#31-packmcmeta-和-packpng)
+    + [§3.2 命名空间](#32-命名空间)
+    + [§3.3 语言文件](#33-语言文件)
+    + [§3.4 CustomModelData 物品模型](#34-CustomModelData-物品模型)
+    + [§3.5 模型](#35-模型)
+    + [§3.6 材质](#36-材质)
+    + [§3.7 声音](#37-声音)
+    + [§3.8 字体](#38-字体)
+    + [§3.9 着色器](#39-着色器)
 + [§4 模组规划和物品设计](#4-模组规划和物品设计)
-	+ [§4.1 名称设计](#41-名称设计)
-	+ [§4.2 调试](#42-调试)
-	+ [§4.3 前置与附属](#43-前置与附属)
-	+ [§4.4 物品设计](#44-物品设计)
-	+ [§4.5 发布](#45-发布)
+    + [§4.1 名称设计](#41-名称设计)
+    + [§4.2 调试](#42-调试)
+    + [§4.3 前置与附属](#43-前置与附属)
+    + [§4.4 物品设计](#44-物品设计)
+    + [§4.5 发布](#45-发布)
 + [§5 方块设计](#5-方块设计)
-	+ [§5.1 视线追踪法](#51-视线追踪法)
-	+ [§5.2 计算交点法](#52-计算交点法)
-	+ [§5.3 破坏事件](#53-破坏事件)
-	+ [§5.4 模型设置](#54-模型设置)
+    + [§5.1 视线追踪法](#51-视线追踪法)
+    + [§5.2 计算交点法](#52-计算交点法)
+    + [§5.3 破坏事件](#53-破坏事件)
+    + [§5.4 模型设置](#54-模型设置)
 + [§6 合成与烧炼配方](#6-合成与烧炼配方)
-	+ [§6.1 语法](#61-语法)
-	+ [§6.2 有序合成](#62-有序合成)
-	+ [§6.3 无序合成](#63-无序合成)
-	+ [§6.4 切石机配方](#64-切石机配方)
-	+ [§6.5 烧炼配方](#65-烧炼配方)
-	+ [§6.6 覆盖原版配方](#66-覆盖原版配方)
+    + [§6.1 语法](#61-语法)
+    + [§6.2 有序合成](#62-有序合成)
+    + [§6.3 无序合成](#63-无序合成)
+    + [§6.4 切石机配方](#64-切石机配方)
+    + [§6.5 烧炼配方](#65-烧炼配方)
+    + [§6.6 覆盖原版配方](#66-覆盖原版配方)
 + [§7 机器设计](#7-机器设计)
-	+ [§7.1 GUI 材质模型](#71-GUI-材质模型)
-	+ [§7.2 GUI 背景处理](#72-GUI-背景处理)
-	+ [§7.3 GUI 命令](#73-GUI-命令)
-	+ [§7.4 物品输出](#74-物品输出)
-	+ [§7.5 配方处理](#75-配方处理)
-	+ [§7.6 插件](#76-插件)
-	+ [§7.7 容器扩展](#77-容器扩展) (WIP)
-	+ [§7.8 接口](#78-接口) (WIP)
-	+ [§7.9 管道](#79-管道) (WIP)
-	+ [§7.10 物流](#710-物流) (WIP)
+    + [§7.1 GUI 材质模型](#71-GUI-材质模型)
+    + [§7.2 GUI 背景处理](#72-GUI-背景处理)
+    + [§7.3 GUI 命令](#73-GUI-命令)
+    + [§7.4 物品输出](#74-物品输出)
+    + [§7.5 配方处理](#75-配方处理)
+    + [§7.6 插件](#76-插件)
+    + [§7.7 容器扩展](#77-容器扩展) (WIP)
+    + [§7.8 接口](#78-接口) (WIP)
+    + [§7.9 管道](#79-管道) (WIP)
+    + [§7.10 物流](#710-物流) (WIP)
 + [§8 NBT 物品合成、烧炼与酿造](#8-NBT-物品合成、烧炼与酿造) (WIP)
-	+ [§8.1 地板合成](#81-地板合成)
-	+ [§8.2 实体背包合成](#81-实体背包合成)
-	+ [§8.3 容器合成](#81-容器合成)
+    + [§8.1 地板合成](#81-地板合成)
+    + [§8.2 实体背包合成](#81-实体背包合成)
+    + [§8.3 容器合成](#81-容器合成)
 + [§9 探测与触发](#9-探测与触发) (WIP)
-	+ [§9.1 胡萝卜钓竿](#91-胡萝卜钓竿)
-	+ [§9.2 投掷物](#92-投掷物)
-	+ [§9.3 装备效果](#93-装备效果)
-	+ [§9.4 方块交互](#94-方块交互)
+    + [§9.1 胡萝卜钓竿](#91-胡萝卜钓竿)
+    + [§9.2 投掷物](#92-投掷物)
+    + [§9.3 装备效果](#93-装备效果)
+    + [§9.4 方块交互](#94-方块交互)
 + [§10 植物和食物](#10-植物和食物) (WIP)
-	+ [§10.1 作物](#101-作物)
-	+ [§10.2 花草](#102-花草)
-	+ [§10.3 树](#103-树)
-	+ [§10.4 食物](#104-食物)
-	+ [§10.5 药水](#105-药水)
+    + [§10.1 作物](#101-作物)
+    + [§10.2 花草](#102-花草)
+    + [§10.3 树](#103-树)
+    + [§10.4 食物](#104-食物)
+    + [§10.5 药水](#105-药水)
 + [§11 实体操作](#10-实体操作) (WIP)
-	+ [§11.1 交易](#111-交易)
-	+ [§11.2 移动](#112-移动)
-	+ [§11.3 传送](#113-传送)
-	+ [§11.4 随机物品](#114-随机物品)
+    + [§11.1 交易](#111-交易)
+    + [§11.2 移动](#112-移动)
+    + [§11.3 传送](#113-传送)
+    + [§11.4 随机物品](#114-随机物品)
 + [§12 方块操作](#12-方块操作) (WIP)
-	+ [§11.1 方块放置](#121-方块放置)
-	+ [§11.2 填充](#122-填充)
-	+ [§11.3 自动种植](#123-自动种植)
-	+ [§11.4 连锁挖矿](#124-连锁挖矿)
+    + [§11.1 方块放置](#121-方块放置)
+    + [§11.2 填充](#122-填充)
+    + [§11.3 自动种植](#123-自动种植)
+    + [§11.4 连锁挖矿](#124-连锁挖矿)
 + [§13 世界生成](#13-世界生成) (WIP)
-	+ [§13.1 随机结构](#131-随机结构)
-	+ [§13.2 水处理](#132-水处理)
-	+ [§13.3 下界处理](#133-下界处理)
-	+ [§13.4 维度模拟](#134-维度模拟)
+    + [§13.1 随机结构](#131-随机结构)
+    + [§13.2 水处理](#132-水处理)
+    + [§13.3 下界处理](#133-下界处理)
+    + [§13.4 维度模拟](#134-维度模拟)
 + [§14 绘画与颗粒](#14-绘画与颗粒) (WIP)
-	+ [§14.1 绘制图案](#141-绘制图案)
-	+ [§14.2 颗粒](#142-颗粒)
+    + [§14.1 绘制图案](#141-绘制图案)
+    + [§14.2 颗粒](#142-颗粒)
 + [§15 算法与数据结构](#15-算法与数据结构) (WIP)
-	+ [§15.1 数组](#151-数组)
-	+ [§15.2 循环](#152-循环)
-	+ [§15.3 递归](#153-递归)
-	+ [§15.4 位运算](#154-位运算)
-	+ [§15.5 种子操作](#155-种子操作)
+    + [§15.1 数组](#151-数组)
+    + [§15.2 循环](#152-循环)
+    + [§15.3 递归](#153-递归)
+    + [§15.4 位运算](#154-位运算)
+    + [§15.5 种子操作](#155-种子操作)
 
 ## §1 简介
 原版模组(vanilla mod)一般指在不修改Minecraft游戏本体的前提下，通过命令方块、一键命令(OOC)、数据包(datapack)、资源包(resourcepack)等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。然而纵观论坛，原版模组仍然不够繁荣。因此我将为首次接触此概念的玩家做一个简单的入门，以期抛砖引玉。
@@ -112,13 +112,13 @@
 本文并非命令的入门教程，不会对命令部分做过多的详解。若你对命令尚不了解，可先依次通过如下链接学习并了解：
 
 + **命令手册**
-	+ [命令 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/%E5%91%BD%E4%BB%A4)
-	+ [新人手册-MC命令方块资源](https://commandtutorials.neocities.org/)
-	+ [命令进阶](http://mc-command.oschina.io/command-tutorial/)
+    + [命令 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/%E5%91%BD%E4%BB%A4)
+    + [新人手册-MC命令方块资源](https://commandtutorials.neocities.org/)
+    + [命令进阶](http://mc-command.oschina.io/command-tutorial/)
 + **记分板和nbt手册**
-	+ [记分板 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/%E8%AE%B0%E5%88%86%E6%9D%BF)
-	+ [区块格式 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/%E5%8C%BA%E5%9D%97%E6%A0%BC%E5%BC%8F)
-	+ [Player.dat格式 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/Player.dat%E6%A0%BC%E5%BC%8F)
+    + [记分板 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/%E8%AE%B0%E5%88%86%E6%9D%BF)
+    + [区块格式 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/%E5%8C%BA%E5%9D%97%E6%A0%BC%E5%BC%8F)
+    + [Player.dat格式 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/Player.dat%E6%A0%BC%E5%BC%8F)
 
 可先熟悉各项命令后，再学习记分板和nbt相关命令。实体和方块nbt亦可通过在游戏中使用`data get entity/block`命令来获取，以避免记忆大量的nbt。
 
@@ -135,10 +135,10 @@
 我们所涉及的所有文本文件，包括函数文件(.mcfunction)、JSON文件(.json, .mcmeta)，均需使用 `UTF-8` 编码格式。以下列出的文本编辑器默认均为 `UTF-8` 编码，可以在编辑页面的右下角状态栏看到。
 
 + **[VS Code](https://code.visualstudio.com/)** 下载安装后，可以安装如下插件：
-	+ *Chinese (Simplified) Language Pack for Visual Studio Code* 支持中文语言
-	+ *datapack helper plus (JSON)* 支持 JSON 语法补全，高亮等
-	+ *language-mcfunction* 支持 mcfunction 语法和高亮
-	+ *mcfunction* 支持 mcfunction 语法和高亮
+    + *Chinese (Simplified) Language Pack for Visual Studio Code* 支持中文语言
+    + *datapack helper plus (JSON)* 支持 JSON 语法补全，高亮等
+    + *language-mcfunction* 支持 mcfunction 语法和高亮
+    + *mcfunction* 支持 mcfunction 语法和高亮
 + **记事本** 为 Windows 系统自带。Windows10 最新版本的记事本已经默认是 `UTF-8` 编码了。点击`查看->状态栏`可以在右下角状态栏看到，因此可以正常使用。旧版本的记事本仍然不是，请勿使用。
 + **[Notepad++](https://notepad-plus-plus.org/)**
 可从 [mcfunction 的语言样式和自动补全](http://www.mcbbs.net/thread-806816-1-1.html)帖中下载相关文件并导入，另外请将 Notepad++ 中`设置->首选项->其它->自动检测字符编码`选项关闭。
@@ -185,19 +185,19 @@ jar 文件可以通过重命名为 zip 文件直接用 Windows 资源管理器�
 ![](https://i.loli.net/2018/08/03/5b63c978482ce.png)
 
 + `saves` 地图存档，我们从网上下载的地图一般就是解压到该文件夹。
-	+ `advancements` 玩家进度和完成时间。
-	+ `playerdata` 玩家属性，可修改玩家的位置、复活点、飞行速度等。
-	+ `stats` 玩家统计信息。
-	+ `data` 地图、记分板、村庄等内容。
-		+ `idcounts.dat` 记录了当前已使用的地图数量，修改后新打开的空地图会以此开始计数，这可以避免模组自定义的地图被玩家无意修改。
-		+ `map_数字.dat` 相应的地图信息。
-		+ `scoreboard.dat` 记分板、记分板的值、组。
-		+ `command_storage_命名空间` 存取玩家自定义存储区 (storage) 的nbt。
-		+ `village, stronghold, mineshaft, raids` 村庄、要塞、废弃矿井、袭击的信息。
-	+ `datapacks` 数据包文件夹，每个子文件夹或 zip 对应一个数据包。
-	+ `DIM1、DIM-1、region` 末地、下界和主世界的区块信息。.mca文件可用 nbtexplorer 打开并修改相应的区块内容，但是极为不便。建议使用 mcedit 等工具来编辑。
-	+ `level.dat` 世界信息，包含了种子、生成类型、难度、出生点、世界边界、游戏规则等内容。
-	+ `generated` 手动保存的结构，保存后将其移动至数据包内方可使用。
+    + `advancements` 玩家进度和完成时间。
+    + `playerdata` 玩家属性，可修改玩家的位置、复活点、飞行速度等。
+    + `stats` 玩家统计信息。
+    + `data` 地图、记分板、村庄等内容。
+        + `idcounts.dat` 记录了当前已使用的地图数量，修改后新打开的空地图会以此开始计数，这可以避免模组自定义的地图被玩家无意修改。
+        + `map_数字.dat` 相应的地图信息。
+        + `scoreboard.dat` 记分板、记分板的值、组。
+        + `command_storage_命名空间` 存取玩家自定义存储区 (storage) 的nbt。
+        + `village, stronghold, mineshaft, raids` 村庄、要塞、废弃矿井、袭击的信息。
+    + `datapacks` 数据包文件夹，每个子文件夹或 zip 对应一个数据包。
+    + `DIM1、DIM-1、region` 末地、下界和主世界的区块信息。.mca文件可用 nbtexplorer 打开并修改相应的区块内容，但是极为不便。建议使用 mcedit 等工具来编辑。
+    + `level.dat` 世界信息，包含了种子、生成类型、难度、出生点、世界边界、游戏规则等内容。
+    + `generated` 手动保存的结构，保存后将其移动至数据包内方可使用。
 
 ![](https://i.loli.net/2018/08/03/5b63ca2a6698d.png)
 
@@ -205,21 +205,21 @@ jar 文件可以通过重命名为 zip 文件直接用 Windows 资源管理器�
 数据包文件层次为
 ```
 datapacks
-	数据包名称或数据包名称.zip
-		pack.mcmeta
-		data
-			命名空间
-				advancements
-				functions
-				loot_tables
-				recipes
-				structures
-				tags
-					blocks
-					items
-					fluids
-					functions
-					entity_types
+    数据包名称或数据包名称.zip
+        pack.mcmeta
+        data
+            命名空间
+                advancements
+                functions
+                loot_tables
+                recipes
+                structures
+                tags
+                    blocks
+                    items
+                    fluids
+                    functions
+                    entity_types
 ```
 `data` 下所有文件和文件夹需使用小写英文、数字或-,_来命名，**不可使用大写字母**，所有文本文件使用 `UTF-8` 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。
 
@@ -232,23 +232,23 @@ datapacks
 进度、战利品表、标签、模型、语言文件、断言、配方均为 JSON 格式文件。JSON 文件包括一对根括号{}，包含类似 `"abc":"def"` (`键:值`)的对。相同的键后者会覆盖前者。键为需引号圈住的字符串，值可以为
 
 + **布尔型** 例如 
-	+ `"is_on_fire": false` 
-	+ `"is_baby": true`
+    + `"is_on_fire": false` 
+    + `"is_baby": true`
 + **数值** 例如 
-	+ `"count": 2`
-	+ `"chance": 0.025`
+    + `"count": 2`
+    + `"chance": 0.025`
 + **字符串** 使用双引号圈住，可以使用颜色代码如§6、换行符\n。例如 
-	+ `"item": "minecraft:shears"`
-	+ `"condition": "minecraft:match_tool"`
-	+ `"layer0": "cpp:crop/bauhinia_seeds"`
-	+ `"description": "§6更多的合成 1.10\n§6by ruhuasiyu"`
+    + `"item": "minecraft:shears"`
+    + `"condition": "minecraft:match_tool"`
+    + `"layer0": "cpp:crop/bauhinia_seeds"`
+    + `"description": "§6更多的合成 1.10\n§6by ruhuasiyu"`
 + **列表** 使用中括号圈住，例如 
-	+ `"chances": [0.05, 0.0625, 0.083333336, 0.1]`
-	+ `"items": [{"item": "minecraft:zombie_head"}, {"item": "minecraft:skeleton_skull"}, {"item": minecraft:wither_skeleton_skull"}, {"item": "minecraft:creeper_head"}]`
-	+ `"requirements":[["wing_of_sky", "heart_of_crystal", "nova_of_fire"]]`
+    + `"chances": [0.05, 0.0625, 0.083333336, 0.1]`
+    + `"items": [{"item": "minecraft:zombie_head"}, {"item": "minecraft:skeleton_skull"}, {"item": minecraft:wither_skeleton_skull"}, {"item": "minecraft:creeper_head"}]`
+    + `"requirements":[["wing_of_sky", "heart_of_crystal", "nova_of_fire"]]`
 + **JSON 对象** 使用大括号圈住，例如
-	+ `"count": { "min": 1, "max": 2 }`
-	+ `"modifiers": [{"name": "legs_armor", "attribute": "generic.armor", "operation": "addition", "amount": 4, "slot": "legs" }]`
+    + `"count": { "min": 1, "max": 2 }`
+    + `"modifiers": [{"name": "legs_armor", "attribute": "generic.armor", "operation": "addition", "amount": 4, "slot": "legs" }]`
 
 编写时，使用空格或制表符(Tab)缩进，以便于查看括号匹配和层次。`.mcmeta` 文件也是 JSON 文件，所以格式是相同的。
 
@@ -258,10 +258,10 @@ wiki 上有关页面使用了 NBT 的数据类型标注，但其实并不适用�
 Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的。例：
 ```
 {
-	"pack": {
-		"pack_format": 4,
-		"description": "§6数据包名称\n§a简要介绍 §6by 某某作者"
-	}
+    "pack": {
+        "pack_format": 4,
+        "description": "§6数据包名称\n§a简要介绍 §6by 某某作者"
+    }
 }
 ```
 + `pack_format` 为数据包版本，必须为4。
@@ -292,37 +292,37 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 例：
 ```
 {
-	"display": {
-		"icon": {
-			"item": "minecraft:carrot_on_a_stick",
-			"nbt": "{CustomModelData:10}"
-		},
-		"title":{
-			"translate": "advancements.cpp.root.title"
-		},
-		"description": {
-			"translate": "advancements.cpp.root.description"
-		},
-		"frame": "goal",
-		"background": "cm:bg.png"
-	},
-	"criteria": {
-		"dream_wand": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions":{
-				"items":[
-					{
-						"nbt":"{id:\"cpp:dream_wand\"}"
-					}
-				]
-			}
-		}
-	},
-	"rewards": {
-		"function": "cpp:adv/root",
-		"recipes": ["minecraft:crafting_table","cpp:strange_block"],
-		"experience": 200
-	}
+    "display": {
+        "icon": {
+            "item": "minecraft:carrot_on_a_stick",
+            "nbt": "{CustomModelData:10}"
+        },
+        "title":{
+            "translate": "advancements.cpp.root.title"
+        },
+        "description": {
+            "translate": "advancements.cpp.root.description"
+        },
+        "frame": "goal",
+        "background": "cm:bg.png"
+    },
+    "criteria": {
+        "dream_wand": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions":{
+                "items":[
+                    {
+                        "nbt":"{id:\"cpp:dream_wand\"}"
+                    }
+                ]
+            }
+        }
+    },
+    "rewards": {
+        "function": "cpp:adv/root",
+        "recipes": ["minecraft:crafting_table","cpp:strange_block"],
+        "experience": 200
+    }
 }
 ```
 
@@ -337,9 +337,9 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 
 具体含义为
 + `display` 进度的样式。若无，则该进度不会出现在进度页面。
-	+ `icon` 进度的图标。
-	+ `item` 图标物品名称。
-	+ `nbt` 图标物品 `nbt`，物品的材质模型可能会根据 `nbt` 不同而不同。
+    + `icon` 进度的图标。
+    + `item` 图标物品名称。
+    + `nbt` 图标物品 `nbt`，物品的材质模型可能会根据 `nbt` 不同而不同。
 + `title` 进度的名称，可以是单个的字符串或一个 raw json 对象，样例中 `translate` 文本是会随着语言改变的文本，参考[§3 资源包](#3-资源包)。
 + `description` 进度的描述，和进度的名称格式相同。
 + `frame` 进度的类型，分为 `task`(任务 方形边框)，`challenge`(挑战 尖形边框)，`goal`(目标 圆形边框)。
@@ -348,10 +348,10 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 + `criteria` 判据，其下为判据名称、触发器和触发器的条件。判据可以有多个。
 + `requirements` 判据的条件格式，缺省时默认所有条件都需要满足。格式为一些或的与(合取范式)，例如 `"requirements": [["a","b"],["c","d"]]` 表示当 `a` 和 `b` 至少有一个满足且 `c` 和 `d` 至少有一个满足时，会成功触发。
 + `rewards` 奖励
-	+ `function` 奖励函数，完成进度时执行之。不可为函数标签。
-	+ `loot` 奖励战利品表。
-	+ `recipes` 解锁配方。配方也需要有相应进度来解锁，通常检测玩家拥有配方材料后触发，参考[§2.7 配方](#27-配方)。
-	+ `experience` 奖励经验，建议仅在高难度进度完成时给予。
+    + `function` 奖励函数，完成进度时执行之。不可为函数标签。
+    + `loot` 奖励战利品表。
+    + `recipes` 解锁配方。配方也需要有相应进度来解锁，通常检测玩家拥有配方材料后触发，参考[§2.7 配方](#27-配方)。
+    + `experience` 奖励经验，建议仅在高难度进度完成时给予。
 
 进度配合奖励函数剥夺玩家该进度，则该进度可反复触发。可用于诸如检测玩家生物群系、饮食等需要循环检测的情形。
 
@@ -376,133 +376,133 @@ Minecraft 通过该文件来识别数据包，因此该文件是不可或缺的�
 例：`minecraft/loot_tables/entities/cow.json`
 ```
 {
-	"type": "minecraft:entity",
-	"pools": [
-		{
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "minecraft:item",
-					"name": "minecraft:leather",
-					"functions": [
-						{
-							"function": "minecraft:set_count",
-							"count": {
-								"min": 0,
-								"max": 2
-							}
-						},
-						{
-							"function": "minecraft:looting_enchant",
-							"count": {
-								"min": 0,
-								"max": 1
-							}
-						}
-					]
-				}
-			]
-		},
-		{
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "minecraft:alternatives",
-					"children": [
-						{
-							"conditions": [
-								{
-									"condition": "minecraft:entity_properties",
-									"entity": "this",
-									"predicate": {
-										"flags": {
-											"is_on_fire": false
-										}
-									}
-								}
-							],
-							"type": "minecraft:item",
-							"name": "minecraft:beef",
-							"functions": [
-								{
-									"function": "minecraft:set_count",
-									"count": {
-										"min": 1,
-										"max": 3
-									}
-								},
-								{
-									"function": "minecraft:looting_enchant",
-									"count": {
-										"min": 0,
-										"max": 1
-									}
-								}
-							]
-						},
-						{
-							"type": "minecraft:item",
-							"name": "minecraft:cooked_beef",
-							"functions": [
-								{
-									"function": "minecraft:set_count",
-									"count": {
-										"min": 1,
-										"max": 3
-									}
-								},
-								{
-									"function": "minecraft:looting_enchant",
-									"count": {
-										"min": 0,
-										"max": 1
-									}
-								}
-							]
-						}
-					]
-				}
-			]
-		},
-		{
-			"conditions": [
-				{
-					"condition": "minecraft:killed_by_player"
-				},
-				{
-					"condition": "minecraft:random_chance_with_looting",
-					"chance": 0.025,
-					"looting_multiplier": 0.01
-				}
-			],
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "minecraft:loot_table",
-					"name": "cpp:limb_of_ridge"
-				}
-			]
-		},
-		{
-			"conditions": [
-				{
-					"condition": "minecraft:killed_by_player"
-				},
-				{
-					"condition": "minecraft:random_chance_with_looting",
-					"chance": 0.025,
-					"looting_multiplier": 0.01
-				}
-			],
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "minecraft:loot_table",
-					"name": "cpp:cow_head"
-				}
-			]
-		}
-	]
+    "type": "minecraft:entity",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:leather",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 0,
+                                "max": 2
+                            }
+                        },
+                        {
+                            "function": "minecraft:looting_enchant",
+                            "count": {
+                                "min": 0,
+                                "max": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:entity_properties",
+                                    "entity": "this",
+                                    "predicate": {
+                                        "flags": {
+                                            "is_on_fire": false
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "minecraft:item",
+                            "name": "minecraft:beef",
+                            "functions": [
+                                {
+                                    "function": "minecraft:set_count",
+                                    "count": {
+                                        "min": 1,
+                                        "max": 3
+                                    }
+                                },
+                                {
+                                    "function": "minecraft:looting_enchant",
+                                    "count": {
+                                        "min": 0,
+                                        "max": 1
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "minecraft:item",
+                            "name": "minecraft:cooked_beef",
+                            "functions": [
+                                {
+                                    "function": "minecraft:set_count",
+                                    "count": {
+                                        "min": 1,
+                                        "max": 3
+                                    }
+                                },
+                                {
+                                    "function": "minecraft:looting_enchant",
+                                    "count": {
+                                        "min": 0,
+                                        "max": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "condition": "minecraft:killed_by_player"
+                },
+                {
+                    "condition": "minecraft:random_chance_with_looting",
+                    "chance": 0.025,
+                    "looting_multiplier": 0.01
+                }
+            ],
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "cpp:limb_of_ridge"
+                }
+            ]
+        },
+        {
+            "conditions": [
+                {
+                    "condition": "minecraft:killed_by_player"
+                },
+                {
+                    "condition": "minecraft:random_chance_with_looting",
+                    "chance": 0.025,
+                    "looting_multiplier": 0.01
+                }
+            ],
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "cpp:cow_head"
+                }
+            ]
+        }
+    ]
 }
 ```
 该例子战利品表表示牛死亡时
@@ -568,15 +568,15 @@ setblock ~ ~1 ~ minecraft:air
 例如方块标签 `cpp/tags/blocks/fluid.json`
 ```
 {
-	"replace": false,
-	"values": [
-		"minecraft:air",
-		"minecraft:cave_air",
-		"minecraft:void_air",
-		"minecraft:bubble_column",
-		"minecraft:water",
-		"minecraft:lava"
-	]
+    "replace": false,
+    "values": [
+        "minecraft:air",
+        "minecraft:cave_air",
+        "minecraft:void_air",
+        "minecraft:bubble_column",
+        "minecraft:water",
+        "minecraft:lava"
+    ]
 }
 ```
 表示空气、气泡柱、水、熔岩。
@@ -591,14 +591,14 @@ setblock ~ ~1 ~ minecraft:air
 `minecraft/tags/blocks/logs.json`
 ```
 {
-	"values": [
-		"#minecraft:dark_oak_logs",
-		"#minecraft:oak_logs",
-		"#minecraft:acacia_logs",
-		"#minecraft:birch_logs",
-		"#minecraft:jungle_logs",
-		"#minecraft:spruce_logs"
-	]
+    "values": [
+        "#minecraft:dark_oak_logs",
+        "#minecraft:oak_logs",
+        "#minecraft:acacia_logs",
+        "#minecraft:birch_logs",
+        "#minecraft:jungle_logs",
+        "#minecraft:spruce_logs"
+    ]
 }
 ```
 就包含了所有6种原木、木头、去皮原木、去皮木头。
@@ -642,9 +642,9 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #cpp:fluid run say I'm stuc
 创建文件 `minecraft/tags/blocks/enderman_holdable`
 ```
 {
-	"replace": true,
-	"values": [
-	]
+    "replace": true,
+    "values": [
+    ]
 }
 ```
 
@@ -653,17 +653,17 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #cpp:fluid run say I'm stuc
 资源包文件层次为
 ```
 resourcepacks
-	资源包名称或资源包名称.zip
-		pack.mcmeta
-		pack.png
-		assets
-			命名空间
-				lang
-					zh_cn.json
-					zh_tw.json
-					en_us.json
-				models
-				textures
+    资源包名称或资源包名称.zip
+        pack.mcmeta
+        pack.png
+        assets
+            命名空间
+                lang
+                    zh_cn.json
+                    zh_tw.json
+                    en_us.json
+                models
+                textures
 ```
 其中 `assets` 的文件结构和 [§1.4 文件结构](#14-文件结构)中版本 `.jar/assets` 的结构是一样的。
 
@@ -684,27 +684,27 @@ resourcepacks
 Minecraft 通过 `pack.mcmeta` 来识别资源包，因此该文件是不可或缺的。例如：
 ```
 {
-	"pack": {
-		"pack_format": 4,
-		"description": "§6资源包名称\n§a简要介绍 §6by 某某作者"
-	},
-	"language": {
-		"zh_cn":{
-			"name": "简体中文",
-			"region": "中国大陆",
-			"bidirectional": false
-		},
-		"en_us":{
-			"name": "English",
-			"region": "United States",
-			"bidirectional": false
-		},
-		"zh_tw":{
-			"name": "繁体中文",
-			"region": "中国台湾",
-			"bidirectional": false
-		}
-	}
+    "pack": {
+        "pack_format": 4,
+        "description": "§6资源包名称\n§a简要介绍 §6by 某某作者"
+    },
+    "language": {
+        "zh_cn":{
+            "name": "简体中文",
+            "region": "中国大陆",
+            "bidirectional": false
+        },
+        "en_us":{
+            "name": "English",
+            "region": "United States",
+            "bidirectional": false
+        },
+        "zh_tw":{
+            "name": "繁体中文",
+            "region": "中国台湾",
+            "bidirectional": false
+        }
+    }
 }
 ```
 + `pack_format` 为资源包版本，必须为4。
@@ -729,15 +729,15 @@ Minecraft 通过 `pack.mcmeta` 来识别资源包，因此该文件是不可或�
 例如：`assets/命名空间/lang/zh_cn.json`
 ```
 {
-	"item.cpp.magnet":"§r磁铁",
-	...
+    "item.cpp.magnet":"§r磁铁",
+    ...
 }
 ```
 `assets/命名空间/lang/en_us.json`
 ```
 {
-	"item.cpp.magnet":"§rMagnet",
-	...
+    "item.cpp.magnet":"§rMagnet",
+    ...
 }
 ```
 也可以用此方法修改物品的默认名称等内容。例如：
@@ -745,8 +745,8 @@ Minecraft 通过 `pack.mcmeta` 来识别资源包，因此该文件是不可或�
 `assets/命名空间/lang/zh_cn.json`
 ```
 {
-	"item.minecraft.potion.effect.empty": "§r神秘药水",
-	...
+    "item.minecraft.potion.effect.empty": "§r神秘药水",
+    ...
 }
 ```
 则未知的药水的名称不再是`不可合成的药水`，而是`神秘药水`。
@@ -754,15 +754,15 @@ Minecraft 通过 `pack.mcmeta` 来识别资源包，因此该文件是不可或�
 `translate` 还有个有趣但不一定实用的用法。
 ```
 {
-	"The":"§a原版模组《更多的合成》已成功加载,",      
-	"resourcepack":"版本",
-	"does":"§a1.9.1§a.",
-	"not":"§a更多内容请",
-	"Install":"§e点击此处进入wiki.",
-	"correctly":"§a作者:",
-	"or":"§aruhuasiyu,",
-	"Launch":"§aRubberTree",
-	...
+    "The":"§a原版模组《更多的合成》已成功加载,",      
+    "resourcepack":"版本",
+    "does":"§a1.9.1§a.",
+    "not":"§a更多内容请",
+    "Install":"§e点击此处进入wiki.",
+    "correctly":"§a作者:",
+    "or":"§aruhuasiyu,",
+    "Launch":"§aRubberTree",
+    ...
 }
 ```
 则在数据包中输出相应文本时，若无资源包或资源包错误，则会显示
@@ -781,18 +781,18 @@ The resourcepack does not Installl correctly or Launch.
 `assets/minecraft/models/item/carrot_on_a_stick.json`
 ```
 {
-	"parent": "item/handheld_rod",
-	"textures": {
-		"layer0": "item/carrot_on_a_stick"
-	},
-	"overrides": [
-		{ "predicate": { "custom_model_data": 12970001 }, "model": "cpp:element/blue_force_of_sky"},
-		{ "predicate": { "custom_model_data": 12970002 }, "model": "cpp:element/green_force_of_water"},
-		{ "predicate": { "custom_model_data": 12970003 }, "model": "cpp:element/cyan_force_of_mountain"},
-		{ "predicate": { "custom_model_data": 12970004 }, "model": "cpp:element/orange_force_of_dirt"},
-		{ "predicate": { "custom_model_data": 12970005 }, "model": "cpp:element/yellow_force_of_earth"},
-		{ "predicate": { "custom_model_data": 12970006 }, "model": "cpp:element/red_force_of_fire"}
-	]
+    "parent": "item/handheld_rod",
+    "textures": {
+        "layer0": "item/carrot_on_a_stick"
+    },
+    "overrides": [
+        { "predicate": { "custom_model_data": 12970001 }, "model": "cpp:element/blue_force_of_sky"},
+        { "predicate": { "custom_model_data": 12970002 }, "model": "cpp:element/green_force_of_water"},
+        { "predicate": { "custom_model_data": 12970003 }, "model": "cpp:element/cyan_force_of_mountain"},
+        { "predicate": { "custom_model_data": 12970004 }, "model": "cpp:element/orange_force_of_dirt"},
+        { "predicate": { "custom_model_data": 12970005 }, "model": "cpp:element/yellow_force_of_earth"},
+        { "predicate": { "custom_model_data": 12970006 }, "model": "cpp:element/red_force_of_fire"}
+    ]
 }
 ```
 注意 `custom_model_data` 需要按照从小往大的次序，否则会导致后面的覆盖前面的。
@@ -802,10 +802,10 @@ The resourcepack does not Installl correctly or Launch.
 `assets/cpp/models/element/red_force_of_fire.json`
 ```
 {
-	"parent": "item/handheld",
-	"textures": {
-		"layer0": "cpp:element/red_force_of_fire"
-	}
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "cpp:element/red_force_of_fire"
+    }
 }
 ```
 
@@ -823,61 +823,61 @@ The resourcepack does not Installl correctly or Launch.
 我们通过几个例子来理解下模型文件的语法。这个例子使用的是 Minecraft 自带的物品模型，并修改了在部分位置的显示：
 ```
 {
-	"parent": "item/generated",
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [ 0, -90, 55 ],
-			"translation": [ 0, 4.0, 0.5 ],
-			"scale": [ 0.85, 0.85, 0.85 ]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [ 0, 90, -55 ],
-			"translation": [ 0, 4.0, 0.5 ],
-			"scale": [ 0.85, 0.85, 0.85 ]
-		},
-		"firstperson_righthand": {
-			"rotation": [ 0, -90, 25 ],
-			"translation": [ 1.13, 3.2, 1.13 ],
-			"scale": [ 0.68, 0.68, 0.68 ]
-		},
-		"firstperson_lefthand": {
-			"rotation": [ 0, 90, -25 ],
-			"translation": [ 1.13, 3.2, 1.13 ],
-			"scale": [ 0.68, 0.68, 0.68 ]
-		}
-	}
+    "parent": "item/generated",
+    "display": {
+        "thirdperson_righthand": {
+            "rotation": [ 0, -90, 55 ],
+            "translation": [ 0, 4.0, 0.5 ],
+            "scale": [ 0.85, 0.85, 0.85 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 0, 90, -55 ],
+            "translation": [ 0, 4.0, 0.5 ],
+            "scale": [ 0.85, 0.85, 0.85 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, -90, 25 ],
+            "translation": [ 1.13, 3.2, 1.13 ],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 90, -25 ],
+            "translation": [ 1.13, 3.2, 1.13 ],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        }
+    }
 }
 ```
 我们可以看到，它继承了模型 `minecraft:item/generated`
 ```
 {
-	"parent": "builtin/generated",
-	"display": {
-		"ground": {
-			"rotation": [ 0, 0, 0 ],
-			"translation": [ 0, 2, 0],
-			"scale":[ 0.5, 0.5, 0.5 ]
-		},
-		"head": {
-			"rotation": [ 0, 180, 0 ],
-			"translation": [ 0, 13, 7],
-			"scale":[ 1, 1, 1]
-		},
-		"thirdperson_righthand": {
-			"rotation": [ 0, 0, 0 ],
-			"translation": [ 0, 3, 1 ],
-			"scale": [ 0.55, 0.55, 0.55 ]
-		},
-		"firstperson_righthand": {
-			"rotation": [ 0, -90, 25 ],
-			"translation": [ 1.13, 3.2, 1.13],
-			"scale": [ 0.68, 0.68, 0.68 ]
-		},
-		"fixed": {
-			"rotation": [ 0, 180, 0 ],
-			"scale": [ 1, 1, 1 ]
-		}
-	}
+    "parent": "builtin/generated",
+    "display": {
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 2, 0],
+            "scale":[ 0.5, 0.5, 0.5 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 13, 7],
+            "scale":[ 1, 1, 1]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 1 ],
+            "scale": [ 0.55, 0.55, 0.55 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, -90, 25 ],
+            "translation": [ 1.13, 3.2, 1.13],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "scale": [ 1, 1, 1 ]
+        }
+    }
 }
 ```
 最后这个 `builtin/generated` 是 Minecraft 中内建的模型，不能修改。
@@ -885,102 +885,102 @@ The resourcepack does not Installl correctly or Launch.
 如果我们想要立体的模型，我们可以继承 `minecraft:block/block` 或者其中很多的方块模型模板，也可以自行撰写。我们来看一个自定义模型的例子。
 ```
 {
-	"parent": "block/block",
-	"display": {
-		"head": {
-			"scale": [ 3.28, 3.28, 3.28 ]
-		},
-		"gui": {
-			"rotation": [ 30, 225, 0 ],
-			"translation": [0, -2, 0],
-			"scale": [ 1.6, 1.6, 1.6 ]
-		},
-		"ground": {
-			"rotation": [ 0, 0, 0 ],
-			"translation": [ 0, 3, 0],
-			"scale":[ 0.64, 0.64, 0.64 ]
-		},
-		"fixed": {
-			"rotation": [ 0, 0, 0 ],
-			"translation": [ 0, 0, 0],
-			"scale":[ 1.28, 1.28, 1.28 ]
-		},
-		"thirdperson_righthand": {
-			"rotation": [ 75, 45, 0 ],
-			"translation": [ 0, 2.5, 0],
-			"scale": [ 0.96, 0.96, 0.96 ]
-		},
-		"firstperson_righthand": {
-			"rotation": [ 0, 45, 0 ],
-			"translation": [ 0, 0, 0 ],
-			"scale": [ 1.02, 1.02, 1.02 ]
-		},
-		"firstperson_lefthand": {
-			"rotation": [ 0, 225, 0 ],
-			"translation": [ 0, 0, 0 ],
-			"scale": [ 1.02, 1.02, 1.02 ]
-		}
-	},
-	"textures": {
-		"particle": "entity/rabbit/brown",
-		"layer": "entity/rabbit/brown"
-	},
-	"elements": [
-		{
-			"from": [ 5.5, 6, 5.5 ],
-			"to": [ 10.5, 10, 10.5 ],
-			"faces": {
-				"east":	{ "uv": [ 8, 2.5, 9.25, 4.5 ], "texture": "#layer" },
-				"north":{ "uv": [ 9.25, 2.5, 10.5, 4.5 ], "texture": "#layer"},
-				"west":	{ "uv": [ 10.5, 2.5, 11.75, 4.5 ], "texture": "#layer" },
-				"south":{ "uv": [ 11.75, 2.5, 13, 4.5 ], "texture": "#layer" },
-				"up":	{ "uv": [ 9.25, 0, 10.5, 2.5 ], "texture": "#layer", "rotation": 180},
-				"down":	{ "uv": [ 10.5, 0, 11.75, 2.5 ], "texture": "#layer" }
-			}
-		},
-		{
-			"from": [ 7.5, 7.5, 5 ],
-			"to": [ 8.5, 8.5, 6 ],
-			"faces": {
-				"east":	{ "uv": [ 8, 5, 8.25, 5.5 ], "texture": "#layer" },
-				"north":{ "uv": [ 8.25, 5, 8.5, 5.5 ], "texture": "#layer"},
-				"west":	{ "uv": [ 8.5, 5, 8.75, 5.5 ], "texture": "#layer" },
-				"south":{ "uv": [ 8.75, 5, 9, 5.5 ], "texture": "#layer" },
-				"up":	{ "uv": [ 8.25, 4.5, 8.5, 5 ], "texture": "#layer", "rotation": 180},
-				"down":	{ "uv": [ 8.5, 4.5, 8.75, 5 ], "texture": "#layer" }
-			}
-		},
-		{
-			"from": [ 5.5, 10, 9.5 ],
-			"to": [ 7.5, 15, 10.5 ],
-			"rotation": {
-				"origin": [6.5, 10, 10], "axis": "y", "angle": -22.5
-			},
-			"faces": {
-				"east":	{ "uv": [ 14.5, 0.5, 14.75, 3 ], "texture": "#layer" },
-				"north":{ "uv": [ 14.75, 0.5, 15.25, 3 ], "texture": "#layer"},
-				"west":	{ "uv": [ 15.25, 0.5, 15.5, 3 ], "texture": "#layer" },
-				"south":{ "uv": [ 15.5, 0.5, 16, 3 ], "texture": "#layer" },
-				"up":	{ "uv": [ 14.75, 0, 15.25, 0.5 ], "texture": "#layer", "rotation": 180},
-				"down":	{ "uv": [ 15.25, 0, 15.75, 0.5 ], "texture": "#layer" }
-			}
-		},
-		{
-			"from": [ 8.5, 10, 9.5 ],
-			"to": [ 10.5, 15, 10.5 ],
-			"rotation": {
-				"origin": [9.5, 10, 10], "axis": "y", "angle": 22.5
-			},
-			"faces": {
-				"east":	{ "uv": [ 13, 0.5, 13.25, 3 ], "texture": "#layer" },
-				"north":{ "uv": [ 13.25, 0.5, 13.75, 3 ], "texture": "#layer"},
-				"west":	{ "uv": [ 13.75, 0.5, 14, 3 ], "texture": "#layer" },
-				"south":{ "uv": [ 14, 0.5, 14.5, 3 ], "texture": "#layer" },
-				"up":	{ "uv": [ 13.25, 0, 13.75, 0.5 ], "texture": "#layer", "rotation": 180},
-				"down":	{ "uv": [ 13.75, 0, 14.25, 0.5 ], "texture": "#layer" }
-			}
-		}
-	]
+    "parent": "block/block",
+    "display": {
+        "head": {
+            "scale": [ 3.28, 3.28, 3.28 ]
+        },
+        "gui": {
+            "rotation": [ 30, 225, 0 ],
+            "translation": [0, -2, 0],
+            "scale": [ 1.6, 1.6, 1.6 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0],
+            "scale":[ 0.64, 0.64, 0.64 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 1.28, 1.28, 1.28 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 75, 45, 0 ],
+            "translation": [ 0, 2.5, 0],
+            "scale": [ 0.96, 0.96, 0.96 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1.02, 1.02, 1.02 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 225, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1.02, 1.02, 1.02 ]
+        }
+    },
+    "textures": {
+        "particle": "entity/rabbit/brown",
+        "layer": "entity/rabbit/brown"
+    },
+    "elements": [
+        {
+            "from": [ 5.5, 6, 5.5 ],
+            "to": [ 10.5, 10, 10.5 ],
+            "faces": {
+                "east":	{ "uv": [ 8, 2.5, 9.25, 4.5 ], "texture": "#layer" },
+                "north":{ "uv": [ 9.25, 2.5, 10.5, 4.5 ], "texture": "#layer"},
+                "west":	{ "uv": [ 10.5, 2.5, 11.75, 4.5 ], "texture": "#layer" },
+                "south":{ "uv": [ 11.75, 2.5, 13, 4.5 ], "texture": "#layer" },
+                "up":	{ "uv": [ 9.25, 0, 10.5, 2.5 ], "texture": "#layer", "rotation": 180},
+                "down":	{ "uv": [ 10.5, 0, 11.75, 2.5 ], "texture": "#layer" }
+            }
+        },
+        {
+            "from": [ 7.5, 7.5, 5 ],
+            "to": [ 8.5, 8.5, 6 ],
+            "faces": {
+                "east":	{ "uv": [ 8, 5, 8.25, 5.5 ], "texture": "#layer" },
+                "north":{ "uv": [ 8.25, 5, 8.5, 5.5 ], "texture": "#layer"},
+                "west":	{ "uv": [ 8.5, 5, 8.75, 5.5 ], "texture": "#layer" },
+                "south":{ "uv": [ 8.75, 5, 9, 5.5 ], "texture": "#layer" },
+                "up":	{ "uv": [ 8.25, 4.5, 8.5, 5 ], "texture": "#layer", "rotation": 180},
+                "down":	{ "uv": [ 8.5, 4.5, 8.75, 5 ], "texture": "#layer" }
+            }
+        },
+        {
+            "from": [ 5.5, 10, 9.5 ],
+            "to": [ 7.5, 15, 10.5 ],
+            "rotation": {
+                "origin": [6.5, 10, 10], "axis": "y", "angle": -22.5
+            },
+            "faces": {
+                "east":	{ "uv": [ 14.5, 0.5, 14.75, 3 ], "texture": "#layer" },
+                "north":{ "uv": [ 14.75, 0.5, 15.25, 3 ], "texture": "#layer"},
+                "west":	{ "uv": [ 15.25, 0.5, 15.5, 3 ], "texture": "#layer" },
+                "south":{ "uv": [ 15.5, 0.5, 16, 3 ], "texture": "#layer" },
+                "up":	{ "uv": [ 14.75, 0, 15.25, 0.5 ], "texture": "#layer", "rotation": 180},
+                "down":	{ "uv": [ 15.25, 0, 15.75, 0.5 ], "texture": "#layer" }
+            }
+        },
+        {
+            "from": [ 8.5, 10, 9.5 ],
+            "to": [ 10.5, 15, 10.5 ],
+            "rotation": {
+                "origin": [9.5, 10, 10], "axis": "y", "angle": 22.5
+            },
+            "faces": {
+                "east":	{ "uv": [ 13, 0.5, 13.25, 3 ], "texture": "#layer" },
+                "north":{ "uv": [ 13.25, 0.5, 13.75, 3 ], "texture": "#layer"},
+                "west":	{ "uv": [ 13.75, 0.5, 14, 3 ], "texture": "#layer" },
+                "south":{ "uv": [ 14, 0.5, 14.5, 3 ], "texture": "#layer" },
+                "up":	{ "uv": [ 13.25, 0, 13.75, 0.5 ], "texture": "#layer", "rotation": 180},
+                "down":	{ "uv": [ 13.75, 0, 14.25, 0.5 ], "texture": "#layer" }
+            }
+        }
+    ]
 }
 ```
 我们先继承了 `minecraft:block/block` 中 `display` 的设定，然后修改模型在头部和背包的放缩和位移。
@@ -988,31 +988,31 @@ The resourcepack does not Installl correctly or Launch.
 具体的语法如下，见[模型 - Minecraft Wiki，最详细的官方我的世界百科](https://minecraft-zh.gamepedia.com/模型)
 + `parent` 表示继承的模型，可以没有该项，若有则相当于将其文件内容复制到该位置。例如物品的平面模型、方块模型、玻璃板模型等，我们都可以直接调用而无需自己编写。或者需要多次使用的模型，我们也可以写好后在其它模型中直接调用。例子中继承的模型 `minecraft:item/handheld` 为手持物品的平面模型，这样我们可以免去调整物品在背包和展示框内的显示。
 + `display` 确定物品在不同位置
-	+ `ground` 掉落物
-	+ `head` 头部
-	+ `thirdperson_righthand` 第三人称右手
-	+ `thirdperson_lefthand` 第三人称左手
-	+ `firstperson_righthand` 第一人称右手
-	+ `firstperson_lefthand` 第一人称左手
-	+ `fixed` 物品展示框
-	+ `gui` 背包或容器
-		+ 放缩(`scale`)
-		+ 旋转(`rotation`)
-		+ 平移(`translation`)
-	
-	注意这些数值均有范围限制，例如`scale`至多为4。
+    + `ground` 掉落物
+    + `head` 头部
+    + `thirdperson_righthand` 第三人称右手
+    + `thirdperson_lefthand` 第三人称左手
+    + `firstperson_righthand` 第一人称右手
+    + `firstperson_lefthand` 第一人称左手
+    + `fixed` 物品展示框
+    + `gui` 背包或容器
+        + 放缩(`scale`)
+        + 旋转(`rotation`)
+        + 平移(`translation`)
+    
+    注意这些数值均有范围限制，例如`scale`至多为4。
 + `textures` 确定模型使用的材质文件位置，这里 `#layer` 被赋值为 `entity/chicken` 这个材质。直接把 `#layer` 换成 `entity/chicken` 也是可以的，但是使用 `#layer` 更便于修改。如果模型文件作为模板使用，可以不写 	`textures`，而是在其它模型引用它时再指定以确定最终的样子。
-	+ `particle` 表示方块被破坏/物品被消耗时的粒子效果采用的材质。
+    + `particle` 表示方块被破坏/物品被消耗时的粒子效果采用的材质。
 + `elements`
-	+ `from` 和 `to` 确定长方体的范围。`from` 和 `to` 中的 `x,y,z` 范围为`-16`到`32`之间，不做放缩时，`0~16`即一个方块的完整大小。
-	+ `rotation` 旋转这个长方体
-		+ `origin` 旋转中心
-		+ `axis` 沿哪个轴旋转
-		+ `angle` 旋转的角度，只能是`0, 22.5, 45, -22.5, -45`
-	+ `faces` 为方块的6个面材质信息。我们放置方块时，离我们最近的为方块的北方(north)，然后站在方块的视角按前北后南(z轴)，左西右东(x轴)确定其6个面的朝向。
-		+ `texture` 确定了所使用的材质。我们建议按次序东北西南上下的次序写以便于想象。可以在材质文件中按照 ![](https://i.loli.net/2019/05/24/5ce786a746fe972611.png) 的相对位置来绘制材质，也可以分为6个单独的材质。
-		+ `uv` 确定了选取材质的哪一部分。将材质划分为16×16个区域，该数值指定了便是所选的区域。例如材质文件为`64×64`大小，则`"uv": [ 3.5, 3, 4, 4 ]`使用的是横向`14-16`纵向`12-16`的`2×4`个像素。
-		+ `rotation` 旋转材质，值为`0,90,180,270`。
+    + `from` 和 `to` 确定长方体的范围。`from` 和 `to` 中的 `x,y,z` 范围为`-16`到`32`之间，不做放缩时，`0~16`即一个方块的完整大小。
+    + `rotation` 旋转这个长方体
+        + `origin` 旋转中心
+        + `axis` 沿哪个轴旋转
+        + `angle` 旋转的角度，只能是`0, 22.5, 45, -22.5, -45`
+    + `faces` 为方块的6个面材质信息。我们放置方块时，离我们最近的为方块的北方(north)，然后站在方块的视角按前北后南(z轴)，左西右东(x轴)确定其6个面的朝向。
+        + `texture` 确定了所使用的材质。我们建议按次序东北西南上下的次序写以便于想象。可以在材质文件中按照 ![](https://i.loli.net/2019/05/24/5ce786a746fe972611.png) 的相对位置来绘制材质，也可以分为6个单独的材质。
+        + `uv` 确定了选取材质的哪一部分。将材质划分为16×16个区域，该数值指定了便是所选的区域。例如材质文件为`64×64`大小，则`"uv": [ 3.5, 3, 4, 4 ]`使用的是横向`14-16`纵向`12-16`的`2×4`个像素。
+        + `rotation` 旋转材质，值为`0,90,180,270`。
 
 由于 `scale` 至多为`4`，而 `from to` 至多为`-16`到`32`，因此模型最多可以放大至`12`倍。想要更大的模型可以通过分段来旋转拼接而成，参阅
 + [因为不知道发到哪里只好发过来了 也不知道火没火星 毕竟我没有画材质的朋友。。。](https://www.mcbbs.net/thread-637959-1-1.html)
@@ -1031,26 +1031,26 @@ The resourcepack does not Installl correctly or Launch.
 材质可以是动态的。材质的高度为宽度的x倍时，动态材质可以有x帧，分别对应材质自上而下划分的x个块。动态材质还需要一个 `mcmeta` 文件，例如 `foo.png` 对应 `foo.png.mcmeta`，内容为
 ```
 {
-  	"animation": {
-    	"interpolate": false,
-    	"frametime": 4,
-		"frames": [
-			0,
-			1,
-			2,
-			3,
-			{"index":4,"time": 2},
-			5
-		]
-  	}
+      "animation": {
+        "interpolate": false,
+        "frametime": 4,
+        "frames": [
+            0,
+            1,
+            2,
+            3,
+            {"index":4,"time": 2},
+            5
+        ]
+      }
 }
 ```
 这里
 + `interpolate` 是否需要插值过渡。可以省略。
 + `frametime` 每一帧的默认时长(刻)。
 + `frames` 指定播放帧的次序
-	+ `数字` 从0开始
-	+ `index` 和 `time` 可以单独指定这一帧的时长(刻)
+    + `数字` 从0开始
+    + `index` 和 `time` 可以单独指定这一帧的时长(刻)
 
 ### §3.7 声音
 音效文件为 `assets/命名空间/sounds.json`，它调用的是 `assets/命名空间/sounds` 文件夹下的 `ogg` 文件。例如：
@@ -1062,15 +1062,15 @@ The resourcepack does not Installl correctly or Launch.
             "rf:juicer"
         ]
     },
-	"swing": {
-		"sounds": [
-			"rf:lightsaber/swing1",
-			"rf:lightsaber/swing2",
-			"rf:lightsaber/swing3",
-			"rf:lightsaber/swing4"
-		],
-		"category": "hostile"
-	}
+    "swing": {
+        "sounds": [
+            "rf:lightsaber/swing1",
+            "rf:lightsaber/swing2",
+            "rf:lightsaber/swing3",
+            "rf:lightsaber/swing4"
+        ],
+        "category": "hostile"
+    }
 }
 ```
 其中自定义名称下包括
@@ -1083,22 +1083,22 @@ The resourcepack does not Installl correctly or Launch.
 添加 `assets/minecraft/font/default.json` 文件可以追加/覆盖特殊字符的字体显示，例如
 ```
 {
-	"providers": [
-		{
-			"type": "bitmap",
-			"file": "minecraft:font/mana0.png",
-			"height": 91,
-			"ascent": 85,
-			"chars": ["\ue010"]
-		},
-		{
-			"type": "bitmap",
-			"file": "minecraft:font/mana1.png",
-			"height": 91,
-			"ascent": 85,
-			"chars": ["\ue011"]
-		}
-	]
+    "providers": [
+        {
+            "type": "bitmap",
+            "file": "minecraft:font/mana0.png",
+            "height": 91,
+            "ascent": 85,
+            "chars": ["\ue010"]
+        },
+        {
+            "type": "bitmap",
+            "file": "minecraft:font/mana1.png",
+            "height": 91,
+            "ascent": 85,
+            "chars": ["\ue011"]
+        }
+    ]
 }
 ```
 我们追加了字符 `\ue010` 和 `\ue011` 的材质，其中
@@ -1197,29 +1197,29 @@ minecraft:carrot_on_a_stick{id:"cpp:red_force_of_fire",CustomModelData:12970013,
 + 显示名称为 `item.cpp.red_force_of_fire` 对应的翻译文本。在资源包中添加相应的翻译文本以支持多种语言。
 + 添加模型
 `assets/minecraft/models/item/carrot_on_a_stick.json`
-	```
-	{
-		"parent": "item/handheld_rod",
-		"textures": {
-			"layer0": "item/carrot_on_a_stick"
-		},
-		"overrides": [
-			...
-			{ "predicate": { "custom_model_data": 12970006 }, "model": "cpp:element/red_force_of_fire"},
-			...
-		]
-	}
-	```
-	`assets/cpp/models/element/red_force_of_fire.json`
-	```
-	{
-		"parent": "item/handheld_rod",
-		"textures": {
-			"layer0": "cpp:element/red_force_of_fire"
-		}
-	}
-	```
-	并添加相应材质 `assets/cpp/textures/element/red_force_of_fire.png`。
+    ```
+    {
+        "parent": "item/handheld_rod",
+        "textures": {
+            "layer0": "item/carrot_on_a_stick"
+        },
+        "overrides": [
+            ...
+            { "predicate": { "custom_model_data": 12970006 }, "model": "cpp:element/red_force_of_fire"},
+            ...
+        ]
+    }
+    ```
+    `assets/cpp/models/element/red_force_of_fire.json`
+    ```
+    {
+        "parent": "item/handheld_rod",
+        "textures": {
+            "layer0": "cpp:element/red_force_of_fire"
+        }
+    }
+    ```
+    并添加相应材质 `assets/cpp/textures/element/red_force_of_fire.png`。
 
 
 对于同类物品，我们可以添加额外的标签来注明。例如：使用`Byte 型` nbt 来标记物品的类别，以便于探测；使用`List 型` nbt 来标记诸如属性之类的内容，以及需要探测是否处于该类别的物品。
@@ -1231,23 +1231,23 @@ minecraft:carrot_on_a_stick{id:"cpp:red_force_of_fire",CustomModelData:12970013,
 `craftingpp/data/cpp/loot_tables/red_force_of_fire.json`
 ```
 {
-	"pools": [
-		{
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "item",
-					"name": "minecraft:carrot_on_a_stick",
-					"functions": [
-						{
-							"function": "set_nbt",
-							"tag": "{display:{Name:'{\"translate\":\"item.cpp.red_force_of_fire\"}'},id:'cpp:red_force_of_fire',CustomModelData:12970013}"
-						}
-					]
-				}
-			]
-		}
-	]
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:carrot_on_a_stick",
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{display:{Name:'{\"translate\":\"item.cpp.red_force_of_fire\"}'},id:'cpp:red_force_of_fire',CustomModelData:12970013}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
 ```
 
@@ -1302,19 +1302,19 @@ give @s minecraft:filled_map{map:10000}
 `foo/advancements/block/bar.json`
 ```
 {
-	"criteria": {
-		"put_furnace": {
-			"trigger": "minecraft:placed_block",
-			"conditions": {
-				"item": {
-					"nbt":"{id:\"foo:bar\"}"
-				}
-			}
-		}
-	},
-	"rewards": {
-		"function": "foo:block/bar/reset"
-	}
+    "criteria": {
+        "put_furnace": {
+            "trigger": "minecraft:placed_block",
+            "conditions": {
+                "item": {
+                    "nbt":"{id:\"foo:bar\"}"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "foo:block/bar/reset"
+    }
 }
 ```
 
@@ -1355,34 +1355,34 @@ kill @e[type=area_effect_cloud,distance=..0.01,tag=foo_block_pos]
 `cpp/predicates/block_on_mainhand.json`
 ```
 {
-	"condition": "minecraft:entity_properties",
-	"entity": "this",
-	"predicate": {
-		"equipment": {
-			"mainhand":{
-				"tag": "cpp:blocks"
-			}
-		}
-	}
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+        "equipment": {
+            "mainhand":{
+                "tag": "cpp:blocks"
+            }
+        }
+    }
 }
 ```
 
 `cpp/advancements/blocks/put_mod_block.json`
 ```
 {
-	"criteria": {
-		"machine": {
-			"trigger": "minecraft:placed_block",
-			"conditions": {
-				"item": {
-					"tag":"cpp:blocks"
-				}
-			}
-		}
-	},
-	"rewards": {
-		"function": "cpp:blocks/reset"
-	}
+    "criteria": {
+        "machine": {
+            "trigger": "minecraft:placed_block",
+            "conditions": {
+                "item": {
+                    "tag":"cpp:blocks"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "cpp:blocks/reset"
+    }
 }
 ```
 
@@ -1585,14 +1585,14 @@ kill @s
 使用如下的`display`来放缩物品在头部的大小，可以保证其与坐标轴基本对齐。
 ```
 {
-	"parent": "block/cube_all",
-	"display": {
-		"head": {
-			"rotation": [ 0, 0, 0 ],
-			"translation": [ 0, -14.65, 0 ],
-			"scale": [ 2.29, 2.29, 2.29 ]
-		}
-	},
+    "parent": "block/cube_all",
+    "display": {
+        "head": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, -14.65, 0 ],
+            "scale": [ 2.29, 2.29, 2.29 ]
+        }
+    },
     "textures": {
         "all": "cpp:material/moon_stone"
     }
@@ -1605,26 +1605,26 @@ kill @s
 
 配方的通用语法为
 + `type` 表示合成的类别
-	+ `minecraft:crafting_shaped` 工作台有序合成配方
-	+ `minecraft:crafting_shapeless` 工作台无序合成配方
-	+ `minecraft:crafting_special_*` 工作台特殊合成配方，处理皮革盔甲染色、烟火之星、地图复制等情形，不可手动配置。 
-	+ `minecraft:stonecutting` 切石机合成配方
-	+ `minecraft:smelting` 熔炉烧炼配方
-	+ `minecraft:blasting` 高炉烧炼配方
-	+ `minecraft:smoking` 烟熏炉烧炼配方
-	+ `minecraft:campfire_cooking` 营火烧炼配方
+    + `minecraft:crafting_shaped` 工作台有序合成配方
+    + `minecraft:crafting_shapeless` 工作台无序合成配方
+    + `minecraft:crafting_special_*` 工作台特殊合成配方，处理皮革盔甲染色、烟火之星、地图复制等情形，不可手动配置。 
+    + `minecraft:stonecutting` 切石机合成配方
+    + `minecraft:smelting` 熔炉烧炼配方
+    + `minecraft:blasting` 高炉烧炼配方
+    + `minecraft:smoking` 烟熏炉烧炼配方
+    + `minecraft:campfire_cooking` 营火烧炼配方
 + `group` 字符串。具有相同该标识符的配方会在配方书中显示为一组。对特殊合成配方无效。
 + `pattern` 有序合成的合成样式，其中每个字符表示一个物品，空格表示空缺。可以比`3×3`小。
 + `key` 有序合成的`pattern`中字符与物品对应。可以只含一个`item`或`tag`；也可以是一个列表，列表中每个元素是一个`item`或`tag`。
-	+ 字符，可以代表一个物品或一个物品标签
-		+ `item` 对应的物品
-		+ `tag` 对应的物品标签
+    + 字符，可以代表一个物品或一个物品标签
+        + `item` 对应的物品
+        + `tag` 对应的物品标签
 + `ingredient` 无序合成、切石机、烧炼的原材料。如果是切石机或烧炼，可以为这个列表中的任一物品或物品标签。如果是无序合成，配方就是这个列表中的每一个物品或物品标签。
-	+ `item` 对应的物品
-	+ `tag` 对应的物品标签
+    + `item` 对应的物品
+    + `tag` 对应的物品标签
 + `result` 合成的结果
-	+ `item` 物品名称
-	+ `count` 合成配方的物品数量，缺省为`1`。切石机配方的物品数量，不可省略。
+    + `item` 物品名称
+    + `count` 合成配方的物品数量，缺省为`1`。切石机配方的物品数量，不可省略。
 + `experience` 烧炼配方产生的经验值，可以为小数
 + `cookingtime` 烧炼耗时(刻)。若缺省则使用默认的时间，熔炉烟熏炉为`200`，高炉营火为`100`。
 
@@ -1634,24 +1634,24 @@ kill @s
 `cpp/recipes/sheep_spawn_egg.json`
 ```
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"###",
-		"#*#",
-		"###"
-	],
-	"key": {
-		"*": {
-			"item": "minecraft:egg"
-		},
-		"#": {
-			"tag": "cpp:wools"
-		}
-	},
-	"result": {
-		"item": "minecraft:sheep_spawn_egg",
-		"count":2
-	}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "#*#",
+        "###"
+    ],
+    "key": {
+        "*": {
+            "item": "minecraft:egg"
+        },
+        "#": {
+            "tag": "cpp:wools"
+        }
+    },
+    "result": {
+        "item": "minecraft:sheep_spawn_egg",
+        "count":2
+    }
 }
 ```
 这里`cpp:wools`为自定义的包含所有颜色羊毛的物品标签。
@@ -1662,22 +1662,22 @@ kill @s
 `cpp/recipes/red_sand.json`
 ```
 {
-	"type": "minecraft:crafting_shapeless",
-	"ingredients": [
-		{
-			"item": "minecraft:sand"
-		},
-		{
-			"item": "minecraft:sand"
-		},
-		{
-			"item": "minecraft:redstone"
-		}
-	],
-	"result": {
-		"item": "minecraft:red_sand",
-		"count":2
-	}
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:sand"
+        },
+        {
+            "item": "minecraft:sand"
+        },
+        {
+            "item": "minecraft:redstone"
+        }
+    ],
+    "result": {
+        "item": "minecraft:red_sand",
+        "count":2
+    }
 }
 ```
 配料可以重复。单个物品配方请使用有序合成而不是无序合成。
@@ -1688,12 +1688,12 @@ kill @s
 `cpp/recipes/stonecutting/oak_slab.json`
 ```
 {
-	"type": "minecraft:stonecutting",
-	"ingredient": {
-		"item": "minecraft:oak_planks"
-	},
-	"result": "minecraft:oak_slab",
-	"count": 2
+    "type": "minecraft:stonecutting",
+    "ingredient": {
+        "item": "minecraft:oak_planks"
+    },
+    "result": "minecraft:oak_slab",
+    "count": 2
 }
 ```
 ### §6.5 烧炼配方
@@ -1702,30 +1702,30 @@ kill @s
 `cpp/recipes/rabbit_hide_from_smelting.json`
 ```
 {
-	"type": "minecraft:smelting",
-	"ingredient": [
-		{
-			"item": "minecraft:rotten_flesh"
-		},
-		{
-			"item": "minecraft:leather_helmet"
-		},
-		{
-			"item": "minecraft:leather_chestplate"
-		},
-		{
-			"item": "minecraft:leather_leggings"
-		},
-		{
-			"item": "minecraft:leather_boots"
-		},
-		{
-			"item": "minecraft:saddle"
-		}
-	],
-	"result": "minecraft:rabbit_hide",
-	"experience": 0.1,
-	"cookingtime": 200
+    "type": "minecraft:smelting",
+    "ingredient": [
+        {
+            "item": "minecraft:rotten_flesh"
+        },
+        {
+            "item": "minecraft:leather_helmet"
+        },
+        {
+            "item": "minecraft:leather_chestplate"
+        },
+        {
+            "item": "minecraft:leather_leggings"
+        },
+        {
+            "item": "minecraft:leather_boots"
+        },
+        {
+            "item": "minecraft:saddle"
+        }
+    ],
+    "result": "minecraft:rabbit_hide",
+    "experience": 0.1,
+    "cookingtime": 200
 }
 ```
 
@@ -1737,22 +1737,22 @@ kill @s
 `minecraft/recipes/oak_stairs.json`
 ```
 {
-	"type": "minecraft:crafting_shaped",
-	"group": "wooden_stairs",
-	"pattern": [
-		"#  ",
-		"## ",
-		"###"
-	],
-	"key": {
-		"#": {
-			"item": "minecraft:oak_planks"
-		}
-	},
-	"result": {
-		"item": "minecraft:oak_stairs",
-		"count": 8
-	}
+    "type": "minecraft:crafting_shaped",
+    "group": "wooden_stairs",
+    "pattern": [
+        "#  ",
+        "## ",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:oak_planks"
+        }
+    },
+    "result": {
+        "item": "minecraft:oak_stairs",
+        "count": 8
+    }
 }
 ```
 例：将原版白色床+墨囊=黑色床的合成配方修改为任意床+墨囊=黑色床。
@@ -1760,43 +1760,43 @@ kill @s
 `cpp/tags/items/beds.json`
 ```
 {
-	"replace": false,
-	"values": [
-		"minecraft:white_bed",
-		"minecraft:orange_bed",
-		"minecraft:magenta_bed",
-		"minecraft:light_blue_bed",
-		"minecraft:yellow_bed",
-		"minecraft:lime_bed",
-		"minecraft:pink_bed",
-		"minecraft:gray_bed",
-		"minecraft:light_gray_bed",
-		"minecraft:cyan_bed",
-		"minecraft:purple_bed",
-		"minecraft:blue_bed",
-		"minecraft:brown_bed",
-		"minecraft:green_bed",
-		"minecraft:red_bed",
-		"minecraft:black_bed"
-	]
+    "replace": false,
+    "values": [
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
+        "minecraft:blue_bed",
+        "minecraft:brown_bed",
+        "minecraft:green_bed",
+        "minecraft:red_bed",
+        "minecraft:black_bed"
+    ]
 }
 ```
 `minecraft/recipes/black_bed_from_white_bed.json`
 ```
 {
-	"type": "crafting_shapeless",
-	"group": "dyed_bed",
-	"ingredients": [
-		{
-			"tag": "cpp:beds"
-		},
-		{
-			"item": "minecraft:black_dye"
-		}
-	],
-	"result": {
-		"item": "minecraft:black_bed"
-	}
+    "type": "crafting_shapeless",
+    "group": "dyed_bed",
+    "ingredients": [
+        {
+            "tag": "cpp:beds"
+        },
+        {
+            "item": "minecraft:black_dye"
+        }
+    ],
+    "result": {
+        "item": "minecraft:black_bed"
+    }
 }
 ```
 如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为`{}`时会被认为是错误文件而无法覆盖原配方。
@@ -1809,23 +1809,23 @@ kill @s
 `cpp/loot_tables/all_in_one_machine.json`
 ```
 {
-	"pools": [
-		{
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "minecraft:item",
-					"name": "minecraft:barrel",
-					"functions": [
-						{
-							"function": "minecraft:set_nbt",
-							"tag": "{display:{Name:\"{\\\"translate\\\":\\\"item.cpp.all_in_one_machine\\\"}\"},id:\"cpp:all_in_one_machine\",CustomModelData:12970001,hasGUI:1b}"
-						}
-					]
-				}
-			]
-		}
-	]
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:barrel",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{display:{Name:\"{\\\"translate\\\":\\\"item.cpp.all_in_one_machine\\\"}\"},id:\"cpp:all_in_one_machine\",CustomModelData:12970001,hasGUI:1b}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
 ```
 
@@ -1838,6 +1838,8 @@ kill @s
 + 其余背景位置以及输出槽均为完全透明物品的模型。
 + 注意这些物品不可以为方块的自定义模型，因为方块的模型的透明部分会变成黑色或白色（1.15快照版本特性）。
 
+这个机器包括：左侧可选择温度和压强，可将输出栏物品输入到邻近的容器，
+
 ## §7.1 GUI 材质模型
 物品的默认大小为`16×16`，所以如果我们想要将其放大n倍，就需要绘制`16n×16n`的整数倍大小的材质，以对齐边缘和像素。
 
@@ -1848,7 +1850,7 @@ kill @s
 {
     "elements": [
         {
-			"from": [ -16, -16, 0 ],
+            "from": [ -16, -16, 0 ],
             "to": [ 32, 32, 1 ],
             "faces": {
                 "south": { "uv":[0,0,16,16],"texture": "#layer1"}
@@ -1858,7 +1860,7 @@ kill @s
     "display": {
         "gui": {
             "scale": [ 4, 4, 1 ],
-			"translation": [ 79, -52, -80]
+            "translation": [ 79, -52, -80]
         },
         "ground": {
             "scale": [ 0.1, 0.1, 0.1 ]
@@ -1885,21 +1887,21 @@ kill @s
 `cpp/models/machine/option/temp.json`
 ```
 {
-	"parent": "item/generated",
-	"display": {
-		"gui": {
-			"translation": [ -18, 0, 1 ]
-		}
-	}
+    "parent": "item/generated",
+    "display": {
+        "gui": {
+            "translation": [ -18, 0, 1 ]
+        }
+    }
 }
 ```
 `cpp/models/machine/option/high_pressure.json`
 ```
 {
-	"parent": "cpp:machine/option/temp",
-	"textures": {
-		"layer0": "cpp:machine/option/high_pressure"
-	}
+    "parent": "cpp:machine/option/temp",
+    "textures": {
+        "layer0": "cpp:machine/option/high_pressure"
+    }
 }
 ```
 
@@ -2188,71 +2190,71 @@ kill @e[type=area_effect_cloud,tag=cpp_dist_pos,distance=..1,limit=1]
 `minecraft/loot_tables/blocks/shulker_box.json`
 ```
 {
-	"type": "minecraft:block",
-	"pools": [
-		{
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "minecraft:alternatives",
-					"children": [
-						{
-							"type": "minecraft:dynamic",
-							"name": "minecraft:contents",
-							"conditions": [
-								{
-									"condition": "minecraft:match_tool",
-									"predicate": {
-										"nbt":"{isShulkerMarker:1b}"
-									}
-								}
-							]
-						},
-						{
-							"type": "minecraft:item",
-							"functions": [
-								{
-									"function": "minecraft:copy_name",
-									"source": "block_entity"
-								},
-								{
-									"function": "minecraft:copy_nbt",
-									"source": "block_entity",
-									"ops": [
-										{
-											"source": "Lock",
-											"target": "BlockEntityTag.Lock",
-											"op": "replace"
-										},
-										{
-											"source": "LootTable",
-											"target": "BlockEntityTag.LootTable",
-											"op": "replace"
-										},
-										{
-											"source": "LootTableSeed",
-											"target": "BlockEntityTag.LootTableSeed",
-											"op": "replace"
-										}
-									]
-								},
-								{
-									"function": "minecraft:set_contents",
-									"entries": [
-										{
-											"type": "minecraft:dynamic",
-											"name": "minecraft:contents"
-										}
-									]
-								}
-							],
-							"name": "minecraft:shulker_box"
-						}
-					]
-				}
-			]
-		}
-	]
+    "type": "minecraft:block",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "type": "minecraft:dynamic",
+                            "name": "minecraft:contents",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:match_tool",
+                                    "predicate": {
+                                        "nbt":"{isShulkerMarker:1b}"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "minecraft:item",
+                            "functions": [
+                                {
+                                    "function": "minecraft:copy_name",
+                                    "source": "block_entity"
+                                },
+                                {
+                                    "function": "minecraft:copy_nbt",
+                                    "source": "block_entity",
+                                    "ops": [
+                                        {
+                                            "source": "Lock",
+                                            "target": "BlockEntityTag.Lock",
+                                            "op": "replace"
+                                        },
+                                        {
+                                            "source": "LootTable",
+                                            "target": "BlockEntityTag.LootTable",
+                                            "op": "replace"
+                                        },
+                                        {
+                                            "source": "LootTableSeed",
+                                            "target": "BlockEntityTag.LootTableSeed",
+                                            "op": "replace"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "function": "minecraft:set_contents",
+                                    "entries": [
+                                        {
+                                            "type": "minecraft:dynamic",
+                                            "name": "minecraft:contents"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "name": "minecraft:shulker_box"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
 ```
 
@@ -2446,19 +2448,19 @@ replaceitem entity @s inventory.17 minecraft:air
 `cpp/advancements/crafting_dropper.json`
 ```
 {
-	"criteria": {
-		"crafting_dropper": {
-			"trigger": "minecraft:placed_block",
-			"conditions": {
-				"item": {
-					"tag":"{id:\"cpp:crafting_dropper\"}"
-				}
-			}
-		}
-	},
-	"rewards": {
-		"function": "cpp:block/crafting_dropper"
-	}
+    "criteria": {
+        "crafting_dropper": {
+            "trigger": "minecraft:placed_block",
+            "conditions": {
+                "item": {
+                    "tag":"{id:\"cpp:crafting_dropper\"}"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "cpp:block/crafting_dropper"
+    }
 }
 ```
 
@@ -2770,19 +2772,19 @@ execute store result block ~ ~ ~ Items[{Slot:1b}].Count byte 1 run scoreboard pl
 使用进度判断是否放置了石化橡木台阶machine.json
 ```
 {
-		"criteria": {
-				"machine": {
-						"trigger": "minecraft:placed_block",
-						"conditions": {
-								"item": {
-										"item":"minecraft:petrified_oak_slab"
-								}
-						}
-				}
-		},
-		"rewards": {
-				"function": "cpp:block/machine/adv"
-		}
+        "criteria": {
+                "machine": {
+                        "trigger": "minecraft:placed_block",
+                        "conditions": {
+                                "item": {
+                                        "item":"minecraft:petrified_oak_slab"
+                                }
+                        }
+                }
+        },
+        "rewards": {
+                "function": "cpp:block/machine/adv"
+        }
 }
 ```cpp/functions/block/machine/get_pos.mcfunction
 ```
@@ -2908,31 +2910,31 @@ tag @s add cpp_tpback```配合战利品表还可方便地实现随机合成。
 cpp/recipes/egg.json
 ```
 {
-		"type": "smelting",
-		"ingredient": {
-				"item": "minecraft:egg"
-		},
-		"result": "minecraft:mushroom_stew",
-		"experience": 0.1,
-		"cookingtime": 200
+        "type": "smelting",
+        "ingredient": {
+                "item": "minecraft:egg"
+        },
+        "result": "minecraft:mushroom_stew",
+        "experience": 0.1,
+        "cookingtime": 200
 }
 ```
 创建放置熔炉的进度：
 cpp:advancements/foods/put_furnace.json
 ```
 {
-		"parent": "cpp:foods/root",
-		"criteria": {
-				"put_furnace": {
-						"trigger": "minecraft:placed_block",
-						"conditions": {
-								"block": "minecraft:furnace"
-						}
-				}
-		},
-		"rewards": {
-				"function": "cpp:foods/system/put_furnace"
-		}
+        "parent": "cpp:foods/root",
+        "criteria": {
+                "put_furnace": {
+                        "trigger": "minecraft:placed_block",
+                        "conditions": {
+                                "block": "minecraft:furnace"
+                        }
+                }
+        },
+        "rewards": {
+                "function": "cpp:foods/system/put_furnace"
+        }
 }
 ```cpp:foods/system/put_furnace.mcfunction
 ```
@@ -2962,21 +2964,21 @@ data merge block ~ ~ ~ {CookTime:0s}
 cpp:advancements/foods/braised_beef_with_potatoes.json
 ```
 {
-		"parent": "cpp:foods/root",
-		"criteria": {
-		   "braised_beef_with_potatoes": {
-				   "trigger": "minecraft:consume_item",
-				   "conditions": {
-						   "item": {
-								   "item": "minecraft:rabbit_stew",
-								   "nbt": "{id:\"cpp:braised_beef_with_potatoes\"}"
-								}
-						}
-				}
-		},
-		"rewards":{
-				"function": "cpp:foods/foods/braised_beef_with_potatoes"
-		}
+        "parent": "cpp:foods/root",
+        "criteria": {
+           "braised_beef_with_potatoes": {
+                   "trigger": "minecraft:consume_item",
+                   "conditions": {
+                           "item": {
+                                   "item": "minecraft:rabbit_stew",
+                                   "nbt": "{id:\"cpp:braised_beef_with_potatoes\"}"
+                                }
+                        }
+                }
+        },
+        "rewards":{
+                "function": "cpp:foods/foods/braised_beef_with_potatoes"
+        }
 }
 ```cpp:foods/foods/braised_beef_with_potatoes.mcfunction
 ```
@@ -3506,20 +3508,20 @@ kill @s
 cpp:advancements/plants/iron_seeds
 ```
 {
-		"parent": "cpp:plants/root",
-		"criteria": {
-				"iron_seeds": {
-						"trigger": "minecraft:placed_block",
-						"conditions": {
-								"item": {
-										"nbt":"{id:\"cpp:iron_seeds\"}"
-								}
-						}
-				}
-		},
-		"rewards": {
-				"function": "cpp:plants/plants/iron_seeds"
-		}
+        "parent": "cpp:plants/root",
+        "criteria": {
+                "iron_seeds": {
+                        "trigger": "minecraft:placed_block",
+                        "conditions": {
+                                "item": {
+                                        "nbt":"{id:\"cpp:iron_seeds\"}"
+                                }
+                        }
+                }
+        },
+        "rewards": {
+                "function": "cpp:plants/plants/iron_seeds"
+        }
 }
 ```cpp:plants/plants/iron_seeds.mcfunction
 ```
@@ -3623,30 +3625,30 @@ execute store result entity @s[gamemode=!creative] SelectedItem.tag.Damage int 1
 kill @e[type=item,nbt={Item:{tag:{isRdMark:1b}}},distance=..1,limit=1]```
 其中cpp/loot_tables/random/60.json为```
 {
-	"pools": [
-		{
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "item",
-					"name": "minecraft:firework_star",
-					"functions": [
-						{
-							"function": "set_count",
-							"count": {
-								"min": 1,
-								"max": 60
-							}
-						},
-						{
-							"function": "set_nbt",
-							"tag": "{isRdMark:1b,isMachineBg:1b,CustomModelData:12971000}"
-						}
-					]
-				}
-			]
-		}
-	]
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 60
+                            }
+                        },
+                        {
+                            "function": "set_nbt",
+                            "tag": "{isRdMark:1b,isMachineBg:1b,CustomModelData:12971000}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
 ```
 
