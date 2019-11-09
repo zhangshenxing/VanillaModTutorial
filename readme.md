@@ -1937,7 +1937,7 @@ execute if block ~ ~-1 ~ hopper run data modify block ~ ~-1 ~ TransferCooldown s
 ```
 
 ## §7.3 GUI 命令
-我们需要对机器高频固定住其GUI，同时对于玩家误放入的物品进行弹出处理。我们使用断言来判断木桶内物品信息。
+我们需要对机器高频固定住其GUI，同时对于玩家误放入的物品进行弹出处理，并操作机器选项和经验条。我们使用断言来判断木桶内物品信息。
 
 `cpp/functions/all_in_one_machine/tick.mcfunction`
 ```
@@ -1959,7 +1959,6 @@ scoreboard players set @s[tag=!cpp_machine_work] cppTick 0
 
 对于玩家误放入背景的物品，我们使用[§2.5 战利品表](#25-战利品表)中提及的修改潜影盒战利品表的技巧，将物品返回到玩家背包。
 
-```
 `cpp/functions/all_in_one_machine/gui.mcfunction`
 ```
 setblock ~ 255 ~ shulker_box
