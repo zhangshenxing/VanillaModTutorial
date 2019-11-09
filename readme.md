@@ -1,6 +1,6 @@
 原版模组入门教程
 ===
-作者： `ruhuasiyu` 最后更新：`2019/11/07`
+作者： `ruhuasiyu` 最后更新：`2019/11/09`
 
 本文参考和吸取了大量其他玩家的意见、建议、教程等。阅读时请注意内容的适用版本，有任何错误和疑问请联系我，谢谢！
 
@@ -50,6 +50,7 @@
     + [§6.4 切石机配方](#64-切石机配方)
     + [§6.5 烧炼配方](#65-烧炼配方)
     + [§6.6 覆盖原版配方](#66-覆盖原版配方)
+    + [§6.7 配方获取](#67-配方获取) (WIP)
 + [§7 机器设计](#7-机器设计)
     + [§7.1 GUI 材质模型](#71-GUI-材质模型)
     + [§7.2 GUI 背景处理](#72-GUI-背景处理)
@@ -1152,9 +1153,11 @@ The resourcepack does not Installl correctly or Launch.
 + `Couldn't load function at 函数路径 java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 行号 at position 列号` 相应函数的相应位置出错。
 + `Couldn't read function tag list 标签引用名 from 标签路径 in data pack 数据包` 相应数据包的相应路径的标签出错，检查下是否调用了不存在的物品、方块或出错的函数，或是逗号使用错误。
 
+使用 `/datapack list` 来查看你的模组是否被识别了，如果压根没识别说明你的模组缺少 `pack.mcmeta` 或其错误。
+
 如果进游戏异常卡顿，输入 `/function 相应高频函数`，如果提示执行了65535条函数，那么可能是函数使用了无限自我递归调用。检查相应的函数递归是否跳出条件有误。
 
-调试时，可添加适当的 `tellraw` 命令来查看方块、实体、记分板值等。
+调试时，可添加适当的 `tellraw` 命令来查看方块、实体、记分板值等，来确定何处出错。
 
 ### §4.3 前置与附属
 使用他人已写好的前置可以在减少自己的工作量，例如
@@ -1554,7 +1557,7 @@ execute if block ~ ~ ~ oak_wall_sign as @e[type=armor_stand,tag=cpp_block,distan
 data remove storage cpp:putted_block Item
 ```
 
-尽管看上去比较长，但是递归的次数很少，命令数比视线追踪法还是要少很多。
+尽管看上去比较长，但是递归的次数很少，命令数比视线追踪法还是要少很多。注意由于对玩家坐标乘了1000倍，因此玩家坐标绝对值大于2147484时，会溢出而导致无法使用，可以通过降低精准度(修改为70倍)来避免溢出。
 
 ### §5.3 破坏事件
 例如：破坏自定义的树叶。
@@ -1934,44 +1937,31 @@ execute if block ~ ~-1 ~ hopper run data modify block ~ ~-1 ~ TransferCooldown s
 ```
 
 ## §7.3 GUI 命令
-我们需要对机器高频固定住其GUI，同时对于玩家误放入的物品进行弹出处理。
+我们需要对机器高频固定住其GUI，同时对于玩家误放入的物品进行弹出处理。我们使用断言来判断木桶内物品信息。
 
 `cpp/functions/all_in_one_machine/tick.mcfunction`
 ```
-# 处理误放入附魔之瓶栏的其它物品
-execute if data block ~ ~ ~ Items[{Slot:6b}] unless data block ~ ~ ~ Items[{Slot:6b,id:"minecraft:experience_bottle"}] run function cpp:all_in_one_machine/dist6
-# 处理误放入背景的物品，以及背景被玩家拿走的情形
-execute unless block ~ ~ ~ barrel{Items:[{Slot:0b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/0"}},{Slot:1b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/1"}},{Slot:2b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/2"}},{Slot:5b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/5"}},{Slot:7b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/7"}},{Slot:8b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/8"}},{Slot:9b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/9"}},{Slot:10b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/10"}},{Slot:11b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/11"}},{Slot:12b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/12"}},{Slot:13b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/13"}},{Slot:14b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/14"}},{Slot:15b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/15"}},{Slot:16b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/16"}},{Slot:17b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/17"}},{Slot:18b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/18"}},{Slot:19b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/19"}},{Slot:20b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/20"}},{Slot:23b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/23"}},{Slot:24b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/24"}},{Slot:25b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/25"}},{Slot:26b,Count:1b,tag:{id:"cpp:gui/all_in_one_machine/26"}}]} run function cpp:all_in_one_machine/reset
-execute unless data block ~ ~ ~ Items[{Slot:21b}] run replaceitem block ~ ~ ~ container.21 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/21"}
-execute unless data block ~ ~ ~ Items[{Slot:22b}] run replaceitem block ~ ~ ~ container.22 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/22"}
-# 经验槽
-function cpp:all_in_one_machine/option/xp
-# 配方
+# 检测GUI
+execute unless predicate cpp:all_in_one_machine/gui run function cpp:all_in_one_machine/gui
+execute unless data block ~ ~ ~ Items[{Slot:21b}] run replaceitem block ~ ~ ~ container.21 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000}
+execute unless data block ~ ~ ~ Items[{Slot:22b}] run replaceitem block ~ ~ ~ container.22 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000}
+data modify block ~ ~ ~ Items[{Slot:12b}].tag.CustomModelData set value 12971020
+data modify entity @s ArmorItems[3].tag.CustomModelData set value 12970001
+execute if score @s cppStoredxp matches ..39 if data block ~ ~ ~ Items[{Slot:6b,id:"minecraft:experience_bottle"}] run function cpp:misc/xp_add
 tag @s remove cpp_machine_work
+# 配方
 function cpp:check_power
-execute as @s[tag=!cpp_redstone_powered,scores={cppStoredxp=1..}] if block ~ ~ ~ barrel{Items:[{Slot:21b,tag:{id:"cpp:gui/all_in_one_machine/21"}},{Slot:22b,tag:{id:"cpp:gui/all_in_one_machine/22"}}]} run function cpp:all_in_one_machine/type/all
-# 物品输出
+execute as @s[tag=!cpp_redstone_powered,scores={cppStoredxp=1..}] if predicate cpp:all_in_one_machine/type run function cpp:all_in_one_machine/type
 execute unless data block ~ ~ ~ Items[{Slot:21b,tag:{cppMachineBg:1b}}] run function cpp:all_in_one_machine/dist21
 execute unless data block ~ ~ ~ Items[{Slot:22b,tag:{cppMachineBg:1b}}] run function cpp:all_in_one_machine/dist22
-# 空闲时进度条和外观
 scoreboard players set @s[tag=!cpp_machine_work] cppTick 0
-execute as @s[scores={cppTick=0}] run data modify block ~ ~ ~ Items[{Slot:12b}].tag.CustomModelData set value 12971020
-data modify entity @s[tag=!cpp_machine_work] ArmorItems[3].tag.CustomModelData set value 12970001
 ```
 
-对于玩家误放入附魔之瓶或背景的物品，我们使用[§2.5 战利品表](#25-战利品表)中提及的修改潜影盒战利品表的技巧，将物品返回到玩家背包。
+对于玩家误放入背景的物品，我们使用[§2.5 战利品表](#25-战利品表)中提及的修改潜影盒战利品表的技巧，将物品返回到玩家背包。
 
-`cpp/functions/all_in_one_machine/dist6.mcfunction`
 ```
-setblock ~ 255 ~ shulker_box
-data modify block ~ 255 ~ Items append from block ~ ~ ~ Items[{Slot:6b}]
-loot give @p mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
-setblock ~ 255 ~ air
-data remove block ~ ~ ~ Items[{Slot:6b}]
+`cpp/functions/all_in_one_machine/gui.mcfunction`
 ```
-`cpp/functions/all_in_one_machine/reset.mcfunction`
-```
-# 弹出误放入背景的物品
 setblock ~ 255 ~ shulker_box
 data modify block ~ 255 ~ Items set from block ~ ~ ~ Items
 data remove block ~ 255 ~ Items[{tag:{cppMachineBg:1b}}]
@@ -1982,53 +1972,55 @@ data remove block ~ 255 ~ Items[{Slot:21b}]
 data remove block ~ 255 ~ Items[{Slot:22b}]
 loot give @p mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
-# 玩家点击了选项按钮
+
+replaceitem block ~ ~ ~ container.0 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971011}
+replaceitem block ~ ~ ~ container.5 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.7 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.8 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.9 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.12 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.process_shower"}'},CustomModelData:12971020}
+replaceitem block ~ ~ ~ container.13 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.process_shower"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.14 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.15 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.16 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.17 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12972000}
+replaceitem block ~ ~ ~ container.18 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.23 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.24 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.25 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.26 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12971000}
+
 execute unless data block ~ ~ ~ Items[{Slot:1b}] run function cpp:all_in_one_machine/option/pressure
+execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.low_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.normal_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.high_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971051}
+execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971052}
+execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971053}
+
 execute unless data block ~ ~ ~ Items[{Slot:10b}] run function cpp:all_in_one_machine/option/temperature
+execute as @s[scores={cppTemperature=0}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.low_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppTemperature=1}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.normal_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppTemperature=2}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.high_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppTemperature=0}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971054}
+execute as @s[scores={cppTemperature=1}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971055}
+execute as @s[scores={cppTemperature=2}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971056}
+
 execute unless data block ~ ~ ~ Items[{Slot:19b}] run function cpp:all_in_one_machine/option/output
-# 重置GUI
-replaceitem block ~ ~ ~ container.0 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971011,id:"cpp:gui/all_in_one_machine/0"}
-execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.low_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/1"}
-execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.normal_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/1"}
-execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.1 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.high_pressure"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/1"}
-execute as @s[scores={cppPressure=0}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971051,id:"cpp:gui/all_in_one_machine/2"}
-execute as @s[scores={cppPressure=1}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971052,id:"cpp:gui/all_in_one_machine/2"}
-execute as @s[scores={cppPressure=2}] run replaceitem block ~ ~ ~ container.2 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971053,id:"cpp:gui/all_in_one_machine/2"}
-replaceitem block ~ ~ ~ container.5 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/5"}
-replaceitem block ~ ~ ~ container.7 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/7"}
-replaceitem block ~ ~ ~ container.8 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/8"}
+execute as @s[scores={cppOutputFace=1}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_east"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppOutputFace=2}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_south"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppOutputFace=3}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_west"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppOutputFace=4}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_north"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppOutputFace=5}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_down"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppOutputFace=6}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_up"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000}
+execute as @s[scores={cppOutputFace=1}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971041}
+execute as @s[scores={cppOutputFace=2}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971042}
+execute as @s[scores={cppOutputFace=3}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971043}
+execute as @s[scores={cppOutputFace=4}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971044}
+execute as @s[scores={cppOutputFace=5}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971045}
+execute as @s[scores={cppOutputFace=6}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971046}
 
-replaceitem block ~ ~ ~ container.9 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/9"}
-execute as @s[scores={cppTemperature=0}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.low_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/10"}
-execute as @s[scores={cppTemperature=1}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.normal_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/10"}
-execute as @s[scores={cppTemperature=2}] run replaceitem block ~ ~ ~ container.10 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.high_temperature"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/10"}
-execute as @s[scores={cppTemperature=0}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971054,id:"cpp:gui/all_in_one_machine/11"}
-execute as @s[scores={cppTemperature=1}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971055,id:"cpp:gui/all_in_one_machine/11"}
-execute as @s[scores={cppTemperature=2}] run replaceitem block ~ ~ ~ container.11 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971056,id:"cpp:gui/all_in_one_machine/11"}
-replaceitem block ~ ~ ~ container.12 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.process_shower"}'},CustomModelData:12971020,id:"cpp:gui/all_in_one_machine/12"}
-replaceitem block ~ ~ ~ container.13 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.process_shower"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/13"}
-replaceitem block ~ ~ ~ container.14 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/14"}
-replaceitem block ~ ~ ~ container.15 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/15"}
-replaceitem block ~ ~ ~ container.16 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/16"}
-replaceitem block ~ ~ ~ container.17 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12972000,id:"cpp:gui/all_in_one_machine/17"}
-
-replaceitem block ~ ~ ~ container.18 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/18"}
-execute as @s[scores={cppOutputFace=1}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_east"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
-execute as @s[scores={cppOutputFace=2}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_south"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
-execute as @s[scores={cppOutputFace=3}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_west"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
-execute as @s[scores={cppOutputFace=4}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_north"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
-execute as @s[scores={cppOutputFace=5}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_down"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
-execute as @s[scores={cppOutputFace=6}] run replaceitem block ~ ~ ~ container.19 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_up"}',Lore:['{"translate":"lore.cpp.switch"}']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/19"}
-execute as @s[scores={cppOutputFace=1}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971041,id:"cpp:gui/all_in_one_machine/20"}
-execute as @s[scores={cppOutputFace=2}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971042,id:"cpp:gui/all_in_one_machine/20"}
-execute as @s[scores={cppOutputFace=3}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971043,id:"cpp:gui/all_in_one_machine/20"}
-execute as @s[scores={cppOutputFace=4}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971044,id:"cpp:gui/all_in_one_machine/20"}
-execute as @s[scores={cppOutputFace=5}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971045,id:"cpp:gui/all_in_one_machine/20"}
-execute as @s[scores={cppOutputFace=6}] run replaceitem block ~ ~ ~ container.20 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971046,id:"cpp:gui/all_in_one_machine/20"}
-replaceitem block ~ ~ ~ container.23 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/23"}
-replaceitem block ~ ~ ~ container.24 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/24"}
-replaceitem block ~ ~ ~ container.25 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/25"}
-replaceitem block ~ ~ ~ container.26 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/26"}
+function cpp:misc/xp_show
 ```
 
 当玩家点击按钮时，调整选项。
@@ -2043,9 +2035,8 @@ scoreboard players set @s[tag=!cpp_low_pressure,scores={cppPressure=0}] cppPress
 
 调整经验条的显示，我们使用告示牌来显示分数，然后转移到机器中。
 
-`cpp/functions/all_in_one_machine/option/xp.mcfunction`
+`cpp/functions/misc/xp_show.mcfunction`
 ```
-execute if score @s cppStoredxp matches ..39 if data block ~ ~ ~ Items[{Slot:6b,id:"minecraft:experience_bottle"}] run function cpp:all_in_one_machine/option/add_xp
 setblock ~ 255 ~ oak_sign
 scoreboard players operation #t cppValue = @s cppStoredxp
 data modify block ~ 255 ~ Text1 set value '[{"score":{"name":"#t","objective":"cppValue"},"color":"green","italic":"false"},{"text":"/48"}]'
@@ -2058,11 +2049,12 @@ setblock ~ 255 ~ air
 
 当经验栏经验不足且有附魔之瓶时，添加经验值。
 
-`cpp/functions/all_in_one_machine/option/add_xp.mcfunction`
+`cpp/functions/misc/xp_add.mcfunction`
 ```
 execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:6b}].Count
 execute store result block ~ ~ ~ Items[{Slot:6b}].Count byte 1 run scoreboard players remove #temp cppValue 1
 scoreboard players add @s cppStoredxp 9
+function cpp:misc/xp_show
 ```
 
 然后判断机器处是否有红石信号强充能。这里我们将元件分为方块标签：按钮拉杆、压力板、侦测器红石中继器红石比较器拌线钩，来判断。
@@ -2090,21 +2082,19 @@ execute if block ~ ~ ~-1 #cpp:power_side[powered=true,facing=north] run tag @s a
 
 当机器未被强充能、有经验值、有输入物、输出栏空闲时，进入配方判断。这里我们根据要求的温度压强来分类。
 
-`cpp/functions/all_in_one_machine/type/all.mcfunction`
+`cpp/functions/all_in_one_machine/type.mcfunction`
 ```
-execute as @s[scores={cppTemperature=0,cppPressure=0}] run function cpp:all_in_one_machine/type/ll
-execute as @s[scores={cppTemperature=0,cppPressure=1}] run function cpp:all_in_one_machine/type/ln
-execute as @s[scores={cppTemperature=0,cppPressure=2}] run function cpp:all_in_one_machine/type/lh
-execute as @s[scores={cppTemperature=1,cppPressure=0,cppStoredxp=4..}] run function cpp:all_in_one_machine/type/nl
-execute as @s[scores={cppTemperature=1,cppPressure=1,cppStoredxp=2..}] run function cpp:all_in_one_machine/type/nn
-execute as @s[scores={cppTemperature=1,cppPressure=2}] run function cpp:all_in_one_machine/type/nh
-execute as @s[scores={cppTemperature=2,cppPressure=0,cppStoredxp=4..}] run function cpp:all_in_one_machine/type/hl
-execute as @s[scores={cppTemperature=2,cppPressure=1}] run function cpp:all_in_one_machine/type/hn
-execute as @s[scores={cppTemperature=2,cppPressure=2,cppStoredxp=4..}] run function cpp:all_in_one_machine/type/hh
-# 接口
+execute as @s[scores={cppTemperature=0,cppPressure=0}] run function cpp:all_in_one_machine/recipes/ll
+execute as @s[scores={cppTemperature=0,cppPressure=1}] run function cpp:all_in_one_machine/recipes/ln
+execute as @s[scores={cppTemperature=0,cppPressure=2}] run function cpp:all_in_one_machine/recipes/lh
+execute as @s[scores={cppTemperature=1,cppPressure=0,cppStoredxp=4..}] run function cpp:all_in_one_machine/recipes/nl
+execute as @s[scores={cppTemperature=1,cppPressure=1,cppStoredxp=2..}] run function cpp:all_in_one_machine/recipes/nn
+execute as @s[scores={cppTemperature=1,cppPressure=2}] run function cpp:all_in_one_machine/recipes/nh
+execute as @s[scores={cppTemperature=2,cppPressure=0,cppStoredxp=4..}] run function cpp:all_in_one_machine/recipes/hl
+execute as @s[scores={cppTemperature=2,cppPressure=1}] run function cpp:all_in_one_machine/recipes/hn
+execute as @s[scores={cppTemperature=2,cppPressure=2,cppStoredxp=4..}] run function cpp:all_in_one_machine/recipes/hh
 function #cpp:all_in_one_machine
-execute unless data block ~ ~ ~ Items[{Slot:21b,tag:{id:"cpp:gui/all_in_one_machine/21"}}] run function cpp:all_in_one_machine/clear
-# 工作时进度条和外观
+execute unless data block ~ ~ ~ Items[{Slot:21b,tag:{cppMachineBg:1b}}] run function cpp:all_in_one_machine/clear
 execute as @s[scores={cppTick=1..}] run function cpp:all_in_one_machine/option/process
 data modify entity @s[tag=cpp_machine_work] ArmorItems[3].tag.CustomModelData set value 12971001
 ```
@@ -2127,40 +2117,48 @@ execute store result block ~ ~ ~ Items[{Slot:12b}].tag.CustomModelData int 1 run
 data modify storage cpp:dist Item set from block ~ ~ ~ Items[{Slot:21b}]
 function cpp:dist/type
 data remove storage cpp:dist Item
-execute as @s[tag=cpp_dist_success] run replaceitem block ~ ~ ~ container.21 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000,id:"cpp:gui/all_in_one_machine/21"}
+execute as @s[tag=cpp_dist_success] run replaceitem block ~ ~ ~ container.21 firework_star{cppMachineBg:1b,display:{Name:'{"translate":"item.cpp.output_slot"}'},CustomModelData:12971000}
 ```
 
 ## §7.4 物品输出
-上一节我们调用了一个函数用于输出物品。
+上一节我们调用了一个函数用于输出物品，我们来看一下它的算法。
+
+根据机器的输出方向调整位置。这里我们把容器、大箱子添加至方块标签中。
 
 `function cpp:dist/type`
 ```
-execute as @s[scores={cppOutputFace=1}] positioned ~1 ~ ~ run function cpp:dist/pos
-execute as @s[scores={cppOutputFace=2}] positioned ~ ~ ~1 run function cpp:dist/pos
-execute as @s[scores={cppOutputFace=3}] positioned ~-1 ~ ~ run function cpp:dist/pos
-execute as @s[scores={cppOutputFace=4}] positioned ~ ~ ~-1 run function cpp:dist/pos
-execute as @s[scores={cppOutputFace=5}] positioned ~ ~-1 ~ run function cpp:dist/pos
-execute as @s[scores={cppOutputFace=6}] positioned ~ ~1 ~ run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=1}] positioned ~1 ~ ~ if block ~ ~ ~ #container:all run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=2}] positioned ~ ~ ~1 if block ~ ~ ~ #container:all run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=3}] positioned ~-1 ~ ~ if block ~ ~ ~ #container:all run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=4}] positioned ~ ~ ~-1 if block ~ ~ ~ #container:all run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=5}] positioned ~ ~-1 ~ if block ~ ~ ~ #container:all run function cpp:dist/pos
+execute as @s[scores={cppOutputFace=6}] positioned ~ ~1 ~ if block ~ ~ ~ #container:all run function cpp:dist/pos
 ```
 
-对于大箱子情形调整输出的位置。这里我们把容器、大箱子添加至方块标签中，将计算容器的栏位数添加为函数标签，以便于扩充。
+如果是大箱子的右半个，将其修改为左半个位置。
 
 `cpp/function/dist/pos.mcfunction`
+```
+execute if block ~ ~ ~ #container:chests[type=left,facing=east] positioned ~ ~ ~1 run function cpp:dist/pos2
+execute if block ~ ~ ~ #container:chests[type=left,facing=west] positioned ~ ~ ~-1 run function cpp:dist/pos2
+execute if block ~ ~ ~ #container:chests[type=left,facing=south] positioned ~-1 ~ ~ run function cpp:dist/pos2
+execute if block ~ ~ ~ #container:chests[type=left,facing=north] positioned ~1 ~ ~ run function cpp:dist/pos2
+execute unless block ~ ~ ~ #container:chests[type=left] run function cpp:dist/pos2
+```
+
+计算当前容器的空栏位数。这里我们将计算容器的栏位数添加为函数标签，以便于对更多容器可以做扩充。如果当前位置没有空栏位且为大箱子，调整输出的位置。
+
+`cpp/function/dist/pos2.mcfunction`
 ```
 tag @s remove cpp_dist_success
 execute store result score @s container run data get block ~ ~ ~ Items
 function #container:check
 execute unless block ~ ~ ~ #container:all run scoreboard players set @s container 0
-execute as @s[scores={container=..-1}] run summon area_effect_cloud ~ ~ ~ {Tags:["cpp_dist_pos"]}
-execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=east] positioned ~ ~ ~-1 run function cpp:dist/double
-execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=west] positioned ~ ~ ~1 run function cpp:dist/double
-execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=south] positioned ~1 ~ ~ run function cpp:dist/double
-execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=north] positioned ~-1 ~ ~ run function cpp:dist/double
-execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=left,facing=east] positioned ~ ~ ~1 run function cpp:dist/double
-execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=left,facing=west] positioned ~ ~ ~-1 run function cpp:dist/double
-execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=left,facing=south] positioned ~-1 ~ ~ run function cpp:dist/double
-execute as @s[scores={container=0..}] if block ~ ~ ~ #container:chests[type=left,facing=north] positioned ~1 ~ ~ run function cpp:dist/double
-execute at @e[type=area_effect_cloud,tag=cpp_dist_pos] run function cpp:dist/dist
+execute as @s[scores={container=..-1}] run function cpp:dist/dist
+execute as @s[tag=!cpp_dist_success,scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=east] positioned ~ ~ ~-1 run function cpp:dist/double
+execute as @s[tag=!cpp_dist_success,scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=west] positioned ~ ~ ~1 run function cpp:dist/double
+execute as @s[tag=!cpp_dist_success,scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=south] positioned ~1 ~ ~ run function cpp:dist/double
+execute as @s[tag=!cpp_dist_success,scores={container=0..}] if block ~ ~ ~ #container:chests[type=right,facing=north] positioned ~-1 ~ ~ run function cpp:dist/double
 ```
 
 函数标签`#container:check`包括函数
@@ -2174,18 +2172,19 @@ execute if block ~ ~ ~ #container:slots27 run scoreboard players remove @s conta
 ```
 execute store result score @s container run data get block ~ ~ ~ Items
 scoreboard players remove @s container 27
-execute as @s[scores={container=..-1}] run summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["cpp_dist_pos"]}
+execute as @s[scores={container=..-1}] run function cpp:dist/dist
 ```
 
-最后使用潜影盒技巧输出。
+最后使用潜影盒技巧输入物品。
+
 `cpp/functions/dist/dist.mcfunction`
 ```
 tag @s add cpp_dist_success
 setblock ~ 255 ~ shulker_box
+data remove storage cpp:dist Item.Slot
 data modify block ~ 255 ~ Items[{Slot:0b}] merge from storage cpp:dist Item
 loot insert ~ ~ ~ mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
-kill @e[type=area_effect_cloud,tag=cpp_dist_pos,distance=..1,limit=1]
 ```
 `minecraft/loot_tables/blocks/shulker_box.json`
 ```
@@ -2259,24 +2258,154 @@ kill @e[type=area_effect_cloud,tag=cpp_dist_pos,distance=..1,limit=1]
 ```
 
 ## §7.5 配方处理
-首先我们以常温常压模式下使用肥料增殖农作物为例。
+我们使用断言判断机器的物品是否满足相应配方的条件，然后进入计时。计时完成后进行产物生成，产物的生成通过使用战利品表判断当前位置的 nbt 得到。
 
-`cpp/functions/all_in_one_machine/type/nn/fertilizer.mcfunction`
+
+`cpp/functions/all_in_one_machine/recipes/nn.mcfunction`
 ```
-execute as @s[tag=!cpp_machine_work] if block ~ ~ ~ barrel{Items:[{id:"minecraft:wheat_seeds"}]} run function cpp:all_in_one_machine/type/nn/fertilizer_wheat_seeds
-execute as @s[tag=!cpp_machine_work] if block ~ ~ ~ barrel{Items:[{id:"minecraft:beetroot_seeds"}]} run function cpp:all_in_one_machine/type/nn/fertilizer_beetroot_seeds
-execute as @s[tag=!cpp_machine_work] if block ~ ~ ~ barrel{Items:[{id:"minecraft:carrot"}]} run function cpp:all_in_one_machine/type/nn/fertilizer_carrot
+execute if block ~ ~ ~ barrel{Items:[{tag:{id:"cpp:fertilizer"}}]} if predicate cpp:all_in_one_machine/nn_2_2 run function cpp:all_in_one_machine/recipes/nn/nn_2_2
+```
+`cpp/predicates/all_in_one_machine/nn_2_2.json`
+```
+{
+	"condition": "minecraft:alternative",
+	"terms": [
+		{
+			"condition": "minecraft:location_check",
+			"predicate": {
+				"block": {
+					"nbt": "{Items:[{id:'minecraft:wheat_seeds'}]}"
+				}
+			}
+		},
+		{
+			"condition": "minecraft:location_check",
+			"predicate": {
+				"block": {
+					"nbt": "{Items:[{id:'minecraft:beetroot_seeds'}]}"
+				}
+			}
+		},
+		{
+			"condition": "minecraft:location_check",
+			"predicate": {
+				"block": {
+					"nbt": "{Items:[{id:'minecraft:pumpkin_seeds'}]}"
+				}
+			}
+		},
+		{
+			"condition": "minecraft:location_check",
+			"predicate": {
+				"block": {
+					"nbt": "{Items:[{id:'minecraft:melon_seeds'}]}"
+				}
+			}
+		}
+    ]
+}
 ```
 
-`cpp/functions/all_in_one_machine/type/nn/fertilizer_wheat_seeds.mcfunction`
+这里需要注意一种极端情形，如果同一条件下的函数中，有多条判断原材料的命令，而且这些为无序配方（即不检测具体栏位），而且所有产物和原材料中，有部分物品可以进行其它合成，那么我们需要在这些判断中添加 `as @s[tag=!cpp_machine_work]` 或者 `if block ~ ~ ~ barrel{Items:[{Slot:16b,tag:{cppMachineBg:1b}}]}` 来对机器是否已工作进行判断，否则有可能导致前一个配方的产物正常被后一个配方识别到，而导致配方出现混乱。
+
+`cpp/functions/all_in_one_machine/recipes/nn/nn_2_2.mcfunction`
 ```
 tag @s add cpp_machine_work
 scoreboard players add @s cppTick 30
-execute if score @s cppTick >= #allInOneMachinePeriod cppValue run scoreboard players remove @s cppStoredxp 1
-execute if score @s cppTick >= #allInOneMachinePeriod cppValue run loot replace block ~ ~ ~ container.21 2 loot cpp:items/nn/fertilizer_wheat_seeds
+execute if score @s cppTick >= #allInOneMachinePeriod cppValue run function cpp:all_in_one_machine/recipes/nn/nn_2_2_done
+```
+`cpp/functions/all_in_one_machine/recipes/nn/nn_2_2_done.mcfunction`
+```
+scoreboard players remove @s cppStoredxp 1
+loot replace block ~ ~ ~ container.21 2 loot cpp:all_in_one_machine/nn_2_2
+```
+`cpp/loot_tables/all_in_one_machine/nn_2_2.json`
+```
+{
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"conditions": [
+								{
+									"condition": "minecraft:location_check",
+									"predicate": {
+										"block": {
+											"nbt": "{Items:[{id:'minecraft:wheat_seeds'}]}"
+										}
+									}
+								}
+							],
+							"type": "minecraft:loot_table",
+							"name": "cpp:all_in_one_machine/items/wheats"
+						},
+						{
+							"conditions": [
+								{
+									"condition": "minecraft:location_check",
+									"predicate": {
+										"block": {
+											"nbt": "{Items:[{id:'minecraft:beetroot_seeds'}]}"
+										}
+									}
+								}
+							],
+							"type": "minecraft:loot_table",
+							"name": "cpp:all_in_one_machine/items/beetroots"
+						},
+						{
+							"conditions": [
+								{
+									"condition": "minecraft:location_check",
+									"predicate": {
+										"block": {
+											"nbt": "{Items:[{id:'minecraft:pumpkin_seeds'}]}"
+										}
+									}
+								}
+							],
+							"type": "minecraft:item",
+							"name": "minecraft:pumpkin",
+							"functions":[
+								{
+									"function": "minecraft:set_count",
+									"count": 2
+								}
+							]
+						},
+						{
+							"conditions": [
+								{
+									"condition": "minecraft:location_check",
+									"predicate": {
+										"block": {
+											"nbt": "{Items:[{id:'minecraft:melon_seeds'}]}"
+										}
+									}
+								}
+							],
+							"type": "minecraft:item",
+							"name": "minecraft:melon",
+							"functions":[
+								{
+									"function": "minecraft:set_count",
+									"count": 2
+								}
+							]
+						}
+                    ]
+                }
+            ]
+        }
+    ]
+}
 ```
 
-这样，输出槽就产生了物品，然后通过上一节中相关函数命令，进入清理环节。
+这样，输出槽就产生了物品，然后通过上一节中相关函数命令，进入清理环节。如果你的配方并不是100%有产物的，则需要在计时完成中添加机器完成工作的标签，然后根据标签来判断是否进入清理环节。
 
 `cpp/functions/all_in_one_machine/clear.mcfunction`
 ```
