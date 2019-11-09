@@ -2267,40 +2267,40 @@ execute if block ~ ~ ~ barrel{Items:[{tag:{id:"cpp:fertilizer"}}]} if predicate 
 `cpp/predicates/all_in_one_machine/nn_2_2.json`
 ```
 {
-	"condition": "minecraft:alternative",
-	"terms": [
-		{
-			"condition": "minecraft:location_check",
-			"predicate": {
-				"block": {
-					"nbt": "{Items:[{id:'minecraft:wheat_seeds'}]}"
-				}
-			}
-		},
-		{
-			"condition": "minecraft:location_check",
-			"predicate": {
-				"block": {
-					"nbt": "{Items:[{id:'minecraft:beetroot_seeds'}]}"
-				}
-			}
-		},
-		{
-			"condition": "minecraft:location_check",
-			"predicate": {
-				"block": {
-					"nbt": "{Items:[{id:'minecraft:pumpkin_seeds'}]}"
-				}
-			}
-		},
-		{
-			"condition": "minecraft:location_check",
-			"predicate": {
-				"block": {
-					"nbt": "{Items:[{id:'minecraft:melon_seeds'}]}"
-				}
-			}
-		}
+    "condition": "minecraft:alternative",
+    "terms": [
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{id:'minecraft:wheat_seeds'}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{id:'minecraft:beetroot_seeds'}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{id:'minecraft:pumpkin_seeds'}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{id:'minecraft:melon_seeds'}]}"
+                }
+            }
+        }
     ]
 }
 ```
@@ -2321,81 +2321,81 @@ loot replace block ~ ~ ~ container.21 2 loot cpp:all_in_one_machine/nn_2_2
 `cpp/loot_tables/all_in_one_machine/nn_2_2.json`
 ```
 {
-	"pools": [
-		{
-			"rolls": 1,
-			"entries": [
-				{
-					"type": "minecraft:alternatives",
-					"children": [
-						{
-							"conditions": [
-								{
-									"condition": "minecraft:location_check",
-									"predicate": {
-										"block": {
-											"nbt": "{Items:[{id:'minecraft:wheat_seeds'}]}"
-										}
-									}
-								}
-							],
-							"type": "minecraft:loot_table",
-							"name": "cpp:all_in_one_machine/items/wheats"
-						},
-						{
-							"conditions": [
-								{
-									"condition": "minecraft:location_check",
-									"predicate": {
-										"block": {
-											"nbt": "{Items:[{id:'minecraft:beetroot_seeds'}]}"
-										}
-									}
-								}
-							],
-							"type": "minecraft:loot_table",
-							"name": "cpp:all_in_one_machine/items/beetroots"
-						},
-						{
-							"conditions": [
-								{
-									"condition": "minecraft:location_check",
-									"predicate": {
-										"block": {
-											"nbt": "{Items:[{id:'minecraft:pumpkin_seeds'}]}"
-										}
-									}
-								}
-							],
-							"type": "minecraft:item",
-							"name": "minecraft:pumpkin",
-							"functions":[
-								{
-									"function": "minecraft:set_count",
-									"count": 2
-								}
-							]
-						},
-						{
-							"conditions": [
-								{
-									"condition": "minecraft:location_check",
-									"predicate": {
-										"block": {
-											"nbt": "{Items:[{id:'minecraft:melon_seeds'}]}"
-										}
-									}
-								}
-							],
-							"type": "minecraft:item",
-							"name": "minecraft:melon",
-							"functions":[
-								{
-									"function": "minecraft:set_count",
-									"count": 2
-								}
-							]
-						}
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:location_check",
+                                    "predicate": {
+                                        "block": {
+                                            "nbt": "{Items:[{id:'minecraft:wheat_seeds'}]}"
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "minecraft:loot_table",
+                            "name": "cpp:all_in_one_machine/items/wheats"
+                        },
+                        {
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:location_check",
+                                    "predicate": {
+                                        "block": {
+                                            "nbt": "{Items:[{id:'minecraft:beetroot_seeds'}]}"
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "minecraft:loot_table",
+                            "name": "cpp:all_in_one_machine/items/beetroots"
+                        },
+                        {
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:location_check",
+                                    "predicate": {
+                                        "block": {
+                                            "nbt": "{Items:[{id:'minecraft:pumpkin_seeds'}]}"
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "minecraft:item",
+                            "name": "minecraft:pumpkin",
+                            "functions":[
+                                {
+                                    "function": "minecraft:set_count",
+                                    "count": 2
+                                }
+                            ]
+                        },
+                        {
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:location_check",
+                                    "predicate": {
+                                        "block": {
+                                            "nbt": "{Items:[{id:'minecraft:melon_seeds'}]}"
+                                        }
+                                    }
+                                }
+                            ],
+                            "type": "minecraft:item",
+                            "name": "minecraft:melon",
+                            "functions":[
+                                {
+                                    "function": "minecraft:set_count",
+                                    "count": 2
+                                }
+                            ]
+                        }
                     ]
                 }
             ]
