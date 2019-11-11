@@ -1,6 +1,6 @@
 原版模组入门教程
 ===
-作者： `ruhuasiyu` 最后更新：`2019/11/09`
+作者： `ruhuasiyu` 最后更新：`2019/11/11`
 
 本文参考和吸取了大量其他玩家的意见、建议、教程等。阅读时请注意内容的适用版本，有任何错误和疑问请联系我，谢谢！
 
@@ -50,7 +50,7 @@
     + [§6.4 切石机配方](#64-切石机配方)
     + [§6.5 烧炼配方](#65-烧炼配方)
     + [§6.6 覆盖原版配方](#66-覆盖原版配方)
-    + [§6.7 配方获取](#67-配方获取) (WIP)
+    + [§6.7 配方获取](#67-配方获取)
 + [§7 机器设计](#7-机器设计)
     + [§7.1 GUI 材质模型](#71-GUI-材质模型)
     + [§7.2 GUI 背景处理](#72-GUI-背景处理)
@@ -58,14 +58,15 @@
     + [§7.4 物品输出](#74-物品输出)
     + [§7.5 配方处理](#75-配方处理)
     + [§7.6 插件](#76-插件)
-    + [§7.7 容器扩展](#77-容器扩展) (WIP)
-    + [§7.8 接口](#78-接口) (WIP)
+    + [§7.7 容器扩展](#77-容器扩展)
+    + [§7.8 接口](#78-接口)
     + [§7.9 管道](#79-管道) (WIP)
-    + [§7.10 物流](#710-物流) (WIP)
-+ [§8 NBT 物品合成、烧炼与酿造](#8-NBT-物品合成、烧炼与酿造) (WIP)
++ [§8 NBT 物品合成、烧炼与酿造](#8-NBT-物品合成、烧炼与酿造)
     + [§8.1 地板合成](#81-地板合成)
     + [§8.2 实体背包合成](#81-实体背包合成)
     + [§8.3 容器合成](#81-容器合成)
+    + [§8.4 烧炼](#81-烧炼)
+    + [§8.5 酿造](#81-酿造)
 + [§9 探测与触发](#9-探测与触发) (WIP)
     + [§9.1 胡萝卜钓竿](#91-胡萝卜钓竿)
     + [§9.2 投掷物](#92-投掷物)
@@ -82,11 +83,13 @@
     + [§11.2 移动](#112-移动)
     + [§11.3 传送](#113-传送)
     + [§11.4 随机物品](#114-随机物品)
+    + [§11.5 生物 nbt 操作](#115-生物-nbt-操作)
+    + [§11.6 Boss 设计](#116-Boss-设计)
 + [§12 方块操作](#12-方块操作) (WIP)
-    + [§11.1 方块放置](#121-方块放置)
-    + [§11.2 填充](#122-填充)
-    + [§11.3 自动种植](#123-自动种植)
-    + [§11.4 连锁挖矿](#124-连锁挖矿)
+    + [§12.1 方块放置](#121-方块放置)
+    + [§12.2 填充](#122-填充)
+    + [§12.3 自动种植](#123-自动种植)
+    + [§12.4 连锁挖矿](#124-连锁挖矿)
 + [§13 世界生成](#13-世界生成) (WIP)
     + [§13.1 随机结构](#131-随机结构)
     + [§13.2 水处理](#132-水处理)
@@ -1804,6 +1807,56 @@ kill @s
 ```
 如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为`{}`时会被认为是错误文件而无法覆盖原配方。
 
+### §6.7 配方获取
+一个完整的配方应当有相应的进度来使玩家获取之，通常触发器为玩家背包含有合成材料。
+
+`cpp/advancements/recipes/dirt_from_cobblestone_snowball.json`
+```
+{
+    "criteria": {
+        "cobblestone": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:cobblestone",
+                        "count": {
+                            "min": 8
+                        }
+                    }
+                ]
+            }
+        },
+        "snowball": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:snowball"
+                    }
+                ]
+            }
+        },
+        "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "cpp:dirt_from_cobblestone_snowball"
+            }
+        }
+    },
+    "rewards":{
+        "recipes": ["cpp:dirt_from_cobblestone_snowball"]
+    },
+    "requirements": [
+        [
+            "cobblestone",
+            "snowball",
+            "has_the_recipe"
+        ]
+    ]
+}
+```
+
 ## §7 机器设计
 本节我们将通过一个较为复杂的机器的例子，来了解如何设计一个机器。
 
@@ -2126,6 +2179,7 @@ execute as @s[tag=cpp_dist_success] run replaceitem block ~ ~ ~ container.21 fir
 
 `function cpp:dist/type`
 ```
+tag @s remove cpp_dist_success
 execute as @s[scores={cppOutputFace=1}] positioned ~1 ~ ~ if block ~ ~ ~ #container:all run function cpp:dist/pos
 execute as @s[scores={cppOutputFace=2}] positioned ~ ~ ~1 if block ~ ~ ~ #container:all run function cpp:dist/pos
 execute as @s[scores={cppOutputFace=3}] positioned ~-1 ~ ~ if block ~ ~ ~ #container:all run function cpp:dist/pos
@@ -2149,7 +2203,6 @@ execute unless block ~ ~ ~ #container:chests[type=left] run function cpp:dist/po
 
 `cpp/function/dist/pos2.mcfunction`
 ```
-tag @s remove cpp_dist_success
 execute store result score @s container run data get block ~ ~ ~ Items
 function #container:check
 execute unless block ~ ~ ~ #container:all run scoreboard players set @s container 0
@@ -2425,7 +2478,7 @@ execute if data block ~ ~ ~ Items[{id:"minecraft:potion"}] run function cpp:craf
 execute if data block ~ ~ ~ Items[{id:"minecraft:honey_bottle"}] run function cpp:crafting_machine/craft/clear/honey_bottle
 ```
 
-我们通过计算单个堆叠和多个堆叠的栏位数，来得到该有多少玻璃瓶进入输出的容器。如果容器满了，计算进入玩家背包的数量，处理应当留下的数量。
+我们通过计算单个堆叠和多个堆叠的栏位数，来得到该有多少玻璃瓶进入输出的容器。如果容器满了，计算进入玩家背包的数量，处理应当留下的数量。尽管水桶等物品不可堆叠，但我们仍保留考虑其它模组使其可堆叠的情形。
 
 `cpp/functions/crafting_machine/craft/clear/honey_bottle.mcfunction`
 ```
@@ -2494,18 +2547,211 @@ replaceitem entity @s[gamemode=!creative,nbt={SelectedItem:{tag:{MachinePlugin:1
 ```
 
 ## §7.7 容器扩展
-## §7.8 接口
-## §7.9 管道
-## §7.10 物流
+在[§7.4 物品输出](#74-物品输出)中，方块标签 `#container:all` 记录了各种容器，`#container:chests` 记录了各种大箱子，函数标签 `#container:check` 处理容器的栏位数量。我们希望添加更多可支持的容器，例如[更多箱子](https://www.curseforge.com/minecraft/mc-mods/iron-chests)和[石箱子](https://www.curseforge.com/minecraft/mc-mods/stone-chest)中的容器。
 
+`container/tags/blocks/all.json`
+```
+{
+    "replace": false,
+    "values": [
+        "ironchest:copper_chest",
+        "ironchest:iron_chest",
+        "ironchest:silver_chest",
+        "ironchest:gold_chest",
+        "#ironchest:diamond",
+        "stonechest:chest_andesite",
+        "stonechest:chest_cobblestone",
+        "stonechest:chest_diorite",
+        "stonechest:chest_granite",
+        "stonechest:chest_stone"
+    ]
+}
+```
+`container/tags/blocks/chests.json`
+```
+{
+    "replace": false,
+    "values": [
+        "stonechest:chest_andesite",
+        "stonechest:chest_cobblestone",
+        "stonechest:chest_diorite",
+        "stonechest:chest_granite",
+        "stonechest:chest_stone"
+    ]
+}
+```
+
+方块标签 `#container:slots27` 中的容器容量已经在函数 `container:check` 中处理过了，所以不用再额外检查。
+`container/tags/blocks/slots27.json`
+```
+{
+    "replace": false,
+    "values": [
+        "stonechest:chest_andesite",
+        "stonechest:chest_cobblestone",
+        "stonechest:chest_diorite",
+        "stonechest:chest_granite",
+        "stonechest:chest_stone"
+    ]
+}
+```
+`container/tags/functions/check.json`
+```
+{
+    "replace": false,
+    "values": [
+        "ironchest:check"
+    ]
+}
+```
+
+`ironchest/functions/check.mcfunction`
+```
+execute if block ~ ~ ~ ironchest:copper_chest run scoreboard players remove @s container 45
+execute if block ~ ~ ~ ironchest:iron_chest run scoreboard players remove @s container 54
+execute if block ~ ~ ~ ironchest:silver_chest run scoreboard players remove @s container 72
+execute if block ~ ~ ~ ironchest:gold_chest run scoreboard players remove @s container 81
+execute if block ~ ~ ~ #ironchest:diamond run scoreboard players remove @s container 108
+```
+这里 `#ironchest:diamond` 包含了钻石箱子、黑曜石箱子和水晶箱子，它们容量均为108。
+
+添加完这样的数据包之后，我们便可以如[§7.4 物品输出](#74-物品输出)般调用它们了。这里是已经写好的[原版模组容器扩展](https://github.com/ruhuasiyu/CraftingPlusPlus/tree/master/other_datapacks/%E5%8E%9F%E7%89%88%E6%A8%A1%E7%BB%84%E5%AE%B9%E5%99%A8%E6%89%A9%E5%B1%95)。
+
+## §7.8 接口
+函数 `cpp/functions/all_in_one_machine/type.mcfunction` 中包含一条命令
+```
+function #cpp:all_in_one_machine
+```
+我们也创建了相应的函数标签。然后其他开发者便可向该函数标签写入内容来达到扩展或修改内容的目的，这也在[§4.3 前置与附属](#43-前置与附属)中提及。例如
+
+```
+execute as @s[scores={cppStoredXp=8..,cppTemperature=0,cppPressure=0}] run function foo:all_in_one_machine/recipes/bar
+```
+然后类似创建后续的断言、战利品表、函数。
+
+## §7.9 管道
+科技类模组人们需要添加管道来传输电力、流体、物品等。物品管道是类似的，我们将物品的信息存储在管道上并传输即可，最终将其输入到容器中。常见的几种做法有：
+
+### §7.9.1 无线传输
+优点是简洁易操作，判断输出电力的机器附近是否有需要输入电力的机器并计算即可。
+
+```
+execute as @e[type=armor_stand,tag=cpp_machine,tag=cpp_power_source,scores={cppPower=1..}] at @s if entity @e[type=armor_stand,tag=cpp_machine,tag=cpp_power_target,distance=..16] run function cpp:machine/power/translate
+```
+`cpp/functions/machine/power/translate.mcfunction`
+```
+tag @s add cpp_power_out
+scoreboard players operation #t0 cppPower = @e[type=armor_stand,tag=cpp_machine,tag=cpp_power_source,scores={cppPower=1..},distance=..1,limit=1] cppPower
+execute as @e[type=armor_stand,tag=cpp_machine,tag=cpp_power_target] if score @s cppPower < @s cppPowerMax run function cpp:machine/power/translate1
+scoreboard players operation @e[type=armor_stand,tag=cpp_machine,tag=cpp_power_source,scores={cppPower=1..},distance=..1,limit=1] cppPower -= #t0 cppPower
+tag @s remove cpp_power_out
+```
+`cpp/functions/machine/power/translate1.mcfunction`
+```
+scoreboard players operation #t cppPower = @s cppPowerMax
+scoreboard players operation #t cppPower -= @s cppPower
+execute if score #t cppPower > #t0 cppPower run scoreboard players operation #t cppPower = #t0 cppPower
+scoreboard players operation @s cppPower += #t cppPower
+scoreboard players operation #t0 cppPower -= #t cppPower
+```
+
+我们也可以在传输中添加类似投射物的特效来提高视觉效果。
+
+### §7.9.2 管道式 (WIP)
+优点是具有传统科技模组的风格，缺点是每个管道都是一个实体(仅有原版方块限制颇多)，管道多的时候会较为卡顿。
+
+涌流式：能量从高处向周围比它低的管道/机器处流动，来最终实现能量传输。管道内会留有缓存。实现和无线传输类似，只是范围限定在1米内。
+
+遍历式：从能量源出发，遇到过的管道做标记一直向下，如果遇到终点就回溯到分叉点，一直循环直到返回源头。
+
+### §7.9.3 激光式
+为了降低管道式的管道数量，我们可以将管道替换为可以一次传输多格的激光式管道。这里我们使用展示框来表示，计算其与前方方块的距离并调整外观(长度)。
+```
+execute as @e[type=item_frame,tag=ind_wire] at @s run function indcore:wire/face
+execute as @e[type=armor_stand,tag=ind_power_out,scores={indPower=1..}] at @s run function indcore:power/face
+```
+`indcore/functions/wire/face.mcfunction`
+```
+scoreboard players set @s indValue 7500000
+execute as @s[nbt={Facing:0b}] align xyz positioned ~0.5 ~-1 ~0.5 run function indcore:wire/down
+execute as @s[nbt={Facing:1b}] align xyz positioned ~0.5 ~1 ~0.5 run function indcore:wire/up
+execute as @s[nbt={Facing:2b}] align xyz positioned ~0.5 ~ ~-0.5 run function indcore:wire/north
+execute as @s[nbt={Facing:3b}] align xyz positioned ~0.5 ~ ~1.5 run function indcore:wire/south
+execute as @s[nbt={Facing:4b}] align xyz positioned ~-0.5 ~ ~0.5 run function indcore:wire/west
+execute as @s[nbt={Facing:5b}] align xyz positioned ~1.5 ~ ~0.5 run function indcore:wire/east
+execute store result entity @s Item.tag.CustomModelData int 1 run scoreboard players get @s indValue
+```
+`indcore/functions/wire/east.mcfunction`
+```
+scoreboard players add @s indValue 1
+execute if block ~ ~ ~ #indcore:fluid positioned ~1 ~ ~ run function indcore:wire/east
+```
+
+同样我们递归向前来获得接收能量的方块。
+
+`indcore/functions/power/face.mcfunction`
+```
+execute positioned ~0.5 ~0.5 ~ if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~1.5 ~ ~0.5 run function indcore:power/east
+execute positioned ~-0.5 ~0.5 ~ if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~-1.5 ~ ~0.5 run function indcore:power/west
+execute positioned ~ ~0.5 ~0.5 if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~0.5 ~ ~1.5 run function indcore:power/south
+execute positioned ~ ~0.5 ~-0.5 if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~0.5 ~ ~-1.5 run function indcore:power/north
+execute positioned ~ ~1 ~ if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~0.5 ~2 ~0.5 run function indcore:power/up
+execute if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~0.5 ~-2 ~0.5 run function indcore:power/down
+```
+`indcore/functions/power/east.mcfunction`
+```
+execute if entity @s[distance=..16] if entity @e[tag=ind_power_in,distance=..0.1] entity @e[tag=ind_power_in,distance=..0.1,limit=1,scores={indPower=..9999}] if score @e[tag=ind_power_in,distance=..0.1,limit=1] indPower < @e[tag=ind_power_in,distance=..0.1,limit=1] indPowerLimit run function indcore:power/in
+execute if entity @s[distance=..16] unless entity @e[tag=ind_power_in,distance=..0.1] positioned ~1 ~ ~ run function indcore:power/east
+```
+`indcore/functions/power/in.mcfunction`
+```
+scoreboard players remove @s indPower 1
+scoreboard players add @e[tag=ind_power_in,distance=..0.1,limit=1] indPower 1
+```
+
+### §7.9.4 载体式
+我们使用一个可移动的实体来传输能量，这个实体受方块控制。
+
+```
+data merge entity @s {PortalCooldown:900}
+execute if block ~ ~ ~ #cpp:golem_east run scoreboard players set @s cppGolemFace 0
+execute if block ~ ~ ~ #cpp:golem_south run scoreboard players set @s cppGolemFace 1
+execute if block ~ ~ ~ #cpp:golem_west run scoreboard players set @s cppGolemFace 2
+execute if block ~ ~ ~ #cpp:golem_north run scoreboard players set @s cppGolemFace 3
+execute if block ~ ~ ~ #cpp:golem_up run scoreboard players set @s cppGolemFace 4
+execute if block ~ ~ ~ #cpp:golem_down run scoreboard players set @s cppGolemFace 5
+execute as @s[scores={cppGolemFace=0}] run tp @s ~1 ~0 ~0 270 0
+execute as @s[scores={cppGolemFace=1}] run tp @s ~0 ~0 ~1 0 0
+execute as @s[scores={cppGolemFace=2}] run tp @s ~-1 ~0 ~0 90 0
+execute as @s[scores={cppGolemFace=3}] run tp @s ~0 ~0 ~-1 180 0
+execute as @s[scores={cppGolemFace=4}] run tp @s ~0 ~1 ~0 0 90
+execute as @s[scores={cppGolemFace=5}] run tp @s ~0 ~-1 ~0 0 -90
+execute as @s[scores={cppPower=1..}] if entity @e[type=armor_stand,tag=cpp_machine,tag=cpp_power_in] run function cpp:power/translate
+```
+
+然后和其它传输方式一样，计算传输值即可。
+
+### §7.9.5 管道设计
+我们可以使用屏障方块来作为管道的本体方块，使用扳手(胡萝卜钓竿)来右键拆解。
+
+管道需要高频判断是否与周边方块连接，以调整其自身显示。
+```
+scoreboard players set @s cppModel 12970000
+execute positioned ~1 ~ ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 1
+execute positioned ~-1 ~ ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 2
+execute positioned ~ ~ ~1 if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 4
+execute positioned ~ ~ ~-1 if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 8
+execute positioned ~ ~1 ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 16
+execute positioned ~ ~-1 ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 32
+execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s cppModel
+```
 
 ## §8 NBT 物品合成、烧炼与酿造
 ### §8.1 地板合成
-将物品扔在地面进行合成，是模组配方数量少时采用的一种便捷做法。优点是无需设计 `GUI`。
+将物品扔在地面进行合成，是模组配方数量少时采用的一种便捷做法。优点是无需设计 GUI。
 
 例：将磁铁(`id:"cpp:magnet"`)和4个钻石合成为充能指南针(`id:"cpp:powered_magnet"`)
 
-`tick函数`
 ```
 execute as @e[type=item,nbt={Item:{tag:{id:"cpp:magnet"}}}] at @s if entity @e[type=item,distance=..1,nbt={Item:{id:"minecraft:diamond",Count:4b}}] run function cpp:powered_magnet
 ```
@@ -2566,476 +2812,18 @@ replaceitem entity @s inventory.17 minecraft:air
 ```
 
 ### §8.3 容器合成
-使用投掷器、箱子等容器可以更为便捷地实现合成。
-可选的输出方式有：弹出、输出在原页面(投掷器)、输出在空余槽位(箱子)、输出到其它容器。
+使用投掷器、箱子、木桶等容器可以更为便捷地实现合成。我们可以直接使用容器，或者使用[§7 机器设计](#7-机器设计)的方法设计好自定义工作台的GUI。
 
-例如：使用投掷器(`id:"cpp:crafting_machine"`)合成并弹出产物。
+输出方式我们可以选择输出到输出栏（木桶）、输出到自身（精准匹配+投掷器）、弹出。具体实现与[§7 机器设计](#7-机器设计)并无二致。
 
-进度判定放置该投掷器。
+### §8.4 烧炼
+放置和探测酿造台的部分省略，假设已有相应的标签为`cpp_furnace`的盔甲架。
 
-`cpp/advancements/crafting_dropper.json`
-```
-{
-    "criteria": {
-        "crafting_dropper": {
-            "trigger": "minecraft:placed_block",
-            "conditions": {
-                "item": {
-                    "tag":"{id:\"cpp:crafting_dropper\"}"
-                }
-            }
-        }
-    },
-    "rewards": {
-        "function": "cpp:block/crafting_dropper"
-    }
-}
-```
+例如：将蛋烧炼为id:"cpp:egg_stew"的蘑菇煲。
 
-剥夺进度，并寻找投掷器位置生成盔甲架标记。
+创建烧炼配方以激活烧炼蛋
 
-`cpp/functions/block/crafting_dropper.mcfunction`
-```
-advancement revoke @s only cpp:crafting_dropper
-function cpp:block/pos
-```
-
-定位投掷器所在位置。若当前视线内未找到(例如放置在台阶地毯上了)，则尝试在上下两个视线再寻找。
-
-`cpp/functions/block/pos.mcfunction`
-```
-execute anchored eyes run function cpp:block/ray
-execute unless entity @e[type=minecraft:area_effect_cloud,distance=..7,tag=cpp_block_adv_pos] positioned ~ ~1 ~ anchored eyes run function cpp:block/ray
-execute unless entity @e[type=minecraft:area_effect_cloud,distance=..7,tag=cpp_block_adv_pos] positioned ~ ~-1 ~ anchored eyes run function cpp:block/ray
-execute at @e[type=minecraft:area_effect_cloud,distance=..7,tag=cpp_block_adv_pos] run function cpp:block/put
-```
-使用视线追踪寻找，并使用药水云标记位置。
-
-`cpp/functions/block/ray.mcfunction`
-```
-execute if entity @s[distance=..7] positioned ^ ^ ^ if block ~ ~ ~ minecraft:dropper align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=minecraft:armor_stand,distance=..0.1,tag=cpp_crafting_dropper] run summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["cpp_block_adv_pos"]}
-execute if entity @s[distance=..7] unless entity @e[type=minecraft:area_effect_cloud,distance=..6,tag=cpp_block_adv_pos] positioned ^ ^ ^0.005 anchored feet run function cpp:block/ray
-```
-放置盔甲架标记并将玩家手持物信息复制过去。
-
-`cpp/functions/block/put.mcfunction`
-```
-summon minecraft:armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["cpp_crafting_dropper"]}
-execute as @s[nbt=！{SelectedItem:{tag:{id:"cpp:crafting_dropper"}}}] run data modify entity @e[type=minecraft:armor_stand,tag=cpp_block,distance=..0.1,limit=1] ArmorItems[3] set from entity @s Inventory[{Slot:-106b}]
-execute as @s[nbt={SelectedItem:{tag:{id:"cpp:crafting_dropper"}}}] run data modify entity @e[type=minecraft:armor_stand,tag=cpp_block,distance=..0.1,limit=1] ArmorItems[3] set from entity @s SelectedItem
-data modify entity @e[type=minecraft:armor_stand,tag=cpp_block,distance=..0.1,limit=1] ArmorItems[3].Count set value 1b
-kill @e[type=minecraft:area_effect_cloud,distance=..0.01,tag=cpp_block_adv_pos]
-```
-
-至此，放置事件处理完毕。我们来处理破坏事件和合成事件。
-
-`tick函数`
-```
-execute as @e[type=minecrafy:armor_stand,tag=cpp_crafting_dropper] at @s run function cpp:block/crafting_dropper/tick
-```
-
-判断是否被破坏以及计算物品槽位数量。
-
-`cpp/functions/block/crafting_dropper/tick.mcfunction`
-```
-execute unless block ~ ~ ~ minecraft:dropper run function cpp:block/crafting_dropper/break
-execute store result score @s cppCraftSlot run data get block ~ ~ ~ Items
-execute as @s[scores={cppCraftSlot=1..}] run function cpp:block/crafting_dropper/craft
-```
-
-处理破坏事件，这里我们假定已使用战利品表记录该投掷器(`id:"cpp:crafting_dropper"`)
-
-`cpp/functions/block/crafting_dropper/break.mcfunction`
-```
-kill @e[type=minecraft:item,distance=..2,limit=1,nbt={Age:0s,Item:{id:"minecraft:dropper",Count:1b}}]
-kill @e[type=minecraft:item,distance=..2,limit=1,nbt={Age:1s,Item:{id:"minecraft:dropper",Count:1b}}]
-loot spawn ~ ~ ~ loot cpp:crafting_dropper
-```
-
-按物品槽位数量分类。
-
-`cpp/functions/block/crafting_dropper/craft.mcfunction`
-```
-execute as @s[scores={cppCraftSlot=1}] run function cpp:block/crafting_dropper/items1
-execute as @s[scores={cppCraftSlot=2}] run function cpp:block/crafting_dropper/items2
-execute as @s[scores={cppCraftSlot=3}] run function cpp:block/crafting_dropper/items3
-execute as @s[scores={cppCraftSlot=4}] run function cpp:block/crafting_dropper/items4
-execute as @s[scores={cppCraftSlot=5}] run function cpp:block/crafting_dropper/items5
-execute as @s[scores={cppCraftSlot=6}] run function cpp:block/crafting_dropper/items6
-execute as @s[scores={cppCraftSlot=7}] run function cpp:block/crafting_dropper/items7
-execute as @s[scores={cppCraftSlot=8}] run function cpp:block/crafting_dropper/items8
-execute as @s[scores={cppCraftSlot=9}] run function cpp:block/crafting_dropper/items9
-```
-`cpp/functions/block/crafting_dropper/items5.mcfunction`
-```
-execute as @s[nbt={Inventory:[{id:"minecraft:sugar",Count:1b},{id:"minecraft:rotten_flesh",Count:1b},{id:"minecraft:glistering_melon_slice",Count:1b},{id:"minecraft:gunpowder",Count:1b},{id:"minecraft:potion",tag:{Potion:"minecraft:water"},Count:1b}]} run function cpp:block/crafting_dropper/items5/acid
-```
-
-无序合成例子。
-
-`cpp/functions/block/crafting_dropper/items5/acid.mcfunction`
-```
-loot spawn ~ ~ ~ loot cpp:acid
-function cpp:block/crafting_dropper/clear
-```
-
-清理物品。
-
-`cpp/functions/block/crafting_dropper/clear.mcfunction`
-```
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:8b}].Count
-execute store result block ~ ~ ~ Items[{Slot:8b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:7b}].Count
-execute store result block ~ ~ ~ Items[{Slot:7b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:6b}].Count
-execute store result block ~ ~ ~ Items[{Slot:6b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:5b}].Count
-execute store result block ~ ~ ~ Items[{Slot:5b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:4b}].Count
-execute store result block ~ ~ ~ Items[{Slot:4b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:3b}].Count
-execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:2b}].Count
-execute store result block ~ ~ ~ Items[{Slot:2b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:1b}].Count
-execute store result block ~ ~ ~ Items[{Slot:1b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:0b}].Count
-execute store result block ~ ~ ~ Items[{Slot:0b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-```
-
-### §8.4 GUI 设计
-我们可以使用桶而非投掷器来实现，同时我们设计 GUI 来使得合成页面更为美观。
-
-例如：使用桶(合成器 `id:"cpp:crafting_machine"`)合成并在页面内得到产物。
-
-放置与破坏部分我们省略，注意放置时如果想要合成器的朝向与放置时的朝向有关，添加额外的语句判断并在放置盔甲架标记时指定朝向即可。
-
-外观的模型、GUI以及背景板设计参考[§4.4 物品设计](#44-物品设计)和[§7 机器设计](#7-机器设计)。
-
-
-Stopped Here
-
-`cpp/functions/block/crafting_machine/tick.mcfunction`
-```
-execute unless data block ~ ~ ~ Items[{Slot:0b}] run replaceitem block ~ ~ ~ container.0 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971010}
-execute unless data block ~ ~ ~ Items[{Slot:4b}] run replaceitem block ~ ~ ~ container.4 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:5b}] run replaceitem block ~ ~ ~ container.5 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:6b}] run replaceitem block ~ ~ ~ container.6 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:7b}] run replaceitem block ~ ~ ~ container.7 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:8b}] run replaceitem block ~ ~ ~ container.8 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-
-execute unless data block ~ ~ ~ Items[{Slot:9b}] run replaceitem block ~ ~ ~ container.9 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:13b}] run replaceitem block ~ ~ ~ container.13 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:14b}] run replaceitem block ~ ~ ~ container.14 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:15b}] run replaceitem block ~ ~ ~ container.15 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{isMachineBg:1b}}] run replaceitem block ~ ~ ~ container.16 air
-execute unless data block ~ ~ ~ Items[{Slot:17b}] run replaceitem block ~ ~ ~ container.17 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:18b}] run replaceitem block ~ ~ ~ container.18 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:22b}] run replaceitem block ~ ~ ~ container.22 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:23b}] run replaceitem block ~ ~ ~ container.23 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:24b}] run replaceitem block ~ ~ ~ container.24 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:25b}] run replaceitem block ~ ~ ~ container.25 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:26b}] run replaceitem block ~ ~ ~ container.26 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"item.cpp.crafting_machine\"}"},CustomModelData:12971000}
-
-execute if block ~ ~ ~ barrel{Items:[{Slot:0b,tag:{isMachineBg:1b}},{Slot:4b,tag:{isMachineBg:1b}},{Slot:5b,tag:{isMachineBg:1b}},{Slot:6b,tag:{isMachineBg:1b}},{Slot:7b,tag:{isMachineBg:1b}},{Slot:8b,tag:{isMachineBg:1b}},{Slot:9b,tag:{isMachineBg:1b}},{Slot:13b,tag:{isMachineBg:1b}},{Slot:14b,tag:{isMachineBg:1b}},{Slot:15b,tag:{isMachineBg:1b}},{Slot:17b,tag:{isMachineBg:1b}},{Slot:18b,tag:{isMachineBg:1b}},{Slot:22b,tag:{isMachineBg:1b}},{Slot:23b,tag:{isMachineBg:1b}},{Slot:24b,tag:{isMachineBg:1b}},{Slot:25b,tag:{isMachineBg:1b}},{Slot:26b,tag:{isMachineBg:1b}}]} unless data block ~ ~ ~ Items[{Slot:16b}] run function cpp:craft/type
-
-craft
-
-
-execute as @s[scores={cppCraftSlot=1}] run function cpp:block/crafting_machine/items1
-execute as @s[scores={cppCraftSlot=2}] run function cpp:block/crafting_machine/items2
-execute as @s[scores={cppCraftSlot=3}] run function cpp:block/crafting_machine/items3
-execute as @s[scores={cppCraftSlot=4}] run function cpp:block/crafting_machine/items4
-execute as @s[scores={cppCraftSlot=5}] run function cpp:block/crafting_machine/items5
-execute as @s[scores={cppCraftSlot=6}] run function cpp:block/crafting_machine/items6
-execute as @s[scores={cppCraftSlot=7}] run function cpp:block/crafting_machine/items7
-execute as @s[scores={cppCraftSlot=8}] run function cpp:block/crafting_machine/items8
-execute as @s[scores={cppCraftSlot=9}] run function cpp:block/crafting_machine/items9
-```
-`cpp/functions/block/crafting_machine/items5.mcfunction`
-```
-execute as @s[nbt={Inventory:[{id:"minecraft:sugar",Count:1b},{id:"minecraft:rotten_flesh",Count:1b},{id:"minecraft:glistering_melon_slice",Count:1b},{id:"minecraft:gunpowder",Count:1b},{id:"minecraft:potion",tag:{Potion:"minecraft:water"},Count:1b}]} run function cpp:block/crafting_machine/items5/acid
-```
-
-无序合成例子。
-
-`cpp/functions/block/crafting_machine/items5/acid.mcfunction`
-```
-loot spawn ~ ~ ~ loot cpp:acid
-function cpp:block/crafting_machine/clear
-```
-
-清理物品。
-
-`cpp/functions/block/crafting_machine/clear.mcfunction`
-```
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:8b}].Count
-execute store result block ~ ~ ~ Items[{Slot:8b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:7b}].Count
-execute store result block ~ ~ ~ Items[{Slot:7b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:6b}].Count
-execute store result block ~ ~ ~ Items[{Slot:6b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:5b}].Count
-execute store result block ~ ~ ~ Items[{Slot:5b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:4b}].Count
-execute store result block ~ ~ ~ Items[{Slot:4b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:3b}].Count
-execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:2b}].Count
-execute store result block ~ ~ ~ Items[{Slot:2b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:1b}].Count
-execute store result block ~ ~ ~ Items[{Slot:1b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:0b}].Count
-execute store result block ~ ~ ~ Items[{Slot:0b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-```
-
-```
-execute store result score @s cppValue run data get entity @s Rotation[0]
-scoreboard players add @s cppValue 225
-execute if score @s cppValue matches ..-1 run scoreboard players add @s cppValue 360
-execute if score @s cppValue matches 360.. run scoreboard players remove @s cppValue 360
-scoreboard players set #90 cppValue 90
-scoreboard players operation @s cppValue /= #90 cppValue```主函数中清除玩家背包、地面、漏斗矿车、漏斗含isMachineBg:1b的所有物品(占位用的辅助物品，不应当被玩家获取)。若盔甲出方块被破坏，则将箱子掉落物替换为原物品(胡萝卜钓竿)。若一切正常，执行下一步nbt的探测。
-```
-
-execute as @e[type=armor_stand,tag=cpp_need_fire] run data merge entity @s {Fire:32767s}
-execute as @e[type=armor_stand,tag=cpp_barrel] at @s unless block ~ ~ ~ barrel run function cpp:block/machine/break_barrel
-execute as @e[tag=cpp_crafting_machine] at @s if entity @a[distance=..5] run function cpp:craft/craft
-kill @e[type=item,nbt={Item:{tag:{isMachineBg:1b}}}]
-clear @a firework_star{isMachineBg:1b}
-execute as @e[type=hopper_minecart,nbt={Items:[{tag:{isMachineBg:1b}}]}] run function cpp:block/machine/clear_hopper_minecart
-execute at @e[tag=cpp_machine] if block ~ ~-1 ~ hopper{Items:[{tag:{isMachineBg:1b}}]} run function cpp:block/machine/clear_hopper```部分内容省略，请参考更多的合成原版模组。
-
-我们先做好GUI
-``````然后我们先判断容器的物品槽位数量来分类
-```
-execute store result score @s cppValue run data get block ~ ~ ~ Items
-function #cpp:craft
-# 全部格子
-execute as @s[scores={cppValue=26}] run function cpp:craft/shape_all
-# 十字形
-execute as @s[scores={cppValue=22}] if block ~ ~ ~ barrel{Items:[{Slot:2b},{Slot:10b},{Slot:11b},{Slot:12b},{Slot:20b}]} run function cpp:craft/shape_cross
-# 无序合成
-execute as @s[scores={cppValue=22}] run function cpp:craft/shapeless5
-execute if data block ~ ~ ~ Items[{Slot:16b}] run function cpp:craft/clear_all```根据类别来合成，
-```
-execute if block ~ ~ ~ barrel{Items:[{id:"minecraft:sugar"},{id:"minecraft:rotten_flesh"},{id:"minecraft:glistering_melon_slice"},{id:"minecraft:gunpowder"},{id:"minecraft:potion",tag:{Potion:"minecraft:water"}}]} run loot replace block ~ ~ ~ container.16 loot cpp:acid```然后进入清理阶段```
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{id:"cpp:cheese"}}] run data modify block ~ ~ ~ Items[{id:"minecraft:milk_bucket"}].Count set value 2
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{id:"cpp:cheese"}}] run data modify block ~ ~ ~ Items[{id:"minecraft:milk_bucket"}].id set value "minecraft:bucket"
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{id:"cpp:high_temperature_plugin"}}] run data modify block ~ ~ ~ Items[{id:"minecraft:lava_bucket"}].Count set value 2
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{id:"cpp:high_temperature_plugin"}}] run data modify block ~ ~ ~ Items[{id:"minecraft:lava_bucket"}].id set value "minecraft:bucket"
-
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:21b}].Count
-execute store result block ~ ~ ~ Items[{Slot:21b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:20b}].Count
-execute store result block ~ ~ ~ Items[{Slot:20b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:19b}].Count
-execute store result block ~ ~ ~ Items[{Slot:19b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:12b}].Count
-execute store result block ~ ~ ~ Items[{Slot:12b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:11b}].Count
-execute store result block ~ ~ ~ Items[{Slot:11b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:10b}].Count
-execute store result block ~ ~ ~ Items[{Slot:10b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:3b}].Count
-execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:2b}].Count
-execute store result block ~ ~ ~ Items[{Slot:2b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:1b}].Count
-execute store result block ~ ~ ~ Items[{Slot:1b}].Count byte 1 run scoreboard players remove #temp cppValue 1```如果不借助额外的实体，我们可以通过与容器交互的计分板判据和(http://www.mcbbs.net/thread-771638-1-1.html]方块追踪]来实现。
-**例** 当朝上的发射器内正中间包含一个泥土时，右击其上方的工作台将泥土替换为钻石。
-创建计分板
-
-
-
-
-
-
-## 8 触发与探测
-### 
-
-## 9 植物和食物
-### 9.1 作物
-### 9.2 花草
-### 9.3 食物
-### 9.4 药水
-
-## 10 实体操作
-### 10.1 交易
-### 10.2 移动
-### 10.3 传送
-### 10.4 炼药锅
-### 10.5 随机方块
-
-## 11 方块操作
-### 11.1 方块放置
-### 11.2 自动种植
-### 11.3 连锁挖矿
-
-## 12 世界生成
-### 12.1 随机结构
-### 12.2 水处理
-### 12.3 下界处理
-### 12.4 维度模拟
-
-## 13 算法与数据结构
-### 13.1 位运算
-### 13.2 数组
-### 13.3 循环
-### 13.4 递归
-### 13.5 MD5运算
-
-
-
-
-
-
-
-
-
-
-既可实现自定义GUI，又可用于含nbt物品合成。我们需要使用辅助的隐形实体来帮助定位。
-
-手持石化橡木台阶时，探测目标方块位置，放置箱子和带修改过的物品模型的盔甲架，并在箱子内填满材质与背景同色的占位物品。
-使用进度判断是否放置了石化橡木台阶machine.json
-```
-{
-        "criteria": {
-                "machine": {
-                        "trigger": "minecraft:placed_block",
-                        "conditions": {
-                                "item": {
-                                        "item":"minecraft:petrified_oak_slab"
-                                }
-                        }
-                }
-        },
-        "rewards": {
-                "function": "cpp:block/machine/adv"
-        }
-}
-```cpp/functions/block/machine/get_pos.mcfunction
-```
-execute if entity @s[distance=..5] if block ~ ~ ~ petrified_oak_slab align xyz positioned ~0.5 ~ ~0.5 run summon area_effect_cloud ~ ~ ~ {Tags:["cpp_machine_pos"]}
-execute if entity @s[distance=..5] unless block ~ ~ ~ petrified_oak_slab positioned ^ ^ ^0.005 run function cpp:block/machine/get_pos```cpp/functions/block/machine/adv.mcfunction
-```
-advancement revoke @s only cpp:block/machine
-execute store result score @s cppValue run data get entity @s SelectedItem.tag.CustomModelData
-execute unless entity @s[nbt={SelectedItem:{id:"minecraft:petrified_oak_slab"}}] store result score @s cppValue run data get entity @s Inventory[{Slot:-106b}].tag.CustomModelData
-execute at @s positioned ~ ~1.62 ~ run function cpp:block/machine/get_pos
-execute at @e[tag=cpp_machine_pos] as @s[scores={cppValue=0}] run function cpp:block/machine/crafting_machine```cpp/functions/block/machine/crafting_machine.mcfunction
-```
-function cpp:get_facing
-summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["cpp_machine","cpp_crafting_machine","cpp_barrel","cpp_need_fire"],Rotation:[0.0f,0.0f]}
-loot replace entity @e[tag=cpp_crafting_machine,distance=..0.1,limit=1] armor.head loot cpp:crafting_machine
-setblock ~ ~ ~ barrel{CustomName:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"}
-kill @e[tag=cpp_machine_pos]```cpp/functions/get_facing.mcfunction
-```
-execute store result score @s cppValue run data get entity @s Rotation[0]
-scoreboard players add @s cppValue 225
-execute if score @s cppValue matches ..-1 run scoreboard players add @s cppValue 360
-execute if score @s cppValue matches 360.. run scoreboard players remove @s cppValue 360
-scoreboard players set #90 cppValue 90
-scoreboard players operation @s cppValue /= #90 cppValue```主函数中清除玩家背包、地面、漏斗矿车、漏斗含isMachineBg:1b的所有物品(占位用的辅助物品，不应当被玩家获取)。若盔甲出方块被破坏，则将箱子掉落物替换为原物品(胡萝卜钓竿)。若一切正常，执行下一步nbt的探测。
-```
-
-execute as @e[type=armor_stand,tag=cpp_need_fire] run data merge entity @s {Fire:32767s}
-execute as @e[type=armor_stand,tag=cpp_barrel] at @s unless block ~ ~ ~ barrel run function cpp:block/machine/break_barrel
-execute as @e[tag=cpp_crafting_machine] at @s if entity @a[distance=..5] run function cpp:craft/craft
-kill @e[type=item,nbt={Item:{tag:{isMachineBg:1b}}}]
-clear @a firework_star{isMachineBg:1b}
-execute as @e[type=hopper_minecart,nbt={Items:[{tag:{isMachineBg:1b}}]}] run function cpp:block/machine/clear_hopper_minecart
-execute at @e[tag=cpp_machine] if block ~ ~-1 ~ hopper{Items:[{tag:{isMachineBg:1b}}]} run function cpp:block/machine/clear_hopper```部分内容省略，请参考更多的合成原版模组。
-
-我们先做好GUI
-```
-execute unless data block ~ ~ ~ Items[{Slot:0b}] run replaceitem block ~ ~ ~ container.0 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971010}
-execute unless data block ~ ~ ~ Items[{Slot:4b}] run replaceitem block ~ ~ ~ container.4 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:5b}] run replaceitem block ~ ~ ~ container.5 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:6b}] run replaceitem block ~ ~ ~ container.6 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:7b}] run replaceitem block ~ ~ ~ container.7 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:8b}] run replaceitem block ~ ~ ~ container.8 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-
-execute unless data block ~ ~ ~ Items[{Slot:9b}] run replaceitem block ~ ~ ~ container.9 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:13b}] run replaceitem block ~ ~ ~ container.13 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:14b}] run replaceitem block ~ ~ ~ container.14 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:15b}] run replaceitem block ~ ~ ~ container.15 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{isMachineBg:1b}}] run replaceitem block ~ ~ ~ container.16 air
-execute unless data block ~ ~ ~ Items[{Slot:17b}] run replaceitem block ~ ~ ~ container.17 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:18b}] run replaceitem block ~ ~ ~ container.18 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:22b}] run replaceitem block ~ ~ ~ container.22 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:23b}] run replaceitem block ~ ~ ~ container.23 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:24b}] run replaceitem block ~ ~ ~ container.24 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:25b}] run replaceitem block ~ ~ ~ container.25 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-execute unless data block ~ ~ ~ Items[{Slot:26b}] run replaceitem block ~ ~ ~ container.26 firework_star{isMachineBg:1b,display:{Name:"{\"translate\":\"block.minecraft.petrified_oak_slab\"}"},CustomModelData:12971000}
-
-execute if block ~ ~ ~ barrel{Items:[{Slot:0b,tag:{isMachineBg:1b}},{Slot:4b,tag:{isMachineBg:1b}},{Slot:5b,tag:{isMachineBg:1b}},{Slot:6b,tag:{isMachineBg:1b}},{Slot:7b,tag:{isMachineBg:1b}},{Slot:8b,tag:{isMachineBg:1b}},{Slot:9b,tag:{isMachineBg:1b}},{Slot:13b,tag:{isMachineBg:1b}},{Slot:14b,tag:{isMachineBg:1b}},{Slot:15b,tag:{isMachineBg:1b}},{Slot:17b,tag:{isMachineBg:1b}},{Slot:18b,tag:{isMachineBg:1b}},{Slot:22b,tag:{isMachineBg:1b}},{Slot:23b,tag:{isMachineBg:1b}},{Slot:24b,tag:{isMachineBg:1b}},{Slot:25b,tag:{isMachineBg:1b}},{Slot:26b,tag:{isMachineBg:1b}}]} unless data block ~ ~ ~ Items[{Slot:16b}] run function cpp:craft/type```然后我们先判断容器的物品槽位数量来分类
-```
-execute store result score @s cppValue run data get block ~ ~ ~ Items
-function #cpp:craft
-# 全部格子
-execute as @s[scores={cppValue=26}] run function cpp:craft/shape_all
-# 十字形
-execute as @s[scores={cppValue=22}] if block ~ ~ ~ barrel{Items:[{Slot:2b},{Slot:10b},{Slot:11b},{Slot:12b},{Slot:20b}]} run function cpp:craft/shape_cross
-# 无序合成
-execute as @s[scores={cppValue=22}] run function cpp:craft/shapeless5
-execute if data block ~ ~ ~ Items[{Slot:16b}] run function cpp:craft/clear_all```根据类别来合成，
-```
-execute if block ~ ~ ~ barrel{Items:[{id:"minecraft:sugar"},{id:"minecraft:rotten_flesh"},{id:"minecraft:glistering_melon_slice"},{id:"minecraft:gunpowder"},{id:"minecraft:potion",tag:{Potion:"minecraft:water"}}]} run loot replace block ~ ~ ~ container.16 loot cpp:acid```然后进入清理阶段```
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{id:"cpp:cheese"}}] run data modify block ~ ~ ~ Items[{id:"minecraft:milk_bucket"}].Count set value 2
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{id:"cpp:cheese"}}] run data modify block ~ ~ ~ Items[{id:"minecraft:milk_bucket"}].id set value "minecraft:bucket"
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{id:"cpp:high_temperature_plugin"}}] run data modify block ~ ~ ~ Items[{id:"minecraft:lava_bucket"}].Count set value 2
-execute if data block ~ ~ ~ Items[{Slot:16b,tag:{id:"cpp:high_temperature_plugin"}}] run data modify block ~ ~ ~ Items[{id:"minecraft:lava_bucket"}].id set value "minecraft:bucket"
-
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:21b}].Count
-execute store result block ~ ~ ~ Items[{Slot:21b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:20b}].Count
-execute store result block ~ ~ ~ Items[{Slot:20b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:19b}].Count
-execute store result block ~ ~ ~ Items[{Slot:19b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:12b}].Count
-execute store result block ~ ~ ~ Items[{Slot:12b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:11b}].Count
-execute store result block ~ ~ ~ Items[{Slot:11b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:10b}].Count
-execute store result block ~ ~ ~ Items[{Slot:10b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:3b}].Count
-execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:2b}].Count
-execute store result block ~ ~ ~ Items[{Slot:2b}].Count byte 1 run scoreboard players remove #temp cppValue 1
-execute store result score #temp cppValue run data get block ~ ~ ~ Items[{Slot:1b}].Count
-execute store result block ~ ~ ~ Items[{Slot:1b}].Count byte 1 run scoreboard players remove #temp cppValue 1```如果不借助额外的实体，我们可以通过与容器交互的计分板判据和(http://www.mcbbs.net/thread-771638-1-1.html]方块追踪]来实现。
-**例** 当朝上的发射器内正中间包含一个泥土时，右击其上方的工作台将泥土替换为钻石。
-创建计分板
-```
-scoreboard objectives add cppUseDisp minecraft.custom:minecraft.interact_with_crafting_table```主函数
-```
-execute at @e[tag=cpp_tpback_aec] run tp @a[tag=cpp_tpback] ~ ~ ~
-tag @a[tag=cpp_tpback] remove cpp_tpback
-execute as @a[scores={cppUseDisp=1..}] at @s positioned ~ ~1.62 ~ run function cpp:ray```ray.mcfunction
-```
-execute if entity @s[distance=..5] unless block ~ ~ ~ crafting_table positioned ^ ^ ^0.005 run function cpp:ray
-execute if entity @s[distance=..5] if block ~ ~ ~ crafting_table run scoreboard players set @s cppUseDisp 0
-execute if entity @s[distance=..5] if block ~ ~ ~ crafting_table if block ~ ~-1 ~ dispenser{Items:[{Slot:4b,id:"minecraft:dirt",Count:1b}]} run function cpp:craft```craft.mcfunction
-```
-replaceitem block ~ ~-1 ~ container.4 diamond
-execute at @s run summon area_effect_cloud ~ ~ ~ {Tags:["cpp_tpback_aec"],Duration:2}
-tp @s ~ ~256 ~
-tag @s add cpp_tpback```配合战利品表还可方便地实现随机合成。
-
-也可使用带背包的实体合成，例如玩家、矿车箱子、矿车漏斗、驴骡羊驼等。方法类似，这里不再赘述。
-
-
-如果我们希望合成需要一定的时长，我们可以添加一个记分板，然后每刻对相应的实体分数+1，最后操作达到指定分数的实体，并重置分数。计时在制作机器时几乎是必需的。总之合成方式可以有千万种做法，选择一种适合自己模组的即可。
-
-### ### §6 ## 烧炼和酿造
-### §6.1 ### 原版烧炼
-### ### §6.2 自定义烧炼
-通过放置方块的判据，我们可以自定义烧炼。
-**例**；将蛋烧炼为id:"cpp:egg_stew"的蘑菇煲。
-
-创建烧炼配方以激活烧炼蛋：
-cpp/recipes/egg.json
+`cpp/recipes/egg.json`
 ```
 {
         "type": "smelting",
@@ -3047,324 +2835,148 @@ cpp/recipes/egg.json
         "cookingtime": 200
 }
 ```
-创建放置熔炉的进度：
-cpp:advancements/foods/put_furnace.json
-```
-{
-        "parent": "cpp:foods/root",
-        "criteria": {
-                "put_furnace": {
-                        "trigger": "minecraft:placed_block",
-                        "conditions": {
-                                "block": "minecraft:furnace"
-                        }
-                }
-        },
-        "rewards": {
-                "function": "cpp:foods/system/put_furnace"
-        }
-}
-```cpp:foods/system/put_furnace.mcfunction
-```
-execute at @s positioned ~ ~1.62 ~ run function cpp:foods/system/ray_furnace
-advancement revoke @s only cpp:foods/put_furnace```cpp:foods/system/ray_furnace.mcfunction
-```
-execute if entity @s[distance=..5] if block ~ ~ ~ minecraft:furnace align xyz run summon minecraft:armor_stand ~0.5 ~ ~0.5 {Invulnerable:1b,Invisible:1b,NoGravity:1b,Tags:["cpp_furnace"],Marker:1b}
-execute if entity @s[distance=..5] unless block ~ ~ ~ minecraft:furnace positioned ^ ^ ^0.005 run function cpp:foods/system/ray_furnace```这里注意生存玩家的手长4.5米，创造玩家的手长5米，这里设定最长5米即足够。至此，放置熔炉已完成。
 
 然后在烧炼时间达到199s时，替换熔炉内的物品。
-主函数```
+
+`tick.mcfunction`
+```
 execute as @e[type=minecraft:armor_stand,tag=cpp_furnace] at @s unless block ~ ~ ~ minecraft:furnace run kill @s
-execute as @e[type=minecraft:armor_stand,tag=cpp_furnace] at @s if block ~ ~ ~ minecraft:furnace{CookTime:199s} run function cpp:foods/cook/check```cpp:foods/cook/check.mcfunction
+execute as @e[type=minecraft:armor_stand,tag=cpp_furnace] at @s if block ~ ~ ~ minecraft:furnace{CookTime:199s} run function cpp:foods/cook/check
+```
+`cpp:foods/cook/check.mcfunction`
 ```
 execute if block ~ ~ ~ minecraft:furnace{Items:[{Slot:0b,id:"minecraft:egg"}]} run function cpp:foods/cook/egg_stew
-...```cpp:foods/cook/egg_stew
 ```
-replaceitem block ~ ~ ~ container.2 mushroom_stew{display:{"Name":"{\"translate\":\"item.cpp.egg_stew\"}"},id:"cpp:egg_stew"}
-execute store result score @s cppCount run data get block ~ ~ ~ Items[0].Count
-execute store result block ~ ~ ~ Items[0].Count byte 1 run scoreboard players remove @s cppCount 1
+`cpp:foods/cook/egg_stew`
+```
+replaceitem block ~ ~ ~ container.2 mushroom_stew{display:{Name:'{"translate":"item.cpp.egg_stew"}'},id:"cpp:egg_stew"}
+execute store result block ~ ~ ~ Items[0].Count byte 0.999 run data get block ~ ~ ~ Items[0].Count
 data merge block ~ ~ ~ {CookTime:0s}
-```注意，这种做法的局限性一是若要求待烧炼物含指定nbt，则必须添加该物品的的烧炼配方，这就导致即使没有相应的nbt也会烧炼，个人建议添加为原物品也添加合理的烧炼配方，或者烧炼配方的产物和待烧炼物相同，同时不奖励经验值；二是即使产物应当可堆叠也无法正常堆叠，这时需配合漏斗等设备传输方可持续烧炼。
-
-### ### §6.3 食物
-食物可通过进度来探测，通过饱和效果来模拟回复饥饿值。
-**例** 使用土豆牛肉回复16饥饿值并给予30秒力量II效果。
-cpp:advancements/foods/braised_beef_with_potatoes.json
 ```
-{
-        "parent": "cpp:foods/root",
-        "criteria": {
-           "braised_beef_with_potatoes": {
-                   "trigger": "minecraft:consume_item",
-                   "conditions": {
-                           "item": {
-                                   "item": "minecraft:rabbit_stew",
-                                   "nbt": "{id:\"cpp:braised_beef_with_potatoes\"}"
-                                }
-                        }
-                }
-        },
-        "rewards":{
-                "function": "cpp:foods/foods/braised_beef_with_potatoes"
-        }
-}
-```cpp:foods/foods/braised_beef_with_potatoes.mcfunction
+注意，这种做法的局限性一是若要求待烧炼物含指定nbt，则必须添加该物品的的烧炼配方，这就导致即使没有相应的nbt也会烧炼，个人建议添加为原物品也添加合理的烧炼配方，或者烧炼配方的产物和待烧炼物相同，同时不奖励经验值；二是即使产物应当可堆叠也无法正常堆叠，这时需配合漏斗等设备传输方可持续烧炼。
+
+### §8.5 酿造
+类似于自定义烧炼的方法，我们可以自定义少量的酿造。这要求酿造材料必须为原版酿造材料物品，例如使用兔子腿，好处是兔子腿只有酿造功能。
+
+例如：使用兔子腿(`cpp:certification_of_earth`)将粗制的药水酿造成有多重药水效果的大地药水(`potion_of_earth`)，同时支持延长、加强、喷溅、滞留版本。
+
+主要思路是通过`potionType:["",""]`来判断药水的状态(原版/延长/加强、瓶装/喷溅/滞留)来区分状态，通过药水的原版`{Potion:"minecraft:leaping"}`来实现酿造台的进度。
+
+放置和探测酿造台的部分省略。
+
 ```
-effect give @s strength 30 1
-effect give @s saturation 1 5
-advancement revoke @s only cpp:food/braised_beef_with_potatoes```注意该物品必须为原版已有的食物。
-
-### ### §6.4 自定义酿造
-类似于自定义烧炼的方法，我们可以自定义少量的酿造。这要求酿造材料必须为原版酿造材料物品。
-
-**例** 使用神秘烈焰粉(cpp:mystery_blaze_powder)将粗制的药水酿造成有多重药水效果的鲁莽药水(potion_of_reckless)，同时支持延长、加强、喷溅、滞留版本。
-主要思路是通过potionType:["",""]来判断药水的状态(原版/延长/加强、瓶装/喷溅/滞留)来区分状态，通过药水的原版{Potion:"minecraft:swiftness"}来实现酿造台的酿造。
-
-放置和探测酿造台的部分省略，假设已有相应的标签为cpp_brewing_stand的盔甲架。
-主函数
+execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,tag:{id:"cpp:certification_of_earth"}}]} run function cpp:brewing_stand/earth
 ```
-execute as @e[type=minecraft:armor_stand,tag=cpp_brewing_stand] at @s unless block ~ ~ ~ minecraft:brewing_stand run kill @s
-execute as @e[type=minecraft:armor_stand,tag=cpp_brewing_stand] at @s if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s} run function cpp:foods/brew/check```cpp:brew/check.mcfunction 区分酿造材料和药水类型
+
+区分酿造材料和药水类型
+
+`cpp:brew/check.mcfunction`
 ```
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:blaze_powder",tag:{id:"cpp:mystery_blaze_powder"}}]} run function cpp:foods/brew/potion_of_reckless
+execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,tag:{id:"cpp:certification_of_earth"}}]} run function cpp:brewing_stand/earth
 
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:redstone"},{Slot:0b,tag:{potionType:["normal"]}}]} run tag @s add cpp_potion_of_long
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:redstone"},{Slot:1b,tag:{potionType:["normal"]}}]} run tag @s add cpp_potion_of_long
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:redstone"},{Slot:2b,tag:{potionType:["normal"]}}]} run tag @s add cpp_potion_of_long
-execute as @s[tag=cpp_potion_of_long] run function cpp:foods/brew/potion_of_long
+execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,id:"minecraft:redstone"},{tag:{potionType:["normal"]}}]} run function cpp:brewing_stand/long
+execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,id:"minecraft:glowstone_dust"},{tag:{potionType:["normal"]}}]} run function cpp:brewing_stand/strong
 
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:glowstone_dust"},{Slot:0b,tag:{potionType:["normal"]}}]} run tag @s add cpp_potion_of_strong
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:glowstone_dust"},{Slot:1b,tag:{potionType:["normal"]}}]} run tag @s add cpp_potion_of_strong
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:glowstone_dust"},{Slot:2b,tag:{potionType:["normal"]}}]} run tag @s add cpp_potion_of_strong
-execute as @s[tag=cpp_potion_of_strong] run function cpp:foods/brew/potion_of_strong
-
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:gunpowder"},{Slot:0b,id:"minecraft:potion",tag:{potionType:["potion"]}}]} run tag @s add cpp_potion_of_splash
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:gunpowder"},{Slot:1b,id:"minecraft:potion",tag:{potionType:["potion"]}}]} run tag @s add cpp_potion_of_splash
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:gunpowder"},{Slot:2b,id:"minecraft:potion",tag:{potionType:["potion"]}}]} run tag @s add cpp_potion_of_splash
-execute as @s[tag=cpp_potion_of_splash] run function cpp:foods/brew/potion_of_splash
-
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:dragon_breath"},{Slot:0b,id:"minecraft:splash_potion",tag:{potionType:["splash"]}}]} run tag @s add cpp_potion_of_lingering
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:dragon_breath"},{Slot:1b,id:"minecraft:splash_potion",tag:{potionType:["splash"]}}]} run tag @s add cpp_potion_of_lingering
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:3b,id:"minecraft:dragon_breath"},{Slot:2b,id:"minecraft:splash_potion",tag:{potionType:["splash"]}}]} run tag @s add cpp_potion_of_lingering
-execute as @s[tag=cpp_potion_of_lingering] run function cpp:foods/brew/potion_of_lingering```cpp:foods/brew/potion_of_reckless 酿造鲁莽药水，原药水可以为粗制的药水、喷溅型粗制的药水和滞留型粗制的药水。
+execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,id:"minecraft:gunpowder"},{id:"minecraft:potion"}]} run function cpp:brewing_stand/splash
+execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,id:"minecraft:dragon_breath"},{id:"minecraft:splash_potion"}]} run function cpp:brewing_stand/lingering
 ```
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.0 potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","potion"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.1 potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","potion"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.2 potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","potion"]}
 
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:splash_potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.0 splash_potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","splash"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:splash_potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.1 splash_potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","splash"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:splash_potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.2 splash_potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","splash"]}
+酿造鲁莽药水，原药水可以为粗制的药水、喷溅型粗制的药水和滞留型粗制的药水。
 
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:lingering_potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.0 lingering_potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","lingering"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:lingering_potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.1 lingering_potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","lingering"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:lingering_potion",tag:{Potion:"minecraft:awkward"}}]} run replaceitem block ~ ~ ~ container.2 lingering_potion{Potion:"minecraft:swiftness",CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:11b,Duration:3600},{Id:12b,Duration:3600},{Id:16b,Duration:3600}],id:"cpp:potion_of_reckless",potionType:["normal","lingering"]}
-
-scoreboard players set @s cppSlotsDown 0
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b}]} run scoreboard players add @s cppSlotsDown 1
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b}]} run scoreboard players add @s cppSlotsDown 1
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b}]} run scoreboard players add @s cppSlotsDown 1
-
-execute as @s[scores={cppSlotsDown=1}] store result score @s cppCount run data get block ~ ~ ~ Items[1].Count
-execute as @s[scores={cppSlotsDown=1}] store result block ~ ~ ~ Items[1].Count byte 1 run scoreboard players remove @s cppCount 1
-execute as @s[scores={cppSlotsDown=2}] store result score @s cppCount run data get block ~ ~ ~ Items[2].Count
-execute as @s[scores={cppSlotsDown=2}] store result block ~ ~ ~ Items[2].Count byte 1 run scoreboard players remove @s cppCount 1
-execute as @s[scores={cppSlotsDown=3}] store result score @s cppCount run data get block ~ ~ ~ Items[3].Count
-execute as @s[scores={cppSlotsDown=3}] store result block ~ ~ ~ Items[3].Count byte 1 run scoreboard players remove @s cppCount 1```cpp:foods/brew/potion_of_long 长效药水，同样需要处理各种药水类型。
+`cpp:foods/brew/potion_of_reckless`
 ```
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.0 potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","potion"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.1 potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","potion"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.2 potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","potion"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.0 potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","potion"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.1 potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","potion"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.2 potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","potion"]}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:awkward"}}].tag set value {Potion:"minecraft:leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:3600}],id:"cpp:potion_of_earth",potionType:["normal"]}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:awkward"}}].tag set value {Potion:"minecraft:leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.splash_potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:3600}],id:"cpp:splash_potion_of_earth",potionType:["normal"]}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:awkward"}}].tag set value {Potion:"minecraft:leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.lingering_potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:3600}],id:"cpp:lingering_potion_of_earth",potionType:["normal"]}
 
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:splash_potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.0 splash_potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_splash_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","splash"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:splash_potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.1 splash_potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_splash_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","splash"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:splash_potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.2 splash_potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_splash_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","splash"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:splash_potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.0 splash_potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_splash_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","splash"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:splash_potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.1 splash_potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_splash_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","splash"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:splash_potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.2 splash_potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_splash_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","splash"]}
-
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:lingering_potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.0 lingering_potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","lingering"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:lingering_potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.1 lingering_potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","lingering"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:lingering_potion",tag:{id:"cpp:potion_of_reckless"}}]} run replaceitem block ~ ~ ~ container.2 lingering_potion{CustomPotionColor:8809335,display:{Name:"{\"translate\":\"item.cpp.potion_of_reckless\"}"},CustomPotionEffects:[{Id:1b,Duration:9600},{Id:11b,Duration:9600},{Id:12b,Duration:9600},{Id:16b,Duration:9600}],id:"cpp:potion_of_long_reckless",potionType:["long","lingering"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b,id:"minecraft:lingering_potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.0 lingering_potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","lingering"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b,id:"minecraft:lingering_potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.1 lingering_potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","lingering"]}
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b,id:"minecraft:lingering_potion",tag:{id:"cpp:potion_of_ninja"}}]} run replaceitem block ~ ~ ~ container.2 lingering_potion{CustomPotionColor:6786184,display:{Name:"{\"translate\":\"item.cpp.potion_of_ninja\"}"},CustomPotionEffects:[{Id:8b,Duration:9600},{Id:10b,Duration:9600},{Id:13b,Duration:9600},{Id:14b,Duration:9600}],id:"cpp:potion_of_long_ninja",potionType:["long","lingering"]}
-
-scoreboard players set @s cppSlotsDown 0
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:0b}]} run scoreboard players add @s cppSlotsDown 1
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:1b}]} run scoreboard players add @s cppSlotsDown 1
-execute if block ~ ~ ~ minecraft:brewing_stand{Items:[{Slot:2b}]} run scoreboard players add @s cppSlotsDown 1
-
-execute as @s[scores={cppSlotsDown=1}] store result score @s cppCount run data get block ~ ~ ~ Items[1].Count
-execute as @s[scores={cppSlotsDown=1}] store result block ~ ~ ~ Items[1].Count byte 1 run scoreboard players remove @s cppCount 1
-execute as @s[scores={cppSlotsDown=2}] store result score @s cppCount run data get block ~ ~ ~ Items[2].Count
-execute as @s[scores={cppSlotsDown=2}] store result block ~ ~ ~ Items[2].Count byte 1 run scoreboard players remove @s cppCount 1
-execute as @s[scores={cppSlotsDown=3}] store result score @s cppCount run data get block ~ ~ ~ Items[3].Count
-execute as @s[scores={cppSlotsDown=3}] store result block ~ ~ ~ Items[3].Count byte 1 run scoreboard players remove @s cppCount 1
-tag @s remove cpp_potion_of_long```加强、喷溅、滞留版本的方法类似，这里省略了。
-
-
-### §7 ## 交易
-在RPG模组中，使用村民交易是一种常见的特殊物品获得方式。需要注意的是，如果不希望交易产生经验值，需将rewardExp设置为0b，例如
+execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 0.999 run data get block ~ ~ ~ Items[{Slot:3b}].Count
 ```
-summon minecraft:villager ~ ~ ~ {NoAI:true,Invulnerable:true,Silent:true,Offers:{Recipes:[
-{maxUses:99999999,rewardExp:0b,buy:{id:"minecraft:coal",Count:1b},buyB:{id:"minecraft:stone",Count:8b},
-sell:{id:"minecraft:coal",Count:1b,tag:{Enchantments:[{id:999}],display:{Name:"{\"translate\":\"item.cpp.nice_coal\"}"}}}}]}}
-```将村民的{VillagerData:{profession:"minecraft:none"}可以确保村民不含交易。通过设置不同的VillagerData以及修改村民的头盔材质模型，可以将村民的外观和原版村民加以区分。例如(http://www.mcbbs.net/thread-772311-1-1.html]【活动】【原版模组】新春惊喜]。
 
-**例** 将1/5的农民修改为林业员，收购36-40原木，出售树苗(二层交易)。
-简单来说，在CareerLevel:1时生成相应的交易列表，并保存价格，然后再CareerLevel:2时，重新添加上这些交易和对应价格，以及新增的交易部分。
-主函数
+长效药水，同样需要处理各种药水类型。
+
+`cpp:foods/brew/long`
 ```
-execute as @e[type=villager,tag=!tpp_level1,nbt={VillagerData:{level:1}}] run function tpp:level1/check
-execute as @e[type=villager,tag=!tpp_level2,nbt={VillagerData:{level:2}}] run function tpp:level2/check```tpp:level1/check
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{id:"cpp:potion_of_earth"}}].tag set value {Potion:"minecraft:long_leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:9600}],id:"cpp:potion_of_long_earth",potionType:["long"]}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:night_vision"}}].tag set value {Potion:"minecraft:long_night_vision"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:invisibility"}}].tag set value {Potion:"minecraft:long_invisibility"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:leaping"}}].tag set value {Potion:"minecraft:long_leaping"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:fire_resistance"}}].tag set value {Potion:"minecraft:long_fire_resistance"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:swiftness"}}].tag set value {Potion:"minecraft:long_swiftness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:slowness"}}].tag set value {Potion:"minecraft:long_slowness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:turtle_master"}}].tag set value {Potion:"minecraft:long_turtle_master"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:water_breathing"}}].tag set value {Potion:"minecraft:long_water_breathing"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:poison"}}].tag set value {Potion:"minecraft:long_poison"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:regeneration"}}].tag set value {Potion:"minecraft:long_regeneration"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:strength"}}].tag set value {Potion:"minecraft:long_strength"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:weakness"}}].tag set value {Potion:"minecraft:long_weakness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:slow_falling"}}].tag set value {Potion:"minecraft:long_slow_falling"}
+
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{id:"cpp:splash_potion_of_earth"}}].tag set value {Potion:"minecraft:long_leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.splash_potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:9600}],id:"cpp:splash_potion_of_long_earth",potionType:["long"]}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:night_vision"}}].tag set value {Potion:"minecraft:long_night_vision"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:invisibility"}}].tag set value {Potion:"minecraft:long_invisibility"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:leaping"}}].tag set value {Potion:"minecraft:long_leaping"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:fire_resistance"}}].tag set value {Potion:"minecraft:long_fire_resistance"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:swiftness"}}].tag set value {Potion:"minecraft:long_swiftness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:slowness"}}].tag set value {Potion:"minecraft:long_slowness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:turtle_master"}}].tag set value {Potion:"minecraft:long_turtle_master"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:water_breathing"}}].tag set value {Potion:"minecraft:long_water_breathing"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:poison"}}].tag set value {Potion:"minecraft:long_poison"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:regeneration"}}].tag set value {Potion:"minecraft:long_regeneration"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:strength"}}].tag set value {Potion:"minecraft:long_strength"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:weakness"}}].tag set value {Potion:"minecraft:long_weakness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:slow_falling"}}].tag set value {Potion:"minecraft:long_slow_falling"}
+
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{id:"cpp:lingering_potion_of_earth"}}].tag set value {Potion:"minecraft:long_leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.lingering_potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:9600}],id:"cpp:lingering_potion_of_long_earth",potionType:["long"]}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:night_vision"}}].tag set value {Potion:"minecraft:long_night_vision"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:invisibility"}}].tag set value {Potion:"minecraft:long_invisibility"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:leaping"}}].tag set value {Potion:"minecraft:long_leaping"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:fire_resistance"}}].tag set value {Potion:"minecraft:long_fire_resistance"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:swiftness"}}].tag set value {Potion:"minecraft:long_swiftness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:slowness"}}].tag set value {Potion:"minecraft:long_slowness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:turtle_master"}}].tag set value {Potion:"minecraft:long_turtle_master"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:water_breathing"}}].tag set value {Potion:"minecraft:long_water_breathing"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:poison"}}].tag set value {Potion:"minecraft:long_poison"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:regeneration"}}].tag set value {Potion:"minecraft:long_regeneration"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:strength"}}].tag set value {Potion:"minecraft:long_strength"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:weakness"}}].tag set value {Potion:"minecraft:long_weakness"}
+data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:slow_falling"}}].tag set value {Potion:"minecraft:long_slow_falling"}
+
+execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 0.999 run data get block ~ ~ ~ Items[{Slot:3b}].Count
+tag @s remove cpp_potion_of_long
 ```
-scoreboard players set #random_min tppRandom 1
-scoreboard players set #random_max tppRandom 24
-function tpp:random
 
-data remove entity @s[scores={tppRandom=1..9}] VillagerData.profession
+加强、喷溅、滞留版本的方法类似，这里省略了。
 
-# 林业员
-execute as @s[scores={tppRandom=1}] run function tpp:level1/forester
-# 书画师
-execute as @s[scores={tppRandom=2}] run function tpp:level1/painter
-# 圣诞老人
-execute as @s[scores={tppRandom=3}] run function tpp:level1/santa_claus
-# 药剂师
-execute as @s[scores={tppRandom=4}] run function tpp:level1/pharmacist
-# 末地使
-execute as @s[scores={tppRandom=5}] run function tpp:level1/end_envoy
-# 烟花师
-execute as @s[scores={tppRandom=6}] run function tpp:level1/fireworker
-# 园丁
-execute as @s[scores={tppRandom=7}] run function tpp:level1/gardener
-# 机械工
-execute as @s[scores={tppRandom=8}] run function tpp:level1/mechanician
-# 潜水员
-execute as @s[scores={tppRandom=9}] run function tpp:level1/frogman
+## §9 探测与触发 (WIP)
 
-tag @s add tpp_level1
-scoreboard players reset @s tppRandom
-```tpp:level1/forester
-```
-tag @s add tpp_forester
-data merge entity @s {CustomName:"{\"translate\":\"entity.minecraft.villager.forester\"}",ArmorItems:[{},{},{},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:"a5abd11d-9493-498b-b89b-e0b4327678f0",Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzViNWE1MzlkOTE5ZmE4YzQ4OTY2NDI0MjJlYzkxNWUzNzg1NDU3MTIxNGIzMjU1Mjk2YzdjNzQyNWZmYiJ9fX0="}]}}}}],ArmorDropChances:[-1.0f,-1.0f,-1.0f,-1.0f],Offers:{Recipes:[{buy:{id:"minecraft:oak_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:spruce_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:birch_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:jungle_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:acacia_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:dark_oak_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7}]}}
+### §9.1 胡萝卜钓竿
 
-scoreboard players set #random_min tppRandom 28
-scoreboard players set #random_max tppRandom 32
-function tpp:random
-execute store result entity @s Offers.Recipes[0].buy.Count byte 1 run scoreboard players get @s tppRandom
+胡萝卜钓竿是最便捷的右键探测物品，可由相应记分板判据探测。
 
-scoreboard players set #random_min tppRandom 28
-scoreboard players set #random_max tppRandom 32
-function tpp:random
-execute store result entity @s Offers.Recipes[1].buy.Count byte 1 run scoreboard players get @s tppRandom
+例如：右键蓝色天之力(`cpp:blue_force_of_sky`)改变天气并消耗经验。
 
-scoreboard players set #random_min tppRandom 28
-scoreboard players set #random_max tppRandom 32
-function tpp:random
-execute store result entity @s Offers.Recipes[2].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players set #random_min tppRandom 28
-scoreboard players set #random_max tppRandom 32
-function tpp:random
-execute store result entity @s Offers.Recipes[3].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players set #random_min tppRandom 28
-scoreboard players set #random_max tppRandom 32
-function tpp:random
-execute store result entity @s Offers.Recipes[4].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players set #random_min tppRandom 28
-scoreboard players set #random_max tppRandom 32
-function tpp:random
-execute store result entity @s Offers.Recipes[5].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players reset @s tppRandom
-```tpp:level2/check
-```
-execute as @s[tag=tpp_forester] run function tpp:level2/forester
-execute as @s[tag=tpp_painter] run function tpp:level2/painter
-execute as @s[tag=tpp_pharmacist] run function tpp:level2/pharmacist
-execute as @s[tag=tpp_end_envoy] run function tpp:level2/end_envoy
-execute as @s[tag=tpp_fireworker] run function tpp:level2/fireworker
-execute as @s[tag=tpp_gardener] run function tpp:level2/gardener
-execute as @s[tag=tpp_mechanician] run function tpp:level2/mechanician
-execute as @s[tag=tpp_frogman] run function tpp:level2/frogman
-execute as @s[tag=tpp_frogman] run function tpp:level2/frogman
-
-execute if score #craftingpp cppValue matches 1 as @s[nbt={VillagerData:{profession:"minecraft:butcher"}}] run data modify entity @s Offers.Recipes[3].sell merge value {tag:{display:{Lore:["{\"text\":\"§r????\"}"]}}}
-execute if score #craftingpp cppValue matches 1 as @s[nbt={VillagerData:{profession:"minecraft:butcher"}}] run data modify entity @s Offers.Recipes[4].sell merge value {tag:{display:{Lore:["{\"text\":\"§r???\"}"]}}}
-
-tag @s add tpp_level2
-```tpp:level2/forester
-```
-data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:oak_sapling",Count:1b},maxUses:7}
-data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:spruce_sapling",Count:1b},maxUses:7}
-data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:birch_sapling",Count:1b},maxUses:7}
-data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:jungle_sapling",Count:1b},maxUses:7}
-data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:acacia_sapling",Count:1b},maxUses:7}
-data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:dark_oak_sapling",Count:1b},maxUses:7}
-
-scoreboard players set #random_min tppRandom 2
-scoreboard players set #random_max tppRandom 4
-function tpp:random
-execute store result entity @s Offers.Recipes[6].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players set #random_min tppRandom 2
-scoreboard players set #random_max tppRandom 4
-function tpp:random
-execute store result entity @s Offers.Recipes[7].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players set #random_min tppRandom 2
-scoreboard players set #random_max tppRandom 4
-function tpp:random
-execute store result entity @s Offers.Recipes[8].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players set #random_min tppRandom 2
-scoreboard players set #random_max tppRandom 4
-function tpp:random
-execute store result entity @s Offers.Recipes[9].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players set #random_min tppRandom 2
-scoreboard players set #random_max tppRandom 4
-function tpp:random
-execute store result entity @s Offers.Recipes[10].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players set #random_min tppRandom 2
-scoreboard players set #random_max tppRandom 4
-function tpp:random
-execute store result entity @s Offers.Recipes[11].buy.Count byte 1 run scoreboard players get @s tppRandom
-
-scoreboard players reset @s tppRandom
-```这里的random函数采用的是(http://www.mcbbs.net/thread-706030-1-4.html]2b的random(min,max)随机模块]。
-
-### §8 ## 探测与触发
-### ### §8.1 右击可投掷物
-如果物品为喷溅、投掷药水、弓、雪球、鸡蛋、末影珍珠、末影之眼(有条件)，则右键后探测相应投射物并触发函数即可。如果是胡萝卜钓竿，则可由相应记分板判据探测。
-
-理论上来说，投掷带自定义nbt标签的物品，对应的投掷物实体Item标签会包含这些nbt标签，这包括雪球、附魔之瓶等。但是由于在gametick中执行次序的问题，如果扔出的是最后一个物品，这个nbt无法被存储至这个投掷物实体。请当心这一点。
-
-**例** 右键蓝色天之力(cpp:blue_force_of_sky)改变天气并消耗经验。
-载入
+`load.mcfunction`
 ```
 scoreboard objectives add cppStatue dummy
 scoreboard objectives add cppXpTotal dummy
-scoreboard objectives add cppUseCSt1 minecraft.used:minecraft.carrot_on_a_stick```主函数
+scoreboard objectives add cppUseCSt1 minecraft.used:minecraft.carrot_on_a_stick
 ```
-execute as @a[scores={cppUseCSt1=1..}] at @s run function cpp:elements/use```cpp:elements/use.mcfunction
+`tick.mcfunction`
+```
+execute as @a[scores={cppUseCSt1=1..}] at @s run function cpp:elements/use
+```
+`cpp:elements/use.mcfunction`
 ```
 execute as @s[nbt={SelectedItem:{tag:{id:"cpp:blue_force_of_sky"}}}] run function cpp:elements/use/blue
 scoreboard players reset @s cppUseCSt1
-```cpp:elements/use/blue.mcfunction
+```
+`cpp:elements/use/blue.mcfunction`
 ```
 execute store result score @s cppXpTotal run data get entity @s XpTotal
 tellraw @s[scores={cppXpTotal=..9}] {"translate":"item.cpp.elements.fail","with":[{"text":"10"}]}
-execute as @s[scores={cppXpTotal=10..}] run function cpp:elements/use/blue_done```cpp:elements/use/blue_done.mcfunction
+execute as @s[scores={cppXpTotal=10..}] run function cpp:elements/use/blue_done
+```
+`cpp:elements/use/blue_done.mcfunction`
 ```
 advancement grant @s only cpp:elements
 advancement grant @s only cpp:weather
@@ -3376,37 +2988,51 @@ execute if score #weather cppStatue matches 3 run weather thunder
 execute if score #weather cppStatue matches 1 run tellraw @a [{"translate":"item.cpp.blue_force_of_sky.info"},{"selector":"@s"},{"translate":"item.cpp.blue_force_of_sky.clear"}]
 execute if score #weather cppStatue matches 2 run tellraw @a [{"translate":"item.cpp.blue_force_of_sky.info"},{"selector":"@s"},{"translate":"item.cpp.blue_force_of_sky.rain"}]
 execute if score #weather cppStatue matches 3 run tellraw @a [{"translate":"item.cpp.blue_force_of_sky.info"},{"selector":"@s"},{"translate":"item.cpp.blue_force_of_sky.thunder"}]
-xp add @s -10```**
-例** 投掷ender_pearl{id:"cpp:transport_ball"}将玩家传送至所指方位（不超过100米），同时不消耗手中的末影珍珠。无视标签#cpp:fluid的所有方块（空气和水等）。
-我们需要引入记分板延迟1tick记录玩家持有该物品。
-初始化
+xp add @s -10
 ```
-#手持传送球
-scoreboard objectives add cppHasTpball dummy
-#使用传送球
-scoreboard objectives add cppUsePearl minecraft.used:minecraft.ender_pearl```主函数
+
+### §9.2 投掷物
+如果物品为喷溅、投掷药水、弓、雪球、鸡蛋、末影珍珠、末影之眼(有条件)，则右键后探测相应投射物并触发函数即可。投掷带自定义 `nbt` 标签的物品，对应的投掷物实体 `Item` 标签会包含这些 `nbt` 标签。注意，在1.14和更早版本，由于mojang先消耗手持物再存储手持物信息，导致投掷最后一个物品时没有存储相应的 `Item` 信息，此时我们需要提前1刻存储玩家手持物信息方可。
+
+例如：投掷 `ender_pearl{id:"cpp:transport_ball"}` 将玩家传送至所指方位（不超过100米），同时不消耗手中的末影珍珠。
+
+`load.mcfunction`
 ```
-scoreboard players set @a[nbt={SelectedItem:{tag:{id:"cpp:transport_ball"}}}] cppHasTpball 2
-scoreboard players remove @a[nbt=!{SelectedItem:{tag:{id:"cpp:transport_ball"}}}] cppHasTpball 1
-execute as @a[scores={cppHasTpball=1..,cppUsePearl=1..}] at @s positioned ~ ~1.52 ~ run function cpp:transport```cpp/functions/transport.mcfunction
+scoreboard objectives add cppUsePearl minecraft.used:minecraft.ender_pearl
+```
+`tick.mcfunction`
+```
+execute as @a[nbt={SelectedItem:{tag:{id:"cpp:transport_ball"}}},scores={cppUsePearl=1..}] at @s anchored eyes positioned ^ ^ ^ run function cpp:transport
+```
+`cpp/functions/transport.mcfunction`
 ```
 kill @e[type=ender_pearl,distance=..5,sort=nearest,limit=1]
 scoreboard players set @s cppUsePearl 0
-give @s minecraft:ender_pearl{display:{Name:"{\"translate\":\"item.cpp.transport_ball\"}"},id:"cpp:transport_ball",Enchantments:[{id:999s}]}
-execute positioned ~ ~0.1 ~ run function cpp:transport_ray```cpp/functions/transport_ray.mcfunction
+loot give @s loot cpp:transport_ball
+execute positioned ~ ~0.1 ~ run function cpp:transport_ray
+```
+`cpp/functions/transport_ray.mcfunction`
 ```
 execute if entity @s[distance=..100] unless block ~ ~ ~ #cpp:fluid run tp @s ^ ^ ^-0.1
-execute if entity @s[distance=..100] if block ~ ~ ~ #cpp:fluid positioned ^ ^ ^0.005 run function cpp:sys/transport_ray```
-### ### §8.2 装备效果
-如果物品本身为永久生效，探测(带槽位的)背包即可。如果与玩家的血量、饥饿值有关，则通过探测相应判据的计分板即可。
-**例** 当玩家含有烈焰粉而不含节制器(cpp:temperancer)且胸甲栏物品含有triggerEffect:[{id:"regeneration"}]时，玩家生命值低于记分板cppMaxHealth值时，给予再生效果，每点生命值消耗1点经验值。
-主函数
+execute if entity @s[distance=..100] if block ~ ~ ~ #cpp:fluid positioned ^ ^ ^0.005 run function cpp:sys/transport_ray
 ```
-execute as @a[nbt={Inventory:[{id:"minecraft:blaze_powder"},{tag:{triggerEffect:[{}]}}]},nbt=!{Inventory:[{tag:{id:"cpp:temperancer"}}]}] run function cpp:rituals/effect/check```cpp:rituals/effect/check.mcfunction
+
+### §9.3 装备效果
+如果物品本身为永久生效，探测(带槽位的)背包即可。如果与玩家的血量、饥饿值有关，则通过探测相应判据的计分板即可。
+
+例如：当玩家含有烈焰粉而不含节制器(`cpp:temperancer`)且胸甲栏物品含有`triggerEffect:[{id:"regeneration"}]`时，玩家生命值低于记分板 `cppMaxHealth` 值时，给予再生效果，每点生命值消耗1点经验值。
+
+`tick.mcfunction`
+```
+execute as @a[nbt={Inventory:[{id:"minecraft:blaze_powder"},{tag:{triggerEffect:[{}]}}]},nbt=!{Inventory:[{tag:{id:"cpp:temperancer"}}]}] run function cpp:rituals/effect/check
+```
+cpp:rituals/effect/check.mcfunction
 ```
 execute store result score @s cppXpTotal run data get entity @s XpTotal
 execute as @s[nbt={Inventory:[{Slot:101b,tag:{triggerEffect:[{id:"regeneration"}]}}],ActiveEffects:[{Id:10b,Duration:10}]}] run function cpp:rituals/effect/regeneration
-execute as @s[nbt={Inventory:[{Slot:101b,tag:{triggerEffect:[{id:"regeneration"}]}}]},nbt=!{ActiveEffects:[{Id:10b}]}] run function cpp:rituals/effect/regeneration```cpp:rituals/effect/regeneration
+execute as @s[nbt={Inventory:[{Slot:101b,tag:{triggerEffect:[{id:"regeneration"}]}}]},nbt=!{ActiveEffects:[{Id:10b}]}] run function cpp:rituals/effect/regeneration
+```
+cpp:rituals/effect/regeneration
 ```
 scoreboard players set #random_min cppRandom 1
 scoreboard players set #random_max cppRandom 10
@@ -3416,33 +3042,47 @@ scoreboard players set @s[scores={cppMaxHealth=..0}] cppMaxHealth 20
 scoreboard players enable @s cppMaxHealth
 execute if score @s cppHealth < @s cppMaxHealth run effect give @s minecraft:regeneration 3 0 true
 execute if score @s cppHealth < @s cppMaxHealth run xp add @s -1
-execute if score @s cppHealth < @s cppMaxHealth run clear @s[scores={cppRandom=1}] blaze_powder 1```
-### ### §8.3 方块交互
+execute if score @s cppHealth < @s cppMaxHealth run clear @s[scores={cppRandom=1}] blaze_powder 1
+```
+
+### §9.4 方块交互
+
 如果是与某些方块交互，可通过探测相应的交互判据的计分板即可。如果仅需要右击而不打开，可使用传送来实现强制关闭GUI。
 **例** 将附魔台、书架、发射器摆放成特定形状，在发射器中放入特定物品，在上方放置一个物品展示框并放入待添加效果的物品。手持魔杖右击发射器，然后等待一段时间将物品附加属性效果。星之魔杖给予更高的属性。
 
 右键时，通过记分板探测到，然后探测玩家手持魔杖类型给予展示框不同标签。判断发射器物品和展示框物品是否符合要求，符合则进入计时，时间到了之后随机给予属性类别、数量、大小，清空发射器，删除标签。
+
 初始化
 ```
-scoreboard objectives add cppInsDisp minecraft.custom:minecraft.inspect_dispenser```主函数
+scoreboard objectives add cppInsDisp minecraft.custom:minecraft.inspect_dispenser
+```
+主函数
 ```
 ###魔杖仪式###
 execute at @e[tag=cpp_rituals_back_archor] run tp @a[tag=cpp_rituals_willback] ~ ~ ~
 tag @a remove cpp_rituals_willback
 execute as @a[scores={cppInsDisp=1..}] run function cpp:rituals/init/check_wand
-execute as @e[type=minecraft:item_frame,tag=cpp_rituals_item] at @s run function cpp:rituals/check/type```cpp:rituals/init/check_wand.mcfunction
+execute as @e[type=minecraft:item_frame,tag=cpp_rituals_item] at @s run function cpp:rituals/check/type
+```
+cpp:rituals/init/check_wand.mcfunction
 ```
 execute as @s[nbt={SelectedItem:{tag:{isWand:1b}}}] at @s positioned ~ ~1.62 ~ run function cpp:rituals/init/ray
-scoreboard players reset @s cppInsDisp```cpp:rituals/init/ray.mcfunction
+scoreboard players reset @s cppInsDisp
+```
+cpp:rituals/init/ray.mcfunction
 ```
 execute if entity @s[distance=..9] unless block ~ ~ ~ minecraft:dispenser positioned ^ ^ ^0.005 run function cpp:rituals/init/ray
-execute if entity @s[distance=..9] if block ~ ~ ~ minecraft:dispenser if block ~3 ~ ~ minecraft:bookshelf if block ~-3 ~ ~ minecraft:bookshelf if block ~ ~ ~3 minecraft:bookshelf if block ~ ~ ~-3 minecraft:bookshelf if block ~2 ~ ~2 minecraft:enchanting_table if block ~2 ~ ~-2 minecraft:enchanting_table if block ~-2 ~ ~2 minecraft:enchanting_table if block ~-2 ~ ~-2 minecraft:enchanting_table run function cpp:rituals/init/mark```cpp:rituals/init/mark.mcfunction
+execute if entity @s[distance=..9] if block ~ ~ ~ minecraft:dispenser if block ~3 ~ ~ minecraft:bookshelf if block ~-3 ~ ~ minecraft:bookshelf if block ~ ~ ~3 minecraft:bookshelf if block ~ ~ ~-3 minecraft:bookshelf if block ~2 ~ ~2 minecraft:enchanting_table if block ~2 ~ ~-2 minecraft:enchanting_table if block ~-2 ~ ~2 minecraft:enchanting_table if block ~-2 ~ ~-2 minecraft:enchanting_table run function cpp:rituals/init/mark
+```
+cpp:rituals/init/mark.mcfunction
 ```
 execute align xyz positioned ~0.5 ~1.03125 ~0.5 run tag @e[type=item_frame,distance=..0.1,limit=1] add cpp_rituals_item
 execute as @s[nbt={SelectedItem:{tag:{id:"cpp:sakura_wand"}}}] align xyz positioned ~0.5 ~1.03125 ~0.5 run tag @e[type=item_frame,distance=..0.1,limit=1] add cpp_rituals_item_power
 execute at @s run summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["cpp_rituals_back_archor"],Duration:2}
 tp @s ~ ~256 ~
-tag @s add cpp_rituals_willback```cpp:rituals/check/type.mcfunction
+tag @s add cpp_rituals_willback
+```
+cpp:rituals/check/type.mcfunction
 ```
 execute if block ~ ~-1 ~ dispenser{Items:[{Slot:0b,id:"minecraft:gold_ingot",Count:1b},{Slot:2b,id:"minecraft:gold_ingot",Count:1b},{Slot:6b,id:"minecraft:gold_ingot",Count:1b},{Slot:8b,id:"minecraft:gold_ingot",Count:1b},{Slot:1b,id:"minecraft:experience_bottle",Count:64b},{Slot:3b,id:"minecraft:experience_bottle",Count:64b},{Slot:5b,id:"minecraft:experience_bottle",Count:64b},{Slot:7b,id:"minecraft:experience_bottle",Count:64b},{Slot:4b,Count:1b}]} run function cpp:rituals/check/attr
 
@@ -3459,7 +3099,9 @@ tag @s[tag=!cpp_rituals_ticks] remove cpp_rituals_item_power
 
 scoreboard players reset @s[tag=!cpp_rituals_ticks] cppTicks
 scoreboard players reset @s[scores={cppTicks=201..}] cppTicks
-tag @s remove cpp_rituals_ticks```cpp:rituals/check/attr.mcfunction
+tag @s remove cpp_rituals_ticks
+```
+cpp:rituals/check/attr.mcfunction
 ```
 execute if block ~ ~-1 ~ dispenser{Items:[{Slot:4b,tag:{isRareDrops:1b}}]} run tag @s[nbt={Item:{id:"minecraft:diamond_helmet"}}] add cpp_rituals_ticks
 execute if block ~ ~-1 ~ dispenser{Items:[{Slot:4b,tag:{isRareDrops:1b}}]} run tag @s[nbt={Item:{id:"minecraft:diamond_chestplate"}}] add cpp_rituals_ticks
@@ -3477,7 +3119,9 @@ execute as @s[scores={cppTicks=200..},nbt={Item:{id:"minecraft:diamond_sword"}}]
 execute as @s[scores={cppTicks=200..},nbt={Item:{id:"minecraft:diamond_helmet"}}] run function cpp:rituals/check/attr_head
 execute as @s[scores={cppTicks=200..},nbt={Item:{id:"minecraft:diamond_chestplate"}}] run function cpp:rituals/check/attr_chest
 execute as @s[scores={cppTicks=200..},nbt={Item:{id:"minecraft:diamond_leggings"}}] run function cpp:rituals/check/attr_legs
-execute as @s[scores={cppTicks=200..},nbt={Item:{id:"minecraft:diamond_boots"}}] run function cpp:rituals/check/attr_feet```cpp:rituals/check/attr_chest.mcfunction
+execute as @s[scores={cppTicks=200..},nbt={Item:{id:"minecraft:diamond_boots"}}] run function cpp:rituals/check/attr_feet
+```
+cpp:rituals/check/attr_chest.mcfunction
 ```
 scoreboard players set #random_min cppRandom 1
 scoreboard players set #random_max cppRandom 200
@@ -3557,79 +3201,15 @@ execute as @s[scores={cppAttrType=11}] store result entity @s Item.tag.Attribute
 data remove block ~ ~-1 ~ Items
 tag @s remove cpp_rituals_item
 tag @s remove cpp_rituals_item_power
-tag @s remove cpp_rituals_ticks```如果容器无需打开交互，则可直接为方块物品添加BlockEntityTag:{Lock:"zsx<3wtt"}这种nbt来锁住，可避免采用上述tp玩家至远处来强行关闭GUI。
-
-## ## ### §10 随机结构
-**例** 世界生成时，随机生成羊毛树。
-
-判断玩家东南32*32是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。
-也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。
-主函数```
-execute as @a at @s unless block ~ 0 ~ bedrock run function cpp:generate/check```
-}
-```cpp:generate/check.mcfunction```
-execute positioned ~-64 -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~-32 -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~ -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~-64 -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~-32 -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~ -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~-64 -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~-32 -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~ -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark```
-cpp:generate/mark.mcfunction
+tag @s remove cpp_rituals_ticks
 ```
-summon armor_stand ~ -1 ~ {Tags:["cpp_chunk","cpp_undet"],Invulnerable:1b,Invisible:1b,Marker:1b,NoGravity:1b,Small:1b,DisabledSlots:7967}
-scoreboard players set #32 cppValue 32
-execute store result score #temp cppValue run data get entity @e[tag=cpp_undet,limit=1] Pos[0]
-scoreboard players operation #temp cppValue /= #32 cppValue
-scoreboard players add #temp cppValue 1
-execute store result entity @e[tag=cpp_undet,sort=nearest,limit=1] Pos[0] double 1 run scoreboard players operation #temp cppValue *= #32 cppValue
+如果容器无需打开交互，则可直接为方块物品添加`BlockEntityTag:{Lock:"zsx<3wtt"`}这种nbt来锁住，可避免采用上述tp玩家至远处来强行关闭GUI。
 
-execute store result score #temp cppValue run data get entity @e[tag=cpp_undet,limit=1] Pos[2]
-scoreboard players operation #temp cppValue /= #32 cppValue
-scoreboard players add #temp cppValue 1
-execute store result entity @e[tag=cpp_undet,sort=nearest,limit=1] Pos[2] double 1 run scoreboard players operation #temp cppValue *= #32 cppValue
 
-loot spawn ~ ~ ~ loot cpp:generate/markers
-execute at @e[tag=cpp_undet,sort=nearest,limit=1] run spreadplayers ~16 ~16 0 15 false @e[type=item,nbt={Item:{tag:{isStrMark:1b}}}]
-tag @e[tag=cpp_undet] remove cpp_undet
-execute as @e[type=item,nbt={Item:{tag:{isStrMark:1b}}}] at @s run function cpp:generate/build
-```cpp:generate/build.mcfunction
-```
-# 爬行者地牢
-execute if score #generate_creeper_dungeon cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:creeper_dungeon_marker"}}}] if block ~ 15 ~ cave_air run function cpp:generate/structures/creeper_dungeon
-# 附魔室
-execute if score #generate_enchanting_room cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:enchanting_room_marker"}}}] run function cpp:generate/structures/enchanting_room
-# 图腾柱
-execute if score #generate_totem_pillar cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:totem_pillar_marker"}}}] run function cpp:generate/structures/totem_pillar
 
-# 水果树
-execute if score #generate_fruit_tree cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:fruit_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/fruit
-# 矿石树
-execute if score #generate_ore_tree cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:ore_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/ore
-# 羊毛树
-execute if score #generate_wool_tree cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:wool_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/wool
+## §10 植物和食物
 
-# 死珊瑚扇
-execute if score #generate_dead_coral_fan cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:dead_coral_fan_marker"}}}] run function cpp:generate/structures/dead_coral_fan
-
-# 灌木丛
-execute if score #generate_small_bush cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:small_bush_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/small_bush
-
-# 死云杉树
-execute if score #generate_dead_spruce cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:dead_spruce_marker"}}}] unless block ~ ~-1 ~ #cpp:fluid run function cpp:generate/structures/dead_spruce
-
-# 农作物
-execute if score #generate_crops cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:crops_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/crops
-
-# 花草
-execute if score #generate_modcrops cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:modcrops_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/modcrops
-
-kill @s
-```生成羊毛树部分略。
-
-## ## ### §11 种植
+### §10.1 作物
 **例** 种植铁种子，收获种子和铁锭，可由骨粉催熟。
 
 种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。
@@ -3661,17 +3241,235 @@ execute if entity @s[distance=..5] unless block ~ ~ ~ beetroots positioned ^ ^ ^
 ```
 execute as @e[type=armor_stand,tag=cpp_beetroots_plants] at @s unless block ~ ~ ~ beetroots run function cpp:plants/break/beetroots```cpp:plants/break/beetroots.mcfunction
 ```
-execute as @s[tag=cpp_iron_seeds] as @e[type=item,nbt={Item:{id:"minecraft:beetroot_seeds"},Age:0s},distance=..1] run data merge entity @s {Item:{tag:{HideFlags:63,Enchantments:[{}],display:{Name:"{\"translate\":\"item.cpp.iron_seeds\"}"},id:"cpp:iron_seeds"}}}
+execute as @s[tag=cpp_iron_seeds] as @e[type=item,nbt={Item:{id:"minecraft:beetroot_seeds"},Age:0s},distance=..1] run data merge entity @s {Item:{tag:{HideFlags:63,Enchantments:[{}],display:{Name:'{"translate":"item.cpp.iron_seeds\"}"},id:"cpp:iron_seeds"}}}
 execute as @s[tag=cpp_iron_seeds] as @e[type=item,nbt={Item:{id:"minecraft:beetroot"},Age:0s},distance=..1] run data merge entity @s {Item:{id:"minecraft:iron_ingot"}}
 ```
 
 实际上，我们也可以通过盔甲架手持物品来实现自定义材质的作物。
 
-## ## ### §12 连锁挖矿
+
+    + [§10.2 花草](#102-花草)
+    + [§10.3 树](#103-树)
+    
+
+### §10.4 食物
+食物可通过进度来探测，通过饱和效果来模拟回复饥饿值。
+
+例如：使用土豆牛肉回复16饥饿值并给予30秒力量II效果。
+
+`cpp:advancements/foods/braised_beef_with_potatoes.json`
+```
+{
+        "parent": "cpp:foods/root",
+        "criteria": {
+           "braised_beef_with_potatoes": {
+                   "trigger": "minecraft:consume_item",
+                   "conditions": {
+                           "item": {
+                                   "item": "minecraft:rabbit_stew",
+                                   "nbt": "{id:\"cpp:braised_beef_with_potatoes\"}"
+                                }
+                        }
+                }
+        },
+        "rewards":{
+                "function": "cpp:foods/foods/braised_beef_with_potatoes"
+        }
+}
+```
+`cpp:foods/foods/braised_beef_with_potatoes.mcfunction`
+```
+effect give @s strength 30 1
+effect give @s saturation 1 5
+advancement revoke @s only cpp:food/braised_beef_with_potatoes
+```
+注意该物品必须为原版已有的食物。
+
+
+
+    + [§10.5 药水](#105-药水)
+
+## §11 实体操作
+### §11.1 交易
+在RPG模组中，使用村民交易是一种常见的特殊物品获得方式。需要注意的是，如果不希望交易产生经验值，需将rewardExp设置为0b，例如
+```
+summon minecraft:villager ~ ~ ~ {NoAI:true,Invulnerable:true,Silent:true,Offers:{Recipes:[
+{maxUses:99999999,rewardExp:0b,buy:{id:"minecraft:coal",Count:1b},buyB:{id:"minecraft:stone",Count:8b},
+sell:{id:"minecraft:coal",Count:1b,tag:{Enchantments:[{id:999}],display:{Name:'{"translate":"item.cpp.nice_coal\"}"}}}}]}}
+```
+将村民的{VillagerData:{profession:"minecraft:none"}可以确保村民不含交易。通过设置不同的VillagerData以及修改村民的头盔材质模型，可以将村民的外观和原版村民加以区分。例如(http://www.mcbbs.net/thread-772311-1-1.html]【活动】【原版模组】新春惊喜]。
+
+**例** 将1/5的农民修改为林业员，收购36-40原木，出售树苗(二层交易)。
+简单来说，在CareerLevel:1时生成相应的交易列表，并保存价格，然后再CareerLevel:2时，重新添加上这些交易和对应价格，以及新增的交易部分。
+主函数
+```
+execute as @e[type=villager,tag=!tpp_level1,nbt={VillagerData:{level:1}}] run function tpp:level1/check
+execute as @e[type=villager,tag=!tpp_level2,nbt={VillagerData:{level:2}}] run function tpp:level2/check
+```
+tpp:level1/check
+```
+scoreboard players set #random_min tppRandom 1
+scoreboard players set #random_max tppRandom 24
+function tpp:random
+
+data remove entity @s[scores={tppRandom=1..9}] VillagerData.profession
+
+# 林业员
+execute as @s[scores={tppRandom=1}] run function tpp:level1/forester
+# 书画师
+execute as @s[scores={tppRandom=2}] run function tpp:level1/painter
+# 圣诞老人
+execute as @s[scores={tppRandom=3}] run function tpp:level1/santa_claus
+# 药剂师
+execute as @s[scores={tppRandom=4}] run function tpp:level1/pharmacist
+# 末地使
+execute as @s[scores={tppRandom=5}] run function tpp:level1/end_envoy
+# 烟花师
+execute as @s[scores={tppRandom=6}] run function tpp:level1/fireworker
+# 园丁
+execute as @s[scores={tppRandom=7}] run function tpp:level1/gardener
+# 机械工
+execute as @s[scores={tppRandom=8}] run function tpp:level1/mechanician
+# 潜水员
+execute as @s[scores={tppRandom=9}] run function tpp:level1/frogman
+
+tag @s add tpp_level1
+scoreboard players reset @s tppRandom
+```
+tpp:level1/forester
+```
+tag @s add tpp_forester
+data merge entity @s {CustomName:"{\"translate\":\"entity.minecraft.villager.forester\"}",ArmorItems:[{},{},{},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:"a5abd11d-9493-498b-b89b-e0b4327678f0",Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzViNWE1MzlkOTE5ZmE4YzQ4OTY2NDI0MjJlYzkxNWUzNzg1NDU3MTIxNGIzMjU1Mjk2YzdjNzQyNWZmYiJ9fX0="}]}}}}],ArmorDropChances:[-1.0f,-1.0f,-1.0f,-1.0f],Offers:{Recipes:[{buy:{id:"minecraft:oak_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:spruce_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:birch_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:jungle_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:acacia_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7},{buy:{id:"minecraft:dark_oak_log",Count:36b},sell:{id:"minecraft:emerald",Count:1b},maxUses:7}]}}
+
+scoreboard players set #random_min tppRandom 28
+scoreboard players set #random_max tppRandom 32
+function tpp:random
+execute store result entity @s Offers.Recipes[0].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 28
+scoreboard players set #random_max tppRandom 32
+function tpp:random
+execute store result entity @s Offers.Recipes[1].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 28
+scoreboard players set #random_max tppRandom 32
+function tpp:random
+execute store result entity @s Offers.Recipes[2].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 28
+scoreboard players set #random_max tppRandom 32
+function tpp:random
+execute store result entity @s Offers.Recipes[3].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 28
+scoreboard players set #random_max tppRandom 32
+function tpp:random
+execute store result entity @s Offers.Recipes[4].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 28
+scoreboard players set #random_max tppRandom 32
+function tpp:random
+execute store result entity @s Offers.Recipes[5].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players reset @s tppRandom
+```
+tpp:level2/check
+```
+execute as @s[tag=tpp_forester] run function tpp:level2/forester
+execute as @s[tag=tpp_painter] run function tpp:level2/painter
+execute as @s[tag=tpp_pharmacist] run function tpp:level2/pharmacist
+execute as @s[tag=tpp_end_envoy] run function tpp:level2/end_envoy
+execute as @s[tag=tpp_fireworker] run function tpp:level2/fireworker
+execute as @s[tag=tpp_gardener] run function tpp:level2/gardener
+execute as @s[tag=tpp_mechanician] run function tpp:level2/mechanician
+execute as @s[tag=tpp_frogman] run function tpp:level2/frogman
+execute as @s[tag=tpp_frogman] run function tpp:level2/frogman
+
+execute if score #craftingpp cppValue matches 1 as @s[nbt={VillagerData:{profession:"minecraft:butcher"}}] run data modify entity @s Offers.Recipes[3].sell merge value {tag:{display:{Lore:["{\"text\":\"§r????\"}"]}}}
+execute if score #craftingpp cppValue matches 1 as @s[nbt={VillagerData:{profession:"minecraft:butcher"}}] run data modify entity @s Offers.Recipes[4].sell merge value {tag:{display:{Lore:["{\"text\":\"§r???\"}"]}}}
+
+tag @s add tpp_level2
+```
+tpp:level2/forester
+```
+data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:oak_sapling",Count:1b},maxUses:7}
+data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:spruce_sapling",Count:1b},maxUses:7}
+data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:birch_sapling",Count:1b},maxUses:7}
+data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:jungle_sapling",Count:1b},maxUses:7}
+data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:acacia_sapling",Count:1b},maxUses:7}
+data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:dark_oak_sapling",Count:1b},maxUses:7}
+
+scoreboard players set #random_min tppRandom 2
+scoreboard players set #random_max tppRandom 4
+function tpp:random
+execute store result entity @s Offers.Recipes[6].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 2
+scoreboard players set #random_max tppRandom 4
+function tpp:random
+execute store result entity @s Offers.Recipes[7].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 2
+scoreboard players set #random_max tppRandom 4
+function tpp:random
+execute store result entity @s Offers.Recipes[8].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 2
+scoreboard players set #random_max tppRandom 4
+function tpp:random
+execute store result entity @s Offers.Recipes[9].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 2
+scoreboard players set #random_max tppRandom 4
+function tpp:random
+execute store result entity @s Offers.Recipes[10].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players set #random_min tppRandom 2
+scoreboard players set #random_max tppRandom 4
+function tpp:random
+execute store result entity @s Offers.Recipes[11].buy.Count byte 1 run scoreboard players get @s tppRandom
+
+scoreboard players reset @s tppRandom
+```
+这里的random函数采用的是(http://www.mcbbs.net/thread-706030-1-4.html]2b的random(min,max)随机模块]。
+
+
+### §11.2 移动
+核心部分：将物品的Motion修改为玩家的坐标减去物品的坐标即可。
+```
+execute store result score #playerPos cppPos run data get entity @p[nbt={Inventory:[{tag:{id:"cpp:magnet",Type:1b}}]}] Pos[0] 100
+execute store result score #itemPos cppPos run data get entity @s Pos[0] 100
+execute store result entity @s Motion[0] double 0.001 run scoreboard players operation #playerPos cppPos -= #itemPos cppPos
+
+execute store result score #playerPos cppPos run data get entity @p[nbt={Inventory:[{tag:{id:"cpp:magnet",Type:1b}}]}] Pos[1] 100
+execute store result score #itemPos cppPos run data get entity @s Pos[1] 100
+execute store result entity @s Motion[1] double 0.001 run scoreboard players operation #playerPos cppPos -= #itemPos cppPos
+
+execute store result score #playerPos cppPos run data get entity @p[nbt={Inventory:[{tag:{id:"cpp:magnet",Type:1b}}]}] Pos[2] 100
+execute store result score #itemPos cppPos run data get entity @s Pos[2] 100
+execute store result entity @s Motion[2] double 0.001 run scoreboard players operation #playerPos cppPos -= #itemPos cppPos
+```
+生物被玩家吸引的效果也可以类似实现。
+
+
+### §11.3 传送
+
+### §11.4 随机物品
+### §11.5 生物 nbt 操作
+### §11.6 Boss 设计
+
+## §12 方块操作
+
+### §12.1 方块放置
+
+### §12.2 填充
+
+### §12.3 自动种植
+
+### §12.4 连锁挖矿
 
 加载
 ```
-
 # 使用斧(连锁效果)
 scoreboard objectives add cppUseAxe1 minecraft.used:minecraft.diamond_axe
 scoreboard objectives add cppUseAxe2 minecraft.used:minecraft.iron_axe
@@ -3686,9 +3484,13 @@ scoreboard objectives add cppUsePick4 minecraft.used:minecraft.stone_pickaxe
 scoreboard objectives add cppUseShovel1 minecraft.used:minecraft.diamond_shovel
 scoreboard objectives add cppUseShovel2 minecraft.used:minecraft.iron_shovel
 scoreboard objectives add cppUseShovel3 minecraft.used:minecraft.golden_shovel
-scoreboard objectives add cppUseShovel4 minecraft.used:minecraft.stone_shovel```主函数
+scoreboard objectives add cppUseShovel4 minecraft.used:minecraft.stone_shovel
 ```
-execute as @a[scores={cppChainTick=1..}] at @s positioned ~ ~1.62 ~ run function cpp:chain/type```cpp:chain/type.mcfunction
+主函数
+```
+execute as @a[scores={cppChainTick=1..}] at @s positioned ~ ~1.62 ~ run function cpp:chain/type
+```
+cpp:chain/type.mcfunction
 ```
 execute positioned ^ ^ ^0.2 run particle entity_effect ~ ~-1 ~ 0.734375 0.37890625 0.3046875 1 0
 title @s[scores={cppChainTick=1}] actionbar [{"text":" "}]
@@ -3723,19 +3525,27 @@ scoreboard players reset @s cppUsePick4
 scoreboard players reset @s cppUseShovel1
 scoreboard players reset @s cppUseShovel2
 scoreboard players reset @s cppUseShovel3
-scoreboard players reset @s cppUseShovel4```cpp:chain/pickaxe1/init```
+scoreboard players reset @s cppUseShovel4
+```
+cpp:chain/pickaxe1/init
+```
 scoreboard players set #max_durality cppValue 1561
 execute store result score #temp cppValue run data get entity @s SelectedItem.tag.Damage
 execute if score #temp cppValue < #max_durality cppValue at @e[type=item,nbt={Age:0s},distance=..6,sort=nearest,limit=1] run function cpp:chain/pickaxe1/mark
 execute if score #temp cppValue < #max_durality cppValue at @e[type=item,nbt={Age:1s},distance=..6,sort=nearest,limit=1] run function cpp:chain/pickaxe1/mark
-scoreboard players reset @s cppUsePick1```cpp:chain/pickaxe1/mark```
+scoreboard players reset @s cppUsePick1
+```
+cpp:chain/pickaxe1/mark
+```
 execute positioned ~1 ~ ~ if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~-1 ~ ~ if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~ ~1 ~ if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~ ~-1 ~ if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~ ~ ~1 if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~ ~ ~-1 if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
-```cpp:chain/pickaxe1/damage```
+```
+cpp:chain/pickaxe1/damage
+```
 execute as @s[nbt=!{SelectedItem:{tag:{Enchantments:[{id:"minecraft:silk_touch"}]}}}] run function cpp:chain/xp
 loot spawn ~ ~ ~ mine ~ ~ ~ mainhand
 setblock ~ ~ ~ air
@@ -3750,8 +3560,10 @@ scoreboard players operation #damage_var cppValue *= @s cppChainDam
 execute if score #damage_var cppValue matches ..60 run scoreboard players add #temp cppValue 1
 execute store result entity @s[gamemode=!creative] SelectedItem.tag.Damage int 1 run scoreboard players get #temp cppValue
 
-kill @e[type=item,nbt={Item:{tag:{isRdMark:1b}}},distance=..1,limit=1]```
-其中cpp/loot_tables/random/60.json为```
+kill @e[type=item,nbt={Item:{tag:{isRdMark:1b}}},distance=..1,limit=1]
+```
+其中cpp/loot_tables/random/60.json为
+```
 {
     "pools": [
         {
@@ -3780,26 +3592,95 @@ kill @e[type=item,nbt={Item:{tag:{isRdMark:1b}}},distance=..1,limit=1]```
 }
 ```
 
+# §13 世界生成 (WIP)
 
-## §13 磁力效果
-核心部分：将物品的Motion修改为玩家的坐标减去物品的坐标即可。
+### §13.1 随机结构
+**例** 世界生成时，随机生成羊毛树。
+
+判断玩家东南32*32是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。
+也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。
+
+主函数
 ```
-execute store result score #playerPos cppPos run data get entity @p[nbt={Inventory:[{tag:{id:"cpp:magnet",Type:1b}}]}] Pos[0] 100
-execute store result score #itemPos cppPos run data get entity @s Pos[0] 100
-execute store result entity @s Motion[0] double 0.001 run scoreboard players operation #playerPos cppPos -= #itemPos cppPos
-
-execute store result score #playerPos cppPos run data get entity @p[nbt={Inventory:[{tag:{id:"cpp:magnet",Type:1b}}]}] Pos[1] 100
-execute store result score #itemPos cppPos run data get entity @s Pos[1] 100
-execute store result entity @s Motion[1] double 0.001 run scoreboard players operation #playerPos cppPos -= #itemPos cppPos
-
-execute store result score #playerPos cppPos run data get entity @p[nbt={Inventory:[{tag:{id:"cpp:magnet",Type:1b}}]}] Pos[2] 100
-execute store result score #itemPos cppPos run data get entity @s Pos[2] 100
-execute store result entity @s Motion[2] double 0.001 run scoreboard players operation #playerPos cppPos -= #itemPos cppPos
+execute as @a at @s unless block ~ 0 ~ bedrock run function cpp:generate/check
 ```
-生物被玩家吸引的效果也可以类似实现。
+}
+```cpp:generate/check.mcfunction```
+execute positioned ~-64 -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-32 -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~ -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-64 -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-32 -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~ -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-64 -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-32 -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~ -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark```
+cpp:generate/mark.mcfunction
+```
+summon armor_stand ~ -1 ~ {Tags:["cpp_chunk","cpp_undet"],Invulnerable:1b,Invisible:1b,Marker:1b,NoGravity:1b,Small:1b,DisabledSlots:7967}
+scoreboard players set #32 cppValue 32
+execute store result score #temp cppValue run data get entity @e[tag=cpp_undet,limit=1] Pos[0]
+scoreboard players operation #temp cppValue /= #32 cppValue
+scoreboard players add #temp cppValue 1
+execute store result entity @e[tag=cpp_undet,sort=nearest,limit=1] Pos[0] double 1 run scoreboard players operation #temp cppValue *= #32 cppValue
 
-----
-以上内容仅仅是我个人制作过程中的一些感受和经验，具体的应用纷繁复杂，既没有固定的套路，也不可能在短短一篇帖子内尽述。技术不是一成不变的，但这不是重点，因为兴趣和创意才是制作模组的源动力。最后有任何错误和疑问请联系我，谢谢阅读！
+execute store result score #temp cppValue run data get entity @e[tag=cpp_undet,limit=1] Pos[2]
+scoreboard players operation #temp cppValue /= #32 cppValue
+scoreboard players add #temp cppValue 1
+execute store result entity @e[tag=cpp_undet,sort=nearest,limit=1] Pos[2] double 1 run scoreboard players operation #temp cppValue *= #32 cppValue
 
+loot spawn ~ ~ ~ loot cpp:generate/markers
+execute at @e[tag=cpp_undet,sort=nearest,limit=1] run spreadplayers ~16 ~16 0 15 false @e[type=item,nbt={Item:{tag:{isStrMark:1b}}}]
+tag @e[tag=cpp_undet] remove cpp_undet
+execute as @e[type=item,nbt={Item:{tag:{isStrMark:1b}}}] at @s run function cpp:generate/build
+```
+cpp:generate/build.mcfunction
+```
+# 爬行者地牢
+execute if score #generate_creeper_dungeon cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:creeper_dungeon_marker"}}}] if block ~ 15 ~ cave_air run function cpp:generate/structures/creeper_dungeon
+# 附魔室
+execute if score #generate_enchanting_room cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:enchanting_room_marker"}}}] run function cpp:generate/structures/enchanting_room
+# 图腾柱
+execute if score #generate_totem_pillar cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:totem_pillar_marker"}}}] run function cpp:generate/structures/totem_pillar
+
+# 水果树
+execute if score #generate_fruit_tree cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:fruit_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/fruit
+# 矿石树
+execute if score #generate_ore_tree cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:ore_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/ore
+# 羊毛树
+execute if score #generate_wool_tree cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:wool_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/wool
+
+# 死珊瑚扇
+execute if score #generate_dead_coral_fan cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:dead_coral_fan_marker"}}}] run function cpp:generate/structures/dead_coral_fan
+
+# 灌木丛
+execute if score #generate_small_bush cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:small_bush_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/small_bush
+
+# 死云杉树
+execute if score #generate_dead_spruce cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:dead_spruce_marker"}}}] unless block ~ ~-1 ~ #cpp:fluid run function cpp:generate/structures/dead_spruce
+
+# 农作物
+execute if score #generate_crops cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:crops_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/crops
+
+# 花草
+execute if score #generate_modcrops cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:modcrops_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/modcrops
+
+kill @s
+```
+生成羊毛树部分略。
+
+
+### §13.2 水处理
+### §13.3 下界处理
+### §13.4 维度模拟
+## §14 绘画与颗粒
+### §14.1 绘制图案
+### §14.2 颗粒
+## §15 算法与数据结构
+### §15.1 数组
+### §15.2 循环
+### §15.3 递归
+### §15.4 位运算
+### §15.5 种子操作
 
 
