@@ -1,0 +1,189 @@
+@font-face{
+	font-family:Minecraft;
+	src:url("items/minecraft.eot"),url("items/minecraft.woff") format("woff");
+}
+
+table{
+	margin: 20px 0px;
+	background-color:#fff;
+	border-collapse:collapse;
+}
+th, td{
+	border:1px solid #aaa;
+	padding:0.2em 0.4em;
+	vertical-align:middle;
+}
+thead th{
+	background: #505050;
+	font-weight:bold;
+	color: white;
+}
+tbody th{
+	background-color:#ddd;
+}
+
+html{
+	font-family: "Microsoft Yahei", Tahoma;
+}
+body{
+	background-color:#ddd;
+	margin:0 0 0  10%;
+}
+nav{
+	position:fixed;
+	height:100%;
+	width: 10%;
+	top:0; 	left:0;
+	background-color: #ccc;
+	z-index:5;
+	font-size: 95%;
+	font-weight: bold;
+}
+nav ul{
+	margin:0px auto 0px;
+	padding:0;
+	list-style-type: none;
+}
+nav li{
+	vertical-align: middle;
+	border-bottom-color:red;
+	border-bottom-width:2px;
+	border-bottom-style:none;
+}
+nav li:hover{
+	background-color: #cccfff;
+	background-color:hsl(91,63%,46%);
+}
+nav a{
+	display: block;
+	height:100%;
+	width:100%;
+	padding: 6px 2px 6px 10px;
+}
+nav ul ul{
+	margin-left:100%;
+	margin-top: -25%;
+	padding: 0;
+	top: auto;
+	float: left;
+	display: none;
+	position: absolute;
+	z-index: 99999;
+	opacity:0.95;
+	background-color:hsl(198,45%,46%);
+	background-color: #ddd;
+}
+nav ul ul li{
+	width: 180px;
+	float: none;
+}
+nav ul li:hover > ul{
+	display: block;
+}
+
+article{
+	padding:0.5em 2em 0.5em;
+	background-color:#E6EFF4;
+}
+p{
+	text-indent: 2em;
+}
+p.noindent{
+	text-indent: 0em;
+}
+h1, h2, h3, h4, h5, h6{
+	font-family: verdana, 黑体;
+}
+h1{
+	border-bottom:solid 2px grey;
+	padding:0 0 5px;
+}
+h2{
+	font-size: 120%;
+}
+h3{
+	font-size: 110%;
+	display: inline;
+}
+code{
+	color:black;
+	font-weight: normal;
+	font-size:100%;
+	background-color:white;
+	font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace,Courier;
+}
+pre{
+	color:black;
+	font-weight: normal;
+	font-size:100%;
+	background-color:white;
+	padding: 8px 10px;
+	font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace,Courier;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+pre.file{
+	background-color:#ddd;
+	margin-bottom: 0;
+}
+pre.file + pre{
+	margin-top: 0;
+}
+
+/* 版本提示 */
+span.version, span.oldversion{
+	display: inline-block;
+	height:20px;
+	font-size: 70%;
+	border-radius:5px;
+	padding:2px 5px 0px;
+	text-shadow: 1px 1px 1px #000;
+	color: gold;
+}
+span.version{
+	background-color: #4c1;
+}
+span.oldversion{
+	background-color: #666;
+}
+span.version:before, span.oldversion:before{ 
+	content:"版本 ";
+	color: #ccccff;
+}
+a{
+	color: hsl(126,90%,19%);
+	text-decoration:none;
+}
+a:hover{
+	color:#d25349;
+}
+a.ui:hover{
+	color:white;
+}
+abbr{
+	cursor:help;
+}
+em{
+	font-style:italic;
+}
+img{
+	text-align: center;
+}
+
+span.ui a.magma_block, a.magma_block{
+	background-image: url("magma_block.gif");
+	background-size: 32px 32px;
+}
+span.ui a.prismarine, a.prismarine{
+	background-image: url("prismarine.gif");
+	background-size: 32px 32px;
+}
+span.ui a.xp_orb, a.xp_orb{
+	background-image: url("xp_orb.gif");
+	background-size: 32px 32px;
+}
+span.ui a.fire, a.fire{
+	background-image: url("fire.gif");
+	background-size: 32px 32px;
+}
