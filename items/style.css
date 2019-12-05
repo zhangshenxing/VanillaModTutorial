@@ -76,7 +76,7 @@ pre{
 	word-break: break-all;
 }
 pre.file{
-	background-color:#ddd;
+	background-color:#ccc;
 	margin-bottom: 0;
 }
 pre.file + pre{
