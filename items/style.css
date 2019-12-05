@@ -141,7 +141,7 @@ thead th{
 	color: white;
 }
 tbody th{
-	background-color: #ddd;
+	background-color: #d0d0d0;
 }
 
 span.ui a.magma_block, a.magma_block{
@@ -162,7 +162,7 @@ span.ui a.fire, a.fire{
 }
 
 body{
-	background-color: #eee;
+	background-color: #e0e0e0;
 }
 article a{
 	color: hsl(220, 50%, 50%);
