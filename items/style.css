@@ -10,7 +10,7 @@ body{
 	margin: 0;
 }
 article{
-	margin:0 3em 2em 13em;
+	margin:0 3em 2em 18%;
 }
 p{
 	text-indent: 2em;
@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6{
 }
 h1{
 	border-bottom:solid 2px grey;
-	padding:0 0 5px;
+	padding:30px 0 5px;
 }
 h2{
 	font-size: 120%;
@@ -76,7 +76,7 @@ pre{
 	word-break: break-all;
 }
 pre.file{
-	background-color:#ccc;
+	background-color:#c0c0c0;
 	margin-bottom: 0;
 }
 pre.file + pre{
@@ -86,7 +86,7 @@ pre.file + pre{
 nav{
 	position:fixed;
 	height:100%;
-	width: 13%;
+	width: 14%;
 	top:0; 	left:0;
 	font-size: 100%;
 	font-weight: bold;
@@ -105,7 +105,7 @@ nav ul{
 nav a{
 	display: block;
 	height:100%; width:100%;
-	padding: 6px 2px 6px 10px;
+	padding: 6px 2px 6px 16px;
 }
 nav ul ul{
 	margin-left:100%;
@@ -162,7 +162,7 @@ span.ui a.fire, a.fire{
 }
 
 body{
-	background-color: #e0e0e0;
+	background-color: #eee;
 }
 article a{
 	color: hsl(220, 50%, 50%);
