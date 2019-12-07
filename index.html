@@ -16,7 +16,7 @@
 <nav>
 <ul>
     <li style="border-bottom: #ddd 4px solid;padding-top:3px;padding-bottom: 3px;"><a href="#banner">原版模组入门教程</a></li>
-    <li><a href="#§1_简介">§1 简介</a><ul>
+    <li><a href="#§1_预备知识">§1 预备知识</a><ul>
         <li><a href="#§1.1_新人指引">§1.1 新人指引</a></li>
         <li><a href="#§1.2_工具准备">§1.2 工具准备</a></li>
         <li><a href="#§1.2.1_文本编辑器">§1.2.1 文本编辑器</a></li>
@@ -99,19 +99,19 @@
         <li><a href="#§8.9.4_载体式">§8.9.4 载体式</a></li>
         <li><a href="#§8.9.5_管道设计">§8.9.5 管道设计</a></li>
     </ul></li>
-    <li><a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a><ul>
+    <li><a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a><ul style="margin-top: -10.2em;">
         <li><a href="#§9.1_地板合成">§9.1 地板合成</a></li>
         <li><a href="#§9.2_实体背包合成">§9.2 实体背包合成</a></li>
         <li><a href="#§9.3_容器合成">§9.3 容器合成</a></li>
         <li><a href="#§9.4_NBT烧炼">§9.4 NBT烧炼</a></li>
         <li><a href="#§9.5_NBT酿造">§9.5 NBT酿造</a></li>
     </ul></li>
-    <li><a href="#§10_植物">§10 植物</a><ul>
+    <li><a href="#§10_植物">§10 植物</a><ul style="margin-top: -6.2em;">
         <li><a href="#§10.1_作物">§10.1 作物</a></li>
         <li><a href="#§10.2_花草">§10.2 花草</a></li>
         <li><a href="#§10.3_树">§10.3 树</a></li>
     </ul></li>
-    <li><a href="#§11_实体与方块">§11 实体与方块</a><ul>
+    <li><a href="#§11_实体与方块">§11 实体与方块</a><ul style="margin-top: -12.2em;">
         <li><a href="#§11.1_物品效果">§11.1 物品效果</a></li>
         <li><a href="#§11.2_方块交互">§11.2 方块交互</a></li>
         <li><a href="#§11.3_移动">§11.3 移动</a></li>
@@ -119,14 +119,14 @@
         <li><a href="#§11.5_自动种植">§11.5 自动种植</a></li>
         <li><a href="#§11.6_连锁挖矿">§11.6 连锁挖矿</a></li>
     </ul></li>
-    <li><a href="#§12_世界生成">§12 世界生成</a><ul>
+    <li><a href="#§12_世界生成">§12 世界生成</a><ul style="margin-top: -10.2em;">
         <li><a href="#§12.1_随机结构">§12.1 随机结构</a></li>
         <li><a href="#§12.2_水处理">§12.2 水处理</a></li>
         <li><a href="#§12.3_下界与末地">§12.3 下界与末地</a></li>
         <li><a href="#§12.4_重生成">§12.4 重生成</a></li>
         <li><a href="#§12.5_维度模拟">§12.5 维度模拟</a></li>
     </ul></li>
-    <li><a href="#§13_算法">§13 算法</a><ul>
+    <li><a href="#§13_算法">§13 算法</a><ul style="margin-top: -8.2em;">
         <li><a href="#§13.1_绘制图案">§13.1 绘制图案</a></li>
         <li><a href="#§13.2_循环与递归">§13.2 循环与递归</a></li>
         <li><a href="#§13.3_字符操作">§13.3 字符操作</a></li>
@@ -134,14 +134,17 @@
     </ul></li>
 </ul>
 </nav>
-<img id="banner" src="items/banner.png" style="width:86%;margin-left:14%;"/>
+
+
+<div id="main_part">
+<img id="banner" src="items/banner.png" style="width:100%;"/>
 
 <article>
 <p>本文适用 Minecraft Java 版 1.13 及更高版本，部分内容仅适用于部分版本。系统环境为 Windows10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议、教程等。有任何错误和疑问请联系我，谢谢！</p>
 <p>原版模组一般指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。因此我将为大家做一个简单的入门，以期抛砖引玉。</p>
 <p>编写进度：§1-§9.4 (2019/12/05)</p>
 
-<h1 id="§1_简介">§1 简介</h1>
+<h1 id="§1_预备知识">§1 预备知识</h1>
 <p>部分段落常为部分读者所熟知，若如此可直接跳至自己所需段落。对于首次接触者，请耐心阅读。</p>
 
 <h2 id="§1.1_新人指引">§1.1 新人指引</h2>
@@ -927,7 +930,7 @@ Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该�
 <p>诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用断言无疑方便更多。</p>
 
 <h2 id="§2.7_配方">§2.7 配方</h2>
-<p>配方 (recipes) 包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 nbt 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#§7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#§9_NBT合成">§9 NBT合成</a>、<a href="#§10_NBT熔炼">§10 NBT熔炼</a>、<a href="#§11_NBT酿造">§11 NBT酿造</a>。</p>
+<p>配方 (recipes) 包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 nbt 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#§7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a>。</p>
 <p>在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，但是未获得的不会在配方书中显示，因此建议为你的自定义配方添加合适的进度来获取该配方。</p>
 
 <h2 id="§2.8_结构">§2.8 结构</h2>
@@ -1105,9 +1108,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <p>建议和数据包使用相同的命名空间名。</p>
 
 <h2 id="§3.3_语言文件">§3.3 语言文件</h2>
-<p>语言文件可以放在任一命名空间下的 <code>lang</code> 文件夹下。语言文件中可以使用样式代码来实现彩色文字。
-
-建议至少支持中文简体(<code>zh_cn</code>)、中文繁体(<code>zh_tw</code>)和英文(<code>en_us</code>)三种语言。建议所有物品、进度、游戏提示等文本均采用 <code>translate</code> 文本。例如：</p>
+<p>语言文件可以放在任一命名空间下的 <code>lang</code> 文件夹下。语言文件中可以使用样式代码来实现彩色文字。建议至少支持中文简体(<code>zh_cn</code>)、中文繁体(<code>zh_tw</code>)和英文(<code>en_us</code>)三种语言。建议所有物品、进度、游戏提示等文本均采用 <code>translate</code> 文本。例如：</p>
 <pre class="file">assets/命名空间/lang/zh_cn.json</pre>
 <pre>
 {
@@ -1751,7 +1752,7 @@ function #foo:item_processer
 <table><thead><tr><th>NBT</th><th>说明</th></tr></thead><tbody>
 <tr>
     <td><code>id:"cpp:red_force_of_fire"</code></td>
-    <td>建议使用<code>id:"命名空间:物品名称"<code>来表示原版模组物品的唯一标签，以与其它模组的物品区分。</td>
+    <td>建议使用<code>id:"命名空间:物品名称"</code>来表示原版模组物品的唯一标签，以与其它模组的物品区分。</td>
 </tr>
 <tr>
     <td><code>display:{Name:'{"translate":"item.cpp.red_force_of_fire"}'}</code></td>
@@ -4081,6 +4082,11 @@ replaceitem entity @s inventory.15 minecraft:air
 replaceitem entity @s inventory.17 minecraft:air
 </pre>
 
+<h2 id="§9.3_容器合成">§9.3 容器合成</h2>
+<p>使用投掷器、箱子、木桶等容器可以更为便捷地实现合成。我们可以直接使用容器，或者使用 <a href="#8_机器设计">§8 机器设计</a>的方法设计好自定义工作台的GUI。</p>
+
+<p>输出方式我们可以选择输出到输出栏（木桶）、输出到自身（精准匹配+投掷器）、弹出。具体实现与 <a href="#8_机器设计">§8 机器设计</a>并无二致。</p>
+
 <h2 id="§9.4_NBT烧炼">§9.4 NBT烧炼</h2>
 <p>放置熔炉、高炉、烟熏炉、营火的过程已省略。我们假设相应方块位置已有标签为 <code>cpp_furnace</code> 的盔甲架。</p>
 <p>例如：将蛋烧炼为战利品表物品 <code>cpp:egg_stew</code>。创建烧炼配方以激活烧炼蛋。</p>
@@ -4144,237 +4150,460 @@ data merge block ~ ~ ~ {CookTime:0s}
 </tbody></table>
 
 <h2 id="§9.5_NBT酿造">§9.5 NBT酿造</h2>
-<p>类似于自定义烧炼的方法，我们可以自定义少量的酿造。这要求酿造材料必须为原版酿造材料物品，例如使用兔子腿，好处是兔子腿只有酿造功能。待酿造物必须为药水和玻璃瓶，只有这两种物品才可放入酿造台下方药水栏。</p>
+<p>类似于自定义烧炼的方法，我们可以自定义酿造。但是由于酿造台的限制，酿造材料必须为原版酿造材料物品，待酿造的物品只能为药水或玻璃瓶。除了红石、萤石、火药、龙息外，我们建议使用兔子腿，因为兔子腿只有酿造功能。</p>
+<p>如果酿造材料和待酿造的物品本身就属于原版可酿造的配方，我们只需在酿造即将完成时，将药水替换掉即可。例如：使用大地之证 (兔子腿 <code>cpp:certification_of_earth</code>) 将粗制的药水酿造成有多重药水效果的大地药水（<code>potion_of_earth</code>），同时支持延长、加强、喷溅、滞留版本。</code>
 
-<p>例如：使用兔子腿 (<code>cpp:certification_of_earth<code>) 将粗制的药水酿造成有多重药水效果的大地药水(<code>potion_of_earth</code>)，同时支持延长、加强、喷溅、滞留版本。</code>
-
-主要思路是通过<code>potionType:["",""]<code>来判断药水的状态(原版/延长/加强、瓶装/喷溅/滞留)来区分状态，通过药水的原版<code>{Potion:"minecraft:leaping"}</code>来实现酿造台的进度。
-
-放置和探测酿造台的部分省略。
-
+<p>放置和探测酿造台的部分省略。</p>
+<pre class="file">cpp:tick</pre>
 <pre>
-execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,tag:{id:"cpp:certification_of_earth"}}]} run function cpp:brewing_stand/earth
+execute as @e[type=minecraft:armor_stand,tag=cpp_brewing_stand] at @s run function cpp:brewing/tick
 </pre>
-
-区分酿造材料和药水类型
-
-<code>cpp:brew/check</pre>
+<pre class="file">cpp:brewing/tick</pre>
 <pre>
-execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,tag:{id:"cpp:certification_of_earth"}}]} run function cpp:brewing_stand/earth
-
-execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,id:"minecraft:redstone"},{tag:{potionType:["normal"]}}]} run function cpp:brewing_stand/long
-execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,id:"minecraft:glowstone_dust"},{tag:{potionType:["normal"]}}]} run function cpp:brewing_stand/strong
-
-execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,id:"minecraft:gunpowder"},{id:"minecraft:potion"}]} run function cpp:brewing_stand/splash
-execute if block ~ ~ ~ brewing_stand{Items:[{Slot:3b,id:"minecraft:dragon_breath"},{id:"minecraft:splash_potion"}]} run function cpp:brewing_stand/lingering
-<pre>
-
-酿造鲁莽药水，原药水可以为粗制的药水、喷溅型粗制的药水和滞留型粗制的药水。
-
-<code>cpp:foods/brew/potion_of_reckless</pre>
-<pre>
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:awkward"}}].tag set value {Potion:"minecraft:leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:3600}],id:"cpp:potion_of_earth",potionType:["normal"]}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:awkward"}}].tag set value {Potion:"minecraft:leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.splash_potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:3600}],id:"cpp:splash_potion_of_earth",potionType:["normal"]}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:awkward"}}].tag set value {Potion:"minecraft:leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.lingering_potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:3600}],id:"cpp:lingering_potion_of_earth",potionType:["normal"]}
-
-execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 0.999 run data get block ~ ~ ~ Items[{Slot:3b}].Count
-<pre>
-
-长效药水，同样需要处理各种药水类型。
-
-<code>cpp:foods/brew/long</pre>
-<pre>
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{id:"cpp:potion_of_earth"}}].tag set value {Potion:"minecraft:long_leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:9600}],id:"cpp:potion_of_long_earth",potionType:["long"]}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:night_vision"}}].tag set value {Potion:"minecraft:long_night_vision"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:invisibility"}}].tag set value {Potion:"minecraft:long_invisibility"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:leaping"}}].tag set value {Potion:"minecraft:long_leaping"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:fire_resistance"}}].tag set value {Potion:"minecraft:long_fire_resistance"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:swiftness"}}].tag set value {Potion:"minecraft:long_swiftness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:slowness"}}].tag set value {Potion:"minecraft:long_slowness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:turtle_master"}}].tag set value {Potion:"minecraft:long_turtle_master"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:water_breathing"}}].tag set value {Potion:"minecraft:long_water_breathing"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:poison"}}].tag set value {Potion:"minecraft:long_poison"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:regeneration"}}].tag set value {Potion:"minecraft:long_regeneration"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:strength"}}].tag set value {Potion:"minecraft:long_strength"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:weakness"}}].tag set value {Potion:"minecraft:long_weakness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:potion",tag:{Potion:"minecraft:slow_falling"}}].tag set value {Potion:"minecraft:long_slow_falling"}
-
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{id:"cpp:splash_potion_of_earth"}}].tag set value {Potion:"minecraft:long_leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.splash_potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:9600}],id:"cpp:splash_potion_of_long_earth",potionType:["long"]}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:night_vision"}}].tag set value {Potion:"minecraft:long_night_vision"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:invisibility"}}].tag set value {Potion:"minecraft:long_invisibility"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:leaping"}}].tag set value {Potion:"minecraft:long_leaping"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:fire_resistance"}}].tag set value {Potion:"minecraft:long_fire_resistance"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:swiftness"}}].tag set value {Potion:"minecraft:long_swiftness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:slowness"}}].tag set value {Potion:"minecraft:long_slowness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:turtle_master"}}].tag set value {Potion:"minecraft:long_turtle_master"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:water_breathing"}}].tag set value {Potion:"minecraft:long_water_breathing"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:poison"}}].tag set value {Potion:"minecraft:long_poison"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:regeneration"}}].tag set value {Potion:"minecraft:long_regeneration"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:strength"}}].tag set value {Potion:"minecraft:long_strength"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:weakness"}}].tag set value {Potion:"minecraft:long_weakness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:splash_potion",tag:{Potion:"minecraft:slow_falling"}}].tag set value {Potion:"minecraft:long_slow_falling"}
-
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{id:"cpp:lingering_potion_of_earth"}}].tag set value {Potion:"minecraft:long_leaping",CustomPotionColor:14137114,display:{Name:'{"translate":"item.cpp.lingering_potion_of_earth"}'},CustomPotionEffects:[{Id:3b,Duration:9600}],id:"cpp:lingering_potion_of_long_earth",potionType:["long"]}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:night_vision"}}].tag set value {Potion:"minecraft:long_night_vision"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:invisibility"}}].tag set value {Potion:"minecraft:long_invisibility"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:leaping"}}].tag set value {Potion:"minecraft:long_leaping"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:fire_resistance"}}].tag set value {Potion:"minecraft:long_fire_resistance"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:swiftness"}}].tag set value {Potion:"minecraft:long_swiftness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:slowness"}}].tag set value {Potion:"minecraft:long_slowness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:turtle_master"}}].tag set value {Potion:"minecraft:long_turtle_master"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:water_breathing"}}].tag set value {Potion:"minecraft:long_water_breathing"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:poison"}}].tag set value {Potion:"minecraft:long_poison"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:regeneration"}}].tag set value {Potion:"minecraft:long_regeneration"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:strength"}}].tag set value {Potion:"minecraft:long_strength"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:weakness"}}].tag set value {Potion:"minecraft:long_weakness"}
-data modify block ~ ~ ~ Items[{id:"minecraft:lingering_potion",tag:{Potion:"minecraft:slow_falling"}}].tag set value {Potion:"minecraft:long_slow_falling"}
-
-execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 0.999 run data get block ~ ~ ~ Items[{Slot:3b}].Count
-tag @s remove cpp_potion_of_long
-<pre>
-
-加强、喷溅、滞留版本的方法类似，这里省略了。
-
-
-<!--
-<h2>§8.3 容器合成</h2>
-使用投掷器、箱子、木桶等容器可以更为便捷地实现合成。我们可以直接使用容器，或者使用<a href="#7-机器设计">§7 机器设计</a>的方法设计好自定义工作台的GUI。
-
-输出方式我们可以选择输出到输出栏（木桶）、输出到自身（精准匹配+投掷器）、弹出。具体实现与<a href="#7-机器设计">§7 机器设计</a>并无二致。
-
-<h1>§9 探测与触发 (WIP)</h1>
-
-<h2>§9.1 胡萝卜钓竿</h2>
-
-胡萝卜钓竿是最便捷的右键探测物品，可由相应记分板判据探测。
-
-例如：右键蓝色天之力(<code>cpp:blue_force_of_sky</code>)改变天气并消耗经验。
-
-<code>load</pre>
-<pre>
-scoreboard objectives add cppUseCSt1 minecraft.used:minecraft.carrot_on_a_stick
+execute unless block ~ ~ ~ minecraft:brewing_stand run kill @s
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:certification_of_earth"}}]} run function cpp:brewing/earth
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:redstone"}}]} if predicate cpp:brewing/long run function cpp:brewing/long
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:glowstone_dust"}}]} if predicate cpp:brewing/strong run function cpp:brewing/strong
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:gunpowder"}}]} if predicate cpp:brewing/splash run function cpp:brewing/splash
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:dragon_breath"}}]} if predicate cpp:brewing/lingering run function cpp:brewing/lingering
 </pre>
-<pre class="file">tick</pre>
-<pre>
-execute as @a[scores={cppUseCSt1=1..}] at @s run function cpp:tool/elements/use
-</pre>
-<pre class="file">cpp:tool/elements/use</pre>
-<pre>
-execute as @s[nbt={SelectedItem:{tag:{id:"cpp:blue_force_of_sky"}}}] positioned ~ 1000 ~ run function cpp:tool/elements/blue
-execute as @s[nbt=!{SelectedItem:{id:"minecraft:carrot_on_a_stick"}},nbt={Inventory:[{Slot:-106b,tag:{id:"cpp:blue_force_of_sky"}}]}] positioned ~ 1000 ~ run function cpp:tool/elements/blue
-scoreboard players reset @s cppUseCSt1
-</pre>
-<pre class="file">cpp:elements/use/blue</pre>
-<pre>
-loot spawn ~ ~ ~ loot cpp:misc/weather
-execute if entity @e[type=minecraft:item,nbt={Item:{tag:{cppWeatherMarkerId:"thunder"}}},distance=..1,limit=1] run weather clear
-execute if entity @e[type=minecraft:item,nbt={Item:{tag:{cppWeatherMarkerId:"clear"}}},distance=..1,limit=1] run weather rain
-execute if entity @e[type=minecraft:item,nbt={Item:{tag:{cppWeatherMarkerId:"rain"}}},distance=..1,limit=1] run weather thunder
-
-execute if entity @e[type=minecraft:item,nbt={Item:{tag:{cppWeatherMarkerId:"thunder"}}},distance=..1,limit=1] run tellraw @a [{"translate":"item.cpp.blue_force_of_sky.info"},{"selector":"@s"},{"translate":"item.cpp.blue_force_of_sky.clear"}]
-execute if entity @e[type=minecraft:item,nbt={Item:{tag:{cppWeatherMarkerId:"clear"}}},distance=..1,limit=1] run tellraw @a [{"translate":"item.cpp.blue_force_of_sky.info"},{"selector":"@s"},{"translate":"item.cpp.blue_force_of_sky.rain"}]
-execute if entity @e[type=minecraft:item,nbt={Item:{tag:{cppWeatherMarkerId:"rain"}}},distance=..1,limit=1] run tellraw @a [{"translate":"item.cpp.blue_force_of_sky.info"},{"selector":"@s"},{"translate":"item.cpp.blue_force_of_sky.thunder"}]
-
-kill @e[type=minecraft:item,nbt={Item:{tag:{cppWeatherMarker:1b}}},distance=..1,limit=1]
-</pre>
-<pre class="file">cpp/loot_tables/misc/weather.json</pre>
+<p>我们在大地药水中添加 <code>Potion</code>，这样后续可以实现延长、加强、喷溅、投掷版本的酿造。</p>
+<pre class="file">cpp/loot_tables/potion_of_dirt</pre>
 <pre>
 {
-    "pools": [
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:potion",
+					"functions": [
+						{
+							"function": "set_nbt",
+							"tag": "{Potion:'minecraft:leaping',CustomPotionColor:14137114,display:{Name:'{\"translate\":\"item.cpp.potion_of_earth\"}'},CustomPotionEffects:[{Id:3b,Duration:3600}],id:'cpp:potion_of_earth'}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
+</pre>
+
+<pre class="file">cpp:brewing/earth</pre>
+<pre>
+loot replace entity @s weapon.mainhand 1 loot cpp:potion_of_earth
+data modify block ~ ~ ~ Items[{tag:{Potion:"minecraft:awkward"}}].tag set from entity @s HandItems[0].tag
+loot replace entity @s weapon.mainhand 1 loot minecraft:
+execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 0.99 run data get block ~ ~ ~ Items[{Slot:3b}].Count
+</pre>
+
+<pre class="file">cpp/predicates/brewing/long</pre>
+<pre>
+{
+    "condition": "minecraft:alternative",
+    "terms": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:alternatives",
-                    "children": [
-                        {
-                            "conditions":[
-                                {
-                                    "condition":"minecraft:weather_check",
-                                    "thundering": true
-                                }
-                            ],
-                            "type": "minecraft:item",
-                            "name": "minecraft:firework_star",
-                            "functions": [
-                                {
-                                    "function": "minecraft:set_nbt",
-                                    "tag": "{cppWeatherMarker:1b,cppWeatherMarkerId:'thunder',cppMachineBg:1b,CustomModelData:12971000}"
-                                }
-                            ]
-                        },
-                        {
-                            "conditions":[
-                                {
-                                    "condition":"minecraft:weather_check",
-                                    "raining": true,
-                                    "thundering": false
-                                }
-                            ],
-                            "type": "minecraft:item",
-                            "name": "minecraft:firework_star",
-                            "functions": [
-                                {
-                                    "function": "minecraft:set_nbt",
-                                    "tag": "{cppWeatherMarker:1b,cppWeatherMarkerId:'rain',cppMachineBg:1b,CustomModelData:12971000}"
-                                }
-                            ]
-                        },
-                        {
-                            "conditions":[
-                                {
-                                    "condition":"minecraft:weather_check",
-                                    "raining": false
-                                }
-                            ],
-                            "type": "minecraft:item",
-                            "name": "minecraft:firework_star",
-                            "functions": [
-                                {
-                                    "function": "minecraft:set_nbt",
-                                    "tag": "{cppWeatherMarker:1b,cppWeatherMarkerId:'clear',cppMachineBg:1b,CustomModelData:12971000}"
-                                }
-                            ]
-                        }
-                    ]
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:night_vision'}}]}"
                 }
-            ]
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:invisibility'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:leaping'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:fire_resistance'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:swiftness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:slowness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:turtle_master'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:water_breathing'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:poison'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:regeneration'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:strength'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:weakness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:slow_falling'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:night_vision'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:invisibility'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:leaping'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:fire_resistance'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:swiftness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:slowness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:turtle_master'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:water_breathing'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:poison'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:regeneration'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:strength'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:weakness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:slow_falling'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:night_vision'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:invisibility'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:leaping'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:fire_resistance'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:swiftness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:slowness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:turtle_master'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:water_breathing'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:poison'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:regeneration'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:strength'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:weakness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:slow_falling'}}]}"
+                }
+            }
         }
     ]
 }
-<pre>
-
-<h2>§9.2 投掷物</h2>
-如果物品为喷溅、投掷药水、弓、雪球、鸡蛋、末影珍珠、末影之眼(有条件)，则右键后探测相应投射物并触发函数即可。投掷带自定义 <code>nbt<code> 标签的物品，对应的投掷物实体 <code>Item<code> 标签会包含这些 <code>nbt</code> 标签。注意，在1.14和更早版本，由于mojang先消耗手持物再存储手持物信息，导致投掷最后一个物品时没有存储相应的 <code>Item</code> 信息，此时我们需要提前1刻存储玩家手持物信息方可。
-
-例如：投掷 <code>ender_pearl{id:"cpp:transport_ball"}</code> 将玩家传送至所指方位（不超过100米），同时不消耗手中的末影珍珠。
-
-<code>load</pre>
-<pre>
-scoreboard objectives add cppUsePearl minecraft.used:minecraft.ender_pearl
 </pre>
-<pre class="file">tick</pre>
+<p>处理延长版药水时，还需要一并处理原版酿造的药水。加强、喷溅、投掷情形类似处理即可。</p>
+<pre class="file">cpp:brewing/long</pre>
 <pre>
-execute as @a[scores={cppUsePearl=1..}] at @s anchored eyes positioned ^ ^ ^ run function cpp:tool/transport
-execute as @a[tag=cpp_transport_ball_player] at @s run fun ction cpp:tool/tp
-</pre>
-<pre class="file">cpp:tool/transport</pre>
-<pre>
-tag @s[nbt={SelectedItem:{tag:{id:"cpp:transport_ball"}}}] add cpp_transport_ball_player
-tag @s[nbt=!{SelectedItem:{id:"minecraft:carrot_on_a_stick"}},nbt={Inventory:[{Slot:-106b,tag:{id:"cpp:transport_ball"}}]}] add cpp_transport_ball_player
-scoreboard players set @s cppUsePearl 0
-loot give @s loot cpp:transport_ball
-</pre>
-<pre class="file">cpp:tool/tp</pre>
-<pre>
-tp @s @e[type=ender_pearl,distance=..5,nbt={Item:{tag:{id:"cpp:transport_ball"}}},limit=1]
-execute unless @e[type=ender_pearl,distance=..5,nbt={Item:{tag:{id:"cpp:transport_ball"}}}] run tag @s remove cpp_transport_ball_player
+loot replace entity @s weapon.mainhand 1 loot cpp:potion_of_long_earth
+data modify block ~ ~ ~ Items[{tag:{id:"cpp:potion_of_earth}}].tag set from entity @s HandItems[0].tag
+loot replace entity @s weapon.mainhand 1 loot minecraft:air
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:night_vision"}}]}.tag.Potion set value "minecraft:long_night_vision"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:invisibility"}}]}.tag.Potion set value "minecraft:long_invisibility"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:leaping"}}]}.tag.Potion set value "minecraft:long_leaping"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:fire_resistance"}}]}.tag.Potion set value "minecraft:long_fire_resistance"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:swiftness"}}]}.tag.Potion set value "minecraft:long_swiftness"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:slowness"}}]}.tag.Potion set value "minecraft:long_slowness"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:turtle_master"}}]}.tag.Potion set value "minecraft:long_turtle_master"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:water_breathing"}}]}.tag.Potion set value "minecraft:long_water_breathing"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:poison"}}]}.tag.Potion set value "minecraft:long_poison"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:regeneration"}}]}.tag.Potion set value "minecraft:long_regeneration"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:strength"}}]}.tag.Potion set value "minecraft:long_strength"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:weakness"}}]}.tag.Potion set value "minecraft:long_weakness"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:slow_falling"}}]}.tag.Potion set value "minecraft:long_slow_falling"}
+execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 0.99 run data get block ~ ~ ~ Items[{Slot:3b}].Count
+replaceitem entity @s weapon.mainhand minecraft:air
 </pre>
 
-<h2>§9.3 装备效果</h2>
-如果物品本身为永久生效，探测(带槽位的)背包即可。如果与玩家的血量、饥饿值有关，则通过探测相应判据的计分板即可。
+<p>如果酿造材料和待酿造的物品不属于原版可酿造的配方，我们需要在二者均进入酿造台时，将其物品修改为具有相同材质名称的、可以实现酿造的物品。当物品进入背包时，将其改回原物品。酿造即将完成时，检测相应NBT是否来自指定的物品，并修改产物。</p>
 
-例如：当玩家含有烈焰粉而不含节制器(<code>cpp:temperancer<code>)且胸甲栏物品含有<code>triggerEffect:[{id:"regeneration"}]<code>时，玩家生命值低于记分板 <code>cppMaxHealth</code> 值时，给予再生效果，每点生命值消耗1点经验值。
+
+<h1 id="§10_植物">§10 植物</h1>
+
+<h2 id="§10.1_作物">§10.1 作物</h2>
+<p>通常使用小麦、胡萝卜、马铃薯、甜菜根、瓜梗、树苗来实现自定义作物。我们在相应的方块处放置带有自定义物品模型的盔甲架来实现其外观的不同，并高频判断和重置其生长状态来确定生长，好处是可以限定其种植在耕地/土上，且可以与骨粉方便地交互。</p>
+
+<p>然而，如果自定义作物的材质没有覆盖原来的方块，就会导致自定义的作物处，既有自定义作物的材质，又有原本的作物材质。解决方法之一是限定自定义作物模型包含原有的作物模型，这几乎只有在瓜梗情形容易做到；另一种是删除原有方块材质，并在原版作物/树苗处放置对应材质的盔甲架解决。对于第二种做法，我们需要修改村庄、林地府邸等结构中相应的作物/树苗模型，而且在玩家大规模种植时会生成大量实体。因此第二种情形几乎只有金合欢树苗可以接受，因为通常玩家不会种植太多金合欢树。然而金合欢树苗有个严重的缺点，当其在1刻内接受了两个随机刻，会导致其直接长成大树。</p>
+
+<p>对于没有生长阶段的自定义植物，我们也没有太多选择。使用花是不可能的，因其广泛生成在世界各地；使用屏障则交互极为不便。</p>
+
+<p>因此，我们一般只有使用瓜梗并要求模型覆盖瓜梗模型；或者使用金合欢树苗并需要忍受偶发的金合欢树。</p>
+
+<p>例如：种植铁种子，收获种子和铁锭，可由骨粉催熟。种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。</p>
+<pre class="file">cpp:advancements/plants/iron_seeds</pre>
+<pre>
+{
+        "parent": "cpp:plants/root",
+        "criteria": {
+                "iron_seeds": {
+                        "trigger": "minecraft:placed_block",
+                        "conditions": {
+                                "item": {
+                                        "nbt":"{id:'cpp:iron_seeds'}"
+                                }
+                        }
+                }
+        },
+        "rewards": {
+                "function": "cpp:plants/plants/iron_seeds"
+        }
+}
+</pre>
+
+<pre class="file">cpp:tick</pre>
+<pre>
+execute as @e[type=minecraft:armor_stand,tag=cpp_beetroots_plants] at @s unless block ~ ~ ~ beetroots run function cpp:plants/break/beetroots
+</pre>
+<pre class="file">cpp:plants/break/beetroots</pre>
+<pre>
+execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot_seeds"},Age:0s},distance=..1] run data merge entity @s {Item:{tag:{HideFlags:63,Enchantments:[{}],display:{Name:'{"translate":"item.cpp.iron_seeds\"}"},id:"cpp:iron_seeds"}}}
+execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot"},Age:0s},distance=..1] run data merge entity @s {Item:{id:"minecraft:iron_ingot"}}
+</pre>
+
+<p>实际上，我们也可以通过盔甲架手持物品来实现自定义材质的作物。</p>
+
+<h2 href="§10.2_花草">§10.2 花草</h2>
+
+
+
+
+<h2 href="§10.3_树">§10.3 树</h2>
+    
+
+
+<h1 id="§11_实体与方块">§11 实体与方块</h1>
+
+<h2 id="§11.1_物品效果">§11.1 物品效果</h2>
+<p>如果物品本身为永久生效，探测(带槽位的)背包即可。如果与玩家的血量、饥饿值有关，则通过探测相应判据的计分板即可。</p>
+
+<p>例如：当玩家含有烈焰粉而不含节制器(<code>cpp:temperancer</code>)且胸甲栏物品含有<code>triggerEffect:[{id:"regeneration"}]</code>时，玩家生命值低于记分板 <code>cppMaxHealth</code> 值时，给予再生效果，每点生命值消耗1点经验值。</p>
 
 <pre class="file">tick</pre>
 <pre>
@@ -4399,14 +4628,14 @@ execute if score @s cppHealth < @s cppMaxHealth run xp add @s -1
 execute if score @s cppHealth < @s cppMaxHealth run clear @s[scores={cppRandom=1}] blaze_powder 1
 </pre>
 
-<h2>§9.4 方块交互</h2>
+<h2 id="§11.2_方块交互">§11.2 方块交互</h2>
 
-如果是与某些方块交互，可通过探测相应的交互判据的计分板即可。如果仅需要右击而不打开，可使用传送来实现强制关闭GUI。
-<strong>例</strong> 将附魔台、书架、发射器摆放成特定形状，在发射器中放入特定物品，在上方放置一个物品展示框并放入待添加效果的物品。手持魔杖右击发射器，然后等待一段时间将物品附加属性效果。星之魔杖给予更高的属性。
+<p>如果是与某些方块交互，可通过探测相应的交互判据的计分板即可。如果仅需要右击而不打开，可使用传送来实现强制关闭GUI。</p>
+<p>例如：将附魔台、书架、发射器摆放成特定形状，在发射器中放入特定物品，在上方放置一个物品展示框并放入待添加效果的物品。手持魔杖右击发射器，然后等待一段时间将物品附加属性效果。星之魔杖给予更高的属性。</p>
 
-右键时，通过记分板探测到，然后探测玩家手持魔杖类型给予展示框不同标签。判断发射器物品和展示框物品是否符合要求，符合则进入计时，时间到了之后随机给予属性类别、数量、大小，清空发射器，删除标签。
+<p>右键时，通过记分板探测到，然后探测玩家手持魔杖类型给予展示框不同标签。判断发射器物品和展示框物品是否符合要求，符合则进入计时，时间到了之后随机给予属性类别、数量、大小，清空发射器，删除标签。</p>
 
-初始化
+<pre class="file">cpp:load</pre>
 <pre>
 scoreboard objectives add cppInsDisp minecraft.custom:minecraft.inspect_dispenser
 </pre>
@@ -4419,6 +4648,7 @@ execute as @a[scores={cppInsDisp=1..}] run function cpp:rituals/init/check_wand
 execute as @e[type=minecraft:item_frame,tag=cpp_rituals_item] at @s run function cpp:rituals/check/type
 </pre>
 <pre class="file">cpp:rituals/init/check_wand</pre>
+<pre>
 execute as @s[nbt={SelectedItem:{tag:{isWand:1b}}}] at @s positioned ~ ~1.62 ~ run function cpp:rituals/init/ray
 scoreboard players reset @s cppInsDisp
 </pre>
@@ -4556,120 +4786,25 @@ tag @s remove cpp_rituals_item
 tag @s remove cpp_rituals_item_power
 tag @s remove cpp_rituals_ticks
 </pre>
-如果容器无需打开交互，则可直接为方块物品添加<code>BlockEntityTag:{Lock:"zsx<3wtt"</code>}这种nbt来锁住，可避免采用上述tp玩家至远处来强行关闭GUI。
+<p>如果容器无需打开交互，则可直接为方块物品添加 <code>BlockEntityTag:{Lock:"zsx&lt;3wtt"}</code>}这种nbt来锁住，可避免采用上述tp玩家至远处来强行关闭GUI。
 
-
-
-<h1>§10 植物和食物</h1>
-
-<h2>§10.1 作物</h2>
-
-通常使用小麦、胡萝卜、马铃薯、甜菜根、瓜梗、树苗来实现自定义作物。我们在相应的方块处放置带有自定义物品模型的盔甲架来实现其外观的不同，并高频判断和重置其生长状态来确定生长，好处是可以限定其种植在耕地/土上，且可以与骨粉方便地交互。
-
-然而，如果自定义作物的材质没有覆盖原来的方块，就会导致自定义的作物处，既有自定义作物的材质，又有原本的作物材质。解决方法之一是限定自定义作物模型包含原有的作物模型，这几乎只有在瓜梗情形容易做到；另一种是删除原有方块材质，并在原版作物/树苗处放置对应材质的盔甲架解决。对于第二种做法，我们需要修改村庄、林地府邸等结构中相应的作物/树苗模型，而且在玩家大规模种植时会生成大量实体。因此第二种情形几乎只有金合欢树苗可以接受，因为通常玩家不会种植太多金合欢树。然而金合欢树苗有个严重的缺点，当其在1刻内接受了两个随机刻，会导致其直接长成大树。
-
-对于没有生长阶段的自定义植物，我们也没有太多选择。使用花是不可能的，因其广泛生成在世界各地；使用屏障则交互极为不便。
-
-因此，我们一般只有使用瓜梗并要求模型覆盖瓜梗模型；或者使用金合欢树苗并需要忍受偶发的金合欢树。
-
-<strong>例</strong> 种植铁种子，收获种子和铁锭，可由骨粉催熟。
-
-种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。
-cpp:advancements/plants/iron_seeds
-<pre>
-{
-        "parent": "cpp:plants/root",
-        "criteria": {
-                "iron_seeds": {
-                        "trigger": "minecraft:placed_block",
-                        "conditions": {
-                                "item": {
-                                        "nbt":"{id:\"cpp:iron_seeds\"}"
-                                }
-                        }
-                }
-        },
-        "rewards": {
-                "function": "cpp:plants/plants/iron_seeds"
-        }
-}
-<pre>cpp:plants/plants/iron_seeds
-</pre>
-execute at @s positioned ~ ~1.62 ~ run function cpp:plants/plants/iron_seeds_ray
-advancement revoke @s only cpp:plants/iron_seeds<pre>cpp:plants/plants/iron_seeds_ray
-</pre>
-execute if block ~ ~ ~ beetroots align xyz positioned ~0.5 ~0.5 ~0.5 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,NoGravity:1b,Tags:["cpp_beetroots_plants","cpp_iron_seeds"],Marker:1b}
-execute if entity @s[distance=..5] unless block ~ ~ ~ beetroots positioned ^ ^ ^0.005 run function cpp:plants/plants/iron_seeds_ray<pre>主函数
-</pre>
-execute as @e[type=minecraft:armor_stand,tag=cpp_beetroots_plants] at @s unless block ~ ~ ~ beetroots run function cpp:plants/break/beetroots<pre>cpp:plants/break/beetroots
-</pre>
-execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot_seeds"},Age:0s},distance=..1] run data merge entity @s {Item:{tag:{HideFlags:63,Enchantments:[{}],display:{Name:'{"translate":"item.cpp.iron_seeds\"}"},id:"cpp:iron_seeds"}}}
-execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot"},Age:0s},distance=..1] run data merge entity @s {Item:{id:"minecraft:iron_ingot"}}
-</pre>
-
-实际上，我们也可以通过盔甲架手持物品来实现自定义材质的作物。
-
-
-    <li><a href="#102-花草">§10.2 花草</a>
-    <li><a href="#103-树">§10.3 树</a>
-    
-
-<h2>§10.4 食物</h2>
-食物可通过进度来探测，通过饱和效果来模拟回复饥饿值。
-
-例如：使用土豆牛肉回复16饥饿值并给予30秒力量II效果。
-
-<code>cpp:advancements/foods/braised_beef_with_potatoes.json</pre>
-<pre>
-{
-        "parent": "cpp:foods/root",
-        "criteria": {
-           "braised_beef_with_potatoes": {
-                   "trigger": "minecraft:consume_item",
-                   "conditions": {
-                           "item": {
-                                   "item": "minecraft:rabbit_stew",
-                                   "nbt": "{id:\"cpp:braised_beef_with_potatoes\"}"
-                                }
-                        }
-                }
-        },
-        "rewards":{
-                "function": "cpp:foods/foods/braised_beef_with_potatoes"
-        }
-}
-</pre>
-<pre class="file">cpp:foods/foods/braised_beef_with_potatoes</pre>
-<pre>
-effect give @s strength 30 1
-effect give @s saturation 1 5
-advancement revoke @s only cpp:food/braised_beef_with_potatoes
-</pre>
-注意该物品必须为原版已有的食物。
-
-
-
-    <li><a href="#105-药水">§10.5 药水</a>
-
-<h1>§11 实体操作</h1>
-<h2>§11.1 交易</h2>
-在RPG模组中，使用村民交易是一种常见的特殊物品获得方式。需要注意的是，如果不希望交易产生经验值，需将rewardExp设置为0b，例如
+<h2 id="§11.4_交易">§11.4 交易</h2>
+<p>在RPG模组中，使用村民交易是一种常见的特殊物品获得方式。需要注意的是，如果不希望交易产生经验值，需将rewardExp设置为0b，例如</p>
 <pre>
 summon minecraft:villager ~ ~ ~ {NoAI:true,Invulnerable:true,Silent:true,Offers:{Recipes:[
 {maxUses:99999999,rewardExp:0b,buy:{id:"minecraft:coal",Count:1b},buyB:{id:"minecraft:stone",Count:8b},
 sell:{id:"minecraft:coal",Count:1b,tag:{Enchantments:[{id:999}],display:{Name:'{"translate":"item.cpp.nice_coal\"}"}}}}]}}
 </pre>
-将村民的{VillagerData:{profession:"minecraft:none"}可以确保村民不含交易。通过设置不同的VillagerData以及修改村民的头盔材质模型，可以将村民的外观和原版村民加以区分。例如(http://www.mcbbs.net/thread-772311-1-1.html]【活动】【原版模组】新春惊喜]。
+<p>将村民的{VillagerData:{profession:"minecraft:none"}可以确保村民不含交易。通过设置不同的VillagerData以及修改村民的头盔材质模型，可以将村民的外观和原版村民加以区分。例如<a href="http://www.mcbbs.net/thread-772311-1-1.html">【活动】【原版模组】新春惊喜</a>。</p>
 
-<strong>例</strong> 将1/5的农民修改为林业员，收购36-40原木，出售树苗(二层交易)。
-简单来说，在CareerLevel:1时生成相应的交易列表，并保存价格，然后再CareerLevel:2时，重新添加上这些交易和对应价格，以及新增的交易部分。
-主函数
+<p>例如：将1/5的农民修改为林业员，收购36-40原木，出售树苗(二层交易)。简单来说，在CareerLevel:1时生成相应的交易列表，并保存价格，然后再CareerLevel:2时，重新添加上这些交易和对应价格，以及新增的交易部分。</p>
+<pre class="file">tpp:tick</pre>
 <pre>
 execute as @e[type=villager,tag=!tpp_level1,nbt={VillagerData:{level:1}}] run function tpp:level1/check
 execute as @e[type=villager,tag=!tpp_level2,nbt={VillagerData:{level:2}}] run function tpp:level2/check
 </pre>
-tpp:level1/check
-</pre>
+<pre class="file">tpp:level1/check</pre>
+<pre>
 scoreboard players set #random_min tppRandom 1
 scoreboard players set #random_max tppRandom 24
 function tpp:random
@@ -4697,6 +4832,7 @@ execute as @s[scores={tppRandom=9}] run function tpp:level1/frogman
 
 tag @s add tpp_level1
 scoreboard players reset @s tppRandom
+</pre>
 <pre class="file">tpp:level1/forester</pre>
 <pre>
 tag @s add tpp_forester
@@ -4751,9 +4887,8 @@ execute if score #craftingpp cppValue matches 1 as @s[nbt={VillagerData:{profess
 
 tag @s add tpp_level2
 </pre>
+<pre class="file">tpp:level2/forester</pre>
 <pre>
-tpp:level2/forester
-</pre>
 data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:oak_sapling",Count:1b},maxUses:7}
 data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:spruce_sapling",Count:1b},maxUses:7}
 data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:2b},sell:{id:"minecraft:birch_sapling",Count:1b},maxUses:7}
@@ -4792,13 +4927,14 @@ function tpp:random
 execute store result entity @s Offers.Recipes[11].buy.Count byte 1 run scoreboard players get @s tppRandom
 
 scoreboard players reset @s tppRandom
-<pre>
-这里的random函数采用的是(http://www.mcbbs.net/thread-706030-1-4.html]2b的random(min,max)随机模块]。
-
-
-<h2>§11.2 移动</h2>
-核心部分：将物品的Motion修改为玩家的坐标减去物品的坐标即可。
 </pre>
+<p>这里的random函数采用的是<a href="http://www.mcbbs.net/thread-706030-1-4.html">2b的random(min,max)随机模块</a>。</p>
+
+<h2 id="§11.3_移动">§11.3 移动</h2>
+<p>将物品的Motion修改为玩家的坐标减去物品的坐标即可。</p>
+
+<pre class="file">cpp:misc/move</pre>
+<pre>
 execute store result score #playerPos cppPos run data get entity @p[nbt={Inventory:[{tag:{id:"cpp:magnet",Type:1b}}]}] Pos[0] 100
 execute store result score #itemPos cppPos run data get entity @s Pos[0] 100
 execute store result entity @s Motion[0] double 0.001 run scoreboard players operation #playerPos cppPos -= #itemPos cppPos
@@ -4810,27 +4946,16 @@ execute store result entity @s Motion[1] double 0.001 run scoreboard players ope
 execute store result score #playerPos cppPos run data get entity @p[nbt={Inventory:[{tag:{id:"cpp:magnet",Type:1b}}]}] Pos[2] 100
 execute store result score #itemPos cppPos run data get entity @s Pos[2] 100
 execute store result entity @s Motion[2] double 0.001 run scoreboard players operation #playerPos cppPos -= #itemPos cppPos
-<pre>
-生物被玩家吸引的效果也可以类似实现。
+</pre>
+<p>生物被玩家吸引的效果也可以类似实现。</p>
 
+<h2 id="§11.4_传送">§11.4 传送</h2>
 
-<h2>§11.3 传送</h2>
+<h2 id="§11.5_自动种植">§11.5 自动种植</h2>
 
-<h2>§11.4 随机物品</h2>
-<h2>§11.5 生物 nbt 操作</h2>
-<h2>§11.6 Boss 设计</h2>
+<h2 id="§11.6_连锁挖矿">§11.6 连锁挖矿</h2>
 
-<h1>§12 方块操作</h1>
-
-<h2>§12.1 方块放置</h2>
-
-<h2>§12.2 填充</h2>
-
-<h2>§12.3 自动种植</h2>
-
-<h2>§12.4 连锁挖矿</h2>
-
-加载
+<pre class="file">cpp:load</pre>
 <pre>
 # 使用斧(连锁效果)
 scoreboard objectives add cppUseAxe1 minecraft.used:minecraft.diamond_axe
@@ -4847,13 +4972,13 @@ scoreboard objectives add cppUseShovel1 minecraft.used:minecraft.diamond_shovel
 scoreboard objectives add cppUseShovel2 minecraft.used:minecraft.iron_shovel
 scoreboard objectives add cppUseShovel3 minecraft.used:minecraft.golden_shovel
 scoreboard objectives add cppUseShovel4 minecraft.used:minecraft.stone_shovel
-<pre>
-主函数
 </pre>
+<pre class="file">cpp:tick</pre>
+<pre>
 execute as @a[scores={cppChainTick=1..}] at @s positioned ~ ~1.62 ~ run function cpp:chain/type
 </pre>
-cpp:chain/type
-</pre>
+<pre class="file">cpp:chain/type</pre>
+<pre>
 execute positioned ^ ^ ^0.2 run particle entity_effect ~ ~-1 ~ 0.734375 0.37890625 0.3046875 1 0
 title @s[scores={cppChainTick=1}] actionbar [{"text":" "}]
 
@@ -4888,86 +5013,44 @@ scoreboard players reset @s cppUseShovel1
 scoreboard players reset @s cppUseShovel2
 scoreboard players reset @s cppUseShovel3
 scoreboard players reset @s cppUseShovel4
-<pre>
-cpp:chain/pickaxe1/init
 </pre>
+<pre class="file">cpp:chain/pickaxe1/init</pre>
+<pre>
 scoreboard players set #max_durality cppValue 1561
 execute store result score #temp cppValue run data get entity @s SelectedItem.tag.Damage
 execute if score #temp cppValue < #max_durality cppValue at @e[type=minecraft:item,nbt={Age:0s},distance=..6,sort=nearest,limit=1] run function cpp:chain/pickaxe1/mark
 execute if score #temp cppValue < #max_durality cppValue at @e[type=minecraft:item,nbt={Age:1s},distance=..6,sort=nearest,limit=1] run function cpp:chain/pickaxe1/mark
 scoreboard players reset @s cppUsePick1
 </pre>
-cpp:chain/pickaxe1/mark
-</pre>
+<pre class="file">cpp:chain/pickaxe1/mark</pre>
+<pre>
 execute positioned ~1 ~ ~ if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~-1 ~ ~ if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~ ~1 ~ if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~ ~-1 ~ if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~ ~ ~1 if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
 execute positioned ~ ~ ~-1 if block ~ ~ ~ #cpp:pickaxe1_chain run function cpp:chain/pickaxe1/damage
-<pre>
-cpp:chain/pickaxe1/damage
 </pre>
+<pre class="file">cpp:chain/pickaxe1/damage</pre>
+<pre>
 execute as @s[nbt=!{SelectedItem:{tag:{Enchantments:[{id:"minecraft:silk_touch"}]}}}] run function cpp:chain/xp
 loot spawn ~ ~ ~ mine ~ ~ ~ mainhand
 setblock ~ ~ ~ air
 function cpp:chain/damage_check
-execute if score #temp cppValue < #max_durality cppValue run function cpp:chain/pickaxe1/mark
-</pre>cpp:chain/damage_check</pre>
-# 获得1/(耐久度+1)几率的条件
-loot spawn ~ ~ ~ loot cpp:random/60
-execute store result score #damage_var cppValue run data get entity @e[type=minecraft:item,nbt={Item:{tag:{isRdMark:1b}}},distance=..1,limit=1] Item.Count
-scoreboard players operation #damage_var cppValue *= @s cppChainDam
-
-execute if score #damage_var cppValue matches ..60 run scoreboard players add #temp cppValue 1
-execute store result entity @s[gamemode=!creative] SelectedItem.tag.Damage int 1 run scoreboard players get #temp cppValue
-
-kill @e[type=minecraft:item,nbt={Item:{tag:{isRdMark:1b}}},distance=..1,limit=1]
-<pre>
-其中cpp/loot_tables/random/60.json为
+execute if score #temp cppValue &lt; #max_durality cppValue run function cpp:chain/pickaxe1/mark
 </pre>
-{
-    "pools": [
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "item",
-                    "name": "minecraft:firework_star",
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 60
-                            }
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{isRdMark:1b,isMachineBg:1b,CustomModelData:12971000}"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
-<pre>
+<p>耐久处理参考前文。</p>
 
-# §13 世界生成 (WIP)
+<h1 id="§12_世界生成">§12 世界生成</h1>
+<h2 id="§12.1_随机结构">§12.1 随机结构</h2>
+<p>例如：世界生成时，随机生成羊毛树。判断玩家东南32*32是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。</p>
 
-<h2>§13.1 随机结构</h2>
-<strong>例</strong> 世界生成时，随机生成羊毛树。
-
-判断玩家东南32*32是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。
-也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。
-
-主函数
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @a at @s unless block ~ 0 ~ bedrock run function cpp:generate/check
 </pre>
-}
-</pre>cpp:generate/check</pre>
+<pre class="file">cpp:generate/check</pre>
+<pre>
 execute positioned ~-64 -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
 execute positioned ~-32 -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
 execute positioned ~ -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
@@ -4976,9 +5059,10 @@ execute positioned ~-32 -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=3
 execute positioned ~ -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
 execute positioned ~-64 -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
 execute positioned ~-32 -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
-execute positioned ~ -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark<pre>
-cpp:generate/mark
+execute positioned ~ -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
 </pre>
+<pre class="file">cpp:generate/mark</pre>
+<pre>
 summon armor_stand ~ -1 ~ {Tags:["cpp_chunk","cpp_undet"],Invulnerable:1b,Invisible:1b,Marker:1b,NoGravity:1b,Small:1b,DisabledSlots:7967}
 scoreboard players set #32 cppValue 32
 execute store result score #temp cppValue run data get entity @e[tag=cpp_undet,limit=1] Pos[0]
@@ -4995,9 +5079,9 @@ loot spawn ~ ~ ~ loot cpp:generate/markers
 execute at @e[tag=cpp_undet,sort=nearest,limit=1] run spreadplayers ~16 ~16 0 15 false @e[type=minecraft:item,nbt={Item:{tag:{isStrMark:1b}}}]
 tag @e[tag=cpp_undet] remove cpp_undet
 execute as @e[type=minecraft:item,nbt={Item:{tag:{isStrMark:1b}}}] at @s run function cpp:generate/build
-<pre>
-cpp:generate/build
 </pre>
+<pre class="file">cpp:generate/build</pre>
+<pre>
 # 爬行者地牢
 execute if score #generate_creeper_dungeon cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:creeper_dungeon_marker"}}}] if block ~ 15 ~ cave_air run function cpp:generate/structures/creeper_dungeon
 # 附魔室
@@ -5028,25 +5112,31 @@ execute if score #generate_crops cppValue matches 1.. as @s[nbt={Item:{tag:{id:"
 execute if score #generate_modcrops cppValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:modcrops_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/modcrops
 
 kill @s
-<pre>
-生成羊毛树部分略。
-
 </pre>
-
-<h2>§13.2 水处理</h2>
-<h2>§13.3 下界处理</h2>
-<h2>§13.4 维度模拟</h2>
-<h1>§14 绘画与颗粒</h1>
-<h2>§14.1 绘制图案</h2>
-<h2>§14.2 颗粒</h2>
-<h1>§15 算法与数据结构</h1>
-<h2>§15.1 数组</h2>
-<h2>§15.2 循环</h2>
-<h2>§15.3 递归</h2>
-<h2>§15.4 位运算</h2>
-<h2>§15.5 种子操作</h2>
+<p>生成羊毛树部分略。</p>
 
 
+<h2 id="§12.2_水处理">§12.2 水处理</h2>
+
+
+<h2 id="§12.3_下界处理">§12.3 下界处理</h2>
+
+
+<h2 id="§12.4_重生成">§12.4 重生成</h2>
+
+
+<h2 id="§12.5_维度模拟">§12.5 维度模拟</h2>
+
+
+<h1 id="§13_算法">§13 算法</h1>
+
+
+<h2 id="§13.1_绘制图案">§13.1 绘制图案</h2>
+<h2 id="§13.2_循环和递归">§13.2 循环和递归</h2>
+<h2 id="§13.3_字符操作">§13.3 字符操作</h2>
+<h2 id="§13.4_位运算与种子">§13.4 位运算与种子</h2>
+
+<!--
 烟火之星、皮革装备等受颜色控制而改变、具有双层模型的物品，若相应 <code>CustomModelData</code> 的模型也是双层的，是可以根据颜色而变化的。但是像盾牌受图案模式改变，其含有 <code>CustomModelData</code> 的对应物品并不会受到这些 nbt 影响。装备类物品穿戴后的显示效果也不受物品模型修改影响。
 建议
 <li><code>烟火之星</code>用于无互动功能的物品。
@@ -5054,7 +5144,6 @@ kill @s
 <li><code>小麦种子</code>用于与耕地交互的(如作物)。可以考虑移除或视觉上覆盖其原有模型。
 <li><code>烟火之星、皮革盔甲、药水</code>具有彩色效果，可用于不定色彩的物品。
 <li><code>兔子腿</code>用于参与酿造的物品。
-<li><code>工具和武器</code>用于实现新工具和武器。
 <li><code>铁块和金块</code>用于模拟矿物块，还可以参与信标基座。
 
 这些物品使用时均需考虑到物品本身的用途，利用或避免之。
@@ -5065,9 +5154,11 @@ kill @s
 
 这些头颅类别丰富，且均为可放置的方块(玩家头颅)，因此在模组应用中十分常见。另外还可将图片上传至<code>minecraft.net</code>域名下，以实现自定义头颅图案，参见<a href="http://www.mcbbs.net/thread-824528-1-1.html">自定义方块(玩家头颅)</a>。
 
+其它：天气判断、群系、存储区、背包处理。
+
 -->
 </article>
+</div>
 
-<hr>
-<footer style="display:block; position:fixed; height: 5em; width: 13%; bottom:0; left:0; font-size: 100%; z-index: 99;"><p class="noindent" style="padding:1em;text-align:right;color: hsl(220, 90%, 90%);;">© ruhuasiyu <br/> 2019-12-05</p></footer>
+<footer style="height: 3.5em; z-index: 99;"><p class="noindent" style="margin:0 15px 5px 0; text-align:right;color: hsl(220, 90%, 90%);;">© ruhuasiyu <br/> 2019-12-05</p></footer>
 </body></html>
