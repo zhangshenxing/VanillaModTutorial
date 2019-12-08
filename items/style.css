@@ -120,9 +120,13 @@ nav a{
 	height:100%; width:100%;
 	padding: 6px 2px 6px 16px;
 }
+nav ul li:hover > ul{
+	display: block;
+}
 nav ul ul{
+	width: 100%;
 	margin-left:100%;
-	margin-top: -2em;
+	margin-top: -2.04em;
 	padding: 0;
 	top: auto;
 	float: left;
@@ -131,11 +135,32 @@ nav ul ul{
 	z-index: 9;
 	opacity:0.98;
 }
-nav ul ul{
-	width: 100%;
+nav ul li.up1 ul{
+	margin-top:-4.08em;
 }
-nav ul li:hover > ul{
-	display: block;
+nav ul li.up2 ul{
+	margin-top:-6.12em;
+}
+nav ul li.up3 ul{
+	margin-top:-8.16em;
+}
+nav ul li.up4 ul{
+	margin-top:-10.2em;
+}
+nav ul li.up5 ul{
+	margin-top:-12.24em;
+}
+nav ul li.up6 ul{
+	margin-top:-14.28em;
+}
+nav ul li.up7 ul{
+	margin-top:-16.32em;
+}
+nav ul li.up8 ul{
+	margin-top:-18.36em;
+}
+nav ul li.up9 ul{
+	margin-top:-20.4em;
 }
 /* 表格 */
 table{
