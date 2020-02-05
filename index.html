@@ -137,7 +137,7 @@
     </ul></li>
 </ul>
 </nav>
-<footer style="height: 3.5em; z-index: 99;"><p class="noindent" style="margin:0 15px 5px 0; text-align:right;color: hsl(220, 90%, 90%);;">© ruhuasiyu <br/> 2019-12-09</p></footer>
+<footer style="height: 3.5em; z-index: 99;"><p class="noindent" style="margin:0 15px 5px 0; text-align:right;color: hsl(220, 90%, 90%);;">© ruhuasiyu <br/> 2020-02-05</p></footer>
 
 
 <div id="main_part">
@@ -310,8 +310,8 @@
 </tr>
 <tr>
     <th>存储区</th>
-    <td><code>data/command_storage_[命名空间].json</code></td>
-    <td>使用 NBT 编辑器打开，记录了玩家和函数存储在存储区 (storage) 的 NBT。</td>
+    <td><code>data/command_storage_[命名空间].nbt</code></td>
+    <td>使用 NBT 编辑器打开，存储了存储区 (storage) 的 NBT。</td>
 </tr>
 <tr>
     <th>地图数</th>
@@ -486,7 +486,7 @@ Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该�
 <tr>
     <th>数据包版本</th>
     <td><code>pack_format</code></td>
-    <td>1.13-1.15 版本为 4。</td>
+    <td>1.13-1.14 版本为 4，1.15 版本为 5。</td>
 </tr>
 <tr>
     <th>数据包描述</th>
@@ -4439,33 +4439,104 @@ replaceitem entity @s weapon.mainhand minecraft:air
 
 <h1 id="§10_植物">§10 植物</h1>
 
+<p>我们使用寻常作物来实现自定义作物。在相应的方块处放置带有自定义物品模型的盔甲架来实现其外观的不同，并高频判断和重置其生长状态来确定生长。模型可以选择盖住原方块模型，或删除原方块模型并将原作物当做自定义作物实现（会生成盔甲架实体）。如果自定义作物的材质没有覆盖原来的方块，就会导致自定义的作物处，既有自定义作物的材质，又有原本的作物材质。解决方法之一是限定自定义作物模型包含原有的作物模型，另一种是删除原有方块材质并在原方块处放置对应材质的盔甲架解决。</p>
+
+<table><thead><tr>
+        <th>作物</th>
+        <th>方块需求</th>
+        <th>可使用骨粉</th>
+        <th>模型处理</th>
+        <th>特点</th>
+        <th>用途</th>
+    </tr></thead><tbody>
+    <tr>
+        <th>小麦、胡萝卜、马铃薯、甜菜根、瓜梗</th>
+        <td>耕地</td>
+        <td>是</td>
+        <td>瓜梗模型最小，自定义模型只要比其大即可。</td>
+        <td>-</td>
+        <td>通常作物、瓜类作物</td>
+    </tr>
+    <tr>
+        <th>树苗</th>
+        <td>任意土</td>
+        <td>是</td>
+        <td>模型较大，需要删除原模型，由于金合欢树苗出现场合最少，因此以金合欢为宜。</td>
+        <td>有几率在一刻内直接生长为大树</td>
+        <td>花卉、树</td>
+    </tr>
+    <tr>
+        <th>甘蔗、仙人掌</th>
+        <td>沙子</td>
+        <td>否</td>
+        <td>可以用较粗的类似甘蔗的模型，或完整方块模型来覆盖。</td>
+        <td>需要处理上方一格方块，无法避免玩家手动叠方块</td>
+        <td>甘蔗类</td>
+    </tr>
+    <tr>
+        <th>草、蕨</th>
+        <td>任意土</td>
+        <td>是</td>
+        <td>可以用较粗的类似草的模型，或完整方块模型来覆盖。</td>
+        <td>需要处理上方一格方块，无法避免玩家手动叠方块</td>
+        <td>甘蔗类</td>
+    </tr>
+    <tr>
+        <th>可可豆</th>
+        <td>丛林木</td>
+        <td>是</td>
+        <td>可以用略大的方形模型来覆盖</td>
+        <td>可以添加标签来支持种植在其它方块侧</td>
+        <td>树生类</td>
+    </tr>
+    <tr>
+        <th>竹子、浆果丛、海草、海带</th>
+        <td>-</td>
+        <td>部分</td>
+        <td>几乎无可能</td>
+        <td>模型随机、性质特殊、水生难使用</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <th>屏障</th>
+        <td>任意</td>
+        <td>否</td>
+        <td>任意</td>
+        <td>无法直接破坏，需要借助其它方式；需要手动实现生长过程</td>
+        <td>任意</td>
+    </tr>
+    <tr>
+        <th>任意</th>
+        <td>任意</td>
+        <td>否</td>
+        <td>完整方块模型</td>
+        <td>需要手动实现生长过程，一般无法瞬间破坏</td>
+        <td>任意</td>
+    </tr>
+</tbody></table>
+
+<p>可以看出，可接受的只有瓜梗+模型覆盖、金合欢树苗+删除原模型、任意方块+完整模型三种做法。对于第二种做法，我们还需要修改村庄等结构中相应的模型，而且在玩家大规模种植时会生成大量实体。</p>
+
 <h2 id="§10.1_作物">§10.1 作物</h2>
-<p>通常使用小麦、胡萝卜、马铃薯、甜菜根、瓜梗、树苗来实现自定义作物。我们在相应的方块处放置带有自定义物品模型的盔甲架来实现其外观的不同，并高频判断和重置其生长状态来确定生长，好处是可以限定其种植在耕地/土上，且可以与骨粉方便地交互。</p>
-
-<p>然而，如果自定义作物的材质没有覆盖原来的方块，就会导致自定义的作物处，既有自定义作物的材质，又有原本的作物材质。解决方法之一是限定自定义作物模型包含原有的作物模型，这几乎只有在瓜梗情形容易做到；另一种是删除原有方块材质，并在原版作物/树苗处放置对应材质的盔甲架解决。对于第二种做法，我们需要修改村庄、林地府邸等结构中相应的作物/树苗模型，而且在玩家大规模种植时会生成大量实体。因此第二种情形几乎只有金合欢树苗可以接受，因为通常玩家不会种植太多金合欢树。然而金合欢树苗有个严重的缺点，当其在1刻内接受了两个随机刻，会导致其直接长成大树。</p>
-
-<p>对于没有生长阶段的自定义植物，我们也没有太多选择。使用花是不可能的，因其广泛生成在世界各地；使用屏障则交互极为不便。</p>
-
-<p>因此，我们一般只有使用瓜梗并要求模型覆盖瓜梗模型；或者使用金合欢树苗并需要忍受偶发的金合欢树。</p>
 
 <p>例如：种植铁种子，收获种子和铁锭，可由骨粉催熟。种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。</p>
 <pre class="file">cpp:advancements/plants/iron_seeds</pre>
 <pre>
 {
-        "parent": "cpp:plants/root",
-        "criteria": {
-                "iron_seeds": {
-                        "trigger": "minecraft:placed_block",
-                        "conditions": {
-                                "item": {
-                                        "nbt":"{id:'cpp:iron_seeds'}"
-                                }
-                        }
+    "parent": "cpp:plants/root",
+    "criteria": {
+        "iron_seeds": {
+            "trigger": "minecraft:placed_block",
+            "conditions": {
+                "item": {
+                    "nbt":"{id:'cpp:iron_seeds'}"
                 }
-        },
-        "rewards": {
-                "function": "cpp:plants/plants/iron_seeds"
+            }
         }
+    },
+    "rewards": {
+        "function": "cpp:plants/plants/iron_seeds"
+    }
 }
 </pre>
 
@@ -4475,7 +4546,7 @@ execute as @e[type=minecraft:armor_stand,tag=cpp_beetroots_plants] at @s unless 
 </pre>
 <pre class="file">cpp:plants/break/beetroots</pre>
 <pre>
-execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot_seeds"},Age:0s},distance=..1] run data merge entity @s {Item:{tag:{HideFlags:63,Enchantments:[{}],display:{Name:'{"translate":"item.cpp.iron_seeds\"}"},id:"cpp:iron_seeds"}}}
+execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot_seeds"},Age:0s},distance=..1] run data merge entity @s {Item:{tag:{HideFlags:63,Enchantments:[{}],display:{Name:'{"translate":"item.cpp.iron_seeds"}'},id:"cpp:iron_seeds"}}}
 execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot"},Age:0s},distance=..1] run data merge entity @s {Item:{id:"minecraft:iron_ingot"}}
 </pre>
 
@@ -5503,7 +5574,7 @@ execute store result entity @s Motion[2] double 0.0005 run scoreboard players op
 }
 </pre>
 
-<p>这里我们进行了繁复的判断是为了让村民能够爬坡，但不能爬过栅栏类方块。如果是想要实现吸引物品的效果，则很多内容可以省略。</p>
+<p>这里我们进行了繁复的判断是为了让村民能够爬坡，但不能爬过栅栏类方块。如果是想要实现吸引物品掉落物的效果，则很多内容可以省略。</p>
 
 
 <h2 id="§11.7_交易">§11.7 交易</h2>
@@ -5778,9 +5849,7 @@ execute positioned ~ ~ ~-1 if block ~ ~ ~ #chain:pickaxe1_chain run function cha
         "minecraft:emerald_ore",
         "minecraft:nether_quartz_ore",
         "minecraft:redstone_ore",
-        "minecraft:lapis_ore",
-        "minecraft:glowstone",
-        "minecraft:obsidian"
+        "minecraft:lapis_ore"
     ]
 }
 </pre>
