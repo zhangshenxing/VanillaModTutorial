@@ -1,0 +1,1844 @@
+　　类似于自定义烧炼的方法，我们可以自定义酿造。但是由于酿造台的限制，酿造材料必须为原版酿造材料物品，待酿造的物品只能为药水或玻璃瓶。除了红石、萤石、火药、龙息外，建议使用兔子腿，因为兔子腿只有酿造功能。
+　　如果酿造材料和待酿造的物品本身就属于原版可酿造的配方，我们只需在酿造即将完成时，将药水替换掉即可。例如：使用大地之证 (兔子腿 [font=Verdana]cpp:certification_of_earth[/font]) 将粗制的药水酿造成有多重药水效果的大地药水（[font=Verdana]potion_of_earth[/font]），同时支持延长、加强、喷溅、滞留版本。[/font]
+
+　　放置和探测酿造台的部分省略。
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @e[type=minecraft:armor_stand,tag=cpp_brewing_stand] at @s run function cpp:brewing/tick
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:brewing/tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute unless block ~ ~ ~ minecraft:brewing_stand run kill @s
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:certification_of_earth"}}]} run function cpp:brewing/earth
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:redstone"}}]} if predicate cpp:brewing/long run function cpp:brewing/long
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:glowstone_dust"}}]} if predicate cpp:brewing/strong run function cpp:brewing/strong
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:gunpowder"}}]} if predicate cpp:brewing/splash run function cpp:brewing/splash
+execute if block ~ ~ ~ minecraft:brewing_stand{BrewTime:1s,Items:[{Slot:3b,tag:{id:"cpp:dragon_breath"}}]} if predicate cpp:brewing/lingering run function cpp:brewing/lingering
+[/font][/td][/tr]
+　　我们在大地药水中添加 [font=Verdana]Potion[/font]，这样后续可以实现延长、加强、喷溅、投掷版本的酿造。
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp/loot_tables/potion_of_dirt[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:potion",
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{Potion:'minecraft:leaping',CustomPotionColor:14137114,display:{Name:'{\"translate\":\"item.cpp.potion_of_earth\"}'},CustomPotionEffects:[{Id:3b,Duration:3600}],id:'cpp:potion_of_earth'}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+[/font][/td][/tr]
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:brewing/earth[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]loot replace entity @s weapon.mainhand 1 loot cpp:potion_of_earth
+data modify block ~ ~ ~ Items[{tag:{Potion:"minecraft:awkward"}}].tag set from entity @s HandItems[0].tag
+loot replace entity @s weapon.mainhand 1 loot minecraft:
+execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 0.999 run data get block ~ ~ ~ Items[{Slot:3b}].Count
+[/font][/td][/tr]
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp/predicates/brewing/long[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "condition": "minecraft:alternative",
+    "terms": [
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:night_vision'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:invisibility'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:leaping'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:fire_resistance'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:swiftness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:slowness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:turtle_master'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:water_breathing'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:poison'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:regeneration'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:strength'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:weakness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:0b,tag:{Potion:'minecraft:slow_falling'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:night_vision'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:invisibility'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:leaping'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:fire_resistance'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:swiftness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:slowness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:turtle_master'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:water_breathing'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:poison'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:regeneration'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:strength'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:weakness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:1b,tag:{Potion:'minecraft:slow_falling'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:night_vision'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:invisibility'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:leaping'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:fire_resistance'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:swiftness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:slowness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:turtle_master'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:water_breathing'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:poison'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:regeneration'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:strength'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:weakness'}}]}"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "nbt": "{Items:[{Slot:2b,tag:{Potion:'minecraft:slow_falling'}}]}"
+                }
+            }
+        }
+    ]
+}
+[/font][/td][/tr]
+　　处理延长版药水时，还需要一并处理原版酿造的药水。加强、喷溅、投掷情形类似处理即可。
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:brewing/long[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]loot replace entity @s weapon.mainhand 1 loot cpp:potion_of_long_earth
+data modify block ~ ~ ~ Items[{tag:{id:"cpp:potion_of_earth}}].tag set from entity @s HandItems[0].tag
+loot replace entity @s weapon.mainhand 1 loot minecraft:air
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:night_vision"}}]}.tag.Potion set value "minecraft:long_night_vision"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:invisibility"}}]}.tag.Potion set value "minecraft:long_invisibility"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:leaping"}}]}.tag.Potion set value "minecraft:long_leaping"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:fire_resistance"}}]}.tag.Potion set value "minecraft:long_fire_resistance"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:swiftness"}}]}.tag.Potion set value "minecraft:long_swiftness"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:slowness"}}]}.tag.Potion set value "minecraft:long_slowness"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:turtle_master"}}]}.tag.Potion set value "minecraft:long_turtle_master"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:water_breathing"}}]}.tag.Potion set value "minecraft:long_water_breathing"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:poison"}}]}.tag.Potion set value "minecraft:long_poison"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:regeneration"}}]}.tag.Potion set value "minecraft:long_regeneration"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:strength"}}]}.tag.Potion set value "minecraft:long_strength"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:weakness"}}]}.tag.Potion set value "minecraft:long_weakness"
+data modify block ~ ~ ~ Items:[{tag:{Potion:"minecraft:slow_falling"}}]}.tag.Potion set value "minecraft:long_slow_falling"}
+execute store result block ~ ~ ~ Items[{Slot:3b}].Count byte 0.999 run data get block ~ ~ ~ Items[{Slot:3b}].Count
+replaceitem entity @s weapon.mainhand minecraft:air
+[/font][/td][/tr]
+
+　　如果酿造材料和待酿造的物品不属于原版可酿造的配方，我们需要在二者均进入酿造台时，将其物品修改为具有相同材质名称的、可以实现酿造的物品。当物品进入背包时，将其改回原物品。酿造即将完成时，检测相应NBT是否来自指定的物品，并修改产物。
+
+
+[size=5][b]§10 植物[/b][/size]
+
+[size=4][b]§10.1 作物[/b][/size]
+　　通常使用小麦、胡萝卜、马铃薯、甜菜根、瓜梗、树苗来实现自定义作物。我们在相应的方块处放置带有自定义物品模型的盔甲架来实现其外观的不同，并高频判断和重置其生长状态来确定生长，好处是可以限定其种植在耕地/土上，且可以与骨粉方便地交互。
+
+　　然而，如果自定义作物的材质没有覆盖原来的方块，就会导致自定义的作物处，既有自定义作物的材质，又有原本的作物材质。解决方法之一是限定自定义作物模型包含原有的作物模型，这几乎只有在瓜梗情形容易做到；另一种是删除原有方块材质，并在原版作物/树苗处放置对应材质的盔甲架解决。对于第二种做法，我们需要修改村庄、林地府邸等结构中相应的作物/树苗模型，而且在玩家大规模种植时会生成大量实体。因此第二种情形几乎只有金合欢树苗可以接受，因为通常玩家不会种植太多金合欢树。然而金合欢树苗有个严重的缺点，当其在1刻内接受了两个随机刻，会导致其直接长成大树。
+
+　　对于没有生长阶段的自定义植物，我们也没有太多选择。使用花是不可能的，因其广泛生成在世界各地；使用屏障则交互极为不便。
+
+　　因此，我们一般只有使用瓜梗并要求模型覆盖瓜梗模型；或者使用金合欢树苗并需要忍受偶发的金合欢树。
+
+　　例如：种植铁种子，收获种子和铁锭，可由骨粉催熟。种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:advancements/plants/iron_seeds[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+        "parent": "cpp:plants/root",
+        "criteria": {
+                "iron_seeds": {
+                        "trigger": "minecraft:placed_block",
+                        "conditions": {
+                                "item": {
+                                        "nbt":"{id:'cpp:iron_seeds'}"
+                                }
+                        }
+                }
+        },
+        "rewards": {
+                "function": "cpp:plants/plants/iron_seeds"
+        }
+}
+[/font][/td][/tr]
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @e[type=minecraft:armor_stand,tag=cpp_beetroots_plants] at @s unless block ~ ~ ~ beetroots run function cpp:plants/break/beetroots
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:plants/break/beetroots[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot_seeds"},Age:0s},distance=..1] run data merge entity @s {Item:{tag:{HideFlags:63,Enchantments:[{}],display:{Name:'{"translate":"item.cpp.iron_seeds\"}"},id:"cpp:iron_seeds"}}}
+execute as @s[tag=cpp_iron_seeds] as @e[type=minecraft:item,nbt={Item:{id:"minecraft:beetroot"},Age:0s},distance=..1] run data merge entity @s {Item:{id:"minecraft:iron_ingot"}}
+[/font][/td][/tr]
+
+　　实际上，我们也可以通过盔甲架手持物品来实现自定义材质的作物。
+
+[size=4][b]§10.2 花草[/b][/size]
+
+
+
+
+[size=4][b]§10.3 树[/b][/size]
+    
+
+
+[size=5][b]§11 物品与实体处理[/b][/size]
+　　本节内容较杂，主要包括常见的一些物品与实体处理方式。
+
+[size=4][b]§11.1 随机数[/b][/size]
+　　随机数有多种生成方式，最简单的使用实体选择器 [font=Verdana]@r[/font] 来从若干实体中选取一个。我们可以生成两个并对其中随机一个的计分板增加 [font=Verdana]1, 2, 4, ..., 2[sup]30[/sup][/font]，那么其中一个的分数就是 [font=Verdana]0[/font] 至 [font=Verdana]2[sup]31[/sup]-1[/font] 之间的随机数，然后对我们想要的随机数区间取模，即可得到近似的均匀分布。
+　　但是，我们使用战利品的 [font=Verdana]set_attribute[/font] 函数可以便捷地得到 [font=Verdana]0[/font] 至 [font=Verdana]2048[/font] 之间的一个随机浮点数。由此可得到下述算法。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex/loot_tables/misc/random.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_attributes",
+                            "modifiers": [
+                                {
+                                    "slot": "mainhand",
+                                    "name": "random_attackDamage",
+                                    "attribute": "generic.attackDamage",
+                                    "operation": "addition",
+                                    "amount": {
+                                        "min": 0,
+                                        "max": 2048
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{exRandomMarker:1b}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+[/font][/td][/tr]
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:misc/random[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]loot spawn ~ -1 ~ loot ex:misc/random
+execute positioned ~ -1 ~ store result score #rand exValue run data get entity @e[type=minecraft:item,distance=..1,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1] Item.tag.AttributeModifiers[0].Amount 1048575
+execute positioned ~ -1 ~ run kill @e[type=minecraft:item,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1,distance=..1]
+scoreboard players operation #random_interval exValue = #random_max exValue
+scoreboard players operation #random_interval exValue -= #random_min exValue
+scoreboard players add #random_interval exValue 1
+scoreboard players operation #rand exValue %= #random_interval exValue
+scoreboard players operation #rand exValue += #random_min exValue
+[/font][/td][/tr]
+
+　　先设置 [font=Verdana]#random_min[/font] 和 [font=Verdana]#random_max[/font] 的 [font=Verdana]exValue[/font] 为随机数的上下界，然后执行该函数，则 [font=Verdana]#rand[/font] 的 [font=Verdana]exValue[/font] 即为该区间的一个随机数。
+
+　　对于固定范围的随机数，我们可以直接在战利品表内设置好，可省去部分记分板的计算。
+
+
+[size=4][b]§11.2 修改玩家背包[/b][/size]
+
+　　用于修改实体方块、实体、存储区NBT的 [font=Verdana]data[/font] 命令无法用来修改玩家NBT。在1.13-1.14版本中可以使用 [font=Verdana]execute store[/font] 和 [font=Verdana]data modify[/font] 命令来修改玩家背包内物品的 [font=Verdana]tag[/font] 标签下的信息，尽管使用该命令会提示错误。而在1.15版本则将该功能去除，想要修改玩家背包就必须借助其它方式。
+
+　　一种方式是将修改后的物品信息复制到生物头部，并修改生物的死亡战利品表NBT。在战利品表中穷举获得该物品 [font=Verdana]id[/font] 和数量，并使用 [font=Verdana]copy_nbt[/font] 函数来将头部物品的NBT复制到战利品的NBT中。见 [url=hread-837334-1-1.html][https://www.mcbbs.net/thread-837334-1-1.html[/url]。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex/loot_tables/misc/loot[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "type": "entity",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "type": "item",
+                            "name": "minecraft:andesite",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:entity_properties",
+                                    "entity": "this",
+                                    "predicate": {
+                                        "nbt": "{ArmorItems:[{},{},{}{id:'minecraft:andesite'}}"
+                                    }
+                                }
+                            ]
+                        },
+                        [中间省略其它物品的穷举过程]
+                        {
+                            "type": "item",
+                            "name": "minecraft:zombie_head",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:entity_properties",
+                                    "entity": "this",
+                                    "predicate": {
+                                        "nbt": "{ArmorItems:[{},{},{}{id:'minecraft:zombie_head'}}"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": 2,
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:entity_properties",
+                                    "entity": "this",
+                                    "predicate": {
+                                        "nbt": "{ArmorItems:[{},{},{},{Count:2b}]}"
+                                    }
+                                }
+                            ]
+                        },
+                        [中间省略其它数量的穷举过程]
+                        {
+                            "function": "minecraft:set_count",
+                            "count": 64,
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:entity_properties",
+                                    "entity": "this",
+                                    "predicate": {
+                                        "nbt": "{ArmorItems:[{},{},{},{Count:64b}}"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "function": "minecraft:copy_nbt",
+                            "source": "this",
+                            "ops": [
+                                {
+                                    "source": "ArmorItems[3].tag",
+                                    "target": "{}",
+                                    "op": "merge"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+[/font][/td][/tr]
+
+　　最后我们使用 [font=Verdana]loot[/font] 函数来将战利品表物品输出到玩家背包中。可以看出，该方法使用的战利品表非常长，而且需要根据版本更新或模组内容添加新的物品 [font=Verdana]id[/font]。这里我们提及一个可能的误区，一般生物的装备和手持物并不会出现在生物的战利品表中，想要通过直接 [font=Verdana]loot ... kill[/font] 获取生物的装备或手持物是不可能的。
+
+　　另一种方式是对潜影盒战利品表使用项目 [font=Verdana]dynamic[/font]，该项目配合 [font=Verdana]"name": "minecraft:contents"[/font] 可以将潜影盒内物品作为战利品表输出。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]minecraft/loot_tables/blocks/shulker_box.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "type": "minecraft:block",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "type": "minecraft:dynamic",
+                            "name": "minecraft:contents",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:match_tool",
+                                    "predicate": {
+                                        "nbt":"{isShulkerMarker:1b}"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "minecraft:item",
+                            "functions": [
+                                {
+                                    "function": "minecraft:copy_name",
+                                    "source": "block_entity"
+                                },
+                                {
+                                    "function": "minecraft:copy_nbt",
+                                    "source": "block_entity",
+                                    "ops": [
+                                        {
+                                            "source": "Lock",
+                                            "target": "BlockEntityTag.Lock",
+                                            "op": "replace"
+                                        },
+                                        {
+                                            "source": "LootTable",
+                                            "target": "BlockEntityTag.LootTable",
+                                            "op": "replace"
+                                        },
+                                        {
+                                            "source": "LootTableSeed",
+                                            "target": "BlockEntityTag.LootTableSeed",
+                                            "op": "replace"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "function": "minecraft:set_contents",
+                                    "entries": [
+                                        {
+                                            "type": "minecraft:dynamic",
+                                            "name": "minecraft:contents"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "name": "minecraft:shulker_box"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+[/font][/td][/tr]
+
+　　我们将物品复制到潜影盒内，然后使用命令 [font=Verdana]loot ... mine ~ 255 ~ minecraft:diamond_pickaxe{isShulkerMarker:1b}[/font]。通常我们将这种辅助用的方块放置在 [font=Verdana]255[/font] 高度以免破坏地形和建筑。
+
+　　除了用于修改玩家背包，该命令还可配合 [font=Verdana]loot insert[/font] 来将物品输出到容器内，并使物品尽量堆叠。这常用于机器的输出，见 [url=thread-784662-1-1.html?cp=8]§8.4 物品输出[/url]。
+
+
+[size=4][b]§11.3 耐久处理[/b][/size]
+
+　　有时候我们需要模拟使用工具的过程，但工具并没有被使用，耐久也没有被消耗。此时我们需要手动对其耐久进行处理。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:misc/damage[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute store result score #unbreak_lvl exValue run data get storage ex:damage Item.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
+execute store result score #damage exValue run data get storage ex:damage Item.tag.Damage
+execute if score #unbreak_lvl exValue matches 1.. run function ex:misc/damage_check
+execute store result storage ex:damage Item.tag.Damage int 1 run scoreboard players add #damage exValue 1
+[/font][/td][/tr]
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:misc/damage_check[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]loot spawn ~ -1 ~ loot ex:misc/random
+execute positioned ~ -1 ~ store result score #rand exValue run data get entity @e[type=minecraft:item,nbt={Item:{tag:{cppRandomMarker:1b}}},limit=1,distance=..1] Item.tag.AttributeModifiers[0].Amount 1048575
+execute positioned ~ -1 ~ run kill @e[type=minecraft:item,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1,distance=..1]
+scoreboard players operation #rand exValue %= #unbreak_lvl exValue
+execute if score #rand exValue matches 1.. run scoreboard players remove #damage exValue 1
+[/font][/td][/tr]
+
+　　我们将物品信息复制到存储区 [font=Verdana]ex:damage[/font] 的 [font=Verdana]Item[/font] 中，然后执行该函数。最后判断其是否已经耐久耗尽，若耗尽则清除之。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:misc/damage_cst_main[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]data modify storage ex:damage Item set from entity @s SelectedItem
+function ex:misc/damage
+execute if score #damage exValue matches 26.. run data remove storage ex:damage Item
+setblock ~ 255 ~ minecraft:shulker_box
+data modify storage ex:damage Item.Slot set value 0b
+data modify block ~ 255 ~ Items append from storage ex:damage Item
+loot replace entity @s weapon.mainhand 1 mine ~ 255 ~ minecraft:diamond_pickaxe{isShulkerMarker:1b}
+setblock ~ 255 ~ minecraft:air
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:misc/damage_cst_off[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]data modify storage ex:damage Item set from entity @s Inventory[{Slot:-106b}]
+function ex:misc/damage
+execute if score #damage exValue matches 26.. run data remove storage ex:damage Item
+setblock ~ 255 ~ minecraft:shulker_box
+data modify storage ex:damage Item.Slot set value 0b
+data modify block ~ 255 ~ Items append from storage ex:damage Item
+loot replace entity @s weapon.offhand 1 mine ~ 255 ~ minecraft:diamond_pickaxe{isShulkerMarker:1b}
+setblock ~ 255 ~ minecraft:air
+[/font][/td][/tr]
+
+
+[size=4][b]§11.4 红石信号[/b][/size]
+
+　　为了检测当前方块是否被强充能了，我们将所有能激活当前方块的红石元件和方块状态记录在断言文件中来判断。注意我们没有对当前方块是否完整进行检测。陷阱箱触发的红石信号也是无法直接探测到的。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]mac/predicates/redstone_power.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "condition": "minecraft:alternative",
+    "terms": [
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:lever",
+                    "state": {
+                        "powered": true,
+                        "face": "ceiling"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:lever",
+                    "state": {
+                        "powered": true,
+                        "face": "floor"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:lever",
+                    "state": {
+                        "powered": true,
+                        "face": "wall",
+                        "facing": "east"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:lever",
+                    "state": {
+                        "powered": true,
+                        "face": "wall",
+                        "facing": "west"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:lever",
+                    "state": {
+                        "powered": true,
+                        "face": "wall",
+                        "facing": "south"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:lever",
+                    "state": {
+                        "powered": true,
+                        "face": "wall",
+                        "facing": "north"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": -1,
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:buttons",
+                    "state": {
+                        "powered": true,
+                        "face": "ceiling"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": 1,
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:buttons",
+                    "state": {
+                        "powered": true,
+                        "face": "floor"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": 1,
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:buttons",
+                    "state": {
+                        "powered": true,
+                        "face": "wall",
+                        "facing": "east"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": -1,
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:buttons",
+                    "state": {
+                        "powered": true,
+                        "face": "wall",
+                        "facing": "west"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": 1,
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:buttons",
+                    "state": {
+                        "powered": true,
+                        "face": "wall",
+                        "facing": "south"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": -1,
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:buttons",
+                    "state": {
+                        "powered": true,
+                        "face": "wall",
+                        "facing": "north"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:redstone_torch",
+                    "state": {
+                        "lit": true
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:redstone_wall_torch",
+                    "state": {
+                        "lit": true
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:observer",
+                    "state": {
+                        "powered": true,
+                        "facing": "down"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:observer",
+                    "state": {
+                        "powered": true,
+                        "facing": "up"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:observer",
+                    "state": {
+                        "powered": true,
+                        "facing": "east"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:observer",
+                    "state": {
+                        "powered": true,
+                        "facing": "west"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:observer",
+                    "state": {
+                        "powered": true,
+                        "facing": "south"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:observer",
+                    "state": {
+                        "powered": true,
+                        "facing": "north"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:repeater",
+                    "state": {
+                        "powered": true,
+                        "facing": "east"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:repeater",
+                    "state": {
+                        "powered": true,
+                        "facing": "west"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:repeater",
+                    "state": {
+                        "powered": true,
+                        "facing": "south"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:repeater",
+                    "state": {
+                        "powered": true,
+                        "facing": "north"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:comparator",
+                    "state": {
+                        "powered": true,
+                        "facing": "east"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:comparator",
+                    "state": {
+                        "powered": true,
+                        "facing": "west"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:comparator",
+                    "state": {
+                        "powered": true,
+                        "facing": "south"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:comparator",
+                    "state": {
+                        "powered": true,
+                        "facing": "north"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:tripwire_hook",
+                    "state": {
+                        "powered": true,
+                        "facing": "east"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetX": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:tripwire_hook",
+                    "state": {
+                        "powered": true,
+                        "facing": "west"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:tripwire_hook",
+                    "state": {
+                        "powered": true,
+                        "facing": "south"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetZ": -1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:tripwire_hook",
+                    "state": {
+                        "powered": true,
+                        "facing": "north"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": 1,
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:wooden_pressure_plates",
+                    "state": {
+                        "powered": true
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:stone_pressure_plate",
+                    "state": {
+                        "powered": true
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:light_weighted_pressure_plate",
+                    "state": {
+                        "powered": true
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": 1,
+            "predicate": {
+                "block": {
+                    "block": "minecraft:heavy_weighted_pressure_plate",
+                    "state": {
+                        "powered": true
+                    }
+                }
+            }
+        }
+    ]
+}
+[/font][/td][/tr]
+
+　　弱充能情形更为繁琐。
+
+　　想要产生一个红石信号，可以通过在当前位置放置红石块再放置空气来产生。注意保存当前方块的信息。这样的红石信号可以用于激活结构方块，因此可用于 [url=thread-784662-1-1.html?cp=12]§12 世界生成[/url]。
+
+[size=4][b]§11.5 方块交互[/b][/size]
+
+　　与某些特定方块交互，可通过相应的交互判据的计分板来探测。如果仅需要右击而不打开，可对容器进行上锁，但玩家快捷栏上方会提示容器已上锁，需要使用资源包来消除；或者使用传送来实现强制关闭GUI，但画面会有闪烁感。
+
+　　例如：右键方块破坏器将其上方的石头变为砂砾，圆石变为沙子。方块破坏器为上锁的熔炉，且相应位置已有盔甲架标记。这里我们直接使用 [url=thread-784662-1-1.html?cp=6]§6.1 视线追踪法[/url]来获取方块破坏器位置。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:load[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]scoreboard objectives add exBsdIntFur minecraft.custom:minecraft.interact_with_furnace
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @a[scores={exBsdIntFur=1..}] at @s anchored eyes run function ex:block_breaker/ray
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:block_breaker/ray[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute if entity @s[distance=..7] unless block ~ ~ ~ minecraft:furnace positioned ^ ^ ^0.005 anchored feet run function ex:block_breaker/ray
+execute if entity @s[distance=..7] if block ~ ~ ~ minecraft:furnace{Lock:"zsx&lt;3wtt"} if block ~ ~1 ~ #ex:block_breaker run function ex:block_breaker/done
+scoreboard players reset @s exBsdIntFur
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex/tags/blocks/block_breaker[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "replace": false,
+    "values": [
+        "minecraft:stone",
+        "minecraft:cobblestone",
+    ]
+}
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:block_breaker/done[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute if block ~ ~1 ~ minecraft:stone run setblock ~ ~1 ~ minecraft:gravel
+execute if block ~ ~1 ~ minecraft:cobblestone run setblock ~ ~1 ~ minecraft:sand
+[/font][/td][/tr]
+
+　　同理，[url=thread-784662-1-1.html?cp=8]§8.6 插件[/url]中的插件安装也可以通过打开木桶的判据来实现。我们使用传送来实现强制关闭GUI。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]mac:load[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]scoreboard objectives add macOpenFrame minecraft.custom:minecraft.open_barrel
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]mac:tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @a[tag=machine_close_gui] at @s positioned ~ ~-256 ~ run function mac:misc/close_gui_back
+execute as @a[scores={macOpenFrame=1..}] if predicate mac:all_in_one_machine/hand_machine_plugin at @s anchored eyes run function mac:all_in_one_machine/ray
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]machine/predicates/all_in_one_machine/hand_machine_plugin.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "condition": "minecraft:alternative",
+    "terms": [
+        {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+                "equipment": {
+                    "mainhand":{
+                        "nbt": "{macMachinePlugin:1b}"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+                "equipment": {
+                    "offhand":{
+                        "nbt": "{macMachinePlugin:1b}"
+                    }
+                }
+            }
+        }
+    ]
+}
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]mac:all_in_one_machine/ray[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @s[distance=..6] if block ~ ~ ~ minecraft:barrel align xyz positioned ~0.5 ~ ~0.5 run function mac:all_in_one_machine/init
+execute as @s[distance=..6] unless block ~ ~ ~ minecraft:barrel positioned ^ ^ ^0.005 anchored feet run function mac:all_in_one_machine/ray
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:all_in_one_machine/init[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @s[nbt=!{SelectedItem:{tag:{macMachinePlugin:1b}}}] run data modify storage mac:plugin Item set from entity @s Inventory[{Slot:-106b}]
+execute as @s[nbt={SelectedItem:{tag:{macMachinePlugin:1b}}}] run data modify storage mac:plugin Item set from entity @s SelectedItem
+execute if data storage mac:plugin Item.tag{id:"mac:high_pressure_plugin"} if entity @e[tag=machine_all_in_one_machine,distance=..0.5,limit=1,tag=!machine_high_pressure] run function ex:all_in_one_machine/init/high_pressure
+execute if data storage mac:plugin Item.tag{id:"mac:low_pressure_plugin"} if entity @e[tag=machine_all_in_one_machine,distance=..0.5,limit=1,tag=!machine_low_pressure] run function ex:all_in_one_machine/init/low_pressure
+execute if data storage mac:plugin Item.tag{id:"mac:high_temperature_plugin"} if entity @e[tag=machine_all_in_one_machine,distance=..0.5,limit=1,tag=!machine_high_temperature] run function ex:all_in_one_machine/init/high_temperature
+execute if data storage mac:plugin Item.tag{id:"mac:low_temperature_plugin"} if entity @e[tag=machine_all_in_one_machine,distance=..0.5,limit=1,tag=!machine_low_temperature] run function ex:all_in_one_machine/init/low_temperature
+execute as @s[tag=machine_plugin_used] at @s run function mac:close_gui
+tag @s[tag=machine_plugin_used] remove machine_plugin_used
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:all_in_one_machine/init/high_pressure[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]tellraw @s [{"translate":"info.machine.high_pressure_plugin"}]
+tag @s add machine_plugin_used
+tag @e[tag=machine_all_in_one_machine,distance=..0.5,limit=1,tag=!machine_high_pressure] add machine_high_pressure
+clear @s[tag=machine_plugin_used] minecraft:firework_star{id:"mac:high_pressure_plugin"} 1
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]mac:misc/close_gui[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["machine_close_gui_pos"],Duration:2}
+summon minecraft:area_effect_cloud ^ ^ ^3 {Tags:["machine_close_gui_facing"],Duration:2}
+tp @s ~ ~256 ~
+tag @s add machine_close_gui
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]mac:misc/close_gui_back[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]tp @s @e[type=minecraft:area_effect_cloud,tag=machine_close_gui_pos,distance=..10,sort=nearest,limit=1]
+tag @s remove machine_close_gui
+execute at @s facing entity @e[type=minecraft:area_effect_cloud,tag=machine_close_gui_facing,distance=..10,sort=nearest,limit=1] feet run tp ~ ~ ~
+[/font][/td][/tr]
+
+[size=4][b]§11.6 生物移动[/b][/size]
+
+　　例如：手持绿宝石块的玩家吸引 [font=Verdana]16[/font] 米内的村民到自身位置。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]tag @a remove ex_player_hand_emerald_block
+execute as @e[type=minecraft:villager] at @s if entity @a[distance=1..16,predicate=ex:hand_emerald_block] run function ex:misc/attract_villager
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex/predicates/hand_emerald_block.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "condition": "minecraft:alternative",
+    "terms": [
+        {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+                "equipment": {
+                    "mainhand":{
+                        "item": "minecraft:emerald_block"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+                "equipment": {
+                    "offhand":{
+                        "item": "minecraft:emerald_block"
+                    }
+                }
+            }
+        }
+    ]
+}
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:misc/attract_villager[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]tag @p[distance=1..16,predicate=ex:hand_emerald_block] add ex_player_hand_emerald_block
+tp @s ~ ~ ~ facing entity @p[tag=ex_player_hand_emerald_block]
+data merge entity @s {Motion:[0.0d,-1.0d,0.0d]}
+execute facing entity @p[tag=ex_player_hand_emerald_block] feet positioned ^ ^ ^0.75 unless block ~ ~ ~ #ex:attract_through if block ~ ~1 ~ #cpp:air run data merge entity @s {Motion:[0.0d,1.0d,0.0d]}
+execute store result score #temp0 exValue run data get entity @p[tag=ex_player_hand_emerald_block] Pos[0] 100
+execute store result score #temp1 exValue run data get entity @s Pos[0] 100
+execute store result entity @s Motion[0] double 0.0005 run scoreboard players operation #temp0 exValue -= #temp1 exValue
+execute store result score #temp0 exValue run data get entity @p[tag=ex_player_hand_emerald_block] Pos[2] 100
+execute store result score #temp1 exValue run data get entity @s Pos[2] 100
+execute store result entity @s Motion[2] double 0.0005 run scoreboard players operation #temp0 exValue -= #temp1 exValue
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex/tags/blocks/fluid.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "replace": false,
+    "values": [
+        "minecraft:air",
+        "minecraft:cave_air",
+        "minecraft:void_air",
+        "minecraft:bubble_column",
+        "minecraft:water",
+        "minecraft:lava",
+        "minecraft:fire"
+    ]
+}
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex/tags/blocks/attract_through.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "replace": false,
+    "values": [
+        "#ex:fluid",
+        "#minecraft:saplings",
+        "minecraft:grass",
+        "minecraft:fern",
+        "minecraft:dead_bush",
+        "minecraft:seagrass",
+        "minecraft:sea_pickle",
+        "#minecraft:small_flowers",
+        "minecraft:brown_mushroom",
+        "minecraft:red_mushroom",
+        "minecraft:torch",
+        "minecraft:end_rod",
+        "minecraft:ladder",
+        "minecraft:snow",
+        "#minecraft:carpets",
+        "minecraft:sunflower",
+        "minecraft:lilac",
+        "minecraft:rose_bush",
+        "minecraft:peony",
+        "minecraft:tall_grass",
+        "minecraft:large_fern",
+        "#minecraft:corals",
+        "#minecraft:signs",
+        "minecraft:vine",
+        "minecraft:dead_tube_coral",
+        "minecraft:dead_horn_coral",
+        "minecraft:dead_fire_coral",
+        "minecraft:dead_bubble_coral",
+        "minecraft:dead_brain_coral",
+        "minecraft:dead_tube_coral_fan",
+        "minecraft:dead_horn_coral_fan",
+        "minecraft:dead_fire_coral_fan",
+        "minecraft:dead_bubble_coral_fan",
+        "minecraft:dead_brain_coral_fan",
+        "minecraft:lever",
+        "minecraft:repeater",
+        "minecraft:comparator",
+        "#minecraft:wooden_pressure_plates",
+        "minecraft:light_weighted_pressure_plate",
+        "minecraft:heavy_weighted_pressure_plate",
+        "#minecraft:buttons",
+        "minecraft:redstone_torch",
+        "minecraft:tripwire_hook",
+        "minecraft:tripwire",
+        "#minecraft:doors",
+        "#minecraft:rails",
+        "minecraft:redstone_wire",
+        "#minecraft:walls",
+        "#minecraft:fences",
+        "minecraft:oak_fence_gate",
+        "minecraft:spruce_fence_gate",
+        "minecraft:birch_fence_gate",
+        "minecraft:jungle_fence_gate",
+        "minecraft:acacia_fence_gate",
+        "minecraft:dark_oak_fence_gate"
+    ]
+}
+[/font][/td][/tr]
+
+　　这里我们进行了繁复的判断是为了让村民能够爬坡，但不能爬过栅栏类方块。如果是想要实现吸引物品的效果，则很多内容可以省略。
+
+
+[size=4][b]§11.7 交易[/b][/size]
+　　使用村民交易是一种常见的特殊物品获得方式。在1.14+版本，建议使用流浪商人而不是村民，因为村民的交易会根据工作方块而进行变化，导致设定的交易被覆盖或出现不想要的交易。如果不希望交易产生经验值，需将 [font=Verdana]rewardExp[/font] 设置为 [font=Verdana]0b[/font]。通过让村民佩戴物品，可以让村民头部实现不同的外观，但是其它部位不能如此修改，使用佩戴在头部全身模型也会因村民头部移动而发生错乱。
+
+　　建议使用战利品来随机生成村民的交易项。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]trade:load[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]function trade:tick20 20t
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]trade:tick20[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @e[type=minecraft:wandering_trader,tag=!trade_trade_added] run function trade:check
+schedule function trade:tick20 20t
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]trade:check[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]data merge entity @s {ArmorItems:[{},{},{},{id:"minecraft:carved_pumpkin",Count:1b,tag:{CustomModelData:12970051}}],ArmorDropChances:[-1.0f,-1.0f,-1.0f,-1.0f]}
+data modify entity @s Offers.Recipes prepend value {buy:{id:"minecraft:stone",Count:64b},sell:{id:"minecraft:emerald",Count:1b},maxUses:12}
+data modify entity @s Offers.Recipes append value {buy:{id:"minecraft:emerald",Count:64b},sell:{id:"minecraft:stone",Count:1b},maxUses:12}
+loot replace entity @s weapon.mainhand 1 loot trade:trade/buy
+data modify entity @s Offers.Recipes[0].buy.id set from entity @s HandItems[0].id
+data modify entity @s Offers.Recipes[0].buy.Count set from entity @s HandItems[0].Count
+loot replace entity @s weapon.mainhand 1 loot trade:trade/sell
+data modify entity @s Offers.Recipes[9].sell.id set from entity @s HandItems[0].id
+data modify entity @s Offers.Recipes[9].buy.Count set from entity @s HandItems[0].Count
+replaceitem entity @s weapon.mainhand minecraft:air
+tag @s add trade_trade_added
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]trade/loot_tables/trade/buy.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:oak_log",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 36,
+                                "max": 40
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:spruce_log",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 36,
+                                "max": 40
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:birch_log",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 36,
+                                "max": 40
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:jungle_log",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 36,
+                                "max": 40
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:acacia_log",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 36,
+                                "max": 40
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:dark_oak_log",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 36,
+                                "max": 40
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]trade/loot_tables/trade/sell.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:piston",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 6
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:redstone_lamp",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 6
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:tnt",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 6
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:observer",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 6
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+[/font][/td][/tr]
+
+　　这样，我们便为每个流浪商人的最前面添加了交易 [font=Verdana]36-40[/font] 个原木换 [font=Verdana]1[/font] 个绿宝石，最后面添加了交易 [font=Verdana]4-6[/font] 个绿宝石换活塞、红石灯、TNT、观察者。
+
+　　1.13版本可将村民的NBT修改为 [font=Verdana]{VillagerData:{profession:"minecraft:none"}[/font] 以确保村民不含交易。
+
+[size=4][b]§11.8 清理特定物品[/b][/size]
+
+　　在自动种植、自动繁殖或放置方块等情形，我们需要对容器内的特定物品进行消耗。例如：当含有 [font=Verdana]ex:toughen_hand[/font] 的物品展示框下方容器内有胡萝卜、金胡萝卜、蒲公英时，令附近的兔子进入繁殖状态并清除一个相应物品。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @e[type=minecraft:item_frame,nbt={Item:{tag:{id:"ex:toughen_hand"}}}] at @s if entity @e[type=minecraft:rabbit,distance=..9,nbt={Age:0,InLove:0}] run function ex:toughen_hand/rabbit_check
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:toughen_hand/rabbit_check[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]scoreboard players set @s exValue 0
+execute if data block ~ ~-1 ~ Items[{id:"minecraft:carrot"}] run scoreboard players set @s exValue 1
+execute if data block ~ ~-1 ~ Items[{id:"minecraft:golden_carrot"}] run scoreboard players set @s exValue 2
+execute if data block ~ ~-1 ~ Items[{id:"minecraft:dandelion"}] run scoreboard players set @s exValue 3
+execute if score @s exValue matches 1.. run function ex:toughen_hand/rabbit
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]ex:toughen_hand/rabbit[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute if score @s exValue matches 1 run data modify storage ex:toughen_hand Item set from block ~ ~-1 ~ Items[{id:"minecraft:carrot"}]
+execute if score @s exValue matches 2 run data modify storage ex:toughen_hand Item set from block ~ ~-1 ~ Items[{id:"minecraft:golden_carrot"}]
+execute if score @s exValue matches 3 run data modify storage ex:toughen_hand Item set from block ~ ~-1 ~ Items[{id:"minecraft:dandelion"}]
+execute store result storage ex:toughen_hand Item.Count byte 0.999 run data get storage ex:toughen_hand Item.Count
+data modify block ~ ~-1 ~ Items append from storage ex:toughen_hand Item
+data merge entity @e[type=minecraft:item_framerabbit,distance=..9,nbt={Age:0,InLove:0},limit=1] {InLove:600}
+[/font][/td][/tr]
+
+　　注意到一点，[font=Verdana]Items[{id:"minecraft:carrot"}][/font] 只会选择容器内的最后一个拥有胡萝卜的栏位。如果 [font=Verdana]ex:toughen_hand[/font] 的物品被消耗完，则追加到容器的 [font=Verdana]Items[/font] 时，仍然会先覆盖已有的同 [font=Verdana]Slot[/font] 项，然后由于 [font=Verdana]Count[/font] 变为 [font=Verdana]0[/font] 而清除该栏位。
+
+[size=4][b]§11.9 连锁[/b][/size]
+
+　　当玩家使用原版镐时，破坏所有相连的矿石。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]chain:load[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]scoreboard objectives add chainUsePick1 minecraft.used:minecraft.diamond_pickaxe
+scoreboard objectives add chainUsePick2 minecraft.used:minecraft.iron_pickaxe
+scoreboard objectives add chainUsePick3 minecraft.used:minecraft.golden_pickaxe
+scoreboard objectives add chainUsePick4 minecraft.used:minecraft.stone_pickaxe
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]chain:tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @a at @s anchored eyes run function chain:chain/type
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]chain:chain/type[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @s[scores={chainUsePick1=1..}] run function chain:chain/pickaxe1/init
+execute as @s[scores={chainUsePick2=1..}] run function chain:chain/pickaxe2/init
+execute as @s[scores={chainUsePick3=1..}] run function chain:chain/pickaxe3/init
+execute as @s[scores={chainUsePick4=1..}] run function chain:chain/pickaxe4/init
+scoreboard players reset @s chainUsePick1
+scoreboard players reset @s chainUsePick2
+scoreboard players reset @s chainUsePick3
+scoreboard players reset @s chainUsePick4
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]chain:chain/pickaxe1/init[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]scoreboard players set #max_durality chainValue 1562
+data modify storage ex:damage Item set from entity @s SelectedItem
+execute store result score #temp chainValue run data get storage ex:damage Item.tag.Damage
+execute at @e[type=minecraft:item,nbt={Age:0s},distance=..6,sort=nearest,limit=1] run function chain:chain/pickaxe1/mark
+execute at @e[type=minecraft:item,nbt={Age:1s},distance=..6,sort=nearest,limit=1] run function chain:chain/pickaxe1/mark
+scoreboard players reset @s chainUsePick1
+execute if score #temp chainValue &gt;= #max_durality chainValue run replaceitem entity @s weapon.mainhand minecraft:air
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]chain:chain/pickaxe1/mark[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute positioned ~1 ~ ~ if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
+execute positioned ~-1 ~ ~ if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
+execute positioned ~ ~1 ~ if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
+execute positioned ~ ~-1 ~ if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
+execute positioned ~ ~ ~1 if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
+execute positioned ~ ~ ~-1 if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]chain/tags/blocks/pickaxe1.json[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]{
+    "replace": false,
+    "values": [
+        "minecraft:iron_ore",
+        "minecraft:gold_ore",
+        "minecraft:coal_ore",
+        "minecraft:diamond_ore",
+        "minecraft:emerald_ore",
+        "minecraft:nether_quartz_ore",
+        "minecraft:redstone_ore",
+        "minecraft:lapis_ore",
+        "minecraft:glowstone",
+        "minecraft:obsidian"
+    ]
+}
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]chain:chain/pickaxe1/damage[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @s[nbt=!{SelectedItem:{tag:{Enchantments:[{id:"minecraft:silk_touch"}]}}}] run function chain:chain/xp
+loot spawn ~ ~ ~ mine ~ ~ ~ mainhand
+setblock ~ ~ ~ minecraft:air
+function ex:damage
+execute if score #temp chainValue &lt; #max_durality chainValue run function chain:chain/pickaxe1/mark
+[/font][/td][/tr]
+
+　　函数 [font=Verdana]ex:damage[/font] 见 [url=thread-784662-1-1.html?cp=11]§11.3 耐久处理[/url]。
+
+[size=5][b]§12 世界生成[/b][/size]
+[size=4][b]§12.1 随机结构[/b][/size]
+　　例如：世界生成时，随机生成羊毛树。判断玩家东南32*32是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。
+
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:tick[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute as @a at @s unless block ~ 0 ~ bedrock run function cpp:generate/check
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:generate/check[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]execute positioned ~-64 -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-32 -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~ -2 ~-64 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-64 -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-32 -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~ -2 ~-32 unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-64 -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~-32 -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+execute positioned ~ -2 ~ unless entity @e[tag=cpp_chunk,dx=32,dy=256,dz=32] run function cpp:generate/mark
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:generate/mark[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]summon armor_stand ~ -1 ~ {Tags:["cpp_chunk","cpp_undet"],Invulnerable:1b,Invisible:1b,Marker:1b,NoGravity:1b,Small:1b,DisabledSlots:7967}
+scoreboard players set #32 exValue 32
+execute store result score #temp exValue run data get entity @e[tag=cpp_undet,limit=1] Pos[0]
+scoreboard players operation #temp exValue /= #32 exValue
+scoreboard players add #temp exValue 1
+execute store result entity @e[tag=cpp_undet,sort=nearest,limit=1] Pos[0] double 1 run scoreboard players operation #temp exValue *= #32 exValue
+
+execute store result score #temp exValue run data get entity @e[tag=cpp_undet,limit=1] Pos[2]
+scoreboard players operation #temp exValue /= #32 exValue
+scoreboard players add #temp exValue 1
+execute store result entity @e[tag=cpp_undet,sort=nearest,limit=1] Pos[2] double 1 run scoreboard players operation #temp exValue *= #32 exValue
+
+loot spawn ~ ~ ~ loot cpp:generate/markers
+execute at @e[tag=cpp_undet,sort=nearest,limit=1] run spreadplayers ~16 ~16 0 15 false @e[type=minecraft:item,nbt={Item:{tag:{isStrMark:1b}}}]
+tag @e[tag=cpp_undet] remove cpp_undet
+execute as @e[type=minecraft:item,nbt={Item:{tag:{isStrMark:1b}}}] at @s run function cpp:generate/build
+[/font][/td][/tr]
+[table]
+[tr=#C0C0C0][td][font=Verdana]cpp:generate/build[/font][/td][/tr]
+[tr=#FFFFFF][td][font=Verdana]# 爬行者地牢
+execute if score #generate_creeper_dungeon exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:creeper_dungeon_marker"}}}] if block ~ 15 ~ cave_air run function cpp:generate/structures/creeper_dungeon
+# 附魔室
+execute if score #generate_enchanting_room exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:enchanting_room_marker"}}}] run function cpp:generate/structures/enchanting_room
+# 图腾柱
+execute if score #generate_totem_pillar exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:totem_pillar_marker"}}}] run function cpp:generate/structures/totem_pillar
+
+# 水果树
+execute if score #generate_fruit_tree exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:fruit_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/fruit
+# 矿石树
+execute if score #generate_ore_tree exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:ore_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/ore
+# 羊毛树
+execute if score #generate_wool_tree exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:wool_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function cpp:plants/trees/wool
+
+# 死珊瑚扇
+execute if score #generate_dead_coral_fan exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:dead_coral_fan_marker"}}}] run function cpp:generate/structures/dead_coral_fan
+
+# 灌木丛
+execute if score #generate_small_bush exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:small_bush_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/small_bush
+
+# 死云杉树
+execute if score #generate_dead_spruce exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:dead_spruce_marker"}}}] unless block ~ ~-1 ~ #cpp:fluid run function cpp:generate/structures/dead_spruce
+
+# 农作物
+execute if score #generate_crops exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:crops_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/crops
+
+# 花草
+execute if score #generate_modcrops exValue matches 1.. as @s[nbt={Item:{tag:{id:"cpp:modcrops_marker"}}}] if block ~ ~-1 ~ grass_block run function cpp:generate/structures/modcrops
+
+kill @s
+[/font][/td][/tr]
+　　生成羊毛树部分略。
+
+[size=16px]生成羊毛树部分略。[/size]
+[size=20px][b]§13.2 水处理[/b][/size]
+[size=20px][b]§13.3 下界处理[/b][/size]
+[size=20px][b]§13.4 维度模拟[/b][/size]
+[page]
+[size=24px][b]§14 绘画与颗粒[/b][/size]
+[size=20px][b]§14.1 绘制图案[/b][/size]
+[size=20px][b]§14.2 颗粒[/b][/size]
+[page]
+[size=24px][b]§15 算法与数据结构[/b][/size]
+[size=20px][b]§15.1 数组[/b][/size]
+[size=20px][b]§15.2 循环[/b][/size]
+[size=20px][b]§15.3 递归[/b][/size]
+[size=20px][b]§15.4 位运算[/b][/size]
+[size=20px][b]§15.5 种子操作[/b][/size]
+
+

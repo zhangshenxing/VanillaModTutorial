@@ -61,6 +61,13 @@ abbr{
 em{
 	font-style:italic;
 }
+p.ex{
+	text-indent: 0;
+}
+p.ex:before{ 
+	content:"例：";
+	font-weight: bold;
+}
 /* 图片 */
 figure{
 	text-align:center;
