@@ -826,7 +826,6 @@ Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该�
 </ul>
 <p>完整格式可参考</p>
 <ul>
-    <li><a href="http://www.mcbbs.net/thread-619468-1-1.html">[CBL∫2b]Loottable - 创造一个看脸讲玄的世界 总索引</a></li>
     <li><a href="http://www.mcbbs.net/thread-831542-1-1.html">【CBL｜SPG】［1.14］战利品表：从入门到重新入门</a></li>
     <li><a href="https://minecraft-zh.gamepedia.com/战利品表">战利品表 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
     <li><a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.15] 新出的断言是什么东西</a></li>
@@ -1153,6 +1152,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <pre>
 {
     "parent": "block/block",
+    "gui_light": "side",
     "elements": [
         {
             "from": [ 5.5, 6, 5.5 ],
@@ -1261,6 +1261,11 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
             <li><code>minecraft:block/block</code> 方块，指定了方块在不同位置的显示效果。</li>
             <li><code>minecraft:block/cube</code> 完整方块，指定了一个1×1×1大小的方块模型。</li>
         </ul></td>
+</tr>
+<tr>
+    <th>光照</th>
+    <td><code>gui_light</code></td>
+    <td>1.15.2版本起，表示光照方向，分为side(从左上背面打光)和front(从正面打光)。错误的选择会导致模型显得非常的暗。</td>
 </tr>
 <tr>
     <th>显示</th>
