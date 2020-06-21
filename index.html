@@ -39,6 +39,7 @@
         <li><a href="#§2.8_结构">§2.8 结构</a></li>
         <li><a href="#§2.9_标签">§2.9 标签</a></li>
         <li><a href="#§2.9.1_预设标签">§2.9.1 预设标签</a></li>
+        <li><a href="#§2.10_维度和维度类型">§2.10 维度和维度类型</a></li>
     </ul></li>
     <li><a href="#§3_资源包">§3 资源包</a><ul>
         <li><a href="#§3.1_元信息和图标">§3.1 元信息和图标</a></li>
@@ -71,8 +72,9 @@
     <li><a href="#§6_方块设计">§6 方块设计</a><ul>
         <li><a href="#§6.1_视线追踪法">§6.1 视线追踪法</a></li>
         <li><a href="#§6.2_计算交点法">§6.2 计算交点法</a></li>
-        <li><a href="#§6.3_破坏事件">§6.3 破坏事件</a></li>
-        <li><a href="#§6.4_模型设置">§6.4 模型设置</a></li>
+        <li><a href="#§6.3_命令方块替换法">§6.3 命令方块替换法</a></li>
+        <li><a href="#§6.4_破坏事件">§6.4 破坏事件</a></li>
+        <li><a href="#§6.5_模型设置">§6.5 模型设置</a></li>
     </ul></li>
     <li><a href="#§7_合成与烧炼">§7 合成与烧炼</a><ul>
         <li><a href="#§7.1_语法">§7.1 语法</a></li>
@@ -124,22 +126,16 @@
         <li><a href="#§11.8_清理特定物品">§11.8 清理特定物品</a></li>
         <li><a href="#§11.9_连锁">§11.9 连锁</a></li>
     </ul></li>
-    <li class="up4"><a href="#§12_世界生成">§12 世界生成</a><ul>
-        <li><a href="#§12.1_随机结构">§12.1 随机结构</a></li>
-        <li><a href="#§12.2_水处理">§12.2 水处理</a></li>
-        <li><a href="#§12.3_下界与末地">§12.3 下界与末地</a></li>
-        <li><a href="#§12.4_重生成">§12.4 重生成</a></li>
-        <li><a href="#§12.5_维度模拟">§12.5 维度模拟</a></li>
-    </ul></li>
-    <li class="up3"><a href="#§13_算法">§13 算法</a><ul>
-        <li><a href="#§13.1_绘制图案">§13.1 绘制图案</a></li>
-        <li><a href="#§13.2_循环与递归">§13.2 循环与递归</a></li>
-        <li><a href="#§13.3_字符操作">§13.3 字符操作</a></li>
-        <li><a href="#§13.4_位运算与种子">§13.4 位运算与种子</a></li>
+    <li class="up4"><a href="#§12_算法">§12 算法</a><ul>
+        <li><a href="#§12.1_世界生成结构">§12.1 世界生成结构</a></li>
+        <li><a href="#§12.2_绘制图案">§12.2 绘制图案</a></li>
+        <li><a href="#§12.3_循环与递归">§12.3 循环与递归</a></li>
+        <li><a href="#§12.4_字符操作">§12.4 字符操作</a></li>
+        <li><a href="#§12.5_位运算与种子">§12.5 位运算与种子</a></li>
     </ul></li>
 </ul>
 </nav>
-<footer style="height: 3.5em; z-index: 99;"><p class="noindent" style="margin:0 15px 5px 0; text-align:right;color: hsl(220, 90%, 90%);;">© ruhuasiyu <br/> 2020-03-16</p></footer>
+<footer style="height: 3.5em; z-index: 99;"><p class="noindent" style="margin:0 15px 5px 0; text-align:right;color: hsl(220, 90%, 90%);;">© ruhuasiyu <br/> 2020-06-21</p></footer>
 
 
 <div id="main_part">
@@ -148,7 +144,7 @@
 <article>
 <p>本文适用 Minecraft Java 版 1.13 及更高版本，部分内容仅适用于部分版本。系统环境为 Windows10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议、教程等。有任何错误和疑问请联系我，谢谢！</p>
 <p>原版模组一般指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。因此我将为大家做一个简单的入门，以期抛砖引玉。</p>
-<p>编写进度：§1-§9, §11 (2019/12/09)</p>
+<p>编写进度：§1-§12.1 (2020/06/21)</p>
 
 <h1 id="§1_预备知识">§1 预备知识</h1>
 <p>部分段落常为部分读者所熟知，若如此可直接跳至自己所需段落。对于首次接触者，请耐心阅读。</p>
@@ -322,18 +318,18 @@
 </tr>
 <tr>
     <th>地图</th>
-    <td><code>map_[数字].txt</code></td>
+    <td><code>data/map_[数字].txt</code></td>
     <td>使用 NBT 编辑器打开，记录了地图 <code>filled_map{data:[数字]}</code> 的信息。</td>
 </tr>
 <tr>
     <th>记分板</th>
-    <td><code>scoreboard.txt</code></td>
+    <td><code>data/scoreboard.txt</code></td>
     <td>使用 NBT 编辑器打开，记录了记分板、记分板的值、组。</td>
 </tr>
 <tr>
-    <th rowspan="3">袭击</th>
-    <td><code>raids.txt</code></td>
-    <td rowspan="3">使用 NBT 编辑器打开，记录了袭击的信息。</td>
+    <th rowspan="4">袭击</th>
+    <td><code>data/raids.txt</code></td>
+    <td rowspan="4">使用 NBT 编辑器打开，记录了主世界/下界/末地/自定义维度袭击的信息。</td>
 </tr>
 <tr>
     <td><code>DIM-1/data/raids_nether.txt</code></td>
@@ -342,25 +338,43 @@
     <td><code>DIM1/data/raids_end.txt</code></td>
 </tr>
 <tr>
+    <td><code>dimensions/ex/foo/data/raids.txt</code></td>
+</tr>
+<tr>
+    <th rowspan="4">村民兴趣点</th>
+    <td><code>poi/r.[数值].[数值].mca</code></td>
+    <td rowspan="4">使用 NBT 编辑器打开，记录了主世界/下界/末地/自定义维度村民兴趣点信息，每32×32个区块存储为一个文件。</td>
+</tr>
+<tr>
+    <td><code>DIM-1/poi/r.[数值].[数值].mca</code></td>
+</tr>
+<tr>
+    <td><code>DIM1/poi/r.[数值].[数值].mca</code></td>
+</tr>
+<tr>
+    <td><code>dimensions/ex/foo/poi/r.[数值].[数值].mca</code></td>
+</tr>
+<tr>
+    <th rowspan="4">区块</th>
+    <td><code>region/r.[数值].[数值].mca</code></td>
+    <td rowspan="4">使用 NBT 编辑器打开，记录了主世界/下界/末地/自定义维度的区块信息，每32×32个区块存储为一个文件。建议使用 MCEdit 等工具来编辑。</td>
+</tr>
+<tr>
+    <td><code>DIM-1</code></td>
+</tr>
+<tr>
+    <td><code>DIM1</code></td>
+</tr>
+<tr>
+    <td><code>dimensions/ex/foo/region/r.[数值].[数值].mca</code></td>
+</tr>
+<tr>
     <th rowspan="2">数据包</th>
     <td><code>datapacks/[数据包名]</code></td>
     <td rowspan="2">zip格式的使用压缩工具打开，具体结构见 <a href="#datapack">§2 数据包</a>。</td>
 </tr>
 <tr>
     <td><code>datapacks/[数据包名].zip</code></td>
-</tr>
-<tr>
-    <th>主世界区块</th>
-    <td><code>region/r.[数值].[数值].mca</code></td>
-    <td rowspan="3">使用 NBT 编辑器打开，每32×32个区块存储为一个文件。建议使用 MCEdit 等工具来编辑。</td>
-</tr>
-<tr>
-    <th>下界区块</th>
-    <td><code>DIM-1/r.[数值].[数值].mca</code></td>
-</tr>
-<tr>
-    <th>末地区块</th>
-    <td><code>DIM1/r.[数值].[数值].mca</code></td>
 </tr>
 <tr>
     <th>统计</th>
@@ -473,7 +487,7 @@ data
 <p><strong>原版数据包 (Vanilla)</strong> 是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/版本号/版本号.jar/data</code>。其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
 
 <h2 id="§2.1_元信息">§2.1 元信息</h2>
-Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：
+<p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
 <pre class="file">pack.mcmeta</pre>
 <pre>
 {
@@ -934,7 +948,7 @@ setblock ~ ~1 ~ air
 <p class="noindent">默认为 <code>false</code>。由于数据包加载次序不定，因此后一种情形较为少用，一般仅用于覆盖原版标签。</p>
 <p>调试模式(F3)下，玩家指向方块时会显示含有该方块的所有方块标签。</p>
 
-<p>例如：当玩家被方块卡住时，输出 I'm stucked!</p>
+<p class="ex">当玩家被方块卡住时，输出 I'm stucked!</p>
 <pre class="file">ex/tags/blocks/fluid.json</pre>
 <pre>{
     "replace": false,
@@ -971,6 +985,390 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
     "values": [
     ]
 }
+</pre>
+
+<h2 id="§2.10_维度和维度类型">§2.10 维度和维度类型</h2>
+
+<p>维度 (dimension) 和维度类型 (dimension_type) 用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://minecraft-zh.gamepedia.com/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
+
+<pre class="file">minecraft/dimensions/ex/flower.json</pre>
+<pre>
+{
+    "type": "ex:flower",
+    "generator": {
+        "type": "minecraft:noise",
+        "seed": 20200602,
+        "settings": {
+            "bedrock_roof_position":256,
+            "bedrock_floor_position": 0,
+            "sea_level": 63,
+            "disable_mob_generation": true,
+            "default_block": {
+                "Name": "minecraft:dirt"
+            },
+            "default_fluid": {
+                "Name": "minecraft:water",
+                "Properties": {
+                    "level": "7"
+                }
+            },
+            "noise": {
+                "top_slide": {
+                    "target": 0,
+                    "size": 1,
+                    "offset": 1
+                },
+                "bottom_slide": {
+                    "target": 0,
+                    "size": 1,
+                    "offset": 1
+                },
+                "sampling": {
+                    "xz_scale": 0.01,
+                    "xz_factor": 1.0,
+                    "y_scale": 0.01,
+                    "y_factor": 1.0
+                },
+                "size_vertical": 1,
+                "size_horizontal": 1,
+                "height": 128,
+                "density_factor": 1.0,
+                "density_offset": 0.0,
+                "simplex_surface_noise": false
+            },
+            "structures": {
+                "structures": {
+                    "mineshaft": {
+                        "spacing": 2000,
+                        "separation": 1000,
+                        "salt": 20200602
+                    },
+                    "ruined_portal": {
+                        "spacing": 2000,
+                        "separation": 1000,
+                        "salt": 20200602
+                    }
+                }
+            }
+        },
+        "biome_source": {
+            "biome": "minecraft:flower_forest",
+            "type": "minecraft:fixed",
+            "seed": 20200602
+        }
+    }
+}
+</pre>
+<pre class="file">minecraft/dimension_type/ex/flower.json</pre>
+<pre>
+{
+    "ultrawarm": false,
+    "natural": false,
+    "shrunk": false,
+    "has_skylight": true,
+    "has_ceiling": false,
+    "ambient_light": 1,
+    "fixed_time": 6000,
+    "biome_zoomer": "FuzzyOffsetConstantColumnBiomeZoomer", 
+    "piglin_safe": false,
+    "bed_works": true,
+    "respawn_anchor_works": true,
+    "has_raids": false,
+    "logical_height": 256,
+    "infiniburn": "cpp:infiniburn_flower"
+}
+</pre>
+
+<p>目前自定义维度需使用 <code>execute in ex:flower</code> 来进入。我们可以指定一种多方块结构为传送检测方式。</p>
+<p class="ex">将高花摆放成八边形并在中间放置白色羊毛以激活去往 <code>ex:flower</code> 的传送门。</p>
+<pre class="file">ex/advancements/block/white_wool</pre>
+<pre>
+{
+    "criteria": {
+        "white_wool": {
+            "trigger": "minecraft:placed_block",
+            "conditions": {
+                "block": "minecraft:white_wool"
+            }
+        }
+    },
+    "rewards": {
+        "function": "ex:block/reset/white_wool"
+    }
+}
+</pre>
+<pre class="file">ex:block/reset/white_wool</pre>
+<pre>
+advancement revoke @s only ex:block/white_wool
+scoreboard players set #block_id exValue 3
+function ex:misc/loc/pos
+execute as @e[type=area_effect_cloud,distance=..9,tag=ex_loc_block_pos] at @s align xyz if predicate ex:flower_portal run function ex:block/put/white_wool
+kill @e[type=area_effect_cloud,distance=..9,tag=ex_loc_block_pos]
+</pre>
+<pre class="file">ex:block/put/white_wool</pre>
+<pre>
+summon area_effect_cloud ~0.5 ~ ~0.5 {Age:0,Duration:2147483647,Tags:["ex_aec_marker","ex_flower_portal"]}
+setblock ~ ~ ~ end_gateway
+</pre>
+<pre class="file">ex/predicates/flower_portal.json</pre>
+<pre>
+[
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": 2,
+        "offsetZ": 2,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": 2,
+        "offsetZ": -2,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": -2,
+        "offsetZ": 2,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": -2,
+        "offsetZ": -2,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": 3,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": -3,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetZ": 3,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetZ": -3,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    }
+]
+</pre>
+<pre class="file">ex/predicates/flower_portal_done.json</pre>
+<pre>
+[
+    {
+        "condition": "minecraft:location_check",
+        "predicate": {
+            "block": {
+                "block": "minecraft:end_gateway"
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": 2,
+        "offsetZ": 2,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": 2,
+        "offsetZ": -2,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": -2,
+        "offsetZ": 2,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": -2,
+        "offsetZ": -2,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": 3,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetX": -3,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetZ": 3,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    },
+    {
+        "condition": "minecraft:location_check",
+        "offsetZ": -3,
+        "predicate": {
+            "block": {
+                "tag": "minecraft:tall_flowers",
+                "state": {
+                    "half": "lower"
+                }
+            }
+        }
+    }
+]
+</pre>
+
+
+<p>检测传送门是否完整。检测玩家位置来传送。</p>
+<pre class="file">ex:tick</pre>
+<pre>
+execute as @e[type=area_effect_cloud,tag=ex_flower_portal] at @s unless predicate ex:flower_portal_done run function ex:misc/flower_portal
+execute as @a at @s[predicate=ex:in_overworld,predicate=ex:flower_portal_done] run function ex:misc/to_flower
+execute as @a at @s[predicate=ex:in_flower,predicate=ex:flower_portal_done] run function ex:misc/to_overworld
+</pre>
+<pre class="file">ex:misc/flower_portal</pre>
+<pre>
+kill @s
+setblock ~ ~ ~ white_wool
+</pre>
+<pre class="file">ex/predicates/in_overworld.json</pre>
+<pre>
+{
+    "condition": "minecraft:location_check",
+    "predicate":{
+        "dimension": "minecraft:overworld"
+    }
+}
+</pre>
+<pre class="file">ex/predicates/in_flower.json</pre>
+<pre>
+{
+    "condition": "minecraft:location_check",
+    "predicate":{
+        "dimension": "ex:flower"
+    }
+}
+</pre>
+<pre class="file">ex:misc/to_flower</pre>
+<pre>
+execute in ex:flower run tp ~ ~ ~
+execute at @s run spreadplayers ~ ~ 1 10 false @s
+</pre>
+<pre class="file">ex:misc/to_overworld</pre>
+<pre>
+execute in overworld run tp ~ ~ ~
+execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
 <h1 id="§3_资源包">§3 资源包</h1>
@@ -1663,7 +2061,8 @@ function #foo:item_processer
 
 <h1 id="§5_物品设计">§5 物品设计</h1>
 <h2 id="§5.1_通用处理">§5.1 通用处理</h2>
-<p>由于原版模组从不添加原版不存在的物品，所以我们需要为物品加上NBT来进行区分。例如：添加物品红色火之力，不可叠加，右键触发执行命令。我们可使用胡萝卜钓竿作为物品本体。建议为模组添加的所有物品添加相应的战利品表来便于获取/修改/合成等。</p>
+<p>由于原版模组从不添加原版不存在的物品，所以我们需要为物品加上NBT来进行区分。我们先以一例来看模组物品通常包含哪些NBT。</p>
+<p class="ex"> 添加物品红色火之力，不可叠加，右键触发执行命令。我们可使用胡萝卜钓竿作为物品本体。建议为模组添加的所有物品添加相应的战利品表来便于获取/修改/合成等。</p>
 
 <pre class="file">ex/loot_tables/red_force_of_fire.json</pre>
 <pre>
@@ -1840,8 +2239,8 @@ execute if score #rand exValue matches 1.. run scoreboard players remove #damage
                             "modifiers": [
                                 {
                                     "slot": "mainhand",
-                                    "name": "random_attackDamage",
-                                    "attribute": "generic.attackDamage",
+                                    "name": "random_luck",
+                                    "attribute": "generic.luck",
                                     "operation": "addition",
                                     "amount": {
                                         "min": 0,
@@ -1863,7 +2262,7 @@ execute if score #rand exValue matches 1.. run scoreboard players remove #damage
 </pre>
 
 <p>投掷物如雪球、末影珍珠等可用于一次性右键工具，不同的物品有着各自的特点。投掷带自定义NBT标签的物品，对应的投掷物实体 <code>Item</code> 标签会包含这些NBT标签。注意，在1.14和更早版本，由于Mojang先消耗手持物再存储手持物信息，导致投掷最后一个物品时没有存储相应的 <code>Item</code> 信息，此时我们需要提前1刻存储玩家手持物信息方可。</p>
-<p>例如：扔出 <code>minecraft:experience_bottle{exXpNumber:99s}</code> 生成 <code>exXpNumber</code> 点经验值的经验球。</p>
+<p class="ex">扔出 <code>minecraft:experience_bottle{exXpNumber:99s}</code> 生成 <code>exXpNumber</code> 点经验值的经验球。</p>
 <pre class="file">ex:tick</pre>
 <pre>
 execute as @e[type=experience_bottle] if data entity @s Item.tag.exXpNumber at @s run function ex:xp/throw
@@ -2567,7 +2966,7 @@ kill @e[type=area_effect_cloud,distance=..0.01,tag=foo_block_pos]
 <p>最后，判断玩家主副手，并将相应的物品信息复制到盔甲架头部。不直接使用 <code>loot</code> 命令复制到盔甲架头部是为了在之后的破坏事件中保留原物品的额外信息，例如玩家重命名的名称等。</p>
 
 <h2 id="§6.2_计算交点法">§6.2 计算交点法</h2>
-<p>例如：放置某模组的所有方块，<code>CustomModelData</code> 位于<code>12970000-12979999</code>。</p>
+<p class="ex">放置某模组的所有方块，<code>CustomModelData</code> 位于<code>12970000-12979999</code>。</p>
 
 <p>向物品标签 <code>ex:blocks</code> 添加所有原版的方块，然后添加断言来判断玩家主手是不是方块。</p>
 <pre class="file">ex/predicates/block_on_mainhand.json</pre>
@@ -2771,8 +3170,124 @@ data remove storage ex:putted_block Item
 
 <p>尽管看上去比较长，但是递归的次数很少，命令数比视线追踪法还是要少很多。注意由于对玩家坐标乘了1000倍，因此玩家坐标绝对值大于2147484时，会溢出而导致无法使用，可以通过降低精准度(修改为70倍)来避免溢出。</p>
 
-<h2 id="§6.3_破坏事件">§6.3 破坏事件</h2>
-<p>例如：破坏自定义的树叶。</p>
+<h2 id="§6.3_命令方块替换法">§6.3 命令方块替换法</h2>
+<p>为了避免视线追踪不够精确，以及为了避免放置于不完整方块侧面等情形而导致方块不在视线上，我们可以考虑使用特殊方块来识别玩家放置的方块。</p>
+<pre class="file">ex:all_in_one_machine</pre>
+<pre>
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:petrified_oak_slab",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{display:{Name:'{\"italic\":false,\"translate\":\"item.ex.all_in_one_machine\"}'},id:'ex:all_in_one_machine',CustomModelData:12970001,ex_tag:['machine','need_fire','barrel']}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</pre>
+<pre class="file">ex:advancements/block/petrified_oak_slab.json</pre>
+<pre>
+{
+    "criteria": {
+        "petrified_oak_slab": {
+            "trigger": "minecraft:placed_block",
+            "conditions": {
+                "item": {
+                    "item": "minecraft:petrified_oak_slab"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "ex:block/reset/petrified_oak_slab"
+    }
+}
+</pre>
+<pre class="file">ex:block/reset/petrified_oak_slab</pre>
+<pre>
+advancement revoke @s only ex:block/petrified_oak_slab
+execute as @s[predicate=ex:mainhand/petrified_oak_slab] run data modify storage ex:block Item set from entity @s SelectedItem
+execute as @s[predicate=!ex:mainhand/petrified_oak_slab] run data modify storage ex:block Item set from entity @s Inventory[{Slot:-106b}]
+
+execute store result score #facing exValue run data get entity @s Rotation[0]
+scoreboard players add #facing exValue 225
+execute if score #facing exValue matches ..-1 run scoreboard players add #facing exValue 360
+execute if score #facing exValue matches 360.. run scoreboard players remove #facing exValue 360
+scoreboard players operation #facing exValue /= #90 exValue
+
+fill ~-6 ~-6 ~-6 ~6 ~6 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function ex:block/put/petrified_oak_slab"} replace petrified_oak_slab
+execute positioned ~ -6 ~ as @s[dy=12] run fill ~-6 0 ~-6 ~6 12 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function cpp:block/put/petrified_oak_slab"} replace petrified_oak_slab
+execute positioned ~ 249 ~ as @s[dy=12] run fill ~-6 243 ~-6 ~6 255 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function cpp:block/put/petrified_oak_slab"} replace petrified_oak_slab
+</pre>
+<pre class="file">ex:block/put/petrified_oak_slab</pre>
+<pre>
+execute unless data storage ex:block Item.tag.id run data modify storage ex:block Item.tag.cpp_tag set value ['machine','need_fire','barrel']
+data modify storage ex:block Item.Count set value 1b
+
+setblock ~ ~ ~ barrel{CustomName:'{"translate":"block.minecraft.petrified_oak_slab"}'}
+data modify block ~ ~ ~ CustomName set from storage ex:block Item.tag.display.Name
+
+execute if score #facing exValue matches 0 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["ex_block"],Rotation:[0.0f,0.0f]}
+execute if score #facing exValue matches 1 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["ex_block"],Rotation:[90.0f,0.0f]}
+execute if score #facing exValue matches 2 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["ex_block"],Rotation:[180.0f,0.0f]}
+execute if score #facing exValue matches 3 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["ex_block"],Rotation:[270.0f,0.0f]}
+execute as @e[type=armor_stand,tag=ex_block,distance=..0.5,limit=1] run function ex:block/put/petrified_oak_slab_tag
+</pre>
+<pre class="file">ex:block/put/petrified_oak_slab_tag</pre>
+<pre>
+execute if data storage ex:temp block.tag{ex_tag:['machine']} run tag @s add ex_machine
+execute if data storage ex:temp block.tag{ex_tag:['need_fire']} run tag @s add ex_need_fire
+data modify entity @s[tag=ex_need_fire] Fire set value 32767s
+
+execute if data storage ex:temp block.tag{ex_tag:['barrel']} run tag @s add ex_barrel
+
+execute unless data storage ex:temp block.tag.id run tag @s add ex_crafting_machine
+execute if data storage ex:temp block.tag{id:"ex:all_in_one_machine"} run tag @s add ex_all_in_one_machine
+
+data modify entity @s ArmorItems[3] set from storage ex:block Item
+</pre>
+<pre class="file">ex/predicates/mainhand/petrified_oak_slab.json</pre>
+<pre>
+{
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+        "equipment": {
+            "mainhand":{
+                "item": "minecraft:petrified_oak_slab"
+            }
+        }
+    }
+}
+</pre>
+<pre class="file">ex/predicates/offhand/petrified_oak_slab.json</pre>
+<pre>
+{
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+        "equipment": {
+            "offhand":{
+                "item": "minecraft:petrified_oak_slab"
+            }
+        }
+    }
+}
+</pre>
+
+
+
+<h2 id="§6.4_破坏事件">§6.4 破坏事件</h2>
+<p class="ex">破坏自定义的树叶。</p>
 <pre class="file">ex:tick</pre>
 <pre>
 execute as @e[type=armor_stand,tag=ex_leaves] at @s unless block ~ ~ ~ acacia_leaves run function ex:blocks/break/acacia_leaves
@@ -2795,7 +3310,7 @@ kill @s
 </pre>
 <p>我们将最近的 <code>Age:0s</code> (挖掘)和 <code>Age:1s</code> (自然腐烂)的物品添加标签，然后修改其为盔甲架头部存储物。</p>
 
-<h2 id="§6.4_模型设置">§6.4 模型设置</h2>
+<h2 id="§6.5_模型设置">§6.5 模型设置</h2>
 <p>使用如下的 <code>display</code> 来放缩物品在头部的大小，可以保证其与坐标轴基本对齐。</p>
 <pre class="file">assets/ex/models/material/moon_stone.json</pre>
 <pre>
@@ -2907,7 +3422,7 @@ kill @s
 </table>
 
 <h2 id="§7.2_有序合成">§7.2 有序合成</h2>
-<p>例：使用8羊毛+鸡蛋有序合成两个羊刷怪蛋。</p>
+<p class="ex">使用8羊毛+鸡蛋有序合成两个羊刷怪蛋。</p>
 
 <pre class="file">ex/recipes/sheep_spawn_egg.json</pre>
 <pre>
@@ -2935,7 +3450,7 @@ kill @s
 <p class="noindent">这里 <code>ex:wools</code> 为自定义的包含所有颜色羊毛的物品标签。</p>
 
 <h2 id="§7.3_无序合成">§7.3 无序合成</h2>
-<p>例：2沙子+红石=2红沙。</p>
+<p class="ex">2沙子+红石=2红沙。</p>
 
 <pre class="file">ex/recipes/red_sand.json</pre>
 <pre>
@@ -2961,7 +3476,7 @@ kill @s
 <p>配料可以重复。单个物品配方请使用有序合成而不是无序合成。</p>
 
 <h2 id="§7.4_切石机配方">§7.4 切石机配方</h2>
-<p>例：使用切石机切割橡木木板为2台阶。</p>
+<p class="ex">使用切石机切割橡木木板为2台阶。</p>
 
 <pre class="file">ex/recipes/stonecutting/oak_slab.json</pre>
 <pre>
@@ -2976,7 +3491,7 @@ kill @s
 </pre>
 
 <h2 id="§7.5_烧炼配方">§7.5 烧炼配方</h2>
-<p>例：熔炉烧炼皮革装备、腐肉、鞍为兔子皮。</p>
+<p class="ex">熔炉烧炼皮革装备、腐肉、鞍为兔子皮。</p>
 
 <pre class="file">ex/recipes/rabbit_hide_from_smelting.json</pre>
 <pre>
@@ -3010,7 +3525,7 @@ kill @s
 
 <h2 id="§7.6_覆盖原版配方">§7.6 覆盖原版配方</h2>
 <p>如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 <code>.jar</code> 文件，依次打开 <code>data/minecraft/recipes</code>，找到相应的配方文件，然后在自己的数据包中的相同位置（必然是 <code>minecraft</code> 命名空间下）放入同名文件即可覆盖默认的配方。</p>
-<p>例：将橡木台阶合成数量改为8。</p>
+<p class="ex">将橡木台阶合成数量改为8。</p>
 
 <pre class="file">minecraft/recipes/oak_stairs.json</pre>
 <pre>
@@ -3033,7 +3548,7 @@ kill @s
     }
 }
 </pre>
-<p>例：将原版白色床+墨囊=黑色床的合成配方修改为任意床+墨囊=黑色床。</p>
+<p class="ex">将原版白色床+墨囊=黑色床的合成配方修改为任意床+墨囊=黑色床。</p>
 
 <pre class="file">ex/tags/items/beds.json</pre>
 <pre>
@@ -3919,7 +4434,7 @@ execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run score
 <h2 id="§9.1_地板合成">§9.1 地板合成</h2>
 <p>将物品扔在地面进行合成，是模组配方数量少时采用的一种便捷做法。优点是无需设计 GUI。</p>
 
-<p>例：将磁铁（<code>id:"ex:magnet"</code>）和4个钻石合成为充能指南针（<code>id:"ex:powered_magnet"</code>）。</p>
+<p class="ex">将磁铁（<code>id:"ex:magnet"</code>）和4个钻石合成为充能指南针（<code>id:"ex:powered_magnet"</code>）。</p>
 
 <pre class="file">ex:tick</pre>
 <pre>
@@ -3939,7 +4454,7 @@ summon item ~ ~ ~ {Item:{id:"minecraft:compass",Count:1b,tag:{id:"ex:powered_mag
 
 <p>当合成配方较多时，我们应当考虑分类以降低每刻命令数。常见的做法是先按配方的原材料种类数、或者合成的形状分类。</p>
 
-<p>例如：利用玩家背包的右方3×3区域进行合成。</p>
+<p class="ex">利用玩家背包的右方3×3区域进行合成。</p>
 
 <pre class="file">ex:tick</pre>
 <pre>
@@ -4051,7 +4566,7 @@ data merge block ~ ~ ~ {CookTime:0s}
 
 <h2 id="§9.4.2_记分板模拟">§9.4.2 记分板模拟</h2>
 <p>另一种做法就是并不添加相应的烧炼配方，而是通过记分板计时来达到控制烧炼时间的目的。当物品进入熔炉后，判断其是否需要烧炼以及是否有燃料，然后判断输出栏是否为空或其产物，如果确实可以烧炼，那么临时存储输入输出栏物品至存储区，然后放入任意可烧炼物品以触发燃料的消耗和烧炼动画。下一刻再将存储区的物品返回熔炉。反复操作直到烧炼时间达到了烧炼该物品所需的时间，此时产出产物即可。(by chaoren019)</p>
-<p>该方法在计算时会导致熔炉内物品闪烁一下，更换不同燃烧值物品时，燃烧火焰条也会有所变化，这和通常烧炼配方有差异。</p>
+<p>该方法在计算时会导致熔炉内物品闪烁一下(这可以通过自定义空白模型的铁矿石来解决)，更换不同燃烧值物品时，燃烧火焰条也会有所变化，这和通常烧炼配方有差异。</p>
 <pre class="file">ex:furnace/tick</pre>
 <pre>
 execute unless block ~ ~ ~ furnace run kill @s
@@ -4744,9 +5259,11 @@ replaceitem entity @s weapon.mainhand minecraft:air
 
 <p>可以看出，可接受的只有瓜梗+模型覆盖、金合欢树苗+删除原模型、任意方块+完整模型三种做法。对于第二种做法，我们还需要修改村庄等结构中相应的模型，而且在玩家大规模种植时会生成大量实体。</p>
 
+<p>另一种实现方式即使用<a href="#§6.3_命令方块替换法">§6.3 命令方块替换法</a>来放置，只需在放置完成后检测下方不是土时将其破坏掉即可。这种方法较为简单，缺点是物品缺少树苗的诸如可作为燃料、可堆肥的特性。</p>
+
 <h2 id="§10.1_作物">§10.1 作物</h2>
 
-<p>例如：种植铁种子，收获种子和铁锭，可由骨粉催熟。种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。</p>
+<p class="ex">种植铁种子，收获种子和铁锭，可由骨粉催熟。种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。</p>
 <pre class="file">ex:advancements/plants/iron_seeds</pre>
 <pre>
 {
@@ -4971,8 +5488,8 @@ kill @s
                             "modifiers": [
                                 {
                                     "slot": "mainhand",
-                                    "name": "random_attackDamage",
-                                    "attribute": "generic.attackDamage",
+                                    "name": "random_luck",
+                                    "attribute": "generic.luck",
                                     "operation": "addition",
                                     "amount": {
                                         "min": 0,
@@ -5007,6 +5524,18 @@ scoreboard players operation #rand exValue += #random_min exValue
 
 <p>先设置 <code>#random_min</code> 和 <code>#random_max</code> 的 <code>exValue</code> 为随机数的上下界，然后执行该函数，则 <code>#rand</code> 的 <code>exValue</code> 即为该区间的一个随机数。</p>
 
+<p>另一种做法更为简单，生成一个药水云并将其 <code>UUID[0]</code> 作为随机数来源即可。</p>
+<pre class="file">ex:random</pre>
+<pre>
+summon area_effect_cloud ~ 0 ~ {Tags:["ex_random"]}
+execute store result score #rand exValue run data get entity @e[tag=ex_random,limit=1,type=area_effect_cloud] UUID[0]
+kill @e[tag=ex_random,type=area_effect_cloud]
+scoreboard players operation #random_interval exValue = #random_max exValue
+scoreboard players operation #random_interval exValue -= #random_min exValue
+scoreboard players add #random_interval exValue 1
+scoreboard players operation #rand exValue %= #random_interval exValue
+scoreboard players operation #rand exValue += #random_min exValue
+</pre>
 <p>对于固定范围的随机数，我们可以直接在战利品表内设置好，可省去部分记分板的计算。</p>
 
 
@@ -5185,25 +5714,7 @@ scoreboard players operation #rand exValue += #random_min exValue
 <h2 id="§11.3_耐久处理">§11.3 耐久处理</h2>
 
 <p>有时候我们需要模拟使用工具的过程，但工具并没有被使用，耐久也没有被消耗。此时我们需要手动对其耐久进行处理。</p>
-
-<pre class="file">ex:misc/damage</pre>
-<pre>
-execute store result score #unbreak_lvl exValue run data get storage ex:damage Item.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
-execute store result score #damage exValue run data get storage ex:damage Item.tag.Damage
-execute if score #unbreak_lvl exValue matches 1.. run function ex:misc/damage_check
-execute store result storage ex:damage Item.tag.Damage int 1 run scoreboard players add #damage exValue 1
-</pre>
-
-<pre class="file">ex:misc/damage_check</pre>
-<pre>
-loot spawn ~ -1 ~ loot ex:misc/random
-execute positioned ~ -1 ~ store result score #rand exValue run data get entity @e[type=item,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1,distance=..1] Item.tag.AttributeModifiers[0].Amount 1048575
-execute positioned ~ -1 ~ run kill @e[type=item,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1,distance=..1]
-scoreboard players operation #rand exValue %= #unbreak_lvl exValue
-execute if score #rand exValue matches 1.. run scoreboard players remove #damage exValue 1
-</pre>
-
-<p>我们将物品信息复制到存储区 <code>ex:damage</code> 的 <code>Item</code> 中，然后执行该函数。最后判断其是否已经耐久耗尽，若耗尽则清除之。</p>
+<p>我们将物品信息复制到存储区 <code>ex:damage</code> 的 <code>Item</code> 中，然后使用断言判断是否减少耐久。最后判断其是否已经耐久耗尽，若耗尽则清除之。</p>
 
 <pre class="file">ex:misc/damage_cst_main</pre>
 <pre>
@@ -5227,6 +5738,218 @@ data modify block ~ 255 ~ Items append from storage ex:damage Item
 loot replace entity @s weapon.offhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
 </pre>
+
+<pre class="file">ex:misc/damage</pre>
+<pre>
+execute store result score @s exValue run data get storage ex:damage tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
+execute store result score #damage exValue run data get storage ex:damage tag.Damage
+execute unless predicate ex:no_damage store result storage ex:damage tag.Damage int 1 run scoreboard players add #damage exValue 1
+</pre>
+
+<pre class="file">ex/predicate/no_damage.json</pre>
+<pre>
+[
+    {
+        "condition": "minecraft:inverted",
+        "term": {
+            "condition": "minecraft:entity_scores",
+            "entity": "this",
+            "scores": {
+                "cppChainDam": 0
+            }
+        }
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 1
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.5
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 2
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.66666667
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 3
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.75
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 4
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.8
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 5
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.83333333
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 6
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.85714286
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 7
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.875
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 8
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.88888889
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 9
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.9
+            }
+        ]
+    },
+    {
+        "condition": "minecraft:alternative",
+        "terms": [
+            {
+                "condition": "minecraft:inverted",
+                "term": {
+                    "condition": "minecraft:entity_scores",
+                    "entity": "this",
+                    "scores": {
+                        "cppChainDam": 10
+                    }
+                }
+            },
+            {
+                "condition": "minecraft:random_chance",
+                "chance": 0.90909091
+            }
+        ]
+    }
+]</pre>
 
 
 <h2 id="§11.4_红石信号">§11.4 红石信号</h2>
@@ -5720,7 +6443,7 @@ setblock ~ 255 ~ air
 
 <p>与某些特定方块交互，可通过相应的交互判据的计分板来探测。如果仅需要右击而不打开，可对容器进行上锁，但玩家快捷栏上方会提示容器已上锁，需要使用资源包来消除；或者使用传送来实现强制关闭GUI，但画面会有闪烁感。</p>
 
-<p>例如：右键方块破坏器将其上方的石头变为砂砾，圆石变为沙子。方块破坏器为上锁的熔炉，且相应位置已有盔甲架标记。这里我们直接使用 <a href="#§6.1_视线追踪法">§6.1 视线追踪法</a>来获取方块破坏器位置。</p>
+<p class="ex">右键方块破坏器将其上方的石头变为砂砾，圆石变为沙子。方块破坏器为上锁的熔炉，且相应位置已有盔甲架标记。这里我们直接使用 <a href="#§6.1_视线追踪法">§6.1 视线追踪法</a>来获取方块破坏器位置。</p>
 
 <pre class="file">ex:load</pre>
 <pre>
@@ -5832,7 +6555,7 @@ execute at @s facing entity @e[type=area_effect_cloud,tag=machine_close_gui_faci
 
 <h2 id="§11.6_生物移动">§11.6 生物移动</h2>
 
-<p>例如：手持绿宝石块的玩家吸引 <code>16</code> 米内的村民到自身位置。</p>
+<p class="ex">手持绿宝石块的玩家吸引 <code>16</code> 米内的村民到自身位置。</p>
 
 <pre class="file">ex:tick</pre>
 <pre>
@@ -6251,9 +6974,9 @@ execute if score #temp chainValue &lt; #max_durality chainValue run function cha
 
 <p>函数 <code>ex:damage</code> 见 <a href="§11.3_耐久处理">§11.3 耐久处理</a>。</p>
 
-<h1 id="§12_世界生成">§12 世界生成</h1>
-<h2 id="§12.1_随机结构">§12.1 随机结构</h2>
-<p>例如：世界生成时，随机生成羊毛树。判断玩家东南32*32是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。</p>
+<h1 id="§12_算法">§12 算法</h1>
+<h2 id="§12.1_世界生成结构">§12.1 世界生成结构</h2>
+<p class="ex">世界生成时，随机生成结构。判断玩家东南32×32范围内是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。</p>
 
 <pre class="file">ex:tick</pre>
 <pre>
@@ -6261,112 +6984,506 @@ execute as @a at @s unless block ~ 0 ~ bedrock run function ex:generate/check
 </pre>
 <pre class="file">ex:generate/check</pre>
 <pre>
-execute positioned ~-64 -2 ~-64 unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
-execute positioned ~-32 -2 ~-64 unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
-execute positioned ~ -2 ~-64 unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
-execute positioned ~-64 -2 ~-32 unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
-execute positioned ~-32 -2 ~-32 unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
-execute positioned ~ -2 ~-32 unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
-execute positioned ~-64 -2 ~ unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
-execute positioned ~-32 -2 ~ unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
-execute positioned ~ -2 ~ unless entity @e[tag=ex_chunk,dx=32,dy=256,dz=32] run function ex:generate/mark
+execute positioned ~-64 -1 ~-64 unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
+execute positioned ~-64 -1 ~-32 unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
+execute positioned ~-64 -1 ~ unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
+execute positioned ~-32 -1 ~-64 unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
+execute positioned ~-32 -1 ~-32 unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
+execute positioned ~-32 -1 ~ unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
+execute positioned ~ -1 ~-64 unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
+execute positioned ~ -1 ~-32 unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
+execute positioned ~ -1 ~ unless entity @e[type=area_effect_cloud,tag=ex_chunk,dx=32,dy=2,dz=32] run function ex:generate/mark
 </pre>
 <pre class="file">ex:generate/mark</pre>
 <pre>
-summon armor_stand ~ -1 ~ {Tags:["ex_chunk","ex_undet"],Invulnerable:1b,Invisible:1b,Marker:1b,NoGravity:1b,Small:1b,DisabledSlots:7967}
-scoreboard players set #32 exValue 32
-execute store result score #temp exValue run data get entity @e[tag=ex_undet,limit=1] Pos[0]
-scoreboard players operation #temp exValue /= #32 exValue
-scoreboard players add #temp exValue 1
-execute store result entity @e[tag=ex_undet,sort=nearest,limit=1] Pos[0] double 1 run scoreboard players operation #temp exValue *= #32 exValue
-
-execute store result score #temp exValue run data get entity @e[tag=ex_undet,limit=1] Pos[2]
-scoreboard players operation #temp exValue /= #32 exValue
-scoreboard players add #temp exValue 1
-execute store result entity @e[tag=ex_undet,sort=nearest,limit=1] Pos[2] double 1 run scoreboard players operation #temp exValue *= #32 exValue
-
-loot spawn ~ ~ ~ loot ex:generate/markers
-execute at @e[tag=ex_undet,sort=nearest,limit=1] run spreadplayers ~16 ~16 0 15 false @e[type=item,nbt={Item:{tag:{isStrMark:1b}}}]
-tag @e[tag=ex_undet] remove ex_undet
-execute as @e[type=item,nbt={Item:{tag:{isStrMark:1b}}}] at @s run function ex:generate/build
+summon area_effect_cloud ~32 0 ~32 {Age:0,Duration:2147483647,Tags:["ex_aec_marker","ex_chunk","ex_temp"]}
+execute as @e[type=area_effect_cloud,tag=ex_temp] run function ex:generate/aec
+loot spawn ~ ~ ~ loot ex:misc/generate
+execute store result score #t exValue run spreadplayers ~ ~ 0 15 false @e[type=item,nbt={Item:{tag:{ex_generate_marker:1b}}}]
+execute as @e[type=item,nbt={Item:{tag:{ex_generate_marker:1b}}}] at @s if block ~ ~-1 ~ #ex:replacable run tp ~ ~-1 ~
+execute as @e[type=item,nbt={Item:{tag:{ex_generate_marker:1b}}}] at @s if block ~ ~-1 ~ #ex:replacable run tp ~ ~-1 ~
+execute as @e[type=item,nbt={Item:{tag:{ex_generate_marker:1b}}}] at @s run function ex:generate/build
+</pre>
+<pre class="file">ex:generate/aec</pre>
+<pre>
+execute store result entity @s Pos[0] double 32 run data get entity @s Pos[0] 0.03125
+execute store result entity @s Pos[2] double 32 run data get entity @s Pos[2] 0.03125
+tag @s remove ex_temp
 </pre>
 <pre class="file">ex:generate/build</pre>
 <pre>
-# 爬行者地牢
-execute if score #generate_creeper_dungeon exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:creeper_dungeon_marker"}}}] if block ~ 15 ~ cave_air run function ex:generate/structures/creeper_dungeon
 # 附魔室
-execute if score #generate_enchanting_room exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:enchanting_room_marker"}}}] run function ex:generate/structures/enchanting_room
+execute as @s[nbt={Item:{tag:{ex_generate_type:"enchanting_room"}}}] if score #t exValue matches 1.. run function ex:generate/structures/enchanting_room
 # 图腾柱
-execute if score #generate_totem_pillar exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:totem_pillar_marker"}}}] run function ex:generate/structures/totem_pillar
-
-# 水果树
-execute if score #generate_fruit_tree exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:fruit_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function ex:plants/trees/fruit
-# 矿石树
-execute if score #generate_ore_tree exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:ore_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function ex:plants/trees/ore
-# 羊毛树
-execute if score #generate_wool_tree exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:wool_tree_marker"}}}] if block ~ ~-1 ~ grass_block align xyz run function ex:plants/trees/wool
-
+execute as @s[nbt={Item:{tag:{ex_generate_type:"tp_overworld"}}}] run function ex:generate/structures/tp_overworld
+execute as @s[nbt={Item:{tag:{ex_generate_type:"tp_the_nether"}}}] run function ex:generate/structures/tp_the_nether
+execute as @s[nbt={Item:{tag:{ex_generate_type:"tp_flower"}}}] run function ex:generate/structures/tp_flower
+# 树
+execute as @s[nbt={Item:{tag:{ex_generate_type:"fruit_tree"}}}] if block ~ ~-1 ~ #ex:sapling_plantable_on align xyz positioned ~0.5 ~ ~0.5 run function ex:plants/trees/fruit0
+execute as @s[nbt={Item:{tag:{ex_generate_type:"ore_tree"}}}] if block ~ ~-1 ~ #ex:sapling_plantable_on align xyz positioned ~0.5 ~ ~0.5 run function ex:plants/trees/ore0
+execute as @s[nbt={Item:{tag:{ex_generate_type:"wool_tree"}}}] if block ~ ~-1 ~ #ex:sapling_plantable_on align xyz positioned ~0.5 ~ ~0.5 run function ex:plants/trees/wool0
+execute as @s[nbt={Item:{tag:{ex_generate_type:"sakura_tree"}}}] if block ~ ~-1 ~ #ex:sapling_plantable_on align xyz positioned ~0.5 ~ ~0.5 run function ex:plants/trees/sakura0
 # 死珊瑚扇
-execute if score #generate_dead_coral_fan exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:dead_coral_fan_marker"}}}] run function ex:generate/structures/dead_coral_fan
-
+execute as @s[nbt={Item:{tag:{ex_generate_type:"dead_coral_fan"}}}] run function ex:generate/structures/dead_coral_fan
 # 灌木丛
-execute if score #generate_small_bush exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:small_bush_marker"}}}] if block ~ ~-1 ~ grass_block run function ex:generate/structures/small_bush
-
+execute as @s[nbt={Item:{tag:{ex_generate_type:"small_bush"}}}] if block ~ ~-1 ~ #ex:sapling_plantable_on run function ex:generate/structures/small_bush
 # 死云杉树
-execute if score #generate_dead_spruce exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:dead_spruce_marker"}}}] unless block ~ ~-1 ~ #ex:fluid run function ex:generate/structures/dead_spruce
-
+execute as @s[nbt={Item:{tag:{ex_generate_type:"dead_spruce"}}}] if block ~ ~-1 ~ #ex:sapling_plantable_on run function ex:generate/structures/dead_spruce
 # 农作物
-execute if score #generate_crops exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:crops_marker"}}}] if block ~ ~-1 ~ grass_block run function ex:generate/structures/crops
-
+execute as @s[nbt={Item:{tag:{ex_generate_type:"crops"}}}] if block ~ ~-1 ~ minecraft:grass_block run function ex:generate/structures/crops
 # 花草
-execute if score #generate_modcrops exValue matches 1.. as @s[nbt={Item:{tag:{id:"ex:modcrops_marker"}}}] if block ~ ~-1 ~ grass_block run function ex:generate/structures/modcrops
-
+execute as @s[nbt={Item:{tag:{ex_generate_type:"modcrops"}}}] run function ex:generate/structures/modcrops
 kill @s
 </pre>
-<p>生成羊毛树部分略。</p>
+<pre class="file">ex:generate/structures/enchanting_room</pre>
+<pre>
+setblock ~ ~20 ~ structure_block{posX:-1,posY:-20,posZ:-1,name:"ex:build/enchanting_room",mode:"LOAD"}
+setblock ~ ~21 ~ redstone_block
+fill ~ ~20 ~ ~ ~21 ~ air
+
+loot insert ~1 ~5 ~ loot ex:chests/enchanting_room
+loot insert ~2 ~5 ~ loot ex:chests/enchanting_room
+loot insert ~3 ~5 ~ loot ex:chests/enchanting_room
+loot insert ~ ~5 ~1 loot ex:chests/enchanting_room
+loot insert ~ ~5 ~2 loot ex:chests/enchanting_room
+loot insert ~ ~5 ~3 loot ex:chests/enchanting_room
+loot insert ~1 ~5 ~4 loot ex:chests/enchanting_room
+loot insert ~2 ~5 ~4 loot ex:chests/enchanting_room
+loot insert ~3 ~5 ~4 loot ex:chests/enchanting_room
+loot insert ~4 ~5 ~1 loot ex:chests/enchanting_room
+loot insert ~4 ~5 ~2 loot ex:chests/enchanting_room
+loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
+</pre>
+<pre class="file">ex/loot_tables/misc/generate.json</pre>
+<pre>
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.006
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "predicate": {
+                        "dimension": "minecraft:overworld"
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'enchanting_room'}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.006
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "predicate": {
+                        "dimension": "minecraft:overworld"
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'tp_overworld'}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.006
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "predicate": {
+                        "dimension": "minecraft:the_nether"
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'tp_the_nether'}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.006
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "predicate": {
+                        "dimension": "ex:flower"
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'tp_flower'}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.09
+                },
+                {
+                    "condition": "minecraft:alternative",
+                    "terms": [
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "dimension": "minecraft:overworld"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "dimension": "ex:flower"
+                            }
+                        }						
+                    ]
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'fruit_tree'}"
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'ore_tree'}"
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'wool_tree'}"
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'sakura_tree'}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.15
+                },
+                {
+                    "condition": "minecraft:alternative",
+                    "terms": [
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:desert"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:desert_hills"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:desert_lakes"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:badlands"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:badlands_plateau"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:modified_badlands_plateau"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:wooded_badlands_plateau"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:modified_wooded_badlands_plateau"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:eroded_badlands"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'dead_coral_fan'}"
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 5
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.1
+                },
+                {
+                    "condition": "minecraft:alternative",
+                    "terms": [
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "dimension": "minecraft:overworld"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "dimension": "ex:flower"
+                            }
+                        }						
+                    ]
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'small_bush'}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.08
+                },
+                {
+                    "condition": "minecraft:alternative",
+                    "terms": [
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:taiga"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:taiga_hills"
+                            }
+                        },
+                        {
+                            "condition": "minecraft:location_check",
+                            "predicate": {
+                                "biome": "minecraft:taiga_mountains"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'dead_spruce'}"
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 4
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.04
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "predicate": {
+                        "dimension": "minecraft:overworld"
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'crops'}"
+                        },
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 4
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "conditions":[
+                {
+                    "condition": "minecraft:random_chance",
+                    "chance": 0.5
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "predicate": {
+                        "dimension": "ex:flower"
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:firework_star",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{ex_generate_marker:1b,ex_clear:1b,CustomModelData:12970000,ex_generate_type:'modcrops'}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</pre>
+<p>注意在扩散标记物时，当下方为草等方块时，需要将其向下移动以避免结构悬空生成。</p>
+<p>我们可以将所有维度的结构标记物均放置在同一战利品表内。</p>
+<p>另一种生成为全局替换，例如将主世界的地牢刷怪笼一部分替换为苦力怕刷怪笼，那么在每次检测时，使用 <code>fill</code> 命令强制替换即可。但是该命令开销很大，会导致较大的卡顿。</p>
+
+<h2 id="§12.2_绘制图案">§12.2 绘制图案</h2>
+<h2 id="§12.3_循环和递归">§12.3 循环和递归</h2>
+<h2 id="§12.4_字符操作">§13.4 字符操作</h2>
+<h2 id="§12.5_位运算与种子">§12.5 位运算与种子</h2>
 
 
-<h2 id="§12.2_水处理">§12.2 水处理</h2>
-
-
-<h2 id="§12.3_下界处理">§12.3 下界处理</h2>
-
-
-<h2 id="§12.4_重生成">§12.4 重生成</h2>
-
-
-<h2 id="§12.5_维度模拟">§12.5 维度模拟</h2>
-
-
-<h1 id="§13_算法">§13 算法</h1>
-
-
-<h2 id="§13.1_绘制图案">§13.1 绘制图案</h2>
-<h2 id="§13.2_循环和递归">§13.2 循环和递归</h2>
-<h2 id="§13.3_字符操作">§13.3 字符操作</h2>
-<h2 id="§13.4_位运算与种子">§13.4 位运算与种子</h2>
-
-<!--
-烟火之星、皮革装备等受颜色控制而改变、具有双层模型的物品，若相应 <code>CustomModelData</code> 的模型也是双层的，是可以根据颜色而变化的。但是像盾牌受图案模式改变，其含有 <code>CustomModelData</code> 的对应物品并不会受到这些 nbt 影响。装备类物品穿戴后的显示效果也不受物品模型修改影响。
-建议
-<li><code>烟火之星</code>用于无互动功能的物品。
-<li><code>树苗</code>用于与土交互的(如花)。可以考虑移除或视觉上覆盖其原有模型。
-<li><code>小麦种子</code>用于与耕地交互的(如作物)。可以考虑移除或视觉上覆盖其原有模型。
-<li><code>烟火之星、皮革盔甲、药水</code>具有彩色效果，可用于不定色彩的物品。
-<li><code>兔子腿</code>用于参与酿造的物品。
-<li><code>铁块和金块</code>用于模拟矿物块，还可以参与信标基座。
-
-这些物品使用时均需考虑到物品本身的用途，利用或避免之。
-
-自定义的玩家头颅的样式极为丰富，而且无需绘制材质即可使用，但是注意需要联网使用。以下两个网站列出了大量可用的头颅样式
-<li><a href="https://heads.freshcoal.com/maincollection.php">Freshcoal</a>
-<li><a href="https://minecraft-heads.com/custom/heads">Minecraft Heads</a>
-
-这些头颅类别丰富，且均为可放置的方块(玩家头颅)，因此在模组应用中十分常见。另外还可将图片上传至<code>minecraft.net</code>域名下，以实现自定义头颅图案，参见<a href="http://www.mcbbs.net/thread-824528-1-1.html">自定义方块(玩家头颅)</a>。
-
-其它：天气判断、群系、存储区、背包处理。
-
--->
 </article>
 </div>
 

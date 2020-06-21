@@ -32,6 +32,13 @@ article{
 p{
 	text-indent: 2em;
 }
+p.ex{
+	text-indent: 0em;
+}
+p.ex:before{ 
+	content:"例 ";
+	font-weight: bold;
+}
 p.noindent{
 	text-indent: 0em;
 }
