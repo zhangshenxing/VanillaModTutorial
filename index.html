@@ -482,6 +482,11 @@ data
             fluids
             functions
             entity_types
+    minecraft
+        dimension
+            命名空间
+        dimension_type
+            命名空间
 </pre>
 <p><code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 pack.mcmeta 和 data 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。游戏内输入 <code>/datapack list</code> 可以列出所有的数据包。</p>
 <p><strong>原版数据包 (Vanilla)</strong> 是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/版本号/版本号.jar/data</code>。其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
@@ -989,7 +994,9 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 
 <h2 id="§2.10_维度和维度类型">§2.10 维度和维度类型</h2>
 
-<p>维度 (dimension) 和维度类型 (dimension_type) 用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://minecraft-zh.gamepedia.com/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
+<p>维度 (dimension) 和维度类型 (dimension_type) 用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://minecraft-zh.gamepedia.com/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。原版世界的默认参数可见<a href="https://wiki.biligame.com/mc/%E7%BB%B4%E5%BA%A6/Generator_Defaults">维度/Generator Defaults - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
+
+<p>维度/维度类型文件需要放在 <code>minecraft/dimension</code> 和 <code>minecraft/dimension_type</code> 下，其子文件夹为命名空间。维度类型文件规定了维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度文件规定了维度的生成方式和生物群系。</p>
 
 <pre class="file">minecraft/dimensions/ex/flower.json</pre>
 <pre>
@@ -1009,7 +1016,7 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
             "default_fluid": {
                 "Name": "minecraft:water",
                 "Properties": {
-                    "level": "7"
+                    "level": "0"
                 }
             },
             "noise": {
@@ -2061,8 +2068,8 @@ function #foo:item_processer
 
 <h1 id="§5_物品设计">§5 物品设计</h1>
 <h2 id="§5.1_通用处理">§5.1 通用处理</h2>
-<p>由于原版模组从不添加原版不存在的物品，所以我们需要为物品加上NBT来进行区分。我们先以一例来看模组物品通常包含哪些NBT。</p>
-<p class="ex"> 添加物品红色火之力，不可叠加，右键触发执行命令。我们可使用胡萝卜钓竿作为物品本体。建议为模组添加的所有物品添加相应的战利品表来便于获取/修改/合成等。</p>
+<p>由于原版模组从不添加原版不存在的物品，所以我们需要为物品加上NBT来进行区分。我们以一例来看模组物品通常包含哪些NBT。</p>
+<p class="ex"> 添加物品红色火之力，不可叠加，右键触发执行命令。我们可使用胡萝卜钓竿/诡异疣钓竿作为物品本体，这里我们以胡萝卜钓竿为例。我们建议为模组添加的所有物品添加相应的战利品表来便于获取/修改/合成等。</p>
 
 <pre class="file">ex/loot_tables/red_force_of_fire.json</pre>
 <pre>
@@ -2093,7 +2100,7 @@ function #foo:item_processer
 </tr>
 <tr>
     <td><code>display:{Name:'{"translate":"item.ex.red_force_of_fire"}'}</code></td>
-    <td>物品的显示名称，建议使用 <code>translate<code> 文本，以支持多种语言，见 <a href="#§3.3_语言文件">§3.3 语言文件</a>。</td>
+    <td>物品的显示名称，建议使用<code>translate</code>文本，以支持多种语言，见 <a href="#§3.3_语言文件">§3.3 语言文件</a>。</td>
 </tr>
 <tr>
     <td><code>CustomModelData:12970013</code></td>
@@ -2114,20 +2121,22 @@ function #foo:item_processer
         "layer0": "item/carrot_on_a_stick"
     },
     "overrides": [
-        { "predicate": { "custom_model_data": 12970013 }, "model": "ex:element/red_force_of_fire"}
+        { "predicate": { "custom_model_data": 12970013 }, "model": "ex:tools/red_force_of_fire"}
     ]
 }
 </pre>
-<pre class="file">assets/ex/models/element/red_force_of_fire.json</pre>
+<pre class="file">assets/ex/models/tools/red_force_of_fire.json</pre>
 <pre>
 {
     "parent": "item/handheld_rod",
     "textures": {
-        "layer0": "ex:element/red_force_of_fire"
+        "layer0": "ex:tools/red_force_of_fire"
     }
 }
 </pre>
-<p class="noindent">最后，为其绘制材质 <code>assets/ex/textures/element/red_force_of_fire.png</code>。</p>
+<p class="noindent">最后，为其绘制材质 <code>assets/ex/textures/tools/red_force_of_fire.png</code>。这样我们便将这个物品初步设计完成。</p>
+
+<p>我们会在本节接下来的段落介绍不同功能物品的设计。对于方块形式，我们则会在后续章节中介绍。</p>
 
 <h2 id="§5.2_右键交互">§5.2 右键交互</h2>
 <p>对于右键具有交互功能的物品，我们可以使用胡萝卜钓竿，通过使用胡萝卜钓竿的记分板来探测。例如使用上一节中的示例物品：</p>
@@ -2137,14 +2146,14 @@ scoreboard objectives add exUseCSt minecraft.used:minecraft.carrot_on_a_stick
 </pre>
 <pre class="file">ex:tick</pre>
 <pre>
-execute as @a[scores={exUseCSt=1..}] run function ex:misc/use_cst
+execute as @a[scores={exUseCSt=1..}] run function ex:use_cst
 </pre>
-<pre class="file">ex:misc/use_cst</pre>
+<pre class="file">ex:use_cst</pre>
 <pre>
-execute as @s[predicate=ex:hand_red_force_of_fire] run function ex:element/red_force_of_fire
+execute as @s[predicate=ex:hand/red_force_of_fire] run function ex:tools/red_force_of_fire
 scoreboard players reset @s exUseCSt
 </pre>
-<pre class="file">ex/predicates/hand_red_force_of_fire.json</pre>
+<pre class="file">ex/predicates/hand/red_force_of_fire.json</pre>
 <pre>
 {
     "condition": "minecraft:alternative",
@@ -2194,74 +2203,92 @@ scoreboard players reset @s exUseCSt
                     }
                 ]
             }
-        }        
-    ]
-}
-</pre>
-
-<p>如果需要的话，我们还可以手动模拟胡萝卜钓竿的耐久损耗。</p>
-<pre class="file">ex:element/red_force_of_fire</pre>
-<pre>
-...
-execute as @s[nbt={SelectedItem:{id:"minecraft:carrot_on_a_stick"}}] run function ex:misc/damage_cst_main
-execute as @s[nbt=!{SelectedItem:{id:"minecraft:carrot_on_a_stick"}}] run function ex:misc/damage_cst_off
-</pre>
-<p class="noindent">处理耐久的函数 <code>ex:misc/damage_cst_main</code> 和 <code>ex:misc/damage_cst_off</code> 见 <a href="#§11.3_耐久处理">§11.3 耐久处理</a>。</p>
-
-<pre class="file">ex:damage_tool</pre>
-<pre>
-execute store result score #unbreak_lvl exValue run data get storage ex:temp Item.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
-execute store result score #damage exValue run data get storage ex:temp Item.tag.Damage
-execute if score #unbreak_lvl exValue matches 1.. run function ex:damage
-execute store result storage ex:temp Item.tag.Damage int 1 run scoreboard players add #damage exValue 1
-</pre>
-<pre class="file">ex:damage</pre>
-<pre>
-loot spawn ~ -1 ~ loot ex:misc/random
-execute positioned ~ -1 ~ store result score #rand exValue run data get entity @e[type=item,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1,distance=..1] Item.tag.AttributeModifiers[0].Amount 1048575
-execute positioned ~ -1 ~ run kill @e[type=item,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1,distance=..1]
-scoreboard players operation #rand exValue %= #unbreak_lvl exValue
-execute if score #rand exValue matches 1.. run scoreboard players remove #damage exValue 1
-</pre>
-<pre class="file">ex/loot_tables/misc/random.json</pre>
-<pre>
-{
-    "pools": [
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "minecraft:stone",
-                    "functions": [
-                        {
-                            "function": "set_attributes",
-                            "modifiers": [
-                                {
-                                    "slot": "mainhand",
-                                    "name": "random_luck",
-                                    "attribute": "generic.luck",
-                                    "operation": "addition",
-                                    "amount": {
-                                        "min": 0,
-                                        "max": 2048
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{exRandomMarker:1b}"
-                        }
-                    ]
-                }
-            ]
         }
     ]
 }
 </pre>
 
-<p>投掷物如雪球、末影珍珠等可用于一次性右键工具，不同的物品有着各自的特点。投掷带自定义NBT标签的物品，对应的投掷物实体 <code>Item</code> 标签会包含这些NBT标签。注意，在1.14和更早版本，由于Mojang先消耗手持物再存储手持物信息，导致投掷最后一个物品时没有存储相应的 <code>Item</code> 信息，此时我们需要提前1刻存储玩家手持物信息方可。</p>
+<p>如果模组含多个以胡萝卜钓竿为本体的物品需要探测，我们可以先判断是主手还是副手使用的，然后再分情形讨论。</p>
+<pre class="file">ex:use_cst</pre>
+<pre>
+execute as @s[predicate=ex:mainhand/carrot_on_a_stick] run function ex:use_cst_main
+execute as @s[predicate=!ex:mainhand/carrot_on_a_stick] run function ex:use_cst_off
+scoreboard players reset @s exUseCSt
+</pre>
+<pre class="file">ex:use_cst_main</pre>
+<pre>
+execute as @s[predicate=ex:mainhand/red_force_of_fire] run function ex:tools/red_force_of_fire
+execute as @s[predicate=ex:mainhand/blue_force_of_sky] run function ex:tools/blue_force_of_sky
+...
+</pre>
+<pre class="file">ex:use_cst_off</pre>
+<pre>
+execute as @s[predicate=ex:offhand/red_force_of_fire] run function ex:tools/red_force_of_fire
+execute as @s[predicate=ex:offhand/blue_force_of_sky] run function ex:tools/blue_force_of_sky
+...
+</pre>
+
+<pre class="file">ex/predicates/mainhand/carrot_on_a_stick.json</pre>
+<pre>
+{
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+        "equipment": {
+            "mainhand":{
+                "item": "minecraft:carrot_on_a_stick"
+            }
+        }
+    }
+}
+</pre>
+<pre class="file">ex/predicates/mainhand/red_force_of_fire.json</pre>
+<pre>
+{
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+        "equipment": {
+            "mainhand":{
+                "nbt": "{id:'ex:red_force_of_fire'}"
+            }
+        }
+    }
+}
+</pre>
+
+<pre class="file">ex/predicates/offhand/red_force_of_fire.json</pre>
+<pre>
+{
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+        "equipment": {
+            "offhand":{
+                "nbt": "{id:'ex:red_force_of_fire'}"
+            }
+        }
+    }
+}
+</pre>
+
+<p>如果需要的话，我们还可以手动模拟胡萝卜钓竿的耐久损耗。</p>
+<pre class="file">ex:damage_cst</pre>
+<pre>
+execute as @s[predicate=ex:mainhand/carrot_on_a_stick] run data modify storage ex:damage Item set from entity @s SelectedItem
+execute as @s[predicate=!ex:mainhand/carrot_on_a_stick] run data modify storage ex:damage Item set from entity @s Inventory[{Slot:-106b}]
+function ex:damage
+execute if score #damage exValue matches 26.. run data remove storage ex:damage Item
+setblock ~ 255 ~ shulker_box
+data modify storage ex:damage Item.Slot set value 0b
+data modify block ~ 255 ~ Items append from storage ex:damage Item
+loot replace entity @s[predicate=ex:mainhand/carrot_on_a_stick] weapon.mainhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
+loot replace entity @s[predicate=!ex:mainhand/carrot_on_a_stick] weapon.offhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
+setblock ~ 255 ~ air
+</pre>
+<p class="noindent">处理耐久的函数 <code>ex:damage</code> 见 <a href="#§11.3_耐久处理">§11.3 耐久处理</a>。</p>
+
+<p>投掷物如雪球、末影珍珠等可用于一次性右键工具，不同的物品有着各自的特点。投掷带自定义NBT标签的物品，对应的投掷物实体NBT <code>Item</code> 会包含这些NBT标签。注意，在1.14和更早版本，由于Mojang先消耗手持物再存储手持物信息，导致投掷最后一个物品时没有存储相应的 <code>Item</code> 信息，此时我们需要提前1刻存储玩家手持物信息方可。</p>
 <p class="ex">扔出 <code>minecraft:experience_bottle{exXpNumber:99s}</code> 生成 <code>exXpNumber</code> 点经验值的经验球。</p>
 <pre class="file">ex:tick</pre>
 <pre>
@@ -2269,14 +2296,39 @@ execute as @e[type=experience_bottle] if data entity @s Item.tag.exXpNumber at @
 </pre>
 <pre class="file">ex:xp/throw</pre>
 <pre>
-summon minecraft:experience_orb ~ ~ ~ {Value:9s,Tags:["ex_XpNumber"]}
+summon experience_orb ~ ~ ~ {ags:["ex_XpNumber"]}
 execute store result entity @e[type=experience_orb,tag=ex_XpNumber,limit=1,distance=..1] Value short 1 run data get entity @s Item.tag.ex_XpNumber
 tag @e[type=experience_orb,tag=ex_XpNumber,limit=1,distance=..1] remove ex_XpNumber
 kill @s        
 </pre>
+<p>注意使用发射器发射该附魔之瓶仍然会表现如同普通附魔之瓶。</p>
 
 <h2 id="§5.3_食物">§5.3 食物</h2>
-<p>我们一般使用曲奇、苹果、面包、南瓜派等来作为食物本体，曲奇的优点是回复的饥饿值低，可用于制作低饥饿值的食物，南瓜派的优点仅可用于食用。我们使用进度来判断玩家是否食用了特定食物。例如：食用肉松面包回复10点饥饿值，并获得30秒的速度效果。</p>
+
+<p>我们一般要求食物的本体无合成用途，且和其它生物没有交互，饥饿值较低以便于通过饱和效果实现高饥饿值。由此，可选的有：</p>
+<table><thead><tr><th>物品</th><th>优点</th><th>缺点</th></tr></thead><tbody>
+<tr><td>曲奇</td>
+    <td>饥饿值低，容易通过饱和效果实现至少2点饥饿值的食物。无合成用途。</td>
+    <td>和鹦鹉可交互。</td>
+</tr>
+<tr><td>苹果</td>
+    <td>饥饿值低，容易通过饱和效果实现至少4点饥饿值的食物。</td>
+    <td>可用于合成金苹果。</td>
+</tr>
+<tr><td>熟鳕鱼</td>
+    <td>饥饿值低，容易通过饱和效果实现至少5点饥饿值的食物。无合成用途。</td>
+    <td>-</td>
+</tr>
+<tr><td>面包</td>
+    <td>饥饿值低，容易通过饱和效果实现至少5点饥饿值的食物。无合成用途。和村民可交互。</td>
+    <td>-</td>
+</tr>
+<tr><td>迷之炖菜</td>
+    <td>容易实现状态效果。不可堆叠，食用后有碗。</td>
+    <td>饥饿值过高，只能通过饱和效果实现至少8点饥饿值的食物。</td>
+</tr>
+</tbody></table>
+<p class="ex">食用肉松面包回复10点饥饿值，并获得30秒的速度效果，且可扔给村民。</p>
 <pre class="file">ex/loot_tables/meat_floss_bread.json</pre>
 <pre>
 {
@@ -2323,9 +2375,45 @@ effect give @s saturation 1 4
 effect give @s speed 30
 advancement revoke @s only ex:foods/meat_floss_bread
 </pre>
-<p class="noindent">这里，1秒的饱和IV可以恢复5点饥饿值，加上面包本省的5点，正好为10点。</p>
+<p class="noindent">这里，1秒的饱和IV可以恢复5点饥饿值，加上面包本身的5点，正好为10点。</p>
 
-<p>如果我们想要制作不可堆叠类食物，可以使用迷之炖菜，注意会剩下碗。而且迷之炖菜的可以自带药水效果，无需进度和函数来额外实现。例如：食用缤纷菜蔬回复14点饥饿值，并获得30秒的跳跃提升效果。</p>
+<p>如果我们想要制作不可堆叠类食物，可以为食物附加上随机的盔甲属性，且令其在 <code>chest</code> 栏位生效。由于一般食物无法放入玩家胸甲栏位，因此该属性并不会有实际效果。</p>
+<pre class="file">ex/loot_tables/colorful_vegetable.json</pre>
+<pre>
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:cooked_cod",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_nbt",
+                            "tag": "{display:{Name:'{\"italic\":false,\"translate\":\"item.cpp.colorful_vegetable\"}'},id:'cpp:colorful_vegetable',CustomModelData:12970002,HideFlags:63}"
+                        },
+                        {
+                            "function": "minecraft:set_attributes",
+                            "modifiers": [
+                                {
+                                    "slot": "chest",
+                                    "name": "food_armor",
+                                    "attribute": "generic.armor",
+                                    "amount": 0,
+                                    "operation": "addition"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</pre>
+<p>更为简便的做法是使用迷之炖菜，注意会剩下碗。迷之炖菜可以自带药水效果，无需进度和函数来额外实现药水效果，但由于只能设置为1级，因此额外的饥饿值仍然需要进度。</p>
+<p class="ex">食用缤纷菜蔬回复6点饥饿值，并获得30秒的跳跃提升效果。</p>
 <pre class="file">ex/loot_tables/colorful_vegetable.json</pre>
 <pre>
 {
@@ -2339,7 +2427,7 @@ advancement revoke @s only ex:foods/meat_floss_bread
                     "functions": [
                         {
                             "function": "minecraft:set_nbt",
-                            "tag": "{display:{Name:'{\"translate\":\"item.ex.colorful_vegetable\"}',Lore:['{\"translate\":\"lore.ex.leap\"}']},id:'ex:colorful_vegetable',CustomModelData:12970002,Effects:[{EffectDuration:600,EffectId:8b},{EffectDuration:8,EffectId:23b}]}"
+                            "tag": "{display:{Name:'{\"translate\":\"item.ex.colorful_vegetable\"}',Lore:['{\"translate\":\"lore.ex.leap\"}']},id:'ex:colorful_vegetable',CustomModelData:12970002,Effects:[{EffectDuration:600,EffectId:8b}]}"
                         }
                     ]
                 }
@@ -2348,9 +2436,11 @@ advancement revoke @s only ex:foods/meat_floss_bread
     ]
 }
 </pre>
+<p>对于想要使用饥饿效果来降低饥饿值的情形，注意饥饿效果会先消耗饱食度，且如果玩家食用后饥饿值已满，还需要通过记分板来实时检测上一刻玩家的饥饿值以确定当前的饥饿值应当为多少。因此实现较为繁琐，这里便不做详解。</p>
 
 <h2 id="§5.4_药水">§5.4 药水</h2>
-<p>通常我们使用药水来实现自定义的药水效果，例如：饮用潮汐药水后获得8分钟的潮涌之力效果。</p>
+<p>我们使用药水来实现自定义的药水效果。</p>
+<p class="ex">饮用潮汐药水后获得8分钟的潮涌之力效果。</p>
 <pre class="file">ex/loot_tables/potion_of_tide.json</pre>
 <pre>
 {
@@ -2374,7 +2464,8 @@ advancement revoke @s only ex:foods/meat_floss_bread
 }
 </pre>
 
-<p>如果我们想要药水可以堆叠，可以使用食物(64堆叠数)或蜂蜜瓶(16堆叠数)来实现，尽管蜂蜜瓶等具有额外的合成效果。我们需要手动为食物加上显示药水效果的<code>Lore</code>。例如：饮用天空药水后获得6分钟的速度II和6分钟的缓降效果。</p>
+<p>如果我们想要药水可以堆叠，可以使用食物(64堆叠数)或蜂蜜瓶(16堆叠数)来实现，但要注意它们可以恢复饥饿值，且可能可参与合成。我们需要手动为食物加上显示药水效果的<code>Lore</code>。</p>
+<p class="ex">饮用天空药水(16堆叠数)后回复6点饥饿值，并获得6分钟的速度II和6分钟的缓降效果。</p>
 <pre class="file">ex/loot_tables/agentia_of_sky.json</pre>
 <pre>
 {
@@ -2417,13 +2508,14 @@ advancement revoke @s only ex:foods/meat_floss_bread
 </pre>
 <pre class="file">ex:potion/agentia_of_sky</pre>
 <pre>
-effect give @s minecraft:speed 360 1
-effect give @s minecraft:slow_falling 360
+effect give @s speed 360 1
+effect give @s slow_falling 360
 advancement revoke @s only ex:potion/agentia_of_sky
 </pre>
 
 <h2 id="§5.5_自定义状态效果">§5.5 自定义状态效果</h2>
-<p>原版定义新的状态效果是不可能的，但是我们可以通过进度来模拟食用特定物品后的效果。我们使用记分板来记录时长，模拟药水的颗粒效果，并在<code>actionbar</code>显示剩余时长。我们无法在背包页面显示图标和时长，也无法在右上角显示图标。例如：饮用泥土药水后获得12分钟的隐身和12分钟的连锁效果，这里我们不涉及实际效果的实现。</p>
+<p>原版定义新的状态效果是不可能的，但是我们可以通过进度来模拟食用特定物品后的效果。我们使用记分板来记录时长，模拟药水的颗粒效果，并在<code>actionbar</code>显示剩余时长。</p>
+<p class="ex">饮用泥土药水后获得12分钟的隐身和12分钟的连锁效果，这里我们不涉及实际效果的实现。</p>
 <pre class="file">ex/loot_tables/agentia_of_dirt.json</pre>
 <pre>
 {
@@ -2466,7 +2558,7 @@ advancement revoke @s only ex:potion/agentia_of_sky
 </pre>
 <pre class="file">ex:potion/agentia_of_dirt</pre>
 <pre>
-effect give @s minecraft:invisibility 720
+effect give @s invisibility 720
 execute unless score @s exChainTick matches 14400.. run scoreboard players set @s exChainTick 14400
 advancement revoke @s only ex:potion/agentia_of_dirt
 </pre>
@@ -2502,9 +2594,54 @@ execute as @s[scores={exChainTick=20..}] if score #sec exValue matches ..9 run t
 title @s[scores={exChainTick=..19}] actionbar [{"text":" "}]
 </pre>
 
-<h2 id="§5.6_头饰">§5.6 头饰</h2>
-<p>我们使用雕刻过的南瓜来实现头饰。例如：可佩戴在头部的花环。</p>
+<p>我们无法在背包页面显示图标和时长，但是我们可以在特定分辨率下在右上角显示图标。这里需要使用<a href="§3.8_字体">§3.8 字体</a>的负空格字体技巧。我们假设当前分辨率为<code>1920×1080</code>，通过试验得知使用<code>actionbar</code>占据整个右上角需要的大小为<code>480×182</code>，因此我们使用<code>298</code>像素宽的空格和<code>182×182</code>的图案。</p>
+<pre class="file">assets/ex/font/default.json</pre>
+<pre>
+{
+    "providers": [
+        {
+            "type": "bitmap",
+            "file": "ex:font/space.png",
+            "ascent": -32768,
+            "height": 297,
+            "chars": ["1"]
+        },
+        {
+            "type": "bitmap",
+            "file": "ex:font/chain.png",
+            "height": 182,
+            "ascent": 182,
+            "chars": ["2"]
+        }
+    ]
+}
+</pre>
+<p class="noindent">其中文件 <code>assets/ex/textures/font/space.png</code> 为 <code>1×1</code> 的透明文件，<code>assets/ex/textures/font/chain.png</code> 为 <code>182×182</code> 的文件，右上角为需要显示的状态效果图案。我们使用自定义的字体以避免占据原版字符。</p>
+<figure>
+    <img src="items/space.png" alt="空格材质" />
+    <figcaption>图5.1 空格材质</figcaption>
+</figure>
 
+<figure>
+    <img src="items/chain.png" alt="状态效果材质" />
+    <figcaption>图5.2 状态效果材质</figcaption>
+</figure>
+
+<pre class="file">ex:chain/showtime</pre>
+<pre>
+title @s actionbar {"font":"cpp:default","text":"12"}
+</pre>
+
+<figure>
+    <img src="items/chain_effect.png" alt="自定义状态效果" />
+    <figcaption>图5.3 自定义状态效果</figcaption>
+</figure>
+<p>状态效果即将结束时的闪烁效果也可以类似实现，这里不再赘述。</p>
+
+
+<h2 id="§5.6_头饰">§5.6 头饰</h2>
+<p>我们使用雕刻过的南瓜来实现头饰。</p>
+<p class="ex">可佩戴在头部的花环。</p>
 <pre class="file">ex/loot_tables/garland.json</pre>
 <pre>
 {
@@ -2527,17 +2664,18 @@ title @s[scores={exChainTick=..19}] actionbar [{"text":" "}]
     ]
 }
 </pre>
-<p class="noindent">处理放置方块事件的细节见 <a href="§6_方块设计">§6 方块设计</a>，我们假设已探测到南瓜位置，且玩家放置的方块的NBT信息已存储在存储区<code>ex:loc_block Item</code>，我们对其进行破坏并生成原物品。</p>
-<pre class="file">ex/block/put/carved_pumpkin1.json</pre>
+<p class="noindent">由于雕刻过的南瓜可以放置，为了避免我们需要处理放置方块事件，细节见 <a href="§6_方块设计">§6 方块设计</a>。我们假设已探测到南瓜位置，且玩家放置的方块的NBT信息已存储在存储区<code>ex:block Item</code>，我们对其进行破坏并生成原物品。</p>
+<pre class="file">ex/block/carved_pumpkin.json</pre>
 <pre>
 setblock ~ ~ ~ air
 kill @s
 summon item ~ ~ ~ {Item:{id:"minecraft:firework_star",Count:1b,tag:{CustomModelData:12971000}},Tags:["ex_temp"]}
-data modify entity @e[type=item,tag=ex_temp,distance=..0.1,limit=1] Item set from storage ex:loc_block Item
+data modify entity @e[type=item,tag=ex_temp,distance=..0.1,limit=1] Item set from storage ex:block Item
 tag @e[type=item,tag=ex_temp,distance=..0.1,limit=1] remove ex_temp
 </pre>
 
-<p>我们将资源包内文件 <code>assets/minecraft/textures/misc/pumpkinblur.png</code> 设置为完全透明的图片以清除雕刻过的南瓜戴在头上的视野限制效果。对于头饰而言，我们希望其像盔甲一样在背包物品栏显示为物品的平面材质，而在玩家头部显示为立体模型。因此我们需要两套模型，并处理物品进入玩家头部和手部的事件，见<a href="https://www.mcbbs.net/thread-833056-1-1.html">【1.14】物品头部/背包/手持显示不同材质/模型</a>。</p>
+<p>我们将资源包内文件 <code>assets/minecraft/textures/misc/pumpkinblur.png</code> 设置为完全透明的图片以清除雕刻过的南瓜戴在头上的视野限制效果。</p>
+<p>对于头饰而言，我们希望其像盔甲一样在背包物品栏显示为物品的平面材质，而在玩家头部显示为立体模型。因此我们需要两套模型，并处理物品进入玩家头部和手部的事件，见<a href="https://www.mcbbs.net/thread-833056-1-1.html">【1.14】物品头部/背包/手持显示不同材质/模型</a>。</p>
 
 <pre class="file">minecraft/models/item/carved_pumpkin.json</pre>
 <pre>
@@ -2566,7 +2704,7 @@ tag @e[type=item,tag=ex_temp,distance=..0.1,limit=1] remove ex_temp
 </pre>
 <figure>
     <img src="items/garland_item.png" alt="花环物品材质" />
-    <figcaption>图5.1 花环物品材质</figcaption>
+    <figcaption>图5.4 花环物品材质</figcaption>
 </figure>
 
 <p>在头部时，我们将其在背包的显示旋转使得只能看到方块底部，而底部材质为对应的普通物品材质。其它5个面用于显示花环的立体材质模型。</p>
@@ -2607,7 +2745,7 @@ tag @e[type=item,tag=ex_temp,distance=..0.1,limit=1] remove ex_temp
 </pre>
 <figure>
     <img src="items/garland.png" alt="花环方块材质" />
-    <figcaption>图5.2 花环方块材质</figcaption>
+    <figcaption>图5.5 花环方块材质</figcaption>
 </figure>
 
 <pre class="file">ex/predicates/mainhand_hat.json</pre>
@@ -5713,37 +5851,14 @@ scoreboard players operation #rand exValue += #random_min exValue
 
 <h2 id="§11.3_耐久处理">§11.3 耐久处理</h2>
 
-<p>有时候我们需要模拟使用工具的过程，但工具并没有被使用，耐久也没有被消耗。此时我们需要手动对其耐久进行处理。</p>
+<p>有时候我们需要模拟使用工具的过程，但工具并没有真正被使用，耐久也没有被消耗。此时我们需要手动对其耐久进行处理。</p>
 <p>我们将物品信息复制到存储区 <code>ex:damage</code> 的 <code>Item</code> 中，然后使用断言判断是否减少耐久。最后判断其是否已经耐久耗尽，若耗尽则清除之。</p>
 
-<pre class="file">ex:misc/damage_cst_main</pre>
+<pre class="file">ex:damage</pre>
 <pre>
-data modify storage ex:damage Item set from entity @s SelectedItem
-function ex:misc/damage
-execute if score #damage exValue matches 26.. run data remove storage ex:damage Item
-setblock ~ 255 ~ shulker_box
-data modify storage ex:damage Item.Slot set value 0b
-data modify block ~ 255 ~ Items append from storage ex:damage Item
-loot replace entity @s weapon.mainhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
-setblock ~ 255 ~ air
-</pre>
-<pre class="file">ex:misc/damage_cst_off</pre>
-<pre>
-data modify storage ex:damage Item set from entity @s Inventory[{Slot:-106b}]
-function ex:misc/damage
-execute if score #damage exValue matches 26.. run data remove storage ex:damage Item
-setblock ~ 255 ~ shulker_box
-data modify storage ex:damage Item.Slot set value 0b
-data modify block ~ 255 ~ Items append from storage ex:damage Item
-loot replace entity @s weapon.offhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
-setblock ~ 255 ~ air
-</pre>
-
-<pre class="file">ex:misc/damage</pre>
-<pre>
-execute store result score @s exValue run data get storage ex:damage tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
-execute store result score #damage exValue run data get storage ex:damage tag.Damage
-execute unless predicate ex:no_damage store result storage ex:damage tag.Damage int 1 run scoreboard players add #damage exValue 1
+execute store result score @s exUnbreakLvl run data get storage ex:damage Item.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
+execute store result score #damage exValue run data get storage ex:damage Item.tag.Damage
+execute unless predicate ex:no_damage store result storage ex:damage Item.tag.Damage int 1 run scoreboard players add #damage exValue 1
 </pre>
 
 <pre class="file">ex/predicate/no_damage.json</pre>
@@ -5755,7 +5870,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
             "condition": "minecraft:entity_scores",
             "entity": "this",
             "scores": {
-                "cppChainDam": 0
+                "exUnbreakLvl": 0
             }
         }
     },
@@ -5768,7 +5883,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 1
+                        "exUnbreakLvl": 1
                     }
                 }
             },
@@ -5787,7 +5902,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 2
+                        "exUnbreakLvl": 2
                     }
                 }
             },
@@ -5806,7 +5921,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 3
+                        "exUnbreakLvl": 3
                     }
                 }
             },
@@ -5825,7 +5940,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 4
+                        "exUnbreakLvl": 4
                     }
                 }
             },
@@ -5844,7 +5959,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 5
+                        "exUnbreakLvl": 5
                     }
                 }
             },
@@ -5863,7 +5978,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 6
+                        "exUnbreakLvl": 6
                     }
                 }
             },
@@ -5882,7 +5997,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 7
+                        "exUnbreakLvl": 7
                     }
                 }
             },
@@ -5901,7 +6016,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 8
+                        "exUnbreakLvl": 8
                     }
                 }
             },
@@ -5920,7 +6035,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 9
+                        "exUnbreakLvl": 9
                     }
                 }
             },
@@ -5939,7 +6054,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
                     "condition": "minecraft:entity_scores",
                     "entity": "this",
                     "scores": {
-                        "cppChainDam": 10
+                        "exUnbreakLvl": 10
                     }
                 }
             },
@@ -5950,7 +6065,7 @@ execute unless predicate ex:no_damage store result storage ex:damage tag.Damage 
         ]
     }
 ]</pre>
-
+<p>对于旧版本，我们也可以通过生成<code>0~耐久附魔等级</code>的随机数，并判断是否为0来确定是否消耗耐久，参见<a href="§11.1_随机数">§11.1 随机数</a>。</p>
 
 <h2 id="§11.4_红石信号">§11.4 红石信号</h2>
 
