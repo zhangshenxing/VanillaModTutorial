@@ -3722,7 +3722,7 @@ kill @s
 </tr>
 <tr>
     <td><code>minecraft:smoking</code></td>
-    <td></td>
+    <td>烟熏炉烧炼配方</td>
 </tr>
 <tr>
     <td><code>minecraft:campfire_cooking</code></td>
@@ -3774,7 +3774,7 @@ kill @s
     <th>烧炼耗时</th>
     <td><code>cookingtime</code></td>
     <td>数字</td>
-    <td>烧炼所需的刻数，若缺省则使用默认的时间，熔炉烟熏炉为<code>200<code>，高炉营火为<code>100</code>。</td>
+    <td>烧炼所需的刻数，若缺省则使用默认的时间，熔炉烟熏炉为<code>200</code>，高炉营火为<code>100</code>。</td>
 </tr>
 </tbody>
 </table>
@@ -3950,7 +3950,7 @@ kill @s
     }
 }
 </pre>
-<p>如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为 <code>{}</code> 时会被认为是错误文件而无法覆盖原配方。</p>
+<p>如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为 <code>{}</code> 时会被认为是错误文件而无法覆盖原配方。同时，我们需要将解锁该配方的进度触发器设置为 <code>minecraft:impossible</code>。</p>
 
 <h2 id="§7.7_配方获取">§7.7 配方获取</h2>
 <p>一个完整的配方应当有相应的进度来使玩家获取之，通常触发器为玩家背包含有合成材料。也可以根据需要在函数中使用命令 <code>recipe</code> 给予。</p>
