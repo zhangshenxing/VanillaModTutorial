@@ -29,7 +29,7 @@
         <li><a href="#§1.4_JSON文件">§1.4 JSON文件</a></li>
     </ul></li>
     <li><a href="#§2_数据包">§2 数据包</a><ul>
-        <li><a href="#§2.1_元信息">§2.1 元信息</a></li>
+        <li><a href="#§2.1_元信息和图标">§2.1 元信息和图标</a></li>
         <li><a href="#§2.2_命名空间">§2.2 命名空间</a></li>
         <li><a href="#§2.3_函数">§2.3 函数</a></li>
         <li><a href="#§2.4_进度">§2.4 进度</a></li>
@@ -135,7 +135,7 @@
     </ul></li>
 </ul>
 </nav>
-<footer style="height: 3.5em; z-index: 99;"><p class="noindent" style="margin:0 15px 5px 0; text-align:right;color: hsl(220, 90%, 90%);;">© ruhuasiyu <br/> 2020-07-01</p></footer>
+<footer style="height: 3.5em; z-index: 99;"><p class="noindent" style="margin:0 15px 5px 0; text-align:right;color: hsl(220, 90%, 90%);;">ruhuasiyu <br/> 2020-07-02</p></footer>
 
 
 <div id="main_part">
@@ -145,7 +145,7 @@
 <p>原版模组一般指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。因此我将为大家做一个简单的入门，以期抛砖引玉。</p>
 <p>本文内容适用于 Minecraft Java 版 1.16 版本，但大部分内容也适合 1.13-1.15 版本，请读者注意区分。系统环境为 Windows10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议、教程等。有任何错误和疑问请联系我，谢谢！</p>
 <p>由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
-<p>编写进度：§1-§12.1 校对：§2.3(2020/07/01)</p>
+<p>编写进度：§1-§12.1 校对：§2.5(2020/07/02)</p>
 
 <h1 id="§1_预备知识">§1 预备知识</h1>
 <p>本节部分段落常为部分读者所熟知，但仍建议原版模组新手按顺序浏览一遍，可跳过自己熟知的部分。对于首次接触者，请耐心阅读。</p>
@@ -494,6 +494,7 @@
 <pre class="file">datapacks/数据包名称或数据包名称.zip/</pre>
 <pre>
 pack.mcmeta
+pack.png
 data
     命名空间
         advancements
@@ -517,13 +518,13 @@ data
 <p><code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 pack.mcmeta 和 data 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。游戏内输入 <code>/datapack list</code> 可以列出所有的数据包。</p>
 <p><strong>原版数据包 (Vanilla)</strong> 是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/[版本号]/[版本号].jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
 
-<h2 id="§2.1_元信息">§2.1 元信息</h2>
+<h2 id="§2.1_元信息和图标">§2.1 元信息和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
 <pre class="file">pack.mcmeta</pre>
 <pre>
 {
     "pack": {
-        "pack_format": 4,
+        "pack_format": 5,
         "description": "§6数据包名称\n§a简要介绍 §6by 某某作者"
     }
 }
@@ -541,6 +542,7 @@ data
     <td>单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>。在输入 <code>/datapack list</code> 命令后，鼠标移至数据包名称上会显示 <code>description</code> 信息。</td>
 </tr>
 </tbody></table>
+<p>数据包可以包含一个 <code>pack.png</code>，它是大小为 <code>16×16</code> 的图片，用于生成世界时在数据包菜单中显示。</p>
 
 <h2 id="§2.2_命名空间">§2.2 命名空间</h2>
 <p>命名空间 (namespace) 为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
@@ -613,16 +615,15 @@ data
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。</p>
 
 <h2 id="§2.3_函数">§2.3 函数</h2>
-<p>函数 (functions) 为一些命令的集合。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释。游戏内或函数内使用 <code>function [命名空间]:[路径]</code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
+<p>可参考<a href="https://wiki.biligame.com/mc/函数（Java版）">函数</a>。函数 (functions) 为一些命令的集合。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function [命名空间]:[路径]</code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
+<p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute">命令/execute</a>的各项子命令。</p>
+
 <p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考 <a href="#§2.9.1_预设标签">§2.9.1 预设标签</a>。</p>
 
 <h2 id="§2.4_进度">§2.4 进度</h2>
-<p>可参考</p>
-<ul>
-    <li><a href="http://www.mcbbs.net/thread-685310-1-1.html">【烯方的那一套理论】猴子都能学会的自定义advancement！</a></li>
-    <li><a href="https://wiki.biligame.com/mc/%E8%BF%9B%E5%BA%A6">进度 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
-</ul>
-<p>进度 (advancements) 为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件，文件夹 <code>data/[命名空间]/advancements</code> 或子文件夹下每一个 <code>root.json</code> 文件都对应一个进度页面选项卡，因此可通过文件夹来分离不同的选项卡。例如：</p>
+<p>可参考<a href="https://wiki.biligame.com/mc/进度/JSON格式">进度/JSON格式</a>。进度 (advancements) 为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。我们先通过两个例子来看进度文件的格式。</p>
+
+<p class="noindent"><strong>显示效果</strong> 当一个进度没有 <code>parent</code> 时，称之为根进度，即它没有上游进度。此时我们一般会指定 <code>display</code> 来规定显示效果，例如</p>
 <pre class="file">ex/advancements/root.json</pre>
 <pre>
 {
@@ -651,16 +652,62 @@ data
                 ]
             }
         }
-    },
-    "rewards": {
-        "function": "ex:adv/root",
-        "recipes": ["minecraft:crafting_table","ex:strange_block"],
-        "experience": 200
     }
 }
 </pre>
+<p class="noindent">其中各个键的含义为</p>
+<table><thead><tr><th style="width:7em;">含义</th><th style="width:6em;">层次和键</th><th>说明</th></tr></thead><tbody>
+<tr>
+    <th rowspan="3">图标</th>
+    <td><code>display.icon</code></td>
+    <td>图标，这里为胡萝卜钓竿的自定义物品模型。</td>
+</tr>
+<tr>
+    <td><code>display.icon.item</code></td>
+    <td>图标物品 ID，这里为胡萝卜钓竿。</td>
+</tr>
+<tr>
+    <td><code>display.icon.nbt</code></td>
+    <td>图标物品 NBT，物品的材质模型可能会根据 NBT 不同而不同。</td>
+</tr>
+<tr>
+    <th>标题</th>
+    <td><code>display.title</code></td>
+    <td>进度的名称，可以是单个字符串或一个<a href="https://wiki.biligame.com/mc/原始JSON文本格式">原始JSON文本格式</a>，样例中 <code>translate</code> 文本是会随着语言改变的文本，参考 <a href="资源包">§3 资源包</a>。</td>
+</tr>
+<tr>
+    <th>描述</th>
+    <td><code>display.description</code></td>
+    <td>格式同上。</td>
+</tr>
+<tr>
+    <th>边框</th>
+    <td><code>display.frame</code></td>
+    <td>分为 <code>task</code>(任务 方形边框)，<code>challenge</code>(挑战 尖形边框)，<code>goal</code>(目标 圆形边框)。</td>
+</tr>
+<tr>
+    <th>选项卡背景</th>
+    <td><code>display.background</code></td>
+    <td>仅根进度有，决定该选项卡的背景图，为资源包内图片引用，参考 <a href="#texture">§3.6 材质</a>，这里为资源包中图片文件 <code>ex/textures/bg.png</code>。</td>
+</tr>
+<tr>
+    <th rowspan="3">其它显示开关</th>
+    <td><code>display.show_toast</code></td>
+    <td>为true或false。是否在完成此进度后显示提示信息。默认为true，若无显示效果则无效。一般可省略。</td>
+</tr>
+<tr>
+    <td><code>display.announce_to_chat</code></td>
+    <td>为true或false。是否在完成此进度时在聊天窗口提示。默认为true，若无显示效果则无效。一般可省略。</td>
+</tr>
+<tr>
+    <td><code>display.hidden</code></td>
+    <td>可以为true或false。是否在进度屏幕隐藏此进度，直到完成进度。会影响其子进度。当父进度值为true后便无法覆盖。默认为false。一般仅用于隐藏的进度。</td>
+</tr>
+</tbody></table>
+<p>若一个进度没有 <code>display</code> 或其根进度无选项卡，则该进度不会出现在进度页面。</p>
 
-<pre class="file">ex/advancements/mahoushoujo.json</pre>
+<p class="noindent"><strong>触发条件</strong> 进度通过 <code>criteria</code> 来指定触发条件，默认其列出的所有条件均需满足才会完成进度，但我们可以通过 <code>requirements</code> 来指定其它格式。<code>requirements</code> 的格式为或的与(合取范式)，即其列表中的每一个项(该项还是一个列表)中的均有一个列出的触发条件满足。例如 <code>"requirements": [["a","b"],["c","d"]]</code> 表示当 <code>a</code> 和 <code>b</code> 至少有一个满足且 <code>c</code> 和 <code>d</code> 至少有一个满足时，进度会完成。例如下例中两个判据 <code>sealing_wand</code>, <code>dream_wand</code> 分别表示玩家获取了相应 NBT 物品的触发器，只要其中有一个满足即可完成进度。</p>
+<pre class="file">ex/advancements/wand.json</pre>
 <pre>{
     "parent": "ex:root",
     "display": {
@@ -669,15 +716,15 @@ data
             "nbt":"{CustomModelData:12970062}"
         },
         "title":{
-            "translate": "advancements.ex.mahoushoujo.title"
+            "translate": "advancements.ex.wand.title"
         },
         "description": {
-            "translate": "advancements.ex.mahoushoujo.description"
+            "translate": "advancements.ex.wand.description"
         },
         "frame": "challenge"
     },
     "criteria": {
-        "mahoushoujo": {
+        "sealing_wand": {
             "trigger": "minecraft:inventory_changed",
             "conditions":{
                 "items":[
@@ -698,8 +745,11 @@ data
             }
         }
     },
-    "rewards":{
-        "experience": 100
+    "rewards": {
+        "function": "ex:foo",
+        "loot": ["ex:bar"],
+        "recipes": ["minecraft:crafting_table","ex:strange_block"],
+        "experience": 200
     },
     "requirements": [
         [
@@ -708,90 +758,155 @@ data
         ]
     ]
 }</pre>
-其中
-<table><thead><tr><th style="width:7em;">含义</th><th style="width:6em;">层次和键</th><th>说明</th></tr></thead><tbody>
+<p>触发条件下为触发条件的名称、触发器和触发器的条件，完整的触发器和触发器的条件请查看<a href="https://wiki.biligame.com/mc/进度/JSON格式#触发器列表">进度/JSON格式#触发器列表</a>。我们简要列出常见的触发器：</p>
+
+<table><thead><tr><th>触发器</th><th>触发器的条件</th></tr></thead><tbody>
 <tr>
-    <th>父进度</th>
-    <td><code>parent</code></td>
-    <td>仅除根进度外的进度有。</td>
+    <td><code>minecraft:impossible</code></td>
+    <td>仅可使用命令触发，例如使用触发器以外的条件来触发的进度。</td>
 </tr>
 <tr>
-    <th>显示效果</th>
-    <td><code>display</code></td>
-    <td>若无，则该进度不会出现在进度页面。 </td>
+    <td><code>minecraft:tick</code></td>
+    <td>每个游戏刻触发。</td>
 </tr>
 <tr>
-    <th>图标</th>
-    <td><code>display.icon</code></td>
-    <td>这里为胡萝卜钓竿的自定义物品模型。</td>
+    <td><code>minecraft:location</code></td>
+    <td>检查玩家的位置，例如玩家进入某个维度或生物群系等。</td>
 </tr>
 <tr>
-    <th>图标物品ID</th>
-    <td><code>display.item</code></td>
-    <td>这里为胡萝卜钓竿。</td>
+    <td><code>minecraft:enter_block</code></td>
+    <td>玩家进入方块时触发，例如水、传送门、花等。</td>
 </tr>
 <tr>
-    <th>图标物品NBT</th>
-    <td><code>display.nbt</code></td>
-    <td>物品的材质模型可能会根据 NBT 不同而不同。</td>
+    <td><code>minecraft:placed_block</code></td>
+    <td>玩家放置方块时触发，例如玩家放置了木桶、熔炉、树苗等。</td>
+</tr>
+
+<tr>
+    <td><code>minecraft:inventory_changed</code></td>
+    <td>玩家物品栏变化时触发，例如玩家获取物品。</td>
 </tr>
 <tr>
-    <th>标题</th>
-    <td><code>display.title</code></td>
-    <td>进度的名称，可以是单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>，样例中 <code>translate</code> 文本是会随着语言改变的文本，参考 <a href="资源包">§3 资源包</a>。</td>
+    <td><code>minecraft:consume_item</code></td>
+    <td>玩家消耗了相应物品，例如食用食物、饮用药水等。</td>
+</tr>
+
+<tr>
+    <td><code>minecraft:entity_hurt_player</code></td>
+    <td>实体伤害玩家时触发。</td>
 </tr>
 <tr>
-    <th>描述</th>
-    <td><code>display.description</code></td>
-    <td>格式同上。</td>
+    <td><code>minecraft:entity_killed_player</code></td>
+    <td>实体杀死玩家时触发。</td>
 </tr>
 <tr>
-    <th>边框</th>
-    <td><code>display.frame</code></td>
-    <td>分为 <code>task</code>(任务 方形边框)，<code>challenge</code>(挑战 尖形边框)，<code>goal</code>(目标 圆形边框)。</td>
+    <td><code>minecraft:player_killed_entity</code></td>
+    <td>玩家伤害实体（包括自己）时触发。</td>
 </tr>
 <tr>
-    <th>背景</th>
-    <td><code>display.background</code></td>
-    <td>仅根进度有，决定该选项卡的背景图，为资源包内图片引用，参考 <a href="#texture">§3.6 材质</a>，这里为资源包中图片文件 <code>ex/textures/bg.png</code>。</td>
+    <td><code>minecraft:player_hurt_entity</code></td>
+    <td>玩家杀死实体时触发。</td>
 </tr>
 <tr>
-    <th>判据</th>
-    <td><code>criteria</code></td>
-    <td>其下为判据名称、触发器和触发器的条件，判据可以有多个。</td>
+    <td><code>minecraft:player_interacted_with_entity</code></td>
+    <td>玩家用手中物品与实体互动时触发，例如驯服、喂养、上鞍、交易、剪羊毛、旋转物品展示框、收集龙息、与猪灵换物、桶装牛奶、桶装鱼、碗装蘑菇煲、碗装迷之炖菜等。</td>
+</tr>
+
+<tr>
+    <td><code>minecraft:item_durability_changed</code></td>
+    <td>物品栏中任何物品以任何形式损害时触发，例如使用工具消耗了耐久。</td>
 </tr>
 <tr>
-    <th>奖励</th>
-    <td><code>rewards</code></td>
-    <td>完成进度后的效果。</td>
+    <td><code>minecraft:item_used_on_block</code></td>
+    <td>玩家对方块使用物品时触发，例如对着篝火放置食物、斧给木头剥皮等。</td>
 </tr>
+</tbody></table>
+<p>所有的触发器条件均有 <code>player</code> 字段用于判断玩家是否满足相应的断言。例如</p>
+<pre class="file">ex:fatness</pre>
+<pre>{
+    "display": {
+        "icon": {
+            "item": "minecraft:enchanted_golden_apple"
+        },
+        "title":{
+            "translate": "advancements.ex.fatness.title"
+        },
+        "description": {
+            "translate": "advancements.ex.fatness.description"
+        },
+        "frame": "challenge"
+    },
+    "parent": "ex:dream_wand",
+    "criteria": {
+        "fatness": {
+            "trigger": "minecraft:tick",
+            "conditions": {
+                "player": [
+                    {
+                        "condition": "minecraft:entity_scores",
+                        "entity": "this",
+                        "scores": {
+                            "exHealth": {
+                                "min": 40,
+                                "max": 2147483647
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}</pre>
+
+<p class="noindent"><strong>奖励</strong> 完成进度后的奖励可以为：</p>
+<table><thead><tr><th style="width:7em;">触发器</th><th style="width:6em;">触发器的条件</th><th>说明</th></tr></thead><tbody>
 <tr>
-    <th>奖励函数</th>
+    <th>函数</th>
     <td><code>rewards.function</code></td>
-    <td>完成进度时执行之，不可为函数标签。</td>
+    <td>为函数引用格式。完成进度时执行之，不可为函数标签。</td>
+</tr>
+<tr>
+    <th>战利品表</th>
+    <td><code>rewards.loot</code></td>
+    <td>为战利品表引用格式列表。完成进度时给予玩家列表中的所有战利品。</td>
 </tr>
 <tr>
     <th>解锁配方</th>
     <td><code>rewards.recipes</code></td>
-    <td>为配方引用列表。数据包添加的配方也应当有相应进度来解锁，参考<a href="recipe">§2.7 配方</a>。</td>
+    <td>为配方引用格式列表。数据包添加的配方也应当有相应进度来解锁，参考<a href="recipe">§2.7 配方</a>。</td>
 </tr>
 <tr>
-    <th>奖励经验</th>
+    <th>经验</th>
     <td><code>rewards.experience</code></td>
-    <td>建议仅在高难度进度完成时给予。</td>
-</tr>
-<tr>
-    <th>判据需求</th>
-    <td><code>requirements</code></td>
-    <td>缺省时默认所有条件都需要满足。格式为或的与(合取范式)，例如 <code>"requirements": [["a","b"],["c","d"]]<code> 表示当 <code>a<code> 和 <code>b<code> 至少有一个满足且 <code>c</code> 和 <code>d</code> 至少有一个满足时，会成功触发。</td>
+    <td>为数值。建议仅在高难度进度完成时给予。</td>
 </tr>
 </tbody></table>
+<p class="noindent">上例中进度完成后会执行函数 <code>ex:foo</code>，给予玩家战利品表 <code>ex:bar</code> 的物品，解锁玩家配方 <code>minecraft:crafting_table</code> 和 <code>ex:strange_block</code>，并给予玩家 <code>200</code> 点经验。</p>
 
-<p>进度配合奖励函数剥夺玩家该进度，则该进度可反复触发，可用于诸如检测玩家生物群系、饮食等需要循环检测的情形。</p>
-<p>游戏内或函数内使用 <code>advancement</code> 命令可以手动给予或剥夺进度。</p>
+<p>游戏内或函数内使用 <code>advancement</code> 命令可以手动给予或剥夺进度。进度配合奖励函数剥夺玩家该进度，则该进度可反复触发，可用于诸如检测玩家生物群系、饮食等需要循环检测的情形。此时我们通常缺省进度的 <code>display</code> 以对玩家隐藏，例如：</p>
+<pre class="file">ex/advancements/food/citrus.json</pre>
+<pre>{
+    "criteria": {
+        "citrus": {
+            "trigger": "minecraft:consume_item",
+            "conditions": {
+                "item": {
+                    "nbt": "{id:'ex:citrus'}"
+                }
+            }
+        }
+    },
+    "rewards":{
+        "function": "ex:food/citrus"
+    }
+}</pre>
+<pre class="file">ex/functions/food/citrus.mcfunction</pre>
+<pre>effect give @s saturation 1 1 true
+advancement revoke @s only ex:food/citrus
+</pre>
 
 <h2 id="§2.5_战利品表">§2.5 战利品表</h2>
-<p>战利品表 (loot_tables) 用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品等。战利品表文件为JSON文件。例如：</p>
+<p>可参考<a href="https://wiki.biligame.com/mc/战利品表#标签">战利品表</a>。战利品表 (loot_tables) 用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品等。战利品表文件为JSON文件。例如：</p>
 
 <pre class="file">minecraft/loot_tables/entities/cow.json</pre>
 <pre>
@@ -961,6 +1076,7 @@ data
     <li>命令 <code>execute (if|unless) predicate foo:bar</code></li>
     <li>实体选择器参数 <code>predicate={foo:bar}</code></li>
     <li>战利品表条件</li>
+    <li>进度中判断实体条件</li>
 </ul>
 <p>可参考<a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.15] 新出的断言是什么东西</a>。例如</p>
 <ul>
@@ -970,11 +1086,11 @@ data
 <p>诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用断言无疑方便更多。</p>
 
 <h2 id="§2.7_配方">§2.7 配方</h2>
-<p>配方 (recipes) 包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 nbt 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#§7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a>。</p>
+<p>配方 (recipes) 包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#§7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a>。</p>
 <p>在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，但是未获得的不会在配方书中显示，因此建议为你的自定义配方添加合适的进度来获取该配方。</p>
 
 <h2 id="§2.8_结构">§2.8 结构</h2>
-<p>结构 (structures) 文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为<code>32×32×32</code>。可参考</p>
+<p>结构 (structures) 文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。可参考</p>
 <ul>
     <li><a href="http://www.mcbbs.net/thread-652937-1-1.html">建筑党也能愉快享用结构方块-图文并茂教会你使用结构方块</a></li>
     <li><a href="http://www.mcbbs.net/thread-801350-1-1.html">如何使用结构方块</a></li>
