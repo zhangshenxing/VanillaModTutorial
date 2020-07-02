@@ -82,8 +82,9 @@
         <li><a href="#§7.3_无序合成">§7.3 无序合成</a></li>
         <li><a href="#§7.4_切石机配方">§7.4 切石机配方</a></li>
         <li><a href="#§7.5_烧炼配方">§7.5 烧炼配方</a></li>
-        <li><a href="#§7.6_覆盖原版配方">§7.6 覆盖原版配方</a></li>
-        <li><a href="#§7.7_配方获取">§7.7 配方获取</a></li>
+        <li><a href="#§7.6_锻造台配方">§7.6 锻造台配方</a></li>
+        <li><a href="#§7.7_覆盖原版配方">§7.7 覆盖原版配方</a></li>
+        <li><a href="#§7.8_配方获取">§7.8 配方获取</a></li>
     </ul></li>
     <li class="up6"><a href="#§8_机器设计">§8 机器设计</a><ul>
         <li><a href="#§8.1_GUI材质模型">§8.1 GUI材质模型</a></li>
@@ -1066,7 +1067,7 @@ advancement revoke @s only ex:food/citrus
     <li>生成随机数，见 <a href="#§11.1_随机数">§11.1 随机数</a>。</li>
     <li>修改玩家背包物品，见 <a href="#§11.2_修改玩家背包">§11.2 修改玩家背包</a>，<a href="https://www.mcbbs.net/thread-879073-1-1.html">戴帽子</a>。</li>
     <li>将特定物品输出至容器内，见 <a href="#§11.2_修改玩家背包">§11.2 修改玩家背包</a>，<a href="#§8.4_物品输出">§8.4 物品输出</a>，<a href="https://www.mcbbs.net/thread-898170-1-1.html">物品分类器</a>。</li>
-    <li>指定自定义机器的配方，见 <a href="#§7.5_配方处理">§7.5 配方处理</a>。</li>
+    <li>指定自定义机器的配方，见 <a href="#§8.5_配方处理">§8.5 配方处理</a>。</li>
 </ul>
 
 
@@ -3689,14 +3690,14 @@ kill @s
 
 <h1 id="§7_合成与烧炼">§7 合成与烧炼</h1>
 <h2 id="§7.1_语法">§7.1 语法</h2>
-<p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别nbt，因此只能实现原版物品的合成和烧炼。同时模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。</p>
+<p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别 NBT，因此只能实现原版物品的合成和烧炼。同时模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。</p>
 
 <p>配方的通用语法为</p>
 <table><thead><th style="width:5em;">含义</th><th>键</th><th>值</th><th>说明</th></thead>
 <tbody>
 <tr>
-    <th rowspan="8">合成的类别</th>
-    <td rowspan="8"><code>type</code></td>
+    <th rowspan="9">合成的类别</th>
+    <td rowspan="9"><code>type</code></td>
     <td><code>minecraft:crafting_shaped</code></td>
     <td>工作台有序合成配方</td>
 </tr>
@@ -3727,6 +3728,10 @@ kill @s
 <tr>
     <td><code>minecraft:campfire_cooking</code></td>
     <td>营火烧炼配方</td>
+</tr>
+<tr>
+    <td><code>minecraft:smithing</code></td>
+    <td>锻造台配方</td>
 </tr>
 <tr>
     <th>配方的分类</th>
@@ -3881,7 +3886,26 @@ kill @s
 }
 </pre>
 
-<h2 id="§7.6_覆盖原版配方">§7.6 覆盖原版配方</h2>
+<h2 id="§7.6_锻造台配方">§7.6 锻造台配方</h2>
+<p class="ex">使用锻造台使用钻石将铁斧升级为钻石斧。</p>
+
+<pre class="file">ex/recipes/smithing/diamond_axe.json</pre>
+<pre>
+{
+    "type": "minecraft:smithing",
+    "base": {
+        "item": "minecraft:iron_axe"
+    },
+    "addition": {
+        "item": "minecraft:diamond"
+    },
+    "result": {
+        "item": "minecraft:diamond_axe"
+    }
+}
+</pre>
+
+<h2 id="§7.7_覆盖原版配方">§7.7 覆盖原版配方</h2>
 <p>如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 <code>.jar</code> 文件，依次打开 <code>data/minecraft/recipes</code>，找到相应的配方文件，然后在自己的数据包中的相同位置（必然是 <code>minecraft</code> 命名空间下）放入同名文件即可覆盖默认的配方。</p>
 <p class="ex">将橡木台阶合成数量改为8。</p>
 
@@ -3952,7 +3976,7 @@ kill @s
 </pre>
 <p>如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为 <code>{}</code> 时会被认为是错误文件而无法覆盖原配方。同时，我们需要将解锁该配方的进度触发器设置为 <code>minecraft:impossible</code>。</p>
 
-<h2 id="§7.7_配方获取">§7.7 配方获取</h2>
+<h2 id="§7.8_配方获取">§7.8 配方获取</h2>
 <p>一个完整的配方应当有相应的进度来使玩家获取之，通常触发器为玩家背包含有合成材料。也可以根据需要在函数中使用命令 <code>recipe</code> 给予。</p>
 
 <pre class="file">ex/advancements/recipes/dirt_from_cobblestone_snowball.json</pre>
