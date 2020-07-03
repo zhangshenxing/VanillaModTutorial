@@ -145,7 +145,7 @@
 <article>
 <p>原版模组一般指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。因此我将为大家做一个简单的入门，以期抛砖引玉。</p>
 <p>本文内容适用于 Minecraft Java 版 1.16 版本，但大部分内容也适合 1.13-1.15 版本，请读者注意区分。系统环境为 Windows10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议、教程等。有任何错误和疑问请联系我，谢谢！</p>
-<p>由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
+<p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 <p>编写进度：§1-§12.1 校对：§2.5(2020/07/02)</p>
 
 <h1 id="§1_预备知识">§1 预备知识</h1>
@@ -212,34 +212,34 @@
 <p>本节中我们将对各个主要的文件夹结构和文件做简单的介绍。为便于查看文件后缀，请将<code>文件->文件夹选项->查看->隐藏已知文件类型的扩展名</code>选项去掉勾选。所有的文件中可以使用文本编辑器打开的文件可通过新建文本文件并修改后缀来创建。</p>
 
 <h3 id="§1.3.1_游戏文件结构">§1.3.1 游戏文件结构</h3>
-<p>打开 <code>.minecraft</code> 所在的文件夹，这通常位于你的启动器目录下。如果启动器中设置为各版本独立，则类似的文件结构位于 <code>versions/[版本号]</code>下。见<a href="https://wiki.biligame.com/mc/.minecraft">.minecraft</a>。</td>
+<p>打开 <code>.minecraft</code> 所在的文件夹，这通常位于你的启动器目录下。如果启动器中设置为各版本独立，则类似的文件结构位于 <code>versions/&lt;版本号&gt;</code>下。见<a href="https://wiki.biligame.com/mc/.minecraft">.minecraft</a>。</td>
 <table><thead><tr><th style="width:6em;">文件</th><th style="width:19em;">文件位置</th><th>说明</th><th>wiki</th></tr></thead><tbody>
 <tr>
     <th>资源文件索引</th>
-    <td><code>assets/indexes/[版本号].json</code></td>
+    <td><code>assets/indexes/&lt;版本号&gt;.json</code></td>
     <td rowspan="2">从资源文件索引中 <code>minecraft/lang/zh_cn.json</code> 的值可知中文语言文件 hash，找到后使用文本编辑器打开。其它资源文件也可以类似寻找并用相应软件打开。</td>
     <td>-</td>
 </tr>
 <tr>
     <th>资源文件</th>
-    <td><code>assets/objects/[hash开头]/[hash]</code></td>
+    <td><code>assets/objects/&lt;hash开头&gt;/&lt;hash&gt;</code></td>
     <td>-</td>
 </tr>
 <tr>
     <th>备份文件</th>
-    <td><code>backups/[日期-世界名称].zip</code></td>
+    <td><code>backups/&lt;年-月-日_时-分-秒_世界名称&gt;.zip</code></td>
     <td>存档的备份文件。</td>
     <td>-</td>
 </tr>
 <tr>
     <th>崩溃报告</th>
-    <td><code>crash-reports/[时间].txt</code></td>
+    <td><code>crash-reports/&lt;crash-年-月-日_时.分.秒-server&gt;.txt</code></td>
     <td>如果是由于资源包或数据包引起的崩溃，可以在该文件中看到原因。</td>
     <td>-</td>
 </tr>
 <tr>
     <th rowspan="2">日志</th>
-    <td><code>logs/[时间].log.gz</code></td>
+    <td><code>logs/&lt;年-月-日-序号&gt;.log.gz</code></td>
     <td>历史日志，使用压缩工具打开后使用文本编辑器打开。</td>
     <td>-</td>
 </tr>
@@ -250,33 +250,33 @@
 </tr>
 <tr>
     <th>资源包</th>
-    <td><code>resourcepacks/[资源包名]</code><br />
-        <code>resourcepacks/[资源包名].zip</code></td>
+    <td><code>resourcepacks/&lt;资源包名&gt;</code><br />
+        <code>resourcepacks/&lt;资源包名&gt;.zip</code></td>
     <td>具体结构见 <a href="#§3_资源包">§3 资源包</a>。</td>
     <td><a href="https://wiki.biligame.com/mc/资源包">资源包</a></td>
 </tr>
 <tr>
     <th>存档文件</th>
-    <td><code>saves/[世界名称]</code></td>
+    <td><code>saves/&lt;世界名称&gt;</code></td>
     <td>具体结构见 <a href="#§1.3.2_存档文件结构">§1.3.2 存档文件结构</a>。</td>
     <td><a href="https://wiki.biligame.com/mc/世界格式">世界格式</a></td>
 </tr>
 <tr>
     <th>游戏截图</th>
-    <td><code>screenshots/[时间].png</code></td>
+    <td><code>screenshots/&lt;年-月-日_时_分_秒&gt;.png</code></td>
     <td>游戏截图</td>
     <td><a href="https://wiki.biligame.com/mc/截屏">截屏</a></td>
 </tr>
 <tr>
     <th>服务器资源包</th>
-    <td><code>server-resource-packs/[服务器]</code></td>
+    <td><code>server-resource-packs/&lt;服务器&gt;</code></td>
     <td>具体结构见 <a href="#§3_资源包">§3 资源包</a>。</td>
     <td><a href="https://wiki.biligame.com/mc/资源包">资源包</a></td>
 </tr>
 <tr>
     <th>存储的物品栏</th>
     <td><code>hotbar.nbt</code></td>
-    <td>游戏内使用<code>C+[数字]</code>存储、<code>X+[数字]</code>取出的创造模式物品快捷栏。</td>
+    <td>游戏内使用<code>C+&lt;数字&gt;</code>存储、<code>X+&lt;数字&gt;</code>取出的创造模式物品快捷栏。</td>
     <td>-</td>
 </tr>
 <tr>
@@ -305,7 +305,7 @@
 </tr>
 <tr>
     <th>游戏本体</th>
-    <td><code>versions/[版本号]/[版本号].jar</code></td>
+    <td><code>versions/&lt;版本号&gt;/&lt;版本号&gt;.jar</code></td>
     <td>包含了对应版本的资源和数据文件。<code>assets</code> 结构见 <a href="#资源包">§3 资源包</a>，<code>data</code> 结构见 <a href="#数据包">§2 数据包</a>。</td>
     <td><a href="https://wiki.biligame.com/mc/Client.jar">Client.jar</a></td>
 </tr>
@@ -316,7 +316,7 @@
 </figure>
 
 <h3 id="§1.3.2_存档文件结构">§1.3.2 存档文件结构</h3>
-<p>位于 <code>.minecraft/saves/[世界名称]</code>，完整的信息参见<a href="https://wiki.biligame.com/mc/世界格式">世界格式</a>。区块文件、地图文件等不建议使用 NBT 编辑器来编辑，而是用 MCEdit、地图文件生成工具等来编辑。</p>
+<p>位于 <code>.minecraft/saves/&lt;世界名称&gt;</code>，完整的信息参见<a href="https://wiki.biligame.com/mc/世界格式">世界格式</a>。区块文件、地图文件等不建议使用 NBT 编辑器来编辑，而是用 MCEdit、地图文件生成工具等来编辑。</p>
 <table><thead><tr><th style="width:5em;">文件</th><th style="width:24em;">文件位置</th><th>说明</th><th>wiki</th></tr></thead><tbody>
 <tr>
     <th>世界信息</th>
@@ -326,19 +326,19 @@
 </tr>
 <tr>
     <th>属性</th>
-    <td><code>playerdata/[玩家UUID].dat</code></td>
+    <td><code>playerdata/&lt;玩家 UUID&gt;.dat</code></td>
     <td>记录了玩家的所有个人信息，如位置、复活点、飞行速度等。</td>
     <td><a href="https://wiki.biligame.com/mc/Player.dat格式">Player.dat格式</a></td>
 </tr>
 <tr>
     <th>统计</th>
-    <td><code>stats/[玩家UUID].json</code></td>
+    <td><code>stats/&lt;玩家 UUID&gt;.json</code></td>
     <td>使用文本编辑器打开，记录了玩家的统计信息。</td>
     <td><a href="https://wiki.biligame.com/mc/统计#存储">统计</a></td>
 </tr>
 <tr>
     <th>进度</th>
-    <td><code>advancements/[玩家 UUID].json</code></td>
+    <td><code>advancements/&lt;玩家 UUID&gt;.json</code></td>
     <td>使用文本编辑器打开，记录了玩家已完成的进度和进度判据的完成时间。</td>
 </tr>
 <tr>
@@ -349,8 +349,8 @@
 </tr>
 <tr>
     <th>地图</th>
-    <td><code>data/map_[数字].dat</code></td>
-    <td>记录了地图 <code>filled_map{data:[数字]}</code> 的信息。</td>
+    <td><code>data/map_&lt;数字&gt;.dat</code></td>
+    <td>记录了地图 <code>filled_map{data:&lt;数字&gt;}</code> 的信息。</td>
     <td><a href="https://wiki.biligame.com/mc/地图物品格式#map_<#>.dat格式">地图物品格式</a></td>
 </tr>
 <tr>
@@ -361,35 +361,35 @@
 </tr>
 <tr>
     <th>存储区</th>
-    <td><code>data/command_storage_[命名空间].dat</code></td>
+    <td><code>data/command_storage_&lt;命名空间&gt;.dat</code></td>
     <td>存储了存储区 (storage) 的 NBT。</td>
     <td><a href="https://wiki.biligame.com/mc/命令存储格式">命令存储格式</a></td>
 </tr>
 <tr>
     <th rowspan="4">区块</th>
-    <td><code>region/r.[数值].[数值].mca</code></td>
+    <td><code>region/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
     <td>记录了主世界的区块信息，每32×32个区块存储为一个文件，。</td>
     <td rowspan="4"><a href="https://wiki.biligame.com/mc/Anvil文件格式">Anvil文件格式</a><br />
         <a href="https://wiki.biligame.com/mc/区块格式">区块格式</a></td>
 </tr>
 <tr>
-    <td><code>DIM-1/region/r.[数值].[数值].mca</code></td>
+    <td><code>DIM-1/region/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
     <td>记录了下界的区块信息，同上。</td>
 </tr>
 <tr>
-    <td><code>DIM1/region/r.[数值].[数值].mca</code></td>
+    <td><code>DIM1/region/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
     <td>记录了末地的区块信息，同上。</td>
 </tr>
 <tr>
-    <td><code>dimensions/[命名空间]/[路径]/region/r.[数值].[数值].mca</code></td>
+    <td><code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;/region/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
     <td>记录了自定义维度的区块信息，同上。</td>
 </tr>
 <tr>
     <th>村民兴趣点</th>
-    <td><code>poi/r.[数值].[数值].mca</code><br/>
-        <code>DIM-1/poi/r.[数值].[数值].mca</code><br/>
-        <code>DIM1/poi/r.[数值].[数值].mca</code><br/>
-        <code>dimensions/[命名空间]/[路径]/poi/r.[数值].[数值].mca</code></td>
+    <td><code>poi/r.&lt;数值&gt;.&lt;数值&gt;.mca</code><br/>
+        <code>DIM-1/poi/r.&lt;数值&gt;.&lt;数值&gt;.mca</code><br/>
+        <code>DIM1/poi/r.&lt;数值&gt;.&lt;数值&gt;.mca</code><br/>
+        <code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;/poi/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
     <td>记录了主世界/下界/末地/自定义维度村民兴趣点，即特定的床、工作站点和钟。每32×32个区块存储为一个文件。<br />
         1.13及更早版本则记录村庄信息在 <code>villages.dat</code>。</td>
     <td><a href="https://wiki.biligame.com/mc/世界格式#poi格式">世界格式</a><br />
@@ -400,7 +400,7 @@
     <td><code>data/raids.dat</code><br/>
         <code>DIM-1/data/raids_nether.dat</code><br/>
         <code>DIM1/data/raids_end.dat</code><br/>
-        <code>dimensions/[命名空间]/[路径]/data/raids.dat</code></td>
+        <code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;/data/raids.dat</code></td>
     <td>记录了主世界/下界/末地/自定义维度袭击的信息。</td>
     <td><a href="https://wiki.biligame.com/mc/Raids.dat格式">raids.dat格式</a></td>
 </tr>
@@ -409,20 +409,20 @@
     <td><code>data/chunks.dat</code><br/>
         <code>DIM-1/data/chunks.dat</code><br/>
         <code>DIM1/data/chunks.dat</code><br/>
-        <code>dimensions/[命名空间]/[路径]/data/chunks.dat</code></td>
+        <code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;/data/chunks.dat</code></td>
     <td>记录了主世界/下界/末地/自定义维度的常加载区块。</td>
     <td>-</td>
 </tr>
 <tr>
     <th>数据包</th>
-    <td><code>datapacks/[数据包名]</code><br/>
-        <code>datapacks/[数据包名].zip</code></td>
+    <td><code>datapacks/&lt;数据包名&gt;</code><br/>
+        <code>datapacks/&lt;数据包名&gt;.zip</code></td>
     <td>具体结构见 <a href="#datapack">§2 数据包</a>。</td>
     <td><a href="https://wiki.biligame.com/mc/数据包">数据包</a></td>
 </tr>
 <tr>
     <th>结构</th>
-    <td><code>generated/[命名空间]/structures/[文件].nbt</code></td>
+    <td><code>generated/&lt;命名空间&gt;/structures/&lt;文件&gt;.nbt</code></td>
     <td>记录了游戏内使用结构方块保存的结构，将其移动至数据包内方可使用。</td>
     <td><a href="https://wiki.biligame.com/mc/结构方块文件格式">结构方块文件格式</a></td>
 </tr>
@@ -490,9 +490,9 @@
 </tr>
 </tbody></table>
 
-<h1 id="§2_数据包">§2 数据包</h1>
+<h1 id="§2_数据包">§2 <ruby>数据包<rt>datapacks</rt></ruby></h1>
 <p>数据包文件层次为</p>
-<pre class="file">datapacks/数据包名称或数据包名称.zip/</pre>
+<pre class="file">datapacks/&lt;数据包名称&gt;或&lt;数据包名称&gt;.zip/</pre>
 <pre>
 pack.mcmeta
 pack.png
@@ -517,9 +517,9 @@ data
             命名空间
 </pre>
 <p><code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 pack.mcmeta 和 data 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。游戏内输入 <code>/datapack list</code> 可以列出所有的数据包。</p>
-<p><strong>原版数据包 (Vanilla)</strong> 是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/[版本号]/[版本号].jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
+<p><strong>原版数据包 (Vanilla)</strong> 是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/&lt;版本号&gt;/&lt;版本号&gt;.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
 
-<h2 id="§2.1_元信息和图标">§2.1 元信息和图标</h2>
+<h2 id="§2.1_元信息和图标">§2.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
 <pre class="file">pack.mcmeta</pre>
 <pre>
@@ -546,83 +546,83 @@ data
 <p>数据包可以包含一个 <code>pack.png</code>，它是大小为 <code>16×16</code> 的图片，用于生成世界时在数据包菜单中显示。</p>
 
 <h2 id="§2.2_命名空间">§2.2 命名空间</h2>
-<p>命名空间 (namespace) 为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
+<p><ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
 <p><a href="#§2.9_标签">标签</a>文件，即 <code>tags</code> 中的文件内容默认追加而不是覆盖。因此标签文件是解决数据包冲突和联动的有力工具。</p>
 <p>数据包加载顺序并不固定，因此不要在不同数据包中同一命名空间下使用相同的文件名。原版 <code>minecraft</code> 下内容总是最先被加载。可以在游戏内通过手动开启/关闭来调整加载次序，也可以在生成世界加入数据包时调整顺序，但由于玩家行为不受控制，不建议如此做。</p>
 
 <table><thead><tr><th>类型</th><th>调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
 <tr>
     <th>函数</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/functions/[文件夹]/[文件名].mcfunction</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/functions/<文件夹>/&lt;文件名&gt;.mcfunction</code></td>
 </tr>
 <tr>
     <th>进度</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/advancements/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/advancements/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>战利品表</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/loot_tables/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/loot_tables/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>断言</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/predicates/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/predicates/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>配方</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/recipes/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/recipes/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>结构</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/strutures/[文件夹]/[文件名].nbt</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/strutures/<文件夹>/&lt;文件名&gt;.nbt</code></td>
 </tr>
 <tr>
     <th>标签-方块</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/tags/blocks/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/tags/blocks/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>标签-物品</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/tags/items/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/tags/items/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>标签-实体类型</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/tags/entity_types/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/tags/entity_types/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>标签-函数</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/tags/functions/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/tags/functions/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>维度</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>minecraft/dimension/[命名空间]/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>minecraft/dimension/&lt;命名空间&gt;/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>维度类型</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>minecraft/dimension_type/[命名空间]/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>minecraft/dimension_type/&lt;命名空间&gt;/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 </tbody></table>
 
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。</p>
 
-<h2 id="§2.3_函数">§2.3 函数</h2>
-<p>可参考<a href="https://wiki.biligame.com/mc/函数（Java版）">函数</a>。函数 (functions) 为一些命令的集合。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function [命名空间]:[路径]</code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
+<h2 id="§2.3_函数">§2.3 <ruby>函数<rt>functions</rt></ruby></h2>
+<p>可参考<a href="https://wiki.biligame.com/mc/函数（Java版）">函数</a>。函数为一些命令的集合。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function &lt;命名空间&gt;:&lt;路径&gt;</code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
 <p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute">命令/execute</a>的各项子命令。</p>
 
 <p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考 <a href="#§2.9.1_预设标签">§2.9.1 预设标签</a>。</p>
 
-<h2 id="§2.4_进度">§2.4 进度</h2>
-<p>可参考<a href="https://wiki.biligame.com/mc/进度/JSON格式">进度/JSON格式</a>。进度 (advancements) 为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。我们先通过两个例子来看进度文件的格式。</p>
+<h2 id="§2.4_进度">§2.4 <ruby>进度<rt>advancements</rt></ruby></h2>
+<p>可参考<a href="https://wiki.biligame.com/mc/进度/JSON格式">进度/JSON格式</a>。进度为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。我们先通过两个例子来看进度文件的格式。</p>
 
 <p class="noindent"><strong>显示效果</strong> 当一个进度没有 <code>parent</code> 时，称之为根进度，即它没有上游进度。此时我们一般会指定 <code>display</code> 来规定显示效果，例如</p>
 <pre class="file">ex/advancements/root.json</pre>
@@ -707,7 +707,7 @@ data
 </tbody></table>
 <p>若一个进度没有 <code>display</code> 或其根进度无选项卡，则该进度不会出现在进度页面。</p>
 
-<p class="noindent"><strong>触发条件</strong> 进度通过 <code>criteria</code> 来指定触发条件，默认其列出的所有条件均需满足才会完成进度，但我们可以通过 <code>requirements</code> 来指定其它格式。<code>requirements</code> 的格式为或的与(合取范式)，即其列表中的每一个项(该项还是一个列表)中的均有一个列出的触发条件满足。例如 <code>"requirements": [["a","b"],["c","d"]]</code> 表示当 <code>a</code> 和 <code>b</code> 至少有一个满足且 <code>c</code> 和 <code>d</code> 至少有一个满足时，进度会完成。例如下例中两个判据 <code>sealing_wand</code>, <code>dream_wand</code> 分别表示玩家获取了相应 NBT 物品的触发器，只要其中有一个满足即可完成进度。</p>
+<p class="noindent"><strong><ruby>触发条件<rt>criteria</rt></ruby></strong> 进度通过 <code>criteria</code> 来指定触发条件，默认其列出的所有条件均需满足才会完成进度，但我们可以通过 <code>requirements</code> 来指定其它格式。<code>requirements</code> 的格式为或的与(合取范式)，即其列表中的每一个项(该项还是一个列表)中的均有一个列出的触发条件满足。例如 <code>"requirements": [["a","b"],["c","d"]]</code> 表示当 <code>a</code> 和 <code>b</code> 至少有一个满足且 <code>c</code> 和 <code>d</code> 至少有一个满足时，进度会完成。例如下例中两个判据 <code>sealing_wand</code>, <code>dream_wand</code> 分别表示玩家获取了相应 NBT 物品的触发器，只要其中有一个满足即可完成进度。</p>
 <pre class="file">ex/advancements/wand.json</pre>
 <pre>{
     "parent": "ex:root",
@@ -859,7 +859,7 @@ data
     }
 }</pre>
 
-<p class="noindent"><strong>奖励</strong> 完成进度后的奖励可以为：</p>
+<p class="noindent"><strong><ruby>奖励<rt>rewards</rt></ruby></strong> 完成进度后的奖励可以为：</p>
 <table><thead><tr><th style="width:7em;">触发器</th><th style="width:6em;">触发器的条件</th><th>说明</th></tr></thead><tbody>
 <tr>
     <th>函数</th>
@@ -906,8 +906,9 @@ data
 advancement revoke @s only ex:food/citrus
 </pre>
 
-<h2 id="§2.5_战利品表">§2.5 战利品表</h2>
-<p>可参考<a href="https://wiki.biligame.com/mc/战利品表#标签">战利品表</a>。战利品表 (loot_tables) 用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品等。战利品表文件为JSON文件。例如：</p>
+<h2 id="§2.5_战利品表">§2.5 <ruby>战利品表<rt>loot_tables</rt></ruby></h2>
+<h3 id="§2.5.1_语法">§2.5.1 语法</h3>
+<p>可参考<a href="https://wiki.biligame.com/mc/战利品表#标签">战利品表</a>和<a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a>。战利品表用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品等。战利品表文件为JSON文件。例如：</p>
 
 <pre class="file">minecraft/loot_tables/entities/cow.json</pre>
 <pre>
@@ -1046,15 +1047,78 @@ advancement revoke @s only ex:food/citrus
     <li>掉落 <code>0-(2+抢夺等级)</code>个皮革；</li>
     <li>掉落 <code>1-(3+抢夺等级)</code>个牛肉，着火则掉落熟牛肉；</li>
     <li>被玩家杀死时，有 <code>(2.5+抢夺等级)%</code> 几率掉落战利品表 <code>ex:limb_of_ridge</code> 的物品；</li>
-    <li>被玩家杀死时，有 <code>(2.5+抢夺等级)%</code> 几率掉落战利品表 <code>ex:cow_head</code> 的物品；</li>
+    <li>被玩家杀死时，有 <code>(2.5+抢夺等级)%</code> 几率掉落战利品表 <code>ex:cow_head</code> 的物品。</li>
 </ul>
-<p>完整格式可参考</p>
-<ul>
-    <li><a href="http://www.mcbbs.net/thread-831542-1-1.html">【CBL｜SPG】［1.14］战利品表：从入门到重新入门</a></li>
-    <li><a href="https://wiki.biligame.com/mc/战利品表">战利品表 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
-    <li><a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.15] 新出的断言是什么东西</a></li>
-</ul>
-<p><code>minecraft</code> 命名空间下记录了实体的默认掉落物、方块的掉落物、钓鱼和箱子战利品的战利品表，玩家可通过 <code>jar</code> 文件查看其文件结构。若要修改这些内容，在数据包中创建 <code>minecraft</code> 命名空间以及同名文件来覆盖之。</p>
+<p class="noindent"><strong><ruby>战利品表类型<rt>type</rt></ruby></strong> 战利品表的 <code>type</code> 表示类型，特定类型不可使用某些函数/条件，例如方块战利品不可检测被击杀者。可选值如下：</p>
+<table><thead><tr><th>值</th><th>说明</th></tr></thead><tbody>
+<tr>
+    <td><code>minecraft:empty</code></td>
+    <td>无任何战利品。</td>
+</tr>
+<tr>
+    <td><code>minecraft:block</code></td>
+    <td>用于方块掉落物。</td>
+</tr>
+<tr>
+    <td><code>minecraft:entity</code></td>
+    <td>用于实体掉落物。</td>
+</tr>
+<tr>
+    <td><code>minecraft:chest</code></td>
+    <td>用于箱子物品。</td>
+</tr>
+<tr>
+    <td><code>minecraft:fishing</code></td>
+    <td>用于钓鱼物品。</td>
+</tr>
+<tr>
+    <td><code>minecraft:generic</code></td>
+    <td>无限制，等价于不填写该键值。</td>
+</tr>
+</tbody></table>
+<p class="noindent"><strong><ruby>随机池<rt>pools</rt></ruby></strong> <code>pools</code> 为随机池列表，每个随机池都会随机生成物品。每个随机池包含随机次数 <code>rolls</code> 和每点幸运额外随机次数 <code>bonus_rolls</code>，为数值或范围 <code>{"min": 1, "max": 3}</code> 之类的；项目列表，其中每个项目会根据权重 <code>weight</code> 来随机选取一个，若不指定则权重默认为 <code>1</code>。键 <code>quality</code> 则规定了每点幸运对权重的加成。</p>
+<p><strong><ruby>项目<rt>entry</rt></ruby></strong> 项目中需指定项目类型，可选值如下：</p>
+<table><thead><tr><th>值</th><th>说明</th></tr></thead><tbody>
+<tr>
+    <td><code>minecraft:empty</code></td>
+    <td>空。</td>
+</tr>
+<tr>
+    <td><code>minecraft:item</code></td>
+    <td>一个物品，<code>name</code> 指定相应物品的命名空间ID。</td>
+</tr>
+<tr>
+    <td><code>minecraft:tag</code></td>
+    <td>一个物品标签，<code>name</code> 指定相应物品标签的命名空间ID。如果<code>expand</code> 为 <code>true</code>，则从该物品标签中随机选取一个；如果<code>expand</code> 为 <code>false</code> 或不指定，则返回该物品标签中每一个物品。</td>
+</tr>
+<tr>
+    <td><code>minecraft:loot_table</code></td>
+    <td>一个战利品表，<code>name</code> 指定相应战利品表的命名空间ID。</td>
+</tr>
+<tr>
+    <td><code>minecraft:alternatives</code></td>
+    <td>从项目列表 <code>children</code> 中选择一个项目，会返回第一个条件满足的子项目，并忽略剩下的项目。</td>
+</tr>
+<tr>
+    <td><code>minecraft:group</code></td>
+    <td>从项目列表 <code>children</code> 中选择一个项目，会从条件满足的所有子项目中根据权重随机选取一个，并忽略条件不满足的子项目。</td>
+</tr>
+<tr>
+    <td><code>minecraft:sequence</code></td>
+    <td>从项目列表 <code>children</code> 中选择一个项目，会从第一个条件不满足的子项目以前的所有子项目中根据权重随机选取一个，并忽略其余的子项目。</td>
+</tr>
+<tr>
+    <td><code>minecraft:dynamic</code></td>
+    <td>动态返回。<code>name</code> 决定返回的内容类别，值为 <code>minecraft:self</code> 时被玩家头颅、旗帜执行时，会返回与其样式相同的物品； 值为 <code>minecraft:contents</code>时被潜影盒执行时，会返回其内容物。其它情形没有效果。</td>
+</tr>
+</tbody></table>
+<p>可以看出，不同的项目类型可以用来方便地确定不同的逻辑情形下的子项目取舍。<code>minecraft:dynamic</code> 由于可以返回潜影盒内容物，因此可以用来产生不特定物品ID的战利品，我们后续会看到它的应用。</p>
+
+<p class="noindent"><strong><ruby>条件<rt>condition</rt></ruby></strong> 仅当条件列表 <code>conditions</code> 中每一个条件都被满足时，其同层次的随机池/项目/函数才会被选取。战利品表条件和<a href="#§2.6_断言">§2.6 断言</a>的格式完全相同，因此我们会在下一节再做介绍。</p>
+
+<p class="noindent"><strong><ruby>函数<rt>function</rt></ruby></strong> 函数列表 <code>functions</code> 中每一个函数会应用于同层次的随机池/项目生成的战利品上。</p>
+
+<h3 id="§2.5.2_引用">§2.5.2 引用</h3>
 <p>战利品表可以以如下等方式调用</p>
 <ul>
     <li><code>setblock ~ ~ ~ chest{LootTable:"ex:chests/something"}</code></li>
@@ -1062,6 +1126,9 @@ advancement revoke @s only ex:food/citrus
     <li><code>summon minecraft:bat ~ ~ ~ {DeathLootTable:"ex:entities/something"}</code></li>
     <li><code>loot spawn ~ ~ ~ loot ex:something</code></li>
 </ul>
+<p><code>minecraft</code> 命名空间下记录了实体的默认掉落物、方块的掉落物、钓鱼和箱子战利品的战利品表，玩家可通过 <code>jar</code> 文件查看其文件结构。若要修改这些内容，在数据包中创建 <code>minecraft</code> 命名空间以及同名文件来覆盖之。</p>
+
+<h3 id="§2.5.3_应用">§2.5.3 应用</h3>
 <p>战利品表除上述常规用途外，还可用于</p>
 <ul>
     <li>生成随机数，见 <a href="#§11.1_随机数">§11.1 随机数</a>。</li>
@@ -1071,8 +1138,8 @@ advancement revoke @s only ex:food/citrus
 </ul>
 
 
-<h2 id="§2.6_断言">§2.6 断言</h2>
-<p>断言 (predicate) 可以认为是战利品中的条件。断言文件为JSON文件，可用于</p>
+<h2 id="§2.6_断言">§2.6 <ruby>断言<rt>predicate</rt></ruby></h2>
+<p>断言是战利品表条件。断言文件为JSON文件，可用于</p>
 <ul>
     <li>命令 <code>execute (if|unless) predicate foo:bar</code></li>
     <li>实体选择器参数 <code>predicate={foo:bar}</code></li>
@@ -1086,12 +1153,12 @@ advancement revoke @s only ex:food/citrus
 </ul>
 <p>诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用断言无疑方便更多。</p>
 
-<h2 id="§2.7_配方">§2.7 配方</h2>
-<p>配方 (recipes) 包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#§7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a>。</p>
+<h2 id="§2.7_配方">§2.7 <ruby>配方<rt>recipes</rt></ruby></h2>
+<p>配方包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#§7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a>。</p>
 <p>在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，但是未获得的不会在配方书中显示，因此建议为你的自定义配方添加合适的进度来获取该配方。</p>
 
-<h2 id="§2.8_结构">§2.8 结构</h2>
-<p>结构 (structures) 文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。可参考</p>
+<h2 id="§2.8_结构">§2.8 <ruby>结构<rt>structures</rt></ruby></h2>
+<p>结构文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。可参考</p>
 <ul>
     <li><a href="http://www.mcbbs.net/thread-652937-1-1.html">建筑党也能愉快享用结构方块-图文并茂教会你使用结构方块</a></li>
     <li><a href="http://www.mcbbs.net/thread-801350-1-1.html">如何使用结构方块</a></li>
@@ -1106,32 +1173,32 @@ setblock ~ ~1 ~ redstone_block
 setblock ~ ~1 ~ air
 </pre>
 
-<h2 id="§2.9_标签">§2.9 标签</h2>
-<p>标签 (tags) 文件为JSON文件，根据子文件夹不同分为5种。Minecraft 中有很多内容都叫做标签，注意区分它们。</p>
+<h2 id="§2.9_标签">§2.9 <ruby>标签<rt>tags</rt></ruby></h2>
+<p>标签文件为JSON文件，根据子文件夹不同分为5种。Minecraft 中有很多内容都叫做标签，注意区分它们。</p>
 <table><thead><tr><th style="width:6em;">类别</th><th style="width:18em;">文件路径</th><th>用途</th></tr></thead><tbody>
 <tr>
     <th>方块标签</th>
-    <td><code>tags/blocks/[文件名].json</code></td>
+    <td><code>tags/blocks/&lt;文件名&gt;.json</code></td>
     <td>用于在命令、进度、断言、战利品表中检测/调用多个方块。</td>
 </tr>
 <tr>
     <th>物品标签</th>
-    <td><code>tags/items/[文件名].json</code></td>
+    <td><code>tags/items/&lt;文件名&gt;.json</code></td>
     <td>用于在配方、进度、断言、战利品表中检测/调用多个物品。</td>
 </tr>
 <tr>
     <th>函数标签</th>
-    <td><code>tags/functions/[文件名].json</code></td>
+    <td><code>tags/functions/&lt;文件名&gt;.json</code></td>
     <td>用于在 <code>function</code> 命令中一次性按次序执行多个函数。</td>
 </tr>
 <tr>
     <th>实体类型标签</th>
-    <td><code>tags/entity_types/[文件名].json</code></td>
+    <td><code>tags/entity_types/&lt;文件名&gt;.json</code></td>
     <td>用于在实体选择器选项 <code>type</code> 中指定多种不同实体。</td>
 </tr>
 <tr>
     <th>流体标签</th>
-    <td><code>tags/fluids/[文件名].json</code></td>
+    <td><code>tags/fluids/&lt;文件名&gt;.json</code></td>
     <td>很少使用。</td>
 </tr>
 </tbody></table>
@@ -1187,7 +1254,7 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
     <li><code>minecraft/tags/functions/load.json</code> 中的函数会在加载时被执行一次，我们常称之为加载函数、load函数。用于初始化的函数应当添加至该标签。</li>
     <li><code>minecraft/tags/functions/tick.json</code> 中的函数每刻会被执行一次，我们常称之为循环函数、主函数、tick函数。需要高频执行的函数应当添加至该标签。</li>
 </ul>
-<p>本文中我们有时会不加注明地使用<code>[命名空间]:load</code> 和<code>[命名空间]:tick</code> 表示这两个函数标签中的函数。</p>
+<p>本文中我们有时会不加注明地使用<code>&lt;命名空间&gt;:load</code> 和<code>&lt;命名空间&gt;:tick</code> 表示这两个函数标签中的函数。</p>
 <p>利用预设标签还可以实现更多燃料、改变植物种植所需的方块，甚至改变水和熔岩的性质，可参见<a href="https://wiki.biligame.com/mc/标签">标签 - Minecraft Wiki，最详细的官方我的世界百科</a>和 <a href="http://www.mcbbs.net/thread-811990-1-1.html">minecraft 预设tag以及实现随机方块功能</a>。例如：让末影人无法拿起任何方块。</p>
 <pre class="file">minecraft/tags/blocks/enderman_holdable</pre>
 <pre>
@@ -1198,9 +1265,9 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 }
 </pre>
 
-<h2 id="§2.10_维度和维度类型">§2.10 维度和维度类型</h2>
+<h2 id="§2.10_维度和维度类型">§2.10 <ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby></h2>
 
-<p>维度 (dimension) 和维度类型 (dimension_type) 用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。原版世界的默认参数可见<a href="https://wiki.biligame.com/mc/%E7%BB%B4%E5%BA%A6/Generator_Defaults">维度/Generator Defaults - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
+<p>维度和维度类型用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。原版世界的默认参数可见<a href="https://wiki.biligame.com/mc/%E7%BB%B4%E5%BA%A6/Generator_Defaults">维度/Generator Defaults - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
 
 <p>维度/维度类型文件需要放在 <code>minecraft/dimension</code> 和 <code>minecraft/dimension_type</code> 下，其子文件夹为命名空间。维度类型文件规定了维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度文件规定了维度的生成方式和生物群系。</p>
 
@@ -1584,9 +1651,9 @@ execute in overworld run tp ~ ~ ~
 execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
-<h1 id="§3_资源包">§3 资源包</h1>
+<h1 id="§3_资源包">§3 <ruby>资源包<rt>resourcepacks</rt></ruby></h1>
 <p>资源包可以极大地提升原版模组的美观程度，因此现在大部分原版模组都需要使用配套的资源包。资源包文件层次为</p>
-<pre class="file">resourcepacks/资源包名称或资源包名称.zip/</pre>
+<pre class="file">resourcepacks/&lt;资源包名称&gt;或&lt;资源包名称&gt;.zip/</pre>
 <pre>
 pack.mcmeta
 pack.png
@@ -1599,14 +1666,14 @@ assets
         models
         textures
 </pre>
-<p class="noindent">其中 <code>assets</code> 的文件结构和 <a href="#§1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>中 <code>versions/[版本号]/[版本号].jar/assets</code> 的结构是一样的。</p>
+<p class="noindent">其中 <code>assets</code> 的文件结构和 <a href="#§1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>中 <code>versions/&lt;版本号&gt;/&lt;版本号&gt;.jar/assets</code> 的结构是一样的。</p>
 <p><code>assets</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件为使用 <code>UTF-8</code> 编码的JSON文件，图片为 <code>png</code> 格式。资源包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到资源包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
 <p>游戏内选择<code>选项->资源包...</code>可以列出所有的资源包。在资源包菜单中，加载次序由下至上，因此上方的资源包内容会覆盖下方的资源包同名内容。由于原版模组往往会修改原版物品自定义模型，因此同时安装多个原版模组的资源包时，很容易出现文件冲突，此时需要玩家手动合并资源包方可使用。具体而言，对比两个资源包的同名文件，将相同的模型文件的 <code>overrides</code> 合并，其它内容选择需要的留下即可。</p>
-<p>若资源包位于 <code>saves/[世界名称]/resources.zip</code>，则资源包会在进入存档时自动加载(最顶层)。</p>
+<p>若资源包位于 <code>saves/&lt;世界名称&gt;/resources.zip</code>，则资源包会在进入存档时自动加载(最顶层)。</p>
 <p>本节中我们仅对资源包做简单介绍，更详细的文件说明请参阅<a href="https://wiki.biligame.com/mc/资源包">资源包 - Minecraft Wiki，最详细的官方我的世界百科</a>或论坛材质资源版相关内容。</p>
 <p>材质包和资源包是不同的东西，目前 Minecraft Java 只有资源包，请不要使用错误的名称。</p>
 
-<h2 id="§3.1_元信息和图标">§3.1 元信息和图标</h2>
+<h2 id="§3.1_元信息和图标">§3.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
 
 Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件是不可或缺的。例如：
 <pre class="file">pack.mcmeta</pre>
@@ -1645,27 +1712,37 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 </tbody></table>
 <p>资源包可以包含一个 <code>pack.png</code>，它是大小为<code>16×16</code>的图片，用于在资源包菜单中显示。</p>
 
-<h2 id="§3.2_命名空间">§3.2 命名空间</h2>
-<p>命名空间 (namespace) 为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。资源包下可以有多个命名空间，如果不同资源包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的模型材质只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
+<h2 id="§3.2_命名空间">§3.2 <ruby>命名空间<rt>namespace</rt></ruby></h2>
+<p>命名空间为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。资源包下可以有多个命名空间，如果不同资源包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的模型材质只需在你的资源包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
 
 
 <table><thead><tr><th>类型</th><th>调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
 <tr>
     <th>模型</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/models/[文件夹]/[文件名].json</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/models/<文件夹>/&lt;文件名&gt;.json</code></td>
 </tr>
 <tr>
     <th>材质</th>
-    <td><code>[命名空间]:[文件夹]/[文件名]</code></td>
-    <td><code>[命名空间]/textures/[文件夹]/[文件名].png</code></td>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/textures/<文件夹>/&lt;文件名&gt;.png</code></td>
+</tr>
+<tr>
+    <th>字体</th>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/font/<文件夹>/&lt;文件名&gt;.json</code></td>
+</tr>
+<tr>
+    <th>声音</th>
+    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
+    <td><code>&lt;命名空间&gt;/sounds/<文件夹>/&lt;文件名&gt;.ogg</code></td>
 </tr>
 </tbody></table>
 
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。</p>
 <p>建议和数据包使用相同的命名空间名。</p>
 
-<h2 id="§3.3_语言文件">§3.3 语言文件</h2>
+<h2 id="§3.3_语言文件">§3.3 <ruby>语言文件<rt>lang</rt></ruby></h2>
 <p>语言文件可以放在任一命名空间下的 <code>lang</code> 文件夹下。语言文件中可以使用样式代码来实现彩色文字。建议至少支持中文简体(<code>zh_cn</code>)、中文繁体(<code>zh_tw</code>)和英文(<code>en_us</code>)三种语言。建议所有物品、进度、游戏提示等文本均采用 <code>translate</code> 文本。例如：</p>
 <pre class="file">assets/命名空间/lang/zh_cn.json</pre>
 <pre>
@@ -1709,7 +1786,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 </pre>
 <p class="noindent">则在数据包中输出相应文本时，若无资源包或资源包错误，则会显示 <code>The resourcepack does not Installl correctly or Launch</code> 以提示玩家资源包未加载。</p>
 
-<h2 id="§3.4_自定义物品模型">§3.4 自定义物品模型</h2>
+<h2 id="§3.4_自定义物品模型">§3.4 <ruby>自定义物品模型<rt>CustomModelData</rt></ruby></h2>
 <p>由于1.14添加了 <code>CustomModelData</code>，我们可以拥有几乎无穷多的物品模型。为了便于他人整合和解决冲突，建议将 <code>CustomModelData</code> 的前四位固定以确定模组的独有区段，后四位作为模组不同模型的值，例如 <code>12340000-12349999</code> 之间。此外，建议 <code>CustomModelData</code> 不要超过 <code>16777216</code>，原因见 <a href="https://www.mcbbs.net/thread-867051-1-1.html">custom_model_data 的使用限制</a>。</p>
 
 <p>我们会给出一个例子来说明实现流程。首先在 <code>minecraft</code> 下的胡萝卜钓竿物品模型中添加额外的模型 (<code>overrides</code>)，并引用我们自定义的模型。</p>
@@ -1742,7 +1819,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 </pre>
 <p class="noindent">最后绘制材质，并将其保存为 <code>assets/craftingpp/textures/element/red_force_of_fire.png</code>。这样我们就设计好了这个物品模型，在 <a href="#5_物品设计">§5 物品设计</a>我们将会说明如何使用该模型。</p>
 
-<h2 id="§3.5_模型">§3.5 模型</h2>
+<h2 id="§3.5_模型">§3.5 <ruby>模型<rt>models</rt></ruby></h2>
 <p>模型是一个描述形状和指定材质的JSON文件。模型可以理解成一些可以旋转的长方体的拼接，每个长方体的若干个面贴上了材质图案。长方体的厚度可以为0，也可以只有若干个面。</p>
 <p>只有 <code>minecraft</code> 命名空间下特定名称的文件才对应特定的物品/方块模型，例如 <code>minecraft/models/item/carrot_on_a_stick.json</code> 表示胡萝卜钓竿的物品模型，<code>minecraft/models/block/stone.json</code> 表示石头的方块模型。</p>
 <p>我们通过几个例子来理解下模型文件的语法。</p>
@@ -1998,7 +2075,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 
 <p>方块状态我们一般不会用到，而且语法比较简单，可直接参阅 wiki，这里不做赘述。</p>
 
-<h2 id="§3.6_材质">§3.6 材质</h2>
+<h2 id="§3.6_材质">§3.6 <ruby>材质<rt>textures</rt></ruby></h2>
 <p>材质的绘制需要用到诸如 Photoshop 之类的画图软件，具体请参考材质版或网络上的相关教程。</p>
 <p>当模型调用的材质不存在时，会显示紫黑色的材质。如果模型是正确的，你仍然可以看出正确的模型形状。</p>
 <p>材质可以是动态的。动态材质需要高为宽的整数，以及一个 <code>mcmeta</code> 文件确定动画，例如 <code>foo.png</code> 对应</p>
@@ -2048,7 +2125,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 </tr>
 </tbody></table>
 
-<h2 id="§3.7_声音">§3.7 声音</h2>
+<h2 id="§3.7_声音">§3.7 <ruby>声音<rt>sounds</rt></ruby></h2>
 <p>音效文件为 <code>assets/命名空间/sounds.json</code>，它调用的是 <code>assets/命名空间/sounds</code> 文件夹下的 <code>ogg</code> 文件。例如：</p>
 <pre class="file">assets/rf/sounds.json</pre>
 <pre>
@@ -2093,7 +2170,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 </tr>
 </tbody></table>
 
-<h2 id="§3.8_字体">§3.8 字体</h2>
+<h2 id="§3.8_字体">§3.8 <ruby>字体<rt>font</rt></ruby></h2>
 <p>我们着重介绍字体图片。添加下述路径文件可以追加/覆盖特殊字符的显示：</p>
 <pre class="file">assets/minecraft/font/default.json</pre>
 <pre>
@@ -2147,7 +2224,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <p>我们可以用 <code>\u</code> 开头来表示不容易打出的字符，参见<a href="https://unicode-table.com">Unicode® Character Table</a>。直接使用字符也是可以的。</p>
 <p>利用这种方式，我们可以做到在成书、玩家快捷栏上方、聊天区域、物品名称等地方显示图片，见<a href="https://www.mcbbs.net/thread-835539-1-1.html">【1.13】如何添加图片?</a>。如果可以包含了使用负长度的空格的字体（需要 Nvidia 显卡以支持），还可以实现更为炫酷的效果，例如字体黑科技 —— 潜影盒内容预览：<a href="https://www.bilibili.com/video/av67508247">https://www.bilibili.com/video/av67508247</a>。</p>
 
-<h2 id="§3.9_着色器">§3.9 着色器</h2>
+<h2 id="§3.9_着色器">§3.9 <ruby>着色器<rt>shaders</rt></ruby></h2>
 <p>着色器可以对游戏内的视觉效果进行修改，目前可以通过</p>
 <ul>
     <li>旁观特定生物，可使用 <code>/spectate</code> 命令强制旁观；</li>
