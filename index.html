@@ -11,128 +11,133 @@
 <link rel="shortcut icon" href="https://zsx.neocities.org/main/favicon.ico" />
 <link rel="stylesheet" href="items/style.css" />
 </head>
-
+<!--<span onclick="this.style.display='none';this.nextElementSibling.nextElementSibling.nextElementSibling.style.display='list-item';this.nextElementSibling.style.display='inline';">+</span><span onclick="this.style.display='none';this.nextElementSibling.nextElementSibling.style.display='none';this.previousElementSibling.style.display='inline';" style="display:none;">−</span>-->
 <body>
 <nav>
 <ul>
-    <li style="border-bottom: #ddd 4px solid;padding-top:3px;padding-bottom: 3px;"><a href="#banner">原版模组入门教程</a></li>
-    <li><a href="#§1_预备知识">§1 预备知识</a><ul>
-        <li><a href="#§1.1_新人指引">§1.1 新人指引</a></li>
-        <li><a href="#§1.2_工具准备">§1.2 工具准备</a></li>
-        <li><a href="#§1.2.1_文本编辑器">§1.2.1 文本编辑器</a></li>
-        <li><a href="#§1.2.2_压缩工具">§1.2.2 压缩工具</a></li>
-        <li><a href="#§1.2.3_NBT_编辑器">§1.2.3 NBT 编辑器</a></li>
-        <li><a href="#§1.2.4_绘图工具">§1.2.4 绘图工具</a></li>
-        <li><a href="#§1.3_文件结构">§1.3 文件结构</a></li>
-        <li><a href="#§1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a></li>
-        <li><a href="#§1.3.2_存档文件结构">§1.3.2 存档文件结构</a></li>
-        <li><a href="#§1.4_JSON文件">§1.4 JSON文件</a></li>
+    <li><a href="#引言" style="font-weight: bold; text-align: center;">理论篇</a></li>
+    <li>
+        <a href="#引言">§1. 引言</a><ul>
+        <li><a href="#命令基础">§1.1. 命令基础</a></li>
+        <li><a href="#工具准备">§1.2. 工具准备</a><ul>
+            <li><a href="#文本编辑器">§1.2.1. 文本编辑器</a></li>
+            <li><a href="#压缩工具">§1.2.2. 压缩工具</a></li>
+            <li><a href="#NBT_编辑器">§1.2.3. NBT 编辑器</a></li>
+            <li><a href="#绘图工具">§1.2.4. 绘图工具</a></li>
+        </ul></li>
+        <li><a href="#文件结构">§1.3. 游戏文件夹</a></li>
+        <li><a href="#JSON文件">§1.4. JSON文件</a></li>
     </ul></li>
-    <li><a href="#§2_数据包">§2 数据包</a><ul>
-        <li><a href="#§2.1_元信息和图标">§2.1 元信息和图标</a></li>
-        <li><a href="#§2.2_命名空间">§2.2 命名空间</a></li>
-        <li><a href="#§2.3_函数">§2.3 函数</a></li>
-        <li><a href="#§2.4_进度">§2.4 进度</a></li>
-        <li><a href="#§2.5_战利品表">§2.5 战利品表</a></li>
-        <li><a href="#§2.6_断言">§2.6 断言</a></li>
-        <li><a href="#§2.7_配方">§2.7 配方</a></li>
-        <li><a href="#§2.8_结构">§2.8 结构</a></li>
-        <li><a href="#§2.9_标签">§2.9 标签</a></li>
-        <li><a href="#§2.9.1_预设标签">§2.9.1 预设标签</a></li>
-        <li><a href="#§2.10_维度和维度类型">§2.10 维度和维度类型</a></li>
+    <li><a href="#2_数据包">§2 数据包</a><ul>
+        <li><a href="#元信息和图标">§2.1 元信息和图标</a></li>
+        <li><a href="#2.2_命名空间">§2.2 命名空间</a></li>
+        <li><a href="#2.3_函数">§2.3 函数</a></li>
+        <li><a href="#2.4_进度">§2.4 进度</a></li>
+        <li><a href="#2.5_战利品表">§2.5 战利品表</a></li>
+        <li><a href="#2.6_断言">§2.6 断言</a></li>
+        <li><a href="#2.7_配方">§2.7 配方</a></li>
+        <li><a href="#2.8_结构">§2.8 结构</a></li>
+        <li><a href="#2.9_标签">§2.9 标签</a><ul>
+            <li><a href="#2.9.1_预设标签">§2.9.1 预设标签</a></li>
+        </ul></li>
+        <li><a href="#2.10_维度和维度类型">§2.10 维度和维度类型</a></li>
+        <li><a href="#世界生成">§2.11 世界生成</a></li>
     </ul></li>
-    <li><a href="#§3_资源包">§3 资源包</a><ul>
-        <li><a href="#§3.1_元信息和图标">§3.1 元信息和图标</a></li>
-        <li><a href="#§3.2_命名空间">§3.2 命名空间</a></li>
-        <li><a href="#§3.3_语言文件">§3.3 语言文件</a></li>
-        <li><a href="#§3.4_自定义物品模型">§3.4 自定义物品模型</a></li>
-        <li><a href="#§3.5_模型">§3.5 模型</a></li>
-        <li><a href="#§3.6_材质">§3.6 材质</a></li>
-        <li><a href="#§3.7_声音">§3.7 声音</a></li>
-        <li><a href="#§3.8_字体">§3.8 字体</a></li>
-        <li><a href="#§3.9_着色器">§3.9 着色器</a></li>
+    <li><a href="#3_资源包">§3 资源包</a><ul>
+        <li><a href="#元信息和图标'">§3.1 元信息和图标</a></li>
+        <li><a href="#3.2_命名空间">§3.2 命名空间</a></li>
+        <li><a href="#3.3_语言文件">§3.3 语言文件</a></li>
+        <li><a href="#3.4_自定义物品模型">§3.4 自定义物品模型</a></li>
+        <li><a href="#3.5_模型">§3.5 模型</a></li>
+        <li><a href="#3.6_材质">§3.6 材质</a></li>
+        <li><a href="#3.7_声音">§3.7 声音</a></li>
+        <li><a href="#3.8_字体">§3.8 字体</a></li>
+        <li><a href="#3.9_着色器">§3.9 着色器</a></li>
     </ul></li>
-    <li><a href="#§4_规划">§4 规划</a><ul>
-        <li><a href="#§4.1_名称设计">§4.1 名称设计</a></li>
-        <li><a href="#§4.2_调试">§4.2 调试</a></li>
-        <li><a href="#§4.3_前置与附属">§4.3 前置与附属</a></li>
-        <li><a href="#§4.4_发布">§4.4 发布</a></li>
+    <li><a href="规划" style="font-weight: bold; text-align: center;">实践篇</a></li>
+    <li><a href="规划">§4. 规划</a><ul>
+        <li><a href="#4.1_名称设计">§4.1 名称设计</a></li>
+        <li><a href="#4.2_调试">§4.2 调试</a></li>
+        <li><a href="#4.3_前置与附属">§4.3 前置与附属</a></li>
+        <li><a href="#4.4_发布">§4.4 发布</a></li>
     </ul></li>
-    <li><a href="#§5_物品设计">§5 物品设计</a><ul>
-        <li><a href="#§5.1_通用处理">§5.1 通用处理</a></li>
-        <li><a href="#§5.2_右键交互">§5.2 右键交互</a></li>
-        <li><a href="#§5.3_食物">§5.3 食物</a></li>
-        <li><a href="#§5.4_药水">§5.4 药水</a></li>
-        <li><a href="#§5.5_自定义状态效果">§5.5 自定义状态效果</a></li>
-        <li><a href="#§5.6_头饰">§5.6 头饰</a></li>
-        <li><a href="#§5.7_盔甲">§5.7 盔甲</a></li>
-        <li><a href="#§5.8_工具和武器">§5.8 工具和武器</a></li>
-        <li><a href="#§5.9_画">§5.9 画</a></li>
+    <li><a href="#5_物品设计">§5 物品设计</a><ul>
+        <li><a href="#5.1_通用处理">§5.1 通用处理</a></li>
+        <li><a href="#5.2_右键交互">§5.2 右键交互</a></li>
+        <li><a href="#5.3_食物">§5.3 食物</a></li>
+        <li><a href="#5.4_药水">§5.4 药水</a></li>
+        <li><a href="#5.5_自定义状态效果">§5.5 自定义状态效果</a></li>
+        <li><a href="#5.6_头饰">§5.6 头饰</a></li>
+        <li><a href="#5.7_盔甲">§5.7 盔甲</a></li>
+        <li><a href="#5.8_工具和武器">§5.8 工具和武器</a></li>
+        <li><a href="#5.9_画">§5.9 画</a></li>
     </ul></li>
-    <li><a href="#§6_方块设计">§6 方块设计</a><ul>
-        <li><a href="#§6.1_视线追踪法">§6.1 视线追踪法</a></li>
-        <li><a href="#§6.2_计算交点法">§6.2 计算交点法</a></li>
-        <li><a href="#§6.3_命令方块替换法">§6.3 命令方块替换法</a></li>
-        <li><a href="#§6.4_破坏事件">§6.4 破坏事件</a></li>
-        <li><a href="#§6.5_模型设置">§6.5 模型设置</a></li>
+    <li><a href="#6_方块设计">§6 方块设计</a><ul>
+        <li><a href="#6.1_视线追踪法">§6.1 视线追踪法</a></li>
+        <li><a href="#6.2_计算交点法">§6.2 计算交点法</a></li>
+        <li><a href="#6.3_命令方块替换法">§6.3 命令方块替换法</a></li>
+        <li><a href="#6.4_破坏事件">§6.4 破坏事件</a></li>
+        <li><a href="#6.5_模型设置">§6.5 模型设置</a></li>
     </ul></li>
-    <li><a href="#§7_合成与烧炼">§7 合成与烧炼</a><ul>
-        <li><a href="#§7.1_语法">§7.1 语法</a></li>
-        <li><a href="#§7.2_有序合成">§7.2 有序合成</a></li>
-        <li><a href="#§7.3_无序合成">§7.3 无序合成</a></li>
-        <li><a href="#§7.4_切石机配方">§7.4 切石机配方</a></li>
-        <li><a href="#§7.5_烧炼配方">§7.5 烧炼配方</a></li>
-        <li><a href="#§7.6_锻造台配方">§7.6 锻造台配方</a></li>
-        <li><a href="#§7.7_覆盖原版配方">§7.7 覆盖原版配方</a></li>
-        <li><a href="#§7.8_配方获取">§7.8 配方获取</a></li>
+    <li><a href="#7_合成与烧炼">§7 合成与烧炼</a><ul>
+        <li><a href="#7.1_语法">§7.1 语法</a></li>
+        <li><a href="#7.2_有序合成">§7.2 有序合成</a></li>
+        <li><a href="#7.3_无序合成">§7.3 无序合成</a></li>
+        <li><a href="#7.4_切石机配方">§7.4 切石机配方</a></li>
+        <li><a href="#7.5_烧炼配方">§7.5 烧炼配方</a></li>
+        <li><a href="#7.6_锻造台配方">§7.6 锻造台配方</a></li>
+        <li><a href="#7.7_覆盖原版配方">§7.7 覆盖原版配方</a></li>
+        <li><a href="#7.8_配方获取">§7.8 配方获取</a></li>
     </ul></li>
-    <li class="up6"><a href="#§8_机器设计">§8 机器设计</a><ul>
-        <li><a href="#§8.1_GUI材质模型">§8.1 GUI材质模型</a></li>
-        <li><a href="#§8.2_GUI背景处理">§8.2 GUI背景处理</a></li>
-        <li><a href="#§8.3_GUI命令">§8.3 GUI命令</a></li>
-        <li><a href="#§8.4_物品输出">§8.4 物品输出</a></li>
-        <li><a href="#§8.5_配方处理">§8.5 配方处理</a></li>
-        <li><a href="#§8.6_插件">§8.6 插件</a></li>
-        <li><a href="#§8.7_容器扩展">§8.7 容器扩展</a></li>
-        <li><a href="#§8.8_接口">§8.8 接口</a></li>
-        <li><a href="#§8.9_管道">§8.9 管道</a></li>
-        <li><a href="#§8.9.1_无线传输">§8.9.1 无线传输</a></li>
-        <li><a href="#§8.9.2_管道式">§8.9.2 管道式</a></li>
-        <li><a href="#§8.9.3_激光式">§8.9.3 激光式</a></li>
-        <li><a href="#§8.9.4_载体式">§8.9.4 载体式</a></li>
-        <li><a href="#§8.9.5_管道设计">§8.9.5 管道设计</a></li>
+    <li class="up6"><a href="#8_机器设计">§8 机器设计</a><ul>
+        <li><a href="#8.1_GUI材质模型">§8.1 GUI材质模型</a></li>
+        <li><a href="#8.2_GUI背景处理">§8.2 GUI背景处理</a></li>
+        <li><a href="#8.3_GUI命令">§8.3 GUI命令</a></li>
+        <li><a href="#8.4_物品输出">§8.4 物品输出</a></li>
+        <li><a href="#8.5_配方处理">§8.5 配方处理</a></li>
+        <li><a href="#8.6_插件">§8.6 插件</a></li>
+        <li><a href="#8.7_容器扩展">§8.7 容器扩展</a></li>
+        <li><a href="#8.8_接口">§8.8 接口</a></li>
+        <li><a href="#8.9_管道">§8.9 管道</a><ul>
+            <li><a href="#8.9.1_无线传输">§8.9.1 无线传输</a></li>
+            <li><a href="#8.9.2_管道式">§8.9.2 管道式</a></li>
+            <li><a href="#8.9.3_激光式">§8.9.3 激光式</a></li>
+            <li><a href="#8.9.4_载体式">§8.9.4 载体式</a></li>
+            <li><a href="#8.9.5_管道设计">§8.9.5 管道设计</a></li>
+      </ul></li>
     </ul></li>
-    <li class="up4"><a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a><ul>
-        <li><a href="#§9.1_地板合成">§9.1 地板合成</a></li>
-        <li><a href="#§9.2_实体背包合成">§9.2 实体背包合成</a></li>
-        <li><a href="#§9.3_容器合成">§9.3 容器合成</a></li>
-        <li><a href="#§9.4_NBT烧炼">§9.4 NBT烧炼</a></li>
-        <li><a href="#§9.4.1_替换产物法">§9.4.1 替换产物法</a></li>
-        <li><a href="#§9.4.2_记分板模拟">§9.4.2 记分板模拟</a></li>
-        <li><a href="#§9.5_NBT酿造">§9.5 NBT酿造</a></li>
+    <li class="up4"><a href="#9_NBT合成与烧炼">§9 NBT合成与烧炼</a><ul>
+        <li><a href="#9.1_地板合成">§9.1 地板合成</a></li>
+        <li><a href="#9.2_实体背包合成">§9.2 实体背包合成</a></li>
+        <li><a href="#9.3_容器合成">§9.3 容器合成</a></li>
+        <li><a href="#9.4_NBT烧炼">§9.4 NBT烧炼</a><ul>
+            <li><a href="#9.4.1_替换产物法">§9.4.1 替换产物法</a></li>
+            <li><a href="#9.4.2_记分板模拟">§9.4.2 记分板模拟</a></li>
+        </ul></li>
+        <li><a href="#9.5_NBT酿造">§9.5 NBT酿造</a></li>
     </ul></li>
-    <li class="up2"><a href="#§10_植物">§10 植物</a><ul>
-        <li><a href="#§10.1_作物">§10.1 作物</a></li>
-        <li><a href="#§10.2_花草">§10.2 花草</a></li>
-        <li><a href="#§10.3_树">§10.3 树</a></li>
+    <li class="up2"><a href="#10_植物">§10 植物</a><ul>
+        <li><a href="#10.1_作物">§10.1 作物</a></li>
+        <li><a href="#10.2_花草">§10.2 花草</a></li>
+        <li><a href="#10.3_树">§10.3 树</a></li>
     </ul></li>
-    <li class="up5"><a href="#§11_物品与实体处理">§11 物品与实体处理</a><ul>
-        <li><a href="#§11.1_随机数">§11.1 随机数</a></li>
-        <li><a href="#§11.2_修改玩家背包">§11.2 修改玩家背包</a></li>
-        <li><a href="#§11.3_耐久处理">§11.3 耐久处理</a></li>
-        <li><a href="#§11.4_红石信号">§11.4 红石信号</a></li>
-        <li><a href="#§11.5_方块交互">§11.5 方块交互</a></li>
-        <li><a href="#§11.6_生物移动">§11.6 生物移动</a></li>
-        <li><a href="#§11.7_交易">§11.7 交易</a></li>
-        <li><a href="#§11.8_清理特定物品">§11.8 清理特定物品</a></li>
-        <li><a href="#§11.9_连锁">§11.9 连锁</a></li>
+    <li class="up5"><a href="#11_物品与实体处理">§11 物品与实体处理</a><ul>
+        <li><a href="#11.1_随机数">§11.1 随机数</a></li>
+        <li><a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a></li>
+        <li><a href="#11.3_耐久处理">§11.3 耐久处理</a></li>
+        <li><a href="#11.4_红石信号">§11.4 红石信号</a></li>
+        <li><a href="#11.5_方块交互">§11.5 方块交互</a></li>
+        <li><a href="#11.6_生物移动">§11.6 生物移动</a></li>
+        <li><a href="#11.7_交易">§11.7 交易</a></li>
+        <li><a href="#11.8_清理特定物品">§11.8 清理特定物品</a></li>
+        <li><a href="#11.9_连锁">§11.9 连锁</a></li>
     </ul></li>
-    <li class="up4"><a href="#§12_算法">§12 算法</a><ul>
-        <li><a href="#§12.1_世界生成结构">§12.1 世界生成结构</a></li>
-        <li><a href="#§12.2_绘制图案">§12.2 绘制图案</a></li>
-        <li><a href="#§12.3_循环与递归">§12.3 循环与递归</a></li>
-        <li><a href="#§12.4_字符操作">§12.4 字符操作</a></li>
-        <li><a href="#§12.5_位运算与种子">§12.5 位运算与种子</a></li>
+    <li class="up4"><a href="#12_算法">§12 算法</a><ul>
+        <li><a href="#12.1_世界生成结构">§12.1 世界生成结构</a></li>
+        <li><a href="#12.2_绘制图案">§12.2 绘制图案</a></li>
+        <li><a href="#12.3_循环与递归">§12.3 循环与递归</a></li>
+        <li><a href="#12.4_字符操作">§12.4 字符操作</a></li>
+        <li><a href="#12.5_位运算与种子">§12.5 位运算与种子</a></li>
     </ul></li>
 </ul>
 </nav>
@@ -143,41 +148,31 @@
 <img id="banner" src="items/banner.png" style="width:100%;"/>
 
 <article>
-<p>原版模组一般指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。而自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。因此我将为大家做一个简单的入门，以期抛砖引玉。</p>
-<p>本文内容适用于 Minecraft Java 版 1.16 版本，但大部分内容也适合 1.13-1.15 版本，请读者注意区分。系统环境为 Windows10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议、教程等。有任何错误和疑问请联系我，谢谢！</p>
+<h1 id="引言">§1 引言</h1>
+<p>原版模组指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。之所以称之为原版模组，乃是为了和使用 Mod Loader/API 环境基于 Java 开发的 Mod 作区分，这些 Mod Loader/API 包括 Forge，Liteloader，Fabric 等。自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。本文内的原版模组便是指利用数据包和可能的配套资源包对游戏的可玩性做出修改。</p>
+
+<p>本文内容适用于 Minecraft Java 版 1.16 版本，但大部分内容也适合 1.13-1.15 版本，请读者自行区分。系统环境为 Windows 10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议、教程等，无法一一列出，在此一并表示感谢。</p>
+
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
-<p>编写进度：§1-§12.1 校对：§2.5(2020/07/02)</p>
 
-<h1 id="§1_预备知识">§1 预备知识</h1>
-<p>本节部分段落常为部分读者所熟知，但仍建议原版模组新手按顺序浏览一遍，可跳过自己熟知的部分。对于首次接触者，请耐心阅读。</p>
+<p>进度：§1.4 by ruhuasiyu 2020/07/14</p>
 
-<h2 id="§1.1_新人指引">§1.1 新人指引</h2>
-<p>本文为原版模组入门教程，而非命令的入门教程，因此本文不会对命令部分做过多的详解。若你对命令尚不了解，可先依次通过如下链接学习并了解：</p>
+<h2 id="命令基础">§1.1 命令基础</h2>
+<p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
 <ul>
-    <li><strong>命令手册</strong>
-        <ul>
-            <li><a href="https://wiki.biligame.com/mc/命令">命令 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
-            <li><a href="https://commandtutorials.neocities.org/">新人手册-MC命令方块资源</a></li>
-            <li><a href="http://mc-command.oschina.io/command-tutorial/">命令进阶教程</a></li>
-        </ul>
-    </li>
-    <li><strong>记分板和 NBT 手册</strong>
-        <ul>
-            <li><a href="https://wiki.biligame.com/mc/记分板">记分板 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
-            <li><a href="https://wiki.biligame.com/mc/区块格式">区块格式 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
-            <li><a href="https://wiki.biligame.com/mc/Player.dat格式">player.dat格式 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
-        </ul>
-    </li>
+    <li><strong><a href="https://wiki.biligame.com/mc/命令" class="wiki"><ruby>命令<rt>command</rt></ruby></a></strong>为官方 wiki 的命令页面，其中包括了命令的基本参数介绍：坐标、目标选择器、数据标签(NBT 格式)、原始JSON文本、命名空间ID等内容。读者需在学习命令过程中逐步了解这些概念。</li>
+    <li class="noindent"><strong><a href="https://wiki.biligame.com/mc/记分板" class="wiki"><ruby>记分板<rt>scoreboard</rt></ruby></a></strong>为官方 wiki 的记分板页面，其中包括了记分板的所有准则和相关命令格式，也包含了<ruby>标签<rt>tag</rt></ruby>和<ruby>组<rt>team</rt></ruby>的相关内容。</li>
+    <li class="noindent"><strong><a href="https://wiki.biligame.com/mc/区块格式">区块格式</a>，<a href="https://wiki.biligame.com/mc/Player.dat格式" class="wiki">player.dat格式</a></strong>两个页面给出了所有物品和实体(含方块实体)的 NBT。在游戏中，实体的 NBT 可通过命令 <code>data get entity/block</code> 来获取，物品的 NBT 可通过手持并输入命令 <code>data get entity @s SelectedItem</code> 来获取，以避免记忆大量的 NBT。</li>
+    <li class="noindent"><strong><a href="https://commandtutorials.neocities.org/">新人手册-MC命令方块资源</a></strong>包含了很多基础的教程，不过很多内容会有些过时。还包含少量进阶的内容，对于初学者可能较为复杂，请以理解其逻辑为主。</li>
+    <li class="noindent"><strong><a href="http://mc-command.oschina.io/command-tutorial/">命令进阶</a></strong> 名为命令进阶，实际上比前一项页面更为初等，不过更为系统。</li>
 </ul>
-<p>可先熟悉各项命令后，再学习记分板和 NBT 相关命令。实体和方块 NBT 亦可通过在游戏中使用 <code>data get entity/block</code> 命令来获取，以避免记忆大量的 NBT。</p>
+<p>若你已对 1.16 之前版本的命令较为熟悉，可在<a href="https://wiki.biligame.com/mc/Java版版本记录" class="wiki">Java版版本记录</a>中查看各版本间差异。</p>
 
-<p>若你已对 1.16 之前版本的命令较为熟悉，可在<a href="https://wiki.biligame.com/mc/Java版版本记录">Java版版本记录</a>中查看各版本间差异。</p>
-
-<h2 id="§1.2_工具准备">§1.2 工具准备</h2>
-<h3 id="§1.2.1_文本编辑器">§1.2.1 文本编辑器</h3>
-<p>我们所涉及的所有文本文件，包括文本文档(.txt)、函数文件(.mcfunction)、JSON文件(.json, .mcmeta)、日志文件(.log)，均需使用 <code>UTF-8</code> 编码格式。以下列出的文本编辑器均默认为 <code>UTF-8</code> 编码，可以在编辑器页面的右下角状态栏看到。</p>
+<h2 id="工具准备">§1.2 工具准备</h2>
+<h3 id="文本编辑器">§1.2.1 文本编辑器</h3>
+<p>原版模组涉及的文本文件，包括文本文档(.txt)、函数文件(.mcfunction)、JSON文件(.json, .mcmeta)，均需使用 <code>UTF-8</code> 编码格式。以下列出的文本编辑器均默认为 <code>UTF-8</code> 编码，可以在编辑器页面的右下角状态栏看到。</p>
 <ul>
-    <li><strong><a href="https://code.visualstudio.com/">Visual Studio Code</a></strong> 下载安装后，可以安装如下插件：
+    <li><strong><a href="https://code.visualstudio.com/">Visual Studio Code</a></strong> 为功能较丰富的编辑器。下载安装后，可以安装如下插件：
         <ul>
             <li><em>Chinese (Simplified) Language Pack for Visual Studio Code</em> 用于支持中文语言</li>
             <li><em>Datapack Helper Plus (JSON)</em> 用于JSON语法补全和纠错</li>
@@ -185,312 +180,120 @@
             <li><em>language-mcfunction</em> 用于函数语法高亮</li>
         </ul>
     </li>
-    <li><strong>记事本</strong> 为 Windows 系统自带。Windows10 的记事本已经默认是 <code>UTF-8</code> 编码了。点击<code>查看->状态栏</code>可以在右下角状态栏看到，因此可以正常使用。旧版本 Windows 的记事本仍然不是，请勿使用。</li>
-    <li><strong><a href="https://notepad-plus-plus.org/">Notepad++</a></strong>
-    可从 <a href="http://www.mcbbs.net/thread-806816-1-1.html">mcfunction 的语言样式和自动补全</a>帖中下载相关文件并导入，另外请将 Notepad++ 中<code>设置->首选项->其它->自动检测字符编码</code>选项关闭。</li>
+    <li><strong>记事本</strong>为 Windows 系统自带的极简编辑器。Windows10 的记事本已经默认是 <code>UTF-8</code> 编码了。点击<code>查看->状态栏</code>可以在右下角状态栏看到，因此可以正常使用。旧版本 Windows 的记事本仍然不是，请勿使用。</li>
+    <li><strong><a href="https://notepad-plus-plus.org/">Notepad++</a></strong>复杂程度介于二者之间。可从 <a href="http://www.mcbbs.net/thread-806816-1-1.html">mcfunction 的语言样式和自动补全</a>帖中下载相关文件并导入以支持语法高亮和补全。另外请将 Notepad++ 中<code>设置->首选项->其它->自动检测字符编码</code>选项关闭。</li>
 </ul>
 <p>编辑器右下角可以看到 <code>LF</code> 或 <code>CRLF</code>，分别表示两种换行符，二者均可正常使用，建议使用 <code>LF</code>。</p>
 <p>注意编码不要误选了 <code>UTF-8 with BOM</code> 格式。</p>
 <p>由于编辑器插件相比 Minecraft 版本更新具有延后性，因此上述语法补全/高亮/纠错等未必准确。</p>
+<p>除 <code>txt</code> 以外的文本文件均可通过新建文本文件后修改后缀得到。为便于查看文件后缀，请将<code>文件->文件夹选项->查看->隐藏已知文件类型的扩展名</code>选项去掉勾选。</p>
 
-<h3 id="§1.2.2_压缩工具">§1.2.2 压缩工具</h3>
+<h3 id="压缩工具">§1.2.2 压缩工具</h3>
 <p>数据包和资源包均可以为文件夹或 zip 压缩文件格式。游戏本体和模组本体的 jar 文件也需要压缩工具来打开。</p>
 <ul>
-    <li><strong>Windows 资源管理器</strong> Windows10 系统自带 zip 格式的压缩和解压缩。zip 格式可以直接打开，压缩则用<code>选择->右键->发送到->压缩文件夹</code>。</li>
+    <li><strong>Windows 资源管理器</strong> Windows10 系统自带 zip 格式的压缩和解压缩。zip 格式可如文件夹般直接打开，压缩则用<code>选择->右键->发送到->压缩文件夹</code>。</li>
     <li><strong><a href="http://www.7-zip.org/">7-Zip</a></strong> 免费软件。</li>
     <li><strong><a href="http://www.winrar.com.cn/">WinRAR</a></strong> 付费软件。</li>
 </ul>
 <p>jar 文件可以通过重命名为 zip 文件直接用 Windows 资源管理器打开。显然，这不如<code>右键->7-zip->打开压缩包</code>方便。</p>
 
-<h3 id="§1.2.3_NBT_编辑器">§1.2.3 NBT 编辑器</h3>
-<p>推荐使用 <a href="https://github.com/jaquadro/NBTExplorer/releases">NBTExplorer</a> 来打开 dat 和其它 NBT 格式文件。汉化版本可<a href="https://www.mcbbs.net/thread-735265-1-1.html">由此下载</a>。</p>
+<h3 id="NBT_编辑器">§1.2.3 NBT 编辑器</h3>
+<p>推荐使用 <a href="https://github.com/jaquadro/NBTExplorer/releases">NBTExplorer</a> 来打开 dat 文件和其它 NBT 格式文件。汉化版本可<a href="https://www.mcbbs.net/thread-735265-1-1.html">由此下载</a>。</p>
 
-<h3 id="§1.2.4_绘图工具">§1.2.4 绘图工具</h3>
+<h3 id="绘图工具">§1.2.4 绘图工具</h3>
 <p>推荐使用 <a href="https://www.adobe.com/cn/products/photoshop.html">Adobe Photoshop</a> 或其它绘图工具来绘制材质。Windows 自带的画图由于无法生成透明背景，因此不推荐使用。</p>
 
-<h2 id="§1.3_文件结构">§1.3 文件结构</h2>
-<p>本节中我们将对各个主要的文件夹结构和文件做简单的介绍。为便于查看文件后缀，请将<code>文件->文件夹选项->查看->隐藏已知文件类型的扩展名</code>选项去掉勾选。所有的文件中可以使用文本编辑器打开的文件可通过新建文本文件并修改后缀来创建。</p>
+<h2 id="文件结构">§1.3 游戏文件夹</h2>
+<p>本节中我们将对游戏文件夹的结构做简单的介绍，我们只介绍原版模组开发中涉及的内容。<code>.minecraft</code> 文件夹是 Minecraft 创建的并用于游戏运行的文件夹，它包含了游戏的所有内容。在第一次启动启动器时，会自动创建 <code>.minecraft</code> 文件夹。参考 <a href="https://wiki.biligame.com/mc/.minecraft" class="wiki">.minecraft</a>。</p>
 
-<h3 id="§1.3.1_游戏文件结构">§1.3.1 游戏文件结构</h3>
-<p>打开 <code>.minecraft</code> 所在的文件夹，这通常位于你的启动器目录下。如果启动器中设置为各版本独立，则类似的文件结构位于 <code>versions/&lt;版本号&gt;</code>下。见<a href="https://wiki.biligame.com/mc/.minecraft">.minecraft</a>。</td>
-<table><thead><tr><th style="width:6em;">文件</th><th style="width:19em;">文件位置</th><th>说明</th><th>wiki</th></tr></thead><tbody>
-<tr>
-    <th>资源文件索引</th>
-    <td><code>assets/indexes/&lt;版本号&gt;.json</code></td>
-    <td rowspan="2">从资源文件索引中 <code>minecraft/lang/zh_cn.json</code> 的值可知中文语言文件 hash，找到后使用文本编辑器打开。其它资源文件也可以类似寻找并用相应软件打开。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <th>资源文件</th>
-    <td><code>assets/objects/&lt;hash开头&gt;/&lt;hash&gt;</code></td>
-    <td>-</td>
-</tr>
-<tr>
-    <th>备份文件</th>
-    <td><code>backups/&lt;年-月-日_时-分-秒_世界名称&gt;.zip</code></td>
-    <td>存档的备份文件。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <th>崩溃报告</th>
-    <td><code>crash-reports/&lt;crash-年-月-日_时.分.秒-server&gt;.txt</code></td>
-    <td>如果是由于资源包或数据包引起的崩溃，可以在该文件中看到原因。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <th rowspan="2">日志</th>
-    <td><code>logs/&lt;年-月-日-序号&gt;.log.gz</code></td>
-    <td>历史日志，使用压缩工具打开后使用文本编辑器打开。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <td><code>logs/latest.log</code></td>
-    <td>当前日志，可随时查看加载资源包和数据包时的错误信息，包括错误的文件名称、位置、错误的行列数等。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <th>资源包</th>
-    <td><code>resourcepacks/&lt;资源包名&gt;</code><br />
-        <code>resourcepacks/&lt;资源包名&gt;.zip</code></td>
-    <td>具体结构见 <a href="#§3_资源包">§3 资源包</a>。</td>
-    <td><a href="https://wiki.biligame.com/mc/资源包">资源包</a></td>
-</tr>
-<tr>
-    <th>存档文件</th>
-    <td><code>saves/&lt;世界名称&gt;</code></td>
-    <td>具体结构见 <a href="#§1.3.2_存档文件结构">§1.3.2 存档文件结构</a>。</td>
-    <td><a href="https://wiki.biligame.com/mc/世界格式">世界格式</a></td>
-</tr>
-<tr>
-    <th>游戏截图</th>
-    <td><code>screenshots/&lt;年-月-日_时_分_秒&gt;.png</code></td>
-    <td>游戏截图</td>
-    <td><a href="https://wiki.biligame.com/mc/截屏">截屏</a></td>
-</tr>
-<tr>
-    <th>服务器资源包</th>
-    <td><code>server-resource-packs/&lt;服务器&gt;</code></td>
-    <td>具体结构见 <a href="#§3_资源包">§3 资源包</a>。</td>
-    <td><a href="https://wiki.biligame.com/mc/资源包">资源包</a></td>
-</tr>
-<tr>
-    <th>存储的物品栏</th>
-    <td><code>hotbar.nbt</code></td>
-    <td>游戏内使用<code>C+&lt;数字&gt;</code>存储、<code>X+&lt;数字&gt;</code>取出的创造模式物品快捷栏。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <th>游戏设置</th>
-    <td><code>options.txt</code></td>
-    <td>可直接设置游戏内快捷键、音量、视距等选项。</td>
-    <td><a href="https://wiki.biligame.com/mc/options.txt">options.txt</a></td>
-</tr>
-<tr>
-    <th>服务器</th>
-    <td><code>servers.dat</code></td>
-    <td>包含服务器信息。</td>
-    <td><a href="https://wiki.biligame.com/mc/Servers.dat格式">Servers.dat格式</a></td>
-</tr>
-<tr>
-    <th>玩家缓存</th>
-    <td><code>usercache.json</code></td>
-    <td>为服务器玩家登录名和 UUID 对应。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <th>玩家名缓存</th>
-    <td><code>usernamecache.json</code></td>
-    <td>为单机玩家登录名和 UUID 对应。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <th>游戏本体</th>
-    <td><code>versions/&lt;版本号&gt;/&lt;版本号&gt;.jar</code></td>
-    <td>包含了对应版本的资源和数据文件。<code>assets</code> 结构见 <a href="#资源包">§3 资源包</a>，<code>data</code> 结构见 <a href="#数据包">§2 数据包</a>。</td>
-    <td><a href="https://wiki.biligame.com/mc/Client.jar">Client.jar</a></td>
-</tr>
-</tbody></table>
+<p><code>.minecraft</code> 文件夹通常位于你的启动器目录下。如果启动器中设置为各版本独立，则位于 <code>versions/&lt;版本号&gt;</code>下。另一种方式是在游戏内点击<code>选项->资源包->打开压缩包文件夹</code>并返回上级目录，或者点击<code>单人游戏->选中世界->编辑->打开世界文件夹</code>并返回上上级目录。</p>
+
+<p class="noindent"><strong>游戏本体</strong>位于 <code>versions/&lt;版本号&gt;/&lt;版本号&gt;.jar</code>。该文件包含了对应版本的游戏资源和数据文件，使用压缩工具打开后，可以看到<ul>
+    <li>原版<a href="#资源包">资源包</a>位于 <code>assets</code> 文件夹内，其中 <code>minecraft</code> 文件夹为命名空间 <code>minecraft</code> 下的资源文件。</td></li>
+    <li>原版<a href="#数据包">数据包</a>位于 <code>data</code> 文件夹内，其中 <code>minecraft</code> 文件夹为命名空间 <code>minecraft</code> 下的数据文件。</li>
+    <li><code>pack.mcmeta</code> 为原版资源包和数据包的<a href="#元信息和图标">元信息</a>。</li>
+    <li><code>pack.png</code> 为原版资源包和数据包的<a href="#元信息和图标">图标</a>。</li>
+</ul></p>
+
 <figure>
     <img src="items/游戏本体文件结构.png" alt="游戏本体文件结构" />
     <figcaption>图1.1 游戏本体文件结构</figcaption>
 </figure>
 
-<h3 id="§1.3.2_存档文件结构">§1.3.2 存档文件结构</h3>
-<p>位于 <code>.minecraft/saves/&lt;世界名称&gt;</code>，完整的信息参见<a href="https://wiki.biligame.com/mc/世界格式">世界格式</a>。区块文件、地图文件等不建议使用 NBT 编辑器来编辑，而是用 MCEdit、地图文件生成工具等来编辑。</p>
-<table><thead><tr><th style="width:5em;">文件</th><th style="width:24em;">文件位置</th><th>说明</th><th>wiki</th></tr></thead><tbody>
-<tr>
-    <th>世界信息</th>
-    <td><code>level.dat</code></td>
-    <td>记录了种子、生成类型、难度、出生点、世界边界、游戏规则等内容。</td>
-    <td><a href="https://wiki.biligame.com/mc/世界格式#level.dat格式">世界格式</a></td>
-</tr>
-<tr>
-    <th>属性</th>
-    <td><code>playerdata/&lt;玩家 UUID&gt;.dat</code></td>
-    <td>记录了玩家的所有个人信息，如位置、复活点、飞行速度等。</td>
-    <td><a href="https://wiki.biligame.com/mc/Player.dat格式">Player.dat格式</a></td>
-</tr>
-<tr>
-    <th>统计</th>
-    <td><code>stats/&lt;玩家 UUID&gt;.json</code></td>
-    <td>使用文本编辑器打开，记录了玩家的统计信息。</td>
-    <td><a href="https://wiki.biligame.com/mc/统计#存储">统计</a></td>
-</tr>
-<tr>
-    <th>进度</th>
-    <td><code>advancements/&lt;玩家 UUID&gt;.json</code></td>
-    <td>使用文本编辑器打开，记录了玩家已完成的进度和进度判据的完成时间。</td>
-</tr>
-<tr>
-    <th>地图数</th>
-    <td><code>data/idcounts.json</code></td>
-    <td>使用文本编辑器打开，记录了当前已使用的地图数量，游戏内新使用的空地图会由此开始计数。</td>
-    <td><a href="https://wiki.biligame.com/mc/地图物品格式#idcounts.dat格式">地图物品格式</a></td>
-</tr>
-<tr>
-    <th>地图</th>
-    <td><code>data/map_&lt;数字&gt;.dat</code></td>
-    <td>记录了地图 <code>filled_map{data:&lt;数字&gt;}</code> 的信息。</td>
-    <td><a href="https://wiki.biligame.com/mc/地图物品格式#map_<#>.dat格式">地图物品格式</a></td>
-</tr>
-<tr>
-    <th>记分板</th>
-    <td><code>data/scoreboard.dat</code></td>
-    <td>记录了记分板、记分板的值、组。</td>
-    <td><a href="https://wiki.biligame.com/mc/记分板#NBT格式">记分板</a></td>
-</tr>
-<tr>
-    <th>存储区</th>
-    <td><code>data/command_storage_&lt;命名空间&gt;.dat</code></td>
-    <td>存储了存储区 (storage) 的 NBT。</td>
-    <td><a href="https://wiki.biligame.com/mc/命令存储格式">命令存储格式</a></td>
-</tr>
-<tr>
-    <th rowspan="4">区块</th>
-    <td><code>region/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
-    <td>记录了主世界的区块信息，每32×32个区块存储为一个文件，。</td>
-    <td rowspan="4"><a href="https://wiki.biligame.com/mc/Anvil文件格式">Anvil文件格式</a><br />
-        <a href="https://wiki.biligame.com/mc/区块格式">区块格式</a></td>
-</tr>
-<tr>
-    <td><code>DIM-1/region/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
-    <td>记录了下界的区块信息，同上。</td>
-</tr>
-<tr>
-    <td><code>DIM1/region/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
-    <td>记录了末地的区块信息，同上。</td>
-</tr>
-<tr>
-    <td><code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;/region/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
-    <td>记录了自定义维度的区块信息，同上。</td>
-</tr>
-<tr>
-    <th>村民兴趣点</th>
-    <td><code>poi/r.&lt;数值&gt;.&lt;数值&gt;.mca</code><br/>
-        <code>DIM-1/poi/r.&lt;数值&gt;.&lt;数值&gt;.mca</code><br/>
-        <code>DIM1/poi/r.&lt;数值&gt;.&lt;数值&gt;.mca</code><br/>
-        <code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;/poi/r.&lt;数值&gt;.&lt;数值&gt;.mca</code></td>
-    <td>记录了主世界/下界/末地/自定义维度村民兴趣点，即特定的床、工作站点和钟。每32×32个区块存储为一个文件。<br />
-        1.13及更早版本则记录村庄信息在 <code>villages.dat</code>。</td>
-    <td><a href="https://wiki.biligame.com/mc/世界格式#poi格式">世界格式</a><br />
-        <a href="https://wiki.biligame.com/mc/Villages.dat格式">Villages.dat格式</a></td>
-</tr>
-<tr>
-    <th>袭击</th>
-    <td><code>data/raids.dat</code><br/>
-        <code>DIM-1/data/raids_nether.dat</code><br/>
-        <code>DIM1/data/raids_end.dat</code><br/>
-        <code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;/data/raids.dat</code></td>
-    <td>记录了主世界/下界/末地/自定义维度袭击的信息。</td>
-    <td><a href="https://wiki.biligame.com/mc/Raids.dat格式">raids.dat格式</a></td>
-</tr>
-<tr>
-    <th>常加载区块</th>
-    <td><code>data/chunks.dat</code><br/>
-        <code>DIM-1/data/chunks.dat</code><br/>
-        <code>DIM1/data/chunks.dat</code><br/>
-        <code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;/data/chunks.dat</code></td>
-    <td>记录了主世界/下界/末地/自定义维度的常加载区块。</td>
-    <td>-</td>
-</tr>
-<tr>
-    <th>数据包</th>
-    <td><code>datapacks/&lt;数据包名&gt;</code><br/>
-        <code>datapacks/&lt;数据包名&gt;.zip</code></td>
-    <td>具体结构见 <a href="#datapack">§2 数据包</a>。</td>
-    <td><a href="https://wiki.biligame.com/mc/数据包">数据包</a></td>
-</tr>
-<tr>
-    <th>结构</th>
-    <td><code>generated/&lt;命名空间&gt;/structures/&lt;文件&gt;.nbt</code></td>
-    <td>记录了游戏内使用结构方块保存的结构，将其移动至数据包内方可使用。</td>
-    <td><a href="https://wiki.biligame.com/mc/结构方块文件格式">结构方块文件格式</a></td>
-</tr>
-</tbody></table>
+<p class="noindent"><strong>资源包文件夹</strong>位于<code>resourcepacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个资源包，具体结构见 <a href="#资源包">§3 资源包</a>。服务器下载的资源包位于 <code>server-resource-packs/&lt;服务器&gt;</code>，可使用压缩工具打开。</p>
 
-<h3 id="§1.4_JSON文件">§1.4 JSON文件</h3>
-<p>数据包的进度、战利品表、标签、断言、配方、维度、维度类型，资源包的语言文件、模型等文件均为JSON格式文件。<code>.mcmeta</code> 文件也是JSON文件，因此格式也是相同的。编写时，使用空格或制表符(Tab)缩进，以便于查看括号匹配和层次。wiki 上有关页面使用了 NBT 的数据类型标注，但其实并不适用于JSON格式。</p>
-<p>JSON文件包括一对根括号{}，包含类似 <code>"abc":"def"</code> (<code>键:值</code>)的对。相同的键后者会覆盖前者。键为需引号圈住的字符串，值的数据类型为</p>
+<p class="noindent"><strong>资源文件</strong> 部分资源文件不被包含在原版资源包内，而是位于资源文件夹下，这主要包括各种语言文本和音效文件。资源文件索引位于 <code>assets/indexes/&lt;版本号&gt;.json</code>，打开后通过键值可知相应资源的 hash 值，对应的资源位于 <code>assets/objects/&lt;hash开头&gt;/&lt;hash&gt;</code>。例如打开 <code>>assets/indexes/1.16.json</code>，找到键 <code>minecraft/lang/zh_cn.json</code> 的 <code>hash</code> 为 <code>74f282093eaa509909f04fa3311757320445a27f</code>，因此简体中文的语言文本位于文件夹 <code>assets/objects/74/74f282093eaa509909f04fa3311757320445a27f</code>，使用文本编辑器打开即可看到游戏内的所有名称的中文译名。注意该文件中的中文均被转化为相应的 Unicode 表达方式，参考<a href="#字体">字体</a>。</p>
 
-<table><thead><tr><th style="width:6em;">数据类型</th><th>示例</th><th>说明</th></tr></thead><tbody>
-<tr>
-    <th rowspan="2">布尔型</th>
-    <td><code>"is_on_fire": false</code></td>
-    <td rowspan="2">值为<code>true</code>和<code>false</code>。</td>
-</tr>
-<tr><td><code>"is_baby": true</code></td></tr>
-<tr>
-    <th rowspan="2">数值</th>
-    <td><code>"count": 2</code></td>
-    <td rowspan="2">2和2.0没有效果上的差异。</td>
-</tr>
-<tr><td><code>"chance": 0.025</code></td></tr>
-<tr>
-    <th rowspan="4">字符串</th>
-    <td><code>"item": "minecraft:shears"</code></td>
-    <td rowspan="4">使用双引号圈住，可以使用颜色代码如§6、换行符\n。</td>
-</tr>
-<tr><td><code>"condition": "minecraft:match_tool"</code></td></tr>
-<tr><td><code>"layer0": "ex:crop/bauhinia_seeds"</code></td></tr>
-<tr><td><code>"description": "§6更多的合成 1.10\n§6by ruhuasiyu"</code></td></tr>
-<tr>
-    <th rowspan="3">列表</th>
-    <td><code>"chances": [0.05, 0.0625, 0.083333336, 0.1]</code></td>
-    <td rowspan="3">使用中括号圈住。</td>
-</tr>
-<tr><td><pre style="padding: 0; margin:0">"items": [
-    {"item": "minecraft:zombie_head"},
-    {"item": "minecraft:skeleton_skull"},
-    {"item": minecraft:wither_skeleton_skull"},
-    {"item": "minecraft:creeper_head"}
-]</pre></td>
-</tr>
-<tr><td><pre style="padding: 0; margin:0">"requirements":[
-    [
-        "wing_of_sky",
-        "heart_of_crystal",
-        "nova_of_fire"
+<p class="noindent"><strong>日志</strong>位于 <code>logs/latest.log</code>，可由此实时查看游戏内加载资源包和数据包时的错误信息，包括错误的文件名称、位置、错误的行列数等，因此这对于我们调试非常重要。简体中文下需要设置文件编码为 Simplified Chinese (GBK)，否则除 ASCII 外的字符会显示乱码。历史日志位于 <code>logs/&lt;年-月-日-序号&gt;.log.gz</code>，使用压缩工具打开后使用文本编辑器打开。崩溃报告位于 <code>crash-reports/&lt;crash-年-月-日_时.分.秒-server&gt;.txt</code>，如果是由于资源包或数据包引起的崩溃，可以在该文件中看到原因。</p>
+<p class="noindent"><strong>存储的物品栏</strong> 位于 <code>hotbar.nbt</code>，存储了游戏内使用<code>C+&lt;数字&gt;</code>存储、<code>X+&lt;数字&gt;</code>取出的创造模式物品快捷栏。</p>
+
+<p class="noindent"><strong>存档文件</strong>位于 <code>saves/&lt;世界名称&gt;</code>，由于<a href="https://wiki.biligame.com/mc/世界格式">世界格式</a>上该内容已较为详尽且与原版模组联系甚远，因此我们仅提及部分内容。该文件夹包含的区块文件、地图文件等不建议使用 NBT 编辑器来编辑，而是用 MCEdit、地图文件生成工具等专门的工具来编辑。存档的备份文件位于 <code>backups/&lt;年-月-日_时-分-秒_世界名称&gt;.zip</code>，为存档的备份文件，解压后复制到 <code>saves</code> 即可使用。</p>
+<ul>
+    <li><strong>进度</strong>位于 <code>advancements/&lt;玩家 UUID&gt;.json</code>，记录了玩家已完成的进度和进度判据的完成时间。对于需要完成多个判据才能达成的进度，该文件中记录了已完成的那些判据的完成时间。</li>
+    <li><strong>区块、村民兴趣点、袭击、常加载区块</strong>等信息分维度存储，主世界、下界、末地、自定义维度的相应文件分别位于根文件夹、<code>DIM-1</code>、<code>DIM1</code>、<code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;</code>下。</li>
+    <li><strong>世界信息</strong>文件 <code>level.dat</code> 中 <code>WorldGenSettings</code> 包含了世界生成时的所有维度的生成信息，这和<code>创建新的世界->更多世界的选项->导入设置</code>所使用的JSON文件有关，而和数据包中自定义的维度无关，格式见<a href="#维度">维度</a>。</li>
+    <li><strong>数据包文件夹</strong>位于<code>datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包，具体结构见 <a href="#数据包">§3 数据包</a>。</li>
+    <li><strong>结构</strong>位于<code>generated/&lt;命名空间&gt;/structures/&lt;文件&gt;.nbt</code>，其记录了游戏内使用结构方块保存的结构，将其移动至数据包内方可使用。</li>
+</ul>
+
+<h3 id="JSON文件">§1.4 JSON文件</h3>
+<p>参考<a href="https://wiki.biligame.com/mc/JSON" class="wiki">JSON</a>。数据包的进度、战利品表、标签、断言（谓词）、配方、维度、维度类型、世界生成，资源包的语言文件、模型等文件均为JSON格式文件。<code>.mcmeta</code> 文件也是JSON文件，因此格式也是相同的。编写时，使用空格或制表符(Tab)缩进，以便于查看括号匹配和层次。wiki 上有关页面使用了 NBT 的数据类型标注，但其实并不适用于JSON格式。</p>
+<p>JSON文件通常包含用于封装文件数据的一对大括号<code>{}</code>（<a href="#断言">断言</a>文件的根数据类型可以为数组），包含类似 <code>"abc":"def"</code> (<code>"键":值</code>)的对，一般使用单引号也可以。同一个文件中如果允许有相同的键，则后者会覆盖前者。JSON数据类型有</p>
+
+<p class="noindent"><strong>布尔型</strong>，值为<code>true</code>和<code>false</code>。</p>
+<pre>{
+    "is_on_fire": false,
+    "is_baby": true
+}
+</pre>
+<p class="noindent"><strong>数值</strong>，值为任何数字。<code>2</code>和<code>2.0</code>没有差异。</p>
+<pre>{
+    "count": 2,
+    "chance": 0.025
+}
+</pre>
+<p class="noindent"><strong>字符串</strong>，值使用双引号/单引号圈住，可以使用颜色代码如6、换行符\n。</p>
+<pre>{
+    "item": "minecraft:shears",
+    "condition": "minecraft:match_tool",
+    "layer0": "ex:crop/bauhinia_seeds",
+    "description": "6更多的合成 1.10\n6by ruhuasiyu"
+}
+</pre>
+<p class="noindent"><strong>数组</strong>，值使用中括号圈住。</p>
+<pre>{
+    "chances": [0.05, 0.0625, 0.083333336, 0.1],
+    "items": [
+        {"item": "minecraft:zombie_head"},
+        {"item": "minecraft:skeleton_skull"},
+        {"item": minecraft:wither_skeleton_skull"},
+        {"item": "minecraft:creeper_head"}
+    ],
+    "requirements":[
+        [
+            "wing_of_sky",
+            "heart_of_crystal",
+            "nova_of_fire"
+        ]
     ]
-]</pre></td>
-</tr>
-<tr>
-    <th rowspan="2">JSON对象</th>
-    <td><code>"count": { "min": 1, "max": 2 }</code></td>
-    <td rowspan="2">使用大括号圈住。整个JSON文件内容本身就是一个JSON对象。</td>
-</tr>
-<tr><td><pre style="padding: 0; margin:0">"modifiers": [
-    {
-        "name": "legs_armor",
-        "attribute": "generic.armor",
-        "operation": "addition",
-        "amount": 4,
-        "slot": "legs"
-    }
-]</pre></td>
-</tr>
-</tbody></table>
+}
+</pre>
+<p class="noindent"><strong>对象</strong>，使用大括号圈住。整个JSON文件内容本身就是一个JSON对象。</p>
+<pre>{
+    "count": { "min": 1, "max": 2 },
+    "modifiers": [
+        {
+            "name": "legs_armor",
+            "attribute": "generic.armor",
+            "operation": "addition",
+            "amount": 4,
+            "slot": "legs"
+        }
+    ]
+}
+</pre>
 
-<h1 id="§2_数据包">§2 <ruby>数据包<rt>datapacks</rt></ruby></h1>
+<h1 id="2_数据包">§2 <ruby>数据包<rt>datapacks</rt></ruby></h1>
 <p>数据包文件层次为</p>
 <pre class="file">datapacks/&lt;数据包名称&gt;或&lt;数据包名称&gt;.zip/</pre>
 <pre>
@@ -519,14 +322,14 @@ data
 <p><code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 pack.mcmeta 和 data 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。游戏内输入 <code>/datapack list</code> 可以列出所有的数据包。</p>
 <p><strong>原版数据包 (Vanilla)</strong> 是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/&lt;版本号&gt;/&lt;版本号&gt;.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
 
-<h2 id="§2.1_元信息和图标">§2.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
+<h2 id="元信息和图标">§2.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
 <pre class="file">pack.mcmeta</pre>
 <pre>
 {
     "pack": {
         "pack_format": 5,
-        "description": "§6数据包名称\n§a简要介绍 §6by 某某作者"
+        "description": "6数据包名称\na简要介绍 6by 某某作者"
     }
 }
 </pre>
@@ -540,14 +343,16 @@ data
 <tr>
     <th>数据包描述</th>
     <td><code>description</code></td>
-    <td>单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>。在输入 <code>/datapack list</code> 命令后，鼠标移至数据包名称上会显示 <code>description</code> 信息。</td>
+    <td>单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>。<br/>
+        生成世界时在数据包菜单中，它会显示在数据包名称下方。<br/>
+        在游戏内输入 <code>/datapack list</code> 命令后，鼠标移至数据包名称上会显示 <code>description</code> 信息。</td>
 </tr>
 </tbody></table>
 <p>数据包可以包含一个 <code>pack.png</code>，它是大小为 <code>16×16</code> 的图片，用于生成世界时在数据包菜单中显示。</p>
 
-<h2 id="§2.2_命名空间">§2.2 命名空间</h2>
+<h2 id="2.2_命名空间">§2.2 命名空间</h2>
 <p><ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
-<p><a href="#§2.9_标签">标签</a>文件，即 <code>tags</code> 中的文件内容默认追加而不是覆盖。因此标签文件是解决数据包冲突和联动的有力工具。</p>
+<p><a href="#2.9_标签">标签</a>文件，即 <code>tags</code> 中的文件内容默认追加而不是覆盖。因此标签文件是解决数据包冲突和联动的有力工具。</p>
 <p>数据包加载顺序并不固定，因此不要在不同数据包中同一命名空间下使用相同的文件名。原版 <code>minecraft</code> 下内容总是最先被加载。可以在游戏内通过手动开启/关闭来调整加载次序，也可以在生成世界加入数据包时调整顺序，但由于玩家行为不受控制，不建议如此做。</p>
 
 <table><thead><tr><th>类型</th><th>调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
@@ -615,13 +420,13 @@ data
 
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。</p>
 
-<h2 id="§2.3_函数">§2.3 <ruby>函数<rt>functions</rt></ruby></h2>
+<h2 id="2.3_函数">§2.3 <ruby>函数<rt>functions</rt></ruby></h2>
 <p>可参考<a href="https://wiki.biligame.com/mc/函数（Java版）">函数</a>。函数为一些命令的集合。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function &lt;命名空间&gt;:&lt;路径&gt;</code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
 <p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute">命令/execute</a>的各项子命令。</p>
 
-<p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考 <a href="#§2.9.1_预设标签">§2.9.1 预设标签</a>。</p>
+<p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考 <a href="#2.9.1_预设标签">§2.9.1 预设标签</a>。</p>
 
-<h2 id="§2.4_进度">§2.4 <ruby>进度<rt>advancements</rt></ruby></h2>
+<h2 id="2.4_进度">§2.4 <ruby>进度<rt>advancements</rt></ruby></h2>
 <p>可参考<a href="https://wiki.biligame.com/mc/进度/JSON格式">进度/JSON格式</a>。进度为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。我们先通过两个例子来看进度文件的格式。</p>
 
 <p class="noindent"><strong>显示效果</strong> 当一个进度没有 <code>parent</code> 时，称之为根进度，即它没有上游进度。此时我们一般会指定 <code>display</code> 来规定显示效果，例如</p>
@@ -906,8 +711,8 @@ data
 advancement revoke @s only ex:food/citrus
 </pre>
 
-<h2 id="§2.5_战利品表">§2.5 <ruby>战利品表<rt>loot_tables</rt></ruby></h2>
-<h3 id="§2.5.1_语法">§2.5.1 语法</h3>
+<h2 id="2.5_战利品表">§2.5 <ruby>战利品表<rt>loot_tables</rt></ruby></h2>
+<h3 id="2.5.1_语法">§2.5.1 语法</h3>
 <p>可参考<a href="https://wiki.biligame.com/mc/战利品表#标签">战利品表</a>和<a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a>。战利品表用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品等。战利品表文件为JSON文件。例如：</p>
 
 <pre class="file">minecraft/loot_tables/entities/cow.json</pre>
@@ -1114,11 +919,11 @@ advancement revoke @s only ex:food/citrus
 </tbody></table>
 <p>可以看出，不同的项目类型可以用来方便地确定不同的逻辑情形下的子项目取舍。<code>minecraft:dynamic</code> 由于可以返回潜影盒内容物，因此可以用来产生不特定物品ID的战利品，我们后续会看到它的应用。</p>
 
-<p class="noindent"><strong><ruby>条件<rt>condition</rt></ruby></strong> 仅当条件列表 <code>conditions</code> 中每一个条件都被满足时，其同层次的随机池/项目/函数才会被选取。战利品表条件和<a href="#§2.6_断言">§2.6 断言</a>的格式完全相同，因此我们会在下一节再做介绍。</p>
+<p class="noindent"><strong><ruby>条件<rt>condition</rt></ruby></strong> 仅当条件列表 <code>conditions</code> 中每一个条件都被满足时，其同层次的随机池/项目/函数才会被选取。战利品表条件和<a href="#2.6_断言">§2.6 断言</a>的格式完全相同，因此我们会在下一节再做介绍。</p>
 
 <p class="noindent"><strong><ruby>函数<rt>function</rt></ruby></strong> 函数列表 <code>functions</code> 中每一个函数会应用于同层次的随机池/项目生成的战利品上。</p>
 
-<h3 id="§2.5.2_引用">§2.5.2 引用</h3>
+<h3 id="2.5.2_引用">§2.5.2 引用</h3>
 <p>战利品表可以以如下等方式调用</p>
 <ul>
     <li><code>setblock ~ ~ ~ chest{LootTable:"ex:chests/something"}</code></li>
@@ -1128,17 +933,17 @@ advancement revoke @s only ex:food/citrus
 </ul>
 <p><code>minecraft</code> 命名空间下记录了实体的默认掉落物、方块的掉落物、钓鱼和箱子战利品的战利品表，玩家可通过 <code>jar</code> 文件查看其文件结构。若要修改这些内容，在数据包中创建 <code>minecraft</code> 命名空间以及同名文件来覆盖之。</p>
 
-<h3 id="§2.5.3_应用">§2.5.3 应用</h3>
+<h3 id="2.5.3_应用">§2.5.3 应用</h3>
 <p>战利品表除上述常规用途外，还可用于</p>
 <ul>
-    <li>生成随机数，见 <a href="#§11.1_随机数">§11.1 随机数</a>。</li>
-    <li>修改玩家背包物品，见 <a href="#§11.2_修改玩家背包">§11.2 修改玩家背包</a>，<a href="https://www.mcbbs.net/thread-879073-1-1.html">戴帽子</a>。</li>
-    <li>将特定物品输出至容器内，见 <a href="#§11.2_修改玩家背包">§11.2 修改玩家背包</a>，<a href="#§8.4_物品输出">§8.4 物品输出</a>，<a href="https://www.mcbbs.net/thread-898170-1-1.html">物品分类器</a>。</li>
-    <li>指定自定义机器的配方，见 <a href="#§8.5_配方处理">§8.5 配方处理</a>。</li>
+    <li>生成随机数，见 <a href="#11.1_随机数">§11.1 随机数</a>。</li>
+    <li>修改玩家背包物品，见 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>，<a href="https://www.mcbbs.net/thread-879073-1-1.html">戴帽子</a>。</li>
+    <li>将特定物品输出至容器内，见 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>，<a href="#8.4_物品输出">§8.4 物品输出</a>，<a href="https://www.mcbbs.net/thread-898170-1-1.html">物品分类器</a>。</li>
+    <li>指定自定义机器的配方，见 <a href="#8.5_配方处理">§8.5 配方处理</a>。</li>
 </ul>
 
 
-<h2 id="§2.6_断言">§2.6 <ruby>断言<rt>predicate</rt></ruby></h2>
+<h2 id="2.6_断言">§2.6 <ruby>断言<rt>predicate</rt></ruby></h2>
 <p>断言是战利品表条件。断言文件为JSON文件，可用于</p>
 <ul>
     <li>命令 <code>execute (if|unless) predicate foo:bar</code></li>
@@ -1153,11 +958,11 @@ advancement revoke @s only ex:food/citrus
 </ul>
 <p>诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用断言无疑方便更多。</p>
 
-<h2 id="§2.7_配方">§2.7 <ruby>配方<rt>recipes</rt></ruby></h2>
-<p>配方包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#§7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#§9_NBT合成与烧炼">§9 NBT合成与烧炼</a>。</p>
+<h2 id="2.7_配方">§2.7 <ruby>配方<rt>recipes</rt></ruby></h2>
+<p>配方包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#9_NBT合成与烧炼">§9 NBT合成与烧炼</a>。</p>
 <p>在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，但是未获得的不会在配方书中显示，因此建议为你的自定义配方添加合适的进度来获取该配方。</p>
 
-<h2 id="§2.8_结构">§2.8 <ruby>结构<rt>structures</rt></ruby></h2>
+<h2 id="2.8_结构">§2.8 <ruby>结构<rt>structures</rt></ruby></h2>
 <p>结构文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。可参考</p>
 <ul>
     <li><a href="http://www.mcbbs.net/thread-652937-1-1.html">建筑党也能愉快享用结构方块-图文并茂教会你使用结构方块</a></li>
@@ -1173,7 +978,7 @@ setblock ~ ~1 ~ redstone_block
 setblock ~ ~1 ~ air
 </pre>
 
-<h2 id="§2.9_标签">§2.9 <ruby>标签<rt>tags</rt></ruby></h2>
+<h2 id="2.9_标签">§2.9 <ruby>标签<rt>tags</rt></ruby></h2>
 <p>标签文件为JSON文件，根据子文件夹不同分为5种。Minecraft 中有很多内容都叫做标签，注意区分它们。</p>
 <table><thead><tr><th style="width:6em;">类别</th><th style="width:18em;">文件路径</th><th>用途</th></tr></thead><tbody>
 <tr>
@@ -1248,14 +1053,14 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 </pre>
 <p class="noindent">因为命令执行地点为实体的脚，所以我们使用 <code>anchored eyes</code> 来使得局部坐标的位置变为玩家的眼睛。</p>
 
-<h3 id="§2.9.1_预设标签">§2.9.1 预设标签</h3>
+<h3 id="2.9.1_预设标签">§2.9.1 预设标签</h3>
 <p><code>minecraft</code> 命名空间中预设了一些标签。其中</p>
 <ul>
     <li><code>minecraft/tags/functions/load.json</code> 中的函数会在加载时被执行一次，我们常称之为加载函数、load函数。用于初始化的函数应当添加至该标签。</li>
     <li><code>minecraft/tags/functions/tick.json</code> 中的函数每刻会被执行一次，我们常称之为循环函数、主函数、tick函数。需要高频执行的函数应当添加至该标签。</li>
 </ul>
 <p>本文中我们有时会不加注明地使用<code>&lt;命名空间&gt;:load</code> 和<code>&lt;命名空间&gt;:tick</code> 表示这两个函数标签中的函数。</p>
-<p>利用预设标签还可以实现更多燃料、改变植物种植所需的方块，甚至改变水和熔岩的性质，可参见<a href="https://wiki.biligame.com/mc/标签">标签 - Minecraft Wiki，最详细的官方我的世界百科</a>和 <a href="http://www.mcbbs.net/thread-811990-1-1.html">minecraft 预设tag以及实现随机方块功能</a>。例如：让末影人无法拿起任何方块。</p>
+<p>利用预设标签还可以实现更多燃料、改变植物种植所需的方块，甚至改变水和熔岩的性质，可参考<a href="https://wiki.biligame.com/mc/标签">标签 - Minecraft Wiki，最详细的官方我的世界百科</a>和 <a href="http://www.mcbbs.net/thread-811990-1-1.html">minecraft 预设tag以及实现随机方块功能</a>。例如：让末影人无法拿起任何方块。</p>
 <pre class="file">minecraft/tags/blocks/enderman_holdable</pre>
 <pre>
 {
@@ -1265,7 +1070,7 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 }
 </pre>
 
-<h2 id="§2.10_维度和维度类型">§2.10 <ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby></h2>
+<h2 id="2.10_维度和维度类型">§2.10 <ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby></h2>
 
 <p>维度和维度类型用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。原版世界的默认参数可见<a href="https://wiki.biligame.com/mc/%E7%BB%B4%E5%BA%A6/Generator_Defaults">维度/Generator Defaults - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
 
@@ -1651,7 +1456,10 @@ execute in overworld run tp ~ ~ ~
 execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
-<h1 id="§3_资源包">§3 <ruby>资源包<rt>resourcepacks</rt></ruby></h1>
+<h2 id="世界生成">§2.11 <ruby>世界生成<rt>worldgen</rt></ruby></h2>
+TBD
+
+<h1 id="3_资源包">§3 <ruby>资源包<rt>resourcepacks</rt></ruby></h1>
 <p>资源包可以极大地提升原版模组的美观程度，因此现在大部分原版模组都需要使用配套的资源包。资源包文件层次为</p>
 <pre class="file">resourcepacks/&lt;资源包名称&gt;或&lt;资源包名称&gt;.zip/</pre>
 <pre>
@@ -1666,16 +1474,16 @@ assets
         models
         textures
 </pre>
-<p class="noindent">其中 <code>assets</code> 的文件结构和 <a href="#§1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>中 <code>versions/&lt;版本号&gt;/&lt;版本号&gt;.jar/assets</code> 的结构是一样的。</p>
+<p class="noindent">其中 <code>assets</code> 的文件结构和 <a href="#1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>中 <code>versions/&lt;版本号&gt;/&lt;版本号&gt;.jar/assets</code> 的结构是一样的。</p>
 <p><code>assets</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件为使用 <code>UTF-8</code> 编码的JSON文件，图片为 <code>png</code> 格式。资源包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到资源包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
-<p>游戏内选择<code>选项->资源包...</code>可以列出所有的资源包。在资源包菜单中，加载次序由下至上，因此上方的资源包内容会覆盖下方的资源包同名内容。由于原版模组往往会修改原版物品自定义模型，因此同时安装多个原版模组的资源包时，很容易出现文件冲突，此时需要玩家手动合并资源包方可使用。具体而言，对比两个资源包的同名文件，将相同的模型文件的 <code>overrides</code> 合并，其它内容选择需要的留下即可。</p>
+<p>游戏内选择<code>选项->资源包</code>可以列出所有的资源包。在资源包菜单中，加载次序由下至上，因此上方的资源包内容会覆盖下方的资源包同名内容。由于原版模组往往会修改原版物品自定义模型，因此同时安装多个原版模组的资源包时，很容易出现文件冲突，此时需要玩家手动合并资源包方可使用。具体而言，对比两个资源包的同名文件，将相同的模型文件的 <code>overrides</code> 合并，其它内容选择需要的留下即可。</p>
 <p>若资源包位于 <code>saves/&lt;世界名称&gt;/resources.zip</code>，则资源包会在进入存档时自动加载(最顶层)。</p>
 <p>本节中我们仅对资源包做简单介绍，更详细的文件说明请参阅<a href="https://wiki.biligame.com/mc/资源包">资源包 - Minecraft Wiki，最详细的官方我的世界百科</a>或论坛材质资源版相关内容。</p>
 <p>材质包和资源包是不同的东西，目前 Minecraft Java 只有资源包，请不要使用错误的名称。</p>
 
-<h2 id="§3.1_元信息和图标">§3.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
+<h2 id="元信息和图标'">§3.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
 
-Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件是不可或缺的。例如：
+<p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别资源包，因此该文件是不可或缺的。例如：</p>
 <pre class="file">pack.mcmeta</pre>
 <pre>
 {
@@ -1707,12 +1515,13 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <tr>
     <th>资源包描述</th>
     <td><code>description</code></td>
-    <td>单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>，资源包菜单中可以看到该文本。</td>
+    <td>单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>。<br/>
+        在资源包菜单页面，它会显示在资源包名称下方。</td>
 </tr>
 </tbody></table>
 <p>资源包可以包含一个 <code>pack.png</code>，它是大小为<code>16×16</code>的图片，用于在资源包菜单中显示。</p>
 
-<h2 id="§3.2_命名空间">§3.2 <ruby>命名空间<rt>namespace</rt></ruby></h2>
+<h2 id="3.2_命名空间">§3.2 <ruby>命名空间<rt>namespace</rt></ruby></h2>
 <p>命名空间为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。资源包下可以有多个命名空间，如果不同资源包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的模型材质只需在你的资源包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
 
 
@@ -1742,19 +1551,19 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。</p>
 <p>建议和数据包使用相同的命名空间名。</p>
 
-<h2 id="§3.3_语言文件">§3.3 <ruby>语言文件<rt>lang</rt></ruby></h2>
+<h2 id="3.3_语言文件">§3.3 <ruby>语言文件<rt>lang</rt></ruby></h2>
 <p>语言文件可以放在任一命名空间下的 <code>lang</code> 文件夹下。语言文件中可以使用样式代码来实现彩色文字。建议至少支持中文简体(<code>zh_cn</code>)、中文繁体(<code>zh_tw</code>)和英文(<code>en_us</code>)三种语言。建议所有物品、进度、游戏提示等文本均采用 <code>translate</code> 文本。例如：</p>
 <pre class="file">assets/命名空间/lang/zh_cn.json</pre>
 <pre>
 {
-    "item.ex.magnet":"§r磁铁",
+    "item.ex.magnet":"r磁铁",
     ...
 }
 </pre>
 <pre class="file">assets/命名空间/lang/en_us.json</pre>
 <pre>
 {
-    "item.ex.magnet":"§rMagnet",
+    "item.ex.magnet":"rMagnet",
     ...
 }
 </pre>
@@ -1763,7 +1572,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <pre class="file">assets/命名空间/lang/zh_cn.json</pre>
 <pre>
 {
-    "item.minecraft.potion.effect.empty": "§r神秘药水",
+    "item.minecraft.potion.effect.empty": "r神秘药水",
     ...
 }
 </pre>
@@ -1773,20 +1582,20 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <pre class="file">assets/命名空间/lang/zh_cn.json</pre>
 <pre>
 {
-    "The":"§a原版模组《更多的合成》已成功加载,",      
+    "The":"a原版模组《更多的合成》已成功加载,",      
     "resourcepack":"版本",
-    "does":"§a1.9.1§a.",
-    "not":"§a更多内容请",
-    "Install":"§e点击此处进入wiki.",
-    "correctly":"§a作者:",
-    "or":"§aruhuasiyu,",
-    "Launch":"§aRubberTree",
+    "does":"a1.9.1a.",
+    "not":"a更多内容请",
+    "Install":"e点击此处进入wiki.",
+    "correctly":"a作者:",
+    "or":"aruhuasiyu,",
+    "Launch":"aRubberTree",
     ...
 }
 </pre>
 <p class="noindent">则在数据包中输出相应文本时，若无资源包或资源包错误，则会显示 <code>The resourcepack does not Installl correctly or Launch</code> 以提示玩家资源包未加载。</p>
 
-<h2 id="§3.4_自定义物品模型">§3.4 <ruby>自定义物品模型<rt>CustomModelData</rt></ruby></h2>
+<h2 id="3.4_自定义物品模型">§3.4 <ruby>自定义物品模型<rt>CustomModelData</rt></ruby></h2>
 <p>由于1.14添加了 <code>CustomModelData</code>，我们可以拥有几乎无穷多的物品模型。为了便于他人整合和解决冲突，建议将 <code>CustomModelData</code> 的前四位固定以确定模组的独有区段，后四位作为模组不同模型的值，例如 <code>12340000-12349999</code> 之间。此外，建议 <code>CustomModelData</code> 不要超过 <code>16777216</code>，原因见 <a href="https://www.mcbbs.net/thread-867051-1-1.html">custom_model_data 的使用限制</a>。</p>
 
 <p>我们会给出一个例子来说明实现流程。首先在 <code>minecraft</code> 下的胡萝卜钓竿物品模型中添加额外的模型 (<code>overrides</code>)，并引用我们自定义的模型。</p>
@@ -1819,7 +1628,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 </pre>
 <p class="noindent">最后绘制材质，并将其保存为 <code>assets/craftingpp/textures/element/red_force_of_fire.png</code>。这样我们就设计好了这个物品模型，在 <a href="#5_物品设计">§5 物品设计</a>我们将会说明如何使用该模型。</p>
 
-<h2 id="§3.5_模型">§3.5 <ruby>模型<rt>models</rt></ruby></h2>
+<h2 id="3.5_模型">§3.5 <ruby>模型<rt>models</rt></ruby></h2>
 <p>模型是一个描述形状和指定材质的JSON文件。模型可以理解成一些可以旋转的长方体的拼接，每个长方体的若干个面贴上了材质图案。长方体的厚度可以为0，也可以只有若干个面。</p>
 <p>只有 <code>minecraft</code> 命名空间下特定名称的文件才对应特定的物品/方块模型，例如 <code>minecraft/models/item/carrot_on_a_stick.json</code> 表示胡萝卜钓竿的物品模型，<code>minecraft/models/block/stone.json</code> 表示石头的方块模型。</p>
 <p>我们通过几个例子来理解下模型文件的语法。</p>
@@ -2075,7 +1884,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 
 <p>方块状态我们一般不会用到，而且语法比较简单，可直接参阅 wiki，这里不做赘述。</p>
 
-<h2 id="§3.6_材质">§3.6 <ruby>材质<rt>textures</rt></ruby></h2>
+<h2 id="3.6_材质">§3.6 <ruby>材质<rt>textures</rt></ruby></h2>
 <p>材质的绘制需要用到诸如 Photoshop 之类的画图软件，具体请参考材质版或网络上的相关教程。</p>
 <p>当模型调用的材质不存在时，会显示紫黑色的材质。如果模型是正确的，你仍然可以看出正确的模型形状。</p>
 <p>材质可以是动态的。动态材质需要高为宽的整数，以及一个 <code>mcmeta</code> 文件确定动画，例如 <code>foo.png</code> 对应</p>
@@ -2125,7 +1934,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 </tr>
 </tbody></table>
 
-<h2 id="§3.7_声音">§3.7 <ruby>声音<rt>sounds</rt></ruby></h2>
+<h2 id="3.7_声音">§3.7 <ruby>声音<rt>sounds</rt></ruby></h2>
 <p>音效文件为 <code>assets/命名空间/sounds.json</code>，它调用的是 <code>assets/命名空间/sounds</code> 文件夹下的 <code>ogg</code> 文件。例如：</p>
 <pre class="file">assets/rf/sounds.json</pre>
 <pre>
@@ -2170,7 +1979,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 </tr>
 </tbody></table>
 
-<h2 id="§3.8_字体">§3.8 <ruby>字体<rt>font</rt></ruby></h2>
+<h2 id="3.8_字体">§3.8 <ruby>字体<rt>font</rt></ruby></h2>
 <p>我们着重介绍字体图片。添加下述路径文件可以追加/覆盖特殊字符的显示：</p>
 <pre class="file">assets/minecraft/font/default.json</pre>
 <pre>
@@ -2221,10 +2030,10 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
     <td>该字符图案向上移动的长度。</td>
 </tr>
 </tbody></table>
-<p>我们可以用 <code>\u</code> 开头来表示不容易打出的字符，参见<a href="https://unicode-table.com">Unicode® Character Table</a>。直接使用字符也是可以的。</p>
+<p>我们可以用 <code>\u</code> 开头来表示不容易打出的字符，参考<a href="https://unicode-table.com">Unicode® Character Table</a>。直接使用字符也是可以的。</p>
 <p>利用这种方式，我们可以做到在成书、玩家快捷栏上方、聊天区域、物品名称等地方显示图片，见<a href="https://www.mcbbs.net/thread-835539-1-1.html">【1.13】如何添加图片?</a>。如果可以包含了使用负长度的空格的字体（需要 Nvidia 显卡以支持），还可以实现更为炫酷的效果，例如字体黑科技 —— 潜影盒内容预览：<a href="https://www.bilibili.com/video/av67508247">https://www.bilibili.com/video/av67508247</a>。</p>
 
-<h2 id="§3.9_着色器">§3.9 <ruby>着色器<rt>shaders</rt></ruby></h2>
+<h2 id="3.9_着色器">§3.9 <ruby>着色器<rt>shaders</rt></ruby></h2>
 <p>着色器可以对游戏内的视觉效果进行修改，目前可以通过</p>
 <ul>
     <li>旁观特定生物，可使用 <code>/spectate</code> 命令强制旁观；</li>
@@ -2233,7 +2042,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <p class="noindent">两种情形来达成。着色器文件为位于 <code>assets/minecraft/shaders/program</code> 下方的 <code>fsh</code> 文件，具体用法可参考<a href="https://www.mcbbs.net/thread-916150-1-1.html">原版着色器指导</a>和<a href="https://www.mcbbs.net/thread-917679-1-1.html">几个原版着色器示例</a>。</p>
 
 
-<h1 id="§4_规划">§4 规划</h1>
+<h1 id="4_规划">§4 规划</h1>
 <p>当我们有了一定的命令基础和数据包与资源包的相关知识之后，我们可以开始考虑做一个模组了。模组的目的是在原版的基础上做出一定的修改，模组的核心是内容，命令和技巧都只是为实现这一目的的手段。通常的设计路线如下图所示：</p>
 <figure>
     <img src="items/设计路线.png" alt="设计路线" />
@@ -2245,7 +2054,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <p>模组的整个生命周期中，所有内容都应当有完整的文档记录，以便于随时查看和修改。</p>
 <p>为你的模组设定合理的版本管理方式，例如使用 Git 托管，有利于保存模组的所有历史版本。这可以减少因误操作导致的损失。</p>
 
-<h2 id="§4.1_名称设计">§4.1 名称设计</h2>
+<h2 id="4.1_名称设计">§4.1 名称设计</h2>
 <p>模组的所有内容都应当被合理地命名，尽量采用简洁且有意义的命名，同时便于他人处理数据包冲突。这些内容包括数据包下所有的文件和文件夹名以及记分板、标签、组的名称等。建议各种名称均使用大驼峰、小驼峰或下划线记法。如果模组包含多个模块，可以在不同数据包下使用相同的命名空间、不同的文件夹，来分门别类。</p>
 <table><thead><tr><th style="width:7em;">类型</th><th>示例</th><th>说明</th></tr></thead><tbody>
 <tr>
@@ -2291,17 +2100,17 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <tr>
     <th>tick函数</th>
     <td><code>_main.mcfunction<br/>tick.mcfunction<br/>loop.mcfunction</code></td>
-    <td>即函数标签 <code>minecraft:tick</code> 下的函数，见 <a href="#§2.9.1_预设标签">§2.9.1 预设标签</a>。</td>
+    <td>即函数标签 <code>minecraft:tick</code> 下的函数，见 <a href="#2.9.1_预设标签">§2.9.1 预设标签</a>。</td>
 </tr>
 <tr>
     <th>load函数</th>
     <td><code>load.mcfunction<br/>_init.mcfunction<br/>root.mcfunction</code></td>
-    <td>即函数标签 <code>minecraft:load</code> 下的函数，见 <a href="#§2.9.1_预设标签">§2.9.1 预设标签</a>。</td>
+    <td>即函数标签 <code>minecraft:load</code> 下的函数，见 <a href="#2.9.1_预设标签">§2.9.1 预设标签</a>。</td>
 </tr>
 </tbody></table>
 
-<h2 id="§4.2_调试">§4.2 调试</h2>
-<p>加载中出现的资源包和数据包错误一般会在 <code>logs/latest.log</code> 中提示，见 <a href="#§1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>。测试时，打开这个文件，可以看到具体是哪个文件的哪个位置发生了错误。常见错误包括</p>
+<h2 id="4.2_调试">§4.2 调试</h2>
+<p>加载中出现的资源包和数据包错误一般会在 <code>logs/latest.log</code> 中提示，见 <a href="#1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>。测试时，打开这个文件，可以看到具体是哪个文件的哪个位置发生了错误。常见错误包括</p>
 
 <table><thead><tr><th>日志</th><th>说明</th></tr></thead><tbody>
 <tr>
@@ -2325,7 +2134,7 @@ Minecraft 通过 <code>pack.mcmeta</code> 来识别资源包，因此该文件�
 <p>如果进游戏异常卡顿，输入 <code>/function 相应高频函数</code>，如果提示执行了65535条函数，那么可能是函数使用了无限自我递归调用。检查相应的函数递归是否跳出条件有误。</p>
 <p>调试时，可添加适当的 <code>tellraw</code> 命令来查看方块、实体、记分板值等，来确定何处出错。</p>
 
-<h2 id="§4.3_前置与附属">§4.3 前置与附属</h2>
+<h2 id="4.3_前置与附属">§4.3 前置与附属</h2>
 <p>使用他人已写好的前置可以在减少自己的工作量，例如</p>
 <ul>
     <li><a href="https://www.mcbbs.net/thread-900914-1-1.html">战利品表随机数</a></li>
@@ -2359,13 +2168,13 @@ function #foo:item_processer
 </pre>
 <p class="noindent">那么其它开发者就可以通过在函数标签 <code>#foo:item_processer</code> 中添加相应的函数命令来实现更多的机器配方。</p>
 
-<h2 id="§4.4_发布">§4.4 发布</h2>
+<h2 id="4.4_发布">§4.4 发布</h2>
 <p>当你设计并制作好全部内容且通过测试后，将你的数据包以及其它可能的内容，如资源包、地图、data文件等一同发布。采用合适的版本号管理，并在发布时注明你所使用的命名空间、记分板、组、标签、地图区段、资源包等内容，以便于其他开发者整合或避免冲突。</p>
 <p>如果你的模组内容较多，可以建立一个wiki页面来方便玩家查询资料。例如国内最大的中文 Minecraft 模组百科<a href="https://www.mcmod.cn/">MC 百科</a>，建立模组后，可以申请编辑员来方便地管理你的模组wiki页面。也可以 Github 的项目中创建 wiki。</p>
 
 
-<h1 id="§5_物品设计">§5 物品设计</h1>
-<h2 id="§5.1_通用处理">§5.1 通用处理</h2>
+<h1 id="5_物品设计">§5 物品设计</h1>
+<h2 id="5.1_通用处理">§5.1 通用处理</h2>
 <p>由于原版模组从不添加原版不存在的物品，所以我们需要为物品加上NBT来进行区分。我们以一例来看模组物品通常包含哪些NBT。</p>
 <p class="ex"> 添加物品红色火之力，不可叠加，右键触发执行命令。我们可使用胡萝卜钓竿/诡异疣钓竿作为物品本体，这里我们以胡萝卜钓竿为例。我们建议为模组添加的所有物品添加相应的战利品表来便于获取/修改/合成等。</p>
 
@@ -2398,11 +2207,11 @@ function #foo:item_processer
 </tr>
 <tr>
     <td><code>display:{Name:'{"translate":"item.ex.red_force_of_fire"}'}</code></td>
-    <td>物品的显示名称，建议使用<code>translate</code>文本，以支持多种语言，见 <a href="#§3.3_语言文件">§3.3 语言文件</a>。</td>
+    <td>物品的显示名称，建议使用<code>translate</code>文本，以支持多种语言，见 <a href="#3.3_语言文件">§3.3 语言文件</a>。</td>
 </tr>
 <tr>
     <td><code>CustomModelData:12970013</code></td>
-    <td>物品的自定义模型数据，见 <a href="#§3.4_自定义物品模型">§3.4 自定义物品模型</a>。</td>
+    <td>物品的自定义模型数据，见 <a href="#3.4_自定义物品模型">§3.4 自定义物品模型</a>。</td>
 </tr>
 <tr>
     <td><code>dict:['iron_dust']</code></td>
@@ -2410,7 +2219,7 @@ function #foo:item_processer
 </tr>
 </tbody></table>
 
-<p class="noindent">然后为物品添加模型，见 <a href="#§3.5_模型">§3.5 模型</a>。</p>
+<p class="noindent">然后为物品添加模型，见 <a href="#3.5_模型">§3.5 模型</a>。</p>
 <pre class="file">assets/minecraft/models/item/carrot_on_a_stick.json</pre>
 <pre>
 {
@@ -2436,7 +2245,7 @@ function #foo:item_processer
 
 <p>我们会在本节接下来的段落介绍不同功能物品的设计。对于方块形式，我们则会在后续章节中介绍。</p>
 
-<h2 id="§5.2_右键交互">§5.2 右键交互</h2>
+<h2 id="5.2_右键交互">§5.2 右键交互</h2>
 <p>对于右键具有交互功能的物品，我们可以使用胡萝卜钓竿，通过使用胡萝卜钓竿的记分板来探测。例如使用上一节中的示例物品：</p>
 <pre class="file">ex:load</pre>
 <pre>
@@ -2584,7 +2393,7 @@ loot replace entity @s[predicate=ex:mainhand/carrot_on_a_stick] weapon.mainhand 
 loot replace entity @s[predicate=!ex:mainhand/carrot_on_a_stick] weapon.offhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
 </pre>
-<p class="noindent">处理耐久的函数 <code>ex:damage</code> 见 <a href="#§11.3_耐久处理">§11.3 耐久处理</a>。</p>
+<p class="noindent">处理耐久的函数 <code>ex:damage</code> 见 <a href="#11.3_耐久处理">§11.3 耐久处理</a>。</p>
 
 <p>投掷物如雪球、末影珍珠等可用于一次性右键工具，不同的物品有着各自的特点。投掷带自定义NBT标签的物品，对应的投掷物实体NBT <code>Item</code> 会包含这些NBT标签。注意，在1.14和更早版本，由于Mojang先消耗手持物再存储手持物信息，导致投掷最后一个物品时没有存储相应的 <code>Item</code> 信息，此时我们需要提前1刻存储玩家手持物信息方可。</p>
 <p class="ex">扔出 <code>minecraft:experience_bottle{exXpNumber:99s}</code> 生成 <code>exXpNumber</code> 点经验值的经验球。</p>
@@ -2601,7 +2410,7 @@ kill @s
 </pre>
 <p>注意使用发射器发射该附魔之瓶仍然会表现如同普通附魔之瓶。</p>
 
-<h2 id="§5.3_食物">§5.3 食物</h2>
+<h2 id="5.3_食物">§5.3 食物</h2>
 
 <p>我们一般要求食物的本体无合成用途，且和其它生物没有交互，饥饿值较低以便于通过饱和效果实现高饥饿值。由此，可选的有：</p>
 <table><thead><tr><th>物品</th><th>优点</th><th>缺点</th></tr></thead><tbody>
@@ -2736,7 +2545,7 @@ advancement revoke @s only ex:foods/meat_floss_bread
 </pre>
 <p>对于想要使用饥饿效果来降低饥饿值的情形，注意饥饿效果会先消耗饱食度，且如果玩家食用后饥饿值已满，还需要通过记分板来实时检测上一刻玩家的饥饿值以确定当前的饥饿值应当为多少。因此实现较为繁琐，这里便不做详解。</p>
 
-<h2 id="§5.4_药水">§5.4 药水</h2>
+<h2 id="5.4_药水">§5.4 药水</h2>
 <p>我们使用药水来实现自定义的药水效果。</p>
 <p class="ex">饮用潮汐药水后获得8分钟的潮涌之力效果。</p>
 <pre class="file">ex/loot_tables/potion_of_tide.json</pre>
@@ -2811,7 +2620,7 @@ effect give @s slow_falling 360
 advancement revoke @s only ex:potion/agentia_of_sky
 </pre>
 
-<h2 id="§5.5_自定义状态效果">§5.5 自定义状态效果</h2>
+<h2 id="5.5_自定义状态效果">§5.5 自定义状态效果</h2>
 <p>原版定义新的状态效果是不可能的，但是我们可以通过进度来模拟食用特定物品后的效果。我们使用记分板来记录时长，模拟药水的颗粒效果，并在<code>actionbar</code>显示剩余时长。</p>
 <p class="ex">饮用泥土药水后获得12分钟的隐身和12分钟的连锁效果，这里我们不涉及实际效果的实现。</p>
 <pre class="file">ex/loot_tables/agentia_of_dirt.json</pre>
@@ -2892,7 +2701,7 @@ execute as @s[scores={exChainTick=20..}] if score #sec exValue matches ..9 run t
 title @s[scores={exChainTick=..19}] actionbar [{"text":" "}]
 </pre>
 
-<p>我们无法在背包页面显示图标和时长，但是我们可以在特定分辨率下在右上角显示图标。这里需要使用<a href="§3.8_字体">§3.8 字体</a>的负空格字体技巧。我们假设当前分辨率为<code>1920×1080</code>，通过试验得知使用<code>actionbar</code>占据整个右上角需要的大小为<code>480×182</code>，因此我们使用<code>298</code>像素宽的空格和<code>182×182</code>的图案。</p>
+<p>我们无法在背包页面显示图标和时长，但是我们可以在特定分辨率下在右上角显示图标。这里需要使用<a href="3.8_字体">§3.8 字体</a>的负空格字体技巧。我们假设当前分辨率为<code>1920×1080</code>，通过试验得知使用<code>actionbar</code>占据整个右上角需要的大小为<code>480×182</code>，因此我们使用<code>298</code>像素宽的空格和<code>182×182</code>的图案。</p>
 <pre class="file">assets/ex/font/default.json</pre>
 <pre>
 {
@@ -2937,7 +2746,7 @@ title @s actionbar {"font":"cpp:default","text":"12"}
 <p>状态效果即将结束时的闪烁效果也可以类似实现，这里不再赘述。</p>
 
 
-<h2 id="§5.6_头饰">§5.6 头饰</h2>
+<h2 id="5.6_头饰">§5.6 头饰</h2>
 <p>我们使用雕刻过的南瓜来实现头饰。</p>
 <p class="ex">可佩戴在头部的花环。</p>
 <pre class="file">ex/loot_tables/garland.json</pre>
@@ -2962,7 +2771,7 @@ title @s actionbar {"font":"cpp:default","text":"12"}
     ]
 }
 </pre>
-<p class="noindent">由于雕刻过的南瓜可以放置，为了避免我们需要处理放置方块事件，细节见 <a href="§6_方块设计">§6 方块设计</a>。我们假设已探测到南瓜位置，且玩家放置的方块的NBT信息已存储在存储区<code>ex:block Item</code>，我们对其进行破坏并生成原物品。</p>
+<p class="noindent">由于雕刻过的南瓜可以放置，为了避免我们需要处理放置方块事件，细节见 <a href="6_方块设计">§6 方块设计</a>。我们假设已探测到南瓜位置，且玩家放置的方块的NBT信息已存储在存储区<code>ex:block Item</code>，我们对其进行破坏并生成原物品。</p>
 <pre class="file">ex/block/carved_pumpkin.json</pre>
 <pre>
 setblock ~ ~ ~ air
@@ -3129,9 +2938,9 @@ data modify block ~ 255 ~ Items[0].tag.exHatSlot set value "head"
 loot replace entity @s armor.head 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
 </pre>
-<p class="noindent">这里我们使用了潜影盒战利品表技巧来修改玩家背包物品，见 <a href="#§2.5_战利品表">§2.5 战利品表</a>。</p>
+<p class="noindent">这里我们使用了潜影盒战利品表技巧来修改玩家背包物品，见 <a href="#2.5_战利品表">§2.5 战利品表</a>。</p>
 
-<h2 id="§5.7_盔甲">§5.7 盔甲</h2>
+<h2 id="5.7_盔甲">§5.7 盔甲</h2>
 <p>头饰通过添加属性可以实现为头盔，但是胸甲、护腿和靴子无法通过资源包和数据包来修改其穿戴在身上时的显示材质，因为这三个栏位只接受相应类别的物品。我们只能通过诸如修改皮革盔甲颜色来达到视觉上的不同。例如：绿宝石靴子穿在脚上时，增加5点盔甲、2点盔甲韧性、4点生命值。注意，这个靴子和耐久和皮革靴子一样低。</p>
 
 <pre class="file">ex/loot_tables/emerald_boots.json</pre>
@@ -3181,7 +2990,7 @@ setblock ~ 255 ~ air
 }
 </pre>
 
-<h2 id="§5.8_工具和武器">§5.8 工具和武器</h2>
+<h2 id="5.8_工具和武器">§5.8 工具和武器</h2>
 <p>工具和武器同样可以通过原版工具和武器修改得到。例如：使用玻璃镐挖掘玻璃时，玻璃掉落自身。</p>
 
 <pre class="file">ex/loot_tables/glass_pickaxe.json</pre>
@@ -3285,10 +3094,10 @@ data modify block ~ 255 ~ Items append from storage ex:temp Item
 loot replace entity @s weapon.mainhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
 </pre>
-<p class="noindent">函数 <code>ex:damage_tool</code> 见<a href="§5.2_右键交互">§5.2 右键交互</a>，这里省略。这里我们使用 <a href="#§11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到玩家手中。</p>
+<p class="noindent">函数 <code>ex:damage_tool</code> 见<a href="5.2_右键交互">§5.2 右键交互</a>，这里省略。这里我们使用 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到玩家手中。</p>
 
 
-<h2 id="§5.9_画">§5.9 画</h2>
+<h2 id="5.9_画">§5.9 画</h2>
 <p>我们使用指定内含物的物品展示框来实现自定义的画。例如：放置经典画作后显示一幅画，右键可以切换。</p>
 <p>我们为烟火之星 <code>CustomModelData</code> 为 <code>12974001-12974100</code> 指定100个平面画模型。</p>
 <pre class="file">ex/loot_tables/classical_painting.json</pre>
@@ -3329,7 +3138,7 @@ execute unless block ~ ~ ~ #ex:fluid run function ex:item_frame/special_break
 execute unless data entity @s Item.id run function ex:item_frame/special_break
 execute as @s[nbt={ItemRotation:1b}] run function ex:item_frame/special_rot
 </pre>
-<p class="noindent">方块标签 <code>ex:fluid</code> 见 <a href="#§2.9_标签">§2.9 标签</a>。</p>
+<p class="noindent">方块标签 <code>ex:fluid</code> 见 <a href="#2.9_标签">§2.9 标签</a>。</p>
 <pre class="file">ex:item_frame/special_break</pre>
 <pre>
 execute as @s[tag=ex_item_frame_classical_painting] run loot spawn ~ ~ ~ loot ex:classical_painting
@@ -3345,7 +3154,7 @@ data modify entity @s[nbt={Item:{tag:{CustomModelData:12974101}}}] Item.tag.Cust
 <p>自定义地图也可以用来显示自定义的图案，这个方法可避免使用资源包，但需将<code>data</code>文件与数据包一同发布。首先确定好长宽比例，然后使用<a href="https://mc-map.djfun.de">MC Map Item Tool</a>在线转换。注意这个网站生成的地图已经不符合1.14+版本的地图格式了，请在本地生成锁定图案的地图后将该网站生成的地图的<code>colors</code>这个NBT复制过来。这些地图文件位于<code>世界名称/data</code>文件夹。发布时，将其和数据包一同发布。使用命令 <code>give @s minecraft:filled_map{map:[数值]}</code> 获取相应地图。选择负数的自定义地图的编号，或者手动将<code>data</code>文件夹中的<code>idcounts</code>调大，可避免和玩家在游戏内生成的地图编号冲突。</p>
 
 
-<h1 id="§6_方块设计">§6 方块设计</h1>
+<h1 id="6_方块设计">§6 方块设计</h1>
 <p>原版模组无法添加方块，一般的做法是修改方块物品的 <code>CustomModelData</code>的模型后，在方块位置生成并头戴相应物品的盔甲架。参考</p>
 <ul>
     <li><a href="https://www.mcbbs.net/thread-771638-1-1.html">使用局部坐标做到找到玩家指的地方</a></li>
@@ -3353,9 +3162,9 @@ data modify entity @s[nbt={Item:{tag:{CustomModelData:12974101}}}] Item.tag.Cust
     <li><a href="https://www.mcbbs.net/thread-824528-1-1.html">自定义方块(玩家头颅) </a></li>
     <li><a href="https://www.mcbbs.net/thread-916294-1-1.html">【原版模组】【前置】方块通用处理</a></li>
 </ul>
-<p class="noindent">首先我们根据 <a href="#§5_物品设计">§5 物品设计</a>来将方块对应的物品设计好。</p>
+<p class="noindent">首先我们根据 <a href="#5_物品设计">§5 物品设计</a>来将方块对应的物品设计好。</p>
 
-<h2 id="§6.1_视线追踪法">§6.1 视线追踪法</h2>
+<h2 id="6.1_视线追踪法">§6.1 视线追踪法</h2>
 <p>使用进度判断玩家放置了某物品，然后剥夺进度，递归获取该方块位置。如果视线上没有该方块，有可能是玩家将其对准下台阶或上台阶放置的，此时需要向上或向下平移一格检测。最后获取该方块位置，放置盔甲架，并将相应物品<code>loot</code>进盔甲架头部位置。例如：放置 <code>stone{id:"foo:bar"}</code>。</p>
 <pre class="file">foo/advancements/block/bar.json</pre>
 <pre>
@@ -3401,7 +3210,7 @@ kill @e[type=area_effect_cloud,distance=..0.01,tag=foo_block_pos]
 
 <p>最后，判断玩家主副手，并将相应的物品信息复制到盔甲架头部。不直接使用 <code>loot</code> 命令复制到盔甲架头部是为了在之后的破坏事件中保留原物品的额外信息，例如玩家重命名的名称等。</p>
 
-<h2 id="§6.2_计算交点法">§6.2 计算交点法</h2>
+<h2 id="6.2_计算交点法">§6.2 计算交点法</h2>
 <p class="ex">放置某模组的所有方块，<code>CustomModelData</code> 位于<code>12970000-12979999</code>。</p>
 
 <p>向物品标签 <code>ex:blocks</code> 添加所有原版的方块，然后添加断言来判断玩家主手是不是方块。</p>
@@ -3606,7 +3415,7 @@ data remove storage ex:putted_block Item
 
 <p>尽管看上去比较长，但是递归的次数很少，命令数比视线追踪法还是要少很多。注意由于对玩家坐标乘了1000倍，因此玩家坐标绝对值大于2147484时，会溢出而导致无法使用，可以通过降低精准度(修改为70倍)来避免溢出。</p>
 
-<h2 id="§6.3_命令方块替换法">§6.3 命令方块替换法</h2>
+<h2 id="6.3_命令方块替换法">§6.3 命令方块替换法</h2>
 <p>为了避免视线追踪不够精确，以及为了避免放置于不完整方块侧面等情形而导致方块不在视线上，我们可以考虑使用特殊方块来识别玩家放置的方块。</p>
 <pre class="file">ex:all_in_one_machine</pre>
 <pre>
@@ -3722,7 +3531,7 @@ data modify entity @s ArmorItems[3] set from storage ex:block Item
 
 
 
-<h2 id="§6.4_破坏事件">§6.4 破坏事件</h2>
+<h2 id="6.4_破坏事件">§6.4 破坏事件</h2>
 <p class="ex">破坏自定义的树叶。</p>
 <pre class="file">ex:tick</pre>
 <pre>
@@ -3746,7 +3555,7 @@ kill @s
 </pre>
 <p>我们将最近的 <code>Age:0s</code> (挖掘)和 <code>Age:1s</code> (自然腐烂)的物品添加标签，然后修改其为盔甲架头部存储物。</p>
 
-<h2 id="§6.5_模型设置">§6.5 模型设置</h2>
+<h2 id="6.5_模型设置">§6.5 模型设置</h2>
 <p>使用如下的 <code>display</code> 来放缩物品在头部的大小，可以保证其与坐标轴基本对齐。</p>
 <pre class="file">assets/ex/models/material/moon_stone.json</pre>
 <pre>
@@ -3765,8 +3574,8 @@ kill @s
 }
 </pre>
 
-<h1 id="§7_合成与烧炼">§7 合成与烧炼</h1>
-<h2 id="§7.1_语法">§7.1 语法</h2>
+<h1 id="7_合成与烧炼">§7 合成与烧炼</h1>
+<h2 id="7.1_语法">§7.1 语法</h2>
 <p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别 NBT，因此只能实现原版物品的合成和烧炼。同时模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。</p>
 
 <p>配方的通用语法为</p>
@@ -3861,7 +3670,7 @@ kill @s
 </tbody>
 </table>
 
-<h2 id="§7.2_有序合成">§7.2 有序合成</h2>
+<h2 id="7.2_有序合成">§7.2 有序合成</h2>
 <p class="ex">使用8羊毛+鸡蛋有序合成两个羊刷怪蛋。</p>
 
 <pre class="file">ex/recipes/sheep_spawn_egg.json</pre>
@@ -3889,8 +3698,8 @@ kill @s
 </pre>
 <p class="noindent">这里 <code>ex:wools</code> 为自定义的包含所有颜色羊毛的物品标签。</p>
 
-<h2 id="§7.3_无序合成">§7.3 无序合成</h2>
-<p class="ex">2沙子+红石=2红沙。</p>
+<h2 id="7.3_无序合成">§7.3 无序合成</h2>
+<p class="ex">§2沙子+红石=2红沙。</p>
 
 <pre class="file">ex/recipes/red_sand.json</pre>
 <pre>
@@ -3915,7 +3724,7 @@ kill @s
 </pre>
 <p>配料可以重复。单个物品配方请使用有序合成而不是无序合成。</p>
 
-<h2 id="§7.4_切石机配方">§7.4 切石机配方</h2>
+<h2 id="7.4_切石机配方">§7.4 切石机配方</h2>
 <p class="ex">使用切石机切割橡木木板为2台阶。</p>
 
 <pre class="file">ex/recipes/stonecutting/oak_slab.json</pre>
@@ -3930,7 +3739,7 @@ kill @s
 }
 </pre>
 
-<h2 id="§7.5_烧炼配方">§7.5 烧炼配方</h2>
+<h2 id="7.5_烧炼配方">§7.5 烧炼配方</h2>
 <p class="ex">熔炉烧炼皮革装备、腐肉、鞍为兔子皮。</p>
 
 <pre class="file">ex/recipes/rabbit_hide_from_smelting.json</pre>
@@ -3963,7 +3772,7 @@ kill @s
 }
 </pre>
 
-<h2 id="§7.6_锻造台配方">§7.6 锻造台配方</h2>
+<h2 id="7.6_锻造台配方">§7.6 锻造台配方</h2>
 <p class="ex">使用锻造台使用钻石将铁斧升级为钻石斧。</p>
 
 <pre class="file">ex/recipes/smithing/diamond_axe.json</pre>
@@ -3982,7 +3791,7 @@ kill @s
 }
 </pre>
 
-<h2 id="§7.7_覆盖原版配方">§7.7 覆盖原版配方</h2>
+<h2 id="7.7_覆盖原版配方">§7.7 覆盖原版配方</h2>
 <p>如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 <code>.jar</code> 文件，依次打开 <code>data/minecraft/recipes</code>，找到相应的配方文件，然后在自己的数据包中的相同位置（必然是 <code>minecraft</code> 命名空间下）放入同名文件即可覆盖默认的配方。</p>
 <p class="ex">将橡木台阶合成数量改为8。</p>
 
@@ -4053,7 +3862,7 @@ kill @s
 </pre>
 <p>如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为 <code>{}</code> 时会被认为是错误文件而无法覆盖原配方。同时，我们需要将解锁该配方的进度触发器设置为 <code>minecraft:impossible</code>。</p>
 
-<h2 id="§7.8_配方获取">§7.8 配方获取</h2>
+<h2 id="7.8_配方获取">§7.8 配方获取</h2>
 <p>一个完整的配方应当有相应的进度来使玩家获取之，通常触发器为玩家背包含有合成材料。也可以根据需要在函数中使用命令 <code>recipe</code> 给予。</p>
 
 <pre class="file">ex/advancements/recipes/dirt_from_cobblestone_snowball.json</pre>
@@ -4103,7 +3912,7 @@ kill @s
 }
 </pre>
 
-<h1 id="§8_机器设计">§8 机器设计</h1>
+<h1 id="8_机器设计">§8 机器设计</h1>
 <p>本节我们将通过一个较为复杂的机器的例子，来了解如何设计一个机器。</p>
 
 <p>首先参考 <a href="#5_物品设计">§5 物品设计</a>和 <a href="#6_方块设计">§6 方块设计</a>将机器方块设计好，我们这里选择木桶，如果有必要，使用箱子也可以。</p>
@@ -4142,7 +3951,7 @@ kill @s
     <figcaption>图8.1 机器GUI</figcaption>
 </figure>
 
-<h2 id="§8.1_GUI材质模型">§8.1 GUI材质模型</h2>
+<h2 id="8.1_GUI材质模型">§8.1 GUI材质模型</h2>
 <p>物品的默认大小为 <code>16×16</code>，所以如果我们想要将其放大 <code>n</code> 倍，就需要绘制大小为 <code>16n×16n</code> 的材质，以对齐边缘和像素。</p>
 
 <p>该模型用于机器的GUI，我们将其大小放大了 <code>12</code> 倍，也就是 <code>192×192</code> 大小。所以我们需要绘制这个大小的整数倍的材质。通过修改z轴高度可调整材质的覆盖次序。</p>
@@ -4222,7 +4031,7 @@ kill @s
     <figcaption>图8.4 机器GUI示例2</figcaption>
 </figure>
 
-<h2 id="§8.2_GUI背景处理">§8.2 GUI背景处理</h2>
+<h2 id="8.2_GUI背景处理">§8.2 GUI背景处理</h2>
 <p>我们为所有的机器背景物品添加 <code>machinBg:1b</code>。我们假设这个物品都是 <code>petrified_oak_slab</code>。如果是多种物品的话，我们可以将这些物品 <code>id</code> 添加至一个物品标签内来处理。</p>
 
 <p>清理玩家背包和地面的相应物品。</p>
@@ -4240,7 +4049,7 @@ execute positioned ~-1 ~-2 ~-1 as @e[type=hopper_minecart,dx=2,dy=2,dz=2] run da
 execute if block ~ ~-1 ~ hopper run data modify block ~ ~-1 ~ TransferCooldown set value 2
 </pre>
 
-<h2 id="§8.3_GUI命令">§8.3 GUI命令</h2>
+<h2 id="8.3_GUI命令">§8.3 GUI命令</h2>
 <p>我们需要对机器高频固定住其GUI，同时对于玩家误放入的物品进行弹出处理，并操作机器选项和经验条。我们使用断言来判断木桶内物品信息。</p>
 
 <pre class="file">mac:all_in_one_machine/tick</pre>
@@ -4260,7 +4069,7 @@ execute unless data block ~ ~ ~ Items[{Slot:22b,tag:{machinBg:1b}}] run function
 scoreboard players set @s[tag=!mac_machine_work] macTick 0
 </pre>
 
-<p>对于玩家误放入背景的物品，我们使用 <a href="#§11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
+<p>对于玩家误放入背景的物品，我们使用 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
 
 <pre class="file">mac:all_in_one_machine/gui</pre>
 <pre>
@@ -4278,19 +4087,19 @@ setblock ~ 255 ~ air
 replaceitem block ~ ~ ~ container.0 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971011}
 replaceitem block ~ ~ ~ container.5 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.7 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
-replaceitem block ~ ~ ~ container.8 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.8 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.xp_bar"}',Lore:['"a0/48"']},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.9 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.12 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.process_shower"}'},CustomModelData:12971020}
 replaceitem block ~ ~ ~ container.13 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.process_shower"}'},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.14 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.15 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.16 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
-replaceitem block ~ ~ ~ container.17 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12972000}
+replaceitem block ~ ~ ~ container.17 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.xp_bar"}',Lore:['"a0/48"']},CustomModelData:12972000}
 replaceitem block ~ ~ ~ container.18 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.23 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.24 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
 replaceitem block ~ ~ ~ container.25 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.all_in_one_machine"}'},CustomModelData:12971000}
-replaceitem block ~ ~ ~ container.26 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.xp_bar"}',Lore:['"§a0/48"']},CustomModelData:12971000}
+replaceitem block ~ ~ ~ container.26 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.xp_bar"}',Lore:['"a0/48"']},CustomModelData:12971000}
 
 execute unless data block ~ ~ ~ Items[{Slot:1b}] run function mac:all_in_one_machine/option/pressure
 execute as @s[scores={macPressure=0}] run replaceitem block ~ ~ ~ container.1 minecraft:firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.low_pressure"}',Lore:['{"translate":"lore.ex.switch"}']},CustomModelData:12971000}
@@ -4356,7 +4165,7 @@ scoreboard players add @s macStoredxp 9
 function mac:misc/xp_show
 </pre>
 
-<p>然后判断机器处是否有红石信号强充能，断言 <code>mac:redstone_power</code> 见 <a href="§11.4_红石信号">§11.4 红石信号</a>。当机器未被强充能、有经验值、有输入物、输出栏空闲时，进入配方判断。这里我们根据要求的温度压强来分类。</p>
+<p>然后判断机器处是否有红石信号强充能，断言 <code>mac:redstone_power</code> 见 <a href="11.4_红石信号">§11.4 红石信号</a>。当机器未被强充能、有经验值、有输入物、输出栏空闲时，进入配方判断。这里我们根据要求的温度压强来分类。</p>
 <pre class="file">mac:all_in_one_machine/type</pre>
 <pre>
 execute as @s[scores={macTemperature=0,macPressure=0}] run function mac:all_in_one_machine/recipes/ll
@@ -4393,7 +4202,7 @@ data remove storage ex:dist Item
 execute as @s[tag=ex_dist_success] run replaceitem block ~ ~ ~ container.21 firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.output_slot"}'},CustomModelData:12971000}
 </pre>
 
-<h2 id="§8.4_物品输出">§8.4 物品输出</h2>
+<h2 id="8.4_物品输出">§8.4 物品输出</h2>
 <p>上一节我们调用了一个函数用于输出物品，我们来看一下它的算法。</p>
 
 <p>根据机器的输出方向调整位置。这里我们把容器、大箱子添加至方块标签中。</p>
@@ -4445,7 +4254,7 @@ scoreboard players remove @s container 27
 execute as @s[scores={container=..-1}] run function ex:dist/dist
 </pre>
 
-<p>最后使用 <a href="#§11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
+<p>最后使用 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
 <pre class="file">ex:dist/dist</pre>
 <pre>
 tag @s add ex_dist_success
@@ -4456,7 +4265,7 @@ loot insert ~ ~ ~ mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
 </pre>
 
-<h2 id="§8.5_配方处理">§8.5 配方处理</h2>
+<h2 id="8.5_配方处理">§8.5 配方处理</h2>
 <p>我们使用断言判断机器的物品是否满足相应配方的条件，然后进入计时。计时完成后进行产物生成，产物的生成通过使用战利品表判断当前位置的NBT得到。</p>
 <pre class="file">mac:all_in_one_machine/recipes/nn</pre>
 <pre>
@@ -4641,7 +4450,7 @@ execute as @s[tag=!ex_dist_success] run loot give @p mine ~ 255 ~ diamond_pickax
 execute as @s[tag=!ex_dist_success] run setblock ~ 255 ~ air
 </pre>
 
-<h2 id="§8.6_插件">§8.6 插件</h2>
+<h2 id="8.6_插件">§8.6 插件</h2>
 <p>前面我们提到机器有多种模式，包括温度和压强的调整。我们可以要求玩家使用特定物品插件shift右击机器来安装。插件原型为胡萝卜钓竿。</p>
 
 <p>我们省略副手情形的处理。</p>
@@ -4688,11 +4497,11 @@ replaceitem entity @s[gamemode=!creative,nbt=!{SelectedItem:{tag:{MachinePlugin:
 replaceitem entity @s[gamemode=!creative,nbt={SelectedItem:{tag:{MachinePlugin:1b}}}] weapon.mainhand air
 </pre>
 
-<p>我们也可以使用 <a href="#§11.5_方块交互">§11.5 方块交互</a>的方式来安装插件。</p>
+<p>我们也可以使用 <a href="#11.5_方块交互">§11.5 方块交互</a>的方式来安装插件。</p>
 
 
-<h2 id="§8.7_容器扩展">§8.7 容器扩展</h2>
-<p>在 <a href="#§8.4_物品输出">§8.4 物品输出</a>中，方块标签 <code>#container:all</code> 记录了各种容器，<code>#container:chests</code> 记录了各种大箱子，函数标签 <code>#container:check</code> 处理容器的栏位数量。我们希望添加更多可支持的容器，例如<a href="https://www.curseforge.com/minecraft/mc-mods/iron-chests">更多箱子</a>和<a href="https://www.curseforge.com/minecraft/mc-mods/stone-chest">石箱子</a>中的容器。</p>
+<h2 id="8.7_容器扩展">§8.7 容器扩展</h2>
+<p>在 <a href="#8.4_物品输出">§8.4 物品输出</a>中，方块标签 <code>#container:all</code> 记录了各种容器，<code>#container:chests</code> 记录了各种大箱子，函数标签 <code>#container:check</code> 处理容器的栏位数量。我们希望添加更多可支持的容器，例如<a href="https://www.curseforge.com/minecraft/mc-mods/iron-chests">更多箱子</a>和<a href="https://www.curseforge.com/minecraft/mc-mods/stone-chest">石箱子</a>中的容器。</p>
 
 <pre class="file">container/tags/blocks/all.json</pre>
 <pre>
@@ -4760,10 +4569,10 @@ execute if block ~ ~ ~ #ironchest:diamond run scoreboard players remove @s conta
 </pre>
 <p>这里 <code>#ironchest:diamond</code> 包含了钻石箱子、黑曜石箱子和水晶箱子，它们容量均为108。</p>
 
-<p>添加完这样的数据包之后，我们便可以如 <a href="§8.4_物品输出">§8.4 物品输出</a>般调用它们了。这里是已经写好的<a href="https://github.com/ruhuasiyu/CraftingPlusPlus/tree/master/other_datapacks/原版模组容器扩展">原版模组容器扩展</a>。</p>
+<p>添加完这样的数据包之后，我们便可以如 <a href="8.4_物品输出">§8.4 物品输出</a>般调用它们了。这里是已经写好的<a href="https://github.com/ruhuasiyu/CraftingPlusPlus/tree/master/other_datapacks/原版模组容器扩展">原版模组容器扩展</a>。</p>
 
-<h2 id="§8.8_接口">§8.8 接口</h2>
-<p>函数 <code>mac:all_in_one_machine/type</code> 中包含一条命令 <code>function #mac:all_in_one_machine</code>。我们也创建了相应的函数标签。然后其他开发者便可向该函数标签写入内容来达到扩展或修改内容的目的，这也在 <a href="#§4.3_前置与附属">§4.3 前置与附属</a>中提及。例如</p>
+<h2 id="8.8_接口">§8.8 接口</h2>
+<p>函数 <code>mac:all_in_one_machine/type</code> 中包含一条命令 <code>function #mac:all_in_one_machine</code>。我们也创建了相应的函数标签。然后其他开发者便可向该函数标签写入内容来达到扩展或修改内容的目的，这也在 <a href="#4.3_前置与附属">§4.3 前置与附属</a>中提及。例如</p>
 
 <pre class="file">foo:all_in_one_machine/type</pre>
 <pre>
@@ -4771,10 +4580,10 @@ execute as @s[scores={macStoredxp=8..,macTemperature=0,macPressure=0}] run funct
 </pre>
 <p>然后类似创建后续的断言、战利品表、函数。</p>
 
-<h2 id="§8.9_管道">§8.9 管道</h2>
+<h2 id="8.9_管道">§8.9 管道</h2>
 <p>科技类模组人们需要添加管道来传输电力、流体、物品等。物品管道是类似的，我们将物品的信息存储在管道上并传输即可，最终将其输入到容器中。常见的几种做法有：</p>
 
-<h3 id="§8.9.1_无线传输">§8.9.1 无线传输</h3>
+<h3 id="8.9.1_无线传输">§8.9.1 无线传输</h3>
 <p>优点是简洁易操作，判断输出电力的机器附近是否有需要输入电力的机器并计算即可。</p>
 
 <pre class="file">ex:tick</pre>
@@ -4800,12 +4609,12 @@ scoreboard players operation #t0 exPower -= #t exPower
 
 <p>我们也可以在传输中添加类似投射物的特效来提高视觉效果。</p>
 
-<h3 id="§8.9.2_管道式">§8.9.2 管道式 (WIP)</h3>
+<h3 id="8.9.2_管道式">§8.9.2 管道式 (WIP)</h3>
 <p>优点是具有传统科技模组的风格，缺点是每个管道都是一个实体（仅有原版方块限制颇多），管道多的时候会较为卡顿。</p>
 <p>涌流式：能量从高处向周围比它低的管道/机器处流动，来最终实现能量传输。管道内会留有缓存。实现和无线传输类似，只是范围限定在1米内。</p>
 <p>遍历式：从能量源出发，遇到过的管道做标记一直向下，如果遇到终点就回溯到分叉点，一直循环直到返回源头。</p>
 
-<h3 id="§8.9.3_激光式">§8.9.3 激光式</h3>
+<h3 id="8.9.3_激光式">§8.9.3 激光式</h3>
 <p>为了降低管道式的管道数量，我们可以将管道替换为可以一次传输多格的激光式管道。这里我们使用展示框来表示，计算其与前方方块的距离并调整外观（长度）。</p>
 
 <pre class="file">ex:tick</pre>
@@ -4851,7 +4660,7 @@ scoreboard players remove @s indPower 1
 scoreboard players add @e[tag=ind_power_in,distance=..0.1,limit=1] indPower 1
 </pre>
 
-<h3 id="§8.9.4_载体式">§8.9.4 载体式</h3>
+<h3 id="8.9.4_载体式">§8.9.4 载体式</h3>
 <p>我们使用一个可移动的实体来传输能量，这个实体受方块控制。</p>
 
 <pre class="file">wire:golem/tick</pre>
@@ -4873,7 +4682,7 @@ execute as @s[scores={exPower=1..}] if entity @e[type=armor_stand,tag=machine_ma
 </pre>
 <p>然后和其它传输方式一样，计算传输值即可。</p>
 
-<h3 id="§8.9.5_管道设计">§8.9.5 管道设计</h3>
+<h3 id="8.9.5_管道设计">§8.9.5 管道设计</h3>
 <p>我们可以使用屏障方块来作为管道的本体方块，使用扳手(胡萝卜钓竿)来右键拆解。</p>
 
 <p>管道需要高频判断是否与周边方块连接，以调整其自身显示。</p>
@@ -4889,8 +4698,8 @@ execute positioned ~ ~-1 ~ if entity @e[type=armor_stand,tag=ex_pipe,distance=..
 execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s exModel
 </pre>
 
-<h1 id="§9_NBT合成与烧炼">§9 NBT合成与烧炼</h1>
-<h2 id="§9.1_地板合成">§9.1 地板合成</h2>
+<h1 id="9_NBT合成与烧炼">§9 NBT合成与烧炼</h1>
+<h2 id="9.1_地板合成">§9.1 地板合成</h2>
 <p>将物品扔在地面进行合成，是模组配方数量少时采用的一种便捷做法。优点是无需设计 GUI。</p>
 
 <p class="ex">将磁铁（<code>id:"ex:magnet"</code>）和4个钻石合成为充能指南针（<code>id:"ex:powered_magnet"</code>）。</p>
@@ -4906,7 +4715,7 @@ kill @s
 summon item ~ ~ ~ {Item:{id:"minecraft:compass",Count:1b,tag:{id:"ex:powered_magnet"}}}
 </pre>
 
-<h2 id="§9.2_实体背包合成">§9.2 实体背包合成</h2>
+<h2 id="9.2_实体背包合成">§9.2 实体背包合成</h2>
 <p>利用玩家的背包、末影箱、箱子矿车、驴等生物的背包用于合成，也是一种较为便捷的方式，不受方块的限制。</p>
 
 <p>由于玩家的NBT难以修改，玩家背包和末影箱并不便于合成处理，而且一般只能用于有序合成。其它情形可以通过不指定 <code>Slot</code> 来实现无序合成。</p>
@@ -4955,13 +4764,13 @@ replaceitem entity @s inventory.15 minecraft:air
 replaceitem entity @s inventory.17 minecraft:air
 </pre>
 
-<h2 id="§9.3_容器合成">§9.3 容器合成</h2>
+<h2 id="9.3_容器合成">§9.3 容器合成</h2>
 <p>使用投掷器、箱子、木桶等容器可以更为便捷地实现合成。我们可以直接使用容器，或者使用 <a href="#8_机器设计">§8 机器设计</a>的方法设计好自定义工作台的GUI。</p>
 
 <p>输出方式我们可以选择输出到输出栏（木桶）、输出到自身（精准匹配+投掷器）、弹出。具体实现与 <a href="#8_机器设计">§8 机器设计</a>并无二致。</p>
 
-<h2 id="§9.4_NBT烧炼">§9.4 NBT烧炼</h2>
-<h2 id="§9.4.1_替换产物法">§9.4.1 替换产物法</h2>
+<h2 id="9.4_NBT烧炼">§9.4 NBT烧炼</h2>
+<h2 id="9.4.1_替换产物法">§9.4.1 替换产物法</h2>
 <p>放置熔炉、高炉、烟熏炉、营火的过程已省略。我们假设相应方块位置已有标签为 <code>ex_furnace</code> 的盔甲架。</p>
 <p class="ex">将蛋烧炼为战利品表物品 <code>ex:egg_stew</code>。创建烧炼配方以激活烧炼蛋。</p>
 <pre class="file">ex/recipes/egg.json</pre>
@@ -5023,7 +4832,7 @@ data merge block ~ ~ ~ {CookTime:0s}
 </tr>
 </tbody></table>
 
-<h2 id="§9.4.2_记分板模拟">§9.4.2 记分板模拟</h2>
+<h2 id="9.4.2_记分板模拟">§9.4.2 记分板模拟</h2>
 <p>另一种做法就是并不添加相应的烧炼配方，而是通过记分板计时来达到控制烧炼时间的目的。当物品进入熔炉后，判断其是否需要烧炼以及是否有燃料，然后判断输出栏是否为空或其产物，如果确实可以烧炼，那么临时存储输入输出栏物品至存储区，然后放入任意可烧炼物品以触发燃料的消耗和烧炼动画。下一刻再将存储区的物品返回熔炉。反复操作直到烧炼时间达到了烧炼该物品所需的时间，此时产出产物即可。(by chaoren019)</p>
 <p>该方法在计算时会导致熔炉内物品闪烁一下(这可以通过自定义空白模型的铁矿石来解决)，更换不同燃烧值物品时，燃烧火焰条也会有所变化，这和通常烧炼配方有差异。</p>
 <pre class="file">ex:furnace/tick</pre>
@@ -5242,7 +5051,7 @@ data modify block ~ ~ ~ {} merge from storage ex:furnace {}
 </pre>
 <p>对于烟熏炉和高炉，操作是类似的，但是需要每次增加exTick 2。营火由于会判断材料是否合法，因此无法用该方法。</p>
 
-<h2 id="§9.5_NBT酿造">§9.5 NBT酿造</h2>
+<h2 id="9.5_NBT酿造">§9.5 NBT酿造</h2>
 <p>类似于自定义烧炼的方法，我们可以自定义酿造。但是由于酿造台的限制，酿造材料必须为原版酿造材料物品，待酿造的物品只能为药水或玻璃瓶。除了红石、萤石、火药、龙息外，建议使用兔子腿，因为兔子腿只有酿造功能。</p>
 <p>如果酿造材料和待酿造的物品本身就属于原版可酿造的配方，我们只需在酿造即将完成时，将药水替换掉即可。例如：使用大地之证 (兔子腿 <code>ex:certification_of_earth</code>) 将粗制的药水酿造成有多重药水效果的大地药水（<code>potion_of_earth</code>），同时支持延长、加强、喷溅、滞留版本。</code>
 
@@ -5638,7 +5447,7 @@ replaceitem entity @s weapon.mainhand minecraft:air
 <p>如果酿造材料和待酿造的物品不属于原版可酿造的配方，我们需要在二者均进入酿造台时，将其物品修改为具有相同材质名称的、可以实现酿造的物品。当物品进入背包时，将其改回原物品。酿造即将完成时，检测相应NBT是否来自指定的物品，并修改产物。</p>
 
 
-<h1 id="§10_植物">§10 植物</h1>
+<h1 id="10_植物">§10 植物</h1>
 
 <p>我们使用寻常作物来实现自定义作物。在相应的方块处放置带有自定义物品模型的盔甲架来实现其外观的不同，并高频判断和重置其生长状态来确定生长。模型可以选择盖住原方块模型，或删除原方块模型并将原作物当做自定义作物实现（会生成盔甲架实体）。如果自定义作物的材质没有覆盖原来的方块，就会导致自定义的作物处，既有自定义作物的材质，又有原本的作物材质。解决方法之一是限定自定义作物模型包含原有的作物模型，另一种是删除原有方块材质并在原方块处放置对应材质的盔甲架解决。</p>
 
@@ -5718,9 +5527,9 @@ replaceitem entity @s weapon.mainhand minecraft:air
 
 <p>可以看出，可接受的只有瓜梗+模型覆盖、金合欢树苗+删除原模型、任意方块+完整模型三种做法。对于第二种做法，我们还需要修改村庄等结构中相应的模型，而且在玩家大规模种植时会生成大量实体。</p>
 
-<p>另一种实现方式即使用<a href="#§6.3_命令方块替换法">§6.3 命令方块替换法</a>来放置，只需在放置完成后检测下方不是土时将其破坏掉即可。这种方法较为简单，缺点是物品缺少树苗的诸如可作为燃料、可堆肥的特性。</p>
+<p>另一种实现方式即使用<a href="#6.3_命令方块替换法">§6.3 命令方块替换法</a>来放置，只需在放置完成后检测下方不是土时将其破坏掉即可。这种方法较为简单，缺点是物品缺少树苗的诸如可作为燃料、可堆肥的特性。</p>
 
-<h2 id="§10.1_作物">§10.1 作物</h2>
+<h2 id="10.1_作物">§10.1 作物</h2>
 
 <p class="ex">种植铁种子，收获种子和铁锭，可由骨粉催熟。种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。</p>
 <pre class="file">ex:advancements/plants/iron_seeds</pre>
@@ -5755,7 +5564,7 @@ execute as @s[tag=ex_iron_seeds] as @e[type=item,nbt={Item:{id:"minecraft:beetro
 
 <p>实际上，我们也可以通过盔甲架手持物品来实现自定义材质的作物。</p>
 
-<h2 id="§10.2_花草">§10.2 花草</h2>
+<h2 id="10.2_花草">§10.2 花草</h2>
 <p>我们使用金合欢树苗作为花草原型。方块的放置部分我们省略，只需要注意花草的模型通常和物品模型是不同的，因此在放置后需要修改CustomModelData，破坏情形也是同理。</p>
 <p class="ex">放置花草种子，长大后收获成熟的花草。</p>
 <pre class="file">ex:tick</pre>
@@ -5803,7 +5612,7 @@ execute if score #t exValue matches 12975080 run loot replace entity @s armor.he
 execute if score #t exValue matches 12975021..12975080 store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get #t exValue
 </pre>
 
-<h2 id="§10.3_树">§10.3 树</h2>
+<h2 id="10.3_树">§10.3 树</h2>
 
 <p class="ex">种下矿石树树苗，然后会长大。长大后的树叶会逐渐变为矿石。</p>
 <pre class="file">ex:plants/trees/grow</pre>
@@ -5924,10 +5733,10 @@ kill @s
 </pre>
 
 
-<h1 id="§11_物品与实体处理">§11 物品与实体处理</h1>
+<h1 id="11_物品与实体处理">§11 物品与实体处理</h1>
 <p>本节内容较杂，主要包括常见的一些物品与实体处理方式。</p>
 
-<h2 id="§11.1_随机数">§11.1 随机数</h2>
+<h2 id="11.1_随机数">§11.1 随机数</h2>
 <p>随机数有多种生成方式，最简单的使用实体选择器 <code>@r</code> 来从若干实体中选取一个。我们可以生成两个并对其中随机一个的计分板增加 <code>1, 2, 4, ..., 2<sup>30</sup></code>，那么其中一个的分数就是 <code>0</code> 至 <code>2<sup>31</sup>-1</code> 之间的随机数，然后对我们想要的随机数区间取模，即可得到近似的均匀分布。</p>
 <p>但是，我们使用战利品的 <code>set_attribute</code> 函数可以便捷地得到 <code>0</code> 至 <code>2048</code> 之间的一个随机浮点数。由此可得到下述算法。</p>
 
@@ -5998,7 +5807,7 @@ scoreboard players operation #rand exValue += #random_min exValue
 <p>对于固定范围的随机数，我们可以直接在战利品表内设置好，可省去部分记分板的计算。</p>
 
 
-<h2 id="§11.2_修改玩家背包">§11.2 修改玩家背包</h2>
+<h2 id="11.2_修改玩家背包">§11.2 修改玩家背包</h2>
 
 <p>用于修改实体方块、实体、存储区NBT的 <code>data</code> 命令无法用来修改玩家NBT。在1.13-1.14版本中可以使用 <code>execute store</code> 和 <code>data modify</code> 命令来修改玩家背包内物品的 <code>tag</code> 标签下的信息，尽管使用该命令会提示错误。而在1.15版本则将该功能去除，想要修改玩家背包就必须借助其它方式。</p>
 
@@ -6167,10 +5976,10 @@ scoreboard players operation #rand exValue += #random_min exValue
 
 <p>我们将物品复制到潜影盒内，然后使用命令 <code>loot ... mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}</code>。通常我们将这种辅助用的方块放置在 <code>255</code> 高度以免破坏地形和建筑。</p>
 
-<p>除了用于修改玩家背包，该命令还可配合 <code>loot insert</code> 来将物品输出到容器内，并使物品尽量堆叠。这常用于机器的输出，见 <a href="#§8.4_物品输出">§8.4 物品输出</a>。</p>
+<p>除了用于修改玩家背包，该命令还可配合 <code>loot insert</code> 来将物品输出到容器内，并使物品尽量堆叠。这常用于机器的输出，见 <a href="#8.4_物品输出">§8.4 物品输出</a>。</p>
 
 
-<h2 id="§11.3_耐久处理">§11.3 耐久处理</h2>
+<h2 id="11.3_耐久处理">§11.3 耐久处理</h2>
 
 <p>有时候我们需要模拟使用工具的过程，但工具并没有真正被使用，耐久也没有被消耗。此时我们需要手动对其耐久进行处理。</p>
 <p>我们将物品信息复制到存储区 <code>ex:damage</code> 的 <code>Item</code> 中，然后使用断言判断是否减少耐久。最后判断其是否已经耐久耗尽，若耗尽则清除之。</p>
@@ -6386,9 +6195,9 @@ execute unless predicate ex:no_damage store result storage ex:damage Item.tag.Da
         ]
     }
 ]</pre>
-<p>对于旧版本，我们也可以通过生成<code>0~耐久附魔等级</code>的随机数，并判断是否为0来确定是否消耗耐久，参见<a href="§11.1_随机数">§11.1 随机数</a>。</p>
+<p>对于旧版本，我们也可以通过生成<code>0~耐久附魔等级</code>的随机数，并判断是否为0来确定是否消耗耐久，参考<a href="11.1_随机数">§11.1 随机数</a>。</p>
 
-<h2 id="§11.4_红石信号">§11.4 红石信号</h2>
+<h2 id="11.4_红石信号">§11.4 红石信号</h2>
 
 <p>为了检测当前方块是否被强充能了，我们将所有能激活当前方块的红石元件和方块状态记录在断言文件中来判断。注意我们没有对当前方块是否完整进行检测。陷阱箱触发的红石信号也是无法直接探测到的。</p>
 
@@ -6873,13 +6682,13 @@ execute unless predicate ex:no_damage store result storage ex:damage Item.tag.Da
 
 <p>弱充能情形更为繁琐。</p>
 
-<p>想要产生一个红石信号，可以通过在当前位置放置红石块再放置空气来产生。注意保存当前方块的信息。这样的红石信号可以用于激活结构方块，因此可用于 <a href="§12_世界生成">§12 世界生成</a>。</p>
+<p>想要产生一个红石信号，可以通过在当前位置放置红石块再放置空气来产生。注意保存当前方块的信息。这样的红石信号可以用于激活结构方块，因此可用于 <a href="12_世界生成">§12 世界生成</a>。</p>
 
-<h2 id="§11.5_方块交互">§11.5 方块交互</h2>
+<h2 id="11.5_方块交互">§11.5 方块交互</h2>
 
 <p>与某些特定方块交互，可通过相应的交互判据的计分板来探测。如果仅需要右击而不打开，可对容器进行上锁，但玩家快捷栏上方会提示容器已上锁，需要使用资源包来消除；或者使用传送来实现强制关闭GUI，但画面会有闪烁感。</p>
 
-<p class="ex">右键方块破坏器将其上方的石头变为砂砾，圆石变为沙子。方块破坏器为上锁的熔炉，且相应位置已有盔甲架标记。这里我们直接使用 <a href="#§6.1_视线追踪法">§6.1 视线追踪法</a>来获取方块破坏器位置。</p>
+<p class="ex">右键方块破坏器将其上方的石头变为砂砾，圆石变为沙子。方块破坏器为上锁的熔炉，且相应位置已有盔甲架标记。这里我们直接使用 <a href="#6.1_视线追踪法">§6.1 视线追踪法</a>来获取方块破坏器位置。</p>
 
 <pre class="file">ex:load</pre>
 <pre>
@@ -6911,7 +6720,7 @@ execute if block ~ ~1 ~ stone run setblock ~ ~1 ~ gravel
 execute if block ~ ~1 ~ cobblestone run setblock ~ ~1 ~ sand
 </pre>
 
-<p>同理，<a href="#§8.6_插件">§8.6 插件</a>中的插件安装也可以通过打开木桶的判据来实现。我们使用传送来实现强制关闭GUI。</p>
+<p>同理，<a href="#8.6_插件">§8.6 插件</a>中的插件安装也可以通过打开木桶的判据来实现。我们使用传送来实现强制关闭GUI。</p>
 
 <pre class="file">mac:load</pre>
 <pre>
@@ -6989,7 +6798,7 @@ tag @s remove machine_close_gui
 execute at @s facing entity @e[type=area_effect_cloud,tag=machine_close_gui_facing,distance=..10,sort=nearest,limit=1] feet run tp ~ ~ ~
 </pre>
 
-<h2 id="§11.6_生物移动">§11.6 生物移动</h2>
+<h2 id="11.6_生物移动">§11.6 生物移动</h2>
 
 <p class="ex">手持绿宝石块的玩家吸引 <code>16</code> 米内的村民到自身位置。</p>
 
@@ -7123,7 +6932,7 @@ execute store result entity @s Motion[2] double 0.0005 run scoreboard players op
 <p>这里我们进行了繁复的判断是为了让村民能够爬坡，但不能爬过栅栏类方块。如果是想要实现吸引物品掉落物的效果，则很多内容可以省略。</p>
 
 
-<h2 id="§11.7_交易">§11.7 交易</h2>
+<h2 id="11.7_交易">§11.7 交易</h2>
 <p>使用村民交易是一种常见的特殊物品获得方式。在1.14+版本，建议使用流浪商人而不是村民，因为村民的交易会根据工作方块而进行变化，导致设定的交易被覆盖或出现不想要的交易。如果不希望交易产生经验值，需将 <code>rewardExp</code> 设置为 <code>0b</code>。通过让村民佩戴物品，可以让村民头部实现不同的外观，但是其它部位不能如此修改，使用佩戴在头部全身模型也会因村民头部移动而发生错乱。</p>
 
 <p>建议使用战利品来随机生成村民的交易项。</p>
@@ -7310,7 +7119,7 @@ tag @s add trade_trade_added
 
 <p>1.13版本可将村民的NBT修改为 <code>{VillagerData:{profession:"minecraft:none"}</code> 以确保村民不含交易。</p>
 
-<h2 id="§11.8_清理特定物品">§11.8 清理特定物品</h2>
+<h2 id="11.8_清理特定物品">§11.8 清理特定物品</h2>
 
 <p>在自动种植、自动繁殖或放置方块等情形，我们需要对容器内的特定物品进行消耗。例如：当含有 <code>ex:toughen_hand</code> 的物品展示框下方容器内有胡萝卜、金胡萝卜、蒲公英时，令附近的兔子进入繁殖状态并清除一个相应物品。</p>
 
@@ -7338,7 +7147,7 @@ data merge entity @e[type=item_framerabbit,distance=..9,nbt={Age:0,InLove:0},lim
 
 <p>注意到一点，<code>Items[{id:"minecraft:carrot"}]</code> 只会选择容器内的最后一个拥有胡萝卜的栏位。如果 <code>ex:toughen_hand</code> 的物品被消耗完，则追加到容器的 <code>Items</code> 时，仍然会先覆盖已有的同 <code>Slot</code> 项，然后由于 <code>Count</code> 变为 <code>0</code> 而清除该栏位。</p>
 
-<h2 id="§11.9_连锁">§11.9 连锁</h2>
+<h2 id="11.9_连锁">§11.9 连锁</h2>
 
 <p>当玩家使用原版镐时，破坏所有相连的矿石。</p>
 
@@ -7408,10 +7217,10 @@ function ex:damage
 execute if score #temp chainValue &lt; #max_durality chainValue run function chain:chain/pickaxe1/mark
 </pre>
 
-<p>函数 <code>ex:damage</code> 见 <a href="§11.3_耐久处理">§11.3 耐久处理</a>。</p>
+<p>函数 <code>ex:damage</code> 见 <a href="11.3_耐久处理">§11.3 耐久处理</a>。</p>
 
-<h1 id="§12_算法">§12 算法</h1>
-<h2 id="§12.1_世界生成结构">§12.1 世界生成结构</h2>
+<h1 id="12_算法">§12 算法</h1>
+<h2 id="12.1_世界生成结构">§12.1 世界生成结构</h2>
 <p class="ex">世界生成时，随机生成结构。判断玩家东南32×32范围内是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。</p>
 
 <pre class="file">ex:tick</pre>
@@ -7914,10 +7723,16 @@ loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
 <p>我们可以将所有维度的结构标记物均放置在同一战利品表内。</p>
 <p>另一种生成为全局替换，例如将主世界的地牢刷怪笼一部分替换为苦力怕刷怪笼，那么在每次检测时，使用 <code>fill</code> 命令强制替换即可。但是该命令开销很大，会导致较大的卡顿。</p>
 
-<h2 id="§12.2_绘制图案">§12.2 绘制图案</h2>
-<h2 id="§12.3_循环和递归">§12.3 循环和递归</h2>
-<h2 id="§12.4_字符操作">§13.4 字符操作</h2>
-<h2 id="§12.5_位运算与种子">§12.5 位运算与种子</h2>
+<h2 id="12.2_绘制图案">§12.2 绘制图案</h2>
+TBD
+
+<h2 id="12.3_循环和递归">§12.3 循环和递归</h2>
+TBD
+
+<h2 id="12.4_字符操作">§13.4 字符操作</h2>
+TBD
+
+<h2 id="12.5_位运算与种子">§12.5 位运算与种子</h2>
 
 
 </article>
