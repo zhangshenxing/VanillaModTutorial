@@ -84,13 +84,6 @@ div#main_part{
 	width: 80%;
 	float: right;
 }
-footer{
-	display:block;
-	position:fixed;
-	width: 14%;
-	bottom:0;
-	left:0;
-}
 article{
 	margin:2em 3em;
 }
