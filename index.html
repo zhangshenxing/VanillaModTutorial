@@ -155,7 +155,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§1.4 by ruhuasiyu 2020/07/14</p>
+<p>进度：§2.2 by ruhuasiyu 2020/07/15</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -206,9 +206,9 @@
 <h2 id="文件结构">§1.3 游戏文件夹</h2>
 <p>本节中我们将对游戏文件夹的结构做简单的介绍，我们只介绍原版模组开发中涉及的内容。<code>.minecraft</code> 文件夹是 Minecraft 创建的并用于游戏运行的文件夹，它包含了游戏的所有内容。在第一次启动启动器时，会自动创建 <code>.minecraft</code> 文件夹。参考 <a href="https://wiki.biligame.com/mc/.minecraft" class="wiki">.minecraft</a>。</p>
 
-<p><code>.minecraft</code> 文件夹通常位于你的启动器目录下。如果启动器中设置为各版本独立，则位于 <code>versions/&lt;版本号&gt;</code>下。另一种方式是在游戏内点击<code>选项->资源包->打开压缩包文件夹</code>并返回上级目录，或者点击<code>单人游戏->选中世界->编辑->打开世界文件夹</code>并返回上上级目录。</p>
+<p><code>.minecraft</code> 文件夹通常位于你的启动器目录下。如果启动器中设置为各版本独立，则位于 <code>versions/<i>版本号</i></code>下。另一种方式是在游戏内点击<code>选项->资源包->打开压缩包文件夹</code>并返回上级目录，或者点击<code>单人游戏->选中世界->编辑->打开世界文件夹</code>并返回上上级目录。</p>
 
-<p class="noindent"><strong>游戏本体</strong>位于 <code>versions/&lt;版本号&gt;/&lt;版本号&gt;.jar</code>。该文件包含了对应版本的游戏资源和数据文件，使用压缩工具打开后，可以看到<ul>
+<p class="noindent"><strong>游戏本体</strong>位于 <code>versions/<i>版本号</i>/<i>版本号</i>.jar</code>。该文件包含了对应版本的游戏资源和数据文件，使用压缩工具打开后，可以看到<ul>
     <li>原版<a href="#资源包">资源包</a>位于 <code>assets</code> 文件夹内，其中 <code>minecraft</code> 文件夹为命名空间 <code>minecraft</code> 下的资源文件。</td></li>
     <li>原版<a href="#数据包">数据包</a>位于 <code>data</code> 文件夹内，其中 <code>minecraft</code> 文件夹为命名空间 <code>minecraft</code> 下的数据文件。</li>
     <li><code>pack.mcmeta</code> 为原版资源包和数据包的<a href="#元信息和图标">元信息</a>。</li>
@@ -220,20 +220,20 @@
     <figcaption>图1.1 游戏本体文件结构</figcaption>
 </figure>
 
-<p class="noindent"><strong>资源包文件夹</strong>位于<code>resourcepacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个资源包，具体结构见 <a href="#资源包">§3 资源包</a>。服务器下载的资源包位于 <code>server-resource-packs/&lt;服务器&gt;</code>，可使用压缩工具打开。</p>
+<p class="noindent"><strong>资源包文件夹</strong>位于<code>resourcepacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个资源包，具体结构见 <a href="#资源包">§3 资源包</a>。服务器下载的资源包位于 <code>server-resource-packs/<i>服务器</i></code>，可使用压缩工具打开。</p>
 
-<p class="noindent"><strong>资源文件</strong> 部分资源文件不被包含在原版资源包内，而是位于资源文件夹下，这主要包括各种语言文本和音效文件。资源文件索引位于 <code>assets/indexes/&lt;版本号&gt;.json</code>，打开后通过键值可知相应资源的 hash 值，对应的资源位于 <code>assets/objects/&lt;hash开头&gt;/&lt;hash&gt;</code>。例如打开 <code>>assets/indexes/1.16.json</code>，找到键 <code>minecraft/lang/zh_cn.json</code> 的 <code>hash</code> 为 <code>74f282093eaa509909f04fa3311757320445a27f</code>，因此简体中文的语言文本位于文件夹 <code>assets/objects/74/74f282093eaa509909f04fa3311757320445a27f</code>，使用文本编辑器打开即可看到游戏内的所有名称的中文译名。注意该文件中的中文均被转化为相应的 Unicode 表达方式，参考<a href="#字体">字体</a>。</p>
+<p class="noindent"><strong>资源文件</strong> 部分资源文件不被包含在原版资源包内，而是位于资源文件夹下，这主要包括各种语言文本和音效文件。资源文件索引位于 <code>assets/indexes/<i>版本号</i>.json</code>，打开后通过键值可知相应资源的 hash 值，对应的资源位于 <code>assets/objects/<i>hash开头</i>/<i>hash</i></code>。例如打开 <code>>assets/indexes/1.16.json</code>，找到键 <code>minecraft/lang/zh_cn.json</code> 的 <code>hash</code> 为 <code>74f282093eaa509909f04fa3311757320445a27f</code>，因此简体中文的语言文本位于文件夹 <code>assets/objects/74/74f282093eaa509909f04fa3311757320445a27f</code>，使用文本编辑器打开即可看到游戏内的所有名称的中文译名。注意该文件中的中文均被转化为相应的 Unicode 表达方式，参考<a href="#字体">字体</a>。</p>
 
-<p class="noindent"><strong>日志</strong>位于 <code>logs/latest.log</code>，可由此实时查看游戏内加载资源包和数据包时的错误信息，包括错误的文件名称、位置、错误的行列数等，因此这对于我们调试非常重要。简体中文下需要设置文件编码为 Simplified Chinese (GBK)，否则除 ASCII 外的字符会显示乱码。历史日志位于 <code>logs/&lt;年-月-日-序号&gt;.log.gz</code>，使用压缩工具打开后使用文本编辑器打开。崩溃报告位于 <code>crash-reports/&lt;crash-年-月-日_时.分.秒-server&gt;.txt</code>，如果是由于资源包或数据包引起的崩溃，可以在该文件中看到原因。</p>
-<p class="noindent"><strong>存储的物品栏</strong> 位于 <code>hotbar.nbt</code>，存储了游戏内使用<code>C+&lt;数字&gt;</code>存储、<code>X+&lt;数字&gt;</code>取出的创造模式物品快捷栏。</p>
+<p class="noindent"><strong>日志</strong>位于 <code>logs/latest.log</code>，可由此实时查看游戏内加载资源包和数据包时的错误信息，包括错误的文件名称、位置、错误的行列数等，因此这对于我们调试非常重要。简体中文下需要设置文件编码为 Simplified Chinese (GBK)，否则除 ASCII 外的字符会显示乱码。历史日志位于 <code>logs/<i>年-月-日-序号</i>.log.gz</code>，使用压缩工具打开后使用文本编辑器打开。崩溃报告位于 <code>crash-reports/<i>crash-年-月-日_时.分.秒-server</i>.txt</code>，如果是由于资源包或数据包引起的崩溃，可以在该文件中看到原因。</p>
+<p class="noindent"><strong>存储的物品栏</strong> 位于 <code>hotbar.nbt</code>，存储了游戏内使用<code>C+<i>数字</i></code>存储、<code>X+<i>数字</i></code>取出的创造模式物品快捷栏。</p>
 
-<p class="noindent"><strong>存档文件</strong>位于 <code>saves/&lt;世界名称&gt;</code>，由于<a href="https://wiki.biligame.com/mc/世界格式">世界格式</a>上该内容已较为详尽且与原版模组联系甚远，因此我们仅提及部分内容。该文件夹包含的区块文件、地图文件等不建议使用 NBT 编辑器来编辑，而是用 MCEdit、地图文件生成工具等专门的工具来编辑。存档的备份文件位于 <code>backups/&lt;年-月-日_时-分-秒_世界名称&gt;.zip</code>，为存档的备份文件，解压后复制到 <code>saves</code> 即可使用。</p>
+<p class="noindent"><strong>存档文件</strong>位于 <code>saves/<i>世界名称</i></code>，由于<a href="https://wiki.biligame.com/mc/世界格式">世界格式</a>上该内容已较为详尽且与原版模组联系甚远，因此我们仅提及部分内容。该文件夹包含的区块文件、地图文件等不建议使用 NBT 编辑器来编辑，而是用 MCEdit、地图文件生成工具等专门的工具来编辑。存档的备份文件位于 <code>backups/<i>年-月-日_时-分-秒_世界名称</i>.zip</code>，为存档的备份文件，解压后复制到 <code>saves</code> 即可使用。</p>
 <ul>
-    <li><strong>进度</strong>位于 <code>advancements/&lt;玩家 UUID&gt;.json</code>，记录了玩家已完成的进度和进度判据的完成时间。对于需要完成多个判据才能达成的进度，该文件中记录了已完成的那些判据的完成时间。</li>
-    <li><strong>区块、村民兴趣点、袭击、常加载区块</strong>等信息分维度存储，主世界、下界、末地、自定义维度的相应文件分别位于根文件夹、<code>DIM-1</code>、<code>DIM1</code>、<code>dimensions/&lt;命名空间&gt;/&lt;路径&gt;</code>下。</li>
+    <li><strong>进度</strong>位于 <code>advancements/<i>玩家 UUID</i>.json</code>，记录了玩家已完成的进度和进度判据的完成时间。对于需要完成多个判据才能达成的进度，该文件中记录了已完成的那些判据的完成时间。</li>
+    <li><strong>区块、村民兴趣点、袭击、常加载区块</strong>等信息分维度存储，主世界、下界、末地、自定义维度的相应文件分别位于根文件夹、<code>DIM-1</code>、<code>DIM1</code>、<code>dimensions/<i>命名空间</i>/<i>路径</i></code>下。</li>
     <li><strong>世界信息</strong>文件 <code>level.dat</code> 中 <code>WorldGenSettings</code> 包含了世界生成时的所有维度的生成信息，这和<code>创建新的世界->更多世界的选项->导入设置</code>所使用的JSON文件有关，而和数据包中自定义的维度无关，格式见<a href="#维度">维度</a>。</li>
     <li><strong>数据包文件夹</strong>位于<code>datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包，具体结构见 <a href="#数据包">§3 数据包</a>。</li>
-    <li><strong>结构</strong>位于<code>generated/&lt;命名空间&gt;/structures/&lt;文件&gt;.nbt</code>，其记录了游戏内使用结构方块保存的结构，将其移动至数据包内方可使用。</li>
+    <li><strong>结构</strong>位于<code>generated/<i>命名空间</i>/structures/<i>文件</i>.nbt</code>，其记录了游戏内使用结构方块保存的结构，将其移动至数据包内方可使用。</li>
 </ul>
 
 <h3 id="JSON文件">§1.4 JSON文件</h3>
@@ -252,12 +252,12 @@
     "chance": 0.025
 }
 </pre>
-<p class="noindent"><strong>字符串</strong>，值使用双引号/单引号圈住，可以使用颜色代码如6、换行符\n。</p>
+<p class="noindent"><strong>字符串</strong>，值使用双引号/单引号圈住，可以使用颜色代码如§6、换行符\n。</p>
 <pre>{
     "item": "minecraft:shears",
     "condition": "minecraft:match_tool",
     "layer0": "ex:crop/bauhinia_seeds",
-    "description": "6更多的合成 1.10\n6by ruhuasiyu"
+    "description": "§6更多的合成 1.10\n§6by ruhuasiyu"
 }
 </pre>
 <p class="noindent"><strong>数组</strong>，值使用中括号圈住。</p>
@@ -294,33 +294,78 @@
 </pre>
 
 <h1 id="2_数据包">§2 <ruby>数据包<rt>datapacks</rt></ruby></h1>
-<p>数据包文件层次为</p>
-<pre class="file">datapacks/&lt;数据包名称&gt;或&lt;数据包名称&gt;.zip/</pre>
+<p>参考<a href="https://wiki.biligame.com/mc/数据包">数据包</a>，<a href="https://wiki.biligame.com/mc/教程/安装数据包">教程/安装数据包</a>，<a href="https://wiki.biligame.com/mc/教程/制作数据包" class="wiki">教程/制作数据包</a>。数据包文件夹位于 <code>.minecraft/saves/<世界名称>/datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包。</p>
+<p></p>
+
+<p class="noindent"><strong>安装数据包</strong> 单人游戏中，对于新创建的世界，在创建时点击<code>创建新的世界->世界预设->数据包</code>，将数据包拖入并选择至右侧即可。对于已生成的世界，选择你需要安装数据包的世界，点击<code>编辑->打开世界文件夹->打开文件夹 datapacks</code>，并将数据包 <code>.zip</code> 文件或文件夹放入其中。</p>
+<p>多人游戏中，打开<code>服务器文件夹->worlds->datapacks</code>文件夹，并将数据包 <code>.zip</code> 文件或文件夹放入其中。</p>
+<p>数据包放置好后，将在重新进入该世界/下次服务器启动时为该世界启用该数据包。如果世界已经被打开并且你已经开启作弊，请键入 <code>/reload</code> 以加载数据包；若无法开启作弊，你可以使用F3+T加载数据包。注意该做法不能重新加载数据包定义的<a href="#维度">维度</a>和<a href="#世界生成">世界生成</a>。</p>
+<p>对于创建世界时添加的数据包，可以在数据包选择页面调整加载次序。其它情形添加的数据包优先级最高，即最后加载。同时加入的数据包优先级则和文件名顺序相关。数据包的优先级顺序储存在文件 <code>level.dat</code> 中，可以通过 <code>/datapack</code> 命令查看或修改。在游戏中通过命令 <code>/datapack</code> 可以禁用/启用数据包，最后启用的优先级最高。由于数据包记载顺序不定，因此在制作数据包的过程中，尽量不要依赖数据包的加载顺序。</p>
+<p>使用 <code>/datapack list</code> 命令显示数据包名称时，原版数据包为 <code>[vanilla]</code>，玩家自定义的数据包应该是 <code>[file/<i>数据包名称</i>]</code>。</p>
+
+<p class="noindent"><strong>文件夹结构</strong></p>
+<pre class="file">datapacks/<i>数据包名称</i>或<i>数据包名称</i>.zip/</pre>
 <pre>
 pack.mcmeta
 pack.png
 data
-    命名空间
+    <i>命名空间</i>
         advancements
+            <i>进度名称</i>.json
         functions
+            <i>函数名称</i>.mcfunction
         loot_tables
+            <i>战利品表名称</i>.json
         predicates
-        recipes
+            <i>谓词名称</i>.json
         structures
+            <i>结构名称</i>.nbt
+        recipes
+            <i>配方名称</i>.json
         tags
-            blocks
-            items
-            fluids
             functions
+                <i>函数标签名称</i>.json
+            blocks
+                <i>方块标签名称</i>.json
+            items
+                <i>物品标签名称</i>.json
             entity_types
+                <i>实体类型标签名称</i>.json
+            fluids
+                <i>流体标签名称</i>.json
     minecraft
-        dimension
-            命名空间
         dimension_type
-            命名空间
+            <i>命名空间</i>
+                <i>维度类型名称</i>.json
+        dimension
+            <i>命名空间</i>
+                <i>维度名称</i>.json
+        worldgen‌        
+            biome
+                <i>命名空间</i>
+                    <i>生物群系名称</i>.json
+            configured_carver
+                <i>命名空间</i>
+                    <i>生成雕刻名称</i>.json
+            configured_feature
+                <i>命名空间</i>
+                    <i>地形特征名称</i>.json
+            configured_structure_feature
+                <i>命名空间</i>
+                    <i>生成结构名称</i>.json
+            configured_surface_builder
+                <i>命名空间</i>
+                    <i>生成地表名称</i>.json
+            processor_list
+                <i>命名空间</i>
+                    <i>方块处理名称</i>.json
+            template_pool
+                <i>命名空间</i>
+                    <i>拼图方块随机池名称</i>.json
 </pre>
-<p><code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到数据包的 pack.mcmeta 和 data 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。游戏内输入 <code>/datapack list</code> 可以列出所有的数据包。</p>
-<p><strong>原版数据包 (Vanilla)</strong> 是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/&lt;版本号&gt;/&lt;版本号&gt;.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
+<p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_,.来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
+
+<p class="noindent"><strong><ruby>原版数据包<rt>vanilla</rt></ruby></strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
 
 <h2 id="元信息和图标">§2.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
@@ -329,7 +374,7 @@ data
 {
     "pack": {
         "pack_format": 5,
-        "description": "6数据包名称\na简要介绍 6by 某某作者"
+        "description": "§6数据包名称\n§a简要介绍 6by 某某作者"
     }
 }
 </pre>
@@ -344,90 +389,136 @@ data
     <th>数据包描述</th>
     <td><code>description</code></td>
     <td>单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>。<br/>
-        生成世界时在数据包菜单中，它会显示在数据包名称下方。<br/>
-        在游戏内输入 <code>/datapack list</code> 命令后，鼠标移至数据包名称上会显示 <code>description</code> 信息。</td>
+        创建新的世界时，它会显示在数据包菜单中数据包名称下方。<br/>
+        在数据包列表下，光标移动到对应的数据包时会显示此处填写的描述。</td>
 </tr>
 </tbody></table>
-<p>数据包可以包含一个 <code>pack.png</code>，它是大小为 <code>16×16</code> 的图片，用于生成世界时在数据包菜单中显示。</p>
+
+<p>原版数据包里的 <code>pack.mcmeta</code> 文件为</p>
+<pre class="file">pack.mcmeta</pre>
+<pre>
+{
+    "pack": {
+        "pack_format": 5,
+        "description": "The default data for Minecraft"
+    }
+}
+</pre>
+
+<p>数据包可以包含一个 <code>pack.png</code>，它是大小为 <code>16×16</code> 的图片，用于创建新的世界时在数据包菜单中显示。</p>
 
 <h2 id="2.2_命名空间">§2.2 命名空间</h2>
-<p><ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
+<p>参考<a href="https://wiki.biligame.com/mc/命名空间" class="wiki">命名空间</a>。<ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
 <p><a href="#2.9_标签">标签</a>文件，即 <code>tags</code> 中的文件内容默认追加而不是覆盖。因此标签文件是解决数据包冲突和联动的有力工具。</p>
-<p>数据包加载顺序并不固定，因此不要在不同数据包中同一命名空间下使用相同的文件名。原版 <code>minecraft</code> 下内容总是最先被加载。可以在游戏内通过手动开启/关闭来调整加载次序，也可以在生成世界加入数据包时调整顺序，但由于玩家行为不受控制，不建议如此做。</p>
 
-<table><thead><tr><th>类型</th><th>调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
+<table><thead><tr><th>类型</th><th style="width:11em;">调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
 <tr>
     <th>函数</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/functions/<文件夹>/&lt;文件名&gt;.mcfunction</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/functions/<i>路径</i>/<i>文件名</i>.mcfunction</code></td>
 </tr>
 <tr>
     <th>进度</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/advancements/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/advancements/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>战利品表</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/loot_tables/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/loot_tables/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>断言</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/predicates/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/predicates/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>配方</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/recipes/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/recipes/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>结构</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/strutures/<文件夹>/&lt;文件名&gt;.nbt</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/strutures/<i>路径</i>/<i>文件名</i>.nbt</code></td>
 </tr>
 <tr>
     <th>标签-方块</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/tags/blocks/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/tags/blocks/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>标签-物品</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/tags/items/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/tags/items/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>标签-实体类型</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/tags/entity_types/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/tags/entity_types/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>标签-函数</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/tags/functions/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/tags/functions/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>维度</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>minecraft/dimension/&lt;命名空间&gt;/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/dimension/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>维度类型</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>minecraft/dimension_type/&lt;命名空间&gt;/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/dimension_type/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>生物群系</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>生成雕刻</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/configured_carver/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>地形特征</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/configured_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>生成结构</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/configured_structure_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>生成地表</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>方块处理</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>拼图方块随机池</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/template_pool/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 </tbody></table>
 
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。</p>
 
 <h2 id="2.3_函数">§2.3 <ruby>函数<rt>functions</rt></ruby></h2>
-<p>可参考<a href="https://wiki.biligame.com/mc/函数（Java版）">函数</a>。函数为一些命令的集合。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function &lt;命名空间&gt;:&lt;路径&gt;</code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
+<p>参考<a href="https://wiki.biligame.com/mc/函数（Java版）" class="wiki">函数</a>。函数是一系列顺次执行的命令。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function <i>命名空间</i>:<i>路径</i></code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
 <p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute">命令/execute</a>的各项子命令。</p>
 
 <p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考 <a href="#2.9.1_预设标签">§2.9.1 预设标签</a>。</p>
 
 <h2 id="2.4_进度">§2.4 <ruby>进度<rt>advancements</rt></ruby></h2>
-<p>可参考<a href="https://wiki.biligame.com/mc/进度/JSON格式">进度/JSON格式</a>。进度为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。我们先通过两个例子来看进度文件的格式。</p>
+<p>参考<a href="https://wiki.biligame.com/mc/进度/JSON格式" class="wiki">进度/JSON格式</a>。进度为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。我们先通过两个例子来看进度文件的格式。</p>
 
 <p class="noindent"><strong>显示效果</strong> 当一个进度没有 <code>parent</code> 时，称之为根进度，即它没有上游进度。此时我们一般会指定 <code>display</code> 来规定显示效果，例如</p>
 <pre class="file">ex/advancements/root.json</pre>
@@ -983,27 +1074,27 @@ setblock ~ ~1 ~ air
 <table><thead><tr><th style="width:6em;">类别</th><th style="width:18em;">文件路径</th><th>用途</th></tr></thead><tbody>
 <tr>
     <th>方块标签</th>
-    <td><code>tags/blocks/&lt;文件名&gt;.json</code></td>
+    <td><code>tags/blocks/<i>文件名</i>.json</code></td>
     <td>用于在命令、进度、断言、战利品表中检测/调用多个方块。</td>
 </tr>
 <tr>
     <th>物品标签</th>
-    <td><code>tags/items/&lt;文件名&gt;.json</code></td>
+    <td><code>tags/items/<i>文件名</i>.json</code></td>
     <td>用于在配方、进度、断言、战利品表中检测/调用多个物品。</td>
 </tr>
 <tr>
     <th>函数标签</th>
-    <td><code>tags/functions/&lt;文件名&gt;.json</code></td>
+    <td><code>tags/functions/<i>文件名</i>.json</code></td>
     <td>用于在 <code>function</code> 命令中一次性按次序执行多个函数。</td>
 </tr>
 <tr>
     <th>实体类型标签</th>
-    <td><code>tags/entity_types/&lt;文件名&gt;.json</code></td>
+    <td><code>tags/entity_types/<i>文件名</i>.json</code></td>
     <td>用于在实体选择器选项 <code>type</code> 中指定多种不同实体。</td>
 </tr>
 <tr>
     <th>流体标签</th>
-    <td><code>tags/fluids/&lt;文件名&gt;.json</code></td>
+    <td><code>tags/fluids/<i>文件名</i>.json</code></td>
     <td>很少使用。</td>
 </tr>
 </tbody></table>
@@ -1059,7 +1150,7 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
     <li><code>minecraft/tags/functions/load.json</code> 中的函数会在加载时被执行一次，我们常称之为加载函数、load函数。用于初始化的函数应当添加至该标签。</li>
     <li><code>minecraft/tags/functions/tick.json</code> 中的函数每刻会被执行一次，我们常称之为循环函数、主函数、tick函数。需要高频执行的函数应当添加至该标签。</li>
 </ul>
-<p>本文中我们有时会不加注明地使用<code>&lt;命名空间&gt;:load</code> 和<code>&lt;命名空间&gt;:tick</code> 表示这两个函数标签中的函数。</p>
+<p>本文中我们有时会不加注明地使用<code><i>命名空间</i>:load</code> 和<code><i>命名空间</i>:tick</code> 表示这两个函数标签中的函数。</p>
 <p>利用预设标签还可以实现更多燃料、改变植物种植所需的方块，甚至改变水和熔岩的性质，可参考<a href="https://wiki.biligame.com/mc/标签">标签 - Minecraft Wiki，最详细的官方我的世界百科</a>和 <a href="http://www.mcbbs.net/thread-811990-1-1.html">minecraft 预设tag以及实现随机方块功能</a>。例如：让末影人无法拿起任何方块。</p>
 <pre class="file">minecraft/tags/blocks/enderman_holdable</pre>
 <pre>
@@ -1461,7 +1552,7 @@ TBD
 
 <h1 id="3_资源包">§3 <ruby>资源包<rt>resourcepacks</rt></ruby></h1>
 <p>资源包可以极大地提升原版模组的美观程度，因此现在大部分原版模组都需要使用配套的资源包。资源包文件层次为</p>
-<pre class="file">resourcepacks/&lt;资源包名称&gt;或&lt;资源包名称&gt;.zip/</pre>
+<pre class="file">resourcepacks/<i>资源包名称</i>或<i>资源包名称</i>.zip/</pre>
 <pre>
 pack.mcmeta
 pack.png
@@ -1474,10 +1565,10 @@ assets
         models
         textures
 </pre>
-<p class="noindent">其中 <code>assets</code> 的文件结构和 <a href="#1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>中 <code>versions/&lt;版本号&gt;/&lt;版本号&gt;.jar/assets</code> 的结构是一样的。</p>
+<p class="noindent">其中 <code>assets</code> 的文件结构和 <a href="#1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>中 <code>versions/<i>版本号</i>/<i>版本号</i>.jar/assets</code> 的结构是一样的。</p>
 <p><code>assets</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件为使用 <code>UTF-8</code> 编码的JSON文件，图片为 <code>png</code> 格式。资源包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到资源包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
 <p>游戏内选择<code>选项->资源包</code>可以列出所有的资源包。在资源包菜单中，加载次序由下至上，因此上方的资源包内容会覆盖下方的资源包同名内容。由于原版模组往往会修改原版物品自定义模型，因此同时安装多个原版模组的资源包时，很容易出现文件冲突，此时需要玩家手动合并资源包方可使用。具体而言，对比两个资源包的同名文件，将相同的模型文件的 <code>overrides</code> 合并，其它内容选择需要的留下即可。</p>
-<p>若资源包位于 <code>saves/&lt;世界名称&gt;/resources.zip</code>，则资源包会在进入存档时自动加载(最顶层)。</p>
+<p>若资源包位于 <code>saves/<i>世界名称</i>/resources.zip</code>，则资源包会在进入存档时自动加载(最顶层)。</p>
 <p>本节中我们仅对资源包做简单介绍，更详细的文件说明请参阅<a href="https://wiki.biligame.com/mc/资源包">资源包 - Minecraft Wiki，最详细的官方我的世界百科</a>或论坛材质资源版相关内容。</p>
 <p>材质包和资源包是不同的东西，目前 Minecraft Java 只有资源包，请不要使用错误的名称。</p>
 
@@ -1528,23 +1619,23 @@ assets
 <table><thead><tr><th>类型</th><th>调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
 <tr>
     <th>模型</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/models/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/models/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>材质</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/textures/<文件夹>/&lt;文件名&gt;.png</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/textures/<i>路径</i>/<i>文件名</i>.png</code></td>
 </tr>
 <tr>
     <th>字体</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/font/<文件夹>/&lt;文件名&gt;.json</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/font/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>声音</th>
-    <td><code>&lt;命名空间&gt;:<文件夹>/&lt;文件名&gt;</code></td>
-    <td><code>&lt;命名空间&gt;/sounds/<文件夹>/&lt;文件名&gt;.ogg</code></td>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code><i>命名空间</i>/sounds/<i>路径</i>/<i>文件名</i>.ogg</code></td>
 </tr>
 </tbody></table>
 
@@ -6701,7 +6792,7 @@ execute as @a[scores={exBsdIntFur=1..}] at @s anchored eyes run function ex:bloc
 <pre class="file">ex:block_breaker/ray</pre>
 <pre>
 execute if entity @s[distance=..7] unless block ~ ~ ~ furnace positioned ^ ^ ^0.005 anchored feet run function ex:block_breaker/ray
-execute if entity @s[distance=..7] if block ~ ~ ~ furnace{Lock:"zsx&lt;3wtt"} if block ~ ~1 ~ #ex:block_breaker run function ex:block_breaker/done
+execute if entity @s[distance=..7] if block ~ ~ ~ furnace{Lock:"zsx<i>3wtt"} if block ~ ~1 ~ #ex:block_breaker run function ex:block_breaker/done
 scoreboard players reset @s exBsdIntFur
 </pre>
 <pre class="file">ex/tags/blocks/block_breaker</pre>
@@ -7181,7 +7272,7 @@ execute store result score #temp chainValue run data get storage ex:damage Item.
 execute at @e[type=item,nbt={Age:0s},distance=..6,sort=nearest,limit=1] run function chain:chain/pickaxe1/mark
 execute at @e[type=item,nbt={Age:1s},distance=..6,sort=nearest,limit=1] run function chain:chain/pickaxe1/mark
 scoreboard players reset @s chainUsePick1
-execute if score #temp chainValue &gt;= #max_durality chainValue run replaceitem entity @s weapon.mainhand minecraft:air
+execute if score #temp chainValue </i>= #max_durality chainValue run replaceitem entity @s weapon.mainhand minecraft:air
 </pre>
 <pre class="file">chain:chain/pickaxe1/mark</pre>
 <pre>
@@ -7214,7 +7305,7 @@ execute as @s[nbt=!{SelectedItem:{tag:{Enchantments:[{id:"minecraft:silk_touch"}
 loot spawn ~ ~ ~ mine ~ ~ ~ mainhand
 setblock ~ ~ ~ air
 function ex:damage
-execute if score #temp chainValue &lt; #max_durality chainValue run function chain:chain/pickaxe1/mark
+execute if score #temp chainValue <i> #max_durality chainValue run function chain:chain/pickaxe1/mark
 </pre>
 
 <p>函数 <code>ex:damage</code> 见 <a href="11.3_耐久处理">§11.3 耐久处理</a>。</p>
