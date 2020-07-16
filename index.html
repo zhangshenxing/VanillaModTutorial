@@ -28,10 +28,10 @@
         <li><a href="#文件结构">§1.3. 游戏文件夹</a></li>
         <li><a href="#JSON文件">§1.4. JSON文件</a></li>
     </ul></li>
-    <li><a href="#2_数据包">§2 数据包</a><ul>
-        <li><a href="#元信息和图标">§2.1 元信息和图标</a></li>
-        <li><a href="#2.2_命名空间">§2.2 命名空间</a></li>
-        <li><a href="#2.3_函数">§2.3 函数</a></li>
+    <li><a href="#数据包">§2 数据包</a><ul>
+        <li><a href="#数据包元信息和图标">§2.1 元信息和图标</a></li>
+        <li><a href="#命名空间">§2.2 命名空间</a></li>
+        <li><a href="#函数">§2.3 函数</a></li>
         <li><a href="#2.4_进度">§2.4 进度</a></li>
         <li><a href="#2.5_战利品表">§2.5 战利品表</a></li>
         <li><a href="#2.6_断言">§2.6 断言</a></li>
@@ -41,10 +41,19 @@
             <li><a href="#2.9.1_预设标签">§2.9.1 预设标签</a></li>
         </ul></li>
         <li><a href="#2.10_维度和维度类型">§2.10 维度和维度类型</a></li>
-        <li><a href="#世界生成">§2.11 世界生成</a></li>
+        <li><a href="#世界生成">§2.11 世界生成</a><ul>
+            <li><a href="#地形雕刻配置">§2.11.1 生物群系</a></li>
+            <li><a href="#地形雕刻配置">§2.11.2 地形雕刻配置</a></li>
+            <li><a href="#地形特征配置">§2.11.3 地形特征配置</a></li>
+            <li><a href="#结构配置">§2.11.4 结构配置</a></li>
+            <li><a href="#地表生成配置">§2.11.5 地表生成配置</a></li>
+            <li><a href="#噪声设置">§2.11.6 噪声设置</a></li>
+            <li><a href="#方块处理表">§2.11.7 方块处理表</a></li>
+            <li><a href="#拼图随机池">§2.11.8 拼图随机池</a></li>
+        </ul></li>
     </ul></li>
     <li><a href="#3_资源包">§3 资源包</a><ul>
-        <li><a href="#元信息和图标'">§3.1 元信息和图标</a></li>
+        <li><a href="#资源包元信息和图标">§3.1 元信息和图标</a></li>
         <li><a href="#3.2_命名空间">§3.2 命名空间</a></li>
         <li><a href="#3.3_语言文件">§3.3 语言文件</a></li>
         <li><a href="#3.4_自定义物品模型">§3.4 自定义物品模型</a></li>
@@ -54,8 +63,8 @@
         <li><a href="#3.8_字体">§3.8 字体</a></li>
         <li><a href="#3.9_着色器">§3.9 着色器</a></li>
     </ul></li>
-    <li><a href="规划" style="font-weight: bold; text-align: center;">实践篇</a></li>
-    <li><a href="规划">§4. 规划</a><ul>
+    <li><a href="#规划" style="font-weight: bold; text-align: center;">实践篇</a></li>
+    <li><a href="#规划">§4. 规划</a><ul>
         <li><a href="#4.1_名称设计">§4.1 名称设计</a></li>
         <li><a href="#4.2_调试">§4.2 调试</a></li>
         <li><a href="#4.3_前置与附属">§4.3 前置与附属</a></li>
@@ -155,7 +164,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.2 by ruhuasiyu 2020/07/15</p>
+<p>进度：§2.2 by ruhuasiyu 2020/07/16</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -211,8 +220,8 @@
 <p class="noindent"><strong>游戏本体</strong>位于 <code>versions/<i>版本号</i>/<i>版本号</i>.jar</code>。该文件包含了对应版本的游戏资源和数据文件，使用压缩工具打开后，可以看到<ul>
     <li>原版<a href="#资源包">资源包</a>位于 <code>assets</code> 文件夹内，其中 <code>minecraft</code> 文件夹为命名空间 <code>minecraft</code> 下的资源文件。</td></li>
     <li>原版<a href="#数据包">数据包</a>位于 <code>data</code> 文件夹内，其中 <code>minecraft</code> 文件夹为命名空间 <code>minecraft</code> 下的数据文件。</li>
-    <li><code>pack.mcmeta</code> 为原版资源包和数据包的<a href="#元信息和图标">元信息</a>。</li>
-    <li><code>pack.png</code> 为原版资源包和数据包的<a href="#元信息和图标">图标</a>。</li>
+    <li><code>pack.mcmeta</code> 为原版资源包和数据包的<a href="#数据包元信息和图标">元信息</a>。</li>
+    <li><code>pack.png</code> 为原版资源包和数据包的<a href="#数据包元信息和图标">图标</a>。</li>
 </ul></p>
 
 <figure>
@@ -292,9 +301,10 @@
     ]
 }
 </pre>
+<p>我们常常在JSON中用RGB颜色的整数形式，值为: <code>65536×R+256×G+B</code>。</p>
 
-<h1 id="2_数据包">§2 <ruby>数据包<rt>datapacks</rt></ruby></h1>
-<p>参考<a href="https://wiki.biligame.com/mc/数据包">数据包</a>，<a href="https://wiki.biligame.com/mc/教程/安装数据包">教程/安装数据包</a>，<a href="https://wiki.biligame.com/mc/教程/制作数据包" class="wiki">教程/制作数据包</a>。数据包文件夹位于 <code>.minecraft/saves/<世界名称>/datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包。</p>
+<h1 id="数据包">§2 数据包</h1>
+<p>参考<a href="https://wiki.biligame.com/mc/数据包">数据包</a>，<a href="https://wiki.biligame.com/mc/教程/安装数据包">教程/安装数据包</a>，<a href="https://wiki.biligame.com/mc/教程/制作数据包" class="wiki">教程/制作数据包</a>。<ruby>数据包<rt>datapacks</rt></ruby>可用于覆盖或添加新的函数、进度、战利品表、断言、配方、结构、标签、维度。数据包文件夹位于 <code>.minecraft/saves/<世界名称>/datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包。</p>
 <p></p>
 
 <p class="noindent"><strong>安装数据包</strong> 单人游戏中，对于新创建的世界，在创建时点击<code>创建新的世界->世界预设->数据包</code>，将数据包拖入并选择至右侧即可。对于已生成的世界，选择你需要安装数据包的世界，点击<code>编辑->打开世界文件夹->打开文件夹 datapacks</code>，并将数据包 <code>.zip</code> 文件或文件夹放入其中。</p>
@@ -346,28 +356,31 @@ data
                     <i>生物群系名称</i>.json
             configured_carver
                 <i>命名空间</i>
-                    <i>生成雕刻名称</i>.json
+                    <i>地形雕刻配置名称</i>.json
             configured_feature
                 <i>命名空间</i>
-                    <i>地形特征名称</i>.json
+                    <i>地形特征配置名称</i>.json
             configured_structure_feature
                 <i>命名空间</i>
-                    <i>生成结构名称</i>.json
+                    <i>结构配置名称</i>.json
             configured_surface_builder
                 <i>命名空间</i>
-                    <i>生成地表名称</i>.json
+                    <i>地表生成配置名称</i>.json
+            noise_settings
+                <i>命名空间</i>
+                    <i>噪声设置名称</i>.json
             processor_list
                 <i>命名空间</i>
-                    <i>方块处理名称</i>.json
+                    <i>方块处理表名称</i>.json
             template_pool
                 <i>命名空间</i>
-                    <i>拼图方块随机池名称</i>.json
+                    <i>拼图随机池名称</i>.json
 </pre>
 <p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_,.来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
 
 <p class="noindent"><strong><ruby>原版数据包<rt>vanilla</rt></ruby></strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
 
-<h2 id="元信息和图标">§2.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
+<h2 id="数据包元信息和图标">§2.1 元信息和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
 <pre class="file">pack.mcmeta</pre>
 <pre>
@@ -407,7 +420,7 @@ data
 
 <p>数据包可以包含一个 <code>pack.png</code>，它是大小为 <code>16×16</code> 的图片，用于创建新的世界时在数据包菜单中显示。</p>
 
-<h2 id="2.2_命名空间">§2.2 命名空间</h2>
+<h2 id="命名空间">§2.2 命名空间</h2>
 <p>参考<a href="https://wiki.biligame.com/mc/命名空间" class="wiki">命名空间</a>。<ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
 <p><a href="#2.9_标签">标签</a>文件，即 <code>tags</code> 中的文件内容默认追加而不是覆盖。因此标签文件是解决数据包冲突和联动的有力工具。</p>
 
@@ -478,32 +491,37 @@ data
     <td><code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>生成雕刻</th>
+    <th>地形雕刻配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/configured_carver/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>地形特征</th>
+    <th>地形特征配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/configured_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>生成结构</th>
+    <th>结构配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/configured_structure_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>生成地表</th>
+    <th>地表生成配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>方块处理</th>
+    <th>噪声设置</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>方块处理表</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>拼图方块随机池</th>
+    <th>拼图随机池</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/template_pool/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
@@ -511,8 +529,8 @@ data
 
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。</p>
 
-<h2 id="2.3_函数">§2.3 <ruby>函数<rt>functions</rt></ruby></h2>
-<p>参考<a href="https://wiki.biligame.com/mc/函数（Java版）" class="wiki">函数</a>。函数是一系列顺次执行的命令。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function <i>命名空间</i>:<i>路径</i></code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
+<h2 id="函数">§2.3 函数</h2>
+<p>参考<a href="https://wiki.biligame.com/mc/函数（Java版）" class="wiki">函数</a>。<ruby>函数<rt>functions</rt></ruby>是一系列顺次执行的命令。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function <i>命名空间</i>:<i>路径</i></code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
 <p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute">命令/execute</a>的各项子命令。</p>
 
 <p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考 <a href="#2.9.1_预设标签">§2.9.1 预设标签</a>。</p>
@@ -1547,11 +1565,168 @@ execute in overworld run tp ~ ~ ~
 execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
-<h2 id="世界生成">§2.11 <ruby>世界生成<rt>worldgen</rt></ruby></h2>
-TBD
+<h2 id="世界生成">§2.11 世界生成</h2>
+<p>参考<a href="https://minecraft.gamepedia.com/Custom_world_generation">Custom world generation – Official Minecraft Wiki</a>。<ruby>世界生成<rt>worldgen</rt></ruby>允许数据包改变世界的生成方式。这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。</p>
 
-<h1 id="3_资源包">§3 <ruby>资源包<rt>resourcepacks</rt></ruby></h1>
-<p>资源包可以极大地提升原版模组的美观程度，因此现在大部分原版模组都需要使用配套的资源包。资源包文件层次为</p>
+<h3 id="生物群系">§2.11.1 生物群系</h3>
+<pre class="file">JSON格式</pre>
+<pre>{
+    "precipitation" (降雨量): 可选值为 "none" (永不下雨), "rain" (下雨), "snow" (下雪),
+    "category" (生物群系分类): 可选值为 "none", "taiga", "extreme_hills", "jungle", "mesa", "plains", "savanna", "icy", "the_end", "beach", "forest", "ocean", "desert", "river", "swamp", "mushroom", or "nether" (不同分类会影响温度、音乐、生物生成等，例如除 "ocean" 外的分类受生物群系温度值所控制，"mushroom" 分类下不会生成僵尸围城和灾厄巡逻队，海底神殿不会生成于除 "ocean" 或 "river" 分类下的生物群系),
+    "depth" (深度): 数值, 用于地形噪声生成, 正值被认为是陆地, 负值被认为是海洋,
+    "scale": 数值, 用于地形噪声生成,
+    "temperature" (温度): 数值, 控制草和树叶的颜色以及雪傀儡是否会受伤,
+    "downfall": 数值, 控制草和树叶的颜色, 超过0.85会使火焰蔓延更快,
+    "sky_color" (天空的颜色): RGB颜色的整数形式,
+    "effects": {
+        "fog_color" (迷雾的颜色): RGB颜色的整数形式,
+        "water_color" (水的颜色): RGB颜色的整数形式,
+        "water_fog_color" (水下迷雾的颜色): RGB颜色的整数形式,
+        "particle" (可选, 该生物群系的颗粒效果): {
+            "probability" (颗粒的生成几率): 数值,
+            "options": {
+                "type" (摧毁方块的颗粒或浮起而未下落的方块颗粒): "block" 或 "falling_dust",
+                "Name" (方块的命名空间ID): 字符串,
+                "Properties":{
+                    "方块状态名": "方块状态值"
+                }
+            或
+                "type" (粉状颗粒): "dust",
+                "r" (红色分量): 0-1的数值,
+                "g" (绿色分量): 0-1的数值,
+                "b" (蓝色分量): 0-1的数值,
+                "scale" (颗粒大小放缩): 数值
+            或
+                "type" (消耗物品的颗粒): "item",
+                "id" (物品的命名空间ID): 字符串,
+                "Count" (物品数量): 整数,
+                "tag" (物品NBT): 字符串
+            }
+        },
+        "ambient_sound" (可选，环境音效): 字符串,
+        "mood_sound" (可选，氛围音效): {
+            "sound" (音效): 字符串,
+            "tick_delay" (TBD): 整数,
+            "block_search_extent" (TBD): 整数,
+            "offset" (TBD): 数值
+        },
+        "additions_sound" (可选，额外的音效): {
+            "sound" (音效): 字符串,
+            "tick_chance" (TBD): 数值
+        },
+        "music" (可选，音乐): {
+            "sound" (音效): 字符串,
+            "min_delay" (TBD): 整数,
+            "max_delay" (TBD): 整数,
+            "replace_current_music" (是否替换已播放的音乐): true 或 false
+        }
+    },
+    "surface_builder" (地表生成配置命名空间ID): 字符串,
+    "carvers" (地形雕刻配置): {
+        "air" (用于填充空气的地形雕刻配置列表): [
+           "地形雕刻配置命名空间ID": 字符串
+        ],
+        "liquid" (用于填充液体的地形雕刻配置列表): [
+            "地形雕刻配置命名空间ID": 字符串
+        ],
+    },
+    "features" (TBD，该列表共10项，每一项为相应分类的地形特征配置的列表): [
+        [
+            (内部特征类型 RAW_GENERATION，默认不使用)
+        ],
+        [
+            (内部特征类型 LAKES，默认用于生成湖和熔岩湖)
+        ],
+        [
+            (内部特征类型 LOCAL_MODIFICATIONS，默认用于生成针叶林和冰刺之地的石头)
+        ],
+        [
+            (内部特征类型 UNDERGROUND_STRUCTURES，默认用于生成地牢和主世界化石)
+        ],
+        [
+            (内部特征类型 SURFACE_STRUCTURES，默认用于生成沙漠水井和蓝冰)
+        ],
+        [
+            (内部特征类型 STRONGHOLDS，默认不使用)
+        ],
+        [
+            (内部特征类型 UNDERGROUND_ORES，默认用于生成主世界石头中的矿脉、泥土砂砾石头变种和水下沙子砂砾粘土块堆)
+        ],
+        [
+            (内部特征类型 UNDERGROUND_DECORATION，默认用于生成主世界的被虫蛀的方块堆、下界砂砾和黑石堆、下界矿脉)
+        ],
+        [
+            (内部特征类型 VEGETAL_DECORATION，默认用于生成树、竹子、仙人掌、海带和其它地下和海底作物)
+        ],
+        [
+            (内部特征类型 TOP_LAYER_MODIFICATION，默认用于生成地表结冰)
+        ]
+    ],
+    "starts" (该生物群系生成的结构配置列表): [
+        "结构配置命名空间ID": 字符串
+    ],
+    "spawners" (生物生成): {
+        "生物分类" (包括 monster, creature, ambient, water_creature, water_ambient, misc): [
+            {
+                "type" (生物命名空间ID): 字符串,
+                "weight" (权重): 整数,
+                "minCount" (最小数量): 整数,
+                "maxCount" (最大数量): 整数
+            }
+        ]
+    },
+    "parent" (可选，父生物群系命名空间ID，继承其特征): 字符串
+}</pre>
+
+<h3 id="地形雕刻配置">§2.11.2 地形雕刻配置</h3>
+<pre class="file">JSON格式</pre>
+<pre>{
+    TBD
+}</pre>
+
+<h3 id="地形特征配置">§2.11.3 地形特征配置</h3>
+<pre class="file">JSON格式</pre>
+<pre>{
+    TBD
+}</pre>
+
+<h3 id="结构配置">§2.11.4 结构配置</h3>
+<pre class="file">JSON格式</pre>
+<pre>{
+    TBD
+}</pre>
+
+<h3 id="地表生成配置">§2.11.5 地表生成配置</h3>
+<pre class="file">JSON格式</pre>
+<pre>{
+    TBD
+}</pre>
+
+<h3 id="噪声设置">§2.11.6 噪声设置</h3>
+<pre class="file">JSON格式</pre>
+<pre>{
+    TBD
+}</pre>
+
+<h3 id="方块处理表">§2.11.7 方块处理表</h3>
+<pre class="file">JSON格式</pre>
+<pre>{
+    TBD
+}</pre>
+
+<h3 id="拼图随机池">§2.11.8 拼图随机池</h3>
+<pre class="file">JSON格式</pre>
+<pre>{
+    TBD
+}</pre>
+
+
+
+
+
+
+<h1 id="3_资源包">§3 资源包</h1>
+<p>参考<a href="https://wiki.biligame.com/mc/资源包">资源包</a>，<a href="https://wiki.biligame.com/mc/教程/制作资源包" class="wiki">教程/制作资源包</a>。<ruby>资源包<rt>resourcepacks</rt></ruby>可以极大地提升原版模组的美观程度，因此现在大部分原版模组都需要使用配套的资源包。资源包文件层次为</p>
 <pre class="file">resourcepacks/<i>资源包名称</i>或<i>资源包名称</i>.zip/</pre>
 <pre>
 pack.mcmeta
@@ -1562,8 +1737,29 @@ assets
             zh_cn.json
             zh_tw.json
             en_us.json
+            <i>其它语言</i>.json
+        blockstates
+            <i>方块状态</i>.json
         models
+            <i>模型</i>.json
         textures
+            <i>方块状态</i>.json
+        font
+            <i>字体</i>.json
+        sounds.json
+        sounds
+            <i>声音</i>.ogg
+        particles
+            <i>颗粒</i>.json
+        shaders
+            post
+                post.json
+            program
+                <i>片段着色器</i>.fsh
+                <i>着色器程序</i>.json
+                <i>顶点着色器</i>.vsh
+        texts
+            <i>文本</i>.txt
 </pre>
 <p class="noindent">其中 <code>assets</code> 的文件结构和 <a href="#1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>中 <code>versions/<i>版本号</i>/<i>版本号</i>.jar/assets</code> 的结构是一样的。</p>
 <p><code>assets</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件为使用 <code>UTF-8</code> 编码的JSON文件，图片为 <code>png</code> 格式。资源包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到资源包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
@@ -1572,7 +1768,7 @@ assets
 <p>本节中我们仅对资源包做简单介绍，更详细的文件说明请参阅<a href="https://wiki.biligame.com/mc/资源包">资源包 - Minecraft Wiki，最详细的官方我的世界百科</a>或论坛材质资源版相关内容。</p>
 <p>材质包和资源包是不同的东西，目前 Minecraft Java 只有资源包，请不要使用错误的名称。</p>
 
-<h2 id="元信息和图标'">§3.1 <ruby>元信息<rt>mcmeta</rt></ruby>和图标</h2>
+<h2 id="资源包元信息和图标">§3.1 元信息和图标</h2>
 
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别资源包，因此该文件是不可或缺的。例如：</p>
 <pre class="file">pack.mcmeta</pre>
@@ -2124,16 +2320,21 @@ assets
 <p>我们可以用 <code>\u</code> 开头来表示不容易打出的字符，参考<a href="https://unicode-table.com">Unicode® Character Table</a>。直接使用字符也是可以的。</p>
 <p>利用这种方式，我们可以做到在成书、玩家快捷栏上方、聊天区域、物品名称等地方显示图片，见<a href="https://www.mcbbs.net/thread-835539-1-1.html">【1.13】如何添加图片?</a>。如果可以包含了使用负长度的空格的字体（需要 Nvidia 显卡以支持），还可以实现更为炫酷的效果，例如字体黑科技 —— 潜影盒内容预览：<a href="https://www.bilibili.com/video/av67508247">https://www.bilibili.com/video/av67508247</a>。</p>
 
-<h2 id="3.9_着色器">§3.9 <ruby>着色器<rt>shaders</rt></ruby></h2>
-<p>着色器可以对游戏内的视觉效果进行修改，目前可以通过</p>
+<h2 id="3.9_着色器">§3.9 着色器</h2>
+<p><ruby>着色器<rt>shaders</rt></ruby>可以对游戏内的视觉效果进行修改，目前可以通过</p>
 <ul>
     <li>旁观特定生物，可使用 <code>/spectate</code> 命令强制旁观；</li>
     <li>屏幕中有发光的实体</li>
 </ul>
 <p class="noindent">两种情形来达成。着色器文件为位于 <code>assets/minecraft/shaders/program</code> 下方的 <code>fsh</code> 文件，具体用法可参考<a href="https://www.mcbbs.net/thread-916150-1-1.html">原版着色器指导</a>和<a href="https://www.mcbbs.net/thread-917679-1-1.html">几个原版着色器示例</a>。</p>
 
+<h2 id="颗粒">§3.10 颗粒</h2>
+TBD
 
-<h1 id="4_规划">§4 规划</h1>
+<h2 id="文本">§3.11 文本</h2>
+TBD
+
+<h1 id="规划">§4 规划</h1>
 <p>当我们有了一定的命令基础和数据包与资源包的相关知识之后，我们可以开始考虑做一个模组了。模组的目的是在原版的基础上做出一定的修改，模组的核心是内容，命令和技巧都只是为实现这一目的的手段。通常的设计路线如下图所示：</p>
 <figure>
     <img src="items/设计路线.png" alt="设计路线" />
