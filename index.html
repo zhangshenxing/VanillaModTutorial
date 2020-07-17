@@ -42,9 +42,14 @@
         </ul></li>
         <li><a href="#2.10_维度和维度类型">§2.10 维度和维度类型</a></li>
         <li><a href="#世界生成">§2.11 世界生成</a><ul>
-            <li><a href="#地形雕刻配置">§2.11.1 生物群系</a></li>
+            <li><a href="#生物群系">§2.11.1 生物群系</a></li>
             <li><a href="#地形雕刻配置">§2.11.2 地形雕刻配置</a></li>
-            <li><a href="#地形特征配置">§2.11.3 地形特征配置</a></li>
+            <li><a href="#地形特征配置">§2.11.3 地形特征配置</a><ul>
+                <li><a href="#地形特征配置JSON格式">JSON格式</a></li>
+                <li><a href="#可用的地形特征配置">可用的地形特征配置</a></li>
+                <li><a href="#地形特征配置装饰">地形特征配置装饰</a></li>
+                <li><a href="#可用的地形特征配置装饰">可用的地形特征配置装饰</a></li>
+            </ul></li>
             <li><a href="#结构配置">§2.11.4 结构配置</a></li>
             <li><a href="#地表生成配置">§2.11.5 地表生成配置</a></li>
             <li><a href="#噪声设置">§2.11.6 噪声设置</a></li>
@@ -164,7 +169,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.2 by ruhuasiyu 2020/07/16</p>
+<p>进度：§2.11.4 by ruhuasiyu 2020/07/17</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -1569,14 +1574,15 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <p>参考<a href="https://minecraft.gamepedia.com/Custom_world_generation">Custom world generation – Official Minecraft Wiki</a>。<ruby>世界生成<rt>worldgen</rt></ruby>允许数据包改变世界的生成方式。这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。</p>
 
 <h3 id="生物群系">§2.11.1 生物群系</h3>
+<p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。</p>
 <pre class="file">JSON格式</pre>
 <pre>{
-    "precipitation" (降雨量): 可选值为 "none" (永不下雨), "rain" (下雨), "snow" (下雪),
-    "category" (生物群系分类): 可选值为 "none", "taiga", "extreme_hills", "jungle", "mesa", "plains", "savanna", "icy", "the_end", "beach", "forest", "ocean", "desert", "river", "swamp", "mushroom", or "nether" (不同分类会影响温度、音乐、生物生成等，例如除 "ocean" 外的分类受生物群系温度值所控制，"mushroom" 分类下不会生成僵尸围城和灾厄巡逻队，海底神殿不会生成于除 "ocean" 或 "river" 分类下的生物群系),
+    "precipitation" (降雨量): "none" (永不下雨), "rain" (下雨) 或 "snow" (下雪),
+    "category" (生物群系分类): "none", "taiga", "extreme_hills", "jungle", "mesa", "plains", "savanna", "icy", "the_end", "beach", "forest", "ocean", "desert", "river", "swamp", "mushroom" 或 "nether" (不同分类会影响温度、音乐、生物生成等，例如除 "ocean" 外的分类受生物群系温度值所控制，"mushroom" 分类下不会生成僵尸围城和灾厄巡逻队，海底神殿不会生成于除 "ocean" 或 "river" 分类下的生物群系),
     "depth" (深度): 数值, 用于地形噪声生成, 正值被认为是陆地, 负值被认为是海洋,
     "scale": 数值, 用于地形噪声生成,
     "temperature" (温度): 数值, 控制草和树叶的颜色以及雪傀儡是否会受伤,
-    "downfall": 数值, 控制草和树叶的颜色, 超过0.85会使火焰蔓延更快,
+    "downfall": 数值, 控制草和树叶的颜色, 超过 0.85 会使火焰蔓延更快,
     "sky_color" (天空的颜色): RGB颜色的整数形式,
     "effects": {
         "fog_color" (迷雾的颜色): RGB颜色的整数形式,
@@ -1586,19 +1592,19 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "probability" (颗粒的生成几率): 数值,
             "options": {
                 "type" (摧毁方块的颗粒或浮起而未下落的方块颗粒): "block" 或 "falling_dust",
-                "Name" (方块的命名空间ID): 字符串,
+                "Name" (方块): 命名空间ID,
                 "Properties":{
                     "方块状态名": "方块状态值"
                 }
             或
                 "type" (粉状颗粒): "dust",
-                "r" (红色分量): 0-1的数值,
-                "g" (绿色分量): 0-1的数值,
-                "b" (蓝色分量): 0-1的数值,
+                "r" (红色分量): 0-1 的数值,
+                "g" (绿色分量): 0-1 的数值,
+                "b" (蓝色分量): 0-1 的数值,
                 "scale" (颗粒大小放缩): 数值
             或
                 "type" (消耗物品的颗粒): "item",
-                "id" (物品的命名空间ID): 字符串,
+                "id" (物品): 命名空间ID,
                 "Count" (物品数量): 整数,
                 "tag" (物品NBT): 字符串
             }
@@ -1621,7 +1627,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "replace_current_music" (是否替换已播放的音乐): true 或 false
         }
     },
-    "surface_builder" (地表生成配置命名空间ID): 字符串,
+    "surface_builder" (地表生成配置): 命名空间ID,
     "carvers" (地形雕刻配置): {
         "air" (用于填充空气的地形雕刻配置列表): [
            "地形雕刻配置命名空间ID": 字符串
@@ -1668,7 +1674,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "spawners" (生物生成): {
         "生物分类" (包括 monster, creature, ambient, water_creature, water_ambient, misc): [
             {
-                "type" (生物命名空间ID): 字符串,
+                "type" (生物): 命名空间ID,
                 "weight" (权重): 整数,
                 "minCount" (最小数量): 整数,
                 "maxCount" (最大数量): 整数
@@ -1679,16 +1685,674 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }</pre>
 
 <h3 id="地形雕刻配置">§2.11.2 地形雕刻配置</h3>
+<p>地形雕刻配置用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。</p>
 <pre class="file">JSON格式</pre>
 <pre>{
-    TBD
+    "name" (雕刻类型): "cave" (洞穴), "nether_cave" (下界洞穴), "canyon" (峡谷), "underwater_canyon" (水下峡谷) 或 "underwater_cave" (水下洞穴),
+    "config": {
+        "probability" (每个区块的生成几率): 0-1 的数值
+    }
 }</pre>
 
 <h3 id="地形特征配置">§2.11.3 地形特征配置</h3>
-<pre class="file">JSON格式</pre>
+<p>地形特征配置用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。</p>
+
+<h4 id="地形特征配置JSON格式">JSON格式</h4>
+<pre class="file">树的JSON格式</pre>
 <pre>{
-    TBD
+    "name": "tree",
+    "config": {
+        "trunk_provider" (树干。"trunk_placer": "fancy_trunk_placer" 时该方块必须类似原木有方块状态 axis=x|y|z ): <a href="#方块状态类型">方块状态类型</a>,
+        "leaves_provider" (树叶): <a href="#方块状态类型">方块状态类型</a>,
+        "foliage_placer" (树叶样式): {
+            "radius" (TBD, 半径): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=8, maxSpread=8,
+            "offset" (TBD, 位移): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=8, maxSpread=8,
+
+            "type" (类型): "acacia_foliage_placer" (云杉树叶) 或 "dark_oak_foliage_placer" (深色橡树树叶),
+        或
+            "type" (类型): "blob_foliage_placer", "bush_foliage_placer", "fancy_foliage_placer" 或 "jungle_foliage_placer" (丛林树树叶),
+            "height" (TBD, 树叶高度和尺寸): 0-16 之间的整数,
+        或
+            "type" (类型): "spruce_foliage_placer" (云杉树叶),
+            "trunk_height" (TBD, 树干高度): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=16, maxSpread=8
+        或
+            "type" (类型): "pine_foliage_placer" (松树树叶),
+            "height" (TBD): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=16, maxSpread=8
+        或
+            "type" (类型): "mega_pine_foliage_placer (大松树树叶),
+            "crown_height" (TBD): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=16, maxSpread=8
+        },
+        "trunk_placer" (树干样式): {
+            "type" (类型): "straight_trunk_placer" (直), "forking_trunk_placer" (分叉), "giant_trunk_placer" (高直), "mega_jungle_trunk_placer" (大丛林木), "dark_oak_trunk_placer" (深色橡木) 或 "fancy_trunk_placer",
+            "base_height" (基础高度): 0-32 之间的整数,
+            "height_rand_a" (随机高度): 0-24 之间的整数,
+            "height_rand_b" (随机高度): 0-24 之间的整数
+        },
+        "minimum_size" (最小尺寸): {
+            "min_clipped_height" (可选，最小剪切高度): 0-80 之间的整数,
+
+            "type" (类型): "two_layers_feature_size",            
+            "limit" (可选，极限尺寸): 0-81 之间的整数, 默认为 1,
+            "lower_size" (可选，最小尺寸): 0-16 之间的整数, 默认为 0,
+            "upper_size" (可选，最大尺寸): 0-16 之间的整数, 默认为 1
+        或
+            "type" (类型): "three_layers_feature_size",
+            "limit" (可选，极限尺寸): 0-80 之间的整数, 默认为 1,
+            "upper_limit" (可选，最小尺寸): 0-80 之间的整数, 默认为 1,
+            "lower_size" (可选，最小尺寸): 0-16 之间的整数, 默认为 0,
+            "middle_size" (可选，最小尺寸): 0-16 之间的整数, 默认为 1,
+            "upper_size" (可选，最大尺寸): 0-16 之间的整数, 默认为 1
+        },
+        "decorators" (树干树叶上的装饰列表): [
+            {
+                "type" (类型): "trunk_vine" (树干藤蔓) 或 "leave_vine" (树叶藤蔓)
+            或
+                "type" (类型): "cocoa" (可可豆) 或 "beehive" (蜂巢),
+                "probability" (几率): 0-1的数值
+            或
+                "type" (类型): "alter_ground" (地面方块替换),
+                "provider": <a href="#方块状态类型">方块状态类型</a>
+            }
+        ]
+        "max_water_depth" (可选，树在水下最大可生成深度): 整数, 默认为 0,
+        "ignore_vines" (可选，是否忽略藤蔓): true 或 false, 默认为 false,
+        "heightmap" (TBD，高度地图): "WORLD_SURFACE_WG", "WORLD_SURFACE", "OCEAN_FLOOR_WG", "OCEAN_FLOOR", "MOTION_BLOCKING" 或 "MOTION_BLOCKING_NO_LEAVES"
+    }
+}
+</pre>
+<pre class="file">花或随机堆的JSON格式</pre>
+<pre>{
+    "name": "flower" 或 "random_patch",
+    "config": {
+        "state_provider" (所使用的方块): <a href="#方块状态类型">方块状态类型</a>,
+        "block_placer": {
+            "type" (类型): "simple_block_placer" (单个), "double_plant_placer" (大型花)
+        或
+            "type" (类型): "column_placer" (柱子),
+            "min_size" (最小尺寸): 数值,
+            "extra_size" (额外尺寸): 数值
+        },
+        "whitelist" (TBD，白名单列表): [
+            {
+                "Name" (方块): 命名空间ID,
+                "Properties":{
+                    "方块状态名": "方块状态值"
+                }
+            }
+        ],
+        "blacklist" (TBD，黑名单列表): [
+            {
+                "Name" (方块): 命名空间ID,
+                "Properties":{
+                    "方块状态名": "方块状态值"
+                }
+            }
+        ]
+        "tries" (可选，尝试次数): 数值, 默认为 128,
+        "xspread" (可选，x轴扩散范围): 数值, 默认为 7,
+        "yspread" (可选，y轴扩散范围): 数值, 默认为 3,
+        "zspread" (可选，z轴扩散范围): 数值, 默认为 7,
+        "xspread" (可选，x轴扩散范围): 数值, 默认为 7,
+        "can_replace" (可选，是否替换原方块): true 或 false, 默认为 false,
+        "project" (可选，TBD): true 或 false, 默认为 true,
+        "need_water" (可选，是否需要水): true 或 false, 默认为 false
+    }
+}
+</pre>
+<pre class="file">方块堆/下界森林草的JSON格式</pre>
+<pre>{
+    "name": "block_pile" (方块堆) 或 "nether_forest_vegetation" (下界森林草),
+    "config": {
+        "state_provider" (所使用的方块): <a href="#方块状态类型">方块状态类型</a>,
+    }
+}
+</pre>
+<pre class="file">泉水的JSON格式</pre>
+<pre>{
+    "name": "spring_feature" (泉水),
+    "config": {
+        "state" (所使用的流体): {
+            "Name" (流体): 命名空间ID,
+            "Properties":{
+                "流体状态名": "流体状态值"
+            }
+        },
+        "requires_block_below" (可选，下方是否需要方块): true 或 false, 默认为 true,
+        "rock_count" (可选，TBD，岩石数量): 数值, 默认为 4,
+        "hole_count" (可选，TBD，坑洞数量): 数值, 默认为 1,
+        "valid_blocks" (TBD，有效的方块列表): [
+            "Name" (方块): 命名空间ID
+        ]
+    }
+}
+</pre>
+<pre class="file">绿宝石矿的JSON格式</pre>
+<pre>{
+    "name": "emerald_ore" (绿宝石矿),
+    "config": {
+        "target" (目标方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "state" (自身方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        }
+    }
+}
+</pre>
+<pre class="file">巨型蘑菇的JSON格式</pre>
+<pre>{
+    "name": "huge_red_mushroom" (巨型红色蘑菇) 或 "huge_brown_mushroom" (巨型棕色蘑菇),
+    "config": {
+        "cap_provider" (顶部方块): <a href="#方块状态类型">方块状态类型</a>,
+        "stem_provider" (柄部方块): <a href="#方块状态类型">方块状态类型</a>,
+        "foliage_radius" (可选，顶部大小): 数值, 默认为 2
+    }
+}
+</pre>
+<pre class="file">冰山/森林岩石/湖的JSON格式</pre>
+<pre>{
+    "name": "iceberg" (冰山), "forest_rock" (森林岩石) 或 "lake" (湖),
+    "config": {
+        "state" (方块): {
+            "Name" (方块的命名空间ID): 字符串
+        }
+    }
+}
+</pre>
+<pre class="file">圆盘/冰堆的JSON格式</pre>
+<pre>{
+    "name": "disk" (圆盘) 或 "ice_patch" (冰堆),
+    "config": {
+        "state" (方块): {
+            "Name" (方块的命名空间ID): 字符串
+        },
+        "radius" (半径): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=4, maxSpread=4,
+        "half_height" (高度的一般): 0-4 之间的整数,
+        "targets" (目标方块列表): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        }
+    }
+}
+</pre>
+<pre class="file">矿石/非地表生成矿石的JSON格式</pre>
+<pre>{
+    "name": "ore" (矿石) 或 "no_surface_ore" (非地表生成矿石),
+    "config": {
+        "state" (方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "size" (矿脉大小): 0-64 之间的数值,
+
+        "target" (目标方块要求): {
+            "predicate_type" (断言类型): "always_true" (总是成立)
+        或
+            "predicate_type" (断言类型): "block_match" (匹配方块),
+            "block" (方块的命名空间ID): 字符串
+        或
+            "predicate_type" (断言类型): "blockstate_match" (匹配方块状态),
+            "block_state": {
+                "Name" (方块): 命名空间ID,
+                "Properties":{
+                    "方块状态名": "方块状态值"
+                }
+            }
+        或
+            "predicate_type" (断言类型): "tag_match" (匹配方块标签),
+            "tag" (方块标签的命名空间ID): 字符串
+        或
+            "predicate_type" (断言类型): "random_block_match" (随机匹配方块),
+            "block" (方块): 命名空间ID,
+            "probability" (几率): 0-1 的数值
+        或
+            "predicate_type" (断言类型): "random_blockstate_match" (随机匹配方块状态),
+            "block_state": {
+                "Name" (方块): 命名空间ID,
+                "Properties":{
+                    "方块状态名": "方块状态值"
+                }
+            },
+            "probability" (几率): 0-1 的数值
+        }
+    }
+}
+</pre>
+<pre class="file">末地黑曜石柱的JSON格式</pre>
+<pre>{
+    "name": "end_spike" (末地黑曜石柱),
+    "config": {
+        "crystal_invulnerable" (可选，末影水晶是否无敌): true 或 false, 默认 false,
+        "spikes" (柱子列表): [
+            {
+                "centerX" (可选，柱子中心的x坐标): 整数, 默认为 0,
+                "centerZ" (可选，柱子中心的z坐标): 整数, 默认为 0,
+                "radius" (可选，柱子半径): 整数, 默认为 0,
+                "height" (可选，柱子高度): 整数, 默认为 0,
+                "guarded" (可选，末影水晶周围是否有铁栏杆笼子保护): true 或 false, 默认为 false
+            }
+        "crystal_beam_target" (可选，治愈激光定位到的位置): [
+            X坐标,
+            Y坐标,
+            Z坐标
+        ]
+    }
+}
+</pre>
+<pre class="file">末地折跃门的JSON格式</pre>
+<pre>{
+    "name": "end_gateway" (末地折跃门),
+    "config": {
+        "exit" (可选，当进入末地折跃门方块要把实体传送到的位置): [
+            目标位置的X坐标,
+            目标位置的Y坐标,
+            目标位置的Z坐标
+        ],
+        "exact" (是否把实体准确传送到指定的坐标而不是传送到这个坐标附近的位置): true 或 false
+    }
+}
+</pre>
+<pre class="file">海草/竹子的JSON格式</pre>
+<pre>{
+    "name": "seagrass" (海草) 或 "bamboo" (竹子),
+    "config": {
+        "probability" (几率): 0-1的数值
+    }
+}
+</pre>
+<pre class="file">海泡菜的JSON格式</pre>
+<pre>{
+    "name": "sea_pickle" (海泡菜),
+    "config": {
+        "count": <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=-10, maxBase=128, maxSpread=128
+    }
+}
+</pre>
+<pre class="file">单个方块的JSON格式</pre>
+<pre>{
+    "name": "simple_block" (单个方块),
+    "config": {
+        "to_place" (将要放置的方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "place_on" (将要放置的位置下方方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "place_in" (将要放置的位置的方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "place_under" (将要放置的位置上方方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        }
+    }
+}
+</pre>
+<pre class="file">巨型菌类的JSON格式</pre>
+<pre>{
+    "name": "huge_fungus" (巨型菌类),
+    "config": {
+        "valid_base_block" (底部基座方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "stem_state" (菌柄方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "hat_state" (顶部方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "decor_state" (装饰方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "planted" (可选，TBD): true 或 false, 默认为 false.
+    }
+}
+</pre>
+<pre class="file">玄武岩柱子的JSON格式</pre>
+<pre>{
+    "name": "basalt_columns" (玄武岩柱子),
+    "config": {
+        "reach" (TBD): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=2, maxSpread=1,
+        "height" (高度): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=1, maxBase=5, maxSpread=5
+    }
+}
+</pre>
+<pre class="file">三角洲的JSON格式</pre>
+<pre>{
+    "name": "delta_feature" (三角洲),
+    "config": {
+        "contents" (三角洲方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "rim" (三角洲边缘方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "size" (三角洲尺寸): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=8, maxSpread=8
+        "rim_size" (三角洲边缘尺寸): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=8, maxSpread=8
+    }
+}
+</pre>
+<pre class="file">下界岩斑纹的JSON格式</pre>
+<pre>{
+    "name": "netherrack_replace_blobs" (下界岩斑纹),
+    "config": {
+        "target" (替换的目标方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "state" (方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "radius" (半径): <a href="#均匀分布的整数">均匀分布的整数</a>
+    }
+}
+</pre>
+<pre class="file">填充层的JSON格式</pre>
+<pre>{
+    "name": "fill_layer" (填充层),
+    "config": {
+        "height" (高度): 整数,
+        "state" (方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        }
+    }
+}
+</pre>
+<pre class="file">随机选择的JSON格式</pre>
+<pre>{
+    "name": "random_selector" (随机选择),
+    "config": {
+        "features" (该列表中地形特征配置会被随机选中): [
+            {
+                "feature" (地形特征配置): 命名空间ID或地形特征配置JSON对象,
+                "chance" (被选中的几率): 0-1 的数值
+            }
+        ],
+        "default" (当上述均没有被选中时的地形特征配置): 命名空间ID或地形特征配置JSON对象
+    }
+}
+或
+{
+    "name": "simple_random_selector" (简化的随机选择),
+    "config": {
+        "features" (从该列表中等几率随机选择一个地形特征配置): [
+            {
+                "feature" (地形特征配置): 命名空间ID或地形特征配置JSON对象
+            }
+        ]
+    }
+}
+或
+{
+    "name": "random_boolean_selector" (随机选择一个),
+    "config": {
+        "feature_true" (地形特征配置): 命名空间ID或地形特征配置JSON对象,
+        "feature_false" (地形特征配置): 命名空间ID或地形特征配置JSON对象
+    }
+}
+或
+{
+    "name": "decorated_feature_configuration" (带装饰的地形特征配置),
+    "config": {
+        "feature" (地形特征配置): 命名空间ID或地形特征配置JSON对象,
+        "decorator" (地形特征配置装饰): 命名空间ID或<a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象
+    }
+}
+</pre>
+
+<p class="noindent">上述JSON格式中的
+<pre class="file" id="方块状态类型">方块状态类型</pre>
+<pre>{
+    "type": "plain_flower_provider" (通常的花) 或 "forest_flower_provider" (繁花森林的花)
+或
+    "type": "simple_state_provider" (简单清晰) 或 "rotated_block_provider" (可旋转),
+    "state" (方块): {
+        "Name" (方块): 命名空间ID,
+        "Properties":{
+            "方块状态名": "方块状态值"
+        }
+    } 
+或
+    "type": "weighted_state_provider" (带权重的方块状态类型),
+    "entries" (允许的列表): [
+        {
+            "weight" (权重): 0-1 的数值,
+            "data": {
+                "Name" (方块): 命名空间ID,
+                "Properties":{
+                    "方块状态名": "方块状态值"
+                }
+            }
+        }
+    ]
 }</pre>
+
+<pre class="file" id="均匀分布的整数">均匀分布的整数</pre>
+<pre>{
+    "base": minBase-maxBase 之间的整数,
+    "spread": 0-maxSpread 之间的整数, 如果无 maxSpread 限制, 则为任意非负整数
+}
+或
+{
+    "int" (等价于 base 和 spread 均为 0): 非负整数
+}
+</pre>
+<p class="noindent">最终会从 <code>base</code> 至 <code>base+spread</code> 之间随机选取一个整数作为参数。</p>
+
+<h4 id="可用的地形特征配置">可用的地形特征配置</h4>
+<p>这些是 Minecraft 内部已生成的地形特征配置命名空间ID，可直接使用。</p>
+<pre>
+no_op
+chorus_plant
+void_start_platform
+desert_well
+fossil
+ice_spike
+glowstone_blob
+freeze_top_layer
+vines
+monster_room
+blue_ice
+end_island
+kelp
+coral_tree
+coral_mushroom
+coral_claw
+weeping_vines
+twisting_vines
+bonus_chest
+basalt_pillar
+tree
+flower
+random_patch
+block_pile
+nether_forest_vegetation
+spring_feature
+emerald_ore
+huge_red_mushroom
+huge_brown_mushroom
+iceberg
+forest_rock
+lake
+disk
+ice_patch
+ore
+no_surface_ore
+end_spike
+end_gateway
+seagrass
+bamboo
+sea_pickle
+simple_block
+huge_fungus
+basalt_columns
+delta_feature
+netherrack_replace_blobs
+fill_layer
+random_selector
+simple_random_selector
+random_boolean_selector
+decorated
+decorated_flower
+</pre>
+
+<h4 id="地形特征配置装饰">地形特征配置装饰</h4>
+<pre class="file">地形特征配置装饰JSON格式</pre>
+<pre>{
+    "name": "chance" (随机), "lava_lake" (岩浆湖) 或 "water_lake" (湖泊),
+    "config": {
+        "chance" (生成几率): 0-1 的数值
+    }
+}
+或
+{
+    "name": "count" (数量), "fire" (火), "glowstone" (荧石) 或 "count_multilayer" (多层数量),
+    "config": {
+        "count" (TBD，数量): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=-10, maxBase=128, maxSpread=128
+    }
+}
+或
+{
+    "name": "count_noise" (TBD),
+    "config": {
+        "noise_level": 数值,
+        "below_noise": 整数,
+        "above_noise": 整数
+    }
+}
+或
+{
+    "name": "count_noise_biased" (TBD),
+    "config": {
+        "noise_to_count_ratio": 整数,
+        "noise_factor": 数值,
+        "noise_offset" (可选): 数值, 默认为 0
+    }
+}
+或
+{
+    "name": "count_extra" (TBD),
+    "config": {
+        "count": 整数,
+        "extra_chance": 数值,
+        "extra_count": 整数
+    }
+}
+或
+{
+    "name": "range", "range_biased" 或 "range_very_biased" (TBD),
+    "config": {
+        "bottom_offset" (可选): 整数, 默认为 0,
+        "top_offset" (可选): 整数, 默认为 0,
+        "maximum" (可选): 整数, 默认为 0
+    }
+}
+或
+{
+    "name": "depth_average" (TBD),
+    "config": {
+        "baseline": 整数,
+        "spread": 整数
+    }
+}
+或
+{
+    "name": "carving_mask" (TBD),
+    "config": {
+        "step": "air" 或 "liquid",
+        "probability" (几率): 0-1 的数值
+    }
+}
+或
+{
+    "name": "decorated (TBD),
+    "config": {
+        "outer" (TBD，外部地形特征配置装饰): 命名空间ID或<a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象,
+        "inner" (TBD，内部地形特征配置装饰): 命名空间ID或<a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象
+</pre>
+
+<h4 id="可用的地形特征配置装饰">可用的地形特征配置装饰</h4>
+<p>这些是 Minecraft 内部已生成的可用的地形特征配置装饰命名空间ID，可直接使用。</p>
+<pre>
+nope
+square
+heightmap
+heightmap_spread_double
+top_solid_heightmap
+heightmap_world_surface
+spread_32_above
+magma
+emerald_ore
+end_gateway
+dark_oak_tree
+iceberg
+end_island
+chance
+lava_lake
+water_lake
+count
+fire
+glowstone
+count_multilayer
+count_noise
+count_noise_biased
+count_extra
+range
+range_biased
+range_very_biased
+depth_average
+carving_mask
+decorated
+</pre>
+
+
 
 <h3 id="结构配置">§2.11.4 结构配置</h3>
 <pre class="file">JSON格式</pre>
@@ -1697,9 +2361,30 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }</pre>
 
 <h3 id="地表生成配置">§2.11.5 地表生成配置</h3>
+<p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。</p>
 <pre class="file">JSON格式</pre>
 <pre>{
-    TBD
+    "name" (地表类型): "default" (默认), "mountain" (山地), "shattered_savanna" (破碎的热带草原), "gravelly_mountain" (砂砾山地), "giant_tree_taiga" (巨型针叶林), "swamp" (沼泽), "badlands" (恶地), "wooded_badlands" (繁茂的恶地), "eroded_badlands" (被风蚀的恶地), "frozen_ocean" (冻洋), "nether" (下界), "nether_forest" (下界森林), "soul_sand_valley" (灵魂沙峡谷), "basalt_deltas" (玄武岩三角洲) 或 "nope" (无),
+    "config": {
+        "top_material" (顶层方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "under_material" (顶层以下的方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        },
+        "underwater_material" (水下方块): {
+            "Name" (方块): 命名空间ID,
+            "Properties":{
+                "方块状态名": "方块状态值"
+            }
+        }
+    }
 }</pre>
 
 <h3 id="噪声设置">§2.11.6 噪声设置</h3>
