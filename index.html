@@ -40,7 +40,7 @@
         <li><a href="#2.9_标签">§2.9 标签</a><ul>
             <li><a href="#2.9.1_预设标签">§2.9.1 预设标签</a></li>
         </ul></li>
-        <li><a href="#2.10_维度和维度类型">§2.10 维度和维度类型</a></li>
+        <li><a href="#维度和维度类型">§2.10 维度和维度类型</a></li>
         <li><a href="#世界生成">§2.11 世界生成</a><ul>
             <li><a href="#生物群系">§2.11.1 生物群系</a></li>
             <li><a href="#地形雕刻配置">§2.11.2 地形雕刻配置</a></li>
@@ -50,7 +50,10 @@
                 <li><a href="#地形特征配置装饰">地形特征配置装饰</a></li>
                 <li><a href="#可用的地形特征配置装饰">可用的地形特征配置装饰</a></li>
             </ul></li>
-            <li><a href="#结构配置">§2.11.4 结构配置</a></li>
+            <li><a href="#结构配置">§2.11.4 结构配置</a><ul>
+                <li><a href="#结构配置JSON格式">JSON格式</a></li>
+                <li><a href="#可用的结构配置">可用的结构配置</a></li>
+            </ul></li>
             <li><a href="#地表生成配置">§2.11.5 地表生成配置</a></li>
             <li><a href="#噪声设置">§2.11.6 噪声设置</a></li>
             <li><a href="#方块处理表">§2.11.7 方块处理表</a></li>
@@ -1184,11 +1187,11 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 }
 </pre>
 
-<h2 id="2.10_维度和维度类型">§2.10 <ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby></h2>
+<h2 id="维度和维度类型">§2.10 维度和维度类型</h2>
 
-<p>维度和维度类型用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。原版世界的默认参数可见<a href="https://wiki.biligame.com/mc/%E7%BB%B4%E5%BA%A6/Generator_Defaults">维度/Generator Defaults - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
+<p><ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby>用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。原版世界的默认参数可见<a href="https://wiki.biligame.com/mc/%E7%BB%B4%E5%BA%A6/Generator_Defaults">维度/Generator Defaults - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
 
-<p>维度/维度类型文件需要放在 <code>minecraft/dimension</code> 和 <code>minecraft/dimension_type</code> 下，其子文件夹为命名空间。维度类型文件规定了维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度文件规定了维度的生成方式和生物群系。</p>
+<p>维度类型文件规定了维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度文件规定了维度的生成方式和生物群系。</p>
 
 <pre class="file">minecraft/dimensions/ex/flower.json</pre>
 <pre>
@@ -2352,13 +2355,78 @@ carving_mask
 decorated
 </pre>
 
-
-
 <h3 id="结构配置">§2.11.4 结构配置</h3>
+<p>用于指定生物群系生成特定类型的结构以及结构的参数。</p>
+<h4 id="结构配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
-    TBD
+    "name": "pillager_outpost" (掠夺者前哨站), "village" (村庄) 或 "bastion_remnant" (堡垒遗迹),
+    "config": {
+        "start_pool" (拼图随机池): 命名空间ID,
+        "size" (TBD): 0-7 之间的整数
+    }
+}
+或
+{
+    "name": "mineshaft" (矿井),
+    "config": {
+        "type": "normal" (普通) 或 "mesa" (平顶山),
+        "probability" (几率): 0-1 之间的数值
+    }
+}
+或
+{
+    "name": "ruined_portal" (废弃传送门),
+    "config": {
+        "portal_type" (类型): "standard" (标准), "desert" (沙漠), "jungle" (丛林), "swamp" (沼泽), "mountain" (山地), "ocean" (海洋) 或 "nether" (下界)
+    }
+}
+或
+{
+    "name": "shipwreck" (沉船),
+    "config": {
+        "is_beached" (可选，是否搁浅): true 或 false, 默认为 false
+    }
+}
+或
+{
+    "name": "ocean_ruin" (海底废墟),
+    "config": {
+        "biome_temp" (生物群系温度): "warm" (暖水) 或 "cold" (冷水),
+        "large_probability" (几率): 0-1 之间的数值,
+        "cluster_probability" (成群的几率): 0-1 之间的数值
+    }
+}
+或
+{
+    "name": "buried_treasure" (被掩埋的宝藏),
+    "config": {
+        "probability" (几率): 0-1 之间的数值
+    }
 }</pre>
+
+<h4 id="可用的结构配置">可用的结构配置</h4>
+<p>这些是 Minecraft 内部已生成的可用的结构配置命名空间ID，可直接使用。</p>
+<pre>
+mansion
+jungle_pyramid
+desert_pyramid
+igloo
+swamp_hut
+stronghold
+monument
+fortress
+endcity
+nether_fossil
+pillager_outpost
+village
+bastion_remnant
+mineshaft
+ruined_portal
+shipwreck
+ocean_ruin
+buried_treasure
+</pre>
 
 <h3 id="地表生成配置">§2.11.5 地表生成配置</h3>
 <p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。</p>
@@ -2400,9 +2468,45 @@ decorated
 }</pre>
 
 <h3 id="拼图随机池">§2.11.8 拼图随机池</h3>
+<p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块。</p>
+<ul>
+    <li><strong>目标池</strong>指的是拼图方块能用于绘制元素的元素池（下个要放置的模板）。默认目标池会从 <code><i>版本号</i>.jar/data/minecraft/structures</code> 中特定文件夹内随机选取一个模板，通过拼图随机池可以修改。</li>
+    <li><strong>连接类型</strong>指的是拼图方块的“名称” ，拥有相同“名称”的拼图方块可以相互连接。</li>
+    <li><strong>转变为</strong>指的是拼图方块在整个功能被放置后会转变的方块状态。默认为minecraft:air。</li>
+</ul>
+<p>拼图方块目前仅用于生成掠夺者前哨站、村庄和堡垒遗迹类型的结构配置。这些结构的生成开始于包含拼图方块的模板。每个拼图方块都使用下列流程来生成另一个模板：</p>
+<ul>
+    <li>在目标池内随机选择一个模板。</li>
+    <li>在同一个连接类型中，至少存在1个拼图方块来生成模板。如果有多个方块符合条件，那么会随机选择其中的一个。</li>
+    <li>这会使2个拼图方块“连接”。放置模板后使第2个拼图方块朝向第1个拼图方块并与之相邻。</li>
+    <li>最后，两个拼图方块会被替换为对应的“转变方块”设置的方块。</li>
+</ul>
+<p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块（或者游戏任务结构以及足够大）为止。然而，使用结构方块加载结构不能复现上述过程，结构仍会包含拼图方块。 </p>
+
 <pre class="file">JSON格式</pre>
 <pre>{
-    TBD
+    "name" (TBD，目标池): 命名空间ID,
+    "fallback" (TBD): 原版为 "minecraft:empty",
+    "elements" (结构列表): [
+        {
+            "weight" (权重): 整数,
+            "element": {
+                "location" (结构): 命名空间ID,
+                "projection" (TBD): "rigid" 或 "terrain_matching",
+                "element_type" (TBD): "minecraft:empty_pool_element", "minecaft:list_pool_element", "minecraft:legacy_single_pool_element" 或 "minecraft:single_pool_element",
+                "processors" (TBD，方块处理表): 命名空间ID或<a href="#方块处理表">方块处理表</a>JSON对象或其列表,
+                "elements": [
+                    {
+                        "weight" (权重): 整数,
+                        "location" (结构): 命名空间ID,
+                        "projection" (TBD): "rigid" 或 "terrain_matching",
+                        "element_type" (TBD): "minecraft:empty_pool_element", "minecaft:list_pool_element", "minecraft:legacy_single_pool_element" 或 "minecraft:single_pool_element",
+                        "processors" (TBD，方块处理表): 命名空间ID或<a href="#方块处理表">方块处理表</a>JSON对象或其列表
+                    }
+                ]
+            }
+        }
+    ]
 }</pre>
 
 
