@@ -40,7 +40,18 @@
         <li><a href="#2.9_标签">§2.9 标签</a><ul>
             <li><a href="#2.9.1_预设标签">§2.9.1 预设标签</a></li>
         </ul></li>
-        <li><a href="#维度和维度类型">§2.10 维度和维度类型</a></li>
+        <li><a href="#维度和维度类型">§2.10 维度和维度类型</a><ul>
+            <li><a href="#维度">§2.10.1 维度</a><ul>
+                <li><a href="#维度JSON格式">JSON格式</a></li>
+                <li><a href="#预设世界参数">预设世界参数</a></li>
+                <li><a href="#默认世界结构参数">默认世界结构参数</a></li>
+            </ul></li>
+            <li><a href="#维度类型">§2.10.2 维度类型</a><ul>
+                <li><a href="#维度类型JSON格式">JSON格式</a></li>
+                <li><a href="#原版维度的维度类型参数">原版维度的维度类型参数</a></li>
+            </ul></li>
+            <li><a href="#维度实例">§2.10.3 实例</a></li>
+        </ul></li>
         <li><a href="#世界生成">§2.11 世界生成</a><ul>
             <li><a href="#生物群系">§2.11.1 生物群系</a></li>
             <li><a href="#地形雕刻配置">§2.11.2 地形雕刻配置</a></li>
@@ -172,7 +183,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.11.4 by ruhuasiyu 2020/07/17</p>
+<p>进度：§2.10 by ruhuasiyu 2020/07/20</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -1189,10 +1200,249 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 
 <h2 id="维度和维度类型">§2.10 维度和维度类型</h2>
 
-<p><ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby>用于自定义维度。维度和维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/维度">维度 - Minecraft Wiki，最详细的官方我的世界百科</a>。原版世界的默认参数可见<a href="https://wiki.biligame.com/mc/%E7%BB%B4%E5%BA%A6/Generator_Defaults">维度/Generator Defaults - Minecraft Wiki，最详细的官方我的世界百科</a>。</p>
+<p><ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby>用于自定义维度。</p>
 
-<p>维度类型文件规定了维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度文件规定了维度的生成方式和生物群系。</p>
+<h3 id="维度">§2.10.1 维度</h3>
+<p>维度规定了维度的生成方式和生物群系。维度文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/dimension/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
+<h4 id="维度JSON格式">JSON格式</h4>
+<pre class="file">噪声型维度JSON格式</pre>
+<pre>{
+    "type" (维度类型): 命名空间ID,
+    "generator": {
+        "type"："minecraft:noise",
+        "seed" (种子)：整数,
+        "settings" (地形的形状)："minecraft:overworld" (生成普通的主世界), "minecraft:amplified" (放大化的主世界), "minecraft:nether" (常规的下界), "minecraft:caves" (类似下界的洞穴却拥有主世界地形特征的世界), "minecraft:end" (末地主岛), "minecraft:floating_islands" (末地浮岛) 或
+        {
+            "bedrock_roof_position" (TBD，noise.height-基岩天花板的Y坐标, 如果它不在 0-noise.height 范围内, 则无基岩天花板): 整数,
+            "bedrock_floor_position" (TBD，基岩地板的Y坐标, 如果它不在 0-noise.height 范围内, 则无基岩地板): 整数,
+            "sea_level" (海平面高度): 0~255 之间的整数,
+            "disable_mob_generation" (是否禁止生物生成)：true 或 false,
+            "structures" (结构设置): {
+                "stronghold" (可选，要塞的生成设置，要塞从中间的第一个环开始生成，然后在第二个环生成，然后在第三个环生成，以此类推，其中第 i 个环的要塞数量为 spread × (i+1) × (i+2) /6，向下取整，直到总数达到 count。第 i 个环到原点的平均距离为 distance × (6i-2) × 16): {
+                    "count" (要塞的最大数量): 1~4095 之间的整数, 默认值为128,
+                    "spread" (第一个环的要塞数量): 0~1023 之间的整数, 默认值为3, 设置为0时会使世界中某些位置上反复生成多个要塞,
+                    "distance" (控制各环到原点的距离): 0~1023 之间的整数，默认值为32
+                },
+                "structures" (该维度中使用的结构): [
+                    命名空间ID (<a href="#结构配置">结构配置</a>。对于非超平坦世界，该维度所包含的生物群系 (biome_source.type 指定) 中包含的结构配置如果没有在此列出，则该结构配置会以大量生成，因此所有的结构都应在此罗列清楚以避免不稳定的生成): {
+                        "spacing" (两个该种类的结构之间的最大距离，以区块为单位): 正整数,
+                        "separation" (两个该种类的结构之间的最小距离，以区块为单位): 1~(spacing-1) 之间的整数,
+                        "salt" (盐, 帮助进行随机化的数字): 整数
+                    }
+                ]
+            }
+            "noise" (世界生成参数): {
+                "top_slide" (世界地形的顶部曲线的设置，影响区域以地形顶部为中心，影响的高度为 size × size_vertical × 4): {
+                    "size": 非负整数,
+                    "target" (负值会使山丘更加圆润，正值会使其更加平坦): 整数,
+                    "offset" (移动影响区域，正值向下移动，负值向上移动): 整数
+                },
+                "bottom_slide" (世界地形的底部曲线的设置, 影响区域以地形底部为中心, 影响的高度为 size × size_vertical × 4): {
+                    "size": 非负整数,
+                    "target" (负值会使浮岛底部更加圆润，正值会生成一个基岩地板): 整数,
+                    "offset" (移动影响区域，正值向下移动，负值向上移动): 整数
+                },
+                "sampling": {
+                    "xz_scale" (伸缩X和Z轴的噪声，更大的值会造成更复杂的水平形状): 正数值,
+                    "xz_factor" (平滑水平方向上的噪声): 正数值,
+                    "y_scale" (伸缩Y轴的噪声，更大的值会造成更复杂的垂直形状): 正数值,
+                    "y_factor" (平滑垂直方向上的噪声): 正数值
+                },
+                "size_vertical" (改变陆块在Y轴上的比例。1至15之间的值可以逐渐地增加山丘高度，大于20的值将会使得所有陆地高于通常的海平面63，比32更高的值会使得通常的陆地高度到达100+): 正整数,
+                "size_horizontal" (改变陆块在X和Z轴上的比例，生物群系不会因此改变): 正整数,
+                "height" (将世界生成的最大高度压缩至此, 一般不超过 256): 正整数,
+                "density_factor" (TBD): 数值,
+                "density_offset" (TBD，影响平均陆地高度): -1~1 之间的数值,
+                "random_density_offset" (TBD，可选，影响平均陆地高度): true 或 false, 默认为 false,
+                "simplex_surface_noise" (TBD，影响平均陆地高度): true 或 false,
+                "island_noise_override" (TBD，可选，该世界是否像末地一样以小岛环绕着主岛的形式生成): true 或 false, 默认为 false,
+                "amplified" (TBD，可选，是否为放大化地形): true 或 false, 默认为 false
+            },
+            "default_block" (决定世界地形顶部下方生成的方块) {
+                "Name" (方块): 命名空间ID,
+                "Properties":{
+                    "方块状态名": "方块状态值"
+                }
+            },
+            "default_fluid" (海洋与湖泊所使用的方块) {
+                "Name" (流体): 命名空间ID,
+                "Properties":{
+                    "流体状态名": "流体状态值"
+                }
+            }
+        },
+        "biome_source" (生物群系设置): {
+            "seed" (种子)：整数,
+
+            "type" (主世界默认生成和巨型生物群系生成): "minecraft:vanilla_layered",
+            "large_biomes" (是否为巨型生物群系): true 或 false,
+            "legacy_biome_init_layer" (TBD，决定世界是否为default_1_1): true 或 false
+        或
+            "type" (根据柏林噪声图和生物群系的参数生成生物群系分布): "minecraft:multi_noise",
+            "preset" (使用下界生物群系预设，与 biomes 二选一): "minecraft:nether",
+            "biomes" (生物群系列表): [
+                {
+                    "biome" (生物群系): 命名空间ID,
+                    "parameters" (生物群系属性): {
+                        "altitude" (柏林噪声参数): 0~1 之间的数值,
+                        "temperature" (柏林噪声参数): 0~1 之间的数值,
+                        "humidity" (柏林噪声参数): 0~1 之间的数值,
+                        "weirdness" (柏林噪声参数): 0~1 之间的数值,
+                        "offset" (绝对值越大，生物群系越小): 数值
+                    }
+                }
+            ]
+        或
+            "type" (单生物群系维度): "minecraft:fixed",
+            biome" (生物群系): 命名空间ID
+        或
+            "type" (生物群系单元呈正方形按棋盘状排列): "minecraft:checkerboard",
+            "scale" (正方形单元的大小): 正整数,
+            "biomes" (生物群系列表): [
+                命名空间ID
+            ]
+        或
+            "type" (用于在末路之地中生成的生物群系，以生物群系minecraft:the_end为中心，周围环绕着其它生物群系): "minecraft:the_end"
+        }
+    }
+}
+</pre>
+
+<pre class="file">超平坦型维度JSON格式</pre>
+<pre>{
+    "type" (维度类型): 命名空间ID,
+    "generator": {
+        "type" (维度类型): "minecraft:flat"
+        "settings": {
+            "layers": [
+                {
+                    "height" (该层方块高度): 正整数,
+                    "block" (该层使用方块): 命名空间ID
+                }
+            ],
+            "biome" (该维度使用的单一生物群系): 命名空间ID,
+            "structures" (该维度中使用的结构): {
+                命名空间ID (<a href="#结构配置">结构配置</a>，未列出的结构不会生成): {
+                    "spacing" (两个该种类的结构之间的最大距离，以区块为单位): 正整数,
+                    "separation" (两个该种类的结构之间的最小距离，以区块为单位): 1~(spacing-1) 之间的整数,
+                    "salt" (盐, 帮助进行随机化的数字): 整数
+                }
+            }
+        }
+    }
+}
+</pre>
+
+<pre class="file">调试世界维度JSON格式</pre>
+<pre>{
+    "type" (维度类型): 命名空间ID,
+    "generator": {
+        "type" (维度类型): "minecraft:debug"
+    }
+}
+</pre>
+
+<h4 id="预设世界参数">预设世界参数</h4>
+<p>这些是在噪点型维度的 <code>generator.settings</code> 使用的预设世界的参数。</p>
+<table><thead><tr><th>参数</th><th><code>overworld</code></th><th><code>amplified</code></th><th><code>nether</code></th><th><code>caves</code></th><th><code>end</code></th><th><code>floating_islands</code></th></tr></thead><tbody>
+<tr><td><code>bedrock_roof_position</code></td><td><code>-10</code></td><td><code>-10</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-10</code></td><td><code>-10</code></td></tr>
+<tr><td><code>bedrock_floor_position</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-10</code></td><td><code>-10</code></td></tr>
+<tr><td><code>sea_level</code></td><td><code>63</code></td><td><code>63</code></td><td><code>32</code></td><td><code>32</code></td><td><code>0</code></td><td><code>0</code></td></tr>
+<tr><td><code>disable_mob_generation</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>true</code></td></tr>
+<tr><td><code>noise.top_slide.target</code></td><td><code>-10</code></td><td><code>-10</code></td><td><code>120</code></td><td><code>120</code></td><td><code>-3000</code></td><td><code>-3000</code></td></tr>
+<tr><td><code>noise.top_slide.size</code></td><td><code>3</code></td><td><code>3</code></td><td><code>3</code></td><td><code>3</code></td><td><code>64</code></td><td><code>64</code></td></tr>
+<tr><td><code>noise.top_slide.offset</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-46</code></td><td><code>-46</code></td></tr>
+<tr><td><code>noise.bottom_slide.target</code></td><td><code>-30</code></td><td><code>-30</code></td><td><code>320</code></td><td><code>320</code></td><td><code>-30</code></td><td><code>-30</code></td></tr>
+<tr><td><code>noise.bottom_slide.size</code></td><td><code>0</code></td><td><code>0</code></td><td><code>4</code></td><td><code>4</code></td><td><code>7</code></td><td><code>7</code></td></tr>
+<tr><td><code>noise.bottom_slide.offset</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-1</code></td><td><code>-1</code></td><td><code>1</code></td><td><code>1</code></td></tr>
+<tr><td><code>noise.sampling.xz_scale</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>2.0</code></td><td><code>2.0</code></td></tr>
+<tr><td><code>noise.sampling.xz_factor</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td></tr>
+<tr><td><code>noise.sampling.y_scale</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>3.0</code></td><td><code>3.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td></tr>
+<tr><td><code>noise.sampling.y_factor</code></td><td><code>160.0</code></td><td><code>160.0</code></td><td><code>60.0</code></td><td><code>60.0</code></td><td><code>160.0</code></td><td><code>160.0</code></td></tr>
+<tr><td><code>noise.size_vertical</code></td><td><code>2</code></td><td><code>2</code></td><td><code>2</code></td><td><code>2</code></td><td><code>1</code></td><td><code>1</code></td></tr>
+<tr><td><code>noise.size_horizontal</code></td><td><code>1</code></td><td><code>1</code></td><td><code>1</code></td><td><code>1</code></td><td><code>2</code></td><td><code>2</code></td></tr>
+<tr><td><code>noise.height</code></td><td><code>256</code></td><td><code>256</code></td><td><code>128</code></td><td><code>128</code></td><td><code>128</code></td><td><code>128</code></td></tr>
+<tr><td><code>noise.density_factor</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td></tr>
+<tr><td><code>noise.density_offset</code></td><td><code>-0.46875</code></td><td><code>-0.46875</code></td><td><code>0.02</code></td><td><code>0.02</code></td><td><code>0.0</code></td><td><code>0.0</code></td></tr>
+<tr><td><code>noise.random_density_offset</code></td><td><code>true</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td></tr>
+<tr><td><code>noise.simplex_surface_noise</code></td><td><code>true</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>true</code></td></tr>
+<tr><td><code>noise.island_noise_override</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+<tr><td><code>noise.amplified</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td></tr>
+<tr><td><code>default_block</code></td><td>石头</td><td>石头</td><td>下界岩</td><td>石头</td><td>末地石</td><td>>石头</td></tr>
+<tr><td><code>default_fluid</code></td><td>水</td><td>水</td><td>熔岩</td><td>水</td><td>空气</code></td><td>水</td></tr>
+</tbody></table>
+
+<h4 id="默认世界结构参数">默认世界结构参数</h4>
+<p>这些是默认世界中 <code>generator.settings.structures</code> 使用的结构参数。</p>
+
+<table><thead><tr><th>结构</th><th>命名空间ID</th><th><code>spacing</code></th><th><code>separation</code></th><th><code>salt</code></th></tr></thead><tbody>
+<tr><td>村庄</td><td><code>minecraft:village</code></td><td><code>32</code></td><td><code>8</code></td><td><code>10387312</code></td></tr>
+<tr><td>沙漠神殿</td><td><code>minecraft:desert_pyramid</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357617</code></td></tr>
+<tr><td>雪屋</td><td><code>minecraft:igloo</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357618</code></td></tr>
+<tr><td>丛林神庙</td><td><code>minecraft:jungle_pyramid</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357619</code></td></tr>
+<tr><td>沼泽小屋</td><td><code>minecraft:swamp_hut</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357620</code></td></tr>
+<tr><td>掠夺者前哨站</td><td><code>minecraft:pillager_outpost</code></td><td><code>32</code></td><td><code>8</code></td><td><code>165745296</code></td></tr>
+<tr><td>要塞</td><td><code>minecraft:stronghold</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
+<tr><td>海底神殿</td><td><code>minecraft:monument</code></td><td><code>32</code></td><td><code>5</code></td><td><code>10387313</code></td></tr>
+<tr><td>末地城</td><td><code>minecraft:endcity</code></td><td><code>20</code></td><td><code>11</code></td><td><code>10387313</code></td></tr>
+<tr><td>林地府邸</td><td><code>minecraft:mansion</code></td><td><code>80</code></td><td><code>20</code></td><td><code>10387319</code></td></tr>
+<tr><td>埋藏的宝藏</td><td><code>minecraft:buried_treasure</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
+<tr><td>废弃矿井</td><td><code>minecraft:mineshaft</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
+<tr><td>废弃传送门（主世界）</td><td><code>minecraft:ruined_portal</code></td><td><code>40</code></td><td><code>15</code></td><td><code>34222645</code></td></tr>
+<tr><td>废弃传送门（下界）</td><td><code>minecraft:ruined_portal</code></td><td><code>25</code></td><td><code>10</code></td><td><code>34222645</code></td></tr>
+<tr><td>沉船</td><td><code>minecraft:shipwreck</code></td><td><code>24</code></td><td><code>4</code></td><td><code>165745295</code></td></tr>
+<tr><td>海底废墟</td><td><code>minecraft:ocean_ruin</code></td><td><code>20</code></td><td><code>8</code></td><td><code>14357621</code></td></tr>
+<tr><td>堡垒遗迹</td><td><code>minecraft:bastion_remnant</code></td><td><code>27</code></td><td><code>4</code></td><td><code>30084232</code></td></tr>
+<tr><td>下界要塞</td><td><code>minecraft:fortress</code></td><td><code>27</code></td><td><code>4</code></td><td><code>30084232</code></td></tr>
+<tr><td>下界化石</td><td><code>minecraft:nether_fossil</code></td><td><code>2</code></td><td><code>1</code></td><td><code>14357921</code></td></tr>
+</tbody></table>
+
+<h3 id="维度类型">§2.10.2 维度类型</h3>
+
+<p>维度类型规定维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度类型的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/dimension_type/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+
+<h4 id="维度类型JSON格式">JSON格式</h4>
+<pre class="file">维度类型JSON格式</pre>
+<pre>{
+    "bed_works" (玩家是否可以使用床): true 或 false,
+    "ender_dragon" (可选，该维度是否有一条末影龙的Boss): true 或 false,
+    "has_ceiling" (该维度是否拥有一个基岩天花板): true 或 false,
+    "has_skylight" (该维度是否有天空光照): true 或 false,
+    "has_raids" (带有不祥之兆的玩家是否可以触发袭击): true 或 false,
+    "natural" (当为 false 时，指南针会随机转动。当为 true 时，下界传送门会生成僵尸猪灵): true 或 false,
+    "piglin_safe：可以是true或false。猪灵和疣猪兽是否不会僵尸化。: true 或 false,
+    "respawn_anchor_works" (玩家是否可以使用重生锚): true 或 false,
+    "shrunk" (维度是否和下界一样，被当做8米/方块看待): true 或 false,
+    "ultrawarm" (维度是否表现得类似于下界水会蒸发，湿海绵会干。这也会使得熔岩流动更快、扩散更远): true 或 false,
+    "fixed_time" (可选，游戏内的昼夜时间固定值): false (等价于0) 或 0~24000 之间的整数, 缺省则有日夜循环,
+    "logical_height" (玩家使用紫颂果或下界传送门可以到达的最大高度): 数值,
+    "ambient_light" (该维度拥有多少光照): 0~1 之间的数值,
+    "biome_zoomer" (可选，TBD，用于指定生物群系放缩): "FuzzyOffsetConstantColumnBiomeZoomer" (用于主世界) 或 "FuzzyOffsetBiomeZoomer" (用于下界或末地),
+    "infiniburn" (方块标签，决定该维度中火可以在什么方块上永久燃烧): 命名空间ID
+}
+</pre>
+
+<h4 id="原版维度的维度类型参数">原版维度的维度类型参数</h4>
+<table><thead><tr><th>属性</th><th>主世界</th><th><code>下界</code></th><th><code>末路之地</code></th></tr></thead><tbody>
+<tr><td><code>ultrawarm</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+<tr><td><code>natural</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td></tr>
+<tr><td><code>shrunk</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+<tr><td><code>piglin_safe</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+<tr><td><code>respawn_anchor_works</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+<tr><td><code>bed_works</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td></tr>
+<tr><td><code>has_raids</code></td><td><code>true</code></td><td><code>false</code></td><td><code>true</code></td></tr>
+<tr><td><code>has_skylight</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td></tr>
+<tr><td><code>has_ceiling</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+<tr><td><code>fixed_time</code></td><td>无</td><td><code>18000</code></td><td><code>6000</code></td></tr>
+<tr><td><code>ambient_light</code></td><td><code>0.0</code></td><td><code>0.1</code></td><td><code>0.0</code></td></tr>
+<tr><td><code>logical_height</code></td><td><code>256</code></td><td><code>128</code></td><td><code>256</code></td></tr>
+<tr><td><code>infiniburn</code></td><td><code>minecraft:infiniburn_overworld</code><br/>(岩浆块，下界岩)</td><td><code>minecraft:infiniburn_nether</code><br/>(岩浆块，下界岩)</td><td><code>minecraft:infiniburn_end</code><br/>(岩浆块，下界岩，基岩)</td></tr>
+</tbody></table>
+
+<h3 id="维度实例">§2.10.3 实例</h3>
+<p>定义好新的维度之后，我们还需要为其设计传送方式。简单的可以使用物品触发，见<a href="#右键交互">右键交互</a>。更常见的则是使用多方块结构为传送检测方式。</p>
+<p class="ex">定义一个新的维度，其中仅有繁花森林生物群系。使用高花摆放成八边形并在中间放置白色羊毛激活传送门。</p>
 <pre class="file">minecraft/dimensions/ex/flower.json</pre>
 <pre>
 {
@@ -1277,12 +1527,10 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
     "respawn_anchor_works": true,
     "has_raids": false,
     "logical_height": 256,
-    "infiniburn": "cpp:infiniburn_flower"
+    "infiniburn": "minecraft:infiniburn_overworld"
 }
 </pre>
 
-<p>目前自定义维度需使用 <code>execute in ex:flower</code> 来进入。我们可以指定一种多方块结构为传送检测方式。</p>
-<p class="ex">将高花摆放成八边形并在中间放置白色羊毛以激活去往 <code>ex:flower</code> 的传送门。</p>
 <pre class="file">ex/advancements/block/white_wool</pre>
 <pre>
 {
@@ -1531,7 +1779,6 @@ setblock ~ ~ ~ end_gateway
 ]
 </pre>
 
-
 <p>检测传送门是否完整。检测玩家位置来传送。</p>
 <pre class="file">ex:tick</pre>
 <pre>
@@ -1577,7 +1824,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <p>参考<a href="https://minecraft.gamepedia.com/Custom_world_generation">Custom world generation – Official Minecraft Wiki</a>。<ruby>世界生成<rt>worldgen</rt></ruby>允许数据包改变世界的生成方式。这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。</p>
 
 <h3 id="生物群系">§2.11.1 生物群系</h3>
-<p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。</p>
+<p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <pre class="file">JSON格式</pre>
 <pre>{
     "precipitation" (降雨量): "none" (永不下雨), "rain" (下雨) 或 "snow" (下雪),
@@ -1601,9 +1848,9 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 }
             或
                 "type" (粉状颗粒): "dust",
-                "r" (红色分量): 0-1 的数值,
-                "g" (绿色分量): 0-1 的数值,
-                "b" (蓝色分量): 0-1 的数值,
+                "r" (红色分量): 0~1 之间的数值,
+                "g" (绿色分量): 0~1 之间的数值,
+                "b" (蓝色分量): 0~1 之间的数值,
                 "scale" (颗粒大小放缩): 数值
             或
                 "type" (消耗物品的颗粒): "item",
@@ -1672,7 +1919,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         ]
     ],
     "starts" (该生物群系生成的结构配置列表): [
-        "结构配置命名空间ID": 字符串
+        "字符串" (<a href="#结构配置">结构配置</a>的命名空间ID)
     ],
     "spawners" (生物生成): {
         "生物分类" (包括 monster, creature, ambient, water_creature, water_ambient, misc): [
@@ -1684,21 +1931,21 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             }
         ]
     },
-    "parent" (可选，父生物群系命名空间ID，继承其特征): 字符串
+    "parent" (可选，父生物群系，继承其特征): 命名空间ID
 }</pre>
 
 <h3 id="地形雕刻配置">§2.11.2 地形雕刻配置</h3>
-<p>地形雕刻配置用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。</p>
+<p>地形雕刻配置用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻配置文件为JSON文件，地形雕刻配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_carver/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <pre class="file">JSON格式</pre>
 <pre>{
     "name" (雕刻类型): "cave" (洞穴), "nether_cave" (下界洞穴), "canyon" (峡谷), "underwater_canyon" (水下峡谷) 或 "underwater_cave" (水下洞穴),
     "config": {
-        "probability" (每个区块的生成几率): 0-1 的数值
+        "probability" (每个区块的生成几率): 0~1 之间的数值
     }
 }</pre>
 
 <h3 id="地形特征配置">§2.11.3 地形特征配置</h3>
-<p>地形特征配置用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。</p>
+<p>地形特征配置用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地形特征配置文件为JSON文件，地形特征配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="地形特征配置JSON格式">JSON格式</h4>
 <pre class="file">树的JSON格式</pre>
@@ -1714,7 +1961,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "type" (类型): "acacia_foliage_placer" (云杉树叶) 或 "dark_oak_foliage_placer" (深色橡树树叶),
         或
             "type" (类型): "blob_foliage_placer", "bush_foliage_placer", "fancy_foliage_placer" 或 "jungle_foliage_placer" (丛林树树叶),
-            "height" (TBD, 树叶高度和尺寸): 0-16 之间的整数,
+            "height" (TBD, 树叶高度和尺寸): 0~16 之间的整数,
         或
             "type" (类型): "spruce_foliage_placer" (云杉树叶),
             "trunk_height" (TBD, 树干高度): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=16, maxSpread=8
@@ -1751,7 +1998,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 "type" (类型): "trunk_vine" (树干藤蔓) 或 "leave_vine" (树叶藤蔓)
             或
                 "type" (类型): "cocoa" (可可豆) 或 "beehive" (蜂巢),
-                "probability" (几率): 0-1的数值
+                "probability" (几率): 0~1 之间的数值
             或
                 "type" (类型): "alter_ground" (地面方块替换),
                 "provider": <a href="#方块状态类型">方块状态类型</a>
@@ -1863,7 +2110,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "name": "iceberg" (冰山), "forest_rock" (森林岩石) 或 "lake" (湖),
     "config": {
         "state" (方块): {
-            "Name" (方块的命名空间ID): 字符串
+            "Name" (方块): 命名空间ID
         }
     }
 }
@@ -1873,10 +2120,10 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "name": "disk" (圆盘) 或 "ice_patch" (冰堆),
     "config": {
         "state" (方块): {
-            "Name" (方块的命名空间ID): 字符串
+            "Name" (方块): 命名空间ID
         },
         "radius" (半径): <a href="#均匀分布的整数">均匀分布的整数</a>, minBase=0, maxBase=4, maxSpread=4,
-        "half_height" (高度的一般): 0-4 之间的整数,
+        "half_height" (高度的一般): 0~4 之间的整数,
         "targets" (目标方块列表): {
             "Name" (方块): 命名空间ID,
             "Properties":{
@@ -1896,13 +2143,13 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 "方块状态名": "方块状态值"
             }
         },
-        "size" (矿脉大小): 0-64 之间的数值,
+        "size" (矿脉大小): 0~64 的整数,
 
         "target" (目标方块要求): {
             "predicate_type" (断言类型): "always_true" (总是成立)
         或
             "predicate_type" (断言类型): "block_match" (匹配方块),
-            "block" (方块的命名空间ID): 字符串
+            "block" (方块): 命名空间ID,
         或
             "predicate_type" (断言类型): "blockstate_match" (匹配方块状态),
             "block_state": {
@@ -1913,11 +2160,11 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             }
         或
             "predicate_type" (断言类型): "tag_match" (匹配方块标签),
-            "tag" (方块标签的命名空间ID): 字符串
+            "tag" (方块标签): 命名空间ID
         或
             "predicate_type" (断言类型): "random_block_match" (随机匹配方块),
             "block" (方块): 命名空间ID,
-            "probability" (几率): 0-1 的数值
+            "probability" (几率): 0~1 之间的数值
         或
             "predicate_type" (断言类型): "random_blockstate_match" (随机匹配方块状态),
             "block_state": {
@@ -1926,7 +2173,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                     "方块状态名": "方块状态值"
                 }
             },
-            "probability" (几率): 0-1 的数值
+            "probability" (几率): 0~1 之间的数值
         }
     }
 }
@@ -1969,7 +2216,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <pre>{
     "name": "seagrass" (海草) 或 "bamboo" (竹子),
     "config": {
-        "probability" (几率): 0-1的数值
+        "probability" (几率): 0~1 之间的数值
     }
 }
 </pre>
@@ -2115,7 +2362,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "features" (该列表中地形特征配置会被随机选中): [
             {
                 "feature" (地形特征配置): 命名空间ID或地形特征配置JSON对象,
-                "chance" (被选中的几率): 0-1 的数值
+                "chance" (被选中的几率): 0~1 之间的数值
             }
         ],
         "default" (当上述均没有被选中时的地形特征配置): 命名空间ID或地形特征配置JSON对象
@@ -2166,7 +2413,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "weighted_state_provider" (带权重的方块状态类型),
     "entries" (允许的列表): [
         {
-            "weight" (权重): 0-1 的数值,
+            "weight" (权重): 0~1 之间的数值,
             "data": {
                 "Name" (方块): 命名空间ID,
                 "Properties":{
@@ -2179,8 +2426,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <pre class="file" id="均匀分布的整数">均匀分布的整数</pre>
 <pre>{
-    "base": minBase-maxBase 之间的整数,
-    "spread": 0-maxSpread 之间的整数, 如果无 maxSpread 限制, 则为任意非负整数
+    "base": minBase~maxBase 之间的整数,
+    "spread": 0~maxSpread 之间的整数, 如果无 maxSpread 限制, 则为任意非负整数
 }
 或
 {
@@ -2251,7 +2498,7 @@ decorated_flower
 <pre>{
     "name": "chance" (随机), "lava_lake" (岩浆湖) 或 "water_lake" (湖泊),
     "config": {
-        "chance" (生成几率): 0-1 的数值
+        "chance" (生成几率): 0~1 之间的数值
     }
 }
 或
@@ -2310,7 +2557,7 @@ decorated_flower
     "name": "carving_mask" (TBD),
     "config": {
         "step": "air" 或 "liquid",
-        "probability" (几率): 0-1 的数值
+        "probability" (几率): 0~1 之间的数值
     }
 }
 或
@@ -2356,14 +2603,14 @@ decorated
 </pre>
 
 <h3 id="结构配置">§2.11.4 结构配置</h3>
-<p>用于指定生物群系生成特定类型的结构以及结构的参数。</p>
+<p>结构配置用于指定生物群系生成特定类型的结构以及结构的参数。结构配置文件为JSON文件，结构配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_structure_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="结构配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
     "name": "pillager_outpost" (掠夺者前哨站), "village" (村庄) 或 "bastion_remnant" (堡垒遗迹),
     "config": {
         "start_pool" (拼图随机池): 命名空间ID,
-        "size" (TBD): 0-7 之间的整数
+        "size" (TBD): 0~7 之间的整数
     }
 }
 或
@@ -2371,7 +2618,7 @@ decorated
     "name": "mineshaft" (矿井),
     "config": {
         "type": "normal" (普通) 或 "mesa" (平顶山),
-        "probability" (几率): 0-1 之间的数值
+        "probability" (几率): 0~1 之间的数值
     }
 }
 或
@@ -2393,15 +2640,15 @@ decorated
     "name": "ocean_ruin" (海底废墟),
     "config": {
         "biome_temp" (生物群系温度): "warm" (暖水) 或 "cold" (冷水),
-        "large_probability" (几率): 0-1 之间的数值,
-        "cluster_probability" (成群的几率): 0-1 之间的数值
+        "large_probability" (几率): 0~1 之间的数值,
+        "cluster_probability" (成群的几率): 0~1 之间的数值
     }
 }
 或
 {
     "name": "buried_treasure" (被掩埋的宝藏),
     "config": {
-        "probability" (几率): 0-1 之间的数值
+        "probability" (几率): 0~1 之间的数值
     }
 }</pre>
 
@@ -2429,7 +2676,7 @@ buried_treasure
 </pre>
 
 <h3 id="地表生成配置">§2.11.5 地表生成配置</h3>
-<p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。</p>
+<p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <pre class="file">JSON格式</pre>
 <pre>{
     "name" (地表类型): "default" (默认), "mountain" (山地), "shattered_savanna" (破碎的热带草原), "gravelly_mountain" (砂砾山地), "giant_tree_taiga" (巨型针叶林), "swamp" (沼泽), "badlands" (恶地), "wooded_badlands" (繁茂的恶地), "eroded_badlands" (被风蚀的恶地), "frozen_ocean" (冻洋), "nether" (下界), "nether_forest" (下界森林), "soul_sand_valley" (灵魂沙峡谷), "basalt_deltas" (玄武岩三角洲) 或 "nope" (无),
@@ -2456,23 +2703,25 @@ buried_treasure
 }</pre>
 
 <h3 id="噪声设置">§2.11.6 噪声设置</h3>
+<p>噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <pre class="file">JSON格式</pre>
 <pre>{
     TBD
 }</pre>
 
 <h3 id="方块处理表">§2.11.7 方块处理表</h3>
+<p>方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <pre class="file">JSON格式</pre>
 <pre>{
     TBD
 }</pre>
 
 <h3 id="拼图随机池">§2.11.8 拼图随机池</h3>
-<p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块。</p>
+<p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块。拼图随机池文件为JSON文件，拼图随机池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/template_pool/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <ul>
     <li><strong>目标池</strong>指的是拼图方块能用于绘制元素的元素池（下个要放置的模板）。默认目标池会从 <code><i>版本号</i>.jar/data/minecraft/structures</code> 中特定文件夹内随机选取一个模板，通过拼图随机池可以修改。</li>
-    <li><strong>连接类型</strong>指的是拼图方块的“名称” ，拥有相同“名称”的拼图方块可以相互连接。</li>
-    <li><strong>转变为</strong>指的是拼图方块在整个功能被放置后会转变的方块状态。默认为minecraft:air。</li>
+    <li><strong>连接类型</strong>指的是拼图方块的“名称”，拥有相同“名称”的拼图方块可以相互连接。</li>
+    <li><strong>转变为</strong>指的是拼图方块在整个功能被放置后会转变的方块状态。默认为 <code>minecraft:air</code>。</li>
 </ul>
 <p>拼图方块目前仅用于生成掠夺者前哨站、村庄和堡垒遗迹类型的结构配置。这些结构的生成开始于包含拼图方块的模板。每个拼图方块都使用下列流程来生成另一个模板：</p>
 <ul>

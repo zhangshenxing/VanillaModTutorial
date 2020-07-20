@@ -147,10 +147,8 @@ figure img{
 }
 /* 代码 */
 code{
-	color:black;
 	font-weight: normal;
 	font-size:100%;
-	background-color:white;
 	font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace,Courier;
 }
 pre{
