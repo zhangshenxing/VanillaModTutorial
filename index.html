@@ -8,10 +8,9 @@
 <meta name='description' content='Minecraft 原版模组 更多的合成' />
 <meta name='revised' content='ruhuasiyu@mcbbs' />
 <base href="" />
-<link rel="shortcut icon" href="https://zsx.neocities.org/main/favicon.ico" />
+<link rel="shortcut icon" href="http://home.ustc.edu.cn/~zsxqq/favicon.ico" />
 <link rel="stylesheet" href="items/style.css" />
 </head>
-<!--<span onclick="this.style.display='none';this.nextElementSibling.nextElementSibling.nextElementSibling.style.display='list-item';this.nextElementSibling.style.display='inline';">+</span><span onclick="this.style.display='none';this.nextElementSibling.nextElementSibling.style.display='none';this.previousElementSibling.style.display='inline';" style="display:none;">−</span>-->
 <body>
 <nav>
 <ul>
@@ -40,7 +39,7 @@
         <li><a href="#2.9_标签">§2.9 标签</a><ul>
             <li><a href="#2.9.1_预设标签">§2.9.1 预设标签</a></li>
         </ul></li>
-        <li><a href="#维度和维度类型">§2.10 维度和维度类型</a><ul>
+        <li><a href="#维度和维度类型">§2.10 维度和维度类型</a><img src="https://www.mcbbs.net/template/mcbbs/image/hot_1.gif" /><ul>
             <li><a href="#维度">§2.10.1 维度</a><ul>
                 <li><a href="#维度JSON格式">JSON格式</a></li>
                 <li><a href="#预设世界参数">预设世界参数</a></li>
@@ -51,8 +50,9 @@
                 <li><a href="#原版维度的维度类型参数">原版维度的维度类型参数</a></li>
             </ul></li>
             <li><a href="#维度实例">§2.10.3 实例</a></li>
+            <li><a href="#自定义世界">§2.10.4 自定义世界</a></li>
         </ul></li>
-        <li><a href="#世界生成">§2.11 世界生成</a><ul>
+        <li><a href="#世界生成">§2.11 世界生成</a><img src="https://www.mcbbs.net/template/mcbbs/image/hot_1.gif" /><ul>
             <li><a href="#生物群系">§2.11.1 生物群系</a></li>
             <li><a href="#地形雕刻配置">§2.11.2 地形雕刻配置</a></li>
             <li><a href="#地形特征配置">§2.11.3 地形特征配置</a><ul>
@@ -183,7 +183,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.10 by ruhuasiyu 2020/07/20</p>
+<p>进度：§2.10.4 by ruhuasiyu 2020/07/21</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -259,7 +259,7 @@
 <ul>
     <li><strong>进度</strong>位于 <code>advancements/<i>玩家 UUID</i>.json</code>，记录了玩家已完成的进度和进度判据的完成时间。对于需要完成多个判据才能达成的进度，该文件中记录了已完成的那些判据的完成时间。</li>
     <li><strong>区块、村民兴趣点、袭击、常加载区块</strong>等信息分维度存储，主世界、下界、末地、自定义维度的相应文件分别位于根文件夹、<code>DIM-1</code>、<code>DIM1</code>、<code>dimensions/<i>命名空间</i>/<i>路径</i></code>下。</li>
-    <li><strong>世界信息</strong>文件 <code>level.dat</code> 中 <code>WorldGenSettings</code> 包含了世界生成时的所有维度的生成信息，这和<code>创建新的世界->更多世界的选项->导入设置</code>所使用的JSON文件有关，而和数据包中自定义的维度无关，格式见<a href="#维度">维度</a>。</li>
+    <li><strong>世界信息</strong>文件 <code>level.dat</code> 中 <code>WorldGenSettings</code> 包含了世界生成时的所有维度的生成信息，这和<code>创建新的世界->更多世界的选项->导入设置</code>所使用的JSON文件有关，而和数据包中自定义的维度无关，格式见<a href="#自定义世界">自定义世界</a>。</li>
     <li><strong>数据包文件夹</strong>位于<code>datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包，具体结构见 <a href="#数据包">§3 数据包</a>。</li>
     <li><strong>结构</strong>位于<code>generated/<i>命名空间</i>/structures/<i>文件</i>.nbt</code>，其记录了游戏内使用结构方块保存的结构，将其移动至数据包内方可使用。</li>
 </ul>
@@ -1208,7 +1208,7 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 <h4 id="维度JSON格式">JSON格式</h4>
 <pre class="file">噪声型维度JSON格式</pre>
 <pre>{
-    "type" (维度类型): 命名空间ID,
+    "type" (维度类型): 命名空间ID或<a href="#维度类型">维度类型</a>JSON对象,
     "generator": {
         "type"："minecraft:noise",
         "seed" (种子)：整数,
@@ -1254,10 +1254,10 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
                 "height" (将世界生成的最大高度压缩至此, 一般不超过 256): 正整数,
                 "density_factor" (TBD): 数值,
                 "density_offset" (TBD，影响平均陆地高度): -1~1 之间的数值,
-                "random_density_offset" (TBD，可选，影响平均陆地高度): true 或 false, 默认为 false,
+                "random_density_offset" (TBD，可选，影响平均陆地高度): true 或 false (默认值),
                 "simplex_surface_noise" (TBD，影响平均陆地高度): true 或 false,
-                "island_noise_override" (TBD，可选，该世界是否像末地一样以小岛环绕着主岛的形式生成): true 或 false, 默认为 false,
-                "amplified" (TBD，可选，是否为放大化地形): true 或 false, 默认为 false
+                "island_noise_override" (TBD，可选，该世界是否像末地一样以小岛环绕着主岛的形式生成): true 或 false (默认值),
+                "amplified" (TBD，可选，是否为放大化地形): true 或 false (默认值)
             },
             "default_block" (决定世界地形顶部下方生成的方块) {
                 "Name" (方块): 命名空间ID,
@@ -1311,7 +1311,7 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 
 <pre class="file">超平坦型维度JSON格式</pre>
 <pre>{
-    "type" (维度类型): 命名空间ID,
+    "type" (维度类型): 命名空间ID或<a href="#维度类型">维度类型</a>JSON对象,
     "generator": {
         "type" (维度类型): "minecraft:flat"
         "settings": {
@@ -1336,7 +1336,7 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 
 <pre class="file">调试世界维度JSON格式</pre>
 <pre>{
-    "type" (维度类型): 命名空间ID,
+    "type" (维度类型): 命名空间ID或<a href="#维度类型">维度类型</a>JSON对象,
     "generator": {
         "type" (维度类型): "minecraft:debug"
     }
@@ -1424,7 +1424,8 @@ execute as @a at @s anchored eyes unless block ^ ^ ^ #ex:fluid run say I'm stuck
 </pre>
 
 <h4 id="原版维度的维度类型参数">原版维度的维度类型参数</h4>
-<table><thead><tr><th>属性</th><th>主世界</th><th><code>下界</code></th><th><code>末路之地</code></th></tr></thead><tbody>
+<p>这些是 Minecraft 内部已生成的维度类型命名空间ID，可直接使用。</p>
+<table><thead><tr><th>属性</th><th><code>minecraft:overworld</code><br/>主世界</th><th><code>minecraft:the_nether</code><br/>下界</th><th><code>minecraft:the_end</code><br/>末路之地</th></tr></thead><tbody>
 <tr><td><code>ultrawarm</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
 <tr><td><code>natural</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td></tr>
 <tr><td><code>shrunk</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
@@ -1820,6 +1821,23 @@ execute in overworld run tp ~ ~ ~
 execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
+<h3 id="自定义世界">§2.10.4 自定义世界</h3>
+<p>自定义世界是一种世界类型，它用自定的特性取代了世界的普通地形。创建世界时，点击<code>更多选项->导入世界->选择JSON文件</code>即可。这种方式还可以用来创建额外的维度而不借助于数据包，但是默认只能使用命令 <code>/execute in <i>维度名称</i></code> 进入额外的维度。</p>
+<pre class="file">JSON格式</pre>
+<pre>{
+    "bonus_chest" (是否会生成奖励箱): true 或 false,
+    "generate_features" (是否生成建筑): true 或 false,
+    "seed" (种子): 整数,
+    "dimensions" (维度列表): [
+        "minecraft:overworld" (主世界): <a href="#维度JSON格式">维度JSON对象</a>,
+        "minecraft:the_nether" (下界): <a href="#维度JSON格式">维度JSON对象</a>,
+        "minecraft:the_end" (末地): <a href="#维度JSON格式">维度JSON对象</a>,
+        其它维度命名空间ID: <a href="#维度JSON格式">维度JSON对象</a>
+    ]
+}
+</pre>
+
+
 <h2 id="世界生成">§2.11 世界生成</h2>
 <p>参考<a href="https://minecraft.gamepedia.com/Custom_world_generation">Custom world generation – Official Minecraft Wiki</a>。<ruby>世界生成<rt>worldgen</rt></ruby>允许数据包改变世界的生成方式。这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。</p>
 
@@ -2005,7 +2023,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             }
         ]
         "max_water_depth" (可选，树在水下最大可生成深度): 整数, 默认为 0,
-        "ignore_vines" (可选，是否忽略藤蔓): true 或 false, 默认为 false,
+        "ignore_vines" (可选，是否忽略藤蔓): true 或 false (默认值),
         "heightmap" (TBD，高度地图): "WORLD_SURFACE_WG", "WORLD_SURFACE", "OCEAN_FLOOR_WG", "OCEAN_FLOOR", "MOTION_BLOCKING" 或 "MOTION_BLOCKING_NO_LEAVES"
     }
 }
@@ -2043,9 +2061,9 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "yspread" (可选，y轴扩散范围): 数值, 默认为 3,
         "zspread" (可选，z轴扩散范围): 数值, 默认为 7,
         "xspread" (可选，x轴扩散范围): 数值, 默认为 7,
-        "can_replace" (可选，是否替换原方块): true 或 false, 默认为 false,
-        "project" (可选，TBD): true 或 false, 默认为 true,
-        "need_water" (可选，是否需要水): true 或 false, 默认为 false
+        "can_replace" (可选，是否替换原方块): true 或 false (默认值),
+        "project" (可选，TBD): true (默认值)或 false,
+        "need_water" (可选，是否需要水): true 或 false (默认值)
     }
 }
 </pre>
@@ -2067,7 +2085,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 "流体状态名": "流体状态值"
             }
         },
-        "requires_block_below" (可选，下方是否需要方块): true 或 false, 默认为 true,
+        "requires_block_below" (可选，下方是否需要方块): true (默认值)或 false,
         "rock_count" (可选，TBD，岩石数量): 数值, 默认为 4,
         "hole_count" (可选，TBD，坑洞数量): 数值, 默认为 1,
         "valid_blocks" (TBD，有效的方块列表): [
@@ -2189,7 +2207,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 "centerZ" (可选，柱子中心的z坐标): 整数, 默认为 0,
                 "radius" (可选，柱子半径): 整数, 默认为 0,
                 "height" (可选，柱子高度): 整数, 默认为 0,
-                "guarded" (可选，末影水晶周围是否有铁栏杆笼子保护): true 或 false, 默认为 false
+                "guarded" (可选，末影水晶周围是否有铁栏杆笼子保护): true 或 false (默认值)
             }
         "crystal_beam_target" (可选，治愈激光定位到的位置): [
             X坐标,
@@ -2287,7 +2305,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 "方块状态名": "方块状态值"
             }
         },
-        "planted" (可选，TBD): true 或 false, 默认为 false.
+        "planted" (可选，TBD): true 或 false (默认值).
     }
 }
 </pre>
@@ -2632,7 +2650,7 @@ decorated
 {
     "name": "shipwreck" (沉船),
     "config": {
-        "is_beached" (可选，是否搁浅): true 或 false, 默认为 false
+        "is_beached" (可选，是否搁浅): true 或 false (默认值)
     }
 }
 或
