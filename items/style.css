@@ -167,20 +167,32 @@ tbody th{
 article a{
 	color: hsl(220, 50%, 50%);
 }
-div#options{
-	position: fixed;
-	top: 0;
-	right: 0;
+footer#sign{
+	height: 1.8em;
+	width: 7em;
+	display:block;
+	position:fixed;
+	bottom:0;
+	left:0;
+	z-index: -1;
+}
+footer#options{
+	height: 1.8em;
+	width: 4%;
+	display:block;
+	position:fixed;
+	bottom:0;
+	left: 14%;	
 	font-size: 100%;
 	font-weight: bold;
 	cursor:pointer;
 }
-div#options div{
+footer#options div{
 	color:white;
 	text-align: center;
 	height: 20px;
 	width: 20px;
-	float: left;
+	float: right;
 	margin-left:2px;
 }
 a:hover{
