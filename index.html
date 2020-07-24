@@ -255,7 +255,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.10.4 by ruhuasiyu 2020/07/21</p>
+<p>进度：§2.9 by ruhuasiyu 2020/07/24</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -1200,639 +1200,58 @@ setblock ~ ~1 ~ air
 <h3 id="方块标签">§2.9.1 方块标签</h3>
 <p>方块标签可以在用命令测试方块时以 <code>#<i>命名空间ID</i></code> 的形式调用，只要方块满足了该标签中定义的任何一个方块，命令就会测试通过。方块标签还可在进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。方块标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/blocks/路径/文件名.json</code>。调试模式(F3)下，玩家指向方块时会显示含有该方块的所有方块标签。</p>
 
-<p>原版方块标签被用于各种方块属性，我们在此列出。我们不列出仅用于其它标签、进度、断言、战利品表，影响生物寻路和影响方块连接的方块标签。</p>
-<pre class="file">minecraft:anvil</pre>
-<pre>{
-    <span class="comment">如果将原版三种铁砧移除，则它们不再可以打开GUI</span>
-    <span class="comment">该标签包含的铁砧的下落方块形式、以及其它方块的使用命令召唤的下落方块形式，可以伤害实体</span>
-    "replace": false,
-    "values": [
-        "minecraft:anvil",
-        "minecraft:chipped_anvil",
-        "minecraft:damaged_anvil"
-    ]
-}
-</pre>
+<p>原版方块标签被用于各种方块属性，我们按照功能分类并列出。我们不列出仅用于其它标签、进度、断言、战利品表，影响生物寻路和影响方块连接的方块标签。</p>
+<table><thead><tr><th>方块标签</th><th>用途</th></tr></thead><tbody>
+<tr><td><code>minecraft:enderman_holdableats</code></td><td>末影人可以捡起这些方块</td></tr>
+<tr><td><code>minecraft:dragon_immune</code></td><td>末影龙无法破坏这些方块</td></tr>
+<tr><td><code>minecraft:wither_immune</code></td><td>凋灵无法破坏这些方块</td></tr>
+<tr><td><code>minecraft:wither_summon_base_blocks</code></td><td>可以用来搭建凋灵的方块</td></tr>
+<tr><td><code>minecraft:hoglin_repellents</code></td><td>疣猪兽会远离这些方块</td></tr>
+<tr><td><code>minecraft:logs</code></td><td>鹦鹉可以在这些方块上栖息<br/>影响周围树叶方块的方块状态 <code>distance</code><br/>树生长时可以替代这些方块</td></tr>
+<tr><td><code>minecraft:strider_warm_blocks</code></td><td>炽足兽不在这些方块当中时会打寒颤</td></tr>
+<tr><td><code>minecraft:guarded_by_piglins</code></td><td>玩家破坏这些方块会激怒附近的猪灵，不影响打开会激怒猪灵的方块</td></tr>
+<tr><td><code>minecraft:piglin_repellents</code></td><td>猪灵会避开这些方块</td></tr>
+<tr><td><code>minecraft:flowers</code></td><td>蜜蜂可以授粉并记住这些方块的位置<br/>邻近的树苗生长后有几率带有蜂巢</td></tr>
+<tr><td><code>minecraft:bee_growables</code></td><td>当蜜蜂对这些植物进行授粉时，它们会生长一个阶段，从该标签中删除方块没有效果</td></tr>
+<tr><td><code>minecraft:beehives</code></td><td>如果将蜂巢或蜂箱移除，则蜜蜂不再会为它们填充蜂蜜，用带有玻璃瓶或剪刀的发射器也不会清除其中的蜂蜜</td></tr>
+<tr><td><code>minecraft:campfires</code></td><td>蜜蜂、鹦鹉和海龟会尝试避开<br/>营火使用这个标签来确定它们是否可被打火石点燃<br/>喷溅型水瓶可将其方块状态变为 <code>lit=false</code></td></tr>
+<tr><td><code>minecraft:sand</code></td><td>海龟蛋可以在这些方块上孵化</td></tr>
+<tr><td><code>minecraft:beds</code></td><td>猫可以坐或睡在这些方块上<br/>村民可以睡在这些方块上<br/>幼年村民可以跳到这些方块上</td></tr>
+<tr><td><code>minecraft:prevent_mob_spawning_inside</code></td><td>生物不能在这些方块里生成</td></tr>
 
-<pre class="file">minecraft:bamboo_plantable_on</pre>
-<pre>{
-    <span class="comment">竹子可种植在该方块上</span>
-    "replace": false,
-    "values": [
-        "#minecraft:sand",
-        "minecraft:bamboo",
-        "minecraft:bamboo_sapling",
-        "minecraft:gravel",
-        "minecraft:dirt",
-        "minecraft:grass_block",
-        "minecraft:podzol",
-        "minecraft:coarse_dirt",
-        "minecraft:mycelium"
-    ]
-}
-</pre>
+<tr><td><code>minecraft:valid_spawn</code></td><td>用于确定位置是否是玩家的有效出生位置</td></tr>
+<tr><td><code>minecraft:climbable</code></td><td>玩家进入该方块时是否可以攀爬</td></tr>
+<tr><td><code>minecraft:soul_speed_blocks</code></td><td>穿着附有灵魂疾行魔咒的靴子在这些方块上的行走速度会得到提高</td></tr>
+<tr><td><code>minecraft:wool</code></td><td>这些方块可以被使用剪刀以5倍的速度破坏<br/>放在这些方块上的音符盒会发出吉他音效</td></tr>
+<tr><td><code>minecraft:leaves</code></td><td>这些方块将剪刀识别为正确的工具，使用剑摧毁时速度是正常情况下的1.5倍，使用剪刀破坏的速度是正常情况下的15倍<br/>不阻碍任何地形特征的生成<br/>用于确定某些方块的是否可以放置其上<br/>鹦鹉和豹猫可以在这些方块中生成</td></tr>
+<tr><td><code>minecraft:portals</code></td><td>当骑着一个实体的实体从其上脱离时，它将不会落在在这些方块中以防止不需要的传送，而是会脱离在被骑乘的实体的位置</td></tr>
+<tr><td><code>minecraft:rails</code></td><td>检测是否与铁轨相连。矿车是否可在此方块上行驶。检测是否可以放置矿车。向此标签添加其他方块会导致游戏崩溃。TNT矿车位于这些方块内时，不会破坏所在位置的方块和下方的方块。</td></tr>
+<tr><td><code>minecraft:fences</code></td><td>可以将拴绳连接到这些方块</td></tr>
+<tr><td><code>minecraft:anvil</code></td><td>如果将原版三种铁砧移除，则它们不再可以打开GUI<br/>该标签包含的铁砧的下落方块形式、以及其它方块的使用命令召唤的下落方块形式，可以伤害实体</td></tr>
 
-<pre class="file">minecraft:base_stone_nether‌</pre>
-<pre>{
-    <span class="comment">生成世界时，下界的远古残骸可以生成在这些方块的位置</span>
-    "replace": false,
-    "values": [
-        "minecraft:netherrack",
-        "minecraft:basalt",
-        "minecraft:blackstone"
-    ]
-}
-</pre>
+<tr><td><code>minecraft:underwater_bonemeals</code></td><td>当在暖洋生物群系中在水下使用骨粉时，该标签中的方块将取代水源方块（在5个水平块和2个垂直块内）。如果该标记中的方块是自定义的，则该行为将应用于任何生物群系中的水源方块。这些方块在默认情况下不会含水</td></tr>
+<tr><td><code>minecraft:jungle_logs</code></td><td>可可豆可种植在这些方块上</td></tr>
+<tr><td><code>minecraft:beacon_base_blocks</code></td><td>可用于信标基座</td></tr>
+<tr><td><code>minecraft:bamboo_plantable_on</code></td><td>竹子可种植在该方块上</td></tr>
+<tr><td><code>minecraft:mushroom_grow_block‌</code></td><td>其之上的蘑菇可以无视光照放下且可以被骨粉催熟为巨型蘑菇</td></tr>
+<tr><td><code>minecraft:soul_fire_base_blocks</code></td><td>灵魂火会在这些方块上燃烧</td></tr>
+<tr><td><code>minecraft:wall_post_override</code></td><td>会使方块下方的墙变成柱子</td></tr>
+<tr><td><code>minecraft:fire</code></td><td>不影响且可用于激活有效的未激活下界传送门<br/>不会阻挡沙子等方块掉落<br/>能够扑灭火焰的药水会移除这些方块</td></tr>
 
-<pre class="file">minecraft:base_stone_overworld‌</pre>
-<pre>{
-    <span class="comment">生成世界时，主世界地下的石头中的点缀(砂砾堆、泥土堆、石头变种堆、矿脉、被虫蚀的方块)可以生成在这些方块的位置</span>
-    "replace": false,
-    "values": [
-        "minecraft:stone",
-        "minecraft:granite",
-        "minecraft:diorite",
-        "minecraft:andesite"
-    ]
-}
-</pre>
+<tr><td><code>minecraft:saplings</code></td><td>树生长时可以替代这些方块</td></tr>
+<tr><td><code>minecraft:base_stone_overworld‌</code></td><td>生成世界时，主世界地下的石头中的点缀(砂砾堆、泥土堆、石头变种堆、矿脉、被虫蚀的方块)可以生成在这些方块的位置</td></tr>
+<tr><td><code>minecraft:base_stone_nether‌</code></td><td>生成世界时，下界的远古残骸可以生成在这些方块的位置</td></tr>
+<tr><td><code>minecraft:corals</code></td><td>用于生成珊瑚礁</td></tr>
+<tr><td><code>minecraft:coral_blocks</code></td><td>用于生成珊瑚礁<br/>对着该方块顶部的单个海泡菜使用骨粉会使其生长出更多的海泡菜</td></tr>
 
-<pre class="file">minecraft:beacon_base_blocks</pre>
-<pre>{
-    <span class="comment">可用于信标基座</span>
-    "replace": false,
-    "values": [
-        "minecraft:netherite_block",
-        "minecraft:emerald_block",
-        "minecraft:diamond_block",
-        "minecraft:gold_block",
-        "minecraft:iron_block"
-    ]
-}
-</pre>
+<tr><td><code>minecraft:infiniburn_overworld</code></td><td><a href="#维度类型">维度类型</a>为 minecraft:overworld 的维度中火焰可在这些方块上永久燃烧</td></tr>
+<tr><td><code>minecraft:infiniburn_nether</code></td><td><a href="#维度类型">维度类型</a>为 minecraft:the_nether 的维度中火焰可在这些方块上永久燃烧</td></tr>
+<tr><td><code>minecraft:infiniburn_end</code></td><td><a href="#维度类型">维度类型</a>为 minecraft:the_end 的维度中火焰可在这些方块上永久燃烧</td></tr>
 
-<pre class="file">minecraft:beds</pre>
-<pre>{
-    <span class="comment">猫可以坐或睡在这些方块上</span>
-    <span class="comment">村民可以睡在这些方块上</span>
-    <span class="comment">幼年村民可以跳到这些方块上</span>
-    "replace": false,
-    "values": [
-        "minecraft:red_bed",
-        "minecraft:black_bed",
-        "minecraft:blue_bed",
-        "minecraft:brown_bed",
-        "minecraft:cyan_bed",
-        "minecraft:gray_bed",
-        "minecraft:green_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:lime_bed",
-        "minecraft:magenta_bed",
-        "minecraft:orange_bed",
-        "minecraft:pink_bed",
-        "minecraft:purple_bed",
-        "minecraft:white_bed",
-        "minecraft:yellow_bed"
-    ]
-}
-</pre>
+<tr><td><code>minecraft:impermeable</code></td><td>流体和蜂蜜颗粒不会穿过这些方块</td></tr>
 
-<pre class="file">minecraft:beehives</pre>
-<pre>{
-    <span class="comment">如果将蜂巢或蜂箱移除，则蜜蜂不再会为它们填充蜂蜜，用带有玻璃瓶或剪刀的发射器也不会清除其中的蜂蜜</span>
-    "replace": false,
-    "values": [
-        "minecraft:bee_nest",
-        "minecraft:beehive"
-    ]
-}
-</pre>
 
-<pre class="file">minecraft:bee_growables</pre>
-<pre>{
-    <span class="comment">当蜜蜂对这些植物进行授粉时，它们会生长一个阶段，从该标签中删除方块没有效果</span>
-    "replace": false,
-    "values": [
-        "#minecraft:crops",
-        "minecraft:sweet_berry_bush"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:campfires</pre>
-<pre>{
-    <span class="comment">蜜蜂、鹦鹉和海龟会尝试避开</span>
-    <span class="comment">营火使用这个标签来确定它们是否可被打火石点燃</span>
-    <span class="comment">喷溅型水瓶可将其方块状态变为 lit=false</span>
-    "replace": false,
-    "values": [
-        "minecraft:campfire",
-        "minecraft:soul_campfire"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:climbable</pre>
-<pre>{
-    <span class="comment">玩家进入该方块时是否可以攀爬</span>
-    "replace": false,
-    "values": [
-        "minecraft:ladder",
-        "minecraft:vine",
-        "minecraft:scaffolding",
-        "minecraft:weeping_vines",
-        "minecraft:weeping_vines_plant",
-        "minecraft:twisting_vines",
-        "minecraft:twisting_vines_plant"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:corals</pre>
-<pre>{
-    <span class="comment">用于生成珊瑚礁</span>
-    "replace": false,
-    "values": [
-        "#minecraft:coral_plants",
-        "minecraft:tube_coral_fan",
-        "minecraft:brain_coral_fan",
-        "minecraft:bubble_coral_fan",
-        "minecraft:fire_coral_fan",
-        "minecraft:horn_coral_fan"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:coral_blocks</pre>
-<pre>{
-    <span class="comment">用于生成珊瑚礁</span>
-    <span class="comment">对着该方块顶部的单个海泡菜使用骨粉会使其生长出更多的海泡菜</span>
-    "replace": false,
-    "values": [
-        "minecraft:tube_coral_block",
-        "minecraft:brain_coral_block",
-        "minecraft:bubble_coral_block",
-        "minecraft:fire_coral_block",
-        "minecraft:horn_coral_block"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:dragon_immune</pre>
-<pre>{
-    <span class="comment">末影龙无法破坏这些方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:barrier",
-        "minecraft:bedrock",
-        "minecraft:end_portal",
-        "minecraft:end_portal_frame",
-        "minecraft:end_gateway",
-        "minecraft:command_block",
-        "minecraft:repeating_command_block",
-        "minecraft:chain_command_block",
-        "minecraft:structure_block",
-        "minecraft:jigsaw",
-        "minecraft:moving_piston",
-        "minecraft:obsidian",
-        "minecraft:crying_obsidian",
-        "minecraft:end_stone",
-        "minecraft:iron_bars",
-        "minecraft:respawn_anchor"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:enderman_holdable</pre>
-<pre>{
-    <span class="comment">末影人可以捡起这些方块</span>
-    "replace": false,
-    "values": [
-        "#minecraft:small_flowers",
-        "minecraft:grass_block",
-        "minecraft:dirt",
-        "minecraft:coarse_dirt",
-        "minecraft:podzol",
-        "minecraft:sand",
-        "minecraft:red_sand",
-        "minecraft:gravel",
-        "minecraft:brown_mushroom",
-        "minecraft:red_mushroom",
-        "minecraft:tnt",
-        "minecraft:cactus",
-        "minecraft:clay",
-        "minecraft:pumpkin",
-        "minecraft:carved_pumpkin",
-        "minecraft:melon",
-        "minecraft:mycelium",
-        "minecraft:crimson_fungus",
-        "minecraft:crimson_nylium",
-        "minecraft:crimson_roots",
-        "minecraft:warped_fungus",
-        "minecraft:warped_nylium",
-        "minecraft:warped_roots"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:fences</pre>
-<pre>{
-    <span class="comment">可以将拴绳连接到这些方块</span>
-    "replace": false,
-    "values": [
-        "#minecraft:wooden_fences",
-        "minecraft:nether_brick_fence"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:fire</pre>
-<pre>{
-    <span class="comment">不影响且可用于激活有效的未激活下界传送门</span>
-    <span class="comment">不会阻挡沙子等方块掉落</span>
-    <span class="comment">能够扑灭火焰的药水会移除这些方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:fire",
-        "minecraft:soul_fire"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:flowers</pre>
-<pre>{
-    <span class="comment">蜜蜂可以授粉并记住这些方块的位置</span>
-    <span class="comment">邻近的树苗生长后有几率带有蜂巢</span>
-    "replace": false,
-    "values": [
-        "#minecraft:small_flowers",
-        "#minecraft:tall_flowers"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:guarded_by_piglins</pre>
-<pre>{
-    <span class="comment">玩家破坏这些方块会激怒附近的猪灵，不影响打开会激怒猪灵的方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:gold_block",
-        "minecraft:barrel",
-        "minecraft:chest",
-        "minecraft:ender_chest",
-        "minecraft:gilded_blackstone",
-        "minecraft:trapped_chest",
-        "#minecraft:shulker_boxes",
-        "#minecraft:gold_ores"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:hoglin_repellents</pre>
-<pre>{
-    <span class="comment">疣猪兽会远离这些方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:warped_fungus",
-        "minecraft:potted_warped_fungus",
-        "minecraft:nether_portal",
-        "minecraft:respawn_anchor"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:ice</pre>
-<pre>{
-    <span class="comment">海底废墟不会在这些方块上生成</span>
-    "replace": false,
-    "values": [
-        "minecraft:ice",
-        "minecraft:packed_ice",
-        "minecraft:blue_ice",
-        "minecraft:frosted_ice"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:impermeable</pre>
-<pre>{
-    <span class="comment">流体和蜂蜜颗粒不会穿过这些方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:glass",
-        "minecraft:white_stained_glass",
-        "minecraft:orange_stained_glass",
-        "minecraft:magenta_stained_glass",
-        "minecraft:light_blue_stained_glass",
-        "minecraft:yellow_stained_glass",
-        "minecraft:lime_stained_glass",
-        "minecraft:pink_stained_glass",
-        "minecraft:gray_stained_glass",
-        "minecraft:light_gray_stained_glass",
-        "minecraft:cyan_stained_glass",
-        "minecraft:purple_stained_glass",
-        "minecraft:blue_stained_glass",
-        "minecraft:brown_stained_glass",
-        "minecraft:green_stained_glass",
-        "minecraft:red_stained_glass",
-        "minecraft:black_stained_glass"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:infiniburn_end</pre>
-<pre>{
-    <span class="comment"><a href="#维度类型">维度类型</a>为 minecraft:the_end 的维度中火焰可在这些方块上永久燃烧</span>
-    "replace": false,
-    "values": [
-        "#minecraft:infiniburn_overworld",
-        "minecraft:bedrock"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:infiniburn_nether</pre>
-<pre>{
-    <span class="comment"><a href="#维度类型">维度类型</a>为 minecraft:the_nether 的维度中火焰可在这些方块上永久燃烧</span>
-    "replace": false,
-    "values": [
-        "#minecraft:infiniburn_overworld"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:infiniburn_overworld</pre>
-<pre>{
-    <span class="comment"><a href="#维度类型">维度类型</a>为 minecraft:overworld 的维度中火焰可在这些方块上永久燃烧</span>
-    "replace": false,
-    "values": [
-        "minecraft:netherrack",
-        "minecraft:magma_block"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:jungle_logs</pre>
-<pre>{
-    <span class="comment">可可豆可种植在这些方块上</span>
-    "replace": false,
-    "values": [
-        "minecraft:jungle_log",
-        "minecraft:jungle_wood",
-        "minecraft:stripped_jungle_log",
-        "minecraft:stripped_jungle_wood"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:leaves</pre>
-<pre>{
-    <span class="comment">不阻碍任何地形特征的生成</span>
-    <span class="comment">用于确定某些方块的是否可以放置其上</span>
-    <span class="comment">这些方块将剪刀识别为正确的工具，使用剑摧毁时速度是正常情况下的1.5倍，使用剪刀破坏的速度是正常情况下的15倍</span>
-    <span class="comment">鹦鹉和豹猫可以在这些方块中生成</span>
-    "replace": false,
-    "values": [
-        "minecraft:jungle_leaves",
-        "minecraft:oak_leaves",
-        "minecraft:spruce_leaves",
-        "minecraft:dark_oak_leaves",
-        "minecraft:acacia_leaves",
-        "minecraft:birch_leaves"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:logs</pre>
-<pre>{
-    <span class="comment">鹦鹉可以在这些方块上栖息</span>
-    <span class="comment">影响周围树叶方块的方块状态 distance</span>
-    <span class="comment">树生长时可以替代这些方块</span>
-    "replace": false,
-    "values": [
-        "#minecraft:logs_that_burn",
-        "#minecraft:crimson_stems",
-        "#minecraft:warped_stems"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:mushroom_grow_block‌</pre>
-<pre>{
-    <span class="comment">其之上的蘑菇可以无视光照放下且可以被骨粉催熟为巨型蘑菇</span>
-    "replace": false,
-    "values": [
-        "minecraft:mycelium",
-        "minecraft:podzol",
-        "minecraft:crimson_nylium",
-        "minecraft:warped_nylium"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:piglin_repellents</pre>
-<pre>{
-    <span class="comment">猪灵会避开这些方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:soul_fire",
-        "minecraft:soul_torch",
-        "minecraft:soul_lantern",
-        "minecraft:soul_wall_torch",
-        "minecraft:soul_campfire"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:portals</pre>
-<pre>{
-    <span class="comment">当骑着一个实体的实体从其上脱离时，它将不会落在在这些方块中以防止不需要的传送，而是会脱离在被骑乘的实体的位置</span>
-    "replace": false,
-    "values": [
-        "minecraft:nether_portal",
-        "minecraft:end_portal",
-        "minecraft:end_gateway"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:prevent_mob_spawning_inside</pre>
-<pre>{
-    <span class="comment">生物不能在这些方块里生成</span>
-    "replace": false,
-    "values": [
-        "#minecraft:rails"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:rails</pre>
-<pre>{
-    <span class="comment">检测是否与铁轨相连。矿车是否可在此方块上行驶。检测是否可以放置矿车。向此标签添加其他方块会导致游戏崩溃。TNT矿车位于这些方块内时，不会破坏所在位置的方块和下方的方块。</span>
-    "replace": false,
-    "values": [
-        "minecraft:rail",
-        "minecraft:powered_rail",
-        "minecraft:detector_rail",
-        "minecraft:activator_rail"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:sand</pre>
-<pre>{
-    <span class="comment">海龟蛋可以在这些方块上孵化</span>
-    "replace": false,
-    "values": [
-        "minecraft:sand",
-        "minecraft:red_sand"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:saplings</pre>
-<pre>{
-    <span class="comment">树生长时可以替代这些方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:oak_sapling",
-        "minecraft:spruce_sapling",
-        "minecraft:birch_sapling",
-        "minecraft:jungle_sapling",
-        "minecraft:acacia_sapling",
-        "minecraft:dark_oak_sapling"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:soul_fire_base_blocks</pre>
-<pre>{
-    <span class="comment">灵魂火会在这些方块上燃烧</span>
-    "replace": false,
-    "values": [
-        "minecraft:soul_sand",
-        "minecraft:soul_soil"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:soul_speed_blocks</pre>
-<pre>{
-    <span class="comment">穿着附有灵魂疾行魔咒的靴子在这些方块上的行走速度会得到提高</span>
-    "replace": false,
-    "values": [
-        "minecraft:soul_sand",
-        "minecraft:soul_soil"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:strider_warm_blocks</pre>
-<pre>{
-    <span class="comment">炽足兽不在这些方块当中时会打寒颤</span>
-    "replace": false,
-    "values": [
-        "minecraft:lava"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:underwater_bonemeals</pre>
-<pre>{
-    <span class="comment">当在暖洋生物群系中在水下使用骨粉时，该标签中的方块将取代水源方块（在5个水平块和2个垂直块内）。如果该标记中的方块是自定义的，则该行为将应用于任何生物群系中的水源方块。这些方块在默认情况下不会含水</span>
-    "replace": false,
-    "values": [
-        "minecraft:seagrass",
-        "#minecraft:corals",
-        "#minecraft:wall_corals"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:valid_spawn</pre>
-<pre>{
-    <span class="comment">用于确定位置是否是玩家的有效出生位置。</span>
-    "replace": false,
-    "values": [
-        "minecraft:grass_block",
-        "minecraft:podzol"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:wither_immune</pre>
-<pre>{
-    <span class="comment">凋灵无法破坏这些方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:barrier",
-        "minecraft:bedrock",
-        "minecraft:end_portal",
-        "minecraft:end_portal_frame",
-        "minecraft:end_gateway",
-        "minecraft:command_block",
-        "minecraft:repeating_command_block",
-        "minecraft:chain_command_block",
-        "minecraft:structure_block",
-        "minecraft:jigsaw",
-        "minecraft:moving_piston"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:wither_summon_base_blocks</pre>
-<pre>{
-    <span class="comment">可以用来搭建凋灵的方块</span>
-    "replace": false,
-    "values": [
-        "minecraft:soul_sand",
-        "minecraft:soul_soil"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:wool</pre>
-<pre>{
-    <span class="comment">这些方块可以被使用剪刀以5倍的速度破坏</span>
-    <span class="comment">放在这些方块上的音符盒会发出吉他音效</span>
-    "replace": false,
-    "values": [
-        "minecraft:white_wool",
-        "minecraft:orange_wool",
-        "minecraft:magenta_wool",
-        "minecraft:light_blue_wool",
-        "minecraft:yellow_wool",
-        "minecraft:lime_wool",
-        "minecraft:pink_wool",
-        "minecraft:gray_wool",
-        "minecraft:light_gray_wool",
-        "minecraft:cyan_wool",
-        "minecraft:purple_wool",
-        "minecraft:blue_wool",
-        "minecraft:brown_wool",
-        "minecraft:green_wool",
-        "minecraft:red_wool",
-        "minecraft:black_wool"
-    ]
-}
-</pre>
-
-<pre class="file">minecraft:wall_post_override</pre>
-<pre>{
-    <span class="comment">会使方块下方的墙变成柱子</span>
-    "replace": false,
-    "values": [
-      "minecraft:torch",
-      "minecraft:soul_torch",
-      "minecraft:redstone_torch",
-      "minecraft:tripwire",
-      "#minecraft:signs",
-      "#minecraft:banners",
-      "#minecraft:pressure_plates"
-    ]
-  }
-</pre>
+</tbody></table>
 
 <p class="ex">检测玩家头部是否被方块卡住。</p>
 <pre class="file">ex/tags/blocks/fluid.json</pre>
@@ -1869,11 +1288,51 @@ execute unless block ^ ^ ^ #ex:fluid
 <h3 id="物品标签">§2.9.2 物品标签</h3>
 <p>物品标签在配方、进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。还可在创造模式物品栏输入 <code>#<i>命名空间ID</i></code> 来搜索相应标签物品。物品标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/items/路径/文件名.json</code>。</p>
 
-<p>TBD</p>
+<p>原版物品标签被用于各种物品属性，我们按照功能分类并列出。我们不列出仅用于其它标签、配方、进度、断言、战利品表，影响生物寻路和影响方块连接的物品标签。</p>
+
+<table><thead><tr><th>物品标签</th><th>用途</th></tr></thead><tbody>
+<tr><td><code>minecraft:boats</code></td><td>这些物品可以放入熔炉的燃料槽，并重置燃烧时间为 <code>1200</code> 刻</td></tr>
+<tr><td><code>minecraft:banners</code></td><td rowspan="7">这些物品可以放入熔炉的燃料槽，并重置燃烧时间为 <code>300</code> 刻</td></tr>
+<tr><td><code>minecraft:logs</code></td></tr>
+<tr><td><code>minecraft:planks</code></td></tr>
+<tr><td><code>minecraft:wooden_pressure_plates</code></td></tr>
+<tr><td><code>minecraft:wooden_stairs</code></td></tr>
+<tr><td><code>minecraft:wooden_trapdoors</code></td></tr>
+<tr><td><code>minecraft:wooden_buttons</code></td></tr>
+<tr><td><code>minecraft:signs</code></td><td rowspan="2">这些物品可以放入熔炉的燃料槽，并重置燃烧时间为 <code>200</code> 刻</td></tr>
+<tr><td><code>minecraft:wooden_doors</code></td></tr>
+<tr><td><code>minecraft:wooden_slabs</code></td><td>这些物品可以放入熔炉的燃料槽，并重置燃烧时间为 <code>150</code> 刻</td></tr>
+<tr><td><code>minecraft:saplings</code></td><td rowspan="2">这些物品可以放入熔炉的燃料槽，并重置燃烧时间为 <code>100</code> 刻</td></tr>
+<tr><td><code>minecraft:wool</code></td></tr>
+<tr><td><code>minecraft:carpets</code></td><td>这些物品可以放入熔炉的燃料槽，并重置燃烧时间为 <code>67</code> 刻</td></tr>
+<tr><td><code>minecraft:non_flammable_wood</code></td><td>这些物品不能被用作熔炉的燃料</td></tr>
+
+<tr><td><code>minecraft:piglin_loved</code></td><td>成年猪灵会捡起这些物品</td></tr>
+<tr><td><code>minecraft:piglin_repellents</code></td><td>猪灵不会捡起这些物品</td></tr>
+<tr><td><code>minecraft:flowers</code></td><td>这些物品可以用来繁殖蜜蜂</td></tr>
+<tr><td><code>minecraft:small_flowers</code></td><td>这些物品可用于喂食棕色哞菇<br/>移除会使其不能用于合成迷之炖菜</td></tr>
+<tr><td><code>minecraft:fishes</code></td><td>海豚会游向持有这些物品的玩家，用它们喂养海豚会使海豚“信任”你</td></tr>
+<tr><td><code>minecraft:creeper_drop_music_discs</code></td><td>苦力怕被骷髅杀死后可以掉落的物品</td></tr>
+
+<tr><td><code>minecraft:arrows</code></td><td>这些物品可以像箭一样被射出和捡起</td></tr>
+
+<tr><td><code>minecraft:beacon_payment_items</code></td><td>这些物品可以放置在信标GUI中以选择效果</td></tr>
+<tr><td><code>minecraft:planks</code></td><td>这些物品可以在铁砧中修复木质工具和盾牌</td></tr>
+</tbody></table>
+
+<p class="ex">让纸可以作为熔炉燃料使用，每次可烧炼一个物品。</p>
+<pre class="file">minecraft/tags/items/wooden_doors</pre>
+<pre>{
+    "replace": false,
+    "values": [
+        "minecraft:paper"
+    ]
+}
+</pre>
 
 <h3 id="函数标签">§2.9.3 函数标签</h3>
 <p>函数标签可以在 <code>function</code> 命令中以 <code>#<i>命名空间ID</i></code> 的形式调用，所有在该标签中指定的函数都会按照它们出现的顺序执行，不会重复执行。函数标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/functions/路径/文件名.json</code>。</p>
-<p><code>minecraft</code> 命名空间中预设了一些标签。其中</p>
+<p><code>minecraft</code> 命名空间中的标签</p>
 <ul>
     <li><code>minecraft/tags/functions/load.json</code> 中的函数会在加载时被执行一次，我们常称之为加载函数、load函数。用于初始化的函数应当添加至该标签。</li>
     <li><code>minecraft/tags/functions/tick.json</code> 中的函数每刻会被执行一次，我们常称之为循环函数、主函数、tick函数。需要高频执行的函数应当添加至该标签。</li>
@@ -1882,7 +1341,15 @@ execute unless block ^ ^ ^ #ex:fluid
 
 <h3 id="实体类型标签">§2.9.4 实体类型标签</h3>
 <p>实体类型标签可以在实体选择器参数 <code>type</code> 以及战利品表条件中以 <code>#<i>命名空间ID</i></code> 的形式调用，只要实体满足了该标签中定义的任何一个类型，就会被选中。实体类型标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/entity_types/路径/文件名.json</code>。</p>
-<p>TBD</p>
+<p>原版实体类型标签被用于各种实体属性，我们在此列出。</p>
+
+<table><thead><tr><th>物品标签</th><th>用途</th></tr></thead><tbody>
+<tr><td><code>arrows</code></td><td>使用在瞄准目标进度中</td></tr>
+<tr><td><code>beehive_inhabitors</code></td><td>这些实体可以进入蜂箱。</td></tr>
+<tr><td><code>impact_projectiles</code></td><td>用来决定哪些实体可以击破紫颂果，只有标靶方块可以响应的实体才有效</td></tr>
+<tr><td><code>raiders</code></td><td>决定敲钟时哪些实体获得发光效果，此标签中的实体在骑乘劫掠兽时不会覆盖劫掠兽的AI</td></tr>
+<tr><td><code>skeletons</code></td><td>苦力怕在被这些实体杀死时掉落唱片</td></tr>
+</tbody></table>
 
 <h3 id="流体标签">§2.9.5 流体标签</h3>
 <p>流体标签很少使用，修改后会影响空气、水和熔岩的性质，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/fluids/路径/文件名.json</code>。</p>
@@ -1897,7 +1364,7 @@ execute unless block ^ ^ ^ #ex:fluid
     "minecraft:void_air"
 }
 </pre>
-<p>TBD</p>
+<p>原版流体标签 <code>minecraft:water</code> 和 <code>minecraft:lava</code> 用来决定何种流体具有类似水和熔岩的性质，具体见<a href="https://wiki.biligame.com/mc/标签#流体" class="wiki">标签#流体</a>，我们在此省略。</p>
 
 <h2 id="维度和维度类型">§2.10 维度和维度类型</h2>
 
