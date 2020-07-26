@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="zh-hans">
+<html lang="zh-Hans-CN">
 <head>
 <meta charset="utf-8" />
 <title>Minecraft 原版模组入门教程</title>
 <meta name='author' content='ruhuasiyu@mcbbs' />
-<meta name='keywords' content='minecraft, 原版模组, vanilla mod, datapacks, Crafting++' />
-<meta name='description' content='Minecraft 原版模组 更多的合成' />
+<meta name='keywords' content='minecraft, 原版模组, vanilla mod, datapacks' />
+<meta name='description' content='Minecraft 原版模组入门教程' />
 <meta name='revised' content='ruhuasiyu@mcbbs' />
 <base href="" />
-<link rel="shortcut icon" href="http://home.ustc.edu.cn/~zsxqq/favicon.ico" />
+<link rel="shortcut icon" href="https://zhangshenxing.gitee.io/favicon.ico" />
 <link rel="stylesheet" href="items/style.css" />
 <script>
     function hidecomment(thiselement){
@@ -212,22 +212,27 @@
         <li><a href="#10.3_树">§10.3 树</a></li>
     </ul></li>
     <li><a href="#11_物品与实体处理">§11 物品与实体处理</a><ul>
-        <li><a href="#11.1_随机数">§11.1 随机数</a></li>
-        <li><a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a></li>
-        <li><a href="#11.3_耐久处理">§11.3 耐久处理</a></li>
-        <li><a href="#11.4_红石信号">§11.4 红石信号</a></li>
-        <li><a href="#11.5_方块交互">§11.5 方块交互</a></li>
-        <li><a href="#11.6_生物移动">§11.6 生物移动</a></li>
-        <li><a href="#11.7_交易">§11.7 交易</a></li>
-        <li><a href="#11.8_清理特定物品">§11.8 清理特定物品</a></li>
-        <li><a href="#11.9_连锁">§11.9 连锁</a></li>
+        <li><a href="#修改玩家背包">§11.1 修改玩家背包</a></li>
+        <li><a href="#耐久处理">§11.2 耐久处理</a></li>
+        <li><a href="#红石信号">§11.3 红石信号</a></li>
+        <li><a href="#方块交互">§11.4 方块交互</a></li>
+        <li><a href="#生物移动">§11.5 生物移动</a></li>
+        <li><a href="#交易">§11.6 交易</a></li>
+        <li><a href="#清理特定物品">§11.7 清理特定物品</a></li>
+        <li><a href="#连锁">§11.8 连锁</a></li>
     </ul></li>
     <li><a href="#12_算法">§12 算法</a><ul>
-        <li><a href="#12.1_世界生成结构">§12.1 世界生成结构</a></li>
-        <li><a href="#12.2_绘制图案">§12.2 绘制图案</a></li>
-        <li><a href="#12.3_循环与递归">§12.3 循环与递归</a></li>
-        <li><a href="#12.4_字符操作">§12.4 字符操作</a></li>
-        <li><a href="#12.5_位运算与种子">§12.5 位运算与种子</a></li>
+        <li><a href="#随机数">§12.1 随机数</a><ul>
+            <li><a href="#不定长均匀分布">§12.1.1 不定长均匀分布</a></li>
+            <li><a href="#定长均匀分布">§12.1.2 定长均匀分布</a></li>
+            <li><a href="#非均匀分布">§12.1.3 非均匀分布</a></li>
+            <li><a href="#二项分布和泊松分布">§12.1.4 二项分布</a></li>
+        </ul></li>
+        <li><a href="#世界生成结构">§12.2 世界生成结构</a></li>
+        <li><a href="#绘制图案">§12.3 绘制图案</a></li>
+        <li><a href="#循环与递归">§12.4 循环与递归</a></li>
+        <li><a href="#字符操作">§12.5 字符操作</a></li>
+        <li><a href="#位运算与种子">§12.6 位运算与种子</a></li>
         <li><a></a></li>
     </ul></li>
 </ul>
@@ -1137,10 +1142,10 @@ advancement revoke @s only ex:food/citrus
 <h3 id="2.5.3_应用">§2.5.3 应用</h3>
 <p>战利品表除上述常规用途外，还可用于</p>
 <ul>
-    <li>生成随机数，见 <a href="#11.1_随机数">§11.1 随机数</a>。</li>
-    <li>修改玩家背包物品，见 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>，<a href="https://www.mcbbs.net/thread-879073-1-1.html">戴帽子</a>。</li>
-    <li>将特定物品输出至容器内，见 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>，<a href="#8.4_物品输出">§8.4 物品输出</a>，<a href="https://www.mcbbs.net/thread-898170-1-1.html">物品分类器</a>。</li>
-    <li>指定自定义机器的配方，见 <a href="#8.5_配方处理">§8.5 配方处理</a>。</li>
+    <li>生成随机数，见 <a href="#随机数">随机数</a>。</li>
+    <li>修改玩家背包物品，见 <a href="#修改玩家背包">修改玩家背包</a>，<a href="https://www.mcbbs.net/thread-879073-1-1.html">戴帽子</a>。</li>
+    <li>将特定物品输出至容器内，见 <a href="#修改玩家背包">修改玩家背包</a>，<a href="物品输出">物品输出</a>，<a href="https://www.mcbbs.net/thread-898170-1-1.html">物品分类器</a>。</li>
+    <li>指定自定义机器的配方，见 <a href="#配方处理">配方处理</a>。</li>
 </ul>
 
 
@@ -7278,78 +7283,8 @@ kill @s
 <h1 id="11_物品与实体处理">§11 物品与实体处理</h1>
 <p>本节内容较杂，主要包括常见的一些物品与实体处理方式。</p>
 
-<h2 id="11.1_随机数">§11.1 随机数</h2>
-<p>随机数有多种生成方式，最简单的使用实体选择器 <code>@r</code> 来从若干实体中选取一个。我们可以生成两个并对其中随机一个的计分板增加 <code>1, 2, 4, ..., 2<sup>30</sup></code>，那么其中一个的分数就是 <code>0</code> 至 <code>2<sup>31</sup>-1</code> 之间的随机数，然后对我们想要的随机数区间取模，即可得到近似的均匀分布。</p>
-<p>但是，我们使用战利品的 <code>set_attribute</code> 函数可以便捷地得到 <code>0</code> 至 <code>2048</code> 之间的一个随机浮点数。由此可得到下述算法。</p>
 
-<pre class="file">ex/loot_tables/misc/random.json</pre>
-<pre>
-{
-    "pools": [
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "minecraft:stone",
-                    "functions": [
-                        {
-                            "function": "minecraft:set_attributes",
-                            "modifiers": [
-                                {
-                                    "slot": "mainhand",
-                                    "name": "random_luck",
-                                    "attribute": "generic.luck",
-                                    "operation": "addition",
-                                    "amount": {
-                                        "min": 0,
-                                        "max": 2048
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "function": "minecraft:set_nbt",
-                            "tag": "{exRandomMarker:1b}"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
-</pre>
-
-<pre class="file">ex:misc/random</pre>
-<pre>
-loot spawn ~ -1 ~ loot ex:misc/random
-execute positioned ~ -1 ~ store result score #rand exValue run data get entity @e[type=item,distance=..1,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1] Item.tag.AttributeModifiers[0].Amount 1048575
-execute positioned ~ -1 ~ run kill @e[type=item,nbt={Item:{tag:{exRandomMarker:1b}}},limit=1,distance=..1]
-scoreboard players operation #random_interval exValue = #random_max exValue
-scoreboard players operation #random_interval exValue -= #random_min exValue
-scoreboard players add #random_interval exValue 1
-scoreboard players operation #rand exValue %= #random_interval exValue
-scoreboard players operation #rand exValue += #random_min exValue
-</pre>
-
-<p>先设置 <code>#random_min</code> 和 <code>#random_max</code> 的 <code>exValue</code> 为随机数的上下界，然后执行该函数，则 <code>#rand</code> 的 <code>exValue</code> 即为该区间的一个随机数。</p>
-
-<p>另一种做法更为简单，生成一个药水云并将其 <code>UUID[0]</code> 作为随机数来源即可。</p>
-<pre class="file">ex:random</pre>
-<pre>
-summon area_effect_cloud ~ 0 ~ {Tags:["ex_random"]}
-execute store result score #rand exValue run data get entity @e[tag=ex_random,limit=1,type=area_effect_cloud] UUID[0]
-kill @e[tag=ex_random,type=area_effect_cloud]
-scoreboard players operation #random_interval exValue = #random_max exValue
-scoreboard players operation #random_interval exValue -= #random_min exValue
-scoreboard players add #random_interval exValue 1
-scoreboard players operation #rand exValue %= #random_interval exValue
-scoreboard players operation #rand exValue += #random_min exValue
-</pre>
-<p>对于固定范围的随机数，我们可以直接在战利品表内设置好，可省去部分记分板的计算。</p>
-
-
-<h2 id="11.2_修改玩家背包">§11.2 修改玩家背包</h2>
+<h2 id="修改玩家背包">§11.1 修改玩家背包</h2>
 
 <p>用于修改实体方块、实体、存储区NBT的 <code>data</code> 命令无法用来修改玩家NBT。在1.13-1.14版本中可以使用 <code>execute store</code> 和 <code>data modify</code> 命令来修改玩家背包内物品的 <code>tag</code> 标签下的信息，尽管使用该命令会提示错误。而在1.15版本则将该功能去除，想要修改玩家背包就必须借助其它方式。</p>
 
@@ -7518,10 +7453,10 @@ scoreboard players operation #rand exValue += #random_min exValue
 
 <p>我们将物品复制到潜影盒内，然后使用命令 <code>loot ... mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}</code>。通常我们将这种辅助用的方块放置在 <code>255</code> 高度以免破坏地形和建筑。</p>
 
-<p>除了用于修改玩家背包，该命令还可配合 <code>loot insert</code> 来将物品输出到容器内，并使物品尽量堆叠。这常用于机器的输出，见 <a href="#8.4_物品输出">§8.4 物品输出</a>。</p>
+<p>除了用于修改玩家背包，该命令还可配合 <code>loot insert</code> 来将物品输出到容器内，并使物品尽量堆叠。这常用于机器的输出，见 <a href="#物品输出">物品输出</a>。</p>
 
 
-<h2 id="11.3_耐久处理">§11.3 耐久处理</h2>
+<h2 id="耐久处理">§11.2 耐久处理</h2>
 
 <p>有时候我们需要模拟使用工具的过程，但工具并没有真正被使用，耐久也没有被消耗。此时我们需要手动对其耐久进行处理。</p>
 <p>我们将物品信息复制到存储区 <code>ex:damage</code> 的 <code>Item</code> 中，然后使用断言判断是否减少耐久。最后判断其是否已经耐久耗尽，若耗尽则清除之。</p>
@@ -7739,7 +7674,7 @@ execute unless predicate ex:no_damage store result storage ex:damage Item.tag.Da
 ]</pre>
 <p>对于旧版本，我们也可以通过生成<code>0~耐久附魔等级</code>的随机数，并判断是否为0来确定是否消耗耐久，参考<a href="11.1_随机数">§11.1 随机数</a>。</p>
 
-<h2 id="11.4_红石信号">§11.4 红石信号</h2>
+<h2 id="红石信号">§11.3 红石信号</h2>
 
 <p>为了检测当前方块是否被强充能了，我们将所有能激活当前方块的红石元件和方块状态记录在断言文件中来判断。注意我们没有对当前方块是否完整进行检测。陷阱箱触发的红石信号也是无法直接探测到的。</p>
 
@@ -8224,13 +8159,13 @@ execute unless predicate ex:no_damage store result storage ex:damage Item.tag.Da
 
 <p>弱充能情形更为繁琐。</p>
 
-<p>想要产生一个红石信号，可以通过在当前位置放置红石块再放置空气来产生。注意保存当前方块的信息。这样的红石信号可以用于激活结构方块，因此可用于 <a href="12_世界生成">§12 世界生成</a>。</p>
+<p>想要产生一个红石信号，可以通过在当前位置放置红石块再放置空气来产生。注意保存当前方块的信息。这样的红石信号可以用于激活结构方块，因此可用于 <a href="世界生成">§12 世界生成</a>。</p>
 
-<h2 id="11.5_方块交互">§11.5 方块交互</h2>
+<h2 id="方块交互">§11.4 方块交互</h2>
 
 <p>与某些特定方块交互，可通过相应的交互判据的计分板来探测。如果仅需要右击而不打开，可对容器进行上锁，但玩家快捷栏上方会提示容器已上锁，需要使用资源包来消除；或者使用传送来实现强制关闭GUI，但画面会有闪烁感。</p>
 
-<p class="ex">右键方块破坏器将其上方的石头变为砂砾，圆石变为沙子。方块破坏器为上锁的熔炉，且相应位置已有盔甲架标记。这里我们直接使用 <a href="#6.1_视线追踪法">§6.1 视线追踪法</a>来获取方块破坏器位置。</p>
+<p class="ex">右键方块破坏器将其上方的石头变为砂砾，圆石变为沙子。方块破坏器为上锁的熔炉，且相应位置已有盔甲架标记。这里我们直接使用 <a href="#视线追踪法">视线追踪法</a>来获取方块破坏器位置。</p>
 
 <pre class="file">ex:load</pre>
 <pre>
@@ -8262,7 +8197,7 @@ execute if block ~ ~1 ~ stone run setblock ~ ~1 ~ gravel
 execute if block ~ ~1 ~ cobblestone run setblock ~ ~1 ~ sand
 </pre>
 
-<p>同理，<a href="#8.6_插件">§8.6 插件</a>中的插件安装也可以通过打开木桶的判据来实现。我们使用传送来实现强制关闭GUI。</p>
+<p>同理，<a href="#插件">插件</a>中的插件安装也可以通过打开木桶的判据来实现。我们使用传送来实现强制关闭GUI。</p>
 
 <pre class="file">mac:load</pre>
 <pre>
@@ -8340,7 +8275,7 @@ tag @s remove machine_close_gui
 execute at @s facing entity @e[type=area_effect_cloud,tag=machine_close_gui_facing,distance=..10,sort=nearest,limit=1] feet run tp ~ ~ ~
 </pre>
 
-<h2 id="11.6_生物移动">§11.6 生物移动</h2>
+<h2 id="生物移动">§11.5 生物移动</h2>
 
 <p class="ex">手持绿宝石块的玩家吸引 <code>16</code> 米内的村民到自身位置。</p>
 
@@ -8474,7 +8409,7 @@ execute store result entity @s Motion[2] double 0.0005 run scoreboard players op
 <p>这里我们进行了繁复的判断是为了让村民能够爬坡，但不能爬过栅栏类方块。如果是想要实现吸引物品掉落物的效果，则很多内容可以省略。</p>
 
 
-<h2 id="11.7_交易">§11.7 交易</h2>
+<h2 id="交易">§11.6 交易</h2>
 <p>使用村民交易是一种常见的特殊物品获得方式。在1.14+版本，建议使用流浪商人而不是村民，因为村民的交易会根据工作方块而进行变化，导致设定的交易被覆盖或出现不想要的交易。如果不希望交易产生经验值，需将 <code>rewardExp</code> 设置为 <code>0b</code>。通过让村民佩戴物品，可以让村民头部实现不同的外观，但是其它部位不能如此修改，使用佩戴在头部全身模型也会因村民头部移动而发生错乱。</p>
 
 <p>建议使用战利品来随机生成村民的交易项。</p>
@@ -8661,7 +8596,7 @@ tag @s add trade_trade_added
 
 <p>1.13版本可将村民的NBT修改为 <code>{VillagerData:{profession:"minecraft:none"}</code> 以确保村民不含交易。</p>
 
-<h2 id="11.8_清理特定物品">§11.8 清理特定物品</h2>
+<h2 id="清理特定物品">§11.7 清理特定物品</h2>
 
 <p>在自动种植、自动繁殖或放置方块等情形，我们需要对容器内的特定物品进行消耗。例如：当含有 <code>ex:toughen_hand</code> 的物品展示框下方容器内有胡萝卜、金胡萝卜、蒲公英时，令附近的兔子进入繁殖状态并清除一个相应物品。</p>
 
@@ -8689,7 +8624,7 @@ data merge entity @e[type=item_framerabbit,distance=..9,nbt={Age:0,InLove:0},lim
 
 <p>注意到一点，<code>Items[{id:"minecraft:carrot"}]</code> 只会选择容器内的最后一个拥有胡萝卜的栏位。如果 <code>ex:toughen_hand</code> 的物品被消耗完，则追加到容器的 <code>Items</code> 时，仍然会先覆盖已有的同 <code>Slot</code> 项，然后由于 <code>Count</code> 变为 <code>0</code> 而清除该栏位。</p>
 
-<h2 id="11.9_连锁">§11.9 连锁</h2>
+<h2 id="连锁">§11.8 连锁</h2>
 
 <p>当玩家使用原版镐时，破坏所有相连的矿石。</p>
 
@@ -8762,7 +8697,266 @@ execute if score #temp chainValue &lt; #max_durality chainValue run function cha
 <p>函数 <code>ex:damage</code> 见 <a href="11.3_耐久处理">§11.3 耐久处理</a>。</p>
 
 <h1 id="12_算法">§12 算法</h1>
-<h2 id="12.1_世界生成结构">§12.1 世界生成结构</h2>
+
+<h2 id="随机数">§12.1 随机数</h2>
+<h2 id="不定长均匀分布">§12.1.1 不定长均匀分布</h2>
+<p>我们使用战利品的 <code>set_attribute</code> 函数可以便捷地得到 <code>0</code> 至 <code>2048</code> 之间的一个随机浮点数。由此可得到下述算法。</p>
+
+<pre class="file">ex/loot_tables/misc/random.json</pre>
+<pre>
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_attributes",
+                            "modifiers": [
+                                {
+                                    "slot": "mainhand",
+                                    "name": "random_luck",
+                                    "attribute": "generic.luck",
+                                    "operation": "addition",
+                                    "amount": {
+                                        "min": 0,
+                                        "max": 2048
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</pre>
+
+<pre class="file">ex:misc/random</pre>
+<pre>
+setblock ~ 255 ~ chest
+loot insert ~ 255 ~ loot ex:misc/random
+execute store result score #rand exValue run data get block ~ 255 ~ Items[0].tag.AttributeModifiers[0].Amount 1048575
+setblock ~ 255 ~ air
+scoreboard players operation #random_interval exValue = #random_max exValue
+scoreboard players operation #random_interval exValue -= #random_min exValue
+scoreboard players add #random_interval exValue 1
+scoreboard players operation #rand exValue %= #random_interval exValue
+scoreboard players operation #rand exValue += #random_min exValue
+</pre>
+
+<p>先设置 <code>#random_min</code> 和 <code>#random_max</code> 的 <code>exValue</code> 为随机数的上下界，然后执行该函数，则 <code>#rand</code> 的 <code>exValue</code> 即为该区间的一个随机数。</p>
+
+<p>另一种做法更为简单，生成一个药水云并将其 <code>UUID[0]</code> 作为随机数来源即可。</p>
+<pre class="file">ex:random</pre>
+<pre>
+summon area_effect_cloud ~ 0 ~ {Tags:["ex_random"]}
+execute store result score #rand exValue run data get entity @e[tag=ex_random,limit=1,type=area_effect_cloud] UUID[0]
+kill @e[tag=ex_random,type=area_effect_cloud]
+scoreboard players operation #random_interval exValue = #random_max exValue
+scoreboard players operation #random_interval exValue -= #random_min exValue
+scoreboard players add #random_interval exValue 1
+scoreboard players operation #rand exValue %= #random_interval exValue
+scoreboard players operation #rand exValue += #random_min exValue
+</pre>
+
+<h2 id="定长均匀分布">§12.1.2 定长均匀分布</h2>
+<p>对于固定范围的随机数，我们可以直接在战利品表内设置好，可省去部分记分板的计算。</p>
+<p class="ex">生成 <code>1~100</code> 的均匀分布。</p>
+<pre class="file">ex/loot_tables/misc/random100.json</pre>
+<pre>
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_attributes",
+                            "modifiers": [
+                                {
+                                    "slot": "mainhand",
+                                    "name": "random_luck",
+                                    "attribute": "generic.luck",
+                                    "operation": "addition",
+                                    "amount": {
+                                        "min": 1,
+                                        "max": 100
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</pre>
+
+<pre class="file">ex:misc/random100</pre>
+<pre>
+setblock ~ 255 ~ chest
+loot insert ~ 255 ~ loot ex:misc/random100
+execute store result score #rand exValue run data get block ~ 255 ~ Items[0].tag.AttributeModifiers[0].Amount
+setblock ~ 255 ~ air
+</pre>
+
+<h2 id="非均匀分布">§12.1.3 非均匀分布</h2>
+<p>对于只有若干个值的非均匀分布，我们可以使用战利品表来实现。</p>
+<p class="ex">设 2, 3, 5, 7, 11 的概率分别为 0.2, 0.2, 0.36, 0.12, 0.12。</p>
+<pre class="file">ex/loot_tables/misc/rand_prime.json</pre>
+<pre>
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": 2
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": 3
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "weight": 36,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": 5
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "weight": 12,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": 7
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "weight": 12,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": 11
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</pre>
+<pre class="file">ex:misc/rand_prime</pre>
+<pre>
+setblock ~ 255 ~ chest
+loot insert ~ 255 ~ loot ex:misc/rand_prime
+execute store result score #rand exValue run data get block ~ 255 ~ Items[0].Count
+setblock ~ 255 ~ air
+</pre>
+
+<p class="ex">设 1, 2, 3 的概率分别为 0.35, 0.35, 0.3。</p>
+<pre class="file">ex/predicates/misc/rand_30.json</pre>
+<pre>
+{
+    "condition": "random_chance",
+    "chance": 0.3
+}
+</pre>
+<pre class="file">ex/predicates/misc/rand_50.json</pre>
+<pre>
+{
+    "condition": "random_chance",
+    "chance": 0.5
+}
+</pre>
+<pre class="file">ex:misc/rand_123</pre>
+<pre>
+scoreboard players set #rand exValue 1
+execute if predicate ex:misc/rand_50 run scoreboard players set #rand exValue 2
+execute if predicate ex:misc/rand_30 run scoreboard players set #rand exValue 3
+</pre>
+
+<h2 id="二项分布和泊松分布">§12.1.4 二项分布</h2>
+<pre class="file">ex/loot_tables/misc/binomial.json</pre>
+<pre>
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:stone",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_attributes",
+                            "modifiers": [
+                                {
+                                    "slot": "mainhand",
+                                    "name": "random_luck",
+                                    "attribute": "generic.luck",
+                                    "operation": "addition",
+                                    "amount": {
+                                        "type": "minecraft:binomial"
+                                        "n": 100,
+                                        "p": 0.3
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</pre>
+
+<pre class="file">ex:misc/binomial</pre>
+<pre>
+setblock ~ 255 ~ chest
+loot insert ~ 255 ~ loot ex:misc/binomial
+execute store result score #rand exValue run data get block ~ 255 ~ Items[0].tag.AttributeModifiers[0].Amount
+setblock ~ 255 ~ air
+</pre>
+
+
+
+
+<h2 id="世界生成结构">§12.2 世界生成结构</h2>
 <p class="ex">世界生成时，随机生成结构。判断玩家东南32×32范围内是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。</p>
 
 <pre class="file">ex:tick</pre>
@@ -9265,16 +9459,16 @@ loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
 <p>我们可以将所有维度的结构标记物均放置在同一战利品表内。</p>
 <p>另一种生成为全局替换，例如将主世界的地牢刷怪笼一部分替换为苦力怕刷怪笼，那么在每次检测时，使用 <code>fill</code> 命令强制替换即可。但是该命令开销很大，会导致较大的卡顿。</p>
 
-<h2 id="12.2_绘制图案">§12.2 绘制图案</h2>
+<h2 id="绘制图案">§12.3 绘制图案</h2>
 TBD
 
-<h2 id="12.3_循环和递归">§12.3 循环和递归</h2>
+<h2 id="循环和递归">§12.4 循环和递归</h2>
 TBD
 
-<h2 id="12.4_字符操作">§13.4 字符操作</h2>
+<h2 id="字符操作">§12.5 字符操作</h2>
 TBD
 
-<h2 id="12.5_位运算与种子">§12.5 位运算与种子</h2>
+<h2 id="位运算与种子">§12.6 位运算与种子</h2>
 
 
 </article>

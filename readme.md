@@ -9,6 +9,5 @@
 地址：
 [Github](https://ruhuasiyu.github.io/VanillaModTutorial/)
 [Gitee](https://zhangshenxing.gitee.io/vanillamodtutorial/)
-[Other](http://home.ustc.edu.cn/~zsxqq/vanillamodtutorial/)
 
 ruhuasiyu
