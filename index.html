@@ -1192,10 +1192,10 @@ advancement revoke @s only ex:food/citrus
 }
 或
 [ <span class="comment">配方材料JSON对象列表</span>
-    "配方材料JSON对象1",
-    "配方材料JSON对象2",
+    配方材料JSON对象1,
+    配方材料JSON对象2,
     ...,
-    "配方材料JSON对象n"
+    配方材料JSON对象n
 ]
 </pre>
 
@@ -1370,7 +1370,7 @@ advancement revoke @s only ex:food/citrus
     "type": "minecraft:smithing", <span class="comment">表示锻造台配方</span>
     "base": <a href="#配方材料">配方材料</a>JSON对象, <span class="comment">指定一个要升级的物品</span>
     "addition": <a href="#配方材料">配方材料</a>JSON对象, <span class="comment">升级所需的消耗品</span>
-    "result": "物品命名空间ID", <span class="comment">升级得到的物品</span>
+    "result": "物品命名空间ID" <span class="comment">升级得到的物品</span>
 }
 </pre>
 
@@ -2428,8 +2428,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "scale": 数值, <span class="comment">用于地形噪声生成</span>
     "temperature": 数值, <span class="comment">温度, 控制草和树叶的颜色以及雪傀儡是否会受伤</span>
     "downfall": 数值, <span class="comment">控制草和树叶的颜色, 超过 0.85 会使火焰蔓延更快</span>
-    "sky_color": RGB颜色的整数形式, <span class="comment">天空的颜色</span>
     "effects": {
+        "sky_color": RGB颜色的整数形式, <span class="comment">天空的颜色</span>
         "fog_color": RGB颜色的整数形式, <span class="comment">迷雾的颜色</span>
         "water_color": RGB颜色的整数形式, <span class="comment">水的颜色</span>
         "water_fog_color": RGB颜色的整数形式, <span class="comment">水下迷雾的颜色</span>
