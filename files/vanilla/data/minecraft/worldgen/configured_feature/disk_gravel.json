@@ -1,0 +1,42 @@
+{
+  "config": {
+    "feature": {
+      "config": {
+        "state": {
+          "Name": "minecraft:gravel"
+        },
+        "radius": {
+          "base": 2,
+          "spread": 3
+        },
+        "half_height": 2,
+        "targets": [
+          {
+            "Name": "minecraft:dirt"
+          },
+          {
+            "Properties": {
+              "snowy": "false"
+            },
+            "Name": "minecraft:grass_block"
+          }
+        ]
+      },
+      "type": "minecraft:disk"
+    },
+    "decorator": {
+      "config": {
+        "outer": {
+          "config": {},
+          "type": "minecraft:square"
+        },
+        "inner": {
+          "config": {},
+          "type": "minecraft:top_solid_heightmap"
+        }
+      },
+      "type": "minecraft:decorated"
+    }
+  },
+  "type": "minecraft:decorated"
+}

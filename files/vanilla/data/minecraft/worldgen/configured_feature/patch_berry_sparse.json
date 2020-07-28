@@ -1,0 +1,19 @@
+{
+  "config": {
+    "feature": "minecraft:patch_berry_bush",
+    "decorator": {
+      "config": {
+        "outer": {
+          "config": {},
+          "type": "minecraft:square"
+        },
+        "inner": {
+          "config": {},
+          "type": "minecraft:heightmap_spread_double"
+        }
+      },
+      "type": "minecraft:decorated"
+    }
+  },
+  "type": "minecraft:decorated"
+}

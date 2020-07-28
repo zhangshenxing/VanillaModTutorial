@@ -1,0 +1,28 @@
+{
+  "config": {
+    "feature": {
+      "config": {
+        "feature": {
+          "config": {
+            "state": {
+              "Name": "minecraft:packed_ice"
+            }
+          },
+          "type": "minecraft:iceberg"
+        },
+        "decorator": {
+          "config": {},
+          "type": "minecraft:iceberg"
+        }
+      },
+      "type": "minecraft:decorated"
+    },
+    "decorator": {
+      "config": {
+        "chance": 16
+      },
+      "type": "minecraft:chance"
+    }
+  },
+  "type": "minecraft:decorated"
+}

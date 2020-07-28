@@ -1,0 +1,10 @@
+{
+  "config": {
+    "feature": "minecraft:end_island",
+    "decorator": {
+      "config": {},
+      "type": "minecraft:end_island"
+    }
+  },
+  "type": "minecraft:decorated"
+}

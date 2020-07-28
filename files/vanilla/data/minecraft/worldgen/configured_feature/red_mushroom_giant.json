@@ -1,0 +1,12 @@
+{
+  "config": {
+    "feature": "minecraft:red_mushroom_taiga",
+    "decorator": {
+      "config": {
+        "count": 3
+      },
+      "type": "minecraft:count"
+    }
+  },
+  "type": "minecraft:decorated"
+}

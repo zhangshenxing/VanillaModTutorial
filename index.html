@@ -102,10 +102,7 @@
             <li><a href="#流体标签">§2.9.5 流体标签</a></li>
         </ul></li>
         <li><a href="#维度和维度类型">§2.10 维度和维度类型</a><img src="https://www.mcbbs.net/template/mcbbs/image/hot_1.gif" alt="hot" /><ul>
-            <li><a href="#维度">§2.10.1 维度</a><ul>
-                <li><a href="#维度JSON格式">JSON格式</a></li>
-                <li><a href="#默认世界结构参数">默认世界结构参数</a></li>
-            </ul></li>
+            <li><a href="#维度">§2.10.1 维度</a></li>
             <li><a href="#维度类型">§2.10.2 维度类型</a><ul>
                 <li><a href="#维度类型JSON格式">JSON格式</a></li>
                 <li><a href="#原版维度的维度类型参数">原版维度的维度类型参数</a></li>
@@ -114,34 +111,35 @@
             <li><a href="#自定义世界">§2.10.4 自定义世界</a></li>
         </ul></li>
         <li><a href="#世界生成">§2.11 世界生成</a><img src="https://www.mcbbs.net/template/mcbbs/image/hot_1.gif" alt="hot" /><ul>
-            <li><a href="#生物群系">§2.11.1 生物群系</a></li>
-            <li><a href="#地形雕刻配置">§2.11.2 地形雕刻配置</a><ul>
+            <li><a href="#噪声设置">§2.11.1 噪声设置</a><ul>
+                <li><a href="#噪声设置JSON格式">JSON格式</a></li>
+                <li><a href="#可用的噪声设置">可用的噪声设置</a></li>
+                <li><a href="#默认世界结构参数">默认世界结构参数</a></li>
+            </ul></li>
+            <li><a href="#生物群系">§2.11.2 生物群系</a></li>
+            <li><a href="#地形雕刻配置">§2.11.3 地形雕刻配置</a><ul>
                 <li><a href="#地形雕刻配置JSON格式">JSON格式</a></li>
                 <li><a href="#可用的地形雕刻配置">可用的地形雕刻配置</a></li>
             </ul></li>
-            <li><a href="#地形特征配置">§2.11.3 地形特征配置</a><ul>
+            <li><a href="#地表生成配置">§2.11.4 地表生成配置</a><ul>
+                <li><a href="#地表生成配置JSON格式">JSON格式</a></li>
+                <li><a href="#可用的地表生成配置">可用的地表生成配置</a></li>
+            </ul></li>
+            <li><a href="#地形特征配置">§2.11.5 地形特征配置</a><ul>
                 <li><a href="#地形特征配置JSON格式">JSON格式</a></li>
                 <li><a href="#可用的地形特征配置">可用的地形特征配置</a></li>
                 <li><a href="#地形特征配置装饰">地形特征配置装饰</a></li>
                 <li><a href="#可用的地形特征配置装饰">可用的地形特征配置装饰</a></li>
             </ul></li>
-            <li><a href="#结构配置">§2.11.4 结构配置</a><ul>
+            <li><a href="#结构配置">§2.11.6 结构配置</a><ul>
                 <li><a href="#结构配置JSON格式">JSON格式</a></li>
                 <li><a href="#可用的结构配置">可用的结构配置</a></li>
             </ul></li>
-            <li><a href="#地表生成配置">§2.11.5 地表生成配置</a><ul>
-                <li><a href="#地表生成配置JSON格式">JSON格式</a></li>
-                <li><a href="#可用的地表生成配置">可用的地表生成配置</a></li>
-            </ul></li>
-            <li><a href="#噪声设置">§2.11.6 噪声设置</a><ul>
-                <li><a href="#噪声设置JSON格式">JSON格式</a></li>
-                <li><a href="#可用的噪声设置">可用的噪声设置</a></li>
-            </ul></li>
-            <li><a href="#方块处理表">§2.11.7 方块处理表</a><ul>
+            <li><a href="#拼图随机池">§2.11.7 拼图随机池</a></li>
+            <li><a href="#方块处理表">§2.11.8 方块处理表</a><ul>
                 <li><a href="#方块处理表JSON格式">JSON格式</a></li>
                 <li><a href="#可用的方块处理表">可用的方块处理表</a></li>
             </ul></li>
-            <li><a href="#拼图随机池">§2.11.8 拼图随机池</a></li>
         </ul></li>
     </ul></li>
     <li><a href="#3_资源包">§3 资源包</a><ul>
@@ -1389,7 +1387,6 @@ execute unless block ^ ^ ^ #ex:fluid
 <h3 id="维度">§2.10.1 维度</h3>
 <p>维度规定了维度的生成方式和生物群系。维度文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/dimension/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
-<h4 id="维度JSON格式">JSON格式</h4>
 <pre class="file">噪声型维度JSON格式</pre>
 <pre>{
     "type": "命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象, <span class="comment">维度类型</span>
@@ -1468,30 +1465,12 @@ execute unless block ^ ^ ^ #ex:fluid
 }
 </pre>
 
-<h4 id="默认世界结构参数">默认世界结构参数</h4>
-<p>这些是默认世界中 <code>generator.settings.structures</code> 使用的结构参数。</p>
-
-<table><thead><tr><th>结构</th><th>命名空间ID</th><th><code>spacing</code></th><th><code>separation</code></th><th><code>salt</code></th></tr></thead><tbody>
-<tr><td>村庄</td><td><code>minecraft:village</code></td><td><code>32</code></td><td><code>8</code></td><td><code>10387312</code></td></tr>
-<tr><td>沙漠神殿</td><td><code>minecraft:desert_pyramid</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357617</code></td></tr>
-<tr><td>雪屋</td><td><code>minecraft:igloo</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357618</code></td></tr>
-<tr><td>丛林神庙</td><td><code>minecraft:jungle_pyramid</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357619</code></td></tr>
-<tr><td>沼泽小屋</td><td><code>minecraft:swamp_hut</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357620</code></td></tr>
-<tr><td>掠夺者前哨站</td><td><code>minecraft:pillager_outpost</code></td><td><code>32</code></td><td><code>8</code></td><td><code>165745296</code></td></tr>
-<tr><td>要塞</td><td><code>minecraft:stronghold</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
-<tr><td>海底神殿</td><td><code>minecraft:monument</code></td><td><code>32</code></td><td><code>5</code></td><td><code>10387313</code></td></tr>
-<tr><td>末地城</td><td><code>minecraft:endcity</code></td><td><code>20</code></td><td><code>11</code></td><td><code>10387313</code></td></tr>
-<tr><td>林地府邸</td><td><code>minecraft:mansion</code></td><td><code>80</code></td><td><code>20</code></td><td><code>10387319</code></td></tr>
-<tr><td>埋藏的宝藏</td><td><code>minecraft:buried_treasure</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
-<tr><td>废弃矿井</td><td><code>minecraft:mineshaft</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
-<tr><td>废弃传送门(主世界)</td><td><code>minecraft:ruined_portal</code></td><td><code>40</code></td><td><code>15</code></td><td><code>34222645</code></td></tr>
-<tr><td>废弃传送门(下界)</td><td><code>minecraft:ruined_portal</code></td><td><code>25</code></td><td><code>10</code></td><td><code>34222645</code></td></tr>
-<tr><td>沉船</td><td><code>minecraft:shipwreck</code></td><td><code>24</code></td><td><code>4</code></td><td><code>165745295</code></td></tr>
-<tr><td>海底废墟</td><td><code>minecraft:ocean_ruin</code></td><td><code>20</code></td><td><code>8</code></td><td><code>14357621</code></td></tr>
-<tr><td>堡垒遗迹</td><td><code>minecraft:bastion_remnant</code></td><td><code>27</code></td><td><code>4</code></td><td><code>30084232</code></td></tr>
-<tr><td>下界要塞</td><td><code>minecraft:fortress</code></td><td><code>27</code></td><td><code>4</code></td><td><code>30084232</code></td></tr>
-<tr><td>下界化石</td><td><code>minecraft:nether_fossil</code></td><td><code>2</code></td><td><code>1</code></td><td><code>14357921</code></td></tr>
-</tbody></table>
+<p>原版的维度包括</p>
+<pre>
+<a href="files/vanilla/data/minecraft/dimension/overworld.json">⬇️</a>overworld <span class="comment">主世界</span>
+<a href="files/vanilla/data/minecraft/dimension/the_nether.json">⬇️</a>the_nether <span class="comment">下界</span>
+<a href="files/vanilla/data/minecraft/dimension/the_end.json">⬇️</a>the_end <span class="comment">末地</span>
+</pre>
 
 <h3 id="维度类型">§2.10.2 维度类型</h3>
 
@@ -1520,7 +1499,7 @@ execute unless block ^ ^ ^ #ex:fluid
 
 <h4 id="原版维度的维度类型参数">原版维度的维度类型参数</h4>
 <p>这些是 Minecraft 内部已生成的维度类型命名空间ID，可直接使用。</p>
-<table><thead><tr><th>属性</th><th><code>minecraft:overworld</code><br/>主世界</th><th><code>minecraft:the_nether</code><br/>下界</th><th><code>minecraft:the_end</code><br/>末路之地</th></tr></thead><tbody>
+<table><thead><tr><th>属性</th><th><a href="files/vanilla/data/minecraft/dimension_type/overworld.json">⬇️</a><code>minecraft:overworld</code><br/>主世界</th><th><a href="files/vanilla/data/minecraft/dimension_type/the_nether.json">⬇️</a><code>minecraft:the_nether</code><br/>下界</th><th><a href="files/vanilla/data/minecraft/dimension_type/the_end.json">⬇️</a><code>minecraft:the_end</code><br/>末路之地</th></tr></thead><tbody>
 <tr><td><code>ultrawarm</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
 <tr><td><code>natural</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td></tr>
 <tr><td><code>shrunk</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
@@ -1539,7 +1518,7 @@ execute unless block ^ ^ ^ #ex:fluid
 <h3 id="维度实例">§2.10.3 实例</h3>
 <p>定义好新的维度之后，我们还需要为其设计传送方式。简单的可以使用物品触发，见<a href="#右键交互">右键交互</a>。更常见的则是使用多方块结构为传送检测方式。</p>
 <p class="ex">定义一个新的维度，其中仅有繁花森林生物群系。使用高花摆放成八边形并在中间放置白色羊毛激活传送门。</p>
-<pre class="file">minecraft/dimensions/ex/flower.json</pre>
+<pre class="file"><a href="files/ex/data/minecraft/dimension/ex/flower.json">⬇️</a>minecraft/dimension/ex/flower.json</pre>
 <pre>
 {
     "type": "ex:flower",
@@ -1607,7 +1586,7 @@ execute unless block ^ ^ ^ #ex:fluid
     }
 }
 </pre>
-<pre class="file">minecraft/dimension_type/ex/flower.json</pre>
+<pre class="file"><a href="files/ex/data/minecraft/dimension_type/ex/flower.json">⬇️</a>minecraft/dimension_type/ex/flower.json</pre>
 <pre>
 {
     "ultrawarm": false,
@@ -1627,7 +1606,7 @@ execute unless block ^ ^ ^ #ex:fluid
 }
 </pre>
 
-<pre class="file">ex/advancements/block/white_wool</pre>
+<pre class="file"><a href="files/ex/data/ex/advancements/block/white_wool.json">⬇️</a>ex/advancements/block/white_wool.json</pre>
 <pre>
 {
     "criteria": {
@@ -1937,9 +1916,139 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <p>参考<a href="https://minecraft.gamepedia.com/Custom_world_generation">Custom world generation – Official Minecraft Wiki</a>。<ruby>世界生成<rt>worldgen</rt></ruby>允许数据包改变世界的生成方式。这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。</p>
 <p>所有的 <code>name</code> 和 <code>type</code> 都是内部命名空间ID，因此可加上或省略 <code>minecraft:</code>。<a href="files/vanilla_worldgen.zip">点此可下载原版所有的 <code>worldgen</code> 内容</a> (<a href="https://github.com/slicedlime/">slicedlime</a> 提供)。</p>
 
-<h3 id="生物群系">§2.11.1 生物群系</h3>
-<p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+
+<h3 id="噪声设置">§2.11.1 噪声设置</h3>
+<p>噪声设置用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+
+<h4 id="噪声设置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
+<pre>{ 
+    "bedrock_roof_position": 整数, <span class="comment">TBD，noise.height-基岩天花板的Y坐标, 如果它不在 0-noise.height 范围内, 则无基岩天花板</span>
+    "bedrock_floor_position": 整数, <span class="comment">TBD，基岩地板的Y坐标, 如果它不在 0~noise.height 范围内, 则无基岩地板</span>
+    "sea_level": 0~255 之间的整数, <span class="comment">海平面高度</span>
+    "disable_mob_generation"：true 或 false, <span class="comment">是否禁止生物生成</span>
+    "structures": { <span class="comment">结构设置</span>
+        "stronghold": { <span class="comment">可选，要塞的生成设置，要塞从中间的第一个环开始生成，然后在第二个环生成，然后在第三个环生成，以此类推，其中第 i 个环的要塞数量为 spread × (i+1) × (i+2) / 6，向下取整，直到总数达到 count。第 i 个环到原点的平均距离为 distance × (6i-2) × 16</span>
+            "count": 1~4095 之间的整数, 默认值为128, <span class="comment">要塞的最大数量</span>
+            "spread": 0~1023 之间的整数, 默认值为3, <span class="comment">第一个环的要塞数量，设置为0时会使世界中某些位置上反复生成多个要塞</span>
+            "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
+        },
+        "structures": [ <span class="comment">该维度中使用的结构</span>
+            "<a href="#结构配置">结构配置</a>命名空间ID": { <span class="comment">对于非超平坦世界，该维度所包含的生物群系 biome_source.type 指定中包含的结构配置如果没有在此列出，则该结构配置会以大量生成，因此所有的结构都应在此罗列清楚以避免不稳定的生成</span>
+                "spacing": 正整数, <span class="comment">两个该种类的结构之间的最大距离，以区块为单位</span>
+                "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>
+                "salt": 整数 <span class="comment">盐, 帮助进行随机化的数字</span>
+            }
+        ]
+    }
+    "noise": { <span class="comment">世界生成参数</span>
+        "top_slide": { <span class="comment">世界地形的顶部曲线的设置，影响区域以地形顶部为中心，影响的高度为 size × size_vertical×4</span>
+            "size": 非负整数,
+            "target": 整数, <span class="comment">负值会使山丘更加圆润，正值会使其更加平坦</span>
+            "offset": 整数 <span class="comment">移动影响区域，正值向下移动，负值向上移动</span>
+        },
+        "bottom_slide": { <span class="comment">世界地形的底部曲线的设置, 影响区域以地形底部为中心, 影响的高度为 size × size_vertical × 4</span>
+            "size": 非负整数,
+            "target": 整数, <span class="comment">负值会使浮岛底部更加圆润，正值会生成一个基岩地板</span>
+            "offset": 整数 <span class="comment">移动影响区域，正值向下移动，负值向上移动</span>
+        },
+        "sampling": {
+            "xz_scale": 正数值, <span class="comment">伸缩X和Z轴的噪声，更大的值会造成更复杂的水平形状</span>
+            "xz_factor": 正数值, <span class="comment">平滑水平方向上的噪声</span>
+            "y_scale": 正数值, <span class="comment">伸缩Y轴的噪声，更大的值会造成更复杂的垂直形状</span>
+            "y_factor": 正数值 <span class="comment">平滑垂直方向上的噪声</span>
+        },
+        "size_vertical": 正整数, <span class="comment">改变陆块在Y轴上的比例。1至15之间的值可以逐渐地增加山丘高度，大于20的值将会使得所有陆地高于通常的海平面63，比32更高的值会使得通常的陆地高度到达100+</span>
+        "size_horizontal": 正整数, <span class="comment">改变陆块在X和Z轴上的比例，生物群系不会因此改变</span>
+        "height": 正整数, <span class="comment">将世界生成的最大高度压缩至此, 一般不超过 256</span>
+        "density_factor": 数值, <span class="comment">TBD</span>
+        "density_offset": -1~1 之间的数值, <span class="comment">TBD，影响平均陆地高度</span>
+        "random_density_offset": true 或 false (默认值), <span class="comment">TBD，可选，影响平均陆地高度</span>
+        "simplex_surface_noise": true 或 false, <span class="comment">TBD，影响平均陆地高度</span>
+        "island_noise_override": true 或 false (默认值), <span class="comment">TBD，可选，该世界是否像末地一样以小岛环绕着主岛的形式生成</span>
+        "amplified": true 或 false (默认值) <span class="comment">TBD，可选，是否为放大化地形</span>
+    },
+    "default_block": { <span class="comment">决定世界地形顶部下方生成的方块</span>
+        "Name": "命名空间ID", <span class="comment">方块</span>
+        "Properties": {
+            "方块状态名": "方块状态值"
+        }
+    },
+    "default_fluid": { <span class="comment">海洋与湖泊所使用的方块</span>
+        "Name": "命名空间ID", <span class="comment">流体</span>
+        "Properties": {
+            "流体状态名": "流体状态值"
+        }
+    }
+}</pre>
+
+<h4 id="可用的噪声设置">可用的噪声设置</h4>
+<p>这些是 Minecraft 内部已生成的噪声设置命名空间ID以及相应的参数，可直接使用。已省略 <code>minecraft:</code>。</p>
+<pre><a href="files/vanilla/data/minecraft/worldgen/noise_settings/overworld.json">⬇️</a>overworld <span class="comment">生成普通的主世界</span>
+<a href="files/vanilla/data/minecraft/worldgen/noise_settings/amplified.json">⬇️</a>amplified <span class="comment">放大化的主世界</span>
+<a href="files/vanilla/data/minecraft/worldgen/noise_settings/nether.json">⬇️</a>nether <span class="comment">常规的下界</span>
+<a href="files/vanilla/data/minecraft/worldgen/noise_settings/caves.json">⬇️</a>caves <span class="comment">类似下界的洞穴却拥有主世界地形特征的世界</span>
+<a href="files/vanilla/data/minecraft/worldgen/noise_settings/end.json">⬇️</a>end <span class="comment">末地主岛</span>
+<a href="files/vanilla/data/minecraft/worldgen/noise_settings/floating_islands.json">⬇️</a>floating_islands <span class="comment">末地浮岛</span>
+</pre>
+
+<table><thead><tr><th>参数</th><th><code>overworld</code></th><th><code>amplified</code></th><th><code>nether</code></th><th><code>caves</code></th><th><code>end</code></th><th><code>floating_islands</code></th></tr></thead><tbody>
+<tr><td><code>bedrock_roof_position</code></td><td><code>-10</code></td><td><code>-10</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-10</code></td><td><code>-10</code></td></tr>
+<tr><td><code>bedrock_floor_position</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-10</code></td><td><code>-10</code></td></tr>
+<tr><td><code>sea_level</code></td><td><code>63</code></td><td><code>63</code></td><td><code>32</code></td><td><code>32</code></td><td><code>0</code></td><td><code>0</code></td></tr>
+<tr><td><code>disable_mob_generation</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>true</code></td></tr>
+<tr><td><code>noise.top_slide.target</code></td><td><code>-10</code></td><td><code>-10</code></td><td><code>120</code></td><td><code>120</code></td><td><code>-3000</code></td><td><code>-3000</code></td></tr>
+<tr><td><code>noise.top_slide.size</code></td><td><code>3</code></td><td><code>3</code></td><td><code>3</code></td><td><code>3</code></td><td><code>64</code></td><td><code>64</code></td></tr>
+<tr><td><code>noise.top_slide.offset</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-46</code></td><td><code>-46</code></td></tr>
+<tr><td><code>noise.bottom_slide.target</code></td><td><code>-30</code></td><td><code>-30</code></td><td><code>320</code></td><td><code>320</code></td><td><code>-30</code></td><td><code>-30</code></td></tr>
+<tr><td><code>noise.bottom_slide.size</code></td><td><code>0</code></td><td><code>0</code></td><td><code>4</code></td><td><code>4</code></td><td><code>7</code></td><td><code>7</code></td></tr>
+<tr><td><code>noise.bottom_slide.offset</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-1</code></td><td><code>-1</code></td><td><code>1</code></td><td><code>1</code></td></tr>
+<tr><td><code>noise.sampling.xz_scale</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>2.0</code></td><td><code>2.0</code></td></tr>
+<tr><td><code>noise.sampling.xz_factor</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td></tr>
+<tr><td><code>noise.sampling.y_scale</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>3.0</code></td><td><code>3.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td></tr>
+<tr><td><code>noise.sampling.y_factor</code></td><td><code>160.0</code></td><td><code>160.0</code></td><td><code>60.0</code></td><td><code>60.0</code></td><td><code>160.0</code></td><td><code>160.0</code></td></tr>
+<tr><td><code>noise.size_vertical</code></td><td><code>2</code></td><td><code>2</code></td><td><code>2</code></td><td><code>2</code></td><td><code>1</code></td><td><code>1</code></td></tr>
+<tr><td><code>noise.size_horizontal</code></td><td><code>1</code></td><td><code>1</code></td><td><code>1</code></td><td><code>1</code></td><td><code>2</code></td><td><code>2</code></td></tr>
+<tr><td><code>noise.height</code></td><td><code>256</code></td><td><code>256</code></td><td><code>128</code></td><td><code>128</code></td><td><code>128</code></td><td><code>128</code></td></tr>
+<tr><td><code>noise.density_factor</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td></tr>
+<tr><td><code>noise.density_offset</code></td><td><code>-0.46875</code></td><td><code>-0.46875</code></td><td><code>0.02</code></td><td><code>0.02</code></td><td><code>0.0</code></td><td><code>0.0</code></td></tr>
+<tr><td><code>noise.random_density_offset</code></td><td><code>true</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td></tr>
+<tr><td><code>noise.simplex_surface_noise</code></td><td><code>true</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>true</code></td></tr>
+<tr><td><code>noise.island_noise_override</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+<tr><td><code>noise.amplified</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td></tr>
+<tr><td><code>default_block</code></td><td>石头</td><td>石头</td><td>下界岩</td><td>石头</td><td>末地石</td><td>石头</td></tr>
+<tr><td><code>default_fluid</code></td><td>水</td><td>水</td><td>熔岩</td><td>水</td><td>空气</td><td>水</td></tr>
+</tbody></table>
+
+<h4 id="默认世界结构参数">默认世界结构参数</h4>
+<p>这些是默认世界中 <code>generator.settings.structures</code> 使用的结构参数。</p>
+
+<table><thead><tr><th>结构</th><th>命名空间ID</th><th><code>spacing</code></th><th><code>separation</code></th><th><code>salt</code></th></tr></thead><tbody>
+<tr><td>村庄</td><td><code>minecraft:village</code></td><td><code>32</code></td><td><code>8</code></td><td><code>10387312</code></td></tr>
+<tr><td>沙漠神殿</td><td><code>minecraft:desert_pyramid</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357617</code></td></tr>
+<tr><td>雪屋</td><td><code>minecraft:igloo</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357618</code></td></tr>
+<tr><td>丛林神庙</td><td><code>minecraft:jungle_pyramid</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357619</code></td></tr>
+<tr><td>沼泽小屋</td><td><code>minecraft:swamp_hut</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357620</code></td></tr>
+<tr><td>掠夺者前哨站</td><td><code>minecraft:pillager_outpost</code></td><td><code>32</code></td><td><code>8</code></td><td><code>165745296</code></td></tr>
+<tr><td>要塞</td><td><code>minecraft:stronghold</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
+<tr><td>海底神殿</td><td><code>minecraft:monument</code></td><td><code>32</code></td><td><code>5</code></td><td><code>10387313</code></td></tr>
+<tr><td>末地城</td><td><code>minecraft:endcity</code></td><td><code>20</code></td><td><code>11</code></td><td><code>10387313</code></td></tr>
+<tr><td>林地府邸</td><td><code>minecraft:mansion</code></td><td><code>80</code></td><td><code>20</code></td><td><code>10387319</code></td></tr>
+<tr><td>埋藏的宝藏</td><td><code>minecraft:buried_treasure</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
+<tr><td>废弃矿井</td><td><code>minecraft:mineshaft</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
+<tr><td>废弃传送门(主世界)</td><td><code>minecraft:ruined_portal</code></td><td><code>40</code></td><td><code>15</code></td><td><code>34222645</code></td></tr>
+<tr><td>废弃传送门(下界)</td><td><code>minecraft:ruined_portal</code></td><td><code>25</code></td><td><code>10</code></td><td><code>34222645</code></td></tr>
+<tr><td>沉船</td><td><code>minecraft:shipwreck</code></td><td><code>24</code></td><td><code>4</code></td><td><code>165745295</code></td></tr>
+<tr><td>海底废墟</td><td><code>minecraft:ocean_ruin</code></td><td><code>20</code></td><td><code>8</code></td><td><code>14357621</code></td></tr>
+<tr><td>堡垒遗迹</td><td><code>minecraft:bastion_remnant</code></td><td><code>27</code></td><td><code>4</code></td><td><code>30084232</code></td></tr>
+<tr><td>下界要塞</td><td><code>minecraft:fortress</code></td><td><code>27</code></td><td><code>4</code></td><td><code>30084232</code></td></tr>
+<tr><td>下界化石</td><td><code>minecraft:nether_fossil</code></td><td><code>2</code></td><td><code>1</code></td><td><code>14357921</code></td></tr>
+</tbody></table>
+
+
+<h3 id="生物群系">§2.11.2 生物群系</h3>
+<p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<pre class="file"><a href="files/vanilla/data/minecraft/worldgen/biome">⬇️</a>JSON格式</pre>
 <pre>{
     "precipitation"<span class="comment">降雨量</span>: "none"<span class="comment">永不下雨</span>, "rain"<span class="comment">下雨</span> 或 "snow"<span class="comment">下雪</span>, 
     "category": "none", "taiga", "extreme_hills", "jungle", "mesa", "plains", "savanna", "icy", "the_end", "beach", "forest", "ocean", "desert", "river", "swamp", "mushroom" 或 "nether", <span class="comment">生物群系分类不同分类会影响温度、音乐、生物生成等，例如除 "ocean" 外的分类受生物群系温度值所控制，"mushroom" 分类下不会生成僵尸围城和灾厄巡逻队，海底神殿不会生成于除 "ocean" 或 "river" 分类下的生物群系</span>
@@ -2058,7 +2167,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "parent": "命名空间ID" <span class="comment">可选，父生物群系，继承其特征</span>
 }</pre>
 
-<h3 id="地形雕刻配置">§2.11.2 地形雕刻配置</h3>
+<h3 id="地形雕刻配置">§2.11.3 地形雕刻配置</h3>
 <p>地形雕刻配置用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻配置文件为JSON文件，地形雕刻配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_carver/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="地形雕刻配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
@@ -2072,15 +2181,73 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h4 id="可用的地形雕刻配置">可用的地形雕刻配置</h4>
 <p>这些是 Minecraft 内部已生成的地形雕刻配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-cave <span class="comment">洞穴</span>
-nether_cave <span class="comment">下界洞穴</span>
-canyon <span class="comment">峡谷</span>
-underwater_canyon <span class="comment">水下峡谷</span>
-underwater_cave <span class="comment">水下洞穴</span> 
+<a href="files/vanilla/data/minecraft/worldgen/configured_carver/canyon.json">⬇️</a>cave <span class="comment">洞穴</span>
+<a href="files/vanilla/data/minecraft/worldgen/configured_carver/nether_cave.json">⬇️</a>nether_cave <span class="comment">下界洞穴</span>
+<a href="files/vanilla/data/minecraft/worldgen/configured_carver/canyon.json">⬇️</a>canyon <span class="comment">峡谷</span>
+<a href="files/vanilla/data/minecraft/worldgen/configured_carver/underwater_canyon.json">⬇️</a>underwater_canyon <span class="comment">水下峡谷</span>
+<a href="files/vanilla/data/minecraft/worldgen/configured_carver/underwater_cave.json">⬇️</a>underwater_cave <span class="comment">水下洞穴</span> 
 </pre>
 
 
-<h3 id="地形特征配置">§2.11.3 地形特征配置</h3>
+<h3 id="地表生成配置">§2.11.4 地表生成配置</h3>
+<p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<h4 id="地表生成配置JSON格式">JSON格式</h4>
+<pre class="file">JSON格式</pre>
+<pre>{
+    "name"<span class="comment">地表类型</span>: "default"<span class="comment">默认</span>, "mountain"<span class="comment">山地</span>, "shattered_savanna"<span class="comment">破碎的热带草原</span>, "gravelly_mountain"<span class="comment">砂砾山地</span>, "giant_tree_taiga"<span class="comment">巨型针叶林</span>, "swamp"<span class="comment">沼泽</span>, "badlands"<span class="comment">恶地</span>, "wooded_badlands"<span class="comment">繁茂的恶地</span>, "eroded_badlands"<span class="comment">被风蚀的恶地</span>, "frozen_ocean"<span class="comment">冻洋</span>, "nether"<span class="comment">下界</span>, "nether_forest"<span class="comment">下界森林</span>, "soul_sand_valley"<span class="comment">灵魂沙峡谷</span>, "basalt_deltas"<span class="comment">玄武岩三角洲</span> 或 "nope"<span class="comment">无</span>,
+    "config": {
+        "top_material": { <span class="comment">顶层方块</span>
+            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Properties": {
+                "方块状态名": "方块状态值"
+            }
+        },
+        "under_material": { <span class="comment">顶层以下的方块</span>
+            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Properties": {
+                "方块状态名": "方块状态值"
+            }
+        },
+        "underwater_material": { <span class="comment">水下方块</span>
+            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Properties": {
+                "方块状态名": "方块状态值"
+            }
+        }
+    }
+}</pre>
+
+<h4 id="可用的地表生成配置">可用的地表生成配置</h4>
+<p>这些是 Minecraft 内部已生成的地表生成配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<pre>
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/badlands.json">⬇️</a>badlands
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/basalt_deltas.json">⬇️</a>basalt_deltas
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/crimson_forest.json">⬇️</a>crimson_forest
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/desert.json">⬇️</a>desert
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/end.json">⬇️</a>end
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/eroded_badlands.json">⬇️</a>eroded_badlands
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/frozen_ocean.json">⬇️</a>frozen_ocean
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/full_sand.json">⬇️</a>full_sand
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/giant_tree_taiga.json">⬇️</a>giant_tree_taiga
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/grass.json">⬇️</a>grass
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/gravelly_mountain.json">⬇️</a>gravelly_mountain
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/ice_spikes.json">⬇️</a>ice_spikes
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/mountain.json">⬇️</a>mountain
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/mycelium.json">⬇️</a>mycelium
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/nether.json">⬇️</a>nether
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/nope.json">⬇️</a>nope
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/ocean_sand.json">⬇️</a>ocean_sand
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/shattered_savanna.json">⬇️</a>shattered_savanna
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/soul_sand_valley.json">⬇️</a>soul_sand_valley
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/stone.json">⬇️</a>stone
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/swamp.json">⬇️</a>swamp
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/warped_forest.json">⬇️</a>warped_forest
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/wooded_badlands.json">⬇️</a>wooded_badlands
+<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/.json">⬇️</a>
+</pre>
+
+
+<h3 id="地形特征配置">§2.11.5 地形特征配置</h3>
 <p>地形特征配置用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地形特征配置文件为JSON文件，地形特征配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="地形特征配置JSON格式">JSON格式</h4>
@@ -2582,58 +2749,197 @@ underwater_cave <span class="comment">水下洞穴</span>
 <h4 id="可用的地形特征配置">可用的地形特征配置</h4>
 <p>这些是 Minecraft 内部已生成的地形特征配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-no_op
-chorus_plant
-void_start_platform
-desert_well
-fossil
-ice_spike
-glowstone_blob
-freeze_top_layer
-vines
-monster_room
-blue_ice
-end_island
-kelp
-coral_tree
-coral_mushroom
-coral_claw
-weeping_vines
-twisting_vines
-bonus_chest
-basalt_pillar
-tree
-flower
-random_patch
-block_pile
-nether_forest_vegetation
-spring_feature
-emerald_ore
-huge_red_mushroom
-huge_brown_mushroom
-iceberg
-forest_rock
-lake
-disk
-ice_patch
-ore
-no_surface_ore
-end_spike
-end_gateway
-seagrass
-bamboo
-sea_pickle
-simple_block
-huge_fungus
-basalt_columns
-delta_feature
-netherrack_replace_blobs
-fill_layer
-random_selector
-simple_random_selector
-random_boolean_selector
-decorated
-decorated_flower
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/acacia.json">⬇️</a>acacia
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/bamboo.json">⬇️</a>bamboo
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/bamboo_light.json">⬇️</a>bamboo_light
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/bamboo_vegetation.json">⬇️</a>bamboo_vegetation
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/basalt_blobs.json">⬇️</a>basalt_blobs
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/basalt_pillar.json">⬇️</a>basalt_pillar
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/birch.json">⬇️</a>birch
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/birch_bees_0002.json">⬇️</a>birch_bees_0002
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/birch_bees_002.json">⬇️</a>birch_bees_002
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/birch_bees_005.json">⬇️</a>birch_bees_005
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/birch_other.json">⬇️</a>birch_other
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/birch_tall.json">⬇️</a>birch_tall
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/blackstone_blobs.json">⬇️</a>blackstone_blobs
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/blue_ice.json">⬇️</a>blue_ice
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/bonus_chest.json">⬇️</a>bonus_chest
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/brown_mushroom_giant.json">⬇️</a>brown_mushroom_giant
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/brown_mushroom_nether.json">⬇️</a>brown_mushroom_nether
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/brown_mushroom_normal.json">⬇️</a>brown_mushroom_normal
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/brown_mushroom_swamp.json">⬇️</a>brown_mushroom_swamp
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/brown_mushroom_taiga.json">⬇️</a>brown_mushroom_taiga
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/chorus_plant.json">⬇️</a>chorus_plant
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/crimson_forest_vegetation.json">⬇️</a>crimson_forest_vegetation
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/crimson_fungi.json">⬇️</a>crimson_fungi
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/crimson_fungi_planted.json">⬇️</a>crimson_fungi_planted
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/dark_forest_vegetation_brown.json">⬇️</a>dark_forest_vegetation_brown
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/dark_forest_vegetation_red.json">⬇️</a>dark_forest_vegetation_red
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/dark_oak.json">⬇️</a>dark_oak
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/delta.json">⬇️</a>delta
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/desert_well.json">⬇️</a>desert_well
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/disk_clay.json">⬇️</a>disk_clay
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/disk_gravel.json">⬇️</a>disk_gravel
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/disk_sand.json">⬇️</a>disk_sand
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/end_gateway.json">⬇️</a>end_gateway
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/end_gateway_delayed.json">⬇️</a>end_gateway_delayed
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/end_island.json">⬇️</a>end_island
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/end_island_decorated.json">⬇️</a>end_island_decorated
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/end_spike.json">⬇️</a>end_spike
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/fancy_oak.json">⬇️</a>fancy_oak
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/fancy_oak_bees_0002.json">⬇️</a>fancy_oak_bees_0002
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/fancy_oak_bees_002.json">⬇️</a>fancy_oak_bees_002
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/fancy_oak_bees_005.json">⬇️</a>fancy_oak_bees_005
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/flower_default.json">⬇️</a>flower_default
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/flower_forest.json">⬇️</a>flower_forest
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/flower_plain.json">⬇️</a>flower_plain
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/flower_plain_decorated.json">⬇️</a>flower_plain_decorated
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/flower_swamp.json">⬇️</a>flower_swamp
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/flower_warm.json">⬇️</a>flower_warm
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/forest_flower_trees.json">⬇️</a>forest_flower_trees
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/forest_flower_vegetation.json">⬇️</a>forest_flower_vegetation
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/forest_flower_vegetation_common.json">⬇️</a>forest_flower_vegetation_common
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/forest_rock.json">⬇️</a>forest_rock
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/fossil.json">⬇️</a>fossil
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/freeze_top_layer.json">⬇️</a>freeze_top_layer
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/glowstone.json">⬇️</a>glowstone
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/glowstone_extra.json">⬇️</a>glowstone_extra
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/huge_brown_mushroom.json">⬇️</a>huge_brown_mushroom
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/huge_red_mushroom.json">⬇️</a>huge_red_mushroom
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/iceberg_blue.json">⬇️</a>iceberg_blue
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/iceberg_packed.json">⬇️</a>iceberg_packed
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ice_patch.json">⬇️</a>ice_patch
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ice_spike.json">⬇️</a>ice_spike
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/jungle_bush.json">⬇️</a>jungle_bush
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/jungle_tree.json">⬇️</a>jungle_tree
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/jungle_tree_no_vine.json">⬇️</a>jungle_tree_no_vine
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/kelp_cold.json">⬇️</a>kelp_cold
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/kelp_warm.json">⬇️</a>kelp_warm
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/lake_lava.json">⬇️</a>lake_lava
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/lake_water.json">⬇️</a>lake_water
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/large_basalt_columns.json">⬇️</a>large_basalt_columns
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/mega_jungle_tree.json">⬇️</a>mega_jungle_tree
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/mega_pine.json">⬇️</a>mega_pine
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/mega_spruce.json">⬇️</a>mega_spruce
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/monster_room.json">⬇️</a>monster_room
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/mushroom_field_vegetation.json">⬇️</a>mushroom_field_vegetation
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/nether_sprouts.json">⬇️</a>nether_sprouts
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/oak.json">⬇️</a>oak
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/oak_badlands.json">⬇️</a>oak_badlands
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/oak_bees_0002.json">⬇️</a>oak_bees_0002
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/oak_bees_002.json">⬇️</a>oak_bees_002
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/oak_bees_005.json">⬇️</a>oak_bees_005
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_andesite.json">⬇️</a>ore_andesite
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_blackstone.json">⬇️</a>ore_blackstone
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_coal.json">⬇️</a>ore_coal
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_debris_large.json">⬇️</a>ore_debris_large
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_debris_small.json">⬇️</a>ore_debris_small
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_diamond.json">⬇️</a>ore_diamond
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_diorite.json">⬇️</a>ore_diorite
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_dirt.json">⬇️</a>ore_dirt
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_emerald.json">⬇️</a>ore_emerald
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_gold.json">⬇️</a>ore_gold
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_gold_deltas.json">⬇️</a>ore_gold_deltas
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_gold_extra.json">⬇️</a>ore_gold_extra
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_gold_nether.json">⬇️</a>ore_gold_nether
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_granite.json">⬇️</a>ore_granite
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_gravel.json">⬇️</a>ore_gravel
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_gravel_nether.json">⬇️</a>ore_gravel_nether
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_infested.json">⬇️</a>ore_infested
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_iron.json">⬇️</a>ore_iron
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_lapis.json">⬇️</a>ore_lapis
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_magma.json">⬇️</a>ore_magma
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_quartz_deltas.json">⬇️</a>ore_quartz_deltas
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_quartz_nether.json">⬇️</a>ore_quartz_nether
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_redstone.json">⬇️</a>ore_redstone
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/ore_soul_sand.json">⬇️</a>ore_soul_sand
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_berry_bush.json">⬇️</a>patch_berry_bush
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_berry_decorated.json">⬇️</a>patch_berry_decorated
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_berry_sparse.json">⬇️</a>patch_berry_sparse
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_brown_mushroom.json">⬇️</a>patch_brown_mushroom
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_cactus.json">⬇️</a>patch_cactus
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_cactus_decorated.json">⬇️</a>patch_cactus_decorated
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_cactus_desert.json">⬇️</a>patch_cactus_desert
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_crimson_roots.json">⬇️</a>patch_crimson_roots
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_dead_bush.json">⬇️</a>patch_dead_bush
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_dead_bush_2.json">⬇️</a>patch_dead_bush_2
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_dead_bush_badlands.json">⬇️</a>patch_dead_bush_badlands
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_fire.json">⬇️</a>patch_fire
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_grass_badlands.json">⬇️</a>patch_grass_badlands
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_grass_forest.json">⬇️</a>patch_grass_forest
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_grass_jungle.json">⬇️</a>patch_grass_jungle
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_grass_normal.json">⬇️</a>patch_grass_normal
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_grass_plain.json">⬇️</a>patch_grass_plain
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_grass_savanna.json">⬇️</a>patch_grass_savanna
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_grass_taiga.json">⬇️</a>patch_grass_taiga
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_grass_taiga_2.json">⬇️</a>patch_grass_taiga_2
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_large_fern.json">⬇️</a>patch_large_fern
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_melon.json">⬇️</a>patch_melon
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_pumpkin.json">⬇️</a>patch_pumpkin
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_red_mushroom.json">⬇️</a>patch_red_mushroom
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_soul_fire.json">⬇️</a>patch_soul_fire
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_sugar_cane.json">⬇️</a>patch_sugar_cane
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_sugar_cane_badlands.json">⬇️</a>patch_sugar_cane_badlands
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_sugar_cane_desert.json">⬇️</a>patch_sugar_cane_desert
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_sugar_cane_swamp.json">⬇️</a>patch_sugar_cane_swamp
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_sunflower.json">⬇️</a>patch_sunflower
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_taiga_grass.json">⬇️</a>patch_taiga_grass
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_tall_grass.json">⬇️</a>patch_tall_grass
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_tall_grass_2.json">⬇️</a>patch_tall_grass_2
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/patch_waterlilly.json">⬇️</a>patch_waterlilly
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/pile_hay.json">⬇️</a>pile_hay
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/pile_ice.json">⬇️</a>pile_ice
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/pile_melon.json">⬇️</a>pile_melon
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/pile_pumpkin.json">⬇️</a>pile_pumpkin
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/pile_snow.json">⬇️</a>pile_snow
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/pine.json">⬇️</a>pine
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/plain_vegetation.json">⬇️</a>plain_vegetation
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/red_mushroom_giant.json">⬇️</a>red_mushroom_giant
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/red_mushroom_nether.json">⬇️</a>red_mushroom_nether
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/red_mushroom_normal.json">⬇️</a>red_mushroom_normal
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/red_mushroom_swamp.json">⬇️</a>red_mushroom_swamp
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/red_mushroom_taiga.json">⬇️</a>red_mushroom_taiga
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_cold.json">⬇️</a>seagrass_cold
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_deep.json">⬇️</a>seagrass_deep
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_deep_cold.json">⬇️</a>seagrass_deep_cold
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_deep_warm.json">⬇️</a>seagrass_deep_warm
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_normal.json">⬇️</a>seagrass_normal
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_river.json">⬇️</a>seagrass_river
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_simple.json">⬇️</a>seagrass_simple
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_swamp.json">⬇️</a>seagrass_swamp
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/seagrass_warm.json">⬇️</a>seagrass_warm
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/sea_pickle.json">⬇️</a>sea_pickle
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/small_basalt_columns.json">⬇️</a>small_basalt_columns
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spring_closed.json">⬇️</a>spring_closed
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spring_closed_double.json">⬇️</a>spring_closed_double
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spring_delta.json">⬇️</a>spring_delta
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spring_lava.json">⬇️</a>spring_lava
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spring_lava_double.json">⬇️</a>spring_lava_double
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spring_open.json">⬇️</a>spring_open
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spring_water.json">⬇️</a>spring_water
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spruce.json">⬇️</a>spruce
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/spruce_snowy.json">⬇️</a>spruce_snowy
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/super_birch_bees_0002.json">⬇️</a>super_birch_bees_0002
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/swamp_tree.json">⬇️</a>swamp_tree
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/taiga_vegetation.json">⬇️</a>taiga_vegetation
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_birch.json">⬇️</a>trees_birch
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_giant.json">⬇️</a>trees_giant
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_giant_spruce.json">⬇️</a>trees_giant_spruce
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_jungle.json">⬇️</a>trees_jungle
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_jungle_edge.json">⬇️</a>trees_jungle_edge
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_mountain.json">⬇️</a>trees_mountain
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_mountain_edge.json">⬇️</a>trees_mountain_edge
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_savanna.json">⬇️</a>trees_savanna
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_shattered_savanna.json">⬇️</a>trees_shattered_savanna
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/trees_water.json">⬇️</a>trees_water
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/twisting_vines.json">⬇️</a>twisting_vines
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/vines.json">⬇️</a>vines
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/void_start_platform.json">⬇️</a>void_start_platform
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/warm_ocean_vegetation.json">⬇️</a>warm_ocean_vegetation
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/warped_forest_vegetation.json">⬇️</a>warped_forest_vegetation
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/warped_fungi.json">⬇️</a>warped_fungi
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/warped_fungi_planted.json">⬇️</a>warped_fungi_planted
+<a href="files/vanilla/data/minecraft/worldgen/configured_feather/weeping_vines.json">⬇️</a>weeping_vines
 </pre>
 
 <h4 id="地形特征配置装饰">地形特征配置装饰</h4>
@@ -2745,7 +3051,7 @@ carving_mask
 decorated
 </pre>
 
-<h3 id="结构配置">§2.11.4 结构配置</h3>
+<h3 id="结构配置">§2.11.6 结构配置</h3>
 <p>结构配置用于指定生物群系生成特定类型的结构以及结构的参数。结构配置文件为JSON文件，结构配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_structure_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="结构配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
@@ -2798,255 +3104,41 @@ decorated
 <h4 id="可用的结构配置">可用的结构配置</h4>
 <p>这些是 Minecraft 内部已生成的结构配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-mansion
-jungle_pyramid
-desert_pyramid
-igloo
-swamp_hut
-stronghold
-monument
-fortress
-endcity
-nether_fossil
-pillager_outpost
-village
-bastion_remnant
-mineshaft
-ruined_portal
-shipwreck
-ocean_ruin
-buried_treasure
-</pre>
-
-<h3 id="地表生成配置">§2.11.5 地表生成配置</h3>
-<p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<h4 id="地表生成配置JSON格式">JSON格式</h4>
-<pre class="file">JSON格式</pre>
-<pre>{
-    "name"<span class="comment">地表类型</span>: "default"<span class="comment">默认</span>, "mountain"<span class="comment">山地</span>, "shattered_savanna"<span class="comment">破碎的热带草原</span>, "gravelly_mountain"<span class="comment">砂砾山地</span>, "giant_tree_taiga"<span class="comment">巨型针叶林</span>, "swamp"<span class="comment">沼泽</span>, "badlands"<span class="comment">恶地</span>, "wooded_badlands"<span class="comment">繁茂的恶地</span>, "eroded_badlands"<span class="comment">被风蚀的恶地</span>, "frozen_ocean"<span class="comment">冻洋</span>, "nether"<span class="comment">下界</span>, "nether_forest"<span class="comment">下界森林</span>, "soul_sand_valley"<span class="comment">灵魂沙峡谷</span>, "basalt_deltas"<span class="comment">玄武岩三角洲</span> 或 "nope"<span class="comment">无</span>,
-    "config": {
-        "top_material": { <span class="comment">顶层方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
-            "Properties": {
-                "方块状态名": "方块状态值"
-            }
-        },
-        "under_material": { <span class="comment">顶层以下的方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
-            "Properties": {
-                "方块状态名": "方块状态值"
-            }
-        },
-        "underwater_material": { <span class="comment">水下方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
-            "Properties": {
-                "方块状态名": "方块状态值"
-            }
-        }
-    }
-}</pre>
-
-<h4 id="可用的地表生成配置">可用的地表生成配置</h4>
-<p>这些是 Minecraft 内部已生成的地表生成配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
-<pre>
-badlands
-basalt_deltas
-crimson_forest
-desert
-end
-eroded_badlands
-frozen_ocean
-full_sand
-giant_tree_taiga
-grass
-gravelly_mountain
-ice_spikes
-mountain
-mycelium
-nether
-nope
-ocean_sand
-shattered_savanna
-soul_sand_valley
-stone
-swamp
-warped_forest
-wooded_badlands
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/bastion_remnant.json">⬇️</a>bastion_remnant
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/buried_treasure.json">⬇️</a>buried_treasure
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/desert_pyramid.json">⬇️</a>desert_pyramid
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/end_city.json">⬇️</a>end_city
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/fortress.json">⬇️</a>fortress
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/igloo.json">⬇️</a>igloo
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/jungle_pyramid.json">⬇️</a>jungle_pyramid
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/mansion.json">⬇️</a>mansion
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/mineshaft.json">⬇️</a>mineshaft
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/mineshaft_mesa.json">⬇️</a>mineshaft_mesa
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/monument.json">⬇️</a>monument
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/nether_fossil.json">⬇️</a>nether_fossil
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ocean_ruin_cold.json">⬇️</a>ocean_ruin_cold
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ocean_ruin_warm.json">⬇️</a>ocean_ruin_warm
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/pillager_outpost.json">⬇️</a>pillager_outpost
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal.json">⬇️</a>ruined_portal
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_desert.json">⬇️</a>ruined_portal_desert
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_jungle.json">⬇️</a>ruined_portal_jungle
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_mountain.json">⬇️</a>ruined_portal_mountain
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_nether.json">⬇️</a>ruined_portal_nether
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_ocean.json">⬇️</a>ruined_portal_ocean
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_swamp.json">⬇️</a>ruined_portal_swamp
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/shipwreck.json">⬇️</a>shipwreck
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/shipwreck_beached.json">⬇️</a>shipwreck_beached
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/stronghold.json">⬇️</a>stronghold
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/swamp_hut.json">⬇️</a>swamp_hut
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_desert.json">⬇️</a>village_desert
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_plains.json">⬇️</a>village_plains
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_savanna.json">⬇️</a>village_savanna
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_snowy.json">⬇️</a>village_snowy
+<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_taiga.json">⬇️</a>village_taiga
 </pre>
 
 
-<h3 id="噪声设置">§2.11.6 噪声设置</h3>
-<p>噪声设置用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-
-<h4 id="噪声设置JSON格式">JSON格式</h4>
-<pre class="file">JSON格式</pre>
-<pre>{ 
-    "bedrock_roof_position": 整数, <span class="comment">TBD，noise.height-基岩天花板的Y坐标, 如果它不在 0-noise.height 范围内, 则无基岩天花板</span>
-    "bedrock_floor_position": 整数, <span class="comment">TBD，基岩地板的Y坐标, 如果它不在 0~noise.height 范围内, 则无基岩地板</span>
-    "sea_level": 0~255 之间的整数, <span class="comment">海平面高度</span>
-    "disable_mob_generation"：true 或 false, <span class="comment">是否禁止生物生成</span>
-    "structures": { <span class="comment">结构设置</span>
-        "stronghold": { <span class="comment">可选，要塞的生成设置，要塞从中间的第一个环开始生成，然后在第二个环生成，然后在第三个环生成，以此类推，其中第 i 个环的要塞数量为 spread × (i+1) × (i+2) / 6，向下取整，直到总数达到 count。第 i 个环到原点的平均距离为 distance × (6i-2) × 16</span>
-            "count": 1~4095 之间的整数, 默认值为128, <span class="comment">要塞的最大数量</span>
-            "spread": 0~1023 之间的整数, 默认值为3, <span class="comment">第一个环的要塞数量，设置为0时会使世界中某些位置上反复生成多个要塞</span>
-            "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
-        },
-        "structures": [ <span class="comment">该维度中使用的结构</span>
-            "<a href="#结构配置">结构配置</a>命名空间ID": { <span class="comment">对于非超平坦世界，该维度所包含的生物群系 biome_source.type 指定中包含的结构配置如果没有在此列出，则该结构配置会以大量生成，因此所有的结构都应在此罗列清楚以避免不稳定的生成</span>
-                "spacing": 正整数, <span class="comment">两个该种类的结构之间的最大距离，以区块为单位</span>
-                "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>
-                "salt": 整数 <span class="comment">盐, 帮助进行随机化的数字</span>
-            }
-        ]
-    }
-    "noise": { <span class="comment">世界生成参数</span>
-        "top_slide": { <span class="comment">世界地形的顶部曲线的设置，影响区域以地形顶部为中心，影响的高度为 size × size_vertical×4</span>
-            "size": 非负整数,
-            "target": 整数, <span class="comment">负值会使山丘更加圆润，正值会使其更加平坦</span>
-            "offset": 整数 <span class="comment">移动影响区域，正值向下移动，负值向上移动</span>
-        },
-        "bottom_slide": { <span class="comment">世界地形的底部曲线的设置, 影响区域以地形底部为中心, 影响的高度为 size × size_vertical × 4</span>
-            "size": 非负整数,
-            "target": 整数, <span class="comment">负值会使浮岛底部更加圆润，正值会生成一个基岩地板</span>
-            "offset": 整数 <span class="comment">移动影响区域，正值向下移动，负值向上移动</span>
-        },
-        "sampling": {
-            "xz_scale": 正数值, <span class="comment">伸缩X和Z轴的噪声，更大的值会造成更复杂的水平形状</span>
-            "xz_factor": 正数值, <span class="comment">平滑水平方向上的噪声</span>
-            "y_scale": 正数值, <span class="comment">伸缩Y轴的噪声，更大的值会造成更复杂的垂直形状</span>
-            "y_factor": 正数值 <span class="comment">平滑垂直方向上的噪声</span>
-        },
-        "size_vertical": 正整数, <span class="comment">改变陆块在Y轴上的比例。1至15之间的值可以逐渐地增加山丘高度，大于20的值将会使得所有陆地高于通常的海平面63，比32更高的值会使得通常的陆地高度到达100+</span>
-        "size_horizontal": 正整数, <span class="comment">改变陆块在X和Z轴上的比例，生物群系不会因此改变</span>
-        "height": 正整数, <span class="comment">将世界生成的最大高度压缩至此, 一般不超过 256</span>
-        "density_factor": 数值, <span class="comment">TBD</span>
-        "density_offset": -1~1 之间的数值, <span class="comment">TBD，影响平均陆地高度</span>
-        "random_density_offset": true 或 false (默认值), <span class="comment">TBD，可选，影响平均陆地高度</span>
-        "simplex_surface_noise": true 或 false, <span class="comment">TBD，影响平均陆地高度</span>
-        "island_noise_override": true 或 false (默认值), <span class="comment">TBD，可选，该世界是否像末地一样以小岛环绕着主岛的形式生成</span>
-        "amplified": true 或 false (默认值) <span class="comment">TBD，可选，是否为放大化地形</span>
-    },
-    "default_block": { <span class="comment">决定世界地形顶部下方生成的方块</span>
-        "Name": "命名空间ID", <span class="comment">方块</span>
-        "Properties": {
-            "方块状态名": "方块状态值"
-        }
-    },
-    "default_fluid": { <span class="comment">海洋与湖泊所使用的方块</span>
-        "Name": "命名空间ID", <span class="comment">流体</span>
-        "Properties": {
-            "流体状态名": "流体状态值"
-        }
-    }
-}</pre>
-
-<h4 id="可用的噪声设置">可用的噪声设置</h4>
-<p>这些是 Minecraft 内部已生成的噪声设置命名空间ID以及相应的参数，可直接使用。已省略 <code>minecraft:</code>。</p>
-<pre>overworld <span class="comment">生成普通的主世界</span>
-amplified <span class="comment">放大化的主世界</span>
-nether <span class="comment">常规的下界</span>
-caves <span class="comment">类似下界的洞穴却拥有主世界地形特征的世界</span>
-end <span class="comment">末地主岛</span>
-floating_islands <span class="comment">末地浮岛</span>
-</pre>
-
-<table><thead><tr><th>参数</th><th><code>overworld</code></th><th><code>amplified</code></th><th><code>nether</code></th><th><code>caves</code></th><th><code>end</code></th><th><code>floating_islands</code></th></tr></thead><tbody>
-<tr><td><code>bedrock_roof_position</code></td><td><code>-10</code></td><td><code>-10</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-10</code></td><td><code>-10</code></td></tr>
-<tr><td><code>bedrock_floor_position</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-10</code></td><td><code>-10</code></td></tr>
-<tr><td><code>sea_level</code></td><td><code>63</code></td><td><code>63</code></td><td><code>32</code></td><td><code>32</code></td><td><code>0</code></td><td><code>0</code></td></tr>
-<tr><td><code>disable_mob_generation</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>true</code></td></tr>
-<tr><td><code>noise.top_slide.target</code></td><td><code>-10</code></td><td><code>-10</code></td><td><code>120</code></td><td><code>120</code></td><td><code>-3000</code></td><td><code>-3000</code></td></tr>
-<tr><td><code>noise.top_slide.size</code></td><td><code>3</code></td><td><code>3</code></td><td><code>3</code></td><td><code>3</code></td><td><code>64</code></td><td><code>64</code></td></tr>
-<tr><td><code>noise.top_slide.offset</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-46</code></td><td><code>-46</code></td></tr>
-<tr><td><code>noise.bottom_slide.target</code></td><td><code>-30</code></td><td><code>-30</code></td><td><code>320</code></td><td><code>320</code></td><td><code>-30</code></td><td><code>-30</code></td></tr>
-<tr><td><code>noise.bottom_slide.size</code></td><td><code>0</code></td><td><code>0</code></td><td><code>4</code></td><td><code>4</code></td><td><code>7</code></td><td><code>7</code></td></tr>
-<tr><td><code>noise.bottom_slide.offset</code></td><td><code>0</code></td><td><code>0</code></td><td><code>-1</code></td><td><code>-1</code></td><td><code>1</code></td><td><code>1</code></td></tr>
-<tr><td><code>noise.sampling.xz_scale</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>2.0</code></td><td><code>2.0</code></td></tr>
-<tr><td><code>noise.sampling.xz_factor</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td><td><code>80.0</code></td></tr>
-<tr><td><code>noise.sampling.y_scale</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>3.0</code></td><td><code>3.0</code></td><td><code>1.0</code></td><td><code>1.0</code></td></tr>
-<tr><td><code>noise.sampling.y_factor</code></td><td><code>160.0</code></td><td><code>160.0</code></td><td><code>60.0</code></td><td><code>60.0</code></td><td><code>160.0</code></td><td><code>160.0</code></td></tr>
-<tr><td><code>noise.size_vertical</code></td><td><code>2</code></td><td><code>2</code></td><td><code>2</code></td><td><code>2</code></td><td><code>1</code></td><td><code>1</code></td></tr>
-<tr><td><code>noise.size_horizontal</code></td><td><code>1</code></td><td><code>1</code></td><td><code>1</code></td><td><code>1</code></td><td><code>2</code></td><td><code>2</code></td></tr>
-<tr><td><code>noise.height</code></td><td><code>256</code></td><td><code>256</code></td><td><code>128</code></td><td><code>128</code></td><td><code>128</code></td><td><code>128</code></td></tr>
-<tr><td><code>noise.density_factor</code></td><td><code>1.0</code></td><td><code>1.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td><td><code>0.0</code></td></tr>
-<tr><td><code>noise.density_offset</code></td><td><code>-0.46875</code></td><td><code>-0.46875</code></td><td><code>0.02</code></td><td><code>0.02</code></td><td><code>0.0</code></td><td><code>0.0</code></td></tr>
-<tr><td><code>noise.random_density_offset</code></td><td><code>true</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td></tr>
-<tr><td><code>noise.simplex_surface_noise</code></td><td><code>true</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>true</code></td></tr>
-<tr><td><code>noise.island_noise_override</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td></tr>
-<tr><td><code>noise.amplified</code></td><td><code>false</code></td><td><code>true</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td><td><code>false</code></td></tr>
-<tr><td><code>default_block</code></td><td>石头</td><td>石头</td><td>下界岩</td><td>石头</td><td>末地石</td><td>石头</td></tr>
-<tr><td><code>default_fluid</code></td><td>水</td><td>水</td><td>熔岩</td><td>水</td><td>空气</td><td>水</td></tr>
-</tbody></table>
-
-
-<h3 id="方块处理表">§2.11.7 方块处理表</h3>
-<p>方块处理表用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<h4 id="方块处理表JSON格式">JSON格式</h4>
-<pre class="file">JSON格式</pre>
-<pre>{
-    "processors": [
-        {
-            "rules": [ <span class="comment">规则列表</span>
-                {
-                    "position_predicate": {
-                        "predicate_type": "minecraft:always_true"
-                    },
-                    "output_state": {
-                        "Name": "命名空间ID", <span class="comment">方块</span>
-                        "Properties": {
-                            "方块状态名": "方块状态值"
-                        }
-                    },
-                    "input_predicate": {
-                        "block": "命名空间ID", <span class="comment">方块</span>
-                        "probability": 0.3, <span class="comment">几率</span>
-                        "predicate_type": "minecraft:random_block_match"
-                    },
-                    "location_predicate": {
-                        "predicate_type": "minecraft:always_true"
-                    }
-                }
-            ],
-            "processor_type": "minecraft:rule"
-        }
-    ]
-}</pre>
-
-<h4 id="可用的方块处理表">可用的方块处理表</h4>
-<p>这些是 Minecraft 内部已生成的方块处理表命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
-<pre>
-bastion_generic_degradation
-bottom_rampart
-bridge
-entrance_replacement
-farm_desert
-farm_plains
-farm_savanna
-farm_snowy
-farm_taiga
-high_rampart
-high_wall
-housing
-mossify_10_percent
-mossify_20_percent
-mossify_70_percent
-rampart_degradation
-roof
-side_wall_degradation
-stable_degradation
-street_plains
-street_savanna
-street_snowy_or_taiga
-treasure_rooms
-zombie_desert
-zombie_plains
-zombie_savanna
-zombie_snowy
-zombie_taiga
-</pre>
-
-
-<h3 id="拼图随机池">§2.11.8 拼图随机池</h3>
+<h3 id="拼图随机池">§2.11.7 拼图随机池</h3>
 <p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块。拼图随机池文件为JSON文件，拼图随机池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/template_pool/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <ul>
     <li><strong>目标池</strong>指的是拼图方块能用于绘制元素的元素池（下个要放置的模板）。默认目标池会从 <code><i>版本号</i>.jar/data/minecraft/structures</code> 中特定文件夹内随机选取一个模板，通过拼图随机池可以修改。</li>
@@ -3089,6 +3181,73 @@ zombie_taiga
 }</pre>
 
 
+
+
+<h3 id="方块处理表">§2.11.8 方块处理表</h3>
+<p>方块处理表用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<h4 id="方块处理表JSON格式">JSON格式</h4>
+<pre class="file">JSON格式</pre>
+<pre>{
+    "processors": [
+        {
+            "rules": [ <span class="comment">规则列表</span>
+                {
+                    "position_predicate": {
+                        "predicate_type": "minecraft:always_true"
+                    },
+                    "output_state": {
+                        "Name": "命名空间ID", <span class="comment">方块</span>
+                        "Properties": {
+                            "方块状态名": "方块状态值"
+                        }
+                    },
+                    "input_predicate": {
+                        "block": "命名空间ID", <span class="comment">方块</span>
+                        "probability": 0.3, <span class="comment">几率</span>
+                        "predicate_type": "minecraft:random_block_match"
+                    },
+                    "location_predicate": {
+                        "predicate_type": "minecraft:always_true"
+                    }
+                }
+            ],
+            "processor_type": "minecraft:rule"
+        }
+    ]
+}</pre>
+
+<h4 id="可用的方块处理表">可用的方块处理表</h4>
+<p>这些是 Minecraft 内部已生成的方块处理表命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<pre>
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/bastion_generic_degradation.json">⬇️</a>bastion_generic_degradation
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/bottom_rampart.json">⬇️</a>bottom_rampart
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/bridge.json">⬇️</a>bridge
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/entrance_replacement.json">⬇️</a>entrance_replacement
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_desert.json">⬇️</a>farm_desert
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_plains.json">⬇️</a>farm_plains
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_savanna.json">⬇️</a>farm_savanna
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_snowy.json">⬇️</a>farm_snowy
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_taiga.json">⬇️</a>farm_taiga
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/high_rampart.json">⬇️</a>high_rampart
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/high_wall.json">⬇️</a>high_wall
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/housing.json">⬇️</a>housing
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/mossify_10_percent.json">⬇️</a>mossify_10_percent
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/mossify_20_percent.json">⬇️</a>mossify_20_percent
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/mossify_70_percent.json">⬇️</a>mossify_70_percent
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/rampart_degradation.json">⬇️</a>rampart_degradation
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/roof.json">⬇️</a>roof
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/side_wall_degradation.json">⬇️</a>side_wall_degradation
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/stable_degradation.json">⬇️</a>stable_degradation
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/street_plains.json">⬇️</a>street_plains
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/street_savanna.json">⬇️</a>street_savanna
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/street_snowy_or_taiga.json">⬇️</a>street_snowy_or_taiga
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/treasure_rooms.json">⬇️</a>treasure_rooms
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_desert.json">⬇️</a>zombie_desert
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_plains.json">⬇️</a>zombie_plains
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_savanna.json">⬇️</a>zombie_savanna
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_snowy.json">⬇️</a>zombie_snowy
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_taiga.json">⬇️</a>zombie_taiga
+</pre>
 
 
 

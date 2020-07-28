@@ -1,0 +1,41 @@
+{
+  "config": {
+    "feature": {
+      "config": {
+        "feature": {
+          "config": {
+            "feature": {
+              "config": {
+                "feature": "minecraft:flower_plain",
+                "decorator": {
+                  "config": {},
+                  "type": "minecraft:spread_32_above"
+                }
+              },
+              "type": "minecraft:decorated"
+            },
+            "decorator": {
+              "config": {},
+              "type": "minecraft:heightmap"
+            }
+          },
+          "type": "minecraft:decorated"
+        },
+        "decorator": {
+          "config": {},
+          "type": "minecraft:square"
+        }
+      },
+      "type": "minecraft:decorated"
+    },
+    "decorator": {
+      "config": {
+        "noise_level": -0.8,
+        "below_noise": 15,
+        "above_noise": 4
+      },
+      "type": "minecraft:count_noise"
+    }
+  },
+  "type": "minecraft:decorated"
+}
