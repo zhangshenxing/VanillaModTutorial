@@ -92,7 +92,16 @@
         <li><a href="#2.4_进度">§2.4 进度</a></li>
         <li><a href="#2.5_战利品表">§2.5 战利品表</a></li>
         <li><a href="#2.6_断言">§2.6 断言</a></li>
-        <li><a href="#2.7_配方">§2.7 配方</a></li>
+        <li><a href="#配方">§2.7 配方</a><ul>
+            <li><a href="#有序合成">§2.7.1 有序合成</a></li>
+            <li><a href="#无序合成">§2.7.2 无序合成</a></li>
+            <li><a href="#切石机配方">§2.7.3 切石机配方</a></li>
+            <li><a href="#烧炼配方">§2.7.4 烧炼配方</a></li>
+            <li><a href="#锻造台配方">§2.7.5 锻造台配方</a></li>
+            <li><a href="#工作台特殊配方">§2.7.6 工作台特殊配方</a></li>
+            <li><a href="#覆盖原版配方">§2.7.7 覆盖原版配方</a></li>
+            <li><a href="#配方获取">§2.7.8 配方获取</a></li>
+        </ul></li>
         <li><a href="#2.8_结构">§2.8 结构</a></li>
         <li><a href="#标签">§2.9 标签</a><ul>
             <li><a href="#方块标签">§2.9.1 方块标签</a></li>
@@ -181,70 +190,60 @@
         <li><a href="#6.4_破坏事件">§6.4 破坏事件</a></li>
         <li><a href="#6.5_模型设置">§6.5 模型设置</a></li>
     </ul></li>
-    <li><a href="#7_合成与烧炼">§7 合成与烧炼</a><ul>
-        <li><a href="#7.1_语法">§7.1 语法</a></li>
-        <li><a href="#7.2_有序合成">§7.2 有序合成</a></li>
-        <li><a href="#7.3_无序合成">§7.3 无序合成</a></li>
-        <li><a href="#7.4_切石机配方">§7.4 切石机配方</a></li>
-        <li><a href="#7.5_烧炼配方">§7.5 烧炼配方</a></li>
-        <li><a href="#7.6_锻造台配方">§7.6 锻造台配方</a></li>
-        <li><a href="#7.7_覆盖原版配方">§7.7 覆盖原版配方</a></li>
-        <li><a href="#7.8_配方获取">§7.8 配方获取</a></li>
-    </ul></li>
-    <li><a href="#8_机器设计">§8 机器设计</a><ul>
-        <li><a href="#8.1_GUI材质模型">§8.1 GUI材质模型</a></li>
-        <li><a href="#8.2_GUI背景处理">§8.2 GUI背景处理</a></li>
-        <li><a href="#8.3_GUI命令">§8.3 GUI命令</a></li>
-        <li><a href="#8.4_物品输出">§8.4 物品输出</a></li>
-        <li><a href="#8.5_配方处理">§8.5 配方处理</a></li>
-        <li><a href="#8.6_插件">§8.6 插件</a></li>
-        <li><a href="#8.7_容器扩展">§8.7 容器扩展</a></li>
-        <li><a href="#8.8_接口">§8.8 接口</a></li>
-        <li><a href="#8.9_管道">§8.9 管道</a><ul>
-            <li><a href="#8.9.1_无线传输">§8.9.1 无线传输</a></li>
-            <li><a href="#8.9.2_管道式">§8.9.2 管道式</a></li>
-            <li><a href="#8.9.3_激光式">§8.9.3 激光式</a></li>
-            <li><a href="#8.9.4_载体式">§8.9.4 载体式</a></li>
-            <li><a href="#8.9.5_管道设计">§8.9.5 管道设计</a></li>
+    <li><a href="#8_机器设计">§7 机器设计</a><ul>
+        <li><a href="#8.1_GUI材质模型">§7.1 GUI材质模型</a></li>
+        <li><a href="#8.2_GUI背景处理">§7.2 GUI背景处理</a></li>
+        <li><a href="#8.3_GUI命令">§7.3 GUI命令</a></li>
+        <li><a href="#8.4_物品输出">§7.4 物品输出</a></li>
+        <li><a href="#8.5_配方处理">§7.5 配方处理</a></li>
+        <li><a href="#8.6_插件">§7.6 插件</a></li>
+        <li><a href="#8.7_容器扩展">§7.7 容器扩展</a></li>
+        <li><a href="#8.8_接口">§7.8 接口</a></li>
+        <li><a href="#8.9_管道">§7.9 管道</a><ul>
+            <li><a href="#8.9.1_无线传输">§7.9.1 无线传输</a></li>
+            <li><a href="#8.9.2_管道式">§7.9.2 管道式</a></li>
+            <li><a href="#8.9.3_激光式">§7.9.3 激光式</a></li>
+            <li><a href="#8.9.4_载体式">§7.9.4 载体式</a></li>
+            <li><a href="#8.9.5_管道设计">§7.9.5 管道设计</a></li>
       </ul></li>
     </ul></li>
-    <li><a href="#9_NBT合成与烧炼">§9 NBT合成与烧炼</a><ul>
-        <li><a href="#9.1_地板合成">§9.1 地板合成</a></li>
-        <li><a href="#9.2_实体背包合成">§9.2 实体背包合成</a></li>
-        <li><a href="#9.3_容器合成">§9.3 容器合成</a></li>
-        <li><a href="#9.4_NBT烧炼">§9.4 NBT烧炼</a><ul>
-            <li><a href="#9.4.1_替换产物法">§9.4.1 替换产物法</a></li>
-            <li><a href="#9.4.2_记分板模拟">§9.4.2 记分板模拟</a></li>
+    <li><a href="#NBT合成与烧炼">§8 NBT合成与烧炼</a><ul>
+        <li><a href="#9.1_地板合成">§8.1 地板合成</a></li>
+        <li><a href="#9.2_实体背包合成">§8.2 实体背包合成</a></li>
+        <li><a href="#9.3_容器合成">§8.3 容器合成</a></li>
+        <li><a href="#9.4_NBT烧炼">§8.4 NBT烧炼</a><ul>
+            <li><a href="#9.4.1_替换产物法">§8.4.1 替换产物法</a></li>
+            <li><a href="#9.4.2_记分板模拟">§8.4.2 记分板模拟</a></li>
         </ul></li>
-        <li><a href="#9.5_NBT酿造">§9.5 NBT酿造</a></li>
+        <li><a href="#9.5_NBT酿造">§8.5 NBT酿造</a></li>
     </ul></li>
-    <li><a href="#10_植物">§10 植物</a><ul>
-        <li><a href="#10.1_作物">§10.1 作物</a></li>
-        <li><a href="#10.2_花草">§10.2 花草</a></li>
-        <li><a href="#10.3_树">§10.3 树</a></li>
+    <li><a href="#10_植物">§9 植物</a><ul>
+        <li><a href="#10.1_作物">§9.1 作物</a></li>
+        <li><a href="#10.2_花草">§9.2 花草</a></li>
+        <li><a href="#10.3_树">§9.3 树</a></li>
     </ul></li>
-    <li><a href="#11_物品与实体处理">§11 物品与实体处理</a><ul>
-        <li><a href="#修改玩家背包">§11.1 修改玩家背包</a></li>
-        <li><a href="#耐久处理">§11.2 耐久处理</a></li>
-        <li><a href="#红石信号">§11.3 红石信号</a></li>
-        <li><a href="#方块交互">§11.4 方块交互</a></li>
-        <li><a href="#生物移动">§11.5 生物移动</a></li>
-        <li><a href="#交易">§11.6 交易</a></li>
-        <li><a href="#清理特定物品">§11.7 清理特定物品</a></li>
-        <li><a href="#连锁">§11.8 连锁</a></li>
+    <li><a href="#11_物品与实体处理">§10 物品与实体处理</a><ul>
+        <li><a href="#修改玩家背包">§10.1 修改玩家背包</a></li>
+        <li><a href="#耐久处理">§10.2 耐久处理</a></li>
+        <li><a href="#红石信号">§10.3 红石信号</a></li>
+        <li><a href="#方块交互">§10.4 方块交互</a></li>
+        <li><a href="#生物移动">§10.5 生物移动</a></li>
+        <li><a href="#交易">§10.6 交易</a></li>
+        <li><a href="#清理特定物品">§10.7 清理特定物品</a></li>
+        <li><a href="#连锁">§10.8 连锁</a></li>
     </ul></li>
-    <li><a href="#12_算法">§12 算法</a><ul>
-        <li><a href="#随机数">§12.1 随机数</a><ul>
-            <li><a href="#不定长均匀分布">§12.1.1 不定长均匀分布</a></li>
-            <li><a href="#定长均匀分布">§12.1.2 定长均匀分布</a></li>
-            <li><a href="#非均匀分布">§12.1.3 非均匀分布</a></li>
-            <li><a href="#二项分布和泊松分布">§12.1.4 二项分布</a></li>
+    <li><a href="#12_算法">§11 算法</a><ul>
+        <li><a href="#随机数">§11.1 随机数</a><ul>
+            <li><a href="#不定长均匀分布">§11.1.1 不定长均匀分布</a></li>
+            <li><a href="#定长均匀分布">§11.1.2 定长均匀分布</a></li>
+            <li><a href="#非均匀分布">§11.1.3 非均匀分布</a></li>
+            <li><a href="#二项分布和泊松分布">§11.1.4 二项分布</a></li>
         </ul></li>
-        <li><a href="#世界生成结构">§12.2 世界生成结构</a></li>
-        <li><a href="#绘制图案">§12.3 绘制图案</a></li>
-        <li><a href="#循环与递归">§12.4 循环与递归</a></li>
-        <li><a href="#字符操作">§12.5 字符操作</a></li>
-        <li><a href="#位运算与种子">§12.6 位运算与种子</a></li>
+        <li><a href="#世界生成结构">§11.2 世界生成结构</a></li>
+        <li><a href="#绘制图案">§11.3 绘制图案</a></li>
+        <li><a href="#循环与递归">§11.4 循环与递归</a></li>
+        <li><a href="#字符操作">§11.5 字符操作</a></li>
+        <li><a href="#位运算与种子">§11.6 位运算与种子</a></li>
         <li><a></a></li>
     </ul></li>
 </ul>
@@ -272,7 +271,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.10-2.11 by ruhuasiyu 2020/07/28</p>
+<p>进度：§2.7 by ruhuasiyu 2020/07/28</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -487,7 +486,7 @@ data
 </pre>
 <p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_,.来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
 
-<p class="noindent"><strong><ruby>原版数据包<rt>vanilla</rt></ruby></strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
+<p class="noindent"><strong id="原版数据包"><ruby>原版数据包<rt>vanilla</rt></ruby></strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
 
 <h2 id="数据包元信息和图标">§2.1 元信息和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
@@ -1176,9 +1175,377 @@ advancement revoke @s only ex:food/citrus
 </ul>
 <p>诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用断言无疑方便更多。</p>
 
-<h2 id="2.7_配方">§2.7 <ruby>配方<rt>recipes</rt></ruby></h2>
-<p>配方包括工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件，具体格式见 <a href="#7_合成与烧炼">§7 合成与烧炼</a>。想要实现带NBT的合成需要藉由其它方式，见<a href="#9_NBT合成与烧炼">§9 NBT合成与烧炼</a>。</p>
-<p>在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，但是未获得的不会在配方书中显示，因此建议为你的自定义配方添加合适的进度来获取该配方。</p>
+<h2 id="配方">§2.7 配方</h2>
+<p><ruby>配方<rt>recipes</rt></ruby>为游戏内指定工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼的格式，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件。</p>
+<p>在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，且使用一个配方会使玩家自动发现它。因此建议为你的自定义配方添加合适的进度来获取该配方。一旦配方被发现，就将被加入玩家的配方书。配方只会在玩家使用与当前配方类型所匹配的方块时显示。例如，烧炼配方将只在熔炉的界面中显示。当在背包中使用配方书时，只有能在玩家的 <code>2×2</code> 背包合成栏内使用的配方才会显示。已发现的配方储存在玩家 <code>recipeBook</code> 的NBT中。 </p>
+<p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别NBT(除了特殊合成配方)，因此只能实现原版物品的合成和烧炼。同时原版模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。想要实现带NBT的合成需要藉由其它方式，见<a href="NBT合成与烧炼">NBT合成与烧炼</a>。</p>
+
+<p>大部分配方中所使用的配方材料格式可以为下述几种。</p>
+<pre class="file" id="配方材料">配方材料JSON格式</pre>
+<pre>
+{
+    "item": "物品命名空间ID" <span class="comment">一个物品</span>
+}
+或
+{
+    "tag": "物品标签命名空间ID" <span class="comment">一个物品标签</span>
+}
+或
+[ <span class="comment">配方材料JSON对象列表</span>
+    "配方材料JSON对象1",
+    "配方材料JSON对象2",
+    ...,
+    "配方材料JSON对象n"
+]
+</pre>
+
+<h3 id="有序合成">§2.7.1 有序合成</h3>
+<pre class="file">JSON格式</pre>
+<pre>
+{
+    "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+    "type": "minecraft:crafting_shaped", <span class="comment">表示有序合成</span>
+    "pattern": [ <span class="comment">由单字符键所组成的数组，用于描述配方的图案。至多3个字符串，每个字符串长度一致且至多为3。空格代表一个空的合成栏位。</span>
+        "###", 
+        "#A#",
+        "###"
+    ],
+    "key": { <span class="comment">所有该有序合成配方用到的键。</span>
+        "A": <a href="#配方材料">配方材料</a>JSON对象 或 <a href="#配方材料">配方材料</a>JSON对象列表,
+        "#": <a href="#配方材料">配方材料</a>JSON对象 或 <a href="#配方材料">配方材料</a>JSON对象列表,
+    },
+    "result": {
+        "item": "物品命名空间ID", <span class="comment">输出的物品</span>
+        "count": 正整数 <span class="comment">可选，输出的物品数量，默认为1</span>
+    }
+}
+</pre>
+
+<p class="ex">使用6羊毛+鸡蛋工字形有序合成两个羊刷怪蛋。</p>
+<pre class="file">ex/recipes/sheep_spawn_egg.json</pre>
+<pre>
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WWW",
+        " E ",
+        "WWW"
+    ],
+    "key": {
+        "E": {
+            "item": "minecraft:egg"
+        },
+        "W": {
+            "tag": "ex:wools"
+        }
+    },
+    "result": {
+        "item": "minecraft:sheep_spawn_egg",
+        "count":2
+    }
+}
+</pre>
+<p class="noindent">这里 <code>ex:wools</code> 为自定义的包含所有颜色羊毛的物品标签。</p>
+
+<h3 id="无序合成">§2.7.2 无序合成</h3>
+
+<pre class="file">JSON格式</pre>
+<pre>
+{
+    "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+    "type": "minecraft:crafting_shapeless", <span class="comment">表示无序合成</span>
+    "ingredients": [ <span class="comment">配方材料列表，该无序合成配方的一系列原料，数量应在1至9个之间。 </span>
+        <a href="#配方材料">配方材料</a>JSON对象 或 <a href="#配方材料">配方材料</a>JSON对象列表
+    ],
+    "result": {
+        "item": "物品命名空间ID", <span class="comment">输出的物品</span>
+        "count": 正整数 <span class="comment">可选，输出的物品数量，默认为1</span>
+    }
+}
+</pre>
+<p>配料可以重复。单个物品配方请使用有序合成而不是无序合成。</p>
+
+<p class="ex">2沙子和红石无序合成2红沙。</p>
+<pre class="file">ex/recipes/red_sand.json</pre>
+<pre>
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:sand"
+        },
+        {
+            "item": "minecraft:sand"
+        },
+        {
+            "item": "minecraft:redstone"
+        }
+    ],
+    "result": {
+        "item": "minecraft:red_sand",
+        "count":2
+    }
+}
+</pre>
+
+<h3 id="切石机配方">§2.7.3 切石机配方</h3>
+
+<pre class="file">JSON格式</pre>
+<pre>
+{
+    "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+    "type": "minecraft:stonecutting", <span class="comment">表示切石机配方</span>
+    "ingredients": <a href="#配方材料">配方材料</a>JSON对象 或 <a href="#配方材料">配方材料</a>JSON对象列表,
+    "result": {
+        "item": "物品命名空间ID", <span class="comment">输出的物品</span>
+        "count": 正整数 <span class="comment">输出的物品数量，默认为1</span>
+    }
+}
+</pre>
+<p>注意 <code>result.count</code> 不能省略。</p>
+
+<p class="ex">使用切石机切割橡木木板为2台阶。</p>
+<pre class="file">ex/recipes/stonecutting/oak_slab.json</pre>
+<pre>
+{
+    "type": "minecraft:stonecutting",
+    "ingredient": {
+        "item": "minecraft:oak_planks"
+    },
+    "result": "minecraft:oak_slab",
+    "count": 2
+}
+</pre>
+
+<h3 id="烧炼配方">§2.7.4 烧炼配方</h3>
+<pre class="file">JSON格式</pre>
+<pre>
+{
+    "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+    "type": "minecraft:smelting"<span class="comment">表示熔炉配方</span> 或 "minecraft:blasting"<span class="comment">表示高炉配方</span> 或 "minecraft:smoking"<span class="comment">表示烟熏炉配方</span> 或 "minecraft:campfire_cooking"<span class="comment">表示营火配方</span>,
+    "ingredients": <a href="#配方材料">配方材料</a>JSON对象 或 <a href="#配方材料">配方材料</a>JSON对象列表,
+    "result": "物品命名空间ID", <span class="comment">输出的物品</span>,
+    "experience": 数值, <span class="comment">该配方产生的经验值</span>
+    "cookingtime": 正整数 <span class="comment">可选，该配方的烧炼时间，单位：刻。如果缺省，将使用默认的时间。</span>
+}
+</pre>
+<p>熔炉配方的默认烧炼时间是200刻，即10秒。高炉配方和烟熏炉配方的默认烧炼时间是100刻，即5秒。营火的默认烧炼时间是100刻，即5秒，但所有的原版营火配方都将烧炼时间修改为了600刻，即30秒。</p>
+
+<p class="ex">熔炉烧炼皮革装备、腐肉、鞍为兔子皮。</p>
+<pre class="file">ex/recipes/rabbit_hide_from_smelting.json</pre>
+<pre>
+{
+    "type": "minecraft:smelting",
+    "ingredient": [
+        {
+            "item": "minecraft:rotten_flesh"
+        },
+        {
+            "item": "minecraft:leather_helmet"
+        },
+        {
+            "item": "minecraft:leather_chestplate"
+        },
+        {
+            "item": "minecraft:leather_leggings"
+        },
+        {
+            "item": "minecraft:leather_boots"
+        },
+        {
+            "item": "minecraft:saddle"
+        }
+    ],
+    "result": "minecraft:rabbit_hide",
+    "experience": 0.1,
+    "cookingtime": 200
+}
+</pre>
+
+<h3 id="锻造台配方">§2.7.5 锻造台配方</h3>
+<pre class="file">JSON格式</pre>
+<pre>
+{
+    "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+    "type": "minecraft:smithing", <span class="comment">表示锻造台配方</span>
+    "base": <a href="#配方材料">配方材料</a>JSON对象, <span class="comment">指定一个要升级的物品</span>
+    "addition": <a href="#配方材料">配方材料</a>JSON对象, <span class="comment">升级所需的消耗品</span>
+    "result": "物品命名空间ID", <span class="comment">升级得到的物品</span>
+}
+</pre>
+
+<p class="ex">使用锻造台使用钻石将铁斧升级为钻石斧。</p>
+<pre class="file">ex/recipes/smithing/diamond_axe.json</pre>
+<pre>
+{
+    "type": "minecraft:smithing",
+    "base": {
+        "item": "minecraft:iron_axe"
+    },
+    "addition": {
+        "item": "minecraft:diamond"
+    },
+    "result": {
+        "item": "minecraft:diamond_axe"
+    }
+}
+</pre>
+
+<h3 id="工作台特殊配方">§2.7.6 工作台特殊配方</h3>
+<p>工作台有一些特殊配方由游戏内部的代码处理，无法通过JSON文件来修改。这些配方均涉及物品的NBT修改。当<a href="#原版数据包">原版数据包</a>被禁用时，你可以用它们来重新启用你所需要的特殊合成配方。 </p>
+<pre class="file">JSON格式</pre>
+<pre>
+{
+    "type": "minecraft:crafting_special_armordye" <span class="comment">盔甲染色配方</span>
+或
+    "type": "minecraft:crafting_special_bannerduplicate" <span class="comment">旗帜复制配方</span>
+或
+    "type": "minecraft:crafting_special_bookcloning" <span class="comment">成书复制配方</span>
+或
+    "type": "minecraft:crafting_special_firework_rocket" <span class="comment">使用烟火之星合成烟花火箭的配方</span>
+或
+    "type": "minecraft:crafting_special_firework_star" <span class="comment">烟火之星的合成配方</span>
+或
+    "type": "minecraft:crafting_special_firework_star_fade" <span class="comment">烟火之星的色彩淡化配方</span>
+或
+    "type": "minecraft:crafting_special_mapcloning" <span class="comment">地图复制配方</span>
+或
+    "type": "minecraft:crafting_special_mapextending" <span class="comment">地图比例缩小配方</span>
+或
+    "type": "minecraft:crafting_special_repairitem" <span class="comment">物品修复配方</span>
+或
+    "type": "minecraft:crafting_special_shielddecoration" <span class="comment">给盾牌添加图案的配方</span>
+或
+    "type": "minecraft:crafting_special_shulkerboxcoloring" <span class="comment">潜影盒染色配方</span>
+或
+    "type": "minecraft:crafting_special_tippedarrow" <span class="comment">药箭配方</span>
+或
+    "type": "minecraft:crafting_special_suspiciousstew" <span class="comment">迷之炖菜配方</span>
+}
+</pre>
+
+
+<h3 id="覆盖原版配方">§2.7.7 覆盖原版配方</h3>
+<p>如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 <code>.jar</code> 文件，依次打开 <code>data/minecraft/recipes</code>，找到相应的配方文件，然后在自己的数据包中的相同位置（必然是 <code>minecraft</code> 命名空间下）放入同名文件即可覆盖默认的配方。</p>
+<p class="ex">将橡木台阶合成数量改为8。</p>
+
+<pre class="file">minecraft/recipes/oak_stairs.json</pre>
+<pre>
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "wooden_stairs",
+    "pattern": [
+        "#  ",
+        "## ",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:oak_planks"
+        }
+    },
+    "result": {
+        "item": "minecraft:oak_stairs",
+        "count": 8
+    }
+}
+</pre>
+<p class="ex">将原版白色床+墨囊=黑色床的合成配方修改为任意床+墨囊=黑色床。</p>
+
+<pre class="file">ex/tags/items/beds.json</pre>
+<pre>
+{
+    "replace": false,
+    "values": [
+        "minecraft:white_bed",
+        "minecraft:orange_bed",
+        "minecraft:magenta_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:yellow_bed",
+        "minecraft:lime_bed",
+        "minecraft:pink_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:cyan_bed",
+        "minecraft:purple_bed",
+        "minecraft:blue_bed",
+        "minecraft:brown_bed",
+        "minecraft:green_bed",
+        "minecraft:red_bed",
+        "minecraft:black_bed"
+    ]
+}
+</pre>
+<pre class="file">minecraft/recipes/black_bed_from_white_bed.json</pre>
+<pre>
+{
+    "type": "crafting_shapeless",
+    "group": "dyed_bed",
+    "ingredients": [
+        {
+            "tag": "ex:beds"
+        },
+        {
+            "item": "minecraft:black_dye"
+        }
+    ],
+    "result": {
+        "item": "minecraft:black_bed"
+    }
+}
+</pre>
+<p>如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为 <code>{}</code> 时会被认为是错误文件而无法覆盖原配方。同时，我们需要将解锁该配方的进度触发器设置为 <code>minecraft:impossible</code>。</p>
+
+<h3 id="配方获取">§2.7.8 配方获取</h3>
+<p>一个完整的配方应当有相应的进度来使玩家获取之，通常触发器为玩家背包含有合成材料。也可以根据需要在函数中使用命令 <code>recipe</code> 给予。</p>
+
+<pre class="file">ex/advancements/recipes/dirt_from_cobblestone_snowball.json</pre>
+<pre>
+{
+    "criteria": {
+        "cobblestone": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:cobblestone",
+                        "count": {
+                            "min": 8
+                        }
+                    }
+                ]
+            }
+        },
+        "snowball": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:snowball"
+                    }
+                ]
+            }
+        },
+        "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "ex:dirt_from_cobblestone_snowball"
+            }
+        }
+    },
+    "rewards":{
+        "recipes": ["ex:dirt_from_cobblestone_snowball"]
+    },
+    "requirements": [
+        [
+            "cobblestone",
+            "snowball",
+            "has_the_recipe"
+        ]
+    ]
+}
+</pre>
+
 
 <h2 id="2.8_结构">§2.8 <ruby>结构<rt>structures</rt></ruby></h2>
 <p>结构文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。可参考</p>
@@ -4300,7 +4667,7 @@ loot replace entity @s[predicate=ex:mainhand/carrot_on_a_stick] weapon.mainhand 
 loot replace entity @s[predicate=!ex:mainhand/carrot_on_a_stick] weapon.offhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
 </pre>
-<p class="noindent">处理耐久的函数 <code>ex:damage</code> 见 <a href="#11.3_耐久处理">§11.3 耐久处理</a>。</p>
+<p class="noindent">处理耐久的函数 <code>ex:damage</code> 见 <a href="#11.3_耐久处理">§10.3 耐久处理</a>。</p>
 
 <p>投掷物如雪球、末影珍珠等可用于一次性右键工具，不同的物品有着各自的特点。投掷带自定义NBT标签的物品，对应的投掷物实体NBT <code>Item</code> 会包含这些NBT标签。注意，在1.14和更早版本，由于Mojang先消耗手持物再存储手持物信息，导致投掷最后一个物品时没有存储相应的 <code>Item</code> 信息，此时我们需要提前1刻存储玩家手持物信息方可。</p>
 <p class="ex">扔出 <code>minecraft:experience_bottle{exXpNumber:99s}</code> 生成 <code>exXpNumber</code> 点经验值的经验球。</p>
@@ -5001,7 +5368,7 @@ data modify block ~ 255 ~ Items append from storage ex:temp Item
 loot replace entity @s weapon.mainhand 1 mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
 </pre>
-<p class="noindent">函数 <code>ex:damage_tool</code> 见<a href="5.2_右键交互">§5.2 右键交互</a>，这里省略。这里我们使用 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到玩家手中。</p>
+<p class="noindent">函数 <code>ex:damage_tool</code> 见<a href="5.2_右键交互">§5.2 右键交互</a>，这里省略。这里我们使用 <a href="#11.2_修改玩家背包">§10.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到玩家手中。</p>
 
 
 <h2 id="5.9_画">§5.9 画</h2>
@@ -5481,345 +5848,7 @@ kill @s
 }
 </pre>
 
-<h1 id="7_合成与烧炼">§7 合成与烧炼</h1>
-<h2 id="7.1_语法">§7.1 语法</h2>
-<p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别 NBT，因此只能实现原版物品的合成和烧炼。同时模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。</p>
-
-<p>配方的通用语法为</p>
-<table><thead><tr><th style="width:5em;">含义</th><th>键</th><th>值</th><th>说明</th></tr></thead>
-<tbody>
-<tr>
-    <th rowspan="9">合成的类别</th>
-    <td rowspan="9"><code>type</code></td>
-    <td><code>minecraft:crafting_shaped</code></td>
-    <td>工作台有序合成配方</td>
-</tr>
-<tr>
-    <td><code>minecraft:crafting_shapeless</code></td>
-    <td>工作台无序合成配方</td>
-</tr>
-<tr>
-    <td><code>minecraft:crafting_special_*</code></td>
-    <td>工作台特殊合成配方，处理皮革盔甲染色、烟火之星、地图复制等情形，不可手动配置。 </td>
-</tr>
-<tr>
-    <td><code>minecraft:stonecutting</code></td>
-    <td>切石机合成配方</td>
-</tr>
-<tr>
-    <td><code>minecraft:smelting</code></td>
-    <td>熔炉烧炼配方</td>
-</tr>
-<tr>
-    <td><code>minecraft:blasting</code></td>
-    <td>高炉烧炼配方</td>
-</tr>
-<tr>
-    <td><code>minecraft:smoking</code></td>
-    <td>烟熏炉烧炼配方</td>
-</tr>
-<tr>
-    <td><code>minecraft:campfire_cooking</code></td>
-    <td>营火烧炼配方</td>
-</tr>
-<tr>
-    <td><code>minecraft:smithing</code></td>
-    <td>锻造台配方</td>
-</tr>
-<tr>
-    <th>配方的分类</th>
-    <td><code>group</code></td>
-    <td>字符串</td>
-    <td>具有相同该标识符的配方会在配方书中显示为一组。对特殊合成配方无效。</td>
-</tr>
-<tr>
-    <th>合成样式</th>
-    <td><code>pattern</code></td>
-    <td>字符串</td>
-    <td>有序合成的合成样式，其中每个字符表示一个物品，空格表示空缺。可以比<code>3×3</code>小。</td>
-</tr>
-<tr>
-    <th>配方材料</th>
-    <td><code>key.[字符]</code></td>
-    <td>列表或JSON对象</td>
-    <td>有序合成的 <code>pattern</code> 中字符与物品的对应。可以只含一个 <code>item</code> 或 <code>tag</code>；也可以是一个列表，列表中每个元素是一个 <code>item</code> 或 <code>tag</code>。</td>
-</tr>
-<tr>
-    <th>配方配料</th>
-    <td><code>ingredient</code></td>
-    <td>列表或JSON对象</td>
-    <td>无序合成、切石机、烧炼的原材料。如果是切石机或烧炼，可以为这个列表中的任一物品或物品标签；如果是无序合成，配方就是这个列表中的每一个物品或物品标签。</td>
-</tr>
-<tr>
-    <th>合成的结果物品</th>
-    <td><code>result.item</code></td>
-    <td>物品ID</td>
-    <td>合成的结果物品。</td>
-</tr>
-<tr>
-    <th>合成的结果数量</th>
-    <td><code>result.count</code></td>
-    <td>数字</td>
-    <td>合成配方的物品数量，缺省为<code>1</code>。切石机配方的物品数量，不可省略。</td>
-</tr>
-<tr>
-    <th>烧炼经验</th>
-    <td><code>experience</code></td>
-    <td>数字</td>
-    <td>烧炼配方产生的经验值，可以为小数。</td>
-</tr>
-<tr>
-    <th>烧炼耗时</th>
-    <td><code>cookingtime</code></td>
-    <td>数字</td>
-    <td>烧炼所需的刻数，若缺省则使用默认的时间，熔炉烟熏炉为<code>200</code>，高炉营火为<code>100</code>。</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="7.2_有序合成">§7.2 有序合成</h2>
-<p class="ex">使用8羊毛+鸡蛋有序合成两个羊刷怪蛋。</p>
-
-<pre class="file">ex/recipes/sheep_spawn_egg.json</pre>
-<pre>
-{
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "###",
-        "#*#",
-        "###"
-    ],
-    "key": {
-        "*": {
-            "item": "minecraft:egg"
-        },
-        "#": {
-            "tag": "ex:wools"
-        }
-    },
-    "result": {
-        "item": "minecraft:sheep_spawn_egg",
-        "count":2
-    }
-}
-</pre>
-<p class="noindent">这里 <code>ex:wools</code> 为自定义的包含所有颜色羊毛的物品标签。</p>
-
-<h2 id="7.3_无序合成">§7.3 无序合成</h2>
-<p class="ex">§2沙子+红石=2红沙。</p>
-
-<pre class="file">ex/recipes/red_sand.json</pre>
-<pre>
-{
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-        {
-            "item": "minecraft:sand"
-        },
-        {
-            "item": "minecraft:sand"
-        },
-        {
-            "item": "minecraft:redstone"
-        }
-    ],
-    "result": {
-        "item": "minecraft:red_sand",
-        "count":2
-    }
-}
-</pre>
-<p>配料可以重复。单个物品配方请使用有序合成而不是无序合成。</p>
-
-<h2 id="7.4_切石机配方">§7.4 切石机配方</h2>
-<p class="ex">使用切石机切割橡木木板为2台阶。</p>
-
-<pre class="file">ex/recipes/stonecutting/oak_slab.json</pre>
-<pre>
-{
-    "type": "minecraft:stonecutting",
-    "ingredient": {
-        "item": "minecraft:oak_planks"
-    },
-    "result": "minecraft:oak_slab",
-    "count": 2
-}
-</pre>
-
-<h2 id="7.5_烧炼配方">§7.5 烧炼配方</h2>
-<p class="ex">熔炉烧炼皮革装备、腐肉、鞍为兔子皮。</p>
-
-<pre class="file">ex/recipes/rabbit_hide_from_smelting.json</pre>
-<pre>
-{
-    "type": "minecraft:smelting",
-    "ingredient": [
-        {
-            "item": "minecraft:rotten_flesh"
-        },
-        {
-            "item": "minecraft:leather_helmet"
-        },
-        {
-            "item": "minecraft:leather_chestplate"
-        },
-        {
-            "item": "minecraft:leather_leggings"
-        },
-        {
-            "item": "minecraft:leather_boots"
-        },
-        {
-            "item": "minecraft:saddle"
-        }
-    ],
-    "result": "minecraft:rabbit_hide",
-    "experience": 0.1,
-    "cookingtime": 200
-}
-</pre>
-
-<h2 id="7.6_锻造台配方">§7.6 锻造台配方</h2>
-<p class="ex">使用锻造台使用钻石将铁斧升级为钻石斧。</p>
-
-<pre class="file">ex/recipes/smithing/diamond_axe.json</pre>
-<pre>
-{
-    "type": "minecraft:smithing",
-    "base": {
-        "item": "minecraft:iron_axe"
-    },
-    "addition": {
-        "item": "minecraft:diamond"
-    },
-    "result": {
-        "item": "minecraft:diamond_axe"
-    }
-}
-</pre>
-
-<h2 id="7.7_覆盖原版配方">§7.7 覆盖原版配方</h2>
-<p>如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 <code>.jar</code> 文件，依次打开 <code>data/minecraft/recipes</code>，找到相应的配方文件，然后在自己的数据包中的相同位置（必然是 <code>minecraft</code> 命名空间下）放入同名文件即可覆盖默认的配方。</p>
-<p class="ex">将橡木台阶合成数量改为8。</p>
-
-<pre class="file">minecraft/recipes/oak_stairs.json</pre>
-<pre>
-{
-    "type": "minecraft:crafting_shaped",
-    "group": "wooden_stairs",
-    "pattern": [
-        "#  ",
-        "## ",
-        "###"
-    ],
-    "key": {
-        "#": {
-            "item": "minecraft:oak_planks"
-        }
-    },
-    "result": {
-        "item": "minecraft:oak_stairs",
-        "count": 8
-    }
-}
-</pre>
-<p class="ex">将原版白色床+墨囊=黑色床的合成配方修改为任意床+墨囊=黑色床。</p>
-
-<pre class="file">ex/tags/items/beds.json</pre>
-<pre>
-{
-    "replace": false,
-    "values": [
-        "minecraft:white_bed",
-        "minecraft:orange_bed",
-        "minecraft:magenta_bed",
-        "minecraft:light_blue_bed",
-        "minecraft:yellow_bed",
-        "minecraft:lime_bed",
-        "minecraft:pink_bed",
-        "minecraft:gray_bed",
-        "minecraft:light_gray_bed",
-        "minecraft:cyan_bed",
-        "minecraft:purple_bed",
-        "minecraft:blue_bed",
-        "minecraft:brown_bed",
-        "minecraft:green_bed",
-        "minecraft:red_bed",
-        "minecraft:black_bed"
-    ]
-}
-</pre>
-<pre class="file">minecraft/recipes/black_bed_from_white_bed.json</pre>
-<pre>
-{
-    "type": "crafting_shapeless",
-    "group": "dyed_bed",
-    "ingredients": [
-        {
-            "tag": "ex:beds"
-        },
-        {
-            "item": "minecraft:black_dye"
-        }
-    ],
-    "result": {
-        "item": "minecraft:black_bed"
-    }
-}
-</pre>
-<p>如果需要删除原版配方，可使用生存无法获得的方块如基岩=基岩、屏障=屏障、结构空位等物品来合成。配方文件内容为 <code>{}</code> 时会被认为是错误文件而无法覆盖原配方。同时，我们需要将解锁该配方的进度触发器设置为 <code>minecraft:impossible</code>。</p>
-
-<h2 id="7.8_配方获取">§7.8 配方获取</h2>
-<p>一个完整的配方应当有相应的进度来使玩家获取之，通常触发器为玩家背包含有合成材料。也可以根据需要在函数中使用命令 <code>recipe</code> 给予。</p>
-
-<pre class="file">ex/advancements/recipes/dirt_from_cobblestone_snowball.json</pre>
-<pre>
-{
-    "criteria": {
-        "cobblestone": {
-            "trigger": "minecraft:inventory_changed",
-            "conditions": {
-                "items": [
-                    {
-                        "item": "minecraft:cobblestone",
-                        "count": {
-                            "min": 8
-                        }
-                    }
-                ]
-            }
-        },
-        "snowball": {
-            "trigger": "minecraft:inventory_changed",
-            "conditions": {
-                "items": [
-                    {
-                        "item": "minecraft:snowball"
-                    }
-                ]
-            }
-        },
-        "has_the_recipe": {
-            "trigger": "minecraft:recipe_unlocked",
-            "conditions": {
-                "recipe": "ex:dirt_from_cobblestone_snowball"
-            }
-        }
-    },
-    "rewards":{
-        "recipes": ["ex:dirt_from_cobblestone_snowball"]
-    },
-    "requirements": [
-        [
-            "cobblestone",
-            "snowball",
-            "has_the_recipe"
-        ]
-    ]
-}
-</pre>
-
-<h1 id="8_机器设计">§8 机器设计</h1>
+<h1 id="8_机器设计">§7 机器设计</h1>
 <p>本节我们将通过一个较为复杂的机器的例子，来了解如何设计一个机器。</p>
 
 <p>首先参考 <a href="#5_物品设计">§5 物品设计</a>和 <a href="#6_方块设计">§6 方块设计</a>将机器方块设计好，我们这里选择木桶，如果有必要，使用箱子也可以。</p>
@@ -5858,7 +5887,7 @@ kill @s
     <figcaption>图8.1 机器GUI</figcaption>
 </figure>
 
-<h2 id="8.1_GUI材质模型">§8.1 GUI材质模型</h2>
+<h2 id="8.1_GUI材质模型">§7.1 GUI材质模型</h2>
 <p>物品的默认大小为 <code>16×16</code>，所以如果我们想要将其放大 <code>n</code> 倍，就需要绘制大小为 <code>16n×16n</code> 的材质，以对齐边缘和像素。</p>
 
 <p>该模型用于机器的GUI，我们将其大小放大了 <code>12</code> 倍，也就是 <code>192×192</code> 大小。所以我们需要绘制这个大小的整数倍的材质。通过修改z轴高度可调整材质的覆盖次序。</p>
@@ -5938,7 +5967,7 @@ kill @s
     <figcaption>图8.4 机器GUI示例2</figcaption>
 </figure>
 
-<h2 id="8.2_GUI背景处理">§8.2 GUI背景处理</h2>
+<h2 id="8.2_GUI背景处理">§7.2 GUI背景处理</h2>
 <p>我们为所有的机器背景物品添加 <code>machinBg:1b</code>。我们假设这个物品都是 <code>petrified_oak_slab</code>。如果是多种物品的话，我们可以将这些物品 <code>id</code> 添加至一个物品标签内来处理。</p>
 
 <p>清理玩家背包和地面的相应物品。</p>
@@ -5956,7 +5985,7 @@ execute positioned ~-1 ~-2 ~-1 as @e[type=hopper_minecart,dx=2,dy=2,dz=2] run da
 execute if block ~ ~-1 ~ hopper run data modify block ~ ~-1 ~ TransferCooldown set value 2
 </pre>
 
-<h2 id="8.3_GUI命令">§8.3 GUI命令</h2>
+<h2 id="8.3_GUI命令">§7.3 GUI命令</h2>
 <p>我们需要对机器高频固定住其GUI，同时对于玩家误放入的物品进行弹出处理，并操作机器选项和经验条。我们使用断言来判断木桶内物品信息。</p>
 
 <pre class="file">mac:all_in_one_machine/tick</pre>
@@ -5976,7 +6005,7 @@ execute unless data block ~ ~ ~ Items[{Slot:22b,tag:{machinBg:1b}}] run function
 scoreboard players set @s[tag=!mac_machine_work] macTick 0
 </pre>
 
-<p>对于玩家误放入背景的物品，我们使用 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
+<p>对于玩家误放入背景的物品，我们使用 <a href="#11.2_修改玩家背包">§10.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
 
 <pre class="file">mac:all_in_one_machine/gui</pre>
 <pre>
@@ -6072,7 +6101,7 @@ scoreboard players add @s macStoredxp 9
 function mac:misc/xp_show
 </pre>
 
-<p>然后判断机器处是否有红石信号强充能，断言 <code>mac:redstone_power</code> 见 <a href="11.4_红石信号">§11.4 红石信号</a>。当机器未被强充能、有经验值、有输入物、输出栏空闲时，进入配方判断。这里我们根据要求的温度压强来分类。</p>
+<p>然后判断机器处是否有红石信号强充能，断言 <code>mac:redstone_power</code> 见 <a href="11.4_红石信号">§10.4 红石信号</a>。当机器未被强充能、有经验值、有输入物、输出栏空闲时，进入配方判断。这里我们根据要求的温度压强来分类。</p>
 <pre class="file">mac:all_in_one_machine/type</pre>
 <pre>
 execute as @s[scores={macTemperature=0,macPressure=0}] run function mac:all_in_one_machine/recipes/ll
@@ -6109,7 +6138,7 @@ data remove storage ex:dist Item
 execute as @s[tag=ex_dist_success] run replaceitem block ~ ~ ~ container.21 firework_star{machinBg:1b,display:{Name:'{"translate":"item.ex.output_slot"}'},CustomModelData:12971000}
 </pre>
 
-<h2 id="8.4_物品输出">§8.4 物品输出</h2>
+<h2 id="8.4_物品输出">§7.4 物品输出</h2>
 <p>上一节我们调用了一个函数用于输出物品，我们来看一下它的算法。</p>
 
 <p>根据机器的输出方向调整位置。这里我们把容器、大箱子添加至方块标签中。</p>
@@ -6161,7 +6190,7 @@ scoreboard players remove @s container 27
 execute as @s[scores={container=..-1}] run function ex:dist/dist
 </pre>
 
-<p>最后使用 <a href="#11.2_修改玩家背包">§11.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
+<p>最后使用 <a href="#11.2_修改玩家背包">§10.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
 <pre class="file">ex:dist/dist</pre>
 <pre>
 tag @s add ex_dist_success
@@ -6172,7 +6201,7 @@ loot insert ~ ~ ~ mine ~ 255 ~ diamond_pickaxe{isShulkerMarker:1b}
 setblock ~ 255 ~ air
 </pre>
 
-<h2 id="8.5_配方处理">§8.5 配方处理</h2>
+<h2 id="8.5_配方处理">§7.5 配方处理</h2>
 <p>我们使用断言判断机器的物品是否满足相应配方的条件，然后进入计时。计时完成后进行产物生成，产物的生成通过使用战利品表判断当前位置的NBT得到。</p>
 <pre class="file">mac:all_in_one_machine/recipes/nn</pre>
 <pre>
@@ -6357,7 +6386,7 @@ execute as @s[tag=!ex_dist_success] run loot give @p mine ~ 255 ~ diamond_pickax
 execute as @s[tag=!ex_dist_success] run setblock ~ 255 ~ air
 </pre>
 
-<h2 id="8.6_插件">§8.6 插件</h2>
+<h2 id="8.6_插件">§7.6 插件</h2>
 <p>前面我们提到机器有多种模式，包括温度和压强的调整。我们可以要求玩家使用特定物品插件shift右击机器来安装。插件原型为胡萝卜钓竿。</p>
 
 <p>我们省略副手情形的处理。</p>
@@ -6404,11 +6433,11 @@ replaceitem entity @s[gamemode=!creative,nbt=!{SelectedItem:{tag:{MachinePlugin:
 replaceitem entity @s[gamemode=!creative,nbt={SelectedItem:{tag:{MachinePlugin:1b}}}] weapon.mainhand air
 </pre>
 
-<p>我们也可以使用 <a href="#11.5_方块交互">§11.5 方块交互</a>的方式来安装插件。</p>
+<p>我们也可以使用 <a href="#11.5_方块交互">§10.5 方块交互</a>的方式来安装插件。</p>
 
 
-<h2 id="8.7_容器扩展">§8.7 容器扩展</h2>
-<p>在 <a href="#8.4_物品输出">§8.4 物品输出</a>中，方块标签 <code>#container:all</code> 记录了各种容器，<code>#container:chests</code> 记录了各种大箱子，函数标签 <code>#container:check</code> 处理容器的栏位数量。我们希望添加更多可支持的容器，例如<a href="https://www.curseforge.com/minecraft/mc-mods/iron-chests">更多箱子</a>和<a href="https://www.curseforge.com/minecraft/mc-mods/stone-chest">石箱子</a>中的容器。</p>
+<h2 id="8.7_容器扩展">§7.7 容器扩展</h2>
+<p>在 <a href="#8.4_物品输出">§7.4 物品输出</a>中，方块标签 <code>#container:all</code> 记录了各种容器，<code>#container:chests</code> 记录了各种大箱子，函数标签 <code>#container:check</code> 处理容器的栏位数量。我们希望添加更多可支持的容器，例如<a href="https://www.curseforge.com/minecraft/mc-mods/iron-chests">更多箱子</a>和<a href="https://www.curseforge.com/minecraft/mc-mods/stone-chest">石箱子</a>中的容器。</p>
 
 <pre class="file">container/tags/blocks/all.json</pre>
 <pre>
@@ -6476,9 +6505,9 @@ execute if block ~ ~ ~ #ironchest:diamond run scoreboard players remove @s conta
 </pre>
 <p>这里 <code>#ironchest:diamond</code> 包含了钻石箱子、黑曜石箱子和水晶箱子，它们容量均为108。</p>
 
-<p>添加完这样的数据包之后，我们便可以如 <a href="8.4_物品输出">§8.4 物品输出</a>般调用它们了。这里是已经写好的<a href="https://github.com/ruhuasiyu/CraftingPlusPlus/tree/master/other_datapacks/原版模组容器扩展">原版模组容器扩展</a>。</p>
+<p>添加完这样的数据包之后，我们便可以如 <a href="8.4_物品输出">§7.4 物品输出</a>般调用它们了。这里是已经写好的<a href="https://github.com/ruhuasiyu/CraftingPlusPlus/tree/master/other_datapacks/原版模组容器扩展">原版模组容器扩展</a>。</p>
 
-<h2 id="8.8_接口">§8.8 接口</h2>
+<h2 id="8.8_接口">§7.8 接口</h2>
 <p>函数 <code>mac:all_in_one_machine/type</code> 中包含一条命令 <code>function #mac:all_in_one_machine</code>。我们也创建了相应的函数标签。然后其他开发者便可向该函数标签写入内容来达到扩展或修改内容的目的，这也在 <a href="#4.3_前置与附属">§4.3 前置与附属</a>中提及。例如</p>
 
 <pre class="file">foo:all_in_one_machine/type</pre>
@@ -6487,10 +6516,10 @@ execute as @s[scores={macStoredxp=8..,macTemperature=0,macPressure=0}] run funct
 </pre>
 <p>然后类似创建后续的断言、战利品表、函数。</p>
 
-<h2 id="8.9_管道">§8.9 管道</h2>
+<h2 id="8.9_管道">§7.9 管道</h2>
 <p>科技类模组人们需要添加管道来传输电力、流体、物品等。物品管道是类似的，我们将物品的信息存储在管道上并传输即可，最终将其输入到容器中。常见的几种做法有：</p>
 
-<h3 id="8.9.1_无线传输">§8.9.1 无线传输</h3>
+<h3 id="8.9.1_无线传输">§7.9.1 无线传输</h3>
 <p>优点是简洁易操作，判断输出电力的机器附近是否有需要输入电力的机器并计算即可。</p>
 
 <pre class="file">ex:tick</pre>
@@ -6516,12 +6545,12 @@ scoreboard players operation #t0 exPower -= #t exPower
 
 <p>我们也可以在传输中添加类似投射物的特效来提高视觉效果。</p>
 
-<h3 id="8.9.2_管道式">§8.9.2 管道式 (WIP)</h3>
+<h3 id="8.9.2_管道式">§7.9.2 管道式 (WIP)</h3>
 <p>优点是具有传统科技模组的风格，缺点是每个管道都是一个实体（仅有原版方块限制颇多），管道多的时候会较为卡顿。</p>
 <p>涌流式：能量从高处向周围比它低的管道/机器处流动，来最终实现能量传输。管道内会留有缓存。实现和无线传输类似，只是范围限定在1米内。</p>
 <p>遍历式：从能量源出发，遇到过的管道做标记一直向下，如果遇到终点就回溯到分叉点，一直循环直到返回源头。</p>
 
-<h3 id="8.9.3_激光式">§8.9.3 激光式</h3>
+<h3 id="8.9.3_激光式">§7.9.3 激光式</h3>
 <p>为了降低管道式的管道数量，我们可以将管道替换为可以一次传输多格的激光式管道。这里我们使用展示框来表示，计算其与前方方块的距离并调整外观（长度）。</p>
 
 <pre class="file">ex:tick</pre>
@@ -6567,7 +6596,7 @@ scoreboard players remove @s indPower 1
 scoreboard players add @e[tag=ind_power_in,distance=..0.1,limit=1] indPower 1
 </pre>
 
-<h3 id="8.9.4_载体式">§8.9.4 载体式</h3>
+<h3 id="8.9.4_载体式">§7.9.4 载体式</h3>
 <p>我们使用一个可移动的实体来传输能量，这个实体受方块控制。</p>
 
 <pre class="file">wire:golem/tick</pre>
@@ -6589,7 +6618,7 @@ execute as @s[scores={exPower=1..}] if entity @e[type=armor_stand,tag=machine_ma
 </pre>
 <p>然后和其它传输方式一样，计算传输值即可。</p>
 
-<h3 id="8.9.5_管道设计">§8.9.5 管道设计</h3>
+<h3 id="8.9.5_管道设计">§7.9.5 管道设计</h3>
 <p>我们可以使用屏障方块来作为管道的本体方块，使用扳手(胡萝卜钓竿)来右键拆解。</p>
 
 <p>管道需要高频判断是否与周边方块连接，以调整其自身显示。</p>
@@ -6605,8 +6634,8 @@ execute positioned ~ ~-1 ~ if entity @e[type=armor_stand,tag=ex_pipe,distance=..
 execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s exModel
 </pre>
 
-<h1 id="9_NBT合成与烧炼">§9 NBT合成与烧炼</h1>
-<h2 id="9.1_地板合成">§9.1 地板合成</h2>
+<h1 id="NBT合成与烧炼">§8 NBT合成与烧炼</h1>
+<h2 id="9.1_地板合成">§8.1 地板合成</h2>
 <p>将物品扔在地面进行合成，是模组配方数量少时采用的一种便捷做法。优点是无需设计 GUI。</p>
 
 <p class="ex">将磁铁（<code>id:"ex:magnet"</code>）和4个钻石合成为充能指南针（<code>id:"ex:powered_magnet"</code>）。</p>
@@ -6622,7 +6651,7 @@ kill @s
 summon item ~ ~ ~ {Item:{id:"minecraft:compass",Count:1b,tag:{id:"ex:powered_magnet"}}}
 </pre>
 
-<h2 id="9.2_实体背包合成">§9.2 实体背包合成</h2>
+<h2 id="9.2_实体背包合成">§8.2 实体背包合成</h2>
 <p>利用玩家的背包、末影箱、箱子矿车、驴等生物的背包用于合成，也是一种较为便捷的方式，不受方块的限制。</p>
 
 <p>由于玩家的NBT难以修改，玩家背包和末影箱并不便于合成处理，而且一般只能用于有序合成。其它情形可以通过不指定 <code>Slot</code> 来实现无序合成。</p>
@@ -6671,13 +6700,13 @@ replaceitem entity @s inventory.15 minecraft:air
 replaceitem entity @s inventory.17 minecraft:air
 </pre>
 
-<h2 id="9.3_容器合成">§9.3 容器合成</h2>
-<p>使用投掷器、箱子、木桶等容器可以更为便捷地实现合成。我们可以直接使用容器，或者使用 <a href="#8_机器设计">§8 机器设计</a>的方法设计好自定义工作台的GUI。</p>
+<h2 id="9.3_容器合成">§8.3 容器合成</h2>
+<p>使用投掷器、箱子、木桶等容器可以更为便捷地实现合成。我们可以直接使用容器，或者使用 <a href="#8_机器设计">§7 机器设计</a>的方法设计好自定义工作台的GUI。</p>
 
-<p>输出方式我们可以选择输出到输出栏（木桶）、输出到自身（精准匹配+投掷器）、弹出。具体实现与 <a href="#8_机器设计">§8 机器设计</a>并无二致。</p>
+<p>输出方式我们可以选择输出到输出栏（木桶）、输出到自身（精准匹配+投掷器）、弹出。具体实现与 <a href="#8_机器设计">§7 机器设计</a>并无二致。</p>
 
-<h2 id="9.4_NBT烧炼">§9.4 NBT烧炼</h2>
-<h2 id="9.4.1_替换产物法">§9.4.1 替换产物法</h2>
+<h2 id="9.4_NBT烧炼">§8.4 NBT烧炼</h2>
+<h2 id="9.4.1_替换产物法">§8.4.1 替换产物法</h2>
 <p>放置熔炉、高炉、烟熏炉、营火的过程已省略。我们假设相应方块位置已有标签为 <code>ex_furnace</code> 的盔甲架。</p>
 <p class="ex">将蛋烧炼为战利品表物品 <code>ex:egg_stew</code>。创建烧炼配方以激活烧炼蛋。</p>
 <pre class="file">ex/recipes/egg.json</pre>
@@ -6739,7 +6768,7 @@ data merge block ~ ~ ~ {CookTime:0s}
 </tr>
 </tbody></table>
 
-<h2 id="9.4.2_记分板模拟">§9.4.2 记分板模拟</h2>
+<h2 id="9.4.2_记分板模拟">§8.4.2 记分板模拟</h2>
 <p>另一种做法就是并不添加相应的烧炼配方，而是通过记分板计时来达到控制烧炼时间的目的。当物品进入熔炉后，判断其是否需要烧炼以及是否有燃料，然后判断输出栏是否为空或其产物，如果确实可以烧炼，那么临时存储输入输出栏物品至存储区，然后放入任意可烧炼物品以触发燃料的消耗和烧炼动画。下一刻再将存储区的物品返回熔炉。反复操作直到烧炼时间达到了烧炼该物品所需的时间，此时产出产物即可。(by chaoren019)</p>
 <p>该方法在计算时会导致熔炉内物品闪烁一下(这可以通过自定义空白模型的铁矿石来解决)，更换不同燃烧值物品时，燃烧火焰条也会有所变化，这和通常烧炼配方有差异。</p>
 <pre class="file">ex:furnace/tick</pre>
@@ -6958,7 +6987,7 @@ data modify block ~ ~ ~ {} merge from storage ex:furnace {}
 </pre>
 <p>对于烟熏炉和高炉，操作是类似的，但是需要每次增加exTick 2。营火由于会判断材料是否合法，因此无法用该方法。</p>
 
-<h2 id="9.5_NBT酿造">§9.5 NBT酿造</h2>
+<h2 id="9.5_NBT酿造">§8.5 NBT酿造</h2>
 <p>类似于自定义烧炼的方法，我们可以自定义酿造。但是由于酿造台的限制，酿造材料必须为原版酿造材料物品，待酿造的物品只能为药水或玻璃瓶。除了红石、萤石、火药、龙息外，建议使用兔子腿，因为兔子腿只有酿造功能。</p>
 <p>如果酿造材料和待酿造的物品本身就属于原版可酿造的配方，我们只需在酿造即将完成时，将药水替换掉即可。例如：使用大地之证 (兔子腿 <code>ex:certification_of_earth</code>) 将粗制的药水酿造成有多重药水效果的大地药水（<code>potion_of_earth</code>），同时支持延长、加强、喷溅、滞留版本。</p>
 
@@ -7354,7 +7383,7 @@ replaceitem entity @s weapon.mainhand minecraft:air
 <p>如果酿造材料和待酿造的物品不属于原版可酿造的配方，我们需要在二者均进入酿造台时，将其物品修改为具有相同材质名称的、可以实现酿造的物品。当物品进入背包时，将其改回原物品。酿造即将完成时，检测相应NBT是否来自指定的物品，并修改产物。</p>
 
 
-<h1 id="10_植物">§10 植物</h1>
+<h1 id="10_植物">§9 植物</h1>
 
 <p>我们使用寻常作物来实现自定义作物。在相应的方块处放置带有自定义物品模型的盔甲架来实现其外观的不同，并高频判断和重置其生长状态来确定生长。模型可以选择盖住原方块模型，或删除原方块模型并将原作物当做自定义作物实现（会生成盔甲架实体）。如果自定义作物的材质没有覆盖原来的方块，就会导致自定义的作物处，既有自定义作物的材质，又有原本的作物材质。解决方法之一是限定自定义作物模型包含原有的作物模型，另一种是删除原有方块材质并在原方块处放置对应材质的盔甲架解决。</p>
 
@@ -7436,7 +7465,7 @@ replaceitem entity @s weapon.mainhand minecraft:air
 
 <p>另一种实现方式即使用<a href="#6.3_命令方块替换法">§6.3 命令方块替换法</a>来放置，只需在放置完成后检测下方不是土时将其破坏掉即可。这种方法较为简单，缺点是物品缺少树苗的诸如可作为燃料、可堆肥的特性。</p>
 
-<h2 id="10.1_作物">§10.1 作物</h2>
+<h2 id="10.1_作物">§9.1 作物</h2>
 
 <p class="ex">种植铁种子，收获种子和铁锭，可由骨粉催熟。种下后，探测位置放置盔甲架。破坏时，修改附近掉落物。</p>
 <pre class="file">ex:advancements/plants/iron_seeds</pre>
@@ -7471,7 +7500,7 @@ execute as @s[tag=ex_iron_seeds] as @e[type=item,nbt={Item:{id:"minecraft:beetro
 
 <p>实际上，我们也可以通过盔甲架手持物品来实现自定义材质的作物。</p>
 
-<h2 id="10.2_花草">§10.2 花草</h2>
+<h2 id="10.2_花草">§9.2 花草</h2>
 <p>我们使用金合欢树苗作为花草原型。方块的放置部分我们省略，只需要注意花草的模型通常和物品模型是不同的，因此在放置后需要修改CustomModelData，破坏情形也是同理。</p>
 <p class="ex">放置花草种子，长大后收获成熟的花草。</p>
 <pre class="file">ex:tick</pre>
@@ -7519,7 +7548,7 @@ execute if score #t exValue matches 12975080 run loot replace entity @s armor.he
 execute if score #t exValue matches 12975021..12975080 store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get #t exValue
 </pre>
 
-<h2 id="10.3_树">§10.3 树</h2>
+<h2 id="10.3_树">§9.3 树</h2>
 
 <p class="ex">种下矿石树树苗，然后会长大。长大后的树叶会逐渐变为矿石。</p>
 <pre class="file">ex:plants/trees/grow</pre>
@@ -7640,11 +7669,11 @@ kill @s
 </pre>
 
 
-<h1 id="11_物品与实体处理">§11 物品与实体处理</h1>
+<h1 id="11_物品与实体处理">§10 物品与实体处理</h1>
 <p>本节内容较杂，主要包括常见的一些物品与实体处理方式。</p>
 
 
-<h2 id="修改玩家背包">§11.1 修改玩家背包</h2>
+<h2 id="修改玩家背包">§10.1 修改玩家背包</h2>
 
 <p>用于修改实体方块、实体、存储区NBT的 <code>data</code> 命令无法用来修改玩家NBT。在1.13-1.14版本中可以使用 <code>execute store</code> 和 <code>data modify</code> 命令来修改玩家背包内物品的 <code>tag</code> 标签下的信息，尽管使用该命令会提示错误。而在1.15版本则将该功能去除，想要修改玩家背包就必须借助其它方式。</p>
 
@@ -7816,7 +7845,7 @@ kill @s
 <p>除了用于修改玩家背包，该命令还可配合 <code>loot insert</code> 来将物品输出到容器内，并使物品尽量堆叠。这常用于机器的输出，见 <a href="#物品输出">物品输出</a>。</p>
 
 
-<h2 id="耐久处理">§11.2 耐久处理</h2>
+<h2 id="耐久处理">§10.2 耐久处理</h2>
 
 <p>有时候我们需要模拟使用工具的过程，但工具并没有真正被使用，耐久也没有被消耗。此时我们需要手动对其耐久进行处理。</p>
 <p>我们将物品信息复制到存储区 <code>ex:damage</code> 的 <code>Item</code> 中，然后使用断言判断是否减少耐久。最后判断其是否已经耐久耗尽，若耗尽则清除之。</p>
@@ -8032,9 +8061,9 @@ execute unless predicate ex:no_damage store result storage ex:damage Item.tag.Da
         ]
     }
 ]</pre>
-<p>对于旧版本，我们也可以通过生成<code>0~耐久附魔等级</code>的随机数，并判断是否为0来确定是否消耗耐久，参考<a href="11.1_随机数">§11.1 随机数</a>。</p>
+<p>对于旧版本，我们也可以通过生成<code>0~耐久附魔等级</code>的随机数，并判断是否为0来确定是否消耗耐久，参考<a href="11.1_随机数">§10.1 随机数</a>。</p>
 
-<h2 id="红石信号">§11.3 红石信号</h2>
+<h2 id="红石信号">§10.3 红石信号</h2>
 
 <p>为了检测当前方块是否被强充能了，我们将所有能激活当前方块的红石元件和方块状态记录在断言文件中来判断。注意我们没有对当前方块是否完整进行检测。陷阱箱触发的红石信号也是无法直接探测到的。</p>
 
@@ -8519,9 +8548,9 @@ execute unless predicate ex:no_damage store result storage ex:damage Item.tag.Da
 
 <p>弱充能情形更为繁琐。</p>
 
-<p>想要产生一个红石信号，可以通过在当前位置放置红石块再放置空气来产生。注意保存当前方块的信息。这样的红石信号可以用于激活结构方块，因此可用于 <a href="世界生成">§12 世界生成</a>。</p>
+<p>想要产生一个红石信号，可以通过在当前位置放置红石块再放置空气来产生。注意保存当前方块的信息。这样的红石信号可以用于激活结构方块，因此可用于 <a href="世界生成">§11 世界生成</a>。</p>
 
-<h2 id="方块交互">§11.4 方块交互</h2>
+<h2 id="方块交互">§10.4 方块交互</h2>
 
 <p>与某些特定方块交互，可通过相应的交互判据的计分板来探测。如果仅需要右击而不打开，可对容器进行上锁，但玩家快捷栏上方会提示容器已上锁，需要使用资源包来消除；或者使用传送来实现强制关闭GUI，但画面会有闪烁感。</p>
 
@@ -8635,7 +8664,7 @@ tag @s remove machine_close_gui
 execute at @s facing entity @e[type=area_effect_cloud,tag=machine_close_gui_facing,distance=..10,sort=nearest,limit=1] feet run tp ~ ~ ~
 </pre>
 
-<h2 id="生物移动">§11.5 生物移动</h2>
+<h2 id="生物移动">§10.5 生物移动</h2>
 
 <p class="ex">手持绿宝石块的玩家吸引 <code>16</code> 米内的村民到自身位置。</p>
 
@@ -8769,7 +8798,7 @@ execute store result entity @s Motion[2] double 0.0005 run scoreboard players op
 <p>这里我们进行了繁复的判断是为了让村民能够爬坡，但不能爬过栅栏类方块。如果是想要实现吸引物品掉落物的效果，则很多内容可以省略。</p>
 
 
-<h2 id="交易">§11.6 交易</h2>
+<h2 id="交易">§10.6 交易</h2>
 <p>使用村民交易是一种常见的特殊物品获得方式。在1.14+版本，建议使用流浪商人而不是村民，因为村民的交易会根据工作方块而进行变化，导致设定的交易被覆盖或出现不想要的交易。如果不希望交易产生经验值，需将 <code>rewardExp</code> 设置为 <code>0b</code>。通过让村民佩戴物品，可以让村民头部实现不同的外观，但是其它部位不能如此修改，使用佩戴在头部全身模型也会因村民头部移动而发生错乱。</p>
 
 <p>建议使用战利品来随机生成村民的交易项。</p>
@@ -8956,7 +8985,7 @@ tag @s add trade_trade_added
 
 <p>1.13版本可将村民的NBT修改为 <code>{VillagerData:{profession:"minecraft:none"}</code> 以确保村民不含交易。</p>
 
-<h2 id="清理特定物品">§11.7 清理特定物品</h2>
+<h2 id="清理特定物品">§10.7 清理特定物品</h2>
 
 <p>在自动种植、自动繁殖或放置方块等情形，我们需要对容器内的特定物品进行消耗。例如：当含有 <code>ex:toughen_hand</code> 的物品展示框下方容器内有胡萝卜、金胡萝卜、蒲公英时，令附近的兔子进入繁殖状态并清除一个相应物品。</p>
 
@@ -8984,7 +9013,7 @@ data merge entity @e[type=item_framerabbit,distance=..9,nbt={Age:0,InLove:0},lim
 
 <p>注意到一点，<code>Items[{id:"minecraft:carrot"}]</code> 只会选择容器内的最后一个拥有胡萝卜的栏位。如果 <code>ex:toughen_hand</code> 的物品被消耗完，则追加到容器的 <code>Items</code> 时，仍然会先覆盖已有的同 <code>Slot</code> 项，然后由于 <code>Count</code> 变为 <code>0</code> 而清除该栏位。</p>
 
-<h2 id="连锁">§11.8 连锁</h2>
+<h2 id="连锁">§10.8 连锁</h2>
 
 <p>当玩家使用原版镐时，破坏所有相连的矿石。</p>
 
@@ -9054,12 +9083,12 @@ function ex:damage
 execute if score #temp chainValue &lt; #max_durality chainValue run function chain:chain/pickaxe1/mark
 </pre>
 
-<p>函数 <code>ex:damage</code> 见 <a href="11.3_耐久处理">§11.3 耐久处理</a>。</p>
+<p>函数 <code>ex:damage</code> 见 <a href="11.3_耐久处理">§10.3 耐久处理</a>。</p>
 
-<h1 id="12_算法">§12 算法</h1>
+<h1 id="12_算法">§11 算法</h1>
 
-<h2 id="随机数">§12.1 随机数</h2>
-<h2 id="不定长均匀分布">§12.1.1 不定长均匀分布</h2>
+<h2 id="随机数">§11.1 随机数</h2>
+<h2 id="不定长均匀分布">§11.1.1 不定长均匀分布</h2>
 <p>我们使用战利品的 <code>set_attribute</code> 函数可以便捷地得到 <code>0</code> 至 <code>2048</code> 之间的一个随机浮点数。由此可得到下述算法。</p>
 
 <pre class="file">ex/loot_tables/misc/random.json</pre>
@@ -9124,7 +9153,7 @@ scoreboard players operation #rand exValue %= #random_interval exValue
 scoreboard players operation #rand exValue += #random_min exValue
 </pre>
 
-<h2 id="定长均匀分布">§12.1.2 定长均匀分布</h2>
+<h2 id="定长均匀分布">§11.1.2 定长均匀分布</h2>
 <p>对于固定范围的随机数，我们可以直接在战利品表内设置好，可省去部分记分板的计算。</p>
 <p class="ex">生成 <code>1~100</code> 的均匀分布。</p>
 <pre class="file">ex/loot_tables/misc/random100.json</pre>
@@ -9169,7 +9198,7 @@ execute store result score #rand exValue run data get block ~ 255 ~ Items[0].tag
 setblock ~ 255 ~ air
 </pre>
 
-<h2 id="非均匀分布">§12.1.3 非均匀分布</h2>
+<h2 id="非均匀分布">§11.1.3 非均匀分布</h2>
 <p>对于只有若干个值的非均匀分布，我们可以使用战利品表来实现。</p>
 <p class="ex">设 2, 3, 5, 7, 11 的概率分别为 0.2, 0.2, 0.36, 0.12, 0.12。</p>
 <pre class="file">ex/loot_tables/misc/rand_prime.json</pre>
@@ -9269,7 +9298,7 @@ execute if predicate ex:misc/rand_50 run scoreboard players set #rand exValue 2
 execute if predicate ex:misc/rand_30 run scoreboard players set #rand exValue 3
 </pre>
 
-<h2 id="二项分布和泊松分布">§12.1.4 二项分布</h2>
+<h2 id="二项分布和泊松分布">§11.1.4 二项分布</h2>
 <pre class="file">ex/loot_tables/misc/binomial.json</pre>
 <pre>
 {
@@ -9316,7 +9345,7 @@ setblock ~ 255 ~ air
 
 
 
-<h2 id="世界生成结构">§12.2 世界生成结构</h2>
+<h2 id="世界生成结构">§11.2 世界生成结构</h2>
 <p class="ex">世界生成时，随机生成结构。判断玩家东南32×32范围内是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。</p>
 
 <pre class="file">ex:tick</pre>
@@ -9819,16 +9848,16 @@ loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
 <p>我们可以将所有维度的结构标记物均放置在同一战利品表内。</p>
 <p>另一种生成为全局替换，例如将主世界的地牢刷怪笼一部分替换为苦力怕刷怪笼，那么在每次检测时，使用 <code>fill</code> 命令强制替换即可。但是该命令开销很大，会导致较大的卡顿。</p>
 
-<h2 id="绘制图案">§12.3 绘制图案</h2>
+<h2 id="绘制图案">§11.3 绘制图案</h2>
 TBD
 
-<h2 id="循环和递归">§12.4 循环和递归</h2>
+<h2 id="循环和递归">§11.4 循环和递归</h2>
 TBD
 
-<h2 id="字符操作">§12.5 字符操作</h2>
+<h2 id="字符操作">§11.5 字符操作</h2>
 TBD
 
-<h2 id="位运算与种子">§12.6 位运算与种子</h2>
+<h2 id="位运算与种子">§11.6 位运算与种子</h2>
 
 
 </article>
