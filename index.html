@@ -1920,7 +1920,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h3 id="噪声设置">§2.11.1 噪声设置</h3>
 <p>噪声设置用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
-<h4 id="噪声设置JSON格式">JSON格式</h4>
+<h4 id="噪声设置JSON格式"><a href="files/vanilla/data/minecraft/worldgen/noise_settings">⬇️</a>JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{ 
     "bedrock_roof_position": 整数, <span class="comment">TBD，noise.height-基岩天花板的Y坐标, 如果它不在 0-noise.height 范围内, 则无基岩天花板</span>
@@ -2048,6 +2048,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <h3 id="生物群系">§2.11.2 生物群系</h3>
 <p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+
+<h4 id="生物群系JSON格式">JSON格式</h4>
 <pre class="file"><a href="files/vanilla/data/minecraft/worldgen/biome">⬇️</a>JSON格式</pre>
 <pre>{
     "precipitation"<span class="comment">降雨量</span>: "none"<span class="comment">永不下雨</span>, "rain"<span class="comment">下雨</span> 或 "snow"<span class="comment">下雪</span>, 
@@ -2167,10 +2169,94 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "parent": "命名空间ID" <span class="comment">可选，父生物群系，继承其特征</span>
 }</pre>
 
+<h4 id="可用的生物群系">可用的生物群系</h4>
+<p>这些是 Minecraft 内部已生成的生物群系命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<pre><a href="files/vanilla/data/minecraft/worldgen/biome/badlands.json">badlands</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/badlands_plateau.json">badlands_plateau</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/bamboo_jungle.json">bamboo_jungle</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/bamboo_jungle_hills.json">bamboo_jungle_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/basalt_deltas.json">basalt_deltas</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/beach.json">beach</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/birch_forest.json">birch_forest</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/birch_forest_hills.json">birch_forest_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/cold_ocean.json">cold_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/crimson_forest.json">crimson_forest</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/dark_forest.json">dark_forest</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/dark_forest_hills.json">dark_forest_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/deep_cold_ocean.json">deep_cold_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/deep_frozen_ocean.json">deep_frozen_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/deep_lukewarm_ocean.json">deep_lukewarm_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/deep_ocean.json">deep_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/deep_warm_ocean.json">deep_warm_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/desert.json">desert</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/desert_hills.json">desert_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/desert_lakes.json">desert_lakes</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/end_barrens.json">end_barrens</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/end_highlands.json">end_highlands</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/end_midlands.json">end_midlands</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/eroded_badlands.json">eroded_badlands</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/flower_forest.json">flower_forest</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/forest.json">forest</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/frozen_ocean.json">frozen_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/frozen_river.json">frozen_river</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga.json">giant_spruce_taiga</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga_hills.json">giant_spruce_taiga_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/giant_tree_taiga.json">giant_tree_taiga</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/giant_tree_taiga_hills.json">giant_tree_taiga_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/gravelly_mountains.json">gravelly_mountains</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/ice_spikes.json">ice_spikes</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/jungle.json">jungle</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/jungle_edge.json">jungle_edge</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/jungle_hills.json">jungle_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/lukewarm_ocean.json">lukewarm_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/modified_badlands_plateau.json">modified_badlands_plateau</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/modified_gravelly_mountains.json">modified_gravelly_mountains</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/modified_jungle.json">modified_jungle</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/modified_jungle_edge.json">modified_jungle_edge</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/modified_wooded_badlands_plateau.json">modified_wooded_badlands_plateau</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/mountains.json">mountains</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/mountain_edge.json">mountain_edge</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/mushroom_fields.json">mushroom_fields</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/mushroom_field_shore.json">mushroom_field_shore</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/nether_wastes.json">nether_wastes</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/ocean.json">ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/plains.json">plains</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/river.json">river</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/savanna.json">savanna</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/savanna_plateau.json">savanna_plateau</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/shattered_savanna.json">shattered_savanna</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/shattered_savanna_plateau.json">shattered_savanna_plateau</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/small_end_islands.json">small_end_islands</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_beach.json">snowy_beach</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_mountains.json">snowy_mountains</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_taiga.json">snowy_taiga</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_taiga_hills.json">snowy_taiga_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_taiga_mountains.json">snowy_taiga_mountains</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_tundra.json">snowy_tundra</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/soul_sand_valley.json">soul_sand_valley</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/stone_shore.json">stone_shore</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/sunflower_plains.json">sunflower_plains</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/swamp.json">swamp</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/swamp_hills.json">swamp_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/taiga.json">taiga</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/taiga_hills.json">taiga_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/taiga_mountains.json">taiga_mountains</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/tall_birch_forest.json">tall_birch_forest</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/tall_birch_hills.json">tall_birch_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/the_end.json">the_end</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/the_void.json">the_void</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/warm_ocean.json">warm_ocean</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/warped_forest.json">warped_forest</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/wooded_badlands_plateau.json">wooded_badlands_plateau</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/wooded_hills.json">wooded_hills</a>
+<a href="files/vanilla/data/minecraft/worldgen/biome/wooded_mountains.json">wooded_mountains</a>
+</pre>
+
 <h3 id="地形雕刻配置">§2.11.3 地形雕刻配置</h3>
 <p>地形雕刻配置用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻配置文件为JSON文件，地形雕刻配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_carver/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+
 <h4 id="地形雕刻配置JSON格式">JSON格式</h4>
-<pre class="file">JSON格式</pre>
+<pre class="file"><a href="files/vanilla/data/minecraft/worldgen/configured_carver">⬇️</a>JSON格式</pre>
 <pre>{
     "name"<span class="comment">雕刻类型</span>: "cave", "nether_cave", "canyon", "underwater_canyon" 或 "underwater_cave",
     "config": {
@@ -2192,7 +2278,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h3 id="地表生成配置">§2.11.4 地表生成配置</h3>
 <p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="地表生成配置JSON格式">JSON格式</h4>
-<pre class="file">JSON格式</pre>
+<pre class="file"><a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder">⬇️</a>JSON格式</pre>
 <pre>{
     "name"<span class="comment">地表类型</span>: "default"<span class="comment">默认</span>, "mountain"<span class="comment">山地</span>, "shattered_savanna"<span class="comment">破碎的热带草原</span>, "gravelly_mountain"<span class="comment">砂砾山地</span>, "giant_tree_taiga"<span class="comment">巨型针叶林</span>, "swamp"<span class="comment">沼泽</span>, "badlands"<span class="comment">恶地</span>, "wooded_badlands"<span class="comment">繁茂的恶地</span>, "eroded_badlands"<span class="comment">被风蚀的恶地</span>, "frozen_ocean"<span class="comment">冻洋</span>, "nether"<span class="comment">下界</span>, "nether_forest"<span class="comment">下界森林</span>, "soul_sand_valley"<span class="comment">灵魂沙峡谷</span>, "basalt_deltas"<span class="comment">玄武岩三角洲</span> 或 "nope"<span class="comment">无</span>,
     "config": {
@@ -2243,14 +2329,13 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/swamp.json">⬇️</a>swamp
 <a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/warped_forest.json">⬇️</a>warped_forest
 <a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/wooded_badlands.json">⬇️</a>wooded_badlands
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/.json">⬇️</a>
 </pre>
 
 
 <h3 id="地形特征配置">§2.11.5 地形特征配置</h3>
 <p>地形特征配置用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地形特征配置文件为JSON文件，地形特征配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
-<h4 id="地形特征配置JSON格式">JSON格式</h4>
+<h4 id="地形特征配置JSON格式"><a href="files/vanilla/data/minecraft/worldgen/configured_feature/">⬇️</a>JSON格式</h4>
 <pre class="file">树的JSON格式</pre>
 <pre>{
     "name": "tree",
@@ -3054,7 +3139,7 @@ decorated
 <h3 id="结构配置">§2.11.6 结构配置</h3>
 <p>结构配置用于指定生物群系生成特定类型的结构以及结构的参数。结构配置文件为JSON文件，结构配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_structure_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="结构配置JSON格式">JSON格式</h4>
-<pre class="file">JSON格式</pre>
+<pre class="file"><a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/">⬇️</a>JSON格式</pre>
 <pre>{
     "name": "pillager_outpost"<span class="comment">掠夺者前哨站</span>, "village"<span class="comment">村庄</span> 或 "bastion_remnant"<span class="comment">堡垒遗迹</span>
     "config": {
@@ -3154,7 +3239,7 @@ decorated
 </ul>
 <p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块（或者游戏任务结构以及足够大）为止。然而，使用结构方块加载结构不能复现上述过程，结构仍会包含拼图方块。 </p>
 
-<pre class="file">JSON格式</pre>
+<pre class="file"><a href="files/vanilla/data/minecraft/worldgen/template_pool">⬇️</a>JSON格式</pre>
 <pre>{
     "name": "命名空间ID", <span class="comment">TBD，目标池</span>
     "fallback": 原版为 "minecraft:empty", <span class="comment">TBD</span>
@@ -3186,7 +3271,7 @@ decorated
 <h3 id="方块处理表">§2.11.8 方块处理表</h3>
 <p>方块处理表用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="方块处理表JSON格式">JSON格式</h4>
-<pre class="file">JSON格式</pre>
+<pre class="file"><a href="files/vanilla/data/minecraft/worldgen/processor_list">⬇️</a>JSON格式</pre>
 <pre>{
     "processors": [
         {
