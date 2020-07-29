@@ -532,7 +532,7 @@ data
 <p>参考<a href="https://wiki.biligame.com/mc/命名空间" class="wiki">命名空间</a>。<ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
 <p><a href="#2.9_标签">标签</a>文件，即 <code>tags</code> 中的文件内容默认追加而不是覆盖。因此标签文件是解决数据包冲突和联动的有力工具。</p>
 
-<table><thead><tr><th>类型</th><th style="width:11em;">调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
+<table><thead><tr><th>类型</th><th>调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
 <tr>
     <th>函数</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
@@ -586,56 +586,56 @@ data
 <tr>
     <th>维度</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/dimension/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/dimension/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>维度类型</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/dimension_type/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/dimension_type/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>噪声设置</th>
+    <th>世界生成-噪声设置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/worldgen‌/noise_settings/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>生物群系</th>
+    <th>世界生成-生物群系</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/worldgen‌/biome/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>地形雕刻配置</th>
+    <th>世界生成-地形雕刻配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/configured_carver/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>地表生成配置</th>
+    <th>世界生成-地表生成配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>地形特征配置</th>
+    <th>世界生成-地形特征配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/configured_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/worldgen‌/configured_feature/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>结构配置</th>
+    <th>世界生成-结构配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/configured_structure_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>拼图随机池</th>
+    <th>世界生成-拼图随机池</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/template_pool/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>方块处理表</th>
+    <th>世界生成-方块处理表</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 </tbody></table>
 
-<p></p>
+<p>1.16-1.16.1 版本的维度、维度类型和世界生成文件位置为 <code>minecraft/<i>类型</i>/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code> 而不是 <code><i>命名空间</i>/<i>类型</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。除此之外，如战利品表JSON的 <code>type</code>、战利品表条件JSON的 <code>condition</code> 等诸多情形的值也是 <code>minecraft</code> 命名空间下的命名空间ID，因此此时也可以省略 <code>minecraft:</code>。</p>
 
 <h2 id="函数">§2.3 函数</h2>
@@ -1878,7 +1878,7 @@ execute unless block ^ ^ ^ #ex:fluid
 <h3 id="维度实例">§2.10.3 实例</h3>
 <p>定义好新的维度之后，我们还需要为其设计传送方式。简单的可以使用物品触发，见<a href="#右键交互">右键交互</a>。更常见的则是使用多方块结构为传送检测方式。</p>
 <p class="ex">定义一个新的维度，其中仅有繁花森林生物群系。使用高花摆放成八边形并在中间放置白色羊毛激活传送门。</p>
-<pre class="file"><a href="files/ex/data/minecraft/dimension/ex/flower.json">minecraft/dimension/ex/flower.json</a></pre>
+<pre class="file"><a href="files/ex/data/ex/dimension/flower.json">ex/dimension/flower.json</a></pre>
 <pre>
 {
     "type": "ex:flower",
@@ -1946,7 +1946,7 @@ execute unless block ^ ^ ^ #ex:fluid
     }
 }
 </pre>
-<pre class="file"><a href="files/ex/data/minecraft/dimension_type/ex/flower.json">minecraft/dimension_type/ex/flower.json</a></pre>
+<pre class="file"><a href="files/ex/data/ex/dimension_type/flower.json">ex/dimension_type/flower.json</a></pre>
 <pre>
 {
     "ultrawarm": false,
@@ -2278,7 +2278,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 
 <h3 id="噪声设置">§2.11.1 噪声设置</h3>
-<p>噪声设置用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>噪声设置用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/noise_settings/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="噪声设置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
@@ -2379,7 +2379,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 
 <h3 id="生物群系">§2.11.2 生物群系</h3>
-<p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/biome/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="生物群系JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
@@ -2585,7 +2585,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
 <h3 id="地形雕刻配置">§2.11.3 地形雕刻配置</h3>
-<p>地形雕刻配置用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻配置文件为JSON文件，地形雕刻配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_carver/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>地形雕刻配置用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻配置文件为JSON文件，地形雕刻配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="地形雕刻配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
@@ -2608,7 +2608,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 
 <h3 id="地表生成配置">§2.11.4 地表生成配置</h3>
-<p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="地表生成配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
@@ -2665,7 +2665,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 
 <h3 id="地形特征配置">§2.11.5 地形特征配置</h3>
-<p>地形特征配置用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地形特征配置文件为JSON文件，地形特征配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>地形特征配置用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地形特征配置文件为JSON文件，地形特征配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="地形特征配置JSON格式">JSON格式</h4>
 <pre class="file">树的JSON格式</pre>
@@ -3469,7 +3469,7 @@ decorated
 </pre>
 
 <h3 id="结构配置">§2.11.6 结构配置</h3>
-<p>结构配置用于指定生物群系生成特定类型的结构以及结构的参数。结构配置文件为JSON文件，结构配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/configured_structure_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>结构配置用于指定生物群系生成特定类型的结构以及结构的参数。结构配置文件为JSON文件，结构配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="结构配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
@@ -3556,7 +3556,7 @@ decorated
 
 
 <h3 id="拼图随机池">§2.11.7 拼图随机池</h3>
-<p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块。拼图随机池文件为JSON文件，拼图随机池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/template_pool/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块。拼图随机池文件为JSON文件，拼图随机池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <ul>
     <li><strong>目标池</strong>指的是拼图方块能用于绘制元素的元素池（下个要放置的模板）。默认目标池会从 <code><i>版本号</i>.jar/data/minecraft/structures</code> 中特定文件夹内随机选取一个模板，通过拼图随机池可以修改。</li>
     <li><strong>连接类型</strong>指的是拼图方块的“名称”，拥有相同“名称”的拼图方块可以相互连接。</li>
@@ -3599,7 +3599,7 @@ decorated
 
 
 <h3 id="方块处理表">§2.11.8 方块处理表</h3>
-<p>方块处理表用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>方块处理表用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="方块处理表JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{<span class="comment">TBD</span>
