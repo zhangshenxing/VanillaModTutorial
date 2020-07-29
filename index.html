@@ -160,8 +160,8 @@
         <li><a href="#3.3_语言文件">§3.3 语言文件</a></li>
         <li><a href="#3.4_自定义物品模型">§3.4 自定义物品模型</a></li>
         <li><a href="#3.5_模型">§3.5 模型</a></li>
-        <li><a href="#3.6_材质">§3.6 材质</a></li>
-        <li><a href="#3.7_声音">§3.7 声音</a></li>
+        <li><a href="#材质">§3.6 材质</a></li>
+        <li><a href="#音效">§3.7 音效</a></li>
         <li><a href="#3.8_字体">§3.8 字体</a></li>
         <li><a href="#3.9_着色器">§3.9 着色器</a></li>
     </ul></li>
@@ -594,6 +594,11 @@ data
     <td><code>minecraft/dimension_type/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
+    <th>噪声设置</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
     <th>生物群系</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/biome/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
@@ -602,6 +607,11 @@ data
     <th>地形雕刻配置</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/configured_carver/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+    <th>地表生成配置</th>
+    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+    <td><code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>地形特征配置</th>
@@ -614,34 +624,25 @@ data
     <td><code>minecraft/worldgen‌/configured_structure_feature/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-    <th>地表生成配置</th>
+    <th>拼图随机池</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/configured_surface_builder/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
-</tr>
-<tr>
-    <th>噪声设置</th>
-    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/noise_settings/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
+    <td><code>minecraft/worldgen‌/template_pool/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
     <th>方块处理表</th>
     <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
     <td><code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
-<tr>
-    <th>拼图随机池</th>
-    <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-    <td><code>minecraft/worldgen‌/template_pool/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code></td>
-</tr>
 </tbody></table>
 
-<p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。</p>
+<p></p>
+<p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。除此之外，如战利品表JSON的 <code>type</code>、战利品表条件JSON的 <code>condition</code> 等诸多情形的值也是 <code>minecraft</code> 命名空间下的命名空间ID，因此此时也可以省略 <code>minecraft:</code>。</p>
 
 <h2 id="函数">§2.3 函数</h2>
 <p>参考<a href="https://wiki.biligame.com/mc/函数（Java版）" class="wiki">函数</a>。<ruby>函数<rt>functions</rt></ruby>是一系列顺次执行的命令。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function <i>命名空间</i>:<i>路径</i></code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
-<p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute">命令/execute</a>的各项子命令。</p>
+<p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute" class="wiki">命令/execute</a>的各项子命令。</p>
 
-<p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考 <a href="#2.9.1_预设标签">§2.9.1 预设标签</a>。</p>
+<p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考<a href="#函数标签">函数标签</a>。</p>
 
 <h2 id="2.4_进度">§2.4 <ruby>进度<rt>advancements</rt></ruby></h2>
 <p>参考<a href="https://wiki.biligame.com/mc/进度/JSON格式" class="wiki">进度/JSON格式</a>。进度为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。我们先通过两个例子来看进度文件的格式。</p>
@@ -3571,7 +3572,7 @@ decorated
 <p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块（或者游戏任务结构以及足够大）为止。然而，使用结构方块加载结构不能复现上述过程，结构仍会包含拼图方块。 </p>
 
 <pre class="file">JSON格式</pre>
-<pre>{
+<pre>{<span class="comment">TBD</span>
     "name": "命名空间ID", <span class="comment">TBD，目标池</span>
     "fallback": 原版为 "minecraft:empty", <span class="comment">TBD</span>
     "elements": [ <span class="comment">结构列表</span>
@@ -3581,16 +3582,14 @@ decorated
                 "location": "命名空间ID", <span class="comment">结构</span>
                 "projection": "rigid" 或 "terrain_matching", <span class="comment">TBD</span>
                 "element_type": "minecraft:empty_pool_element", "minecaft:list_pool_element", "minecraft:legacy_single_pool_element" 或 "minecraft:single_pool_element", <span class="comment">TBD</span>
-                "processors": "命名空间ID" 或 <a href="#方块处理表">方块处理表</a>JSON对象 或 其列表, <span class="comment">TBD，方块处理表</span>
-                "elements": [
-                    {
-                        "weight": 整数, <span class="comment">权重</span>
-                        "location": "命名空间ID", <span class="comment">结构</span>
-                        "projection": "rigid" 或 "terrain_matching", <span class="comment">TBD</span>
-                        "element_type": "minecraft:empty_pool_element", "minecaft:list_pool_element", "minecraft:legacy_single_pool_element" 或 "minecraft:single_pool_element", <span class="comment">TBD</span>
-                        "processors": "命名空间ID" 或 <a href="#方块处理表">方块处理表</a>JSON对象 或 其列表 <span class="comment">TBD，方块处理表</span>
-                    }
-                ]
+                "processors": {
+                    "processors": [
+                        {
+                            "processor_type": 字符串, <span class="comment">TBD，方块处理表类型</span> 
+                            "integrity": 数值
+                        }
+                    ]
+                }
             }
         }
     ]
@@ -3603,7 +3602,7 @@ decorated
 <p>方块处理表用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/worldgen‌/processor_list/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="方块处理表JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
-<pre>{
+<pre>{<span class="comment">TBD</span>
     "processors": [
         {
             "rules": [ <span class="comment">规则列表</span>
@@ -4114,58 +4113,30 @@ assets
 
 <p>方块状态我们一般不会用到，而且语法比较简单，可直接参阅 wiki，这里不做赘述。</p>
 
-<h2 id="3.6_材质">§3.6 <ruby>材质<rt>textures</rt></ruby></h2>
-<p>材质的绘制需要用到诸如 Photoshop 之类的画图软件，具体请参考材质版或网络上的相关教程。</p>
+<h2 id="材质">§3.6 材质</h2>
+<p><ruby>材质<rt>textures</rt></ruby>的绘制需要用到诸如 Photoshop 之类的画图软件，具体请参考材质版或网络上的相关教程。</p>
 <p>当模型调用的材质不存在时，会显示紫黑色的材质。如果模型是正确的，你仍然可以看出正确的模型形状。</p>
-<p>材质可以是动态的。动态材质需要高为宽的整数，以及一个 <code>mcmeta</code> 文件确定动画，例如 <code>foo.png</code> 对应</p>
+<p>材质可以是动态的。动态材质需要高为宽的整数倍。当材质的高度为宽度的 <code>x</code> 倍时，可以有 <code>x</code> 帧，分别对应材质自上而下均匀划分的 <code>x</code> 个块，从 <code>0</code> 开始。还需要一个 <code>mcmeta</code> 文件确定动画，例如 <code>foo.png</code> 对应</p>
 <pre class="file">foo.png.mcmeta</pre>
 <pre>
 {
       "animation": {
-        "interpolate": false,
-        "frametime": 4,
-        "frames": [
-            0,
+        "interpolate": true 或 false, <span class="comment">可选，是否需要插值过渡，默认为 false</span>
+        "frametime": 正整数, <span class="comment">每一帧的默认时长，单位刻</span>
+        "frames": [ <span class="comment">指定播放帧的次序</span>
+            0, <span class="comment">帧的序号</span>
             1,
-            2,
+            4,
             3,
-            {"index":4,"time": 2},
-            5
+            {"index":2,"time": 2}, <span class="comment">单独指定这一帧的序号和时长，单位刻</span>
+            3
         ]
       }
 }
 </pre>
-<table><thead><tr><th>含义</th><th>键</th><th>说明</th></tr></thead><tbody>
-<tr>
-    <th>插值</th>
-    <td><code>interpolate</code></td>
-    <td>是否需要插值过渡，缺省为<code>false</code>。</td>
-</tr>
-<tr>
-    <th>帧长</th>
-    <td><code>frametime</code></td>
-    <td>每一帧的默认时长(刻)。</td>
-</tr>
-<tr>
-    <th>帧</th>
-    <td><code>frames</code></td>
-    <td>指定播放帧的次序。</td>
-</tr>
-<tr>
-    <th>帧的序号</th>
-    <td><code>frames.[数字]</code></td>
-    <td>材质的高度为宽度的x倍时，可以有x帧，分别对应材质自上而下均匀划分的x个块。从0开始。</td>
-</tr>
-<tr>
-    <th>帧的序号和时长</th>
-    <td><code>frames.index</code><br/>
-        <code>frames.time</code></td>
-    <td>单独指定这一帧的序号和时长(刻)。</td>
-</tr>
-</tbody></table>
 
-<h2 id="3.7_声音">§3.7 <ruby>声音<rt>sounds</rt></ruby></h2>
-<p>音效文件为 <code>assets/命名空间/sounds.json</code>，它调用的是 <code>assets/命名空间/sounds</code> 文件夹下的 <code>ogg</code> 文件。例如：</p>
+<h2 id="音效">§3.7 音效</h2>
+<p><ruby>音效<rt>sounds</rt></ruby>文件为 <code>assets/命名空间/sounds</code> 文件夹下的 <code>ogg</code> 文件，它需要JSON文件 <code>assets/命名空间/sounds.json</code> 来调用。例如：</p>
 <pre class="file">assets/rf/sounds.json</pre>
 <pre>
 {
