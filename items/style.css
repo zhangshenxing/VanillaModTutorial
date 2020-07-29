@@ -17,6 +17,7 @@ nav{
 	font-size: 100%;
 	font-weight: bold;
 	background-color: #F8F8F8;
+	z-index: 1;
 }
 nav ul{
 	list-style-type: none;
