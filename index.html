@@ -271,7 +271,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.7 by ruhuasiyu 2020/07/28</p>
+<p>进度：§2.11 by ruhuasiyu 2020/07/30</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -1756,7 +1756,7 @@ execute unless block ^ ^ ^ #ex:fluid
 <p><ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby>用于自定义维度。</p>
 
 <h3 id="维度">§2.10.1 维度</h3>
-<p>维度规定了维度的生成方式和生物群系。维度文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/dimension/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>维度规定了维度的生成方式和生物群系。维度文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/dimension/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <pre class="file">噪声型维度JSON格式</pre>
 <pre>{
@@ -1845,7 +1845,7 @@ execute unless block ^ ^ ^ #ex:fluid
 
 <h3 id="维度类型">§2.10.2 维度类型</h3>
 
-<p>维度类型规定维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度类型的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code>minecraft/dimension_type/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>维度类型规定维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度类型的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/dimension_type/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="维度类型JSON格式">JSON格式</h4>
 <pre class="file">维度类型JSON格式</pre>
