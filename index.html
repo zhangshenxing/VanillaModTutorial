@@ -3595,7 +3595,34 @@ decorated
     ]
 }</pre>
 
-
+<p>利用结构配置和拼图随机池，我们可以实现自定义的结构的自然生成。</p>
+<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用掠夺者前哨站或村庄类型的结构配置来自定义拼图随机池。注意这样生成的结构被视为掠夺者前哨站或村庄，因此具有它们的性质，同时也可以被 <code>locate</code> 指令定位。</p>
+<pre class="file">ex/worldgen/configured_structure_feature/totem_pillar.json</pre>
+<pre>{
+    "config": {
+        "start_pool": "cpp:totem_pillar",
+        "size": 1
+    },
+    "type": "minecraft:pillager_outpost"
+}</pre>
+<pre class="file">ex/worldgen/template_pool/totem_pillar.json</pre>
+<pre>{
+    "name": "cpp:tp_overworld",
+    "fallback": "minecraft:empty",
+    "elements": [
+        {
+            "weight": 1,
+            "element": {
+            "location": "cpp:tp_overworld",
+            "processors": {
+                "processors": []
+            },
+            "projection": "rigid",
+            "element_type": "minecraft:legacy_single_pool_element"
+            }
+        }
+    ]
+}</pre>
 
 
 <h3 id="方块处理表">§2.11.8 方块处理表</h3>
