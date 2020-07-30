@@ -3596,7 +3596,7 @@ decorated
 }</pre>
 
 <p>利用结构配置和拼图随机池，我们可以实现自定义的结构的自然生成。</p>
-<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用掠夺者前哨站或村庄类型的结构配置来自定义拼图随机池。注意这样生成的结构被视为掠夺者前哨站或村庄，因此具有它们的性质，同时也可以被 <code>locate</code> 指令定位。</p>
+<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用堡垒遗迹、掠夺者前哨站或村庄类型的结构配置来自定义拼图随机池。注意这样生成的会被视为相应结构，因此具有它们的性质（灾厄村民巡逻队或袭击），同时也可以被 <code>locate</code> 指令定位、触发进度。此外堡垒遗迹生成在地下而非地表。</p>
 <pre class="file">ex/worldgen/configured_structure_feature/totem_pillar.json</pre>
 <pre>{
     "config": {
