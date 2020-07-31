@@ -2686,24 +2686,24 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "radius": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=8, maxSpread=8), <span class="comment">半径</span>
             "offset": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=8, maxSpread=8), <span class="comment">位移</span>
 
-            "type": "acacia_foliage_placer"<span class="comment">金合欢树叶型</span>
+            "type": "minecraft:acacia_foliage_placer"<span class="comment">金合欢树叶型</span>
         或
-            "type": "dark_oak_foliage_placer"<span class="comment">深色橡树树叶型</span>
+            "type": "minecraft:dark_oak_foliage_placer"<span class="comment">深色橡树树叶型</span>
         或
-            "type": "blob_foliage_placer"<span class="comment">通常的橡树树叶和白桦树叶型</span>, "bush_foliage_placer"<span class="comment">金字塔型</span>, "fancy_foliage_placer"<span class="comment">球形树叶</span>或 "jungle_foliage_placer"<span class="comment">丛林树型</span>,
+            "type": "minecraft:blob_foliage_placer"<span class="comment">通常的橡树树叶和白桦树叶型</span>, "minecraft:bush_foliage_placer"<span class="comment">金字塔型</span>, "minecraft:fancy_foliage_placer"<span class="comment">球形树叶</span>或 "minecraft:jungle_foliage_placer"<span class="comment">丛林树型</span>,
             "height": 0~16 之间的整数, <span class="comment">树叶高度和尺寸</span>
         或
-            "type": "spruce_foliage_placer"<span class="comment">云杉树叶型</span>,
+            "type": "minecraft:spruce_foliage_placer"<span class="comment">云杉树叶型</span>,
             "trunk_height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">树干高度</span>
         或
-            "type": "pine_foliage_placer"<span class="comment">稀疏云杉树叶型</span>,
+            "type": "minecraft:pine_foliage_placer"<span class="comment">稀疏云杉树叶型</span>,
             "height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">树叶高度</span>
         或
-            "type": "mega_pine_foliage_placer<span class="comment">双层稀疏云杉树叶型</span>,
+            "type": "minecraft:mega_pine_foliage_placer"<span class="comment">双层稀疏云杉树叶型</span>,
             "crown_height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">第二层树叶高度</span>
         },
         "trunk_placer": { <span class="comment">树干样式</span>
-            "type": "straight_trunk_placer"<span class="comment">竖直型，类似桦树</span>, "forking_trunk_placer"<span class="comment">单分叉型，类似金合欢</span>, "giant_trunk_placer"<span class="comment">2×2竖直型，类似大云杉</span>, "mega_jungle_trunk_placer"<span class="comment">大丛林木型</span>, "dark_oak_trunk_placer"<span class="comment">深色橡木型</span> 或 "fancy_trunk_placer"<span class="comment">多分叉型，类似大橡树</span>,
+            "type": "minecraft:straight_trunk_placer"<span class="comment">竖直型，类似桦树</span>, "minecraft:forking_trunk_placer"<span class="comment">单分叉型，类似金合欢</span>, "minecraft:giant_trunk_placer"<span class="comment">2×2竖直型，类似大云杉</span>, "minecraft:mega_jungle_trunk_placer"<span class="comment">大丛林木型</span>, "minecraft:dark_oak_trunk_placer"<span class="comment">深色橡木型</span> 或 "minecraft:fancy_trunk_placer"<span class="comment">多分叉型，类似大橡树</span>,
             "base_height": 0-32 之间的整数, <span class="comment">基础高度</span>
             "height_rand_a": 0-24 之间的整数, <span class="comment">与水平分叉有关的随机高度</span>
             "height_rand_b": 0-24 之间的整数 <span class="comment">与竖直分叉有关的随机高度</span>
@@ -2711,12 +2711,12 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "minimum_size": { <span class="comment">最小尺寸</span>
             "min_clipped_height": 0-80 之间的整数, <span class="comment">可选，最小剪切高度</span>
 
-            "type": "two_layers_feature_size", <span class="comment">两层</span>
+            "type": "minecraft:two_layers_feature_size", <span class="comment">两层</span>
             "limit": 0-81 之间的整数, 默认为 1, <span class="comment">可选，极限尺寸</span>
             "lower_size": 0-16 之间的整数, 默认为 0, <span class="comment">可选，最小尺寸</span>
             "upper_size": 0-16 之间的整数, 默认为 1 <span class="comment">可选，最大尺寸</span>
         或
-            "type": "three_layers_feature_size", <span class="comment">三层</span>
+            "type": "minecraft:three_layers_feature_size", <span class="comment">三层</span>
             "limit": 0-80 之间的整数, 默认为 1, <span class="comment">可选，极限尺寸</span>
             "upper_limit": 0-80 之间的整数, 默认为 1, <span class="comment">可选，最小尺寸</span>
             "lower_size": 0-16 之间的整数, 默认为 0, <span class="comment">可选，最小尺寸</span>
@@ -2725,12 +2725,12 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         },
         "decorators": [ <span class="comment">树干树叶上的装饰列表</span>
             {
-                "type": "trunk_vine"<span class="comment">树干藤蔓</span> 或 "leave_vine"<span class="comment">树叶藤蔓</span>
+                "type": "minecraft:trunk_vine"<span class="comment">树干藤蔓</span> 或 "minecraft:leave_vine"<span class="comment">树叶藤蔓</span>
             或
-                "type": "cocoa"<span class="comment">可可豆</span> 或 "beehive"<span class="comment">蜂巢</span>,
+                "type": "minecraft:cocoa"<span class="comment">可可豆</span> 或 "minecraft:beehive"<span class="comment">蜂巢</span>,
                 "probability": 0~1 之间的数值 <span class="comment">几率</span>
             或
-                "type": "alter_ground"<span class="comment">地面方块替换</span>,
+                "type": "minecraft:alter_ground"<span class="comment">地面方块替换</span>,
                 "provider": <a href="#方块状态类型">方块状态类型</a>JSON对象
             }
         ],
