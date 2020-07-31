@@ -1777,17 +1777,17 @@ execute unless block ^ ^ ^ #ex:fluid
             "large_biomes": true 或 false, <span class="comment">是否为巨型生物群系</span>
             "legacy_biome_init_layer": true 或 false <span class="comment">TBD，决定世界是否为default_1_1</span>
         或
-            "type": "minecraft:multi_noise", <span class="comment">根据柏林噪声图和生物群系的参数生成生物群系分布</span>
+            "type": "minecraft:multi_noise", <span class="comment">根据柏林噪声图和生物群系的柏林噪声参数生成生物群系分布，相近参数的生物群系会生成得靠近</span>
             "preset": "minecraft:nether", <span class="comment">使用下界生物群系预设，与 biomes 互斥</span>
             "biomes": [ <span class="comment">生物群系列表</span>
                 {
                     "biome": "命名空间ID", <span class="comment">生物群系</span>
                     "parameters": { <span class="comment">生物群系属性</span>
-                        "altitude": 0~1 之间的数值, <span class="comment">柏林噪声参数</span>
-                        "temperature": 0~1 之间的数值, <span class="comment">柏林噪声参数</span>
-                        "humidity": 0~1 之间的数值, <span class="comment">柏林噪声参数</span>
-                        "weirdness": 0~1 之间的数值, <span class="comment">柏林噪声参数</span>
-                        "offset": 数值 <span class="comment">绝对值越大，生物群系越小</span>
+                        "altitude": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
+                        "temperature": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
+                        "humidity": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
+                        "weirdness": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
+                        "offset": 0~1 之间的数值 <span class="comment">绝对值越大，生物群系越小</span>
                     }
                 }
             ]
