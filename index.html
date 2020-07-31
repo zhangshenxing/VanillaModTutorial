@@ -1778,7 +1778,34 @@ execute unless block ^ ^ ^ #ex:fluid
             "legacy_biome_init_layer": true 或 false <span class="comment">TBD，决定世界是否为default_1_1</span>
         或
             "type": "minecraft:multi_noise", <span class="comment">根据柏林噪声图和生物群系的柏林噪声参数生成生物群系分布，相近参数的生物群系会生成得靠近</span>
-            "preset": "minecraft:nether", <span class="comment">使用下界生物群系预设，与 biomes 互斥</span>
+            "humidity_noise": {<span class="comment">柏林噪声</span>
+              "firstOctave": -7,<span class="comment">TBD</span>
+              "amplitudes": [<span class="comment">TBD，大小分布</span>
+                1.0,
+                1.0
+              ]
+            },
+            "altitude_noise": {
+              "firstOctave": -7,
+              "amplitudes": [
+                1.0,
+                1.0
+              ]
+            },
+            "weirdness_noise": {
+              "firstOctave": -7,
+              "amplitudes": [
+                1.0,
+                1.0
+              ]
+            },
+            "temperature_noise": {
+              "firstOctave": -7,
+              "amplitudes": [
+                1.0,
+                1.0
+              ]
+            },
             "biomes": [ <span class="comment">生物群系列表</span>
                 {
                     "biome": "命名空间ID", <span class="comment">生物群系</span>
