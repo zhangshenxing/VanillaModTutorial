@@ -239,7 +239,12 @@
             <li><a href="#非均匀分布">§11.1.3 非均匀分布</a></li>
             <li><a href="#二项分布和泊松分布">§11.1.4 二项分布</a></li>
         </ul></li>
-        <li><a href="#世界生成结构">§11.2 世界生成结构</a></li>
+        <li><a href="#世界生成结构">§11.2 世界生成结构</a><ul>
+            <li><a href="#类原版小型结构">§11.2.1 类原版小型结构</a></li>
+            <li><a href="#任意纯方块结构">§11.2.2 任意纯方块结构</a></li>
+            <li><a href="#含实体结构">§11.2.3 含实体结构</a></li>
+            <li><a href="#区块标记法">§11.2.4 区块标记法</a></li>
+        </ul></li>
         <li><a href="#绘制图案">§11.3 绘制图案</a></li>
         <li><a href="#循环与递归">§11.4 循环与递归</a></li>
         <li><a href="#字符操作">§11.5 字符操作</a></li>
@@ -271,7 +276,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.11 by ruhuasiyu 2020/07/30</p>
+<p>进度：§2.11, 11.2 by ruhuasiyu 2020/07/31</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -2477,8 +2482,10 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             <span class="comment">内部特征类型 UNDERGROUND_DECORATION，默认用于生成主世界的被虫蛀的方块堆、下界砂砾和黑石堆、下界矿脉</span>
         ],
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 VEGETAL_DECORATION，默认用于生成树、竹子、仙人掌、海带和其它地下和海底作物</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">
+                内部特征类型 VEGETAL_DECORATION，默认用于生成树、竹子、仙人掌、海带和其它地下和海底作物
+                注意树的位置是固定的，也就是说如果该列表有多个 "type": "minecraft:tree" 的地形特征配置，则只有第一个会生效，之后的生成会被阻挡。想要各种地形特征配置都有几率生成，需要使用随机选择的地形特征配置
+            </span>
         ],
         [
             "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
@@ -2670,45 +2677,46 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h4 id="地形特征配置JSON格式">JSON格式</h4>
 <pre class="file">树的JSON格式</pre>
 <pre>{
-    "name": "tree",
+    "type": "minecraft:tree",
     "config": {
-        "trunk_provider": <a href="#方块状态类型">方块状态类型</a>, <span class="comment">树干，"trunk_placer": "fancy_trunk_placer" 时该方块必须类似原木有方块状态 axis=x|y|z </span>
-        "leaves_provider": <a href="#方块状态类型">方块状态类型</a>, <span class="comment">树叶</span>
+        "trunk_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">树干
+            "trunk_placer": "fancy_trunk_placer" 时树干方块必须类似原木有方块状态 axis=x|y|z </span>
+        "leaves_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">树叶</span>
         "foliage_placer": { <span class="comment">树叶样式</span>
-            "radius": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=8, maxSpread=8), <span class="comment">TBD, 半径</span>
-            "offset": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=8, maxSpread=8), <span class="comment">TBD, 位移</span>
+            "radius": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=8, maxSpread=8), <span class="comment">半径</span>
+            "offset": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=8, maxSpread=8), <span class="comment">位移</span>
 
-            "type": "acacia_foliage_placer"<span class="comment">金合欢树叶</span>
+            "type": "acacia_foliage_placer"<span class="comment">金合欢树叶型</span>
         或
-            "type": "dark_oak_foliage_placer"<span class="comment">深色橡树树叶</span>
+            "type": "dark_oak_foliage_placer"<span class="comment">深色橡树树叶型</span>
         或
-            "type": "blob_foliage_placer", "bush_foliage_placer", "fancy_foliage_placer" 或 "jungle_foliage_placer"<span class="comment">丛林树树叶</span>,
-            "height": 0~16 之间的整数, <span class="comment">TBD, 树叶高度和尺寸</span>
+            "type": "blob_foliage_placer"<span class="comment">通常的橡树树叶和白桦树叶型</span>, "bush_foliage_placer"<span class="comment">金字塔型</span>, "fancy_foliage_placer"<span class="comment">球形树叶</span>或 "jungle_foliage_placer"<span class="comment">丛林树型</span>,
+            "height": 0~16 之间的整数, <span class="comment">树叶高度和尺寸</span>
         或
-            "type": "spruce_foliage_placer"<span class="comment">云杉树叶</span>,
-            "trunk_height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">TBD, 树干高度</span>
+            "type": "spruce_foliage_placer"<span class="comment">云杉树叶型</span>,
+            "trunk_height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">树干高度</span>
         或
-            "type": "pine_foliage_placer"<span class="comment">松树树叶</span>,
-            "height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">TBD</span>
+            "type": "pine_foliage_placer"<span class="comment">稀疏云杉树叶型</span>,
+            "height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">树叶高度</span>
         或
-            "type": "mega_pine_foliage_placer<span class="comment">大松树树叶</span>,
-            "crown_height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">TBD</span>
+            "type": "mega_pine_foliage_placer<span class="comment">双层稀疏云杉树叶型</span>,
+            "crown_height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=16, maxSpread=8) <span class="comment">第二层树叶高度</span>
         },
         "trunk_placer": { <span class="comment">树干样式</span>
-            "type": "straight_trunk_placer"<span class="comment">直</span>, "forking_trunk_placer"<span class="comment">分叉</span>, "giant_trunk_placer"<span class="comment">高直</span>, "mega_jungle_trunk_placer"<span class="comment">大丛林木</span>, "dark_oak_trunk_placer"<span class="comment">深色橡木</span> 或 "fancy_trunk_placer",
+            "type": "straight_trunk_placer"<span class="comment">竖直型，类似桦树</span>, "forking_trunk_placer"<span class="comment">单分叉型，类似金合欢</span>, "giant_trunk_placer"<span class="comment">2×2竖直型，类似大云杉</span>, "mega_jungle_trunk_placer"<span class="comment">大丛林木型</span>, "dark_oak_trunk_placer"<span class="comment">深色橡木型</span> 或 "fancy_trunk_placer"<span class="comment">多分叉型，类似大橡树</span>,
             "base_height": 0-32 之间的整数, <span class="comment">基础高度</span>
-            "height_rand_a": 0-24 之间的整数, <span class="comment">随机高度</span>
-            "height_rand_b": 0-24 之间的整数 <span class="comment">随机高度</span>
+            "height_rand_a": 0-24 之间的整数, <span class="comment">与水平分叉有关的随机高度</span>
+            "height_rand_b": 0-24 之间的整数 <span class="comment">与竖直分叉有关的随机高度</span>
         },
         "minimum_size": { <span class="comment">最小尺寸</span>
             "min_clipped_height": 0-80 之间的整数, <span class="comment">可选，最小剪切高度</span>
 
-            "type": "two_layers_feature_size", <span class="comment">类型</span>
+            "type": "two_layers_feature_size", <span class="comment">两层</span>
             "limit": 0-81 之间的整数, 默认为 1, <span class="comment">可选，极限尺寸</span>
             "lower_size": 0-16 之间的整数, 默认为 0, <span class="comment">可选，最小尺寸</span>
             "upper_size": 0-16 之间的整数, 默认为 1 <span class="comment">可选，最大尺寸</span>
         或
-            "type": "three_layers_feature_size", <span class="comment">类型</span>
+            "type": "three_layers_feature_size", <span class="comment">三层</span>
             "limit": 0-80 之间的整数, 默认为 1, <span class="comment">可选，极限尺寸</span>
             "upper_limit": 0-80 之间的整数, 默认为 1, <span class="comment">可选，最小尺寸</span>
             "lower_size": 0-16 之间的整数, 默认为 0, <span class="comment">可选，最小尺寸</span>
@@ -2723,29 +2731,26 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 "probability": 0~1 之间的数值 <span class="comment">几率</span>
             或
                 "type": "alter_ground"<span class="comment">地面方块替换</span>,
-                "provider": <a href="#方块状态类型">方块状态类型</a>
+                "provider": <a href="#方块状态类型">方块状态类型</a>JSON对象
             }
         ],
-        "spawn_costs": {
-
-        },
         "max_water_depth": 整数, 默认为 0, <span class="comment">可选，树在水下最大可生成深度</span>
         "ignore_vines": true 或 false (默认值), <span class="comment">可选，是否忽略藤蔓</span>
-        "heightmap": "WORLD_SURFACE_WG", "WORLD_SURFACE", "OCEAN_FLOOR_WG", "OCEAN_FLOOR", "MOTION_BLOCKING" 或 "MOTION_BLOCKING_NO_LEAVES" <span class="comment">TBD，高度地图</span>
+        "heightmap": "WORLD_SURFACE_WG", "WORLD_SURFACE", "OCEAN_FLOOR_WG", "OCEAN_FLOOR", "MOTION_BLOCKING" 或 "MOTION_BLOCKING_NO_LEAVES" <span class="comment">高度地图，用于随机</span>
     }
 }
 </pre>
 <pre class="file">花或随机堆的JSON格式</pre>
 <pre>{
-    "name": "flower" 或 "random_patch",
+    "type": "minecraft:flower" 或 "minecraft:random_patch",
     "config": {
-        "state_provider": <a href="#方块状态类型">方块状态类型</a>, <span class="comment">所使用的方块</span>
+        "state_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">所使用的方块</span>
         "block_placer": {
-            "type": "simple_block_placer" <span class="comment">单个</span>
+            "type": "minecraft:simple_block_placer" <span class="comment">单个</span>
         或
-            "type": "double_plant_placer" <span class="comment">大型花</span>
+            "type": "minecraft:double_plant_placer" <span class="comment">大型花</span>
         或
-            "type": "column_placer", <span class="comment">柱子</span>
+            "type": "minecraft:column_placer", <span class="comment">柱子</span>
             "min_size": 数值, <span class="comment">最小尺寸</span>
             "extra_size": 数值 <span class="comment">额外尺寸</span>
         },
@@ -2778,15 +2783,15 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">方块堆/下界森林草的JSON格式</pre>
 <pre>{
-    "name": "block_pile"<span class="comment">方块堆</span> 或 "nether_forest_vegetation"<span class="comment">下界森林草</span>
+    "type": "minecraft:block_pile"<span class="comment">方块堆</span> 或 "minecraft:nether_forest_vegetation"<span class="comment">下界森林草</span>
     "config": {
-        "state_provider": <a href="#方块状态类型">方块状态类型</a>, <span class="comment">所使用的方块</span>
+        "state_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">所使用的方块</span>
     }
 }
 </pre>
-<pre class="file">泉水的JSON格式</pre>
+<pre class="file">涌泉的JSON格式</pre>
 <pre>{
-    "name": "spring_feature"<span class="comment">泉水</span>,
+    "type": "minecraft:spring_feature"<span class="comment">涌泉</span>,
     "config": {
         "state": { <span class="comment">所使用的流体</span>
             "Name": "命名空间ID", <span class="comment">流体</span>
@@ -2805,7 +2810,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">绿宝石矿的JSON格式</pre>
 <pre>{
-    "name": "emerald_ore"<span class="comment">绿宝石矿</span>,
+    "type": "minecraft:emerald_ore"<span class="comment">绿宝石矿</span>,
     "config": {
         "target": { <span class="comment">目标方块</span>
             "Name": "命名空间ID", <span class="comment">方块</span>
@@ -2824,17 +2829,17 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">巨型蘑菇的JSON格式</pre>
 <pre>{
-    "name": "huge_red_mushroom"<span class="comment">巨型红色蘑菇</span> 或 "huge_brown_mushroom"<span class="comment">巨型棕色蘑菇</span>,
+    "type": "minecraft:huge_red_mushroom"<span class="comment">巨型红色蘑菇</span> 或 "minecraft:huge_brown_mushroom"<span class="comment">巨型棕色蘑菇</span>,
     "config": {
-        "cap_provider": <a href="#方块状态类型">方块状态类型</a>, <span class="comment">顶部方块</span>
-        "stem_provider": <a href="#方块状态类型">方块状态类型</a>, <span class="comment">柄部方块</span>
+        "cap_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">顶部方块</span>
+        "stem_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">柄部方块</span>
         "foliage_radius": 数值, 默认为 2 <span class="comment">可选，顶部大小</span>
     }
 }
 </pre>
 <pre class="file">冰山/森林岩石/湖的JSON格式</pre>
 <pre>{
-    "name": "iceberg"<span class="comment">冰山</span>, "forest_rock"<span class="comment">森林岩石</span> 或 "lake"<span class="comment">湖</span>,
+    "type": "minecraft:iceberg"<span class="comment">冰山</span>, "minecraft:forest_rock"<span class="comment">森林岩石</span> 或 "minecraft:lake"<span class="comment">湖</span>,
     "config": {
         "state": { <span class="comment">方块</span>
             "Name": "命名空间ID" <span class="comment">方块</span>
@@ -2844,7 +2849,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">圆盘/冰堆的JSON格式</pre>
 <pre>{
-    "name": "disk"<span class="comment">圆盘</span> 或 "ice_patch"<span class="comment">湖</span>,
+    "type": "minecraft:disk"<span class="comment">圆盘</span> 或 "minecraft:ice_patch"<span class="comment">冰堆</span>,
     "config": {
         "state": { <span class="comment">方块</span>
             "Name": "命名空间ID" <span class="comment">方块</span>
@@ -2862,7 +2867,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">矿石/非地表生成矿石的JSON格式</pre>
 <pre>{
-    "name": "ore"<span class="comment">矿石</span> 或 "no_surface_ore"<span class="comment">非地表生成矿石</span>,
+    "type": "minecraft:ore"<span class="comment">矿石</span> 或 "minecraft:no_surface_ore"<span class="comment">非地表生成矿石</span>,
     "config": {
         "state": { <span class="comment">方块</span>
             "Name": "命名空间ID", <span class="comment">方块</span>
@@ -2873,12 +2878,12 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "size": 0~64 的整数, <span class="comment">矿脉大小</span>
 
         "target": { <span class="comment">目标方块要求</span>
-            "predicate_type": "always_true" <span class="comment">断言类型，总是成立</span>
+            "predicate_type": "minecraft:always_true" <span class="comment">断言类型，总是成立</span>
         或
-            "predicate_type": "block_match" <span class="comment">断言类型，匹配方块</span>
+            "predicate_type": "minecraft:block_match" <span class="comment">断言类型，匹配方块</span>
             "block": "命名空间ID" <span class="comment">方块</span>
         或
-            "predicate_type": "blockstate_match", <span class="comment">断言类型，匹配方块状态</span>
+            "predicate_type": "minecraft:blockstate_match", <span class="comment">断言类型，匹配方块状态</span>
             "block_state": {
                 "Name": "命名空间ID", <span class="comment">方块</span>
                 "Properties": {
@@ -2886,14 +2891,14 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 }
             }
         或
-            "predicate_type": "tag_match", <span class="comment">断言类型，匹配方块标签</span>
+            "predicate_type": "minecraft:tag_match", <span class="comment">断言类型，匹配方块标签</span>
             "tag": "命名空间ID" <span class="comment">方块标签</span>
         或
-            "predicate_type": "random_block_match", <span class="comment">断言类型，随机匹配方块</span>
+            "predicate_type": "minecraft:random_block_match", <span class="comment">断言类型，随机匹配方块</span>
             "block": "命名空间ID", <span class="comment">方块</span>
             "probability": 0~1 之间的数值 <span class="comment">几率</span>
         或
-            "predicate_type": "random_blockstate_match", <span class="comment">断言类型，随机匹配方块状态</span>
+            "predicate_type": "minecraft:random_blockstate_match", <span class="comment">断言类型，随机匹配方块状态</span>
             "block_state": {
                 "Name": "命名空间ID", <span class="comment">方块</span>
                 "Properties": {
@@ -2907,7 +2912,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">末地黑曜石柱的JSON格式</pre>
 <pre>{
-    "name": "end_spike"<span class="comment">末地黑曜石柱</span>,
+    "type": "minecraft:end_spike"<span class="comment">末地黑曜石柱</span>,
     "config": {
         "crystal_invulnerable": true 或 false (默认值), <span class="comment">可选，末影水晶是否无敌</span>
         "spikes": [ <span class="comment">柱子列表</span>
@@ -2928,7 +2933,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">末地折跃门的JSON格式</pre>
 <pre>{
-    "name": "end_gateway"<span class="comment">末地折跃门</span>,
+    "type": "minecraft:end_gateway"<span class="comment">末地折跃门</span>,
     "config": {
         "exit": [ <span class="comment">可选，当进入末地折跃门方块要把实体传送到的位置</span>
             目标位置的X坐标,
@@ -2941,7 +2946,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">海草/竹子的JSON格式</pre>
 <pre>{
-    "name": "seagrass"<span class="comment">海草</span> 或 "bamboo"<span class="comment">竹子</span>,
+    "type": "minecraft:seagrass"<span class="comment">海草</span> 或 "minecraft:bamboo"<span class="comment">竹子</span>,
     "config": {
         "probability": 0~1 之间的数值 <span class="comment">几率</span>
     }
@@ -2949,7 +2954,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">海泡菜的JSON格式</pre>
 <pre>{
-    "name": "sea_pickle"<span class="comment">海泡菜</span>,
+    "type": "minecraft:sea_pickle"<span class="comment">海泡菜</span>,
     "config": {
         "count": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=-10, maxBase=128, maxSpread=128)
     }
@@ -2957,7 +2962,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">单个方块的JSON格式</pre>
 <pre>{
-    "name": "simple_block"<span class="comment">单个方块</span>,
+    "type": "minecraft:simple_block"<span class="comment">单个方块</span>,
     "config": {
         "to_place": { <span class="comment">将要放置的方块</span>
             "Name": "命名空间ID", <span class="comment">方块</span>
@@ -2988,7 +2993,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">巨型菌类的JSON格式</pre>
 <pre>{
-    "name": "huge_fungus"<span class="comment">巨型菌类</span>,
+    "type": "minecraft:huge_fungus"<span class="comment">巨型菌类</span>,
     "config": {
         "valid_base_block": { <span class="comment">底部基座方块</span>
             "Name": "命名空间ID", <span class="comment">方块</span>
@@ -3020,7 +3025,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">玄武岩柱子的JSON格式</pre>
 <pre>{
-    "name": "basalt_columns"<span class="comment">玄武岩柱子</span>,
+    "type": "minecraft:basalt_columns"<span class="comment">玄武岩柱子</span>,
     "config": {
         "reach": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=2, maxSpread=1), <span class="comment">TBD</span>
         "height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=1, maxBase=5, maxSpread=5) <span class="comment">高度</span>
@@ -3029,7 +3034,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">三角洲的JSON格式</pre>
 <pre>{
-    "name": "delta_feature"<span class="comment">三角洲</span>,
+    "type": "minecraft:delta_feature"<span class="comment">三角洲</span>,
     "config": {
         "contents": { <span class="comment">三角洲方块</span>
             "Name": "命名空间ID", <span class="comment">方块</span>
@@ -3050,7 +3055,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">下界岩斑纹的JSON格式</pre>
 <pre>{
-    "name": "netherrack_replace_blobs"<span class="comment">下界岩斑纹</span>,
+    "type": "minecraft:netherrack_replace_blobs"<span class="comment">下界岩斑纹</span>,
     "config": {
         "target": { <span class="comment">替换的目标方块</span>
             "Name": "命名空间ID", <span class="comment">方块</span>
@@ -3070,7 +3075,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">填充层的JSON格式</pre>
 <pre>{
-    "name": "fill_layer"<span class="comment">填充层</span>,
+    "type": "minecraft:fill_layer"<span class="comment">填充层</span>,
     "config": {
         "height": 整数, <span class="comment">高度</span>
         "state": { <span class="comment">方块</span>
@@ -3084,7 +3089,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 <pre class="file">随机选择的JSON格式</pre>
 <pre>{
-    "name": "random_selector"<span class="comment">随机选择</span>,
+    "type": "minecraft:random_selector"<span class="comment">随机选择</span>,
     "config": {
         "features": [ <span class="comment">该列表中地形特征配置会被随机选中</span>
             {
@@ -3097,7 +3102,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "simple_random_selector"<span class="comment">简化的随机选择</span>,
+    "type": "minecraft:simple_random_selector"<span class="comment">简化的随机选择</span>,
     "config": {
         "features": [ <span class="comment">从该列表中等几率随机选择一个地形特征配置</span>
             {
@@ -3108,7 +3113,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "random_boolean_selector"<span class="comment">随机二选一</span>,
+    "type": "minecraft:random_boolean_selector"<span class="comment">随机二选一</span>,
     "config": {
         "feature_true": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象, <span class="comment">地形特征配置</span>
         "feature_false": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象 <span class="comment">地形特征配置</span>
@@ -3116,7 +3121,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "decorated_feature_configuration"<span class="comment">带装饰的地形特征配置</span>,
+    "type": "minecraft:decorated_feature_configuration"<span class="comment">带装饰的地形特征配置</span>,
     "config": {
         "feature": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象, <span class="comment">地形特征配置</span>
         "decorator": "命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象 <span class="comment">地形特征配置装饰</span>
@@ -3127,9 +3132,9 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <p class="noindent">上述JSON格式中的
 <pre class="file" id="方块状态类型">方块状态类型</pre>
 <pre>{
-    "type": "plain_flower_provider"<span class="comment">通常的花</span> 或 "forest_flower_provider"<span class="comment">繁花森林的花</span>
+    "type": "minecraft:plain_flower_provider"<span class="comment">通常的花</span> 或 "minecraft:forest_flower_provider"<span class="comment">繁花森林的花</span>
 或
-    "type": "simple_state_provider"<span class="comment">简单情形</span> 或 "rotated_block_provider"<span class="comment">可旋转</span>,
+    "type": "minecraft:simple_state_provider"<span class="comment">简单情形</span> 或 "minecraft:rotated_block_provider"<span class="comment">可旋转</span>,
     "state": { <span class="comment">方块</span>
         "Name": "命名空间ID", <span class="comment">方块</span>
         "Properties": {
@@ -3137,7 +3142,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         }
     } 
 或
-    "type": "weighted_state_provider", <span class="comment">带权重的方块状态类型</span>
+    "type": "minecraft:weighted_state_provider", <span class="comment">带权重的方块状态类型</span>
     "entries": [ <span class="comment">允许的列表</span>
         {
             "weight": 0~1 之间的数值, <span class="comment">权重</span>
@@ -3150,16 +3155,14 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         }
     ]
 }</pre>
-
+<p>均匀分布的整数可以为一个JSON对象或一个非负整数</p>
 <pre class="file" id="均匀分布的整数">均匀分布的整数</pre>
 <pre>{
     "base": minBase~maxBase 之间的整数,
     "spread": 0~maxSpread 之间的整数, 如果无 maxSpread 限制, 则为任意非负整数
 }
 或
-{
-    "int": 非负整数 <span class="comment">等价于 base 和 spread 均为 0</span>
-}
+    非负整数 <span class="comment">固定值，位于 minBase~maxBase 之间</span>
 </pre>
 <p class="noindent">最终会从 <code>base</code> 至 <code>base+spread</code> 之间随机选取一个整数作为参数。</p>
 
@@ -3362,21 +3365,21 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h4 id="地形特征配置装饰">地形特征配置装饰</h4>
 <pre class="file">地形特征配置装饰JSON格式</pre>
 <pre>{
-    "name": "chance"<span class="comment">随机</span>, "lava_lake"<span class="comment">岩浆湖</span>, 或 "water_lake"<span class="comment">湖泊</span>
+    "type": "minecraft:chance"<span class="comment">随机</span>, "lava_lake"<span class="comment">岩浆湖</span>, 或 "water_lake"<span class="comment">湖泊</span>
     "config": {
         "chance": 0~1 之间的数值 <span class="comment">生成几率</span>
     }
 }
 或
 {
-    "name": "count"<span class="comment">数量</span>, "fire"<span class="comment">火</span>, "glowstone"<span class="comment">荧石</span> 或 "count_multilayer"<span class="comment">多层数量</span>
+    "type": "minecraft:count"<span class="comment">生成的数量</span>, "fire"<span class="comment">火</span>, "glowstone"<span class="comment">荧石</span> 或 "count_multilayer"<span class="comment">多层数量</span>
     "config": {
-        "count": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=-10, maxBase=128, maxSpread=128) <span class="comment">TBD，数量</span>
+        "count": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=-10, maxBase=128, maxSpread=128) <span class="comment">数量</span>
     }
 }
 或
 {
-    "name": "count_noise", <span class="comment">TBD</span>
+    "type": "minecraft:count_noise", <span class="comment">生成的数量(噪声型)</span>
     "config": {
         "noise_level": 数值,
         "below_noise": 整数,
@@ -3385,7 +3388,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "count_noise_biased", <span class="comment">TBD</span>
+    "type": "minecraft:count_noise_biased", <span class="comment">生成的数量(带偏差的噪声型)</span>
     "config": {
         "noise_to_count_ratio": 整数,
         "noise_factor": 数值,
@@ -3394,7 +3397,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "count_extra", <span class="comment">TBD</span>
+    "type": "minecraft:count_extra", <span class="comment">生成的数量(带额外数量)</span>
     "config": {
         "count": 整数,
         "extra_chance": 数值,
@@ -3403,7 +3406,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "range", "range_biased" 或 "range_very_biased", <span class="comment">TBD</span>
+    "type": "minecraft:range", "minecraft:range_biased" 或 "minecraft:range_very_biased", <span class="comment">区间数值(无偏好、带偏好、带强烈偏好)</span>
     "config": {
         "bottom_offset": 整数, 默认为 0, <span class="comment">可选</span>
         "top_offset": 整数, 默认为 0, <span class="comment">可选</span>
@@ -3412,7 +3415,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "depth_average", <span class="comment">TBD</span>
+    "type": "minecraft:depth_average", <span class="comment">TBD</span>
     "config": {
         "baseline": 整数,
         "spread": 整数
@@ -3420,7 +3423,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "carving_mask", <span class="comment">TBD</span>
+    "type": "minecraft:carving_mask", <span class="comment">TBD</span>
     "config": {
         "step": "air" 或 "liquid",
         "probability": 0~1 之间的数值 <span class="comment">几率</span>
@@ -3428,10 +3431,12 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 或
 {
-    "name": "decorated, <span class="comment">TBD</span>
+    "type": "minecraft:decorated, <span class="comment">TBD</span>
     "config": {
         "outer": "命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象, <span class="comment">TBD，外部地形特征配置装饰</span>
         "inner": "命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象 <span class="comment">TBD，内部地形特征配置装饰</span>
+    }
+}
 </pre>
 
 <h4 id="可用的地形特征配置装饰">可用的地形特征配置装饰</h4>
@@ -3473,7 +3478,7 @@ decorated
 <h4 id="结构配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
-    "name": "pillager_outpost"<span class="comment">掠夺者前哨站</span>, "village"<span class="comment">村庄</span> 或 "bastion_remnant"<span class="comment">堡垒遗迹</span>
+    "type": "minecraft:pillager_outpost"<span class="comment">掠夺者前哨站</span>, "minecraft:village"<span class="comment">村庄</span> 或 "minecraft:bastion_remnant"<span class="comment">堡垒遗迹</span>
     "config": {
         "start_pool": "命名空间ID", <span class="comment">拼图随机池</span>
         "size": 0~7 之间的整数 <span class="comment">TBD</span>
@@ -3481,7 +3486,7 @@ decorated
 }
 或
 {
-    "name": "mineshaft"<span class="comment">矿井</span>,
+    "type": "minecraft:mineshaft"<span class="comment">矿井</span>,
     "config": {
         "type": "normal"<span class="comment">普通</span> 或 "mesa"<span class="comment">平顶山</span>
         "probability": 0~1 之间的数值 <span class="comment">几率</span>
@@ -3489,21 +3494,21 @@ decorated
 }
 或
 {
-    "name": "ruined_portal"<span class="comment">废弃传送门</span>,
+    "type": "minecraft:ruined_portal"<span class="comment">废弃传送门</span>,
     "config": {
         "portal_type"<span class="comment">类型</span>: "standard"<span class="comment">标准</span>, "desert"<span class="comment">沙漠</span>, "jungle"<span class="comment">丛林</span>, "swamp"<span class="comment">沼泽</span>, "mountain"<span class="comment">山地</span>, "ocean"<span class="comment">海洋</span> 或 "nether"<span class="comment">下界</span>
     }
 }
 或
 {
-    "name": "shipwreck"<span class="comment">沉船</span>,
+    "type": "minecraft:shipwreck"<span class="comment">沉船</span>,
     "config": {
         "is_beached": true 或 false (默认值)<span class="comment">可选，是否搁浅</span>
     }
 }
 或
 {
-    "name": "ocean_ruin"<span class="comment">海底废墟</span>,
+    "type": "minecraft:ocean_ruin"<span class="comment">海底废墟</span>,
     "config": {
         "biome_temp"<span class="comment">生物群系温度</span>: "warm"<span class="comment">暖水</span> 或 "cold"<span class="comment">冷水</span>
         "large_probability": 0~1 之间的数值, <span class="comment">几率</span>
@@ -3512,7 +3517,7 @@ decorated
 }
 或
 {
-    "name": "buried_treasure"<span class="comment">被掩埋的宝藏</span>,
+    "type": "minecraft:buried_treasure"<span class="comment">被掩埋的宝藏</span>,
     "config": {
         "probability": 0~1 之间的数值 <span class="comment">几率</span>
     }
@@ -3594,36 +3599,6 @@ decorated
         }
     ]
 }</pre>
-
-<p>利用结构配置和拼图随机池，我们可以实现自定义的结构的自然生成。</p>
-<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用堡垒遗迹、掠夺者前哨站或村庄类型的结构配置来自定义拼图随机池。注意这样生成的会被视为相应结构，因此具有它们的性质（灾厄村民巡逻队或袭击），同时也可以被 <code>locate</code> 指令定位、触发进度。此外堡垒遗迹生成在地下而非地表。</p>
-<pre class="file">ex/worldgen/configured_structure_feature/totem_pillar.json</pre>
-<pre>{
-    "config": {
-        "start_pool": "cpp:totem_pillar",
-        "size": 1
-    },
-    "type": "minecraft:pillager_outpost"
-}</pre>
-<pre class="file">ex/worldgen/template_pool/totem_pillar.json</pre>
-<pre>{
-    "name": "cpp:tp_overworld",
-    "fallback": "minecraft:empty",
-    "elements": [
-        {
-            "weight": 1,
-            "element": {
-            "location": "cpp:tp_overworld",
-            "processors": {
-                "processors": []
-            },
-            "projection": "rigid",
-            "element_type": "minecraft:legacy_single_pool_element"
-            }
-        }
-    ]
-}</pre>
-
 
 <h3 id="方块处理表">§2.11.8 方块处理表</h3>
 <p>方块处理表用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code>。</p>
@@ -9305,6 +9280,272 @@ setblock ~ 255 ~ air
 
 
 <h2 id="世界生成结构">§11.2 世界生成结构</h2>
+<p>在<a href="#维度和维度类型">维度和维度类型</a>中，我们介绍了如何通过数据包修改原有维度和添加新的维度。之后，我们希望能够添加更多的生物群系和各式各样的结构，这些基本可以通过<a href="世界生成">世界生成</a>来实现。本节我们来介绍添加结构的常见方法。</p>
+
+<h3 id="类原版小型结构">§11.2.1 类原版小型结构</h3>
+<p>类原版小型结构是指和原版的结构类似，只是各项参数有所不同的结构。具体而言，它们可以通过<a href="#地形特征配置">地形特征配置</a>来添加。</p>
+
+<p>我们首先来创建一个生物群系，并将它添加到我们自定义的维度中。</p>
+
+<pre class="file">ex/worldgen/biome/test.json</pre>
+<pre>{
+    "effects": {
+        "mood_sound": {
+            "sound": "minecraft:ambient.cave",
+            "tick_delay": 6000,
+            "block_search_extent": 8,
+            "offset": 2.0
+        },
+        "sky_color": 7972607,
+        "fog_color": 12638463,
+        "water_color": 4159204,
+        "water_fog_color": 329011
+        },
+        "surface_builder": "minecraft:grass",
+        "carvers": {
+            "air": [
+                "minecraft:cave",
+                "minecraft:canyon"
+            ]
+        },
+        "features": [
+            [],
+            [
+                "minecraft:lake_water",
+                "minecraft:lake_lava"
+            ],
+            [],
+            [
+                "minecraft:monster_room"
+            ],
+            [],
+            [],
+            [
+                "minecraft:ore_dirt",
+                "minecraft:ore_gravel",
+                "minecraft:ore_granite",
+                "minecraft:ore_diorite",
+                "minecraft:ore_andesite",
+                "minecraft:ore_coal",
+                "minecraft:ore_iron",
+                "minecraft:ore_gold",
+                "minecraft:ore_redstone",
+                "minecraft:ore_diamond",
+                "minecraft:ore_lapis",
+                "minecraft:disk_sand",
+                "minecraft:disk_clay",
+                "minecraft:disk_gravel"
+            ],
+            [],
+            [
+                "ex:small_bush",
+                "minecraft:patch_grass_badlands",
+                "minecraft:brown_mushroom_normal",
+                "minecraft:red_mushroom_normal",
+                "minecraft:patch_sugar_cane",
+                "minecraft:patch_pumpkin",
+                "minecraft:spring_water",
+                "minecraft:spring_lava"
+            ],
+            [
+                "minecraft:freeze_top_layer"
+            ]
+        ],
+        "starts": [
+            "minecraft:mineshaft",
+            "minecraft:stronghold",
+            "minecraft:ruined_portal"
+        ],
+        "spawners": {
+        "monster": [
+            {
+                "type": "minecraft:spider",
+                "weight": 100,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:zombie",
+                "weight": 95,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:zombie_villager",
+                "weight": 5,
+                "minCount": 1,
+                "maxCount": 1
+            },
+            {
+                "type": "minecraft:skeleton",
+                "weight": 100,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:creeper",
+                "weight": 100,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:slime",
+                "weight": 100,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:enderman",
+                "weight": 10,
+                "minCount": 1,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:witch",
+                "weight": 5,
+                "minCount": 1,
+                "maxCount": 1
+            }
+        ],
+        "creature": [
+            {
+                "type": "minecraft:sheep",
+                "weight": 12,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:pig",
+                "weight": 10,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:chicken",
+                "weight": 10,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:cow",
+                "weight": 8,
+                "minCount": 4,
+                "maxCount": 4
+            },
+            {
+                "type": "minecraft:rabbit",
+                "weight": 4,
+                "minCount": 2,
+                "maxCount": 3
+            }
+        ],
+        "ambient": [
+            {
+                "type": "minecraft:bat",
+                "weight": 10,
+                "minCount": 8,
+                "maxCount": 8
+            }
+        ],
+        "water_creature": [],
+        "water_ambient": [],
+        "misc": []
+    },
+    "spawn_costs": {},
+    "parent": "forest",
+    "precipitation": "rain",
+    "temperature": 0.7,
+    "downfall": 0.8,
+    "category": "forest",
+    "depth": 0.1,
+    "scale": 0.4
+}</pre>
+<p>然后创建一个地形特征配置文件，里面指定了一个灌木丛。将它添加到生物群系的特征列表中类型为 <code>VEGETAL_DECORATION</code> 的项。</p>
+<pre class="file">ex/worldgen/configured_feature/small_bush.json</pre>
+<pre>{
+    "config": {
+        "max_water_depth": 0,
+        "ignore_vines": true,
+        "heightmap": "OCEAN_FLOOR",
+        "minimum_size": {
+            "limit": 1,
+            "lower_size": 0,
+            "upper_size": 1,
+            "type": "minecraft:two_layers_feature_size"
+        },
+        "decorators": [],
+        "trunk_provider": {
+            "state": {
+                "Properties": {
+                    "axis": "y"
+                },
+                "Name": "minecraft:oak_log"
+            },
+            "type": "minecraft:simple_state_provider"
+        },
+        "leaves_provider": {
+            "state": {
+                "Properties": {
+                    "persistent": "false",
+                    "distance": "7"
+                },
+                "Name": "minecraft:oak_leaves"
+            },
+            "type": "minecraft:simple_state_provider"
+        },
+        "foliage_placer": {
+            "radius": 2,
+            "offset": 0,
+            "height": 3,
+            "type": "minecraft:pine_foliage_placer"
+        },
+        "trunk_placer": {
+            "base_height": 1,
+            "height_rand_a": 0,
+            "height_rand_b": 0,
+            "type": "minecraft:straight_trunk_placer"
+        }
+    },
+    "type": "minecraft:tree"
+}</pre>
+<p>注意由于 <code>small_bush</code> 的 <code>"type":"minecraft:tree"</code>，因此它会生成在原有的树的位置。想要二者均可生成，请使用随机选择的地形特征配置。</p>
+
+<h3 id="世界生成结构">§11.2.2 任意纯方块结构</h3>
+<p>利用结构配置和拼图随机池，我们可以实现自定义的结构的自然生成。<a href="#结构配置">结构配置</a>可选的类型有堡垒遗迹、掠夺者前哨站或村庄，但由于这样生成的会被视为相应结构，因此具有它们的性质，其中掠夺者前哨站会生成灾厄村民，堡垒遗迹会触发进度“光辉岁月”，因此村庄是最合适的。尽管村庄也可以被 <code>locate village</code> 指令定位。此外堡垒遗迹生成在地下而非地表。</p>
+<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用类型的结构配置来自定义拼图随机池。</p>
+<pre class="file">ex/worldgen/configured_structure_feature/totem_pillar.json</pre>
+<pre>{
+    "config": {
+        "start_pool": "cpp:totem_pillar",
+        "size": 1
+    },
+    "type": "minecraft:pillager_outpost"
+}</pre>
+<pre class="file">ex/worldgen/template_pool/totem_pillar.json</pre>
+<pre>{
+    "name": "cpp:tp_overworld",
+    "fallback": "minecraft:empty",
+    "elements": [
+        {
+            "weight": 1,
+            "element": {
+            "location": "cpp:tp_overworld",
+            "processors": {
+                "processors": []
+            },
+            "projection": "rigid",
+            "element_type": "minecraft:legacy_single_pool_element"
+            }
+        }
+    ]
+}</pre>
+<p>注意这样生成的结构几率非常低，因为原版村庄几率很低，我们可以修改该维度中村庄的生成几率。为了避免在原版可生成村庄的生物群系大量生成村庄，我们可以将其结构设为村庄和自定义结构均有权重的拼图随机池。</p>
+
+<h3 id="世界生成结构">§11.2.3 含实体结构</h3>
+<p>上一节生成的结构中带上实体标记，然后在函数中检测该标记并执行任意命令并清除标记。</p>
+
+
+<h3 id="世界生成结构">§11.2.4 区块标记法</h3>
 <p class="ex">世界生成时，随机生成结构。判断玩家东南32×32范围内是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。</p>
 
 <pre class="file">ex:tick</pre>
@@ -9817,7 +10058,7 @@ TBD
 TBD
 
 <h2 id="位运算与种子">§11.6 位运算与种子</h2>
-
+TBD
 
 </article>
 </div>
