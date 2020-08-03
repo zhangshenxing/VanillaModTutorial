@@ -276,7 +276,7 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.11, 11.2 by ruhuasiyu 2020/07/31</p>
+<p>进度：§2.11, 11.2 by ruhuasiyu 2020/08/02</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -2320,14 +2320,14 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "sea_level": 0~255 之间的整数, <span class="comment">海平面高度</span>
     "disable_mob_generation"：true 或 false, <span class="comment">是否禁止生物生成</span>
     "structures": { <span class="comment">结构设置</span>
-        "stronghold": { <span class="comment">可选，要塞的生成设置，要塞从中间的第一个环开始生成，然后在第二个环生成，然后在第三个环生成，以此类推，其中第 i 个环的要塞数量为 spread × (i+1) × (i+2) / 6，向下取整，直到总数达到 count。第 i 个环到原点的平均距离为 distance × (6i-2) × 16</span>
+        "stronghold": { <span class="comment">可选，要塞的生成设置，要塞从中间的第一个环开始生成，然后在第二个环生成，然后在第三个环生成，以此类推，其中第 i 个环的要塞数量为 spread × (i+1) × (i+2) / 6，向下取整，直到总数达到 count。第 i 个环到原点的平均距离为 distance × (6i-2) 区块</span>
             "count": 1~4095 之间的整数, 默认值为128, <span class="comment">要塞的最大数量</span>
             "spread": 0~1023 之间的整数, 默认值为3, <span class="comment">第一个环的要塞数量，设置为0时会使世界中某些位置上反复生成多个要塞</span>
             "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
         },
         "structures": [ <span class="comment">该维度中使用的结构</span>
             "<a href="#结构配置">结构配置</a>命名空间ID": { <span class="comment">对于非超平坦世界，该维度所包含的生物群系 biome_source.type 指定中包含的结构配置如果没有在此列出，则该结构配置会以大量生成，因此所有的结构都应在此罗列清楚以避免不稳定的生成</span>
-                "spacing": 正整数, <span class="comment">两个该种类的结构之间的最大距离，以区块为单位</span>
+                "spacing": 正整数, <span class="comment">两个该种类的结构之间的平均距离，以区块为单位</span>
                 "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>
                 "salt": 整数 <span class="comment">盐, 帮助进行随机化的数字</span>
             }
@@ -3601,7 +3601,7 @@ decorated
     <li>这会使2个拼图方块“连接”。放置模板后使第2个拼图方块朝向第1个拼图方块并与之相邻。</li>
     <li>最后，两个拼图方块会被替换为对应的“转变方块”设置的方块。</li>
 </ul>
-<p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块（或者游戏任务结构足够大）为止。然而，使用结构方块加载结构不能复现上述过程，结构仍会包含拼图方块。 </p>
+<p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块（或者游戏认为结构足够大）为止。然而，使用结构方块加载结构不能复现上述过程，结构仍会包含拼图方块。 </p>
 
 <pre class="file">JSON格式</pre>
 <pre>{<span class="comment">TBD</span>
