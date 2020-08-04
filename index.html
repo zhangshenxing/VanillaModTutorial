@@ -276,7 +276,9 @@
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
-<p>进度：§2.11, 11.2 by ruhuasiyu 2020/08/02</p>
+<p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
+
+<p>进度：§2.11 by ruhuasiyu 2020/08/04</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -1588,7 +1590,7 @@ setblock ~ ~1 ~ air
 <p>标签共包括5种，以用于不同情形。</p>
 
 <h3 id="方块标签">§2.9.1 方块标签</h3>
-<p>方块标签可以在用命令测试方块时以 <code>#<i>命名空间ID</i></code> 的形式调用，只要方块满足了该标签中定义的任何一个方块，命令就会测试通过。方块标签还可在进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。方块标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/blocks/路径/文件名.json</code>。调试模式(F3)下，玩家指向方块时会显示含有该方块的所有方块标签。</p>
+<p><ruby>方块<rt>blocks</rt></ruby>标签可以在用命令测试方块时以 <code>#<i>命名空间ID</i></code> 的形式调用，只要方块满足了该标签中定义的任何一个方块，命令就会测试通过。方块标签还可在进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。方块标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/blocks/路径/文件名.json</code>。调试模式(F3)下，玩家指向方块时会显示含有该方块的所有方块标签。</p>
 
 <p>原版方块标签被用于各种方块属性，我们按照功能分类并列出。我们不列出仅用于其它标签、进度、断言、战利品表，影响生物寻路和影响方块连接的方块标签。</p>
 <table><thead><tr><th>方块标签</th><th>用途</th></tr></thead><tbody>
@@ -1676,7 +1678,7 @@ execute unless block ^ ^ ^ #ex:fluid
 </pre>
 
 <h3 id="物品标签">§2.9.2 物品标签</h3>
-<p>物品标签在配方、进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。还可在创造模式物品栏输入 <code>#<i>命名空间ID</i></code> 来搜索相应标签物品。物品标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/items/路径/文件名.json</code>。</p>
+<p><ruby>物品<rt>items</rt></ruby>标签在配方、进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。还可在创造模式物品栏输入 <code>#<i>命名空间ID</i></code> 来搜索相应标签物品。物品标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/items/路径/文件名.json</code>。</p>
 
 <p>原版物品标签被用于各种物品属性，我们按照功能分类并列出。我们不列出仅用于其它标签、配方、进度、断言、战利品表，影响生物寻路和影响方块连接的物品标签。</p>
 
@@ -1721,7 +1723,7 @@ execute unless block ^ ^ ^ #ex:fluid
 </pre>
 
 <h3 id="函数标签">§2.9.3 函数标签</h3>
-<p>函数标签可以在 <code>function</code> 命令中以 <code>#<i>命名空间ID</i></code> 的形式调用，所有在该标签中指定的函数都会按照它们出现的顺序执行，不会重复执行。函数标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/functions/路径/文件名.json</code>。</p>
+<p><ruby>函数<rt>functions</rt></ruby>标签可以在 <code>function</code> 命令中以 <code>#<i>命名空间ID</i></code> 的形式调用，所有在该标签中指定的函数都会按照它们出现的顺序执行，不会重复执行。函数标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/functions/路径/文件名.json</code>。</p>
 <p><code>minecraft</code> 命名空间中的标签</p>
 <ul>
     <li><code>minecraft/tags/functions/load.json</code> 中的函数会在加载时被执行一次，我们常称之为加载函数、load函数。用于初始化的函数应当添加至该标签。</li>
@@ -1730,7 +1732,7 @@ execute unless block ^ ^ ^ #ex:fluid
 <p>本文中我们有时会不加注明地使用<code><i>命名空间</i>:load</code> 和<code><i>命名空间</i>:tick</code> 表示这两个函数标签中的函数。</p>
 
 <h3 id="实体类型标签">§2.9.4 实体类型标签</h3>
-<p>实体类型标签可以在实体选择器参数 <code>type</code> 以及战利品表条件中以 <code>#<i>命名空间ID</i></code> 的形式调用，只要实体满足了该标签中定义的任何一个类型，就会被选中。实体类型标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/entity_types/路径/文件名.json</code>。</p>
+<p><ruby>实体类型<rt>entity_types</rt></ruby>标签可以在实体选择器参数 <code>type</code> 以及战利品表条件中以 <code>#<i>命名空间ID</i></code> 的形式调用，只要实体满足了该标签中定义的任何一个类型，就会被选中。实体类型标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/entity_types/路径/文件名.json</code>。</p>
 <p>原版实体类型标签被用于各种实体属性，我们在此列出。</p>
 
 <table><thead><tr><th>物品标签</th><th>用途</th></tr></thead><tbody>
@@ -1742,7 +1744,7 @@ execute unless block ^ ^ ^ #ex:fluid
 </tbody></table>
 
 <h3 id="流体标签">§2.9.5 流体标签</h3>
-<p>流体标签很少使用，修改后会影响空气、水和熔岩的性质，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/fluids/路径/文件名.json</code>。</p>
+<p><ruby>流体<rt>fluids</rt></ruby>标签很少使用，修改后会影响空气、水和熔岩的性质，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/fluids/路径/文件名.json</code>。</p>
 <p>流体和流体对应的方块是不同的，例如 <code>flowing_water</code> 不是一个合法的方块，但流体可以为</p>
 <pre>{
     "minecraft:water",
@@ -1758,14 +1760,16 @@ execute unless block ^ ^ ^ #ex:fluid
 
 <h2 id="维度和维度类型">§2.10 维度和维度类型</h2>
 
-<p><ruby>维度<rt>dimension</rt></ruby>和<ruby>维度类型<rt>dimension_type</rt></ruby>用于自定义维度。</p>
+<p>维度和维度类型用于自定义维度。</p>
 
 <h3 id="维度">§2.10.1 维度</h3>
-<p>维度规定了维度的生成方式和生物群系。维度文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/dimension/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p><ruby>维度<rt>dimension</rt></ruby>规定了维度的生成方式和生物群系。维度文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/dimension/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+
+<p>噪声型维度的的地形由<a href="#噪声设置">噪声设置</a> <code>generator.settings</code> 确定，生物群系由 <code>generator.biome_source</code> 的不同可分为五种情形，其中类型为 <code>multi_noise</code> 时，游戏会生成四维柏林噪声图，然后对每个坐标选择噪声最接近的生物群系。其中生物群系的 <code>offset</code> 会影响计算接近程度，从而影响该生物群系的大小，<code>offset</code> 越大，该生物群系越难被选中。</p>
 
 <pre class="file">噪声型维度JSON格式</pre>
 <pre>{
-    "type": "命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象, <span class="comment">维度类型</span>
+    "type": "<a href="#生物群系">生物群系</a>命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象,
     "generator": {
         "type"："minecraft:noise",
         "seed"：整数, <span class="comment">种子</span>
@@ -1775,12 +1779,11 @@ execute unless block ^ ^ ^ #ex:fluid
 
             "type": "minecraft:vanilla_layered", <span class="comment">主世界默认生成和巨型生物群系生成</span>
             "large_biomes": true 或 false, <span class="comment">是否为巨型生物群系</span>
-            "legacy_biome_init_layer": true 或 false <span class="comment">TBD，决定世界是否为default_1_1</span>
         或
-            "type": "minecraft:multi_noise", <span class="comment">根据柏林噪声图和生物群系的柏林噪声参数生成生物群系分布，相近参数的生物群系会生成得靠近</span>
-            "humidity_noise": {<span class="comment">柏林噪声</span>
-              "firstOctave": -7,<span class="comment">TBD</span>
-              "amplitudes": [<span class="comment">TBD，大小分布</span>
+            "type": "minecraft:multi_noise", <span class="comment">多维噪声型</span>
+            "humidity_noise": {<span class="comment">用于生成柏林噪声图</span>
+              "firstOctave": -7,<span class="comment">该柏林噪声维度的八度，影响噪声的频率</span>
+              "amplitudes": [<span class="comment">该柏林噪声维度的振幅</span>
                 1.0,
                 1.0
               ]
@@ -1808,24 +1811,24 @@ execute unless block ^ ^ ^ #ex:fluid
             },
             "biomes": [ <span class="comment">生物群系列表</span>
                 {
-                    "biome": "命名空间ID", <span class="comment">生物群系</span>
+                    "biome": "<a href="#生物群系">生物群系</a>命名空间ID", <span class="comment">生物群系</span>
                     "parameters": { <span class="comment">生物群系属性</span>
                         "altitude": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
                         "temperature": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
                         "humidity": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
                         "weirdness": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
-                        "offset": 0~1 之间的数值 <span class="comment">绝对值越大，生物群系越小</span>
+                        "offset": 0~1 之间的数值 <span class="comment">为地图上的点计算最接近的生物群系时，会根据这个值来调大距离，因此这个值绝对值越大，生物群系越小</span>
                     }
                 }
             ]
         或
             "type": "minecraft:fixed", <span class="comment">单生物群系维度</span>
-            biome": "命名空间ID" <span class="comment">生物群系</span>
+            biome": "<a href="#生物群系">生物群系</a>命名空间ID"
         或
             "type": "minecraft:checkerboard", <span class="comment">生物群系单元呈正方形按棋盘状排列</span>
             "scale": 正整数, <span class="comment">正方形单元的大小</span>
             "biomes": [ <span class="comment">生物群系列表</span>
-                "命名空间ID"
+                "<a href="#生物群系">生物群系</a>命名空间ID"
             ]
         或
             "type": "minecraft:the_end" <span class="comment">用于在末路之地中生成的生物群系，以生物群系minecraft:the_end为中心，周围环绕着其它生物群系</span>
@@ -1834,36 +1837,44 @@ execute unless block ^ ^ ^ #ex:fluid
 }
 </pre>
 
+<p>超平坦型维度仅需指定方块层的分布、生物群系和使用的结构参数即可。</p>
 <pre class="file">超平坦型维度JSON格式</pre>
 <pre>{
-    "type": "命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象, <span class="comment">维度类型</span>
+    "type": "<a href="#维度类型">维度类型</a>命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象,
     "generator": {
-        "type": "minecraft:flat" <span class="comment">维度类型</span>
+        "type": "minecraft:flat",
         "settings": {
             "layers": [
                 {
                     "height": 正整数, <span class="comment">该层方块高度</span>
-                    "block": 命名空间ID <span class="comment">该层使用方块</span>
+                    "block": "方块命名空间ID" <span class="comment">该层使用方块</span>
                 }
             ],
-            "biome": "命名空间ID", <span class="comment">该维度使用的单一生物群系</span>
-            "structures": { <span class="comment">该维度中使用的结构</span>
-                "命名空间ID": { <span class="comment"><a href="#结构配置">结构配置</a>，未列出的结构不会生成</span>
-                    "spacing": 正整数, <span class="comment">两个该种类的结构之间的最大距离，以区块为单位</span>
-                    "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>,
-                    "salt": 整数 <span class="comment">盐, 帮助进行随机化的数字</span>
-                }
+            "biome": "<a href="#生物群系">生物群系</a>命名空间ID", <span class="comment">该维度使用的单一生物群系</span>
+            "structures": { <span class="comment">结构设置</span>
+                "stronghold": { <span class="comment">可选，要塞的生成设置，要塞从中间的第一个环开始生成，然后在第二个环生成，然后在第三个环生成，以此类推，其中第 i 个环的要塞数量为 spread × (i+1) × (i+2) / 6，向下取整，直到总数达到 count。第 i 个环到原点的平均距离为 distance × (6i-2) 区块</span>
+                    "count": 1~4095 之间的整数, 默认值为128, <span class="comment">要塞的最大数量</span>
+                    "spread": 0~1023 之间的整数, 默认值为3, <span class="comment">第一个环的要塞数量，设置为0时会使世界中某些位置上反复生成多个要塞</span>
+                    "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
+                },
+                "structures": [ <span class="comment">该维度中使用的结构。如果需要生成要塞也需在此列出。</span>
+                    "<a href="https://wiki.biligame.com/mc/Java%E7%89%88%E6%95%B0%E6%8D%AE%E5%80%BC#%E7%BB%93%E6%9E%84">结构</a>命名空间ID": { <span class="comment">未列出的结构不会生成。注意这不是<a href="#结构配置">结构配置</a>命名空间ID。对于自定义的结构配置，其生成几率设置随同其对应的原版结构</span>
+                        "spacing": 正整数, <span class="comment">两个该种类的结构之间的平均距离，以区块为单位</span>
+                        "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>,
+                        "salt": 整数 <span class="comment">盐，不影响结构生成的位置，影响结构内部生成</span>
+                    }
+                ]
             }
         }
     }
 }
 </pre>
-
+<p>调试世界维度仅用于调试世界，没有其它可选的设置。</p>
 <pre class="file">调试世界维度JSON格式</pre>
 <pre>{
-    "type": "命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象, <span class="comment">维度类型</span>
+    "type": "<a href="#维度类型">维度类型</a>命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象,
     "generator": {
-        "type": "minecraft:debug" <span class="comment">维度类型</span>
+        "type": "minecraft:debug"
     }
 }
 </pre>
@@ -1877,26 +1888,24 @@ execute unless block ^ ^ ^ #ex:fluid
 
 <h3 id="维度类型">§2.10.2 维度类型</h3>
 
-<p>维度类型规定维度的一些基本信息，例如是否可以使用床，猪人是否会僵尸化等。维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度类型的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/dimension_type/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p><ruby>维度类型<rt>dimension_type</rt></ruby>规定维度的一些与地形无关的信息。维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度类型的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/dimension_type/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="维度类型JSON格式">JSON格式</h4>
 <pre class="file">维度类型JSON格式</pre>
 <pre>{
+    "has_ceiling": true 或 false, <span class="comment">该维度是否拥有一个基岩天花板，影响内部的算法(TBD)，与实际是否拥有基岩天花板无关。</span>
+    "logical_height": 数值, <span class="comment">玩家使用紫颂果或下界传送门可以到达的最大高度</span>
     "bed_works": true 或 false, <span class="comment">玩家是否可以使用床</span>
-    "ender_dragon": true 或 false, <span class="comment">可选，该维度是否有一条末影龙的Boss</span>
-    "has_ceiling": true 或 false, <span class="comment">该维度是否拥有一个基岩天花板</span>
-    "has_skylight": true 或 false, <span class="comment">该维度是否有天空光照</span>
+    "respawn_anchor_works": true 或 false, <span class="comment">玩家是否可以使用重生锚</span>
     "has_raids": true 或 false, <span class="comment">带有不祥之兆的玩家是否可以触发袭击</span>
+    "has_skylight": true 或 false, <span class="comment">该维度是否有天空光照</span>
+    "ambient_light": 0~1 之间的数值, <span class="comment">该维度拥有多少环境光</span>
     "natural": true 或 false, <span class="comment">当为 false 时，指南针会随机转动。当为 true 时，下界传送门会生成僵尸猪灵</span>
     "piglin_safe：true 或 false, <span class="comment">猪灵和疣猪兽是否不会僵尸化</span>
-    "respawn_anchor_works": true 或 false, <span class="comment">玩家是否可以使用重生锚</span>
-    "shrunk": true 或 false, <span class="comment">维度是否和下界一样，被当做8米/方块看待</span>
+    "shrunk": true 或 false, <span class="comment">维度是否和下界一样，被当做8米/方块看待，仅用于下界传送门</span>
     "ultrawarm": true 或 false, <span class="comment">维度是否表现得类似于下界水会蒸发，湿海绵会干。这也会使得熔岩流动更快、扩散更远</span>
-    "fixed_time": false (等价于0) 或 0~24000 之间的整数, 缺省则有日夜循环, <span class="comment">可选，游戏内的昼夜时间固定值</span>
-    "logical_height": 数值, <span class="comment">玩家使用紫颂果或下界传送门可以到达的最大高度</span>
-    "ambient_light": 0~1 之间的数值, <span class="comment">该维度拥有多少光照</span>
-    "biome_zoomer": "FuzzyOffsetConstantColumnBiomeZoomer" (用于主世界) 或 "FuzzyOffsetBiomeZoomer" (用于下界或末地), <span class="comment">可选，TBD，用于指定生物群系放缩</span>
-    "infiniburn": "命名空间ID" <span class="comment">方块标签，决定该维度中火可以在什么方块上永久燃烧</span>
+    "fixed_time": 0~24000 之间的整数, 缺省则有日夜循环, <span class="comment">可选，游戏内的昼夜时间固定值</span>
+    "infiniburn": "<a href="#方块标签">方块标签</a>命名空间ID" <span class="comment">决定该维度中火可以在什么方块上永久燃烧</span>
 }
 </pre>
 
@@ -2298,19 +2307,18 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "minecraft:overworld": <a href="#维度JSON格式">维度JSON对象</a>, <span class="comment">主世界</span>
         "minecraft:the_nether": <a href="#维度JSON格式">维度JSON对象</a>, <span class="comment">下界</span>
         "minecraft:the_end": <a href="#维度JSON格式">维度JSON对象</a>, <span class="comment">末地</span>
-        "命名空间ID": <a href="#维度JSON格式">维度JSON对象</a> <span class="comment">其它维度</span>
+        "<a href="#维度">维度</a>命名空间ID": <a href="#维度JSON格式">维度JSON对象</a> <span class="comment">其它维度</span>
     ]
 }
 </pre>
 
 
 <h2 id="世界生成">§2.11 世界生成</h2>
-<p>参考<a href="https://minecraft.gamepedia.com/Custom_world_generation">Custom world generation – Official Minecraft Wiki</a>。<ruby>世界生成<rt>worldgen</rt></ruby>允许数据包改变世界的生成方式。这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。</p>
-<p>所有的 <code>name</code> 和 <code>type</code> 都是内部命名空间ID，因此可加上或省略 <code>minecraft:</code>。<a href="files/vanilla_worldgen.zip">点此可下载原版所有的 <code>worldgen</code> 内容</a> (<a href="https://github.com/slicedlime/">slicedlime</a> 提供)。</p>
-
+<p>参考<a href="https://minecraft.gamepedia.com/Custom_world_generation">Custom world generation – Official Minecraft Wiki</a>。<ruby>世界生成<rt>worldgen</rt></ruby>允许数据包改变世界的生成方式。这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。<a href="https://gitee.com/zhangshenxing/VanillaModTutorial/raw/master/files/vanilla_worldgen.zip">点此可下载原版所有的 <code>worldgen</code> 内容</a> (<a href="https://github.com/slicedlime/">slicedlime</a> 提供)。</p>
+<p>所有的 <code>type</code> 都是内部命名空间ID，因此可加上或省略 <code>minecraft:</code>。所有的方块设置中 <code>Properties</code> 必须列出该方块所有的方块状态。</p>
 
 <h3 id="噪声设置">§2.11.1 噪声设置</h3>
-<p>噪声设置用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/noise_settings/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p><ruby>噪声设置<rt>noise_settings</rt></ruby>用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/noise_settings/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="噪声设置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
@@ -2326,10 +2334,10 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
         },
         "structures": [ <span class="comment">该维度中使用的结构</span>
-            "<a href="#结构配置">结构配置</a>命名空间ID": { <span class="comment">对于非超平坦世界，该维度所包含的生物群系 biome_source.type 指定中包含的结构配置如果没有在此列出，则该结构配置会以大量生成，因此所有的结构都应在此罗列清楚以避免不稳定的生成</span>
+            "<a href="https://wiki.biligame.com/mc/Java%E7%89%88%E6%95%B0%E6%8D%AE%E5%80%BC#%E7%BB%93%E6%9E%84">结构</a>命名空间ID": { <span class="comment">该维度的 biome_source.type 中所包含的生物群系包含的结构配置如果没有在此被列出，则该结构配置会以大量生成，因此所有的结构配置都应在此罗列清楚以避免不稳定的生成。如果需要生成要塞也需在此列出。注意这不是<a href="#结构配置">结构配置</a>命名空间ID。对于自定义的结构配置，其生成几率设置随同其对应的原版结构。</span>
                 "spacing": 正整数, <span class="comment">两个该种类的结构之间的平均距离，以区块为单位</span>
                 "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>
-                "salt": 整数 <span class="comment">盐, 帮助进行随机化的数字</span>
+                "salt": 整数 <span class="comment">盐，不影响结构生成的位置，影响结构内部生成</span>
             }
         ]
     }
@@ -2361,7 +2369,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "amplified": true 或 false (默认值) <span class="comment">TBD，可选，是否为放大化地形</span>
     },
     "default_block": { <span class="comment">决定世界地形顶部下方生成的方块</span>
-        "Name": "命名空间ID", <span class="comment">方块</span>
+        "Name": "方块命名空间ID",
         "Properties": {
             "方块状态名": "方块状态值"
         }
@@ -2411,7 +2419,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 
 <h3 id="生物群系">§2.11.2 生物群系</h3>
-<p>自定义的生物群系可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/biome/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>自定义的<ruby>生物群系<rt>biome</rt></ruby>可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/biome/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="生物群系JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
@@ -2431,7 +2439,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "probability": 数值, <span class="comment">颗粒的生成几率</span>
             "options": {
                 "type": "block" 或 "falling_dust", <span class="comment">摧毁方块的颗粒或浮起而未下落的方块颗粒</span>
-                "Name": "命名空间ID", <span class="comment">方块</span>
+                "Name": "方块命名空间ID",
                 "Properties": {
                     "方块状态名": "方块状态值"
                 }
@@ -2443,31 +2451,31 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
                 "scale": 数值 <span class="comment">颗粒大小放缩</span>
             或
                 "type": "item", <span class="comment">消耗物品的颗粒</span>
-                "id": "命名空间ID", <span class="comment">物品</span>
+                "id": "物品命名空间ID"
                 "Count": 整数, <span class="comment">物品数量</span>
                 "tag": 字符串 <span class="comment">物品NBT</span>
             }
         },
-        "ambient_sound": "命名空间ID", <span class="comment">可选，环境音效</span>
+        "ambient_sound": "<a href="#音效">音效</a>命名空间ID", <span class="comment">可选，环境音效</span>
         "mood_sound": { <span class="comment">可选，氛围音效</span>
-            "sound": "命名空间ID", <span class="comment">音效</span>
+            "sound": "<a href="#音效">音效</a>命名空间ID",
             "tick_delay": 整数, <span class="comment">TBD</span>
             "block_search_extent": 整数, <span class="comment">TBD</span>
             "offset": 数值 <span class="comment">TBD</span>
         },
         "additions_sound": { <span class="comment">可选，额外的音效</span>
-            "sound": "命名空间ID", <span class="comment">音效</span>
+            "sound": "<a href="#音效">音效</a>命名空间ID",
             "tick_chance": 数值 <span class="comment">TBD</span>
         },
         "music": { <span class="comment">可选，音乐</span>
-            "sound": "命名空间ID", <span class="comment">音效</span>
+            "sound": "<a href="#音效">音效</a>命名空间ID",
             "min_delay": 整数, <span class="comment">TBD</span>
             "max_delay": 整数, <span class="comment">TBD</span>
             "replace_current_music": true 或 false <span class="comment">是否替换已播放的音乐</span>
         }
     },
-    "surface_builder": "命名空间ID", <span class="comment">地表生成配置</span>
-    "carvers": { <span class="comment">地形雕刻配置</span>
+    "surface_builder": "<a href="#地表生成配置">地表生成配置</a>命名空间ID",
+    "carvers": {
         "air": [ <span class="comment">用于填充空气的地形雕刻配置列表</span>
            "<a href="#地形雕刻配置">地形雕刻配置</a>命名空间ID"
         ],
@@ -2475,44 +2483,35 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "<a href="#地形雕刻配置">地形雕刻配置</a>命名空间ID"
         ],
     },
-    "features": [ <span class="comment">TBD，该列表共10项，每一项为相应分类的地形特征配置的列表</span>
+    "features": [ <span class="comment">该列表共10项，每一项为相应分类的地形特征配置的列表。决定了地形特征配置在哪个阶段生成(TBD)。</span>
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 RAW_GENERATION，默认不使用</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 RAW_GENERATION，原版未使用</span>
         ],
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 LAKES，默认用于生成湖和熔岩湖</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 LAKES，原版用于生成湖和熔岩湖</span>
         ],
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 LOCAL_MODIFICATIONS，默认用于生成针叶林和冰刺之地的石头</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 LOCAL_MODIFICATIONS，原版用于生成针叶林和冰刺之地的石头</span>
         ],
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 UNDERGROUND_STRUCTURES，默认用于生成地牢和主世界化石</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_STRUCTURES，原版用于生成地牢和主世界化石</span>
         ],
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 SURFACE_STRUCTURES，默认用于生成沙漠水井和蓝冰</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 SURFACE_STRUCTURES，原版用于生成沙漠水井和蓝冰</span>
         ],
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 STRONGHOLDS，默认不使用</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 STRONGHOLDS，原版未使用</span>
         ],
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 UNDERGROUND_ORES，默认用于生成主世界石头中的矿脉、泥土砂砾石头变种和水下沙子砂砾粘土块堆</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_ORES，原版用于生成主世界石头中的矿脉、泥土砂砾石头变种和水下沙子砂砾粘土块堆</span>
         ],
         [
-            "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
-            <span class="comment">内部特征类型 UNDERGROUND_DECORATION，默认用于生成主世界的被虫蛀的方块堆、下界砂砾和黑石堆、下界矿脉</span>
+            "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_DECORATION，原版用于生成主世界的被虫蛀的方块堆、下界砂砾和黑石堆、下界矿脉</span>
         ],
         [
             "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">
                 内部特征类型 VEGETAL_DECORATION，默认用于生成树、竹子、仙人掌、海带和其它地下和海底作物
-                注意树的位置是固定的，也就是说如果该列表有多个 "type": "minecraft:tree" 的地形特征配置，则只有第一个会生效，之后的生成会被阻挡。想要各种地形特征配置都有几率生成，需要使用随机选择的地形特征配置
-            </span>
+                注意树的位置是固定的，也就是说如果该列表有多个 "type": "minecraft:tree" 的地形特征配置，则只有第一个会生效，之后的生成会被阻挡。想要各种地形特征配置都有几率生成，需要使用随机选择的地形特征配置(WIP)</span>
         ],
         [
             "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
@@ -2525,14 +2524,14 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "spawners": { <span class="comment">生物生成</span>
         "生物分类": [ <span class="comment">包括 monster, creature, ambient, water_creature, water_ambient, misc</span>
             {
-                "type": "命名空间ID", <span class="comment">生物</span>
+                "type": "生物命名空间ID",
                 "weight": 整数, <span class="comment">权重</span>
                 "minCount": 整数, <span class="comment">最小数量</span>
                 "maxCount": 整数 <span class="comment">最大数量</span>
             }
         ]
     },
-    "parent": "命名空间ID" <span class="comment">可选，父生物群系，继承其特征</span>
+    "parent": "<a href="#生物群系">生物群系</a>命名空间ID" <span class="comment">可选，父生物群系，继承其特征</span>
 }</pre>
 
 <h4 id="可用的生物群系">可用的生物群系</h4>
@@ -2619,12 +2618,12 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
 <h3 id="地形雕刻配置">§2.11.3 地形雕刻配置</h3>
-<p>地形雕刻配置用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻配置文件为JSON文件，地形雕刻配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p><ruby>地形雕刻配置<rt>configured_carver</rt></ruby>用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻配置文件为JSON文件，地形雕刻配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="地形雕刻配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
-    "name"<span class="comment">雕刻类型</span>: "cave", "nether_cave", "canyon", "underwater_canyon" 或 "underwater_cave",
+    "name": "cave", "nether_cave", "canyon", "underwater_canyon" 或 "underwater_cave", <span class="comment">雕刻类型</span>
     "config": {
         "probability": 0~1 之间的数值 <span class="comment">每个区块的生成几率</span>
     }
@@ -2642,26 +2641,26 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 
 <h3 id="地表生成配置">§2.11.4 地表生成配置</h3>
-<p>地表生成配置用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p><ruby>地表生成配置<rt>configured_surface_builder</rt></ruby>用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="地表生成配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
-    "name"<span class="comment">地表类型</span>: "default"<span class="comment">默认</span>, "mountain"<span class="comment">山地</span>, "shattered_savanna"<span class="comment">破碎的热带草原</span>, "gravelly_mountain"<span class="comment">砂砾山地</span>, "giant_tree_taiga"<span class="comment">巨型针叶林</span>, "swamp"<span class="comment">沼泽</span>, "badlands"<span class="comment">恶地</span>, "wooded_badlands"<span class="comment">繁茂的恶地</span>, "eroded_badlands"<span class="comment">被风蚀的恶地</span>, "frozen_ocean"<span class="comment">冻洋</span>, "nether"<span class="comment">下界</span>, "nether_forest"<span class="comment">下界森林</span>, "soul_sand_valley"<span class="comment">灵魂沙峡谷</span>, "basalt_deltas"<span class="comment">玄武岩三角洲</span> 或 "nope"<span class="comment">无</span>,
+    "type": "default"<span class="comment">默认</span>, "mountain"<span class="comment">山地</span>, "shattered_savanna"<span class="comment">破碎的热带草原</span>, "gravelly_mountain"<span class="comment">砂砾山地</span>, "giant_tree_taiga"<span class="comment">巨型针叶林</span>, "swamp"<span class="comment">沼泽</span>, "badlands"<span class="comment">恶地</span>, "wooded_badlands"<span class="comment">繁茂的恶地</span>, "eroded_badlands"<span class="comment">被风蚀的恶地</span>, "frozen_ocean"<span class="comment">冻洋</span>, "nether"<span class="comment">下界</span>, "nether_forest"<span class="comment">下界森林</span>, "soul_sand_valley"<span class="comment">灵魂沙峡谷</span>, "basalt_deltas"<span class="comment">玄武岩三角洲</span> 或 "nope"<span class="comment">无</span>,
     "config": {
         "top_material": { <span class="comment">顶层方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "under_material": { <span class="comment">顶层以下的方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "underwater_material": { <span class="comment">水下方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -2699,7 +2698,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 
 <h3 id="地形特征配置">§2.11.5 地形特征配置</h3>
-<p>地形特征配置用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地形特征配置文件为JSON文件，地形特征配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p><ruby>地形特征配置<rt>configured_feature</rt></ruby>用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地形特征配置文件为JSON文件，地形特征配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
 <h4 id="地形特征配置JSON格式">JSON格式</h4>
 <pre class="file">树的JSON格式</pre>
@@ -2783,7 +2782,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         },
         "whitelist": [ <span class="comment">TBD，白名单列表</span>
             {
-                "Name": "命名空间ID", <span class="comment">方块</span>
+                "Name": "方块命名空间ID",
                 "Properties": {
                     "方块状态名": "方块状态值"
                 }
@@ -2791,7 +2790,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         ],
         "blacklist": [ <span class="comment">TBD，黑名单列表</span>
             {
-                "Name": "命名空间ID", <span class="comment">方块</span>
+                "Name": "方块命名空间ID",
                 "Properties": {
                     "方块状态名": "方块状态值"
                 }
@@ -2830,7 +2829,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "rock_count": 数值, 默认为 4, <span class="comment">可选，TBD，岩石数量</span>
         "hole_count": 数值, 默认为 1, <span class="comment">可选，TBD，坑洞数量</span>
         "valid_blocks": [ <span class="comment">TBD，有效的方块列表</span>
-            "Name": "命名空间ID" <span class="comment">方块</span>
+            "Name": "方块命名空间ID"
         ]
     }
 }
@@ -2840,13 +2839,13 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:emerald_ore"<span class="comment">绿宝石矿</span>,
     "config": {
         "target": { <span class="comment">目标方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "state": { <span class="comment">自身方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -2869,7 +2868,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:iceberg"<span class="comment">冰山</span>, "minecraft:forest_rock"<span class="comment">森林岩石</span> 或 "minecraft:lake"<span class="comment">湖</span>,
     "config": {
         "state": { <span class="comment">方块</span>
-            "Name": "命名空间ID" <span class="comment">方块</span>
+            "Name": "方块命名空间ID"
         }
     }
 }
@@ -2879,12 +2878,12 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:disk"<span class="comment">圆盘</span> 或 "minecraft:ice_patch"<span class="comment">冰堆</span>,
     "config": {
         "state": { <span class="comment">方块</span>
-            "Name": "命名空间ID" <span class="comment">方块</span>
+            "Name": "方块命名空间ID"
         },
         "radius": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=4, maxSpread=4) <span class="comment">半径</span>
         "half_height": 0~4 之间的整数, <span class="comment">高度的一半</span>
         "targets": { <span class="comment">目标方块列表</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -2897,7 +2896,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:ore"<span class="comment">矿石</span> 或 "minecraft:no_surface_ore"<span class="comment">非地表生成矿石</span>,
     "config": {
         "state": { <span class="comment">方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -2908,11 +2907,11 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "predicate_type": "minecraft:always_true" <span class="comment">断言类型，总是成立</span>
         或
             "predicate_type": "minecraft:block_match" <span class="comment">断言类型，匹配方块</span>
-            "block": "命名空间ID" <span class="comment">方块</span>
+            "block": "方块命名空间ID"
         或
             "predicate_type": "minecraft:blockstate_match", <span class="comment">断言类型，匹配方块状态</span>
             "block_state": {
-                "Name": "命名空间ID", <span class="comment">方块</span>
+                "Name": "方块命名空间ID",
                 "Properties": {
                     "方块状态名": "方块状态值"
                 }
@@ -2922,12 +2921,12 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
             "tag": "命名空间ID" <span class="comment">方块标签</span>
         或
             "predicate_type": "minecraft:random_block_match", <span class="comment">断言类型，随机匹配方块</span>
-            "block": "命名空间ID", <span class="comment">方块</span>
+            "block": "方块命名空间ID",
             "probability": 0~1 之间的数值 <span class="comment">几率</span>
         或
             "predicate_type": "minecraft:random_blockstate_match", <span class="comment">断言类型，随机匹配方块状态</span>
             "block_state": {
-                "Name": "命名空间ID", <span class="comment">方块</span>
+                "Name": "方块命名空间ID",
                 "Properties": {
                     "方块状态名": "方块状态值"
                 }
@@ -2992,25 +2991,25 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:simple_block"<span class="comment">单个方块</span>,
     "config": {
         "to_place": { <span class="comment">将要放置的方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "place_on": { <span class="comment">将要放置的位置下方方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "place_in": { <span class="comment">将要放置的位置的方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "place_under": { <span class="comment">将要放置的位置上方方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -3023,25 +3022,25 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:huge_fungus"<span class="comment">巨型菌类</span>,
     "config": {
         "valid_base_block": { <span class="comment">底部基座方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "stem_state": { <span class="comment">菌柄方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "hat_state": { <span class="comment">顶部方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "decor_state": { <span class="comment">装饰方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -3064,13 +3063,13 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:delta_feature"<span class="comment">三角洲</span>,
     "config": {
         "contents": { <span class="comment">三角洲方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "rim": { <span class="comment">三角洲边缘方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -3085,13 +3084,13 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:netherrack_replace_blobs"<span class="comment">下界岩斑纹</span>,
     "config": {
         "target": { <span class="comment">替换的目标方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
         },
         "state": { <span class="comment">方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -3106,7 +3105,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "config": {
         "height": 整数, <span class="comment">高度</span>
         "state": { <span class="comment">方块</span>
-            "Name": "命名空间ID", <span class="comment">方块</span>
+            "Name": "方块命名空间ID",
             "Properties": {
                 "方块状态名": "方块状态值"
             }
@@ -3162,8 +3161,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "type": "minecraft:plain_flower_provider"<span class="comment">通常的花</span> 或 "minecraft:forest_flower_provider"<span class="comment">繁花森林的花</span>
 或
     "type": "minecraft:simple_state_provider"<span class="comment">简单情形</span> 或 "minecraft:rotated_block_provider"<span class="comment">可旋转</span>,
-    "state": { <span class="comment">方块</span>
-        "Name": "命名空间ID", <span class="comment">方块</span>
+    "state": {
+        "Name": "方块命名空间ID",
         "Properties": {
             "方块状态名": "方块状态值"
         }
@@ -3174,7 +3173,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         {
             "weight": 0~1 之间的数值, <span class="comment">权重</span>
             "data": {
-                "Name": "命名空间ID", <span class="comment">方块</span>
+                "Name": "方块命名空间ID",
                 "Properties": {
                     "方块状态名": "方块状态值"
                 }
@@ -3184,14 +3183,13 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }</pre>
 <p>均匀分布的整数可以为一个JSON对象或一个非负整数。</p>
 <pre class="file" id="均匀分布的整数">均匀分布的整数</pre>
-<pre>{
+<pre>{<span class="comment">会从 <code>base</code> 至 <code>base+spread</code> 之间随机选取一个整数作为参数</span>
     "base": minBase~maxBase 之间的整数,
     "spread": 0~maxSpread 之间的整数, 如果无 maxSpread 限制, 则为任意非负整数
 }
 或
     非负整数 <span class="comment">固定值，位于 minBase~maxBase 之间</span>
 </pre>
-<p class="noindent">最终会从 <code>base</code> 至 <code>base+spread</code> 之间随机选取一个整数作为参数。</p>
 
 <h4 id="可用的地形特征配置">可用的地形特征配置</h4>
 <p>这些是 Minecraft 内部已生成的地形特征配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
@@ -3460,8 +3458,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 {
     "type": "minecraft:decorated, <span class="comment">TBD</span>
     "config": {
-        "outer": "命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象, <span class="comment">TBD，外部地形特征配置装饰</span>
-        "inner": "命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象 <span class="comment">TBD，内部地形特征配置装饰</span>
+        "outer": "<a href="#地形特征配置装饰">地形特征配置装饰</a>命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象, <span class="comment">TBD，外部地形特征配置装饰</span>
+        "inner": "<a href="#地形特征配置装饰">地形特征配置装饰</a>命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象 <span class="comment">TBD，内部地形特征配置装饰</span>
     }
 }
 </pre>
@@ -3501,13 +3499,13 @@ decorated
 </pre>
 
 <h3 id="结构配置">§2.11.6 结构配置</h3>
-<p>结构配置用于指定生物群系生成特定类型的结构以及结构的参数。结构配置文件为JSON文件，结构配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p><ruby>结构配置<rt>configured_structure_feature</rt></ruby>用于指定生物群系生成特定类型的结构以及结构的参数。结构配置文件为JSON文件，结构配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="结构配置JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
     "type": "minecraft:pillager_outpost"<span class="comment">掠夺者前哨站</span>, "minecraft:village"<span class="comment">村庄</span> 或 "minecraft:bastion_remnant"<span class="comment">堡垒遗迹</span>
     "config": {
-        "start_pool": "命名空间ID", <span class="comment">拼图随机池</span>
+        "start_pool": "<a href="#拼图随机池">拼图随机池</a>命名空间ID",
         "size": 0~7 之间的整数 <span class="comment">TBD</span>
     }
 }
@@ -3588,32 +3586,37 @@ decorated
 
 
 <h3 id="拼图随机池">§2.11.7 拼图随机池</h3>
-<p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块。拼图随机池文件为JSON文件，拼图随机池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p><ruby>拼图随机池<rt>template_pool</rt></ruby>使用结构文件来生成结构，其中结构包含的拼图方块会工作以生成更复杂的结构。拼图随机池文件为JSON文件，拼图随机池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块。</p>
 <ul>
-    <li><strong>目标池</strong>指的是拼图方块能用于绘制元素的元素池（下个要放置的模板）。默认目标池会从 <code><i>版本号</i>.jar/data/minecraft/structures</code> 中特定文件夹内随机选取一个模板，通过拼图随机池可以修改。</li>
-    <li><strong>连接类型</strong>指的是拼图方块的“名称”，拥有相同“名称”的拼图方块可以相互连接。</li>
-    <li><strong>转变为</strong>指的是拼图方块在整个功能被放置后会转变的方块状态。默认为 <code>minecraft:air</code>。</li>
+    <li><code>name</code> 名称，该拼图方块的标记。</li>
+    <li><code>pool</code> 目标池，指的是拼图方块将要使用的拼图随机池。</li>
+    <li><code>target</code> 目标，与该拼图方块连接的另一拼图方块的 <code>name</code>。</li>
+    <li><code>joint</code> 连接类型，<code>rollable</code> (默认值) 或 <code>aligned</code>。当拼图方块朝上或朝下时才有，其中 <code>aligned</code> 指拼接的结构位置固定，<code>rollable</code> 指的是拼接的结构可随机旋转。</li>
+    <li><code>final_state</code> 转变为：指的是拼图方块在整个功能被放置后会转变的方块。默认为 <code>minecraft:air</code>。</li>
+    <li>层数，<code>0~7</code> 之间，指生成完之后拼接的结构继续生成的嵌套层数。</li>
+    <li>保留拼图方块，与其拼接的结构生成完之后其包含的拼图方块保留还是转变为 <code>final_state</code> 指定方块。</li>
 </ul>
 <p>拼图方块目前仅用于生成掠夺者前哨站、村庄和堡垒遗迹类型的结构配置。这些结构的生成开始于包含拼图方块的模板。每个拼图方块都使用下列流程来生成另一个模板：</p>
 <ul>
     <li>在目标池内随机选择一个模板。</li>
-    <li>在同一个连接类型中，至少存在1个拼图方块来生成模板。如果有多个方块符合条件，那么会随机选择其中的一个。</li>
-    <li>这会使2个拼图方块“连接”。放置模板后使第2个拼图方块朝向第1个拼图方块并与之相邻。</li>
+    <li>在该模板的拼图方块，至少存在1个模板含有目标拼图方块。如果有多个方块符合条件，那么会随机选择其中的一个。</li>
+    <li>这会使两个拼图方块连接使得第2个拼图方块朝向第1个拼图方块并与之相邻。</li>
     <li>最后，两个拼图方块会被替换为对应的“转变方块”设置的方块。</li>
 </ul>
-<p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块（或者游戏认为结构足够大）为止。然而，使用结构方块加载结构不能复现上述过程，结构仍会包含拼图方块。 </p>
+<p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块或者结构足够大为止。使用结构方块加载结构不能复现上述过程。</p>
 
 <pre class="file">JSON格式</pre>
-<pre>{<span class="comment">TBD</span>
-    "name": "命名空间ID", <span class="comment">TBD，目标池</span>
-    "fallback": 原版为 "minecraft:empty", <span class="comment">TBD</span>
+<pre>{
+    "name": "命名空间ID", <span class="comment">该随机池的名称，用于拼图方块调用</span>
+    "fallback": "<a href="#拼图随机池">拼图随机池</a>命名空间ID", <span class="comment">结构生成完毕且无法再尝试生成时，可连接另一个拼图池继续生成</span>
     "elements": [ <span class="comment">结构列表</span>
         {
             "weight": 整数, <span class="comment">权重</span>
             "element": {
-                "location": "命名空间ID", <span class="comment">结构</span>
-                "projection": "rigid" 或 "terrain_matching", <span class="comment">TBD</span>
-                "element_type": "minecraft:empty_pool_element", "minecaft:list_pool_element", "minecraft:legacy_single_pool_element" 或 "minecraft:single_pool_element", <span class="comment">TBD</span>
+                "location": "<a href="#结构">结构文件</a>命名空间ID",
+                "projection": "rigid" <span class="comment">直接生成相应结构</span> 或 "terrain_matching", <span class="comment">调整地形或结构来与地形匹配</span>
+                "element_type": "minecraft:empty_pool_element"<span class="comment">不生成任何结构</span>, "minecaft:list_pool_element"<span class="comment">生成一个地形</span>, "minecraft:legacy_single_pool_element"<span class="comment">	只使用location中的结构，使这整个元素变为残骸元素池</span> 或 "minecraft:single_pool_element", <span class="comment">只使用location中的结构，使这整个元素变为单元素池</span>
                 "processors": {
                     "processors": [
                         {
@@ -3621,7 +3624,9 @@ decorated
                             "integrity": 数值
                         }
                     ]
-                }
+                },
+                "elements": [ <span class="comment">除了 empty_pool_element 以外均需该标签，格式与上一级标签相同</span>
+                ]
             }
         }
     ]
@@ -3640,13 +3645,13 @@ decorated
                         "predicate_type": "minecraft:always_true"
                     },
                     "output_state": {
-                        "Name": "命名空间ID", <span class="comment">方块</span>
+                        "Name": "方块命名空间ID",
                         "Properties": {
                             "方块状态名": "方块状态值"
                         }
                     },
                     "input_predicate": {
-                        "block": "命名空间ID", <span class="comment">方块</span>
+                        "block": "方块命名空间ID",
                         "probability": 0.3, <span class="comment">几率</span>
                         "predicate_type": "minecraft:random_block_match"
                     },
