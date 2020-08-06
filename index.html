@@ -1877,7 +1877,7 @@ execute unless block ^ ^ ^ #ex:fluid
   "ambient_light": 0~1 之间的数值, <span class="comment">该维度拥有多少环境光</span>
   "natural": true 或 false, <span class="comment">当为 false 时，指南针会随机转动。当为 true 时，下界传送门会生成僵尸猪灵</span>
   "piglin_safe：true 或 false, <span class="comment">猪灵和疣猪兽是否不会僵尸化</span>
-  "shrunk": true 或 false, <span class="comment">维度是否和下界一样，被当做8米/方块看待，仅用于下界传送门</span>
+  "coordinate_scale": 数值, <span class="comment">当前维度坐标放缩倍率，例如下界为8，影响下界传送门和 execute in 指令使用相对坐标/局部坐标的情形，此时会根据当前维度和目标维度进行放缩。</span>
   "ultrawarm": true 或 false, <span class="comment">维度是否表现得类似于下界水会蒸发，湿海绵会干。这也会使得熔岩流动更快、扩散更远</span>
   "fixed_time": 0~24000 之间的整数, 缺省则有日夜循环, <span class="comment">可选，游戏内的昼夜时间固定值</span>
   "infiniburn": "<a href="#方块标签">方块标签</a>命名空间ID" <span class="comment">决定该维度中火可以在什么方块上永久燃烧</span>
@@ -1887,6 +1887,7 @@ execute unless block ^ ^ ^ #ex:fluid
 <h4 id="可用的维度类型">可用的维度类型</h4>
 <p>这些是 Minecraft 内部已生成的维度类型命名空间ID，可直接使用。已省略 minecraft:。</p>
 <pre><a href="files/vanilla/data/minecraft/dimension_type/overworld.json">overworld</a> <span class="comment">主世界</span>
+<a href="files/vanilla/data/minecraft/dimension_type/overworld_caves.json">overworld_caves</a> <span class="comment">主世界洞穴</span>
 <a href="files/vanilla/data/minecraft/dimension_type/the_nether.json">the_nether</a> <span class="comment">下界</span>
 <a href="files/vanilla/data/minecraft/dimension_type/the_end.json">the_end</a> <span class="comment">末路之地</span> 
 </pre>
@@ -1967,12 +1968,11 @@ execute unless block ^ ^ ^ #ex:fluid
 {
   "ultrawarm": false,
   "natural": false,
-  "shrunk": false,
+  "coordinate_scale": 1.0,
   "has_skylight": true,
   "has_ceiling": false,
   "ambient_light": 1,
   "fixed_time": 6000,
-  "biome_zoomer": "FuzzyOffsetConstantColumnBiomeZoomer", 
   "piglin_safe": false,
   "bed_works": true,
   "respawn_anchor_works": true,
@@ -2403,7 +2403,16 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
   "category": "none", "taiga", "extreme_hills", "jungle", "mesa", "plains", "savanna", "icy", "the_end", "beach", "forest", "ocean", "desert", "river", "swamp", "mushroom" 或 "nether", <span class="comment">生物群系分类不同分类会影响温度、音乐、生物生成等，例如除 "ocean" 外的分类受生物群系温度值所控制，"mushroom" 分类下不会生成僵尸围城和灾厄巡逻队，海底神殿不会生成于除 "ocean" 或 "river" 分类下的生物群系</span>
   "depth": 数值, <span class="comment">深度, 用于地形噪声生成, 正值被认为是陆地, 负值被认为是海洋</span>
   "scale": 数值, <span class="comment">用于地形噪声生成</span>
+  "spawn_costs": {<span class="comment">TBD</span>
+    "实体命名空间ID": {<span class="comment">TBD，可选</span>
+      "energy_budget": 数值, <span class="comment">TBD</span>
+      "charge": 数值 <span class="comment">TBD</span>
+    }
+  },
+  "player_spawn_friendly": true 或 false, <span class="comment">TBD</span>
+  "creature_spawn_probability": 0~1 之间的数值, <span class="comment">TBD，生成被动生物的几率</span>
   "temperature": 数值, <span class="comment">温度, 控制草和树叶的颜色以及雪傀儡是否会受伤</span>
+  "temperature_modifier": "none" (默认值) 或 "frozen", <span class="comment">TBD，可选</span>
   "downfall": 数值, <span class="comment">控制草和树叶的颜色, 超过 0.85 会使火焰蔓延更快</span>
   "effects": {
     "sky_color": RGB颜色的整数形式, <span class="comment">天空的颜色</span>
@@ -2450,15 +2459,15 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     }
   },
   "surface_builder": "<a href="#地表生成配置">地表生成配置</a>命名空间ID",
-  "carvers": {
-    "air": [ <span class="comment">用于填充空气的地形雕刻配置列表</span>
+  "carvers": {<span class="comment">可选</span>
+    "air": [ <span class="comment">可选，用于填充空气的地形雕刻配置列表</span>
        "<a href="#地形雕刻配置">地形雕刻配置</a>命名空间ID"
     ],
-    "liquid": [ <span class="comment">用于填充液体的地形雕刻配置列表</span>
+    "liquid": [ <span class="comment">可选，用于填充液体的地形雕刻配置列表</span>
       "<a href="#地形雕刻配置">地形雕刻配置</a>命名空间ID"
     ],
   },
-  "features": [ <span class="comment">该列表共10项，每一项为相应分类的地形特征配置的列表。决定了地形特征配置在哪个阶段生成(TBD)。</span>
+  "features": [ <span class="comment">该列表共10项，每一项为相应分类的地形特征配置的列表。决定了地形特征配置在哪个阶段生成(TBD)。可以为空列表。</span>
     [
       "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 RAW_GENERATION，原版未使用</span>
     ],
@@ -2505,8 +2514,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "maxCount": 整数 <span class="comment">最大数量</span>
       }
     ]
-  },
-  "parent": "<a href="#生物群系">生物群系</a>命名空间ID" <span class="comment">可选，父生物群系，继承其特征</span>
+  }
 }</pre>
 
 <h4 id="可用的生物群系">可用的生物群系</h4>
@@ -3592,14 +3600,7 @@ decorated
         "location": "<a href="#结构">结构文件</a>命名空间ID",
         "projection": "rigid" <span class="comment">直接生成相应结构</span> 或 "terrain_matching", <span class="comment">调整地形或结构来与地形匹配</span>
         "element_type": "minecraft:empty_pool_element"<span class="comment">不生成任何结构</span>, "minecaft:list_pool_element"<span class="comment">生成一个地形</span>, "minecraft:legacy_single_pool_element"<span class="comment">	只使用location中的结构，使这整个元素变为残骸元素池</span> 或 "minecraft:single_pool_element", <span class="comment">只使用location中的结构，使这整个元素变为单元素池</span>
-        "processors": {
-          "processors": [
-            {
-              "processor_type": 字符串, <span class="comment">TBD，方块处理表类型</span> 
-              "integrity": 数值
-            }
-          ]
-        },
+        "processors": "<a href="#方块处理表">方块处理表</a>命名空间ID",
         "elements": [ <span class="comment">除了 empty_pool_element 以外均需该标签，格式与上一级标签相同</span>
         ]
       }
@@ -3646,6 +3647,7 @@ decorated
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/bastion_generic_degradation.json">bastion_generic_degradation</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/bottom_rampart.json">bottom_rampart</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/bridge.json">bridge</a>
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/empty.json">empty</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/entrance_replacement.json">entrance_replacement</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_desert.json">farm_desert</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_plains.json">farm_plains</a>
@@ -3659,6 +3661,7 @@ decorated
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/mossify_20_percent.json">mossify_20_percent</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/mossify_70_percent.json">mossify_70_percent</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/rampart_degradation.json">rampart_degradation</a>
+<a href="files/vanilla/data/minecraft/worldgen/processor_list/outpost_rot.json">outpost_rot</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/roof.json">roof</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/side_wall_degradation.json">side_wall_degradation</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/stable_degradation.json">stable_degradation</a>
@@ -9459,7 +9462,7 @@ setblock ~ 255 ~ air
     "misc": []
   },
   "spawn_costs": {},
-  "parent": "forest",
+  "player_spawn_friendly": false,
   "precipitation": "rain",
   "temperature": 0.7,
   "downfall": 0.8,
