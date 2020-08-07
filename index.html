@@ -129,28 +129,28 @@
         <li><a href="#生物群系JSON格式">JSON格式</a></li>
         <li><a href="#可用的生物群系">可用的生物群系</a></li>
       </ul></li>
-      <li><a href="#地形雕刻配置">§2.11.3 地形雕刻配置</a><ul>
-        <li><a href="#地形雕刻配置JSON格式">JSON格式</a></li>
-        <li><a href="#可用的地形雕刻配置">可用的地形雕刻配置</a></li>
+      <li><a href="#地形雕刻器">§2.11.3 地形雕刻器</a><ul>
+        <li><a href="#地形雕刻器JSON格式">JSON格式</a></li>
+        <li><a href="#可用的地形雕刻器">可用的地形雕刻器</a></li>
       </ul></li>
-      <li><a href="#地表生成配置">§2.11.4 地表生成配置</a><ul>
-        <li><a href="#地表生成配置JSON格式">JSON格式</a></li>
-        <li><a href="#可用的地表生成配置">可用的地表生成配置</a></li>
+      <li><a href="#地表生成器">§2.11.4 地表生成器</a><ul>
+        <li><a href="#地表生成器JSON格式">JSON格式</a></li>
+        <li><a href="#可用的地表生成器">可用的地表生成器</a></li>
       </ul></li>
-      <li><a href="#地形特征配置">§2.11.5 地形特征配置</a><ul>
-        <li><a href="#地形特征配置JSON格式">JSON格式</a></li>
-        <li><a href="#可用的地形特征配置">可用的地形特征配置</a></li>
-        <li><a href="#地形特征配置装饰">地形特征配置装饰</a></li>
-        <li><a href="#可用的地形特征配置装饰">可用的地形特征配置装饰</a></li>
+      <li><a href="#地物">§2.11.5 地物</a><ul>
+        <li><a href="#地物JSON格式">JSON格式</a></li>
+        <li><a href="#可用的地物">可用的地物</a></li>
+        <li><a href="#装饰物">装饰物</a></li>
+        <li><a href="#可用的装饰物">可用的装饰物</a></li>
       </ul></li>
-      <li><a href="#结构配置">§2.11.6 结构配置</a><ul>
-        <li><a href="#结构配置JSON格式">JSON格式</a></li>
-        <li><a href="#可用的结构配置">可用的结构配置</a></li>
+      <li><a href="#结构地物">§2.11.6 结构地物</a><ul>
+        <li><a href="#结构地物JSON格式">JSON格式</a></li>
+        <li><a href="#可用的结构地物">可用的结构地物</a></li>
       </ul></li>
-      <li><a href="#拼图随机池">§2.11.7 拼图随机池</a></li>
-      <li><a href="#方块处理表">§2.11.8 方块处理表</a><ul>
-        <li><a href="#方块处理表JSON格式">JSON格式</a></li>
-        <li><a href="#可用的方块处理表">可用的方块处理表</a></li>
+      <li><a href="#拼图模板池">§2.11.7 拼图模板池</a></li>
+      <li><a href="#方块处理器">§2.11.8 方块处理器</a><ul>
+        <li><a href="#方块处理器JSON格式">JSON格式</a></li>
+        <li><a href="#可用的方块处理器">可用的方块处理器</a></li>
       </ul></li>
     </ul></li>
   </ul></li>
@@ -278,7 +278,7 @@
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>进度：§2.11 by ruhuasiyu 2020/08/04</p>
+<p>进度：§2.11 by ruhuasiyu 2020/08/07</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -466,19 +466,19 @@ data
       biome
         <i>生物群系名称</i>.json
       configured_carver
-        <i>地形雕刻配置名称</i>.json
+        <i>地形雕刻器名称</i>.json
       configured_feature
-        <i>地形特征配置名称</i>.json
+        <i>地物名称</i>.json
       configured_structure_feature
-        <i>结构配置名称</i>.json
+        <i>结构地物名称</i>.json
       configured_surface_builder
-        <i>地表生成配置名称</i>.json
+        <i>地表生成器名称</i>.json
       noise_settings
         <i>噪声设置名称</i>.json
       processor_list
-        <i>方块处理表名称</i>.json
+        <i>方块处理器名称</i>.json
       template_pool
-        <i>拼图随机池名称</i>.json
+        <i>拼图模板池名称</i>.json
 </pre>
 <p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_,.来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
 
@@ -586,32 +586,32 @@ data
   <td><code><i>命名空间</i>/worldgen‌/biome/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-  <th>世界生成-地形雕刻配置</th>
+  <th>世界生成-地形雕刻器</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-  <th>世界生成-地表生成配置</th>
+  <th>世界生成-地表生成器</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-  <th>世界生成-地形特征配置</th>
+  <th>世界生成-地物</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/worldgen‌/configured_feature/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-  <th>世界生成-结构配置</th>
+  <th>世界生成-结构地物</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-  <th>世界生成-拼图随机池</th>
+  <th>世界生成-拼图模板池</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-  <th>世界生成-方块处理表</th>
+  <th>世界生成-方块处理器</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
@@ -1833,7 +1833,7 @@ execute unless block ^ ^ ^ #ex:fluid
           "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
         },
         "structures": [ <span class="comment">该维度中使用的结构。如果需要生成要塞也需在此列出。</span>
-          "<a href="https://wiki.biligame.com/mc/Java%E7%89%88%E6%95%B0%E6%8D%AE%E5%80%BC#%E7%BB%93%E6%9E%84">结构</a>命名空间ID": { <span class="comment">未列出的结构不会生成。注意这不是<a href="#结构配置">结构配置</a>命名空间ID。对于自定义的结构配置，其生成几率设置随同其对应的原版结构</span>
+          "<a href="https://wiki.biligame.com/mc/Java%E7%89%88%E6%95%B0%E6%8D%AE%E5%80%BC#%E7%BB%93%E6%9E%84">结构</a>命名空间ID": { <span class="comment">未列出的结构不会生成。注意这不是<a href="#结构地物">结构地物</a>命名空间ID。对于自定义的结构地物，其生成几率设置随同其对应的原版结构</span>
             "spacing": 正整数, <span class="comment">两个该种类的结构之间的平均距离，以区块为单位</span>
             "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>,
             "salt": 整数 <span class="comment">盐，不影响结构生成的位置，影响结构内部生成</span>
@@ -2309,7 +2309,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
       "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
     },
     "structures": [ <span class="comment">该维度中使用的结构</span>
-      "<a href="https://wiki.biligame.com/mc/Java%E7%89%88%E6%95%B0%E6%8D%AE%E5%80%BC#%E7%BB%93%E6%9E%84">结构</a>命名空间ID": { <span class="comment">该维度的 biome_source.type 中所包含的生物群系包含的结构配置如果没有在此被列出，则该结构配置会以大量生成，因此所有的结构配置都应在此罗列清楚以避免不稳定的生成。如果需要生成要塞也需在此列出。注意这不是<a href="#结构配置">结构配置</a>命名空间ID。对于自定义的结构配置，其生成几率设置随同其对应的原版结构。</span>
+      "<a href="https://wiki.biligame.com/mc/Java%E7%89%88%E6%95%B0%E6%8D%AE%E5%80%BC#%E7%BB%93%E6%9E%84">结构</a>命名空间ID": { <span class="comment">该维度的 biome_source.type 中所包含的生物群系包含的结构地物如果没有在此被列出，则该结构地物会以大量生成，因此所有的结构地物都应在此罗列清楚以避免不稳定的生成。如果需要生成要塞也需在此列出。注意这不是<a href="#结构地物">结构地物</a>命名空间ID。对于自定义的结构地物，其生成几率设置随同其对应的原版结构。</span>
         "spacing": 正整数, <span class="comment">两个该种类的结构之间的平均距离，以区块为单位</span>
         "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>
         "salt": 整数 <span class="comment">盐，不影响结构生成的位置，影响结构内部生成</span>
@@ -2412,13 +2412,16 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
   "player_spawn_friendly": true 或 false, <span class="comment">TBD</span>
   "creature_spawn_probability": 0~1 之间的数值, <span class="comment">TBD，生成被动生物的几率</span>
   "temperature": 数值, <span class="comment">温度, 控制草和树叶的颜色以及雪傀儡是否会受伤</span>
-  "temperature_modifier": "none" (默认值) 或 "frozen", <span class="comment">TBD，可选</span>
+  "temperature_modifier": "none" (默认值) 或 "frozen", <span class="comment">可选，使用特殊的草温度选项</span>
   "downfall": 数值, <span class="comment">控制草和树叶的颜色, 超过 0.85 会使火焰蔓延更快</span>
   "effects": {
     "sky_color": RGB颜色的整数形式, <span class="comment">天空的颜色</span>
     "fog_color": RGB颜色的整数形式, <span class="comment">迷雾的颜色</span>
     "water_color": RGB颜色的整数形式, <span class="comment">水的颜色</span>
     "water_fog_color": RGB颜色的整数形式, <span class="comment">水下迷雾的颜色</span>
+    "foliage_color": RGB颜色的整数形式, <span class="comment">可选，树叶的颜色</span>
+    "grass_color": RGB颜色的整数形式, <span class="comment">可选，草的颜色</span>
+    "grass_color_modifier": "none" (默认值), "dark_forest" 或 "swamp", <span class="comment">可选，使用特殊的草颜色</span>
     "particle": { <span class="comment">可选, 该生物群系的颗粒效果</span>
       "probability": 数值, <span class="comment">颗粒的生成几率</span>
       "options": {
@@ -2458,52 +2461,52 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
       "replace_current_music": true 或 false <span class="comment">是否替换已播放的音乐</span>
     }
   },
-  "surface_builder": "<a href="#地表生成配置">地表生成配置</a>命名空间ID",
+  "surface_builder": "<a href="#地表生成器">地表生成器</a>命名空间ID",
   "carvers": {<span class="comment">可选</span>
-    "air": [ <span class="comment">可选，用于填充空气的地形雕刻配置列表</span>
-       "<a href="#地形雕刻配置">地形雕刻配置</a>命名空间ID"
+    "air": [ <span class="comment">可选，用于填充空气的地形雕刻器列表</span>
+       "<a href="#地形雕刻器">地形雕刻器</a>命名空间ID"
     ],
-    "liquid": [ <span class="comment">可选，用于填充液体的地形雕刻配置列表</span>
-      "<a href="#地形雕刻配置">地形雕刻配置</a>命名空间ID"
+    "liquid": [ <span class="comment">可选，用于填充液体的地形雕刻器列表</span>
+      "<a href="#地形雕刻器">地形雕刻器</a>命名空间ID"
     ],
   },
-  "features": [ <span class="comment">该列表共10项，每一项为相应分类的地形特征配置的列表。决定了地形特征配置在哪个阶段生成(TBD)。可以为空列表。</span>
+  "features": [ <span class="comment">该列表共10项，每一项为相应分类的地物的列表。决定了地物在哪个阶段生成(TBD)。可以为空列表。</span>
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 RAW_GENERATION，原版未使用</span>
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 RAW_GENERATION，原版未使用</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 LAKES，原版用于生成湖和熔岩湖</span>
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 LAKES，原版用于生成湖和熔岩湖</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 LOCAL_MODIFICATIONS，原版用于生成针叶林和冰刺之地的石头</span>
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 LOCAL_MODIFICATIONS，原版用于生成针叶林和冰刺之地的石头</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_STRUCTURES，原版用于生成地牢和主世界化石</span>
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_STRUCTURES，原版用于生成地牢和主世界化石</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 SURFACE_STRUCTURES，原版用于生成沙漠水井和蓝冰</span>
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 SURFACE_STRUCTURES，原版用于生成沙漠水井和蓝冰</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 STRONGHOLDS，原版未使用</span>
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 STRONGHOLDS，原版未使用</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_ORES，原版用于生成主世界石头中的矿脉、泥土砂砾石头变种和水下沙子砂砾粘土块堆</span>
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_ORES，原版用于生成主世界石头中的矿脉、泥土砂砾石头变种和水下沙子砂砾粘土块堆</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_DECORATION，原版用于生成主世界的被虫蛀的方块堆、下界砂砾和黑石堆、下界矿脉</span>
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 UNDERGROUND_DECORATION，原版用于生成主世界的被虫蛀的方块堆、下界砂砾和黑石堆、下界矿脉</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID" <span class="comment">
+      "<a href="#地物">地物</a>命名空间ID" <span class="comment">
         内部特征类型 VEGETAL_DECORATION，默认用于生成树、竹子、仙人掌、海带和其它地下和海底作物
-        注意树的位置是固定的，也就是说如果该列表有多个 "type": "minecraft:tree" 的地形特征配置，则只有第一个会生效，之后的生成会被阻挡。想要各种地形特征配置都有几率生成，需要使用随机选择的地形特征配置(WIP)</span>
+        注意树的位置是固定的，也就是说如果该列表有多个 "type": "minecraft:tree" 的地物，则只有第一个会生效，之后的生成会被阻挡。想要各种地物都有几率生成，需要使用随机选择的地物(WIP)</span>
     ],
     [
-      "<a href="#地形特征配置">地形特征配置</a>命名空间ID"
+      "<a href="#地物">地物</a>命名空间ID"
       <span class="comment">内部特征类型 TOP_LAYER_MODIFICATION，默认用于生成地表结冰</span>
     ]
   ],
-  "starts": [ <span class="comment">该生物群系生成的结构配置列表</span>
-    "<a href="#结构配置">结构配置</a>命名空间ID"
+  "starts": [ <span class="comment">该生物群系生成的结构地物列表</span>
+    "<a href="#结构地物">结构地物</a>命名空间ID"
   ],
   "spawners": { <span class="comment">生物生成</span>
     "生物分类": [ <span class="comment">包括 monster, creature, ambient, water_creature, water_ambient, misc</span>
@@ -2600,10 +2603,10 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <a href="files/vanilla/data/minecraft/worldgen/biome/wooded_mountains.json">wooded_mountains</a>
 </pre>
 
-<h3 id="地形雕刻配置">§2.11.3 地形雕刻配置</h3>
-<p><ruby>地形雕刻配置<rt>configured_carver</rt></ruby>用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻配置文件为JSON文件，地形雕刻配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<h3 id="地形雕刻器">§2.11.3 地形雕刻器</h3>
+<p><ruby>地形雕刻器<rt>configured_carver</rt></ruby>用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻器文件为JSON文件，地形雕刻器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
-<h4 id="地形雕刻配置JSON格式">JSON格式</h4>
+<h4 id="地形雕刻器JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
   "name": "cave", "nether_cave", "canyon", "underwater_canyon" 或 "underwater_cave", <span class="comment">雕刻类型</span>
@@ -2612,8 +2615,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
   }
 }</pre>
 
-<h4 id="可用的地形雕刻配置">可用的地形雕刻配置</h4>
-<p>这些是 Minecraft 内部已生成的地形雕刻配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<h4 id="可用的地形雕刻器">可用的地形雕刻器</h4>
+<p>这些是 Minecraft 内部已生成的地形雕刻器命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
 <a href="files/vanilla/data/minecraft/worldgen/configured_carver/canyon.json">cave</a> <span class="comment">洞穴</span>
 <a href="files/vanilla/data/minecraft/worldgen/configured_carver/nether_cave.json">nether_cave</a> <span class="comment">下界洞穴</span>
@@ -2623,9 +2626,9 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
 
-<h3 id="地表生成配置">§2.11.4 地表生成配置</h3>
-<p><ruby>地表生成配置<rt>configured_surface_builder</rt></ruby>用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成配置文件为JSON文件，地表生成配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<h4 id="地表生成配置JSON格式">JSON格式</h4>
+<h3 id="地表生成器">§2.11.4 地表生成器</h3>
+<p><ruby>地表生成器<rt>configured_surface_builder</rt></ruby>用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成器文件为JSON文件，地表生成器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<h4 id="地表生成器JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
   "type": "default"<span class="comment">默认</span>, "mountain"<span class="comment">山地</span>, "shattered_savanna"<span class="comment">破碎的热带草原</span>, "gravelly_mountain"<span class="comment">砂砾山地</span>, "giant_tree_taiga"<span class="comment">巨型针叶林</span>, "swamp"<span class="comment">沼泽</span>, "badlands"<span class="comment">恶地</span>, "wooded_badlands"<span class="comment">繁茂的恶地</span>, "eroded_badlands"<span class="comment">被风蚀的恶地</span>, "frozen_ocean"<span class="comment">冻洋</span>, "nether"<span class="comment">下界</span>, "nether_forest"<span class="comment">下界森林</span>, "soul_sand_valley"<span class="comment">灵魂沙峡谷</span>, "basalt_deltas"<span class="comment">玄武岩三角洲</span> 或 "nope"<span class="comment">无</span>,
@@ -2651,8 +2654,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
   }
 }</pre>
 
-<h4 id="可用的地表生成配置">可用的地表生成配置</h4>
-<p>这些是 Minecraft 内部已生成的地表生成配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<h4 id="可用的地表生成器">可用的地表生成器</h4>
+<p>这些是 Minecraft 内部已生成的地表生成器命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
 <a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/badlands.json">badlands</a>
 <a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/basalt_deltas.json">basalt_deltas</a>
@@ -2680,10 +2683,10 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
 
-<h3 id="地形特征配置">§2.11.5 地形特征配置</h3>
-<p><ruby>地形特征配置<rt>configured_feature</rt></ruby>用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地形特征配置文件为JSON文件，地形特征配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<h3 id="地物">§2.11.5 地物</h3>
+<p><ruby>地物<rt>configured_feature</rt></ruby>用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地物文件为JSON文件，地物的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
-<h4 id="地形特征配置JSON格式">JSON格式</h4>
+<h4 id="地物JSON格式">JSON格式</h4>
 <pre class="file">树的JSON格式</pre>
 <pre>{
   "type": "minecraft:tree",
@@ -3100,22 +3103,22 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <pre>{
   "type": "minecraft:random_selector"<span class="comment">随机选择</span>,
   "config": {
-    "features": [ <span class="comment">该列表中地形特征配置会被随机选中</span>
+    "features": [ <span class="comment">该列表中地物会被随机选中</span>
       {
-        "feature": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象, <span class="comment">地形特征配置</span>
+        "feature": "命名空间ID" 或 <a href="#地物">地物</a>JSON对象, <span class="comment">地物</span>
         "chance": 0~1 之间的数值 <span class="comment">被选中的几率</span>
       }
     ],
-    "default": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象 <span class="comment">当上述均没有被选中时的地形特征配置</span>
+    "default": "命名空间ID" 或 <a href="#地物">地物</a>JSON对象 <span class="comment">当上述均没有被选中时的地物</span>
   }
 }
 或
 {
   "type": "minecraft:simple_random_selector"<span class="comment">简化的随机选择</span>,
   "config": {
-    "features": [ <span class="comment">从该列表中等几率随机选择一个地形特征配置</span>
+    "features": [ <span class="comment">从该列表中等几率随机选择一个地物</span>
       {
-        "feature": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象 <span class="comment">地形特征配置</span>
+        "feature": "命名空间ID" 或 <a href="#地物">地物</a>JSON对象 <span class="comment">地物</span>
       }
     ]
   }
@@ -3124,16 +3127,16 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 {
   "type": "minecraft:random_boolean_selector"<span class="comment">随机二选一</span>,
   "config": {
-    "feature_true": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象, <span class="comment">地形特征配置</span>
-    "feature_false": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象 <span class="comment">地形特征配置</span>
+    "feature_true": "命名空间ID" 或 <a href="#地物">地物</a>JSON对象, <span class="comment">地物</span>
+    "feature_false": "命名空间ID" 或 <a href="#地物">地物</a>JSON对象 <span class="comment">地物</span>
   }
 }
 或
 {
-  "type": "minecraft:decorated_feature_configuration"<span class="comment">带装饰的地形特征配置</span>,
+  "type": "minecraft:decorated_feature_configuration"<span class="comment">带装饰的地物</span>,
   "config": {
-    "feature": "命名空间ID" 或 <a href="#地形特征配置">地形特征配置</a>JSON对象, <span class="comment">地形特征配置</span>
-    "decorator": "命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象 <span class="comment">地形特征配置装饰</span>
+    "feature": "命名空间ID" 或 <a href="#地物">地物</a>JSON对象, <span class="comment">地物</span>
+    "decorator": "命名空间ID" 或 <a href="#装饰物">装饰物</a>JSON对象 <span class="comment">装饰物</span>
   }
 }
 </pre>
@@ -3174,8 +3177,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
   非负整数 <span class="comment">固定值，位于 minBase~maxBase 之间</span>
 </pre>
 
-<h4 id="可用的地形特征配置">可用的地形特征配置</h4>
-<p>这些是 Minecraft 内部已生成的地形特征配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<h4 id="可用的地物">可用的地物</h4>
+<p>这些是 Minecraft 内部已生成的地物命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
 <a href="files/vanilla/data/minecraft/worldgen/configured_feature/acacia.json">acacia</a>
 <a href="files/vanilla/data/minecraft/worldgen/configured_feature/bamboo.json">bamboo</a>
@@ -3370,8 +3373,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <a href="files/vanilla/data/minecraft/worldgen/configured_feature/weeping_vines.json">weeping_vines</a>
 </pre>
 
-<h4 id="地形特征配置装饰">地形特征配置装饰</h4>
-<pre class="file">地形特征配置装饰JSON格式</pre>
+<h4 id="装饰物">装饰物</h4>
+<pre class="file">装饰物JSON格式</pre>
 <pre>{
   "type": "minecraft:chance"<span class="comment">随机</span>, "lava_lake"<span class="comment">岩浆湖</span>, 或 "water_lake"<span class="comment">湖泊</span>
   "config": {
@@ -3433,7 +3436,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 {
   "type": "minecraft:carving_mask", <span class="comment">TBD</span>
   "config": {
-    "step": "air" 或 "liquid",
+    "step": "air" 或 "liquid", <span class="comment">雕刻器生成阶段</span>
     "probability": 0~1 之间的数值 <span class="comment">几率</span>
   }
 }
@@ -3441,14 +3444,14 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 {
   "type": "minecraft:decorated, <span class="comment">TBD</span>
   "config": {
-    "outer": "<a href="#地形特征配置装饰">地形特征配置装饰</a>命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象, <span class="comment">TBD，外部地形特征配置装饰</span>
-    "inner": "<a href="#地形特征配置装饰">地形特征配置装饰</a>命名空间ID" 或 <a href="#地形特征配置装饰">地形特征配置装饰</a>JSON对象 <span class="comment">TBD，内部地形特征配置装饰</span>
+    "outer": "<a href="#装饰物">装饰物</a>命名空间ID" 或 <a href="#装饰物">装饰物</a>JSON对象, <span class="comment">TBD，外部装饰物</span>
+    "inner": "<a href="#装饰物">装饰物</a>命名空间ID" 或 <a href="#装饰物">装饰物</a>JSON对象 <span class="comment">TBD，内部装饰物</span>
   }
 }
 </pre>
 
-<h4 id="可用的地形特征配置装饰">可用的地形特征配置装饰</h4>
-<p>这些是 Minecraft 内部已生成的地形特征配置装饰命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<h4 id="可用的装饰物">可用的装饰物</h4>
+<p>这些是 Minecraft 内部已生成的装饰物命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
 nope
 square
@@ -3481,14 +3484,14 @@ carving_mask
 decorated
 </pre>
 
-<h3 id="结构配置">§2.11.6 结构配置</h3>
-<p><ruby>结构配置<rt>configured_structure_feature</rt></ruby>用于指定生物群系生成特定类型的结构以及结构的参数。结构配置文件为JSON文件，结构配置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<h4 id="结构配置JSON格式">JSON格式</h4>
+<h3 id="结构地物">§2.11.6 结构地物</h3>
+<p><ruby>结构地物<rt>configured_structure_feature</rt></ruby>用于指定生物群系生成特定类型的结构以及结构的参数。结构地物文件为JSON文件，结构地物的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<h4 id="结构地物JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{
   "type": "minecraft:pillager_outpost"<span class="comment">掠夺者前哨站</span>, "minecraft:village"<span class="comment">村庄</span> 或 "minecraft:bastion_remnant"<span class="comment">堡垒遗迹</span>
   "config": {
-    "start_pool": "<a href="#拼图随机池">拼图随机池</a>命名空间ID",
+    "start_pool": "<a href="#拼图模板池">拼图模板池</a>命名空间ID",
     "size": 0~7 之间的整数 <span class="comment">TBD</span>
   }
 }
@@ -3531,8 +3534,8 @@ decorated
   }
 }</pre>
 
-<h4 id="可用的结构配置">可用的结构配置</h4>
-<p>这些是 Minecraft 内部已生成的结构配置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<h4 id="可用的结构地物">可用的结构地物</h4>
+<p>这些是 Minecraft 内部已生成的结构地物命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
 <a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/bastion_remnant.json">bastion_remnant</a>
 <a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/buried_treasure.json">buried_treasure</a>
@@ -3568,19 +3571,19 @@ decorated
 </pre>
 
 
-<h3 id="拼图随机池">§2.11.7 拼图随机池</h3>
-<p>参考<a href="https://wiki.biligame.com/mc/拼图方块" class="wiki">拼图方块</a>，<a href="https://www.mcbbs.net/thread-1093331-1-1.html">拼图方块与拼图池教程</a>。<ruby>拼图随机池<rt>template_pool</rt></ruby>使用结构文件来生成结构，其中结构包含的拼图方块会工作以生成更复杂的结构。拼图随机池文件为JSON文件，拼图随机池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<h3 id="拼图模板池">§2.11.7 拼图模板池</h3>
+<p>参考<a href="https://wiki.biligame.com/mc/拼图方块" class="wiki">拼图方块</a>，<a href="https://www.mcbbs.net/thread-1093331-1-1.html">拼图方块与拼图池教程</a>。<ruby>拼图模板池<rt>template_pool</rt></ruby>使用结构文件来生成结构，其中结构包含的拼图方块会工作以生成更复杂的结构。拼图模板池文件为JSON文件，拼图模板池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块</p>
 <ul>
   <li><code>name</code> 名称，该拼图方块的标记。</li>
-  <li><code>pool</code> 目标池，指的是拼图方块将要使用的拼图随机池。</li>
+  <li><code>pool</code> 目标池，指的是拼图方块将要使用的拼图模板池。</li>
   <li><code>target</code> 目标，与该拼图方块连接的另一拼图方块的 <code>name</code>。</li>
   <li><code>joint</code> 连接类型，<code>rollable</code> (默认值) 或 <code>aligned</code>。当拼图方块朝上或朝下时才有，其中 <code>aligned</code> 指拼接的结构位置固定，<code>rollable</code> 指的是拼接的结构可随机旋转。</li>
   <li><code>final_state</code> 转变为：指的是拼图方块在整个功能被放置后会转变的方块。默认为 <code>minecraft:air</code>。</li>
   <li>层数，<code>0~7</code> 之间，指生成完之后拼接的结构继续生成的嵌套层数。</li>
   <li>保留拼图方块，与其拼接的结构生成完之后其包含的拼图方块保留还是转变为 <code>final_state</code> 指定方块。</li>
 </ul>
-<p>拼图方块目前仅用于生成掠夺者前哨站、村庄和堡垒遗迹类型的结构配置。这些结构的生成开始于包含拼图方块的模板。每个拼图方块都使用下列流程来生成另一个模板：</p>
+<p>拼图方块目前仅用于生成掠夺者前哨站、村庄和堡垒遗迹类型的结构地物。这些结构的生成开始于包含拼图方块的模板。每个拼图方块都使用下列流程来生成另一个模板：</p>
 <ul>
   <li>在目标池内随机选择一个模板。</li>
   <li>在该模板的拼图方块，至少存在1个模板含有目标拼图方块。如果有多个方块符合条件，那么会随机选择其中的一个。</li>
@@ -3592,7 +3595,7 @@ decorated
 <pre class="file">JSON格式</pre>
 <pre>{
   "name": "命名空间ID", <span class="comment">该随机池的名称，用于拼图方块调用</span>
-  "fallback": "<a href="#拼图随机池">拼图随机池</a>命名空间ID", <span class="comment">结构生成完毕且无法再尝试生成时，可连接另一个拼图池继续生成</span>
+  "fallback": "<a href="#拼图模板池">拼图模板池</a>命名空间ID", <span class="comment">结构生成完毕且无法再尝试生成时，可连接另一个拼图池继续生成</span>
   "elements": [ <span class="comment">结构列表</span>
     {
       "weight": 整数, <span class="comment">权重</span>
@@ -3600,7 +3603,7 @@ decorated
         "location": "<a href="#结构">结构文件</a>命名空间ID",
         "projection": "rigid" <span class="comment">直接生成相应结构</span> 或 "terrain_matching", <span class="comment">调整地形或结构来与地形匹配</span>
         "element_type": "minecraft:empty_pool_element"<span class="comment">不生成任何结构</span>, "minecaft:list_pool_element"<span class="comment">生成一个地形</span>, "minecraft:legacy_single_pool_element"<span class="comment">	只使用location中的结构，使这整个元素变为残骸元素池</span> 或 "minecraft:single_pool_element", <span class="comment">只使用location中的结构，使这整个元素变为单元素池</span>
-        "processors": "<a href="#方块处理表">方块处理表</a>命名空间ID",
+        "processors": "<a href="#方块处理器">方块处理器</a>命名空间ID",
         "elements": [ <span class="comment">除了 empty_pool_element 以外均需该标签，格式与上一级标签相同</span>
         ]
       }
@@ -3608,41 +3611,78 @@ decorated
   ]
 }</pre>
 
-<h3 id="方块处理表">§2.11.8 方块处理表</h3>
-<p>方块处理表用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理表文件为JSON文件，方块处理表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<h4 id="方块处理表JSON格式">JSON格式</h4>
+<h3 id="方块处理器">§2.11.8 方块处理器</h3>
+<p>方块处理器用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理器文件为JSON文件，方块处理器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<h4 id="方块处理器JSON格式">JSON格式</h4>
 <pre class="file">JSON格式</pre>
 <pre>{<span class="comment">TBD</span>
   "processors": [
     {
+      "processor_type": "minecraft:rule",
       "rules": [ <span class="comment">规则列表</span>
         {
-          "position_predicate": {
-            "predicate_type": "minecraft:always_true"
-          },
-          "output_state": {
+          "position_predicate": <a href="#方块处理条件">方块处理条件</a>JSON对象, <span class="comment">结构生成前当前位置方块</span>
+          "input_predicate": <a href="#方块处理条件">方块处理条件</a>JSON对象, <span class="comment">结构种当前位置方块</span>
+          "location_predicate": <a href="#方块处理条件">方块处理条件</a>JSON对象, <span class="comment">结构生成前的方块处理条件</span>
+          "output_state": { <span class="comment">条件满足时放置的方块</span>
             "Name": "方块命名空间ID",
             "Properties": {
               "方块状态名": "方块状态值"
             }
-          },
-          "input_predicate": {
-            "block": "方块命名空间ID",
-            "probability": 0.3, <span class="comment">几率</span>
-            "predicate_type": "minecraft:random_block_match"
-          },
-          "location_predicate": {
-            "predicate_type": "minecraft:always_true"
           }
         }
-      ],
-      "processor_type": "minecraft:rule"
+      ]
+    或
+      "processor_type": "minecraft:block_rot", <span class="comment">旋转结构</span>
+      "integrity": 0~1 之间的数值 <span class="comment">几率</span>
     }
   ]
 }</pre>
 
-<h4 id="可用的方块处理表">可用的方块处理表</h4>
-<p>这些是 Minecraft 内部已生成的方块处理表命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<pre class="file" id="方块处理条件">方块处理条件JSON对象</pre>
+<pre>
+{
+  "predicate_type": "always_true" <span class="comment">总是成立</span>
+}
+或
+{
+  "predicate_type": "axis_aligned_linear_pos", <span class="comment">根据相应轴的方块距离结构初始位置的距离来线性插值通过几率</span>
+  "axis": "x", "y" 或 "z", <span class="comment">计算哪条轴的距离</span>
+  "min_dist": 正整数, <span class="comment">方块距离结构初始位置的最短距离</span>
+  "max_dist": 正整数, <span class="comment">方块距离结构初始位置的最远距离</span>
+  "min_chance": 0~1 之间的数值, <span class="comment">当方块距离结构初始位置为 min_dist 时该断言通过几率</span>
+  "max_chance": 0~1 之间的数值, <span class="comment">当方块距离结构初始位置为 max_dist 时该断言通过几率，介于 min_dist 和 max_dist 之间的则线性插值</span>
+}
+或
+{
+  "predicate_type": "block_match", <span class="comment">匹配方块</span>
+  "block": "方块命名空间ID"
+}
+或
+{
+  "predicate_type": "blockstate_match", <span class="comment">匹配方块状态</span>
+  "block_state": {
+    "Name": "方块命名空间ID",
+    "Properties": {
+      "方块状态名": "方块状态值"
+    }
+  }
+}
+或
+{
+  "predicate_type": "random_block_match", <span class="comment">随机方块匹配</span>
+  "block": "方块命名空间ID"
+  "probability": 0~1 之间的数值, <span class="comment">方块匹配时的通过几率</span>
+}
+或
+{
+  "predicate_type": "tag_match", <span class="comment">匹配方块标签</span>
+  "tag": "<a href="#方块标签">方块标签</a>命名空间ID"
+}
+</pre>
+
+<h4 id="可用的方块处理器">可用的方块处理器</h4>
+<p>这些是 Minecraft 内部已生成的方块处理器命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/bastion_generic_degradation.json">bastion_generic_degradation</a>
 <a href="files/vanilla/data/minecraft/worldgen/processor_list/bottom_rampart.json">bottom_rampart</a>
@@ -9293,7 +9333,7 @@ setblock ~ 255 ~ air
 <p>在<a href="#维度和维度类型">维度和维度类型</a>中，我们介绍了如何通过数据包修改原有维度和添加新的维度。之后，我们希望能够添加更多的生物群系和各式各样的结构，这些基本可以通过<a href="世界生成">世界生成</a>来实现。本节我们来介绍添加结构的常见方法。参考<a href="https://www.bilibili.com/video/BV1Vf4y1d7f7">1.16.2pre1支持自定义拼图方块系统</a>。</p>
 
 <h3 id="类原版小型结构">§11.2.1 类原版小型结构</h3>
-<p>类原版小型结构是指和原版的结构类似，只是各项参数有所不同的结构。具体而言，它们可以通过<a href="#地形特征配置">地形特征配置</a>来添加。</p>
+<p>类原版小型结构是指和原版的结构类似，只是各项参数有所不同的结构。具体而言，它们可以通过<a href="#地物">地物</a>来添加。</p>
 
 <p>我们首先来创建一个生物群系，并将它添加到我们自定义的维度中。</p>
 
@@ -9470,7 +9510,7 @@ setblock ~ 255 ~ air
   "depth": 0.1,
   "scale": 0.4
 }</pre>
-<p>然后创建一个地形特征配置文件，里面指定了一个灌木丛。将它添加到生物群系的特征列表中类型为 <code>VEGETAL_DECORATION</code> 的项。</p>
+<p>然后创建一个地物文件，里面指定了一个灌木丛。将它添加到生物群系的特征列表中类型为 <code>VEGETAL_DECORATION</code> 的项。</p>
 <pre class="file">ex/worldgen/configured_feature/small_bush.json</pre>
 <pre>{
   "config": {
@@ -9518,11 +9558,11 @@ setblock ~ 255 ~ air
   },
   "type": "minecraft:tree"
 }</pre>
-<p>注意由于 <code>small_bush</code> 的 <code>"type":"minecraft:tree"</code>，因此它会生成在原有的树的位置。想要二者均可生成，请使用随机选择的地形特征配置。</p>
+<p>注意由于 <code>small_bush</code> 的 <code>"type":"minecraft:tree"</code>，因此它会生成在原有的树的位置。想要二者均可生成，请使用随机选择的地物。</p>
 
 <h3 id="任意纯方块结构">§11.2.2 任意纯方块结构</h3>
-<p>利用结构配置和拼图随机池，我们可以实现自定义的结构的自然生成。<a href="#结构配置">结构配置</a>可选的类型有堡垒遗迹、掠夺者前哨站或村庄，但由于这样生成的会被视为相应结构，因此具有它们的性质，其中掠夺者前哨站会生成灾厄村民，堡垒遗迹会触发进度“光辉岁月”，因此村庄是最合适的。尽管村庄也可以被 <code>locate village</code> 指令定位。此外堡垒遗迹生成在地下而非地表。</p>
-<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用类型的结构配置来自定义拼图随机池。</p>
+<p>利用结构地物和拼图模板池，我们可以实现自定义的结构的自然生成。<a href="#结构地物">结构地物</a>可选的类型有堡垒遗迹、掠夺者前哨站或村庄，但由于这样生成的会被视为相应结构，因此具有它们的性质，其中掠夺者前哨站会生成灾厄村民，堡垒遗迹会触发进度“光辉岁月”，因此村庄是最合适的。尽管村庄也可以被 <code>locate village</code> 指令定位。此外堡垒遗迹生成在地下而非地表。</p>
+<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用类型的结构地物来自定义拼图模板池。</p>
 <pre class="file">ex/worldgen/configured_structure_feature/totem_pillar.json</pre>
 <pre>{
   "config": {
@@ -9549,7 +9589,7 @@ setblock ~ 255 ~ air
     }
   ]
 }</pre>
-<p>注意这样生成的结构几率非常低，因为原版村庄几率很低，我们可以修改该维度中村庄的生成几率。为了避免在原版可生成村庄的生物群系大量生成村庄，我们可以将其结构设为村庄和自定义结构均有权重的拼图随机池。</p>
+<p>注意这样生成的结构几率非常低，因为原版村庄几率很低，我们可以修改该维度中村庄的生成几率。为了避免在原版可生成村庄的生物群系大量生成村庄，我们可以将其结构设为村庄和自定义结构均有权重的拼图模板池。</p>
 
 <h3 id="含实体结构">§11.2.3 含实体结构</h3>
 <p>上一节生成的结构中带上实体标记，然后在函数中检测该标记并执行任意命令并清除标记。</p>
