@@ -149,6 +149,7 @@ code{
 	font-weight: normal;
 	font-size: 100%;
 	font-family: Consolas, 楷体, "Liberation Mono", Menlo, monospace, Courier;
+	background-color: #EEEEEE;
 }
 pre{
 	color:black;

@@ -91,7 +91,7 @@
     <li><a href="#函数">§2.3 函数</a></li>
     <li><a href="#2.4_进度">§2.4 进度</a></li>
     <li><a href="#2.5_战利品表">§2.5 战利品表</a></li>
-    <li><a href="#2.6_断言">§2.6 断言</a></li>
+    <li><a href="#战利品表谓词">§2.6 断言</a></li>
     <li><a href="#配方">§2.7 配方</a><ul>
       <li><a href="#有序合成">§2.7.1 有序合成</a></li>
       <li><a href="#无序合成">§2.7.2 无序合成</a></li>
@@ -109,6 +109,7 @@
       <li><a href="#函数标签">§2.9.3 函数标签</a></li>
       <li><a href="#实体类型标签">§2.9.4 实体类型标签</a></li>
       <li><a href="#流体标签">§2.9.5 流体标签</a></li>
+      <li><a href="#游戏事件标签">§2.9.6 游戏事件标签</a></li>
     </ul></li>
     <li><a href="#维度和维度类型">§2.10 维度和维度类型</a><img src="https://www.mcbbs.net/template/mcbbs/image/hot_1.gif" alt="hot" /><ul>
       <li><a href="#维度">§2.10.1 维度</a></li>
@@ -404,7 +405,7 @@
 </pre>
 <p class="noindent"><strong>对象</strong>，使用大括号圈住。整个JSON文件内容本身就是一个JSON对象。</p>
 <pre>{
-  "count": { "min": 1, "max": 2 },
+  "count": { "type": "minecraft:uniform", "min": 1, "max": 2 },
   "modifiers": [
     {
       "name": "legs_armor",
@@ -458,6 +459,8 @@ data
         <i>实体类型标签名称</i>.json
       fluids
         <i>流体标签名称</i>.json
+      game_events
+        <i>游戏事件标签名称</i>.json
     dimension
       <i>维度名称</i>.json
     dimension_type
@@ -480,7 +483,7 @@ data
       template_pool
         <i>拼图模板池名称</i>.json
 </pre>
-<p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-,_,.来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
+<p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-(折线)，_(下划线)，.(点)来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
 
 <p class="noindent"><strong id="原版数据包"><ruby>原版数据包<rt>vanilla</rt></ruby></strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
 
@@ -490,7 +493,7 @@ data
 <pre>
 {
   "pack": {
-    "pack_format": 6, <span class="comment">数据包版本，1.13-1.14 版本为 4，1.15-1.16.1 版本为 5，1.16.2 版本为 6</span>
+    "pack_format": 6, <span class="comment">数据包版本，1.13-1.14 版本为 4，1.15-1.16.1 版本为 5，1.16.2-1.16.4 版本为 6，1.17 版本为 7</span>
     "description": "§6数据包名称\n§a简要介绍 6by 某某作者" <span class="comment">数据包描述</span>
   }
 }
@@ -501,10 +504,10 @@ data
 <pre class="file"><a href="files/vanilla/pack.mcmeta"><code>pack.mcmeta</code></a></pre>
 <pre>
 {
-    "pack": {
-        "pack_format": 6,
-        "description": "The default data for Minecraft"
-    }
+  "pack": {
+    "pack_format": 6,
+    "description": "The default data for Minecraft"
+  }
 }
 </pre>
 
@@ -546,6 +549,11 @@ data
   <td><code><i>命名空间</i>/strutures/<i>路径</i>/<i>文件名</i>.nbt</code></td>
 </tr>
 <tr>
+  <th>标签-函数</th>
+  <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+  <td><code><i>命名空间</i>/tags/functions/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
   <th>标签-方块</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/tags/blocks/<i>路径</i>/<i>文件名</i>.json</code></td>
@@ -561,9 +569,9 @@ data
   <td><code><i>命名空间</i>/tags/entity_types/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-  <th>标签-函数</th>
+  <th>标签-游戏事件</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-  <td><code><i>命名空间</i>/tags/functions/<i>路径</i>/<i>文件名</i>.json</code></td>
+  <td><code><i>命名空间</i>/tags/game_events/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
   <th>维度</th>
@@ -653,7 +661,7 @@ data
       "conditions":{
         "items":[
           {
-            "nbt":"{id:'ex:dream_wand'}"
+            "nbt":"{id:\"ex:dream_wand\"}"
           }
         ]
       }
@@ -735,7 +743,7 @@ data
       "conditions":{
         "items":[
           {
-            "nbt":"{id:'ex:sealing_wand'}"
+            "nbt":"{id:\"ex:sealing_wand\"}"
           }
         ]
       }
@@ -745,7 +753,7 @@ data
       "conditions":{
         "items":[
           {
-            "nbt":"{id:'ex:dream_wand'}"
+            "nbt":"{id:\"ex:dream_wand\"}"
           }
         ]
       }
@@ -897,7 +905,7 @@ data
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "nbt": "{id:'ex:citrus'}"
+          "nbt": "{id:\"ex:citrus\"}"
         }
       }
     }
@@ -930,6 +938,7 @@ advancement revoke @s only ex:food/citrus
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 0,
                 "max": 2
               }
@@ -937,6 +946,7 @@ advancement revoke @s only ex:food/citrus
             {
               "function": "minecraft:looting_enchant",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 0,
                 "max": 1
               }
@@ -969,6 +979,7 @@ advancement revoke @s only ex:food/citrus
                 {
                   "function": "minecraft:set_count",
                   "count": {
+                    "type": "minecraft:uniform",
                     "min": 1,
                     "max": 3
                   }
@@ -976,6 +987,7 @@ advancement revoke @s only ex:food/citrus
                 {
                   "function": "minecraft:looting_enchant",
                   "count": {
+                    "type": "minecraft:uniform",
                     "min": 0,
                     "max": 1
                   }
@@ -989,6 +1001,7 @@ advancement revoke @s only ex:food/citrus
                 {
                   "function": "minecraft:set_count",
                   "count": {
+                    "type": "minecraft:uniform",
                     "min": 1,
                     "max": 3
                   }
@@ -996,6 +1009,7 @@ advancement revoke @s only ex:food/citrus
                 {
                   "function": "minecraft:looting_enchant",
                   "count": {
+                    "type": "minecraft:uniform",
                     "min": 0,
                     "max": 1
                   }
@@ -1081,7 +1095,7 @@ advancement revoke @s only ex:food/citrus
   <td>无限制，等价于不填写该键值。</td>
 </tr>
 </tbody></table>
-<p class="noindent"><strong><ruby>随机池<rt>pools</rt></ruby></strong> <code>pools</code> 为随机池列表，每个随机池都会随机生成物品。每个随机池包含随机次数 <code>rolls</code> 和每点幸运额外随机次数 <code>bonus_rolls</code>，为数值或范围 <code>{"min": 1, "max": 3}</code> 之类的；项目列表，其中每个项目会根据权重 <code>weight</code> 来随机选取一个，若不指定则权重默认为 <code>1</code>。键 <code>quality</code> 则规定了每点幸运对权重的加成。</p>
+<p class="noindent"><strong><ruby>随机池<rt>pools</rt></ruby></strong> <code>pools</code> 为随机池列表，每个随机池都会随机生成物品。每个随机池包含随机次数 <code>rolls</code> 和每点幸运额外随机次数 <code>bonus_rolls</code>，为数值或范围 <code>{"type": "minecraft:uniform", "min": 1, "max": 3}</code> 之类的；项目列表，其中每个项目会根据权重 <code>weight</code> 来随机选取一个，若不指定则权重默认为 <code>1</code>。键 <code>quality</code> 则规定了每点幸运对权重的加成。</p>
 <p><strong><ruby>项目<rt>entry</rt></ruby></strong> 项目中需指定项目类型，可选值如下：</p>
 <table><thead><tr><th>值</th><th>说明</th></tr></thead><tbody>
 <tr>
@@ -1119,7 +1133,7 @@ advancement revoke @s only ex:food/citrus
 </tbody></table>
 <p>可以看出，不同的项目类型可以用来方便地确定不同的逻辑情形下的子项目取舍。<code>minecraft:dynamic</code> 由于可以返回潜影盒内容物，因此可以用来产生不特定物品ID的战利品，我们后续会看到它的应用。</p>
 
-<p class="noindent"><strong><ruby>条件<rt>condition</rt></ruby></strong> 仅当条件列表 <code>conditions</code> 中每一个条件都被满足时，其同层次的随机池/项目/函数才会被选取。战利品表条件和<a href="#2.6_断言">§2.6 断言</a>的格式完全相同，因此我们会在下一节再做介绍。</p>
+<p class="noindent"><strong><ruby>条件<rt>condition</rt></ruby></strong> 仅当条件列表 <code>conditions</code> 中每一个条件都被满足时，其同层次的随机池/项目/函数才会被选取。战利品表条件和<a href="#战利品表谓词">§2.6 战利品表谓词</a>的格式完全相同，因此我们会在下一节再做介绍。</p>
 
 <p class="noindent"><strong><ruby>函数<rt>function</rt></ruby></strong> 函数列表 <code>functions</code> 中每一个函数会应用于同层次的随机池/项目生成的战利品上。</p>
 
@@ -1143,20 +1157,20 @@ advancement revoke @s only ex:food/citrus
 </ul>
 
 
-<h2 id="2.6_断言">§2.6 <ruby>断言<rt>predicate</rt></ruby></h2>
-<p>断言是战利品表条件。断言文件为JSON文件，可用于</p>
+<h2 id="战利品表谓词">§2.6 <ruby>战利品表谓词<rt>predicates</rt></ruby></h2>
+<p>战利品表谓词为JSON文件，被用作
 <ul>
+  <li>战利品表</li>
   <li>命令 <code>execute (if|unless) predicate foo:bar</code></li>
-  <li>实体选择器参数 <code>predicate={foo:bar}</code></li>
-  <li>战利品表条件</li>
+  <li>目标选择器参数 <code>predicate={foo:bar}</code></li>
   <li>进度中判断实体条件</li>
 </ul>
-<p>可参考<a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.15] 新出的断言是什么东西</a>。例如</p>
+<p>可参考<a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.16] ㄆㄧㄉㄧㄎㄞㄊㄜ —— 数据包的组成文件之一</a>。例如</p>
 <ul>
-  <li>判断某个物品是否属于某个物品标签，将物品复制到盔甲架主手，然后判断是否满足相应断言即可。</li>
+  <li>判断某个物品是否属于某个物品标签，将物品复制到盔甲架主手，然后判断是否满足相应战利品表谓词即可。</li>
   <li>按一定概率执行命令，使用 <code>minecraft:random_chance</code> 即可。</li>
 </ul>
-<p>诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用断言无疑方便更多。</p>
+<p>诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用战利品表谓词无疑方便更多。</p>
 
 <h2 id="配方">§2.7 配方</h2>
 <p><ruby>配方<rt>recipes</rt></ruby>为游戏内指定工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼的格式，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/配方" class="wiki">配方</a>。</p>
@@ -1733,6 +1747,21 @@ execute unless block ^ ^ ^ #ex:fluid
 </pre>
 <p>原版流体标签 <code>minecraft:water</code> 和 <code>minecraft:lava</code> 用来决定何种流体具有类似水和熔岩的性质，具体见<a href="https://wiki.biligame.com/mc/标签#流体" class="wiki">标签#流体</a>，我们在此省略。</p>
 
+<h3 id="游戏事件标签">§2.9.6 游戏事件标签</h3>
+<p><ruby> 游戏事件<rt>game_events</rt></ruby>标签目前仅用于指定影响潜声传感器的事件，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/game_events/路径/文件名.json</code>。</p>
+<p>流体和流体对应的方块是不同的，例如 <code>flowing_water</code> 不是一个合法的方块，但流体可以为</p>
+<pre>{
+  "minecraft:water",
+  "minecraft:flowing_water",
+  "minecraft:lava",
+  "minecraft:flowing_lava",
+  "minecraft:air",
+  "minecraft:cave_air",
+  "minecraft:void_air"
+}
+</pre>
+<p>原版游戏事件标签 <code>minecraft:vibrations</code> 用于决定哪些事件会被潜声传感器检测到，<code>minecraft:ignore_vibrations_stepping_carefully</code> 用于决定哪些事件在玩家潜行时不会被潜声传感器检测到，具体见<a href="https://wiki.biligame.com/mc/%E6%A0%87%E7%AD%BE#.E6.B8.B8.E6.88.8F.E4.BA.8B.E4.BB.B6.E2.80.8C.5B.E6.96.B0.E5.A2.9E.EF.BC.9AJE_1.17.5D" class="wiki">标签#游戏事件</a>。</p>
+
 <h2 id="维度和维度类型">§2.10 维度和维度类型</h2>
 
 <p>维度和维度类型用于自定义维度，参考 slicedlime 的自定义世界教程 <a href="https://www.bilibili.com/video/BV1z5411a7rH">EP1. 维度与维度类型</a>、<a href="https://www.bilibili.com/video/BV1Gt4y1D7Wx">EP2. 多噪声生物群系源</a>。</p>
@@ -1880,6 +1909,8 @@ execute unless block ^ ^ ^ #ex:fluid
   "coordinate_scale": 数值, <span class="comment">当前维度坐标放缩倍率，例如下界为8，影响下界传送门和 execute in 指令使用相对坐标/局部坐标的情形，此时会根据当前维度和目标维度进行放缩。</span>
   "ultrawarm": true 或 false, <span class="comment">维度是否表现得类似于下界水会蒸发，湿海绵会干。这也会使得熔岩流动更快、扩散更远</span>
   "fixed_time": 0~24000 之间的整数, 缺省则有日夜循环, <span class="comment">可选，游戏内的昼夜时间固定值</span>
+  "min_y": 数值, <span class="comment">此维度中可以存在方块的最低高度</span>
+  "height": 不超过4096的16的倍数, <span class="comment">此维度中可以存在方块的总高度。维度中可以存在方块的最大高度的值等于min_y与height值之和</span>
   "infiniburn": "<a href="#方块标签">方块标签</a>命名空间ID" <span class="comment">决定该维度中火可以在什么方块上永久燃烧</span>
 }
 </pre>
@@ -1935,6 +1966,7 @@ execute unless block ^ ^ ^ #ex:fluid
         },
         "size_vertical": 1,
         "size_horizontal": 1,
+        "min_y": 0,
         "height": 128,
         "density_factor": 1.0,
         "density_offset": 0.0,
@@ -2335,6 +2367,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     },
     "size_vertical": 正整数, <span class="comment">改变陆块在Y轴上的比例。1至15之间的值可以逐渐地增加山丘高度，大于20的值将会使得所有陆地高于通常的海平面63，比32更高的值会使得通常的陆地高度到达100+</span>
     "size_horizontal": 正整数, <span class="comment">改变陆块在X和Z轴上的比例，生物群系不会因此改变</span>
+    "min_y": 数值, <span class="comment">此噪声中可以存在方块的最低高度</span>
     "height": 正整数, <span class="comment">将世界生成的最大高度压缩至此, 一般不超过 256</span>
     "density_factor": 数值, <span class="comment">TBD</span>
     "density_offset": -1~1 之间的数值, <span class="comment">TBD，影响平均陆地高度</span>
@@ -3602,7 +3635,7 @@ decorated
       "element": {
         "location": "<a href="#结构">结构文件</a>命名空间ID",
         "projection": "rigid" <span class="comment">直接生成相应结构</span> 或 "terrain_matching", <span class="comment">调整地形或结构来与地形匹配</span>
-        "element_type": "minecraft:empty_pool_element"<span class="comment">不生成任何结构</span>, "minecaft:list_pool_element"<span class="comment">生成一个地形</span>, "minecraft:legacy_single_pool_element"<span class="comment">	只使用location中的结构，使这整个元素变为残骸元素池</span> 或 "minecraft:single_pool_element", <span class="comment">只使用location中的结构，使这整个元素变为单元素池</span>
+        "element_type": "minecraft:empty_pool_element"<span class="comment">不生成任何结构</span>, "minecaft:list_pool_element"<span class="comment">生成一个地形</span>, "minecraft:legacy_single_pool_element"<span class="comment">  只使用location中的结构，使这整个元素变为残骸元素池</span> 或 "minecraft:single_pool_element", <span class="comment">只使用location中的结构，使这整个元素变为单元素池</span>
         "processors": "<a href="#方块处理器">方块处理器</a>命名空间ID",
         "elements": [ <span class="comment">除了 empty_pool_element 以外均需该标签，格式与上一级标签相同</span>
         ]
@@ -3756,7 +3789,7 @@ assets
       <i>文本</i>.txt
 </pre>
 <p class="noindent">其中 <code>assets</code> 的文件结构和 <a href="#1.3.1_游戏文件结构">§1.3.1 游戏文件结构</a>中 <code>versions/<i>版本号</i>/<i>版本号</i>.jar/assets</code> 的结构是一样的。</p>
-<p><code>assets</code> 下所有文件和文件夹需使用小写英文、数字或-,_来命名，<strong>不可使用大写字母</strong>，所有文本文件为使用 <code>UTF-8</code> 编码的JSON文件，图片为 <code>png</code> 格式。资源包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到资源包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
+<p><code>assets</code> 下所有文件和文件夹需使用小写英文、数字或-(折线)，_(下划线)，.(点)来命名，<strong>不可使用大写字母</strong>，所有文本文件为使用 <code>UTF-8</code> 编码的JSON文件，图片为 <code>png</code> 格式。资源包可以为文件夹格式或 zip 格式，发布时可将所有内容压缩为一个 zip 文件。压缩和解压的时候，注意文件层次，应当打开 zip 文件就可以看到资源包的 pack.mcmeta、pack.png 和 assets 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
 <p>游戏内选择<code>选项->资源包</code>可以列出所有的资源包。在资源包菜单中，加载次序由下至上，因此上方的资源包内容会覆盖下方的资源包同名内容。由于原版模组往往会修改原版物品自定义模型，因此同时安装多个原版模组的资源包时，很容易出现文件冲突，此时需要玩家手动合并资源包方可使用。具体而言，对比两个资源包的同名文件，将相同的模型文件的 <code>overrides</code> 合并，其它内容选择需要的留下即可。</p>
 <p>若资源包位于 <code>saves/<i>世界名称</i>/resources.zip</code>，则资源包会在进入存档时自动加载(最顶层)。</p>
 <p>本节中我们仅对资源包做简单介绍，更详细的文件说明请参阅<a href="https://wiki.biligame.com/mc/资源包">资源包 - Minecraft Wiki，最详细的官方我的世界百科</a>或论坛材质资源版相关内容。</p>
@@ -3769,7 +3802,7 @@ assets
 <pre>
 {
   "pack": {
-    "pack_format": 6, <span class="comment">资源包版本，1.13-1.14 版本为 4，1.15 版本为 5，1.16.2 版本为 6</span>
+    "pack_format": 6, <span class="comment">资源包版本，1.13-1.14 版本为 4，1.15 版本为 5，1.16.2-1.16.4 版本为 6，1.17 版本为 7</span>
     "description": [ <span class="comment">资源包描述</span>
       {
         "text": "Crafting++ v1.10 ",
@@ -3790,7 +3823,7 @@ assets
 <p class="noindent">其中资源包描述为单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>。在资源包菜单页面，它会显示在资源包名称下方。</p>
 
 <p>原版资源包里的 <code>pack.mcmeta</code> 文件为</p>
-<pre class="file"><a href="files/vanilla/pack.mcmeta"><code>pack.mcmeta</code></a></pre>
+<pre class="file"><a href="files/vanilla/pack.mcmeta">pack.mcmeta</a></pre>
 <pre>
 {
     "pack": {
@@ -4449,7 +4482,7 @@ function #foo:item_processer
           "functions": [
             {
               "function": "set_nbt",
-              "tag": "{id:'ex:red_force_of_fire',display:{Name:'{\"translate\":\"item.ex.red_force_of_fire\"}'},CustomModelData:12970013}"
+              "tag": "{id:\"ex:red_force_of_fire\",display:{Name:'{\"translate\":\"item.ex.red_force_of_fire\"}'},CustomModelData:12970013}"
             }
           ]
         }
@@ -4472,7 +4505,7 @@ function #foo:item_processer
   <td>物品的自定义模型数据，见 <a href="#3.4_自定义物品模型">§3.4 自定义物品模型</a>。</td>
 </tr>
 <tr>
-  <td><code>dict:['iron_dust']</code></td>
+  <td><code>dict:["iron_dust"]</code></td>
   <td>可选的矿物辞典，用于表示同类物品，并不一定指矿物类物品。例如矿物、矿物粉、矿物粒、水果等。矿物辞典可用来解决不同的原版模组/插件的同种物品互相调用的问题，见<a href="https://www.mcmod.cn/post/927.html">原版模组矿物辞典</a>。</td>
 </tr>
 </tbody></table>
@@ -8824,6 +8857,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 36,
                 "max": 40
               }
@@ -8837,6 +8871,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 36,
                 "max": 40
               }
@@ -8850,6 +8885,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 36,
                 "max": 40
               }
@@ -8863,6 +8899,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 36,
                 "max": 40
               }
@@ -8876,6 +8913,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 36,
                 "max": 40
               }
@@ -8889,6 +8927,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 36,
                 "max": 40
               }
@@ -8914,6 +8953,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 4,
                 "max": 6
               }
@@ -8927,6 +8967,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 4,
                 "max": 6
               }
@@ -8940,6 +8981,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 4,
                 "max": 6
               }
@@ -8953,6 +8995,7 @@ tag @s add trade_trade_added
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 4,
                 "max": 6
               }
@@ -9000,71 +9043,65 @@ data merge entity @e[type=item_framerabbit,distance=..9,nbt={Age:0,InLove:0},lim
 <h2 id="连锁">§10.8 连锁</h2>
 
 <p>当玩家使用原版镐时，破坏所有相连的矿石。</p>
+<p>我们将允许使用连锁的工具添加至<code>cpp:mainhand/axe</code>等物品标签中，其中镐根据方块所需挖掘等级不同而划分为不同标签。相应可挖掘方块被记录在<code>cpp:chain/axe</code>等方块标签中。</p>
 
-<pre class="file">chain:load</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
-scoreboard objectives add chainUsePick1 minecraft.used:minecraft.diamond_pickaxe
-scoreboard objectives add chainUsePick2 minecraft.used:minecraft.iron_pickaxe
-scoreboard objectives add chainUsePick3 minecraft.used:minecraft.golden_pickaxe
-scoreboard objectives add chainUsePick4 minecraft.used:minecraft.stone_pickaxe
+execute as @a at @s at @e[type=item,nbt={Age:0s,PickupDelay:10s},distance=..6.5,limit=1] run function cpp:chain/init
 </pre>
-<pre class="file">chain:tick</pre>
+<pre class="file">cpp:chain/init</pre>
 <pre>
-execute as @a at @s anchored eyes run function chain:chain/type
+execute store result score @s cppValue run data get entity @s SelectedItem.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
+execute store result score #damage cppValue run data get entity @s SelectedItem.tag.Damage
+function cpp:chain/get_durality
+execute as @s[predicate=cpp:mainhand/axe] run function cpp:chain/axe/mark
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/shovel] run function cpp:chain/shovel/mark
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/hoe] run function cpp:chain/hoe/mark
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/pickaxe3] run function cpp:chain/pickaxe3/mark
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/pickaxe2] run function cpp:chain/pickaxe2/mark
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/pickaxe1] run function cpp:chain/pickaxe1/mark
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/pickaxe] run function cpp:chain/pickaxe/mark
+setblock ~ 255 ~ barrel
+item block ~ 255 ~ container.0 copy entity @s weapon.mainhand
+execute store result block ~ 255 ~ Items[0].tag.Damage int 1 run scoreboard players get #damage cppValue
+item entity @s weapon.mainhand copy block ~ 255 ~ container.0
+setblock ~ 255 ~ air
 </pre>
-<pre class="file">chain:chain/type</pre>
+<pre class="file">cpp:chain/get_durality</pre>
 <pre>
-execute as @s[scores={chainUsePick1=1..}] run function chain:chain/pickaxe1/init
-execute as @s[scores={chainUsePick2=1..}] run function chain:chain/pickaxe2/init
-execute as @s[scores={chainUsePick3=1..}] run function chain:chain/pickaxe3/init
-execute as @s[scores={chainUsePick4=1..}] run function chain:chain/pickaxe4/init
-scoreboard players reset @s chainUsePick1
-scoreboard players reset @s chainUsePick2
-scoreboard players reset @s chainUsePick3
-scoreboard players reset @s chainUsePick4
-</pre>
-<pre class="file">chain:chain/pickaxe1/init</pre>
-<pre>
-scoreboard players set #max_durality chainValue 1562
-data modify storage ex:damage Item set from entity @s SelectedItem
-execute store result score #temp chainValue run data get storage ex:damage Item.tag.Damage
-execute at @e[type=item,nbt={Age:0s},distance=..6,sort=nearest,limit=1] run function chain:chain/pickaxe1/mark
-execute at @e[type=item,nbt={Age:1s},distance=..6,sort=nearest,limit=1] run function chain:chain/pickaxe1/mark
-scoreboard players reset @s chainUsePick1
-execute if score #temp chainValue &gt;= #max_durality chainValue run replaceitem entity @s weapon.mainhand minecraft:air
+setblock ~ 255 ~ barrel
+item block ~ 255 ~ container.0 copy entity @s weapon.mainhand
+item block ~ 255 ~ container.0 modify cpp:set_damage
+execute store result score #max_durality cppValue run data get block ~ 255 ~ Items[0].tag.Damage
+setblock ~ 255 ~ air
 </pre>
 <pre class="file">chain:chain/pickaxe1/mark</pre>
 <pre>
-execute positioned ~1 ~ ~ if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
-execute positioned ~-1 ~ ~ if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
-execute positioned ~ ~1 ~ if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
-execute positioned ~ ~-1 ~ if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
-execute positioned ~ ~ ~1 if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
-execute positioned ~ ~ ~-1 if block ~ ~ ~ #chain:pickaxe1_chain run function chain:chain/pickaxe1/damage
+execute positioned ~1 ~ ~ if block ~ ~ ~ #cpp:chain/pickaxe1 run function cpp:chain/pickaxe1/damage
+execute if score #damage cppValue &lt; #max_durality cppValue positioned ~-1 ~ ~ if block ~ ~ ~ #cpp:chain/pickaxe1 run function cpp:chain/pickaxe1/damage
+execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~1 ~ if block ~ ~ ~ #cpp:chain/pickaxe1 run function cpp:chain/pickaxe1/damage
+execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~-1 ~ if block ~ ~ ~ #cpp:chain/pickaxe1 run function cpp:chain/pickaxe1/damage
+execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~1 if block ~ ~ ~ #cpp:chain/pickaxe1 run function cpp:chain/pickaxe1/damage
+execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~-1 if block ~ ~ ~ #cpp:chain/pickaxe1 run function cpp:chain/pickaxe1/damage
 </pre>
 <pre class="file">chain/tags/blocks/pickaxe1.json</pre>
-<pre>
-{
+<pre>{
   "replace": false,
   "values": [
+    "#cpp:chain/pickaxe",
+    "minecraft:copper_ore",
     "minecraft:iron_ore",
-    "minecraft:gold_ore",
-    "minecraft:coal_ore",
-    "minecraft:diamond_ore",
-    "minecraft:emerald_ore",
-    "minecraft:nether_quartz_ore",
-    "minecraft:redstone_ore",
-    "minecraft:lapis_ore"
+    "minecraft:lapis_ore",
+    {"id":"#forge:ores/copper","required":false}
   ]
 }
 </pre>
 <pre class="file">chain:chain/pickaxe1/damage</pre>
 <pre>
-execute as @s[nbt=!{SelectedItem:{tag:{Enchantments:[{id:"minecraft:silk_touch"}]}}}] run function chain:chain/xp
-loot spawn ~ ~ ~ mine ~ ~ ~ mainhand
-setblock ~ ~ ~ air
-function ex:damage
-execute if score #temp chainValue &lt; #max_durality chainValue run function chain:chain/pickaxe1/mark
+execute as @s[predicate=!cpp:mainhand/silk_touch] run function cpp:chain/xp
+function cpp:chain/mine
+execute unless predicate cpp:no_damage run scoreboard players add #damage cppValue 1
+execute if score #damage cppValue &lt; #max_durality cppValue run function cpp:chain/pickaxe1/mark
 </pre>
 
 <p>函数 <code>ex:damage</code> 见 <a href="11.3_耐久处理">§10.3 耐久处理</a>。</p>
@@ -9095,6 +9132,7 @@ execute if score #temp chainValue &lt; #max_durality chainValue run function cha
                   "attribute": "generic.luck",
                   "operation": "addition",
                   "amount": {
+                    "type": "minecraft:uniform",
                     "min": 0,
                     "max": 2048
                   }
@@ -9160,6 +9198,7 @@ scoreboard players operation #rand exValue += #random_min exValue
                   "attribute": "generic.luck",
                   "operation": "addition",
                   "amount": {
+                    "type": "minecraft:uniform",
                     "min": 1,
                     "max": 100
                   }
@@ -9807,7 +9846,7 @@ loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
               "predicate": {
                 "dimension": "ex:flower"
               }
-            }						
+            }            
           ]
         }
       ],
@@ -9933,6 +9972,7 @@ loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 1,
                 "max": 5
               }
@@ -9962,7 +10002,7 @@ loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
               "predicate": {
                 "dimension": "ex:flower"
               }
-            }						
+            }            
           ]
         }
       ],
@@ -10022,6 +10062,7 @@ loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 1,
                 "max": 4
               }
@@ -10056,6 +10097,7 @@ loot insert ~4 ~5 ~3 loot ex:chests/enchanting_room
             {
               "function": "minecraft:set_count",
               "count": {
+                "type": "minecraft:uniform",
                 "min": 1,
                 "max": 4
               }
