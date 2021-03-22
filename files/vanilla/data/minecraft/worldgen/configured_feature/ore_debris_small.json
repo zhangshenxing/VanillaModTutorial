@@ -4,22 +4,30 @@
       "config": {
         "feature": {
           "config": {
-            "target": {
-              "tag": "minecraft:base_stone_nether",
-              "predicate_type": "minecraft:tag_match"
-            },
-            "state": {
-              "Name": "minecraft:ancient_debris"
-            },
-            "size": 2
+            "targets": [
+              {
+                "target": {
+                  "tag": "minecraft:base_stone_nether",
+                  "predicate_type": "minecraft:tag_match"
+                },
+                "state": {
+                  "Name": "minecraft:ancient_debris"
+                }
+              }
+            ],
+            "size": 2,
+            "discard_chance_on_air_exposure": 1.0
           },
-          "type": "minecraft:no_surface_ore"
+          "type": "minecraft:scattered_ore"
         },
         "decorator": {
           "config": {
-            "bottom_offset": 8,
-            "top_offset": 16,
-            "maximum": 128
+            "bottom_inclusive": {
+              "above_bottom": 8
+            },
+            "top_inclusive": {
+              "below_top": 8
+            }
           },
           "type": "minecraft:range"
         }

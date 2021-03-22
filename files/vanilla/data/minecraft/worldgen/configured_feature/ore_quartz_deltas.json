@@ -6,22 +6,30 @@
           "config": {
             "feature": {
               "config": {
-                "target": {
-                  "block": "minecraft:netherrack",
-                  "predicate_type": "minecraft:block_match"
-                },
-                "state": {
-                  "Name": "minecraft:nether_quartz_ore"
-                },
-                "size": 14
+                "targets": [
+                  {
+                    "target": {
+                      "block": "minecraft:netherrack",
+                      "predicate_type": "minecraft:block_match"
+                    },
+                    "state": {
+                      "Name": "minecraft:nether_quartz_ore"
+                    }
+                  }
+                ],
+                "size": 14,
+                "discard_chance_on_air_exposure": 0.0
               },
               "type": "minecraft:ore"
             },
             "decorator": {
               "config": {
-                "bottom_offset": 10,
-                "top_offset": 20,
-                "maximum": 128
+                "bottom_inclusive": {
+                  "above_bottom": 10
+                },
+                "top_inclusive": {
+                  "below_top": 10
+                }
               },
               "type": "minecraft:range"
             }

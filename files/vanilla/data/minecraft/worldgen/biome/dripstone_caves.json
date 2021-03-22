@@ -16,7 +16,8 @@
   "carvers": {
     "air": [
       "minecraft:cave",
-      "minecraft:canyon"
+      "minecraft:canyon",
+      "minecraft:crack"
     ]
   },
   "features": [
@@ -40,13 +41,20 @@
       "minecraft:ore_granite",
       "minecraft:ore_diorite",
       "minecraft:ore_andesite",
-      "minecraft:ore_coal",
-      "minecraft:ore_iron",
+      "minecraft:ore_tuff",
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_lower",
       "minecraft:ore_gold",
       "minecraft:ore_redstone",
+      "minecraft:ore_redstone_lower",
       "minecraft:ore_diamond",
       "minecraft:ore_lapis",
+      "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
+      "minecraft:underwater_magma",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel"
@@ -57,6 +65,7 @@
     ],
     [
       "minecraft:patch_tall_grass_2",
+      "minecraft:glow_lichen",
       "minecraft:plain_vegetation",
       "minecraft:flower_plain_decorated",
       "minecraft:patch_grass_plain",
@@ -77,9 +86,65 @@
     "minecraft:ruined_portal"
   ],
   "spawners": {
-    "monster": [],
+    "monster": [
+      {
+        "type": "minecraft:spider",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:zombie",
+        "weight": 95,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:zombie_villager",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "minecraft:skeleton",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:creeper",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:slime",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:enderman",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:witch",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
     "creature": [],
-    "ambient": [],
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "weight": 10,
+        "minCount": 8,
+        "maxCount": 8
+      }
+    ],
     "water_creature": [],
     "water_ambient": [],
     "misc": []
@@ -89,6 +154,6 @@
   "precipitation": "rain",
   "temperature": 0.8,
   "downfall": 0.4,
-  "category": "plains",
+  "category": "underground",
   "depth": 0.125
 }

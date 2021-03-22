@@ -1,0 +1,228 @@
+{
+  "config": {
+    "features": [
+      {
+        "config": {
+          "to_place": {
+            "entries": [
+              {
+                "weight": 1,
+                "data": {
+                  "Properties": {
+                    "waterlogged": "false",
+                    "half": "lower",
+                    "facing": "east"
+                  },
+                  "Name": "minecraft:small_dripleaf"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Properties": {
+                    "waterlogged": "false",
+                    "half": "lower",
+                    "facing": "west"
+                  },
+                  "Name": "minecraft:small_dripleaf"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Properties": {
+                    "waterlogged": "false",
+                    "half": "lower",
+                    "facing": "north"
+                  },
+                  "Name": "minecraft:small_dripleaf"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Properties": {
+                    "waterlogged": "false",
+                    "half": "lower",
+                    "facing": "south"
+                  },
+                  "Name": "minecraft:small_dripleaf"
+                }
+              }
+            ],
+            "type": "minecraft:weighted_state_provider"
+          },
+          "place_on": [],
+          "place_in": [],
+          "place_under": []
+        },
+        "type": "minecraft:simple_block"
+      },
+      {
+        "config": {
+          "body_provider": {
+            "state": {
+              "Properties": {
+                "waterlogged": "false",
+                "facing": "east"
+              },
+              "Name": "minecraft:big_dripleaf_stem"
+            },
+            "type": "minecraft:simple_state_provider"
+          },
+          "head_provider": {
+            "state": {
+              "Properties": {
+                "waterlogged": "false",
+                "tilt": "none",
+                "facing": "east"
+              },
+              "Name": "minecraft:big_dripleaf"
+            },
+            "type": "minecraft:simple_state_provider"
+          },
+          "allow_water": true,
+          "height_distribution": [
+            {
+              "weight": 2,
+              "data": {
+                "base": 1,
+                "spread": 4
+              }
+            },
+            {
+              "weight": 1,
+              "data": 1
+            }
+          ],
+          "direction": "up"
+        },
+        "type": "minecraft:growing_plant"
+      },
+      {
+        "config": {
+          "body_provider": {
+            "state": {
+              "Properties": {
+                "waterlogged": "false",
+                "facing": "west"
+              },
+              "Name": "minecraft:big_dripleaf_stem"
+            },
+            "type": "minecraft:simple_state_provider"
+          },
+          "head_provider": {
+            "state": {
+              "Properties": {
+                "waterlogged": "false",
+                "tilt": "none",
+                "facing": "west"
+              },
+              "Name": "minecraft:big_dripleaf"
+            },
+            "type": "minecraft:simple_state_provider"
+          },
+          "allow_water": true,
+          "height_distribution": [
+            {
+              "weight": 2,
+              "data": {
+                "base": 1,
+                "spread": 4
+              }
+            },
+            {
+              "weight": 1,
+              "data": 1
+            }
+          ],
+          "direction": "up"
+        },
+        "type": "minecraft:growing_plant"
+      },
+      {
+        "config": {
+          "body_provider": {
+            "state": {
+              "Properties": {
+                "waterlogged": "false",
+                "facing": "south"
+              },
+              "Name": "minecraft:big_dripleaf_stem"
+            },
+            "type": "minecraft:simple_state_provider"
+          },
+          "head_provider": {
+            "state": {
+              "Properties": {
+                "waterlogged": "false",
+                "tilt": "none",
+                "facing": "south"
+              },
+              "Name": "minecraft:big_dripleaf"
+            },
+            "type": "minecraft:simple_state_provider"
+          },
+          "allow_water": true,
+          "height_distribution": [
+            {
+              "weight": 2,
+              "data": {
+                "base": 1,
+                "spread": 4
+              }
+            },
+            {
+              "weight": 1,
+              "data": 1
+            }
+          ],
+          "direction": "up"
+        },
+        "type": "minecraft:growing_plant"
+      },
+      {
+        "config": {
+          "body_provider": {
+            "state": {
+              "Properties": {
+                "waterlogged": "false",
+                "facing": "north"
+              },
+              "Name": "minecraft:big_dripleaf_stem"
+            },
+            "type": "minecraft:simple_state_provider"
+          },
+          "head_provider": {
+            "state": {
+              "Properties": {
+                "waterlogged": "false",
+                "tilt": "none",
+                "facing": "north"
+              },
+              "Name": "minecraft:big_dripleaf"
+            },
+            "type": "minecraft:simple_state_provider"
+          },
+          "allow_water": true,
+          "height_distribution": [
+            {
+              "weight": 2,
+              "data": {
+                "base": 1,
+                "spread": 4
+              }
+            },
+            {
+              "weight": 1,
+              "data": 1
+            }
+          ],
+          "direction": "up"
+        },
+        "type": "minecraft:growing_plant"
+      }
+    ]
+  },
+  "type": "minecraft:simple_random_selector"
+}

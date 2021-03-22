@@ -6,20 +6,32 @@
           "config": {
             "feature": {
               "config": {
-                "target": {
-                  "block": "minecraft:netherrack",
-                  "predicate_type": "minecraft:block_match"
-                },
-                "state": {
-                  "Name": "minecraft:magma_block"
-                },
-                "size": 33
+                "targets": [
+                  {
+                    "target": {
+                      "block": "minecraft:netherrack",
+                      "predicate_type": "minecraft:block_match"
+                    },
+                    "state": {
+                      "Name": "minecraft:magma_block"
+                    }
+                  }
+                ],
+                "size": 33,
+                "discard_chance_on_air_exposure": 0.0
               },
               "type": "minecraft:ore"
             },
             "decorator": {
-              "config": {},
-              "type": "minecraft:magma"
+              "config": {
+                "bottom_inclusive": {
+                  "absolute": 27
+                },
+                "top_inclusive": {
+                  "absolute": 36
+                }
+              },
+              "type": "minecraft:range"
             }
           },
           "type": "minecraft:decorated"

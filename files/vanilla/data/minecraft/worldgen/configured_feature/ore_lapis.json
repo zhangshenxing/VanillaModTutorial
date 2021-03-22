@@ -4,30 +4,57 @@
       "config": {
         "feature": {
           "config": {
-            "target": {
-              "tag": "minecraft:base_stone_overworld",
-              "predicate_type": "minecraft:tag_match"
+            "feature": {
+              "config": {
+                "targets": [
+                  {
+                    "target": {
+                      "tag": "minecraft:stone_ore_replaceables",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Name": "minecraft:lapis_ore"
+                    }
+                  },
+                  {
+                    "target": {
+                      "tag": "minecraft:deepslate_ore_replaceables",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Name": "minecraft:deepslate_lapis_ore"
+                    }
+                  }
+                ],
+                "size": 7,
+                "discard_chance_on_air_exposure": 0.0
+              },
+              "type": "minecraft:ore"
             },
-            "state": {
-              "Name": "minecraft:lapis_ore"
-            },
-            "size": 7
+            "decorator": {
+              "config": {
+                "baseline": {
+                  "absolute": 0
+                },
+                "spread": 32
+              },
+              "type": "minecraft:depth_average"
+            }
           },
-          "type": "minecraft:ore"
+          "type": "minecraft:decorated"
         },
         "decorator": {
-          "config": {
-            "baseline": 16,
-            "spread": 16
-          },
-          "type": "minecraft:depth_average"
+          "config": {},
+          "type": "minecraft:square"
         }
       },
       "type": "minecraft:decorated"
     },
     "decorator": {
-      "config": {},
-      "type": "minecraft:square"
+      "config": {
+        "count": 2
+      },
+      "type": "minecraft:count"
     }
   },
   "type": "minecraft:decorated"

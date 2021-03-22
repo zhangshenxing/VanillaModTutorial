@@ -6,24 +6,30 @@
           "config": {
             "feature": {
               "config": {
-                "target": {
-                  "tag": "minecraft:base_stone_overworld",
-                  "predicate_type": "minecraft:tag_match"
-                },
-                "state": {
-                  "Name": "minecraft:copper_ore"
-                },
-                "size": 10
+                "targets": [
+                  {
+                    "target": {
+                      "tag": "minecraft:base_stone_overworld",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Name": "minecraft:copper_ore"
+                    }
+                  }
+                ],
+                "size": 10,
+                "discard_chance_on_air_exposure": 0.0
               },
               "type": "minecraft:ore"
             },
             "decorator": {
               "config": {
-                "bottom_offset": 0,
-                "top_offset": 0,
-                "maximum": 64
+                "baseline": {
+                  "absolute": 48
+                },
+                "spread": 48
               },
-              "type": "minecraft:range"
+              "type": "minecraft:depth_average"
             }
           },
           "type": "minecraft:decorated"
@@ -37,7 +43,7 @@
     },
     "decorator": {
       "config": {
-        "count": 10
+        "count": 6
       },
       "type": "minecraft:count"
     }
