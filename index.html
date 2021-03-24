@@ -4609,7 +4609,7 @@ function #foo:item_processer
 </tbody></table>
 
 <p class="noindent">然后为物品添加模型，见 <a href="#模型">§3.5 模型</a>。</p>
-<pre class="file" id="assets/minecraft/models/item/carrot_on_a_stick">assets/minecraft/models/item/carrot_on_a_stick.json</pre>
+<pre class="file">assets/minecraft/models/item/carrot_on_a_stick.json</pre>
 <pre>
 {
   "parent": "item/handheld_rod",
@@ -4636,7 +4636,7 @@ function #foo:item_processer
 
 <h2 id="右键交互">§5.2 右键交互</h2>
 <p>对于右键具有交互功能的物品，我们可以使用胡萝卜钓竿，通过使用胡萝卜钓竿的记分板来探测。例如使用上一节中的示例物品：</p>
-<pre class="file" id="cpp/functions/load">cpp:load</pre>
+<pre class="file">cpp:load</pre>
 <pre>
 scoreboard objectives add cppUseCSt minecraft.used:minecraft.carrot_on_a_stick
 </pre>
@@ -4705,7 +4705,7 @@ scoreboard players reset @s cppUseCSt
 </pre>
 
 <p>如果模组含多个以胡萝卜钓竿为本体的物品需要探测，我们可以先判断是主手还是副手使用的，然后再分情形讨论。</p>
-<pre class="file" id="cpp/functions/use_cst">cpp:use_cst</pre>
+<pre class="file">cpp:use_cst</pre>
 <pre>
 execute as @s[predicate=<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] run function <a href="#cpp/functions/use_cst_main">cpp:use_cst_main</a>
 execute as @s[predicate=!<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] run function <a href="#cpp/functions/use_cst_off">cpp:use_cst_off</a>
@@ -4910,7 +4910,7 @@ advancement revoke @s only cpp:foods/meat_floss_bread
 </pre>
 <p>更为简便的做法是使用迷之炖菜，注意会剩下碗。迷之炖菜可以自带药水效果，无需进度和函数来额外实现药水效果，但由于只能设置为1级，因此额外的饥饿值仍然需要进度。</p>
 <p class="ex">食用缤纷菜蔬回复6点饥饿值，并获得30秒的跳跃提升效果。</p>
-<pre class="file" id="cpp/loot_tables/colorful_vegetable">cpp/loot_tables/colorful_vegetable.json</pre>
+<pre class="file">cpp/loot_tables/colorful_vegetable.json</pre>
 <pre>
 {
   "pools": [
@@ -5055,39 +5055,39 @@ advancement revoke @s only cpp:potion/agentia_of_sky
 <pre class="file" id="cpp/functions/potion/agentia_of_dirt">cpp:potion/agentia_of_dirt</pre>
 <pre>
 effect give @s invisibility 720
-execute unless score @s exChainTick matches 14400.. run scoreboard players set @s exChainTick 14400
+execute unless score @s cppChainTick matches 14400.. run scoreboard players set @s cppChainTick 14400
 advancement revoke @s only cpp:potion/agentia_of_dirt
 </pre>
 <pre class="file">cpp:tick</pre>
 <pre>
-execute as @a[scores={exChainTick=1..}] at @s anchored eyes run function <a href="#cpp/functions/chain/type">cpp:chain/type</a>
+execute as @a[scores={cppChainTick=1..}] at @s anchored eyes run function <a href="#cpp/functions/chain/type">cpp:chain/type</a>
 </pre>
 <pre class="file" id="cpp/functions/chain/type">cpp:chain/type</pre>
 <pre>
 execute positioned ^ ^ ^0.2 run particle entity_effect ~ ~-1 ~ 0.734375 0.37890625 0.3046875 1 0
-scoreboard players remove @s exChainTick 1
+scoreboard players remove @s cppChainTick 1
 [省略实际效果部分]
 </pre>
 <p class="noindent">我们使用周期为20刻的低频来显示剩余时长。</p>
-<pre class="file" id="cpp/functions/load">cpp:load</pre>
+<pre class="file">cpp:load</pre>
 <pre>
 function <a href="#cpp/functions/tick20">cpp:tick20</a>
 </pre>
-<pre class="file" id="cpp/functions/tick20">cpp:tick20</pre>
+<pre class="file">cpp:tick20</pre>
 <pre>
-execute as @a[scores={exChainTick=1..}] run function <a href="#cpp/functions/chain/showtime">cpp:chain/showtime</a>
-schedule function <a href="#cpp/functions/tick20 20t">cpp:tick20</a> 20t
+execute as @a[scores={cppChainTick=1..}] run function <a href="#cpp/functions/chain/showtime">cpp:chain/showtime</a>
+schedule function <a href="#cpp/functions/tick20">cpp:tick20</a> 20t
 </pre>
 <pre class="file" id="cpp/functions/chain/showtime">cpp:chain/showtime</pre>
 <pre>
-scoreboard players operation #min cppValue = @s exChainTick
+scoreboard players operation #min cppValue = @s cppChainTick
 scoreboard players operation #min cppValue /= #20 cppValue
 scoreboard players operation #sec cppValue = #min cppValue
 scoreboard players operation #min cppValue /= #60 cppValue
 scoreboard players operation #sec cppValue %= #60 cppValue
-execute as @s[scores={exChainTick=20..}] if score #sec cppValue matches 10.. run title @s actionbar [{"translate":"title.effect.chain"},{"score":{"name":"#min","objective":"cppValue"},"color":"gray"},{"text":":"},{"score":{"name":"#sec","objective":"cppValue"},"color":"gray"}]
-execute as @s[scores={exChainTick=20..}] if score #sec cppValue matches ..9 run title @s actionbar [{"translate":"title.effect.chain"},{"score":{"name":"#min","objective":"cppValue"},"color":"gray"},{"text":":"},{"text":"0","color":"gray"},{"score":{"name":"#sec","objective":"cppValue"},"color":"gray"}]
-title @s[scores={exChainTick=..19}] actionbar [{"text":" "}]
+execute as @s[scores={cppChainTick=20..}] if score #sec cppValue matches 10.. run title @s actionbar [{"translate":"title.effect.chain"},{"score":{"name":"#min","objective":"cppValue"},"color":"gray"},{"text":":"},{"score":{"name":"#sec","objective":"cppValue"},"color":"gray"}]
+execute as @s[scores={cppChainTick=20..}] if score #sec cppValue matches ..9 run title @s actionbar [{"translate":"title.effect.chain"},{"score":{"name":"#min","objective":"cppValue"},"color":"gray"},{"text":":"},{"text":"0","color":"gray"},{"score":{"name":"#sec","objective":"cppValue"},"color":"gray"}]
+title @s[scores={cppChainTick=..19}] actionbar [{"text":" "}]
 </pre>
 
 <p>我们无法在背包页面显示图标和时长，但是我们可以在特定分辨率下在右上角显示图标。这里需要使用<a href="3.8_字体">§3.8 字体</a>的负空格字体技巧。我们假设当前分辨率为<code>1920×1080</code>，通过试验得知使用<code>actionbar</code>占据整个右上角需要的大小为<code>480×182</code>，因此我们使用<code>298</code>像素宽的空格和<code>182×182</code>的图案。</p>
@@ -5123,7 +5123,7 @@ title @s[scores={exChainTick=..19}] actionbar [{"text":" "}]
   <figcaption>图5.2 状态效果材质</figcaption>
 </figure>
 
-<pre class="file" id="cpp/functions/chain/showtime">cpp:chain/showtime</pre>
+<pre class="file">cpp:chain/showtime</pre>
 <pre>
 title @s actionbar {"font":"cpp:default","text":"12"}
 </pre>
@@ -5460,7 +5460,7 @@ setblock ~ 255 ~ air
 
 <p>这些物品的耐久都是不可修改的，但是我们可以将其设置为不可破坏，然后每次使用后模拟耐久降低的过程。</p>
 
-<pre class="file" id="cpp/functions/load">cpp:load</pre>
+<pre class="file">cpp:load</pre>
 <pre>
 scoreboard objectives add exUseSPick minecraft.used:minecraft.stone_pickaxe
 </pre>
@@ -5624,7 +5624,7 @@ data modify entity @s ArmorItems[3] set from storage cpp:_ weapon.Item
 <h2 id="计算交点法">§6.2 计算交点法</h2>
 <p>该方法通过记分板来计算玩家视线和方块的各个面的交点位置。最后判断这些方块是否满足我们的条件。我们省略与上一节重复的一些内容。</p>
 
-<pre class="file" id="cpp/functions/blocks/acacia_leaves/locate">cpp:blocks/acacia_leaves/locate</pre>
+<pre class="file">cpp:blocks/acacia_leaves/locate</pre>
 <pre>
 function <a href="#cpp/functions/locate/init">cpp:locate/init</a>
 execute as @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] at @s if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,tag=cpp_leaves,distance=..0.1] run tag @s add cpp_locate_block_position
@@ -7068,7 +7068,7 @@ tag @s remove cpp_craft
     }
   ]
 }</pre>
-<pre class="file" id="cpp/loot_tables/craft/items">cpp/loot_tables/craft/items5</pre>
+<pre class="file" id="cpp/loot_tables/craft/items5">cpp/loot_tables/craft/items5</pre>
 <pre>
 {
   "pools": [
@@ -8057,14 +8057,14 @@ fill ~ ~ ~ ~ ~5 ~ spruce_log replace #minecraft:leaves
 fill ~ ~ ~ ~ ~5 ~ spruce_log keep
 </pre>
 <p>然后我们处理树叶转化。我们使用20刻一次的函数。</p>
-<pre class="file" id="cpp/functions/tick20">cpp:tick20</pre>
+<pre class="file">cpp:tick20</pre>
 <pre>
 execute store result score #rts cppValue run gamerule randomTickSpeed
 execute store result score #rtsno cppValue if entity @e[type=armor_stand,tag=cpp_leaves_on_tree]
 scoreboard players operation #rtsno cppValue *= #rts cppValue
 scoreboard players operation #leaves_rts cppValue += #rtsno cppValue
 execute if score #leaves_rts cppValue >= $modLeavesThreshold exConfig as @e[type=armor_stand,tag=cpp_leaves_on_tree,sort=random,limit=1] at @s run function <a href="#cpp/functions/plants/leaves/type">cpp:plants/leaves/type</a>
-schedule function <a href="#cpp/functions/tick20 20t">cpp:tick20 20t</a>
+schedule function <a href="#cpp/functions/tick20">cpp:tick20</a> 20t
 </pre>
 <pre class="file" id="cpp/functions/plants/leaves/type">cpp:plants/leaves/type</pre>
 <pre>
@@ -8845,7 +8845,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
 
 <p class="ex">右键方块破坏器将其上方的石头变为砂砾，圆石变为沙子。方块破坏器为上锁的熔炉，且相应位置已有盔甲架标记。这里我们直接使用 <a href="#视线追踪法">视线追踪法</a>来获取方块破坏器位置。</p>
 
-<pre class="file" id="cpp/functions/load">cpp:load</pre>
+<pre class="file">cpp:load</pre>
 <pre>
 scoreboard objectives add cppBsdIntFur minecraft.custom:minecraft.interact_with_furnace
 </pre>
@@ -8877,7 +8877,7 @@ execute if block ~ ~1 ~ cobblestone run setblock ~ ~1 ~ sand
 
 <p>同理，<a href="#插件">插件</a>中的插件安装也可以通过打开木桶的判据来实现。我们使用传送来实现强制关闭GUI。</p>
 
-<pre class="file" id="cpp/functions/load">cpp:load</pre>
+<pre class="file">cpp:load</pre>
 <pre>
 scoreboard objectives add cppOpenFrame minecraft.custom:minecraft.open_barrel
 </pre>
