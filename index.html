@@ -280,7 +280,7 @@
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/03/22</p>
+<p>by ruhuasiyu 2021/03/24</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -367,19 +367,22 @@
 <p>JSON文件通常包含用于封装文件数据的一对大括号<code>{}</code>（<a href="#断言">断言</a>文件的根数据类型可以为数组），包含类似 <code>"abc":"def"</code> (<code>"键":值</code>)的对，一般使用单引号也可以。同一个文件中如果允许有相同的键，则后者会覆盖前者。JSON数据类型有</p>
 
 <p class="noindent"><strong id="JSON布尔型">布尔型</strong>，值为<code>true</code>和<code>false</code>。</p>
-<pre>{
+<pre>
+{
   "is_on_fire": false,
   "is_baby": true
 }
 </pre>
 <p class="noindent"><strong id="JSON数值">数值</strong>，值为任何数字。<code>2</code>和<code>2.0</code>没有差异。</p>
-<pre>{
+<pre>
+{
   "count": 2,
   "chance": 0.025
 }
 </pre>
 <p class="noindent"><strong id="JSON字符串">字符串</strong>，值使用双引号/单引号圈住，可以使用颜色代码如§6、换行符\n。</p>
-<pre>{
+<pre>
+{
   "item": "minecraft:shears",
   "condition": "minecraft:match_tool",
   "layer0": "cpp:crop/bauhinia_seeds",
@@ -387,7 +390,8 @@
 }
 </pre>
 <p class="noindent"><strong id="JSON数组">数组</strong>，值使用中括号圈住。</p>
-<pre>{
+<pre>
+{
   "chances": [0.05, 0.0625, 0.083333336, 0.1],
   "items": [
     {"item": "minecraft:zombie_head"},
@@ -405,7 +409,8 @@
 }
 </pre>
 <p class="noindent"><strong id="JSON对象">对象</strong>，使用大括号圈住。整个JSON文件内容本身就是一个JSON对象。</p>
-<pre>{
+<pre>
+{
   "count": { "type": "minecraft:uniform", "min": 1, "max": 2 },
   "modifiers": [
     {
@@ -490,7 +495,7 @@ data
 
 <h2 id="数据包/元信息和图标">§2.1 元信息和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
-<pre class="file" id="pack.mcmeta">pack.mcmeta</pre>
+<pre class="file">pack.mcmeta</pre>
 <pre>
 {
   "pack": {
@@ -502,7 +507,7 @@ data
 <p class="noindent">其中数据包描述为单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>。创建新的世界时，它会显示在数据包菜单中数据包名称下方。在数据包列表下，光标移动到对应的数据包时会显示此处填写的描述。</p>
 
 <p>原版数据包里的 <code>pack.mcmeta</code> 文件为</p>
-<pre class="file" id="<a href="files/vanilla/pack.mcmeta"><code>pack.mcmeta</code></a>"><a href="files/vanilla/pack.mcmeta"><code>pack.mcmeta</code></a></pre>
+<pre class="file">pack.mcmeta</pre>
 <pre>
 {
   "pack": {
@@ -728,7 +733,8 @@ data
 
 <p class="noindent"><strong><ruby>触发条件<rt>criteria</rt></ruby></strong> 进度通过 <code>criteria</code> 来指定触发条件，默认其列出的所有条件均需满足才会完成进度，但我们可以通过 <code>requirements</code> 来指定其它格式。<code>requirements</code> 的格式为或的与(合取范式)，即其列表中的每一个项(该项还是一个列表)中的均有一个列出的触发条件满足。例如 <code>"requirements": [["a","b"],["c","d"]]</code> 表示当 <code>a</code> 和 <code>b</code> 至少有一个满足且 <code>c</code> 和 <code>d</code> 至少有一个满足时，进度会完成。例如下例中两个判据 <code>sealing_wand</code>, <code>dream_wand</code> 分别表示玩家获取了相应 NBT 物品的触发器，只要其中有一个满足即可完成进度。</p>
 <pre class="file" id="cpp/advancements/wand">cpp/advancements/wand.json</pre>
-<pre>{
+<pre>
+{
   "parent": "cpp:root",
   "display": {
     "icon": {
@@ -843,7 +849,8 @@ data
 </tbody></table>
 <p>所有的触发器条件均有 <code>player</code> 字段用于判断玩家是否满足相应的断言。例如</p>
 <pre class="file" id="cpp/functions/fatness">cpp:fatness</pre>
-<pre>{
+<pre>
+{
   "display": {
     "icon": {
       "item": "minecraft:enchanted_golden_apple"
@@ -905,7 +912,8 @@ data
 
 <p>游戏内或函数内使用 <code>advancement</code> 命令可以手动给予或剥夺进度。进度配合奖励函数剥夺玩家该进度，则该进度可反复触发，可用于诸如检测玩家生物群系、饮食等需要循环检测的情形。此时我们通常缺省进度的 <code>display</code> 以对玩家隐藏，例如：</p>
 <pre class="file" id="cpp/advancements/food/citrus">cpp/advancements/food/citrus.json</pre>
-<pre>{
+<pre>
+{
   "criteria": {
     "citrus": {
       "trigger": "minecraft:consume_item",
@@ -921,7 +929,8 @@ data
   }
 }</pre>
 <pre class="file" id="cpp/functions/food/citrus.mcfunction">cpp/functions/food/citrus.mcfunction</pre>
-<pre>effect give @s saturation 1 1 true
+<pre>
+effect give @s saturation 1 1 true
 advancement revoke @s only cpp:food/citrus
 </pre>
 
@@ -1188,34 +1197,39 @@ advancement revoke @s only cpp:food/citrus
 
 <p>例：将玩家1个副手物品移动到头盔栏。注意引用时应当先检测玩家头盔栏是否为空再执行该函数。</p>
 <pre class="file" id="cpp/item_modifiers/one">cpp/item_modifiers/one.json</pre>
-<pre>{
+<pre>
+{
   "function": "set_count",
   "count": 1,
   "add": false
 }
 </pre>
 <pre class="file" id="cpp/item_modifiers/minus">cpp/item_modifiers/minus.json</pre>
-<pre>{
+<pre>
+{
   "function": "set_count",
   "count": -1,
   "add": true
 }
 </pre>
 <pre class="file" id="cpp/functions/hat">cpp:hat</pre>
-<pre>item entity @s armor.head copy entity @s weapon.offhand cpp:one
+<pre>
+item entity @s armor.head copy entity @s weapon.offhand cpp:one
 # 注意有的物品不能放置在头盔栏，此时不应当将副手物品数量-1
-execute if data entity @s Inventory[{Slot:103b}] run item entity @s weapon.offhand modify cpp:minus
+execute if data entity @s Inventory[{Slot:103b}] run item entity @s weapon.offhand modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
 </pre>
 
 <p>例：获取函数执行者手持物的最大耐久。</p>
 <pre class="file" id="cpp/functions/get_durality">cpp:get_durality</pre>
-<pre>setblock ~ 255 ~ barrel
+<pre>
+setblock ~ 255 ~ barrel
 item block ~ 255 ~ container.0 copy entity @s weapon.mainhand cpp:set_damage
 execute store result score #max_durality cppValue run data get block ~ 255 ~ Items[0].tag.Damage
 setblock ~ 255 ~ air
 </pre>
 <pre class="file" id="cpp/item_modifiers/set_damage">cpp/item_modifiers/set_damage.json</pre>
-<pre>{
+<pre>
+{
   "function": "minecraft:set_damage",
   "add": false,
   "damage": 0
@@ -1613,7 +1627,8 @@ setblock ~ ~1 ~ air
 <h2 id="标签">§2.10 标签</h2>
 <p><ruby>标签<rt>tags</rt></ruby>用于将多个具有相同性质的内容放置在一起以便于调用。文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/标签" class="wiki">标签</a>。Minecraft 中有很多内容都叫做标签，注意区分它们。</p>
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{
+<pre>
+{
   "replace": true 或 false (默认值), <span class="comment">可选，true 表示覆盖之前原版和其它数据包中该标签的内容，false 表示追加当前内容至该标签</span>
   "values": [ <span class="comment">字符串或JSON对象的列表</span>
     "minecraft:stone", <span class="comment">可以为相应类别的"命名空间ID"</span>
@@ -1686,7 +1701,8 @@ setblock ~ ~1 ~ air
 
 <p class="ex">检测玩家头部是否被方块卡住。</p>
 <pre class="file" id="cpp/tags/blocks/fluid">cpp/tags/blocks/fluid.json</pre>
-<pre>{
+<pre>
+{
   "replace": false,
   "values": [
     "minecraft:air",
@@ -1753,7 +1769,8 @@ execute unless block ^ ^ ^ #cpp:fluid
 
 <p class="ex">让纸可以作为熔炉燃料使用，每次可烧炼一个物品。</p>
 <pre class="file" id="minecraft/tags/items/wooden_doors">minecraft/tags/items/wooden_doors</pre>
-<pre>{
+<pre>
+{
   "replace": false,
   "values": [
     "minecraft:paper"
@@ -1785,7 +1802,8 @@ execute unless block ^ ^ ^ #cpp:fluid
 <h3 id="流体标签">§2.10.5 流体标签</h3>
 <p><ruby>流体<rt>fluids</rt></ruby>标签很少使用，修改后会影响空气、水和熔岩的性质，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/fluids/路径/文件名.json</code>。</p>
 <p>流体和流体对应的方块是不同的，例如 <code>flowing_water</code> 不是一个合法的方块，但流体可以为</p>
-<pre>{
+<pre>
+{
   "minecraft:water",
   "minecraft:flowing_water",
   "minecraft:lava",
@@ -1811,7 +1829,8 @@ execute unless block ^ ^ ^ #cpp:fluid
 <p>噪声型维度的的地形由<a href="#噪声设置">噪声设置</a> <code>generator.settings</code> 确定，生物群系由 <code>generator.biome_source</code> 的不同可分为五种情形，其中类型为 <code>multi_noise</code> 时，游戏会生成四维柏林噪声图，然后对每个坐标选择噪声最接近的生物群系。其中生物群系的 <code>offset</code> 会影响计算接近程度，从而影响该生物群系的大小，<code>offset</code> 越大，该生物群系越难被选中。</p>
 
 <pre class="file" id="噪声型维度JSON格式">噪声型维度JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "<a href="#生物群系">生物群系</a>命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象,
   "generator": {
     "type"："minecraft:noise",
@@ -1882,7 +1901,8 @@ execute unless block ^ ^ ^ #cpp:fluid
 
 <p>超平坦型维度仅需指定方块层的分布、生物群系和使用的结构参数即可。</p>
 <pre class="file" id="超平坦型维度JSON格式">超平坦型维度JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "<a href="#维度类型">维度类型</a>命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象,
   "generator": {
     "type": "minecraft:flat",
@@ -1914,7 +1934,8 @@ execute unless block ^ ^ ^ #cpp:fluid
 </pre>
 <p>调试世界维度仅用于调试世界，没有其它可选的设置。</p>
 <pre class="file" id="调试世界维度JSON格式">调试世界维度JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "<a href="#维度类型">维度类型</a>命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象,
   "generator": {
     "type": "minecraft:debug"
@@ -1935,7 +1956,8 @@ execute unless block ^ ^ ^ #cpp:fluid
 
 <h4 id="维度类型JSON格式">JSON格式</h4>
 <pre class="file" id="维度类型JSON格式">维度类型JSON格式</pre>
-<pre>{
+<pre>
+{
   "has_ceiling": true 或 false, <span class="comment">该维度是否拥有一个基岩天花板，影响内部的算法(TBD)，与实际是否拥有基岩天花板无关。</span>
   "logical_height": 数值, <span class="comment">玩家使用紫颂果或下界传送门可以到达的最大高度</span>
   "bed_works": true 或 false, <span class="comment">玩家是否可以使用床</span>
@@ -1956,7 +1978,8 @@ execute unless block ^ ^ ^ #cpp:fluid
 
 <h4 id="可用的维度类型">可用的维度类型</h4>
 <p>这些是 Minecraft 内部已生成的维度类型命名空间ID，可直接使用。已省略 minecraft:。</p>
-<pre><a href="files/vanilla/data/minecraft/dimension_type/overworld.json">overworld</a> <span class="comment">主世界</span>
+<pre>
+<a href="files/vanilla/data/minecraft/dimension_type/overworld.json">overworld</a> <span class="comment">主世界</span>
 <a href="files/vanilla/data/minecraft/dimension_type/overworld_caves.json">overworld_caves</a> <span class="comment">主世界洞穴</span>
 <a href="files/vanilla/data/minecraft/dimension_type/the_nether.json">the_nether</a> <span class="comment">下界</span>
 <a href="files/vanilla/data/minecraft/dimension_type/the_end.json">the_end</a> <span class="comment">末路之地</span> 
@@ -2074,7 +2097,7 @@ execute unless block ^ ^ ^ #cpp:fluid
 advancement revoke @s only cpp:block/white_wool
 scoreboard players set #block_id cppValue 3
 function <a href="#cpp/functions/misc/loc/pos">cpp:misc/loc/pos</a>
-execute as @e[type=area_effect_cloud,distance=..9,tag=cpp_loc_block_pos] at @s align xyz if predicate cpp:flower_portal run function <a href="#cpp/functions/block/put/white_wool">cpp:block/put/white_wool</a>
+execute as @e[type=area_effect_cloud,distance=..9,tag=cpp_loc_block_pos] at @s align xyz if predicate <a href="#cpp/predicates/flower_portal">cpp:flower_portal</a> run function <a href="#cpp/functions/block/put/white_wool">cpp:block/put/white_wool</a>
 kill @e[type=area_effect_cloud,distance=..9,tag=cpp_loc_block_pos]
 </pre>
 <pre class="file" id="cpp/functions/block/put/white_wool">cpp:block/put/white_wool</pre>
@@ -2302,11 +2325,11 @@ setblock ~ ~ ~ end_gateway
 </pre>
 
 <p>检测传送门是否完整。检测玩家位置来传送。</p>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
-execute as @e[type=area_effect_cloud,tag=cpp_flower_portal] at @s unless predicate cpp:flower_portal_done run function <a href="#cpp/functions/misc/flower_portal">cpp:misc/flower_portal</a>
-execute as @a at @s[predicate=cpp:in_overworld,predicate=cpp:flower_portal_done] run function <a href="#cpp/functions/misc/to_flower">cpp:misc/to_flower</a>
-execute as @a at @s[predicate=cpp:in_flower,predicate=cpp:flower_portal_done] run function <a href="#cpp/functions/misc/to_overworld">cpp:misc/to_overworld</a>
+execute as @e[type=area_effect_cloud,tag=cpp_flower_portal] at @s unless predicate <a href="#cpp/predicates/flower_portal_done">cpp:flower_portal_done</a> run function <a href="#cpp/functions/misc/flower_portal">cpp:misc/flower_portal</a>
+execute as @a at @s[predicate=<a href="#cpp/predicates/in_overworld">cpp:in_overworld</a>,predicate=<a href="#cpp/predicates/flower_portal_done">cpp:flower_portal_done</a>] run function <a href="#cpp/functions/misc/to_flower">cpp:misc/to_flower</a>
+execute as @a at @s[predicate=<a href="#cpp/predicates/in_flower">cpp:in_flower</a>,predicate=<a href="#cpp/predicates/flower_portal_done">cpp:flower_portal_done</a>] run function <a href="#cpp/functions/misc/to_overworld">cpp:misc/to_overworld</a>
 </pre>
 <pre class="file" id="cpp/functions/misc/flower_portal">cpp:misc/flower_portal</pre>
 <pre>
@@ -2345,7 +2368,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h3 id="自定义世界">§2.11.4 自定义世界</h3>
 <p>自定义世界是一种世界类型，它用自定的特性取代了世界的普通地形。创建世界时，点击<code>更多选项->导入世界->选择JSON文件</code>即可。这种方式还可以用来创建额外的维度而不借助于数据包，但是默认只能使用命令 <code>/execute in <i>维度名称</i></code> 进入额外的维度。</p>
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{
+<pre>
+{
   "bonus_chest": true 或 false, <span class="comment">是否会生成奖励箱</span>
   "generate_features": true 或 false, <span class="comment">是否生成建筑</span>
   "seed": 整数, <span class="comment">种子</span>
@@ -2368,7 +2392,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <h4 id="噪声设置JSON格式">JSON格式</h4>
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{ 
+<pre>
+{ 
   "aquifers_enabled": true 或 false (默认值), <span class="comment">是否生成蓄水层</span>,
   "noise_caves_enabled": true 或 false (默认值), <span class="comment">是否生成噪声洞穴</span>,
   "deepslate_enabled": true 或 false (默认值), <span class="comment">是否在y为负处生成坚石</span>,
@@ -2434,7 +2459,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <h4 id="可用的噪声设置">可用的噪声设置</h4>
 <p>这些是 Minecraft 内部已生成的噪声设置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
-<pre><a href="files/vanilla/data/minecraft/worldgen/noise_settings/overworld.json">overworld</a> <span class="comment">生成普通的主世界</span>
+<pre>
+<a href="files/vanilla/data/minecraft/worldgen/noise_settings/overworld.json">overworld</a> <span class="comment">生成普通的主世界</span>
 <a href="files/vanilla/data/minecraft/worldgen/noise_settings/amplified.json">amplified</a> <span class="comment">放大化的主世界</span>
 <a href="files/vanilla/data/minecraft/worldgen/noise_settings/nether.json">nether</a> <span class="comment">常规的下界</span>
 <a href="files/vanilla/data/minecraft/worldgen/noise_settings/caves.json">caves</a> <span class="comment">类似下界的洞穴却拥有主世界地形特征的世界</span>
@@ -2473,7 +2499,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <h4 id="生物群系JSON格式">JSON格式</h4>
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{
+<pre>
+{
   "precipitation"<span class="comment">降雨量</span>: "none"<span class="comment">永不下雨</span>, "rain"<span class="comment">下雨</span> 或 "snow"<span class="comment">下雪</span>, 
   "category": "none", "taiga", "extreme_hills", "jungle", "mesa", "plains", "savanna", "icy", "the_end", "beach", "forest", "ocean", "desert", "river", "swamp", "mushroom" 或 "nether", <span class="comment">生物群系分类不同分类会影响温度、音乐、生物生成等，例如除 "ocean" 外的分类受生物群系温度值所控制，"mushroom" 分类下不会生成僵尸围城和灾厄巡逻队，海底神殿不会生成于除 "ocean" 或 "river" 分类下的生物群系</span>
   "depth": 数值, <span class="comment">深度, 用于地形噪声生成, 正值被认为是陆地, 负值被认为是海洋</span>
@@ -2597,7 +2624,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <h4 id="可用的生物群系">可用的生物群系</h4>
 <p>这些是 Minecraft 内部已生成的生物群系命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
-<pre><a href="files/vanilla/data/minecraft/worldgen/biome/badlands.json">badlands</a>
+<pre>
+<a href="files/vanilla/data/minecraft/worldgen/biome/badlands.json">badlands</a>
 <a href="files/vanilla/data/minecraft/worldgen/biome/badlands_plateau.json">badlands_plateau</a>
 <a href="files/vanilla/data/minecraft/worldgen/biome/bamboo_jungle.json">bamboo_jungle</a>
 <a href="files/vanilla/data/minecraft/worldgen/biome/bamboo_jungle_hills.json">bamboo_jungle_hills</a>
@@ -2683,7 +2711,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <h4 id="地形雕刻器JSON格式">JSON格式</h4>
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{
+<pre>
+{
   "name": "cave", "nether_cave", "canyon", "underwater_canyon" 或 "underwater_cave", <span class="comment">雕刻类型</span>
   "config": {
     "probability": 0~1 之间的数值 <span class="comment">每个区块的生成几率</span>
@@ -2705,7 +2734,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <p><ruby>地表生成器<rt>configured_surface_builder</rt></ruby>用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成器文件为JSON文件，地表生成器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="地表生成器JSON格式">JSON格式</h4>
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "default"<span class="comment">默认</span>, "mountain"<span class="comment">山地</span>, "shattered_savanna"<span class="comment">破碎的热带草原</span>, "gravelly_mountain"<span class="comment">砂砾山地</span>, "giant_tree_taiga"<span class="comment">巨型针叶林</span>, "swamp"<span class="comment">沼泽</span>, "badlands"<span class="comment">恶地</span>, "wooded_badlands"<span class="comment">繁茂的恶地</span>, "eroded_badlands"<span class="comment">被风蚀的恶地</span>, "frozen_ocean"<span class="comment">冻洋</span>, "nether"<span class="comment">下界</span>, "nether_forest"<span class="comment">下界森林</span>, "soul_sand_valley"<span class="comment">灵魂沙峡谷</span>, "basalt_deltas"<span class="comment">玄武岩三角洲</span> 或 "nope"<span class="comment">无</span>,
   "config": {
     "top_material": { <span class="comment">顶层方块</span>
@@ -2763,7 +2793,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <h4 id="地物JSON格式">JSON格式</h4>
 <pre class="file" id="树的JSON格式">树的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:tree",
   "config": {
     "trunk_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">树干
@@ -2828,7 +2859,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="花或随机堆的JSON格式">花或随机堆的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:flower" 或 "minecraft:random_patch",
   "config": {
     "state_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">所使用的方块</span>
@@ -2869,7 +2901,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="方块堆/下界森林草的JSON格式">方块堆/下界森林草的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:block_pile"<span class="comment">方块堆</span> 或 "minecraft:nether_forest_vegetation"<span class="comment">下界森林草</span>
   "config": {
     "state_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">所使用的方块</span>
@@ -2877,7 +2910,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="涌泉的JSON格式">涌泉的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:spring_feature"<span class="comment">涌泉</span>,
   "config": {
     "state": { <span class="comment">所使用的流体</span>
@@ -2896,7 +2930,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="绿宝石矿的JSON格式">绿宝石矿的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:emerald_ore"<span class="comment">绿宝石矿</span>,
   "config": {
     "target": { <span class="comment">目标方块</span>
@@ -2915,7 +2950,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="巨型蘑菇的JSON格式">巨型蘑菇的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:huge_red_mushroom"<span class="comment">巨型红色蘑菇</span> 或 "minecraft:huge_brown_mushroom"<span class="comment">巨型棕色蘑菇</span>,
   "config": {
     "cap_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">顶部方块</span>
@@ -2925,7 +2961,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="冰山/森林岩石/湖的JSON格式">冰山/森林岩石/湖的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:iceberg"<span class="comment">冰山</span>, "minecraft:forest_rock"<span class="comment">森林岩石</span> 或 "minecraft:lake"<span class="comment">湖</span>,
   "config": {
     "state": { <span class="comment">方块</span>
@@ -2935,7 +2972,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="圆盘/冰堆的JSON格式">圆盘/冰堆的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:disk"<span class="comment">圆盘</span> 或 "minecraft:ice_patch"<span class="comment">冰堆</span>,
   "config": {
     "state": { <span class="comment">方块</span>
@@ -2953,7 +2991,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="矿石/非地表生成矿石的JSON格式">矿石/非地表生成矿石的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:ore"<span class="comment">矿石</span> 或 "minecraft:no_surface_ore"<span class="comment">非地表生成矿石</span>,
   "config": {
     "state": { <span class="comment">方块</span>
@@ -2998,7 +3037,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="末地黑曜石柱的JSON格式">末地黑曜石柱的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:end_spike"<span class="comment">末地黑曜石柱</span>,
   "config": {
     "crystal_invulnerable": true 或 false (默认值), <span class="comment">可选，末影水晶是否无敌</span>
@@ -3019,7 +3059,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="末地折跃门的JSON格式">末地折跃门的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:end_gateway"<span class="comment">末地折跃门</span>,
   "config": {
     "exit": [ <span class="comment">可选，当进入末地折跃门方块要把实体传送到的位置</span>
@@ -3032,7 +3073,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="海草/竹子的JSON格式">海草/竹子的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:seagrass"<span class="comment">海草</span> 或 "minecraft:bamboo"<span class="comment">竹子</span>,
   "config": {
     "probability": 0~1 之间的数值 <span class="comment">几率</span>
@@ -3040,7 +3082,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="海泡菜的JSON格式">海泡菜的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:sea_pickle"<span class="comment">海泡菜</span>,
   "config": {
     "count": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=-10, maxBase=128, maxSpread=128)
@@ -3048,7 +3091,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="单个方块的JSON格式">单个方块的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:simple_block"<span class="comment">单个方块</span>,
   "config": {
     "to_place": { <span class="comment">将要放置的方块</span>
@@ -3079,7 +3123,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="巨型菌类的JSON格式">巨型菌类的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:huge_fungus"<span class="comment">巨型菌类</span>,
   "config": {
     "valid_base_block": { <span class="comment">底部基座方块</span>
@@ -3111,7 +3156,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="玄武岩柱子的JSON格式">玄武岩柱子的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:basalt_columns"<span class="comment">玄武岩柱子</span>,
   "config": {
     "reach": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=2, maxSpread=1), <span class="comment">TBD</span>
@@ -3120,7 +3166,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="三角洲的JSON格式">三角洲的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:delta_feature"<span class="comment">三角洲</span>,
   "config": {
     "contents": { <span class="comment">三角洲方块</span>
@@ -3141,7 +3188,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="下界岩斑纹的JSON格式">下界岩斑纹的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:netherrack_replace_blobs"<span class="comment">下界岩斑纹</span>,
   "config": {
     "target": { <span class="comment">替换的目标方块</span>
@@ -3161,7 +3209,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="填充层的JSON格式">填充层的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:fill_layer"<span class="comment">填充层</span>,
   "config": {
     "height": 整数, <span class="comment">高度</span>
@@ -3175,7 +3224,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }
 </pre>
 <pre class="file" id="随机选择的JSON格式">随机选择的JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:random_selector"<span class="comment">随机选择</span>,
   "config": {
     "features": [ <span class="comment">该列表中地物会被随机选中</span>
@@ -3218,7 +3268,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <p class="noindent">上述JSON格式中的</p>
 <pre class="file" id="方块状态类型">方块状态类型</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:plain_flower_provider"<span class="comment">通常的花</span> 或 "minecraft:forest_flower_provider"<span class="comment">繁花森林的花</span>
 或
   "type": "minecraft:simple_state_provider"<span class="comment">简单情形</span> 或 "minecraft:rotated_block_provider"<span class="comment">可旋转</span>,
@@ -3244,7 +3295,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }</pre>
 <p>均匀分布的整数可以为一个JSON对象或一个非负整数。</p>
 <pre class="file" id="均匀分布的整数">均匀分布的整数</pre>
-<pre>{<span class="comment">会从 <code>base</code> 至 <code>base+spread</code> 之间随机选取一个整数作为参数</span>
+<pre>
+{<span class="comment">会从 <code>base</code> 至 <code>base+spread</code> 之间随机选取一个整数作为参数</span>
   "base": minBase~maxBase 之间的整数,
   "spread": 0~maxSpread 之间的整数, 如果无 maxSpread 限制, 则为任意非负整数
 }
@@ -3450,7 +3502,8 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 
 <h4 id="装饰物">装饰物</h4>
 <pre class="file" id="装饰物JSON格式">装饰物JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:chance"<span class="comment">随机</span>, "lava_lake"<span class="comment">岩浆湖</span>, 或 "water_lake"<span class="comment">湖泊</span>
   "config": {
     "chance": 0~1 之间的数值 <span class="comment">生成几率</span>
@@ -3563,7 +3616,8 @@ decorated
 <p><ruby>结构地物<rt>configured_structure_feature</rt></ruby>用于指定生物群系生成特定类型的结构以及结构的参数。结构地物文件为JSON文件，结构地物的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="结构地物JSON格式">JSON格式</h4>
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{
+<pre>
+{
   "type": "minecraft:pillager_outpost"<span class="comment">掠夺者前哨站</span>, "minecraft:village"<span class="comment">村庄</span> 或 "minecraft:bastion_remnant"<span class="comment">堡垒遗迹</span>
   "config": {
     "start_pool": "<a href="#拼图模板池">拼图模板池</a>命名空间ID",
@@ -3668,7 +3722,8 @@ decorated
 <p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块或者结构足够大为止。使用结构方块加载结构不能复现上述过程。</p>
 
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{
+<pre>
+{
   "name": "命名空间ID", <span class="comment">该随机池的名称，用于拼图方块调用</span>
   "fallback": "<a href="#拼图模板池">拼图模板池</a>命名空间ID", <span class="comment">结构生成完毕且无法再尝试生成时，可连接另一个拼图池继续生成</span>
   "elements": [ <span class="comment">结构列表</span>
@@ -3690,7 +3745,8 @@ decorated
 <p>方块处理器用于指定拼图方块生成结构之后拼图方块本身的处理方式。方块处理器文件为JSON文件，方块处理器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 <h4 id="方块处理器JSON格式">JSON格式</h4>
 <pre class="file" id="JSON格式">JSON格式</pre>
-<pre>{<span class="comment">TBD</span>
+<pre>
+{<span class="comment">TBD</span>
   "processors": [
     {
       "processor_type": "minecraft:rule",
@@ -3840,7 +3896,7 @@ assets
 <h2 id="资源包/元信息和图标">§3.1 元信息和图标</h2>
 
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别资源包，因此该文件是不可或缺的。例如：</p>
-<pre class="file" id="pack.mcmeta">pack.mcmeta</pre>
+<pre class="file">pack.mcmeta</pre>
 <pre>
 {
   "pack": {
@@ -3865,7 +3921,7 @@ assets
 <p class="noindent">其中资源包描述为单个字符串或一个<a href="https://wiki.biligame.com/mc/命令#.E5.8E.9F.E5.A7.8BJSON.E6.96.87.E6.9C.AC">原始JSON文本</a>。在资源包菜单页面，它会显示在资源包名称下方。</p>
 
 <p>原版资源包里的 <code>pack.mcmeta</code> 文件为</p>
-<pre class="file" id="<a href="files/vanilla/pack.mcmeta">pack.mcmeta</a>"><a href="files/vanilla/pack.mcmeta">pack.mcmeta</a></pre>
+<pre class="file">pack.mcmeta</pre>
 <pre>
 {
     "pack": {
@@ -4584,13 +4640,13 @@ function #foo:item_processer
 <pre>
 scoreboard objectives add cppUseCSt minecraft.used:minecraft.carrot_on_a_stick
 </pre>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @a[scores={cppUseCSt=1..}] run function <a href="#cpp/functions/use_cst">cpp:use_cst</a>
 </pre>
 <pre class="file" id="cpp/functions/use_cst">cpp:use_cst</pre>
 <pre>
-execute as @s[predicate=cpp:hand/red_force_of_fire] run function <a href="#cpp/functions/tools/red_force_of_fire">cpp:tools/red_force_of_fire</a>
+execute as @s[predicate=<a href="#cpp/predicates/hand/red_force_of_fire">cpp:hand/red_force_of_fire</a>] run function <a href="#cpp/functions/tools/red_force_of_fire">cpp:tools/red_force_of_fire</a>
 scoreboard players reset @s cppUseCSt
 </pre>
 <pre class="file" id="cpp/predicates/hand/red_force_of_fire">cpp/predicates/hand/red_force_of_fire.json</pre>
@@ -4657,14 +4713,14 @@ scoreboard players reset @s cppUseCSt
 </pre>
 <pre class="file" id="cpp/functions/use_cst_main">cpp:use_cst_main</pre>
 <pre>
-execute as @s[predicate=cpp:mainhand/red_force_of_fire] run function <a href="#cpp/functions/tools/red_force_of_fire">cpp:tools/red_force_of_fire</a>
-execute as @s[predicate=cpp:mainhand/blue_force_of_sky] run function <a href="#cpp/functions/tools/blue_force_of_sky">cpp:tools/blue_force_of_sky</a>
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/red_force_of_fire">cpp:mainhand/red_force_of_fire</a>] run function <a href="#cpp/functions/tools/red_force_of_fire">cpp:tools/red_force_of_fire</a>
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/blue_force_of_sky">cpp:mainhand/blue_force_of_sky</a>] run function <a href="#cpp/functions/tools/blue_force_of_sky">cpp:tools/blue_force_of_sky</a>
 ...
 </pre>
 <pre class="file" id="cpp/functions/use_cst_off">cpp:use_cst_off</pre>
 <pre>
-execute as @s[predicate=cpp:offhand/red_force_of_fire] run function <a href="#cpp/functions/tools/red_force_of_fire">cpp:tools/red_force_of_fire</a>
-execute as @s[predicate=cpp:offhand/blue_force_of_sky] run function <a href="#cpp/functions/tools/blue_force_of_sky">cpp:tools/blue_force_of_sky</a>
+execute as @s[predicate=<a href="#cpp/predicates/offhand/red_force_of_fire">cpp:offhand/red_force_of_fire</a>] run function <a href="#cpp/functions/tools/red_force_of_fire">cpp:tools/red_force_of_fire</a>
+execute as @s[predicate=<a href="#cpp/predicates/offhand/blue_force_of_sky">cpp:offhand/blue_force_of_sky</a>] run function <a href="#cpp/functions/tools/blue_force_of_sky">cpp:tools/blue_force_of_sky</a>
 ...
 </pre>
 
@@ -4730,7 +4786,7 @@ setblock ~ 255 ~ air
 
 <p>投掷物如雪球、末影珍珠等可用于一次性右键工具，不同的物品有着各自的特点。投掷带自定义NBT标签的物品，对应的投掷物实体NBT <code>Item</code> 会包含这些NBT标签。注意，在1.14和更早版本，由于Mojang先消耗手持物再存储手持物信息，导致投掷最后一个物品时没有存储相应的 <code>Item</code> 信息，此时我们需要提前1刻存储玩家手持物信息方可。</p>
 <p class="ex">扔出 <code>minecraft:experience_bottle{exXpNumber:99s}</code> 生成 <code>exXpNumber</code> 点经验值的经验球。</p>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @e[type=experience_bottle] if data entity @s Item.tag.exXpNumber at @s run function <a href="#cpp/functions/xp/throw">cpp:xp/throw</a>
 </pre>
@@ -5002,7 +5058,7 @@ effect give @s invisibility 720
 execute unless score @s exChainTick matches 14400.. run scoreboard players set @s exChainTick 14400
 advancement revoke @s only cpp:potion/agentia_of_dirt
 </pre>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @a[scores={exChainTick=1..}] at @s anchored eyes run function <a href="#cpp/functions/chain/type">cpp:chain/type</a>
 </pre>
@@ -5233,11 +5289,11 @@ tag @e[type=item,tag=cpp_temp,distance=..0.1,limit=1] remove cpp_temp
   }
 }
 </pre>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
-execute as @a[predicate=cpp:mainhand_hat] run function <a href="#cpp/functions/decor/mainhand_hat">cpp:decor/mainhand_hat</a>
-execute as @a[predicate=cpp:offhand_hat] run function <a href="#cpp/functions/decor/offhand_hat">cpp:decor/offhand_hat</a>
-execute as @a[predicate=cpp:head_hat] run function <a href="#cpp/functions/decor/head_hat">cpp:decor/head_hat</a>
+execute as @a[predicate=<a href="#cpp/predicates/mainhand_hat">cpp:mainhand_hat</a>] run function <a href="#cpp/functions/decor/mainhand_hat">cpp:decor/mainhand_hat</a>
+execute as @a[predicate=<a href="#cpp/predicates/offhand_hat">cpp:offhand_hat</a>] run function <a href="#cpp/functions/decor/offhand_hat">cpp:decor/offhand_hat</a>
+execute as @a[predicate=<a href="#cpp/predicates/head_hat">cpp:head_hat</a>] run function <a href="#cpp/functions/decor/head_hat">cpp:decor/head_hat</a>
 </pre>
 <pre class="file" id="cpp/functions/decor/mainhand_hat">cpp:decor/mainhand_hat</pre>
 <pre>
@@ -5408,7 +5464,7 @@ setblock ~ 255 ~ air
 <pre>
 scoreboard objectives add exUseSPick minecraft.used:minecraft.stone_pickaxe
 </pre>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @s[scores={exUseSPick=1..}] run function <a href="#cpp/functions/tools/glass_pickaxe/reset">cpp:tools/glass_pickaxe/reset</a>
 </pre>
@@ -5455,7 +5511,7 @@ setblock ~ 255 ~ air
   ]
 }
 </pre>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @e[type=item_frame,tag=cpp_special_item_frame] at @s run function <a href="#cpp/functions/item_frame/special">cpp:item_frame/special</a>
 </pre>
@@ -5507,7 +5563,8 @@ data modify entity @s[nbt={Item:{tag:{CustomModelData:12974101}}}] Item.tag.Cust
 <h2 id="视线追踪法">§6.1 视线追踪法</h2>
 <p>我们使用递归向前来获取方块位置。</p>
 <pre class="file" id="cpp/advancements/blocks/acacia_leaves">cpp/advancements/blocks/acacia_leaves.json</pre>
-<pre>{
+<pre>
+{
   "criteria": {
     "acacia_leaves": {
       "trigger": "minecraft:placed_block",
@@ -5522,14 +5579,16 @@ data modify entity @s[nbt={Item:{tag:{CustomModelData:12974101}}}] Item.tag.Cust
 }
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/reset">cpp:blocks/acacia_leaves/reset</pre>
-<pre>advancement revoke @s only cpp:blocks/acacia_leaves
-execute as @s[predicate=cpp:mainhand/acacia_leaves] run data modify storage cpp:_ weapon.Item set from entity @s SelectedItem
+<pre>
+advancement revoke @s only cpp:blocks/acacia_leaves
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/acacia_leaves">cpp:mainhand/acacia_leaves</a>] run data modify storage cpp:_ weapon.Item set from entity @s SelectedItem
 execute as @s[predicate=!cpp:mainhand/acacia_leaves] run data modify storage cpp:_ weapon.Item set from entity @s Inventory[{Slot:-106b}]
 execute store result score #put_block_cmd cppValue run data get storage cpp:_ weapon.Item.tag.CustomModelData
 execute if score #put_block_cmd cppValue matches 12970000..12979999 at @s anchored eyes positioned ^ ^ ^ anchored feet run function <a href="#cpp/functions/blocks/acacia_leaves/locate">cpp:blocks/acacia_leaves/locate</a>
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/locate">cpp:blocks/acacia_leaves/locate</pre>
-<pre>function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
+<pre>
+function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
 execute unless entity @e[type=area_effect_cloud,distance=..7,tag=cpp_block_pos] positioned ~ ~1 ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
 execute unless entity @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos] positioned ~ ~-1 ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
 execute unless entity @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos] positioned ~1 ~ ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
@@ -5540,16 +5599,19 @@ execute at @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos,sort=nearest
 kill @e[type=area_effect_cloud,distance=..10,tag=cpp_block_pos]
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</pre>
-<pre>execute if entity @s[distance=..10] if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,distance=..0.5] run summon area_effect_cloud ~ ~ ~ {Tags:["cpp_block_pos"]}
+<pre>
+execute if entity @s[distance=..10] if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,distance=..0.5] run summon area_effect_cloud ~ ~ ~ {Tags:["cpp_block_pos"]}
 execute if entity @s[distance=..10] unless entity @e[type=area_effect_cloud,distance=..6,tag=cpp_block_pos] positioned ^ ^ ^0.005 run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/put">cpp:blocks/acacia_leaves/put</pre>
-<pre>data modify storage cpp:_ weapon.Item.Count set value 1b
+<pre>
+data modify storage cpp:_ weapon.Item.Count set value 1b
 summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Fire:32767s,Tags:["cpp_leaves","cpp_need_fire"]}
 execute as @e[type=armor_stand,tag=cpp_leaves,distance=..0.1,limit=1] run function <a href="#cpp/functions/blocks/acacia_leaves/tag">cpp:blocks/acacia_leaves/tag</a>
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/tag">cpp:blocks/acacia_leaves/tag</pre>
-<pre>execute if score #put_block_cmd cppValue matches 12970301 run tag @s add cpp_fruit_leaves
+<pre>
+execute if score #put_block_cmd cppValue matches 12970301 run tag @s add cpp_fruit_leaves
 execute if score #put_block_cmd cppValue matches 12970302 run tag @s add cpp_ore_leaves
 execute if score #put_block_cmd cppValue matches 12970303 run tag @s add cpp_wool_leaves
 execute if score #put_block_cmd cppValue matches 12970304 run tag @s add cpp_sakura_leaves
@@ -5563,7 +5625,8 @@ data modify entity @s ArmorItems[3] set from storage cpp:_ weapon.Item
 <p>该方法通过记分板来计算玩家视线和方块的各个面的交点位置。最后判断这些方块是否满足我们的条件。我们省略与上一节重复的一些内容。</p>
 
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/locate">cpp:blocks/acacia_leaves/locate</pre>
-<pre>function <a href="#cpp/functions/locate/init">cpp:locate/init</a>
+<pre>
+function <a href="#cpp/functions/locate/init">cpp:locate/init</a>
 execute as @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] at @s if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,tag=cpp_leaves,distance=..0.1] run tag @s add cpp_locate_block_position
 execute unless entity @e[type=area_effect_cloud,distance=..6.1,tag=cpp_locate_block_position] run function <a href="#cpp/functions/locate/neighbor">cpp:locate/neighbor</a>
 execute as @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block_neighbor] at @s if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,tag=cpp_leaves,distance=..0.1] run tag @s add cpp_locate_block_position
@@ -5572,7 +5635,8 @@ kill @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block]
 </pre>
 <p>我们判断玩家离原点的距离来区分三个距离区间，从而离原点更近的地方可以获得不超过 2/7100 的误差，而距离稍远处误差会有所增大。</p>
 <pre class="file" id="cpp/functions/locate/init">cpp:locate/init</pre>
-<pre>execute anchored eyes run summon area_effect_cloud ^ ^ ^ {Tags:["cpp_locate_block"]}
+<pre>
+execute anchored eyes run summon area_effect_cloud ^ ^ ^ {Tags:["cpp_locate_block"]}
 execute anchored eyes run summon area_effect_cloud ^ ^ ^1 {Tags:["cpp_locate_block_front"]}
 execute store result score #x cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[0] 71
 execute store result score #z cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[2] 71
@@ -5589,7 +5653,8 @@ kill @e[type=area_effect_cloud,tag=cpp_locate_block_front]
 
 <p>进行计算的初始化。</p>
 <pre class="file" id="cpp/functions/locate/init1">cpp:locate/init100</pre>
-<pre>execute store result score #x cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[0] 7100
+<pre>
+execute store result score #x cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[0] 7100
 execute store result score #y cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[1] 7100
 execute store result score #z cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[2] 7100
 execute store result score #f cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block_front,limit=1] Pos[0] 7100
@@ -5612,7 +5677,8 @@ function <a href="#cpp/functions/locate/loop100">cpp:locate/loop100</a>
 
 <p>递归计算视线上的每一个方块交点。</p>
 <pre class="file" id="cpp/functions/locate/loop100">cpp:locate/loop100</pre>
-<pre>tag @e[type=area_effect_cloud,distance=..8,tag=cpp_locate_block,tag=cpp_temp] remove cpp_temp
+<pre>
+tag @e[type=area_effect_cloud,distance=..8,tag=cpp_locate_block,tag=cpp_temp] remove cpp_temp
 scoreboard players operation #t1 cppValue = #x cppValue
 scoreboard players operation #t1 cppValue *= #-1 cppValue
 scoreboard players operation #t1 cppValue %= #7100 cppValue
@@ -5657,11 +5723,13 @@ execute at @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block,tag=cpp_
 
 <p>当标记位置所有方块均不符合我们要求时，我们检测邻近6个位置。</p>
 <pre class="file" id="cpp/functions/locate/neighbor">cpp:locate/neighbor</pre>
-<pre>execute at @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] run function <a href="#cpp/functions/locate/neighbor_aec">cpp:locate/neighbor_aec</a>
+<pre>
+execute at @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] run function <a href="#cpp/functions/locate/neighbor_aec">cpp:locate/neighbor_aec</a>
 kill @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block,tag=!cpp_locate_block_neighbor]
 </pre>
 <pre class="file" id="cpp/functions/locate/neighbor_aec">cpp:locate/neighbor_aec</pre>
-<pre>summon area_effect_cloud ~1 ~ ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
+<pre>
+summon area_effect_cloud ~1 ~ ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
 summon area_effect_cloud ~-1 ~ ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
 summon area_effect_cloud ~ ~1 ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
 summon area_effect_cloud ~ ~-1 ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
@@ -5672,9 +5740,10 @@ summon area_effect_cloud ~ ~ ~-1 {Tags:["cpp_locate_block","cpp_locate_block_nei
 <p>尽管看上去比较长，但是递归的次数很少，命令数比视线追踪法还是要少很多。设置为71/710/7100倍是为了保证记分板的计算过程中不会超过记分板的上下限而溢出。</p>
 
 <h2 id="命令方块替换法">§6.3 命令方块替换法</h2>
-<p>为了避免视线追踪不够精确，以及为了避免放置于不完整方块侧面等情形而导致方块不在视线上，我们可以考虑使用特殊方块来识别玩家放置的方块。该方式在服务中需要启用命令方块方可。</p>
-<pre class="file" id="cpp/loot_tables/all_in_one_machine">cpp/loot_tables/all_in_one_machine.json</pre>
-<pre>{
+<p>为了避免视线追踪不够精确，以及为了避免放置于不完整方块侧面等情形而导致方块不在视线上，我们可以考虑使用特殊方块来识别玩家放置的方块。一种是使用生存不存在的方块，例如石化橡木台阶，一种是使用具有特定NBT的实体方块，例如带有特定CustomName的容器。检测完成后应该将方块替换或修改掉，以保证后续放置的方块仍然具有独一性。该方式在服务中需要启用命令方块方可。</p>
+<pre class="file" id="cpp/loot_tables/crafting_machine">cpp/loot_tables/crafting_machine.json</pre>
+<pre>
+{
   "pools": [
     {
       "rolls": 1,
@@ -5685,7 +5754,7 @@ summon area_effect_cloud ~ ~ ~-1 {Tags:["cpp_locate_block","cpp_locate_block_nei
           "functions": [
             {
               "function": "minecraft:set_nbt",
-              "tag": "{display:{Name:'{\"italic\":false,\"translate\":\"item.ex.all_in_one_machine\"}'},id:'cpp:all_in_one_machine',CustomModelData:12970001,cpp_tag:['machine','need_fire','barrel']}"
+              "tag": "{id:\"cpp:crafting_machine\",CustomModelData:12970001}"
             }
           ]
         }
@@ -5694,7 +5763,7 @@ summon area_effect_cloud ~ ~ ~-1 {Tags:["cpp_locate_block","cpp_locate_block_nei
   ]
 }
 </pre>
-<pre class="file" id="cpp/functions/advancements/block/petrified_oak_slab.json">cpp:advancements/block/petrified_oak_slab.json</pre>
+<pre class="file" id="cpp/functions/advancements/blocks/petrified_oak_slab.json">cpp:advancements/blocks/petrified_oak_slab.json</pre>
 <pre>
 {
   "criteria": {
@@ -5708,95 +5777,77 @@ summon area_effect_cloud ~ ~ ~-1 {Tags:["cpp_locate_block","cpp_locate_block_nei
     }
   },
   "rewards": {
-    "function": "cpp:block/reset/petrified_oak_slab"
+    "function": "<a href="#cpp/functions/blocks/petrified_oak_slab/reset">cpp:blocks/petrified_oak_slab/reset</a>"
   }
 }
 </pre>
-<pre class="file" id="cpp/functions/block/reset/petrified_oak_slab">cpp:block/reset/petrified_oak_slab</pre>
+<pre class="file" id="cpp/functions/blocks/petrified_oak_slab/reset">cpp:blocks/petrified_oak_slab/reset</pre>
 <pre>
-advancement revoke @s only cpp:block/petrified_oak_slab
-execute as @s[predicate=cpp:mainhand/petrified_oak_slab] run data modify storage cpp:block Item set from entity @s SelectedItem
-execute as @s[predicate=!cpp:mainhand/petrified_oak_slab] run data modify storage cpp:block Item set from entity @s Inventory[{Slot:-106b}]
-
-execute store result score #facing cppValue run data get entity @s Rotation[0]
-scoreboard players add #facing cppValue 225
-execute if score #facing cppValue matches ..-1 run scoreboard players add #facing cppValue 360
-execute if score #facing cppValue matches 360.. run scoreboard players remove #facing cppValue 360
-scoreboard players operation #facing cppValue /= #90 cppValue
-
-fill ~-6 ~-6 ~-6 ~6 ~6 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/block/put/petrified_oak_slab"} replace petrified_oak_slab">cpp:block/put/petrified_oak_slab"} replace petrified_oak_slab</a>
-execute positioned ~ -6 ~ as @s[dy=12] run fill ~-6 0 ~-6 ~6 12 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/block/put/petrified_oak_slab"} replace petrified_oak_slab">cpp:block/put/petrified_oak_slab"} replace petrified_oak_slab</a>
-execute positioned ~ 249 ~ as @s[dy=12] run fill ~-6 243 ~-6 ~6 255 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/block/put/petrified_oak_slab"} replace petrified_oak_slab">cpp:block/put/petrified_oak_slab"} replace petrified_oak_slab</a>
+advancement revoke @s only <a href="#cpp/advancements/blocks/petrified_oak_slab">cpp:blocks/petrified_oak_slab</a>
+fill ~-6 ~-6 ~-6 ~6 ~6 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/blocks/petrified_oak_slab/crafting_machine">cpp:blocks/petrified_oak_slab/crafting_machine</a>"} replace petrified_oak_slab</a>
+execute positioned ~ -6 ~ as @s[dy=12] run fill ~-6 0 ~-6 ~6 12 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/blocks/petrified_oak_slab/crafting_machine">cpp:blocks/petrified_oak_slab/crafting_machine</a>"} replace petrified_oak_slab</a>
+execute positioned ~ 249 ~ as @s[dy=12] run fill ~-6 243 ~-6 ~6 255 ~6 command_block{auto:1b,Command:"execute align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/blocks/petrified_oak_slab/crafting_machine">cpp:blocks/petrified_oak_slab/crafting_machine</a>"} replace petrified_oak_slab</a>
 </pre>
-<pre class="file" id="cpp/functions/block/put/petrified_oak_slab">cpp:block/put/petrified_oak_slab</pre>
+<pre class="file" id="cpp/functions/blocks/petrified_oak_slab/crafting_machine">cpp:blocks/petrified_oak_slab/crafting_machine</pre>
 <pre>
-execute unless data storage cpp:block Item.tag.id run data modify storage cpp:block Item.tag.cpp_tag set value ['machine','need_fire','barrel']
-data modify storage cpp:block Item.Count set value 1b
-
 setblock ~ ~ ~ barrel{CustomName:'{"translate":"block.minecraft.petrified_oak_slab"}'}
-data modify block ~ ~ ~ CustomName set from storage cpp:block Item.tag.display.Name
-
-execute if score #facing cppValue matches 0 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["cpp_block"],Rotation:[0.0f,0.0f]}
-execute if score #facing cppValue matches 1 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["cpp_block"],Rotation:[90.0f,0.0f]}
-execute if score #facing cppValue matches 2 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["cpp_block"],Rotation:[180.0f,0.0f]}
-execute if score #facing cppValue matches 3 run summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["cpp_block"],Rotation:[270.0f,0.0f]}
-execute as @e[type=armor_stand,tag=cpp_block,distance=..0.5,limit=1] run function <a href="#cpp/functions/block/put/petrified_oak_slab_tag">cpp:block/put/petrified_oak_slab_tag</a>
+summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGravity:1b,DisabledSlots:7967,Tags:["cpp_blocks"]}
+execute as @e[type=armor_stand,tag=cpp_blocks,distance=..0.1,limit=1] run function <a href="#cpp/functions/blocks/petrified_oak_slab/tag">cpp:blocks/petrified_oak_slab/tag</a>
 </pre>
-
-<pre class="file" id="cpp/predicates/mainhand/petrified_oak_slab">cpp/predicates/mainhand/petrified_oak_slab.json</pre>
-<pre>
-{
-  "condition": "minecraft:entity_properties",
-  "entity": "this",
-  "predicate": {
-    "equipment": {
-      "mainhand":{
-        "item": "minecraft:petrified_oak_slab"
-      }
-    }
-  }
-}
-</pre>
-<pre class="file" id="cpp/predicates/offhand/petrified_oak_slab">cpp/predicates/offhand/petrified_oak_slab.json</pre>
-<pre>
-{
-  "condition": "minecraft:entity_properties",
-  "entity": "this",
-  "predicate": {
-    "equipment": {
-      "offhand":{
-        "item": "minecraft:petrified_oak_slab"
-      }
-    }
-  }
-}
-</pre>
-
 
 
 <h2 id="破坏事件">§6.4 破坏事件</h2>
-<p class="ex">破坏自定义的树叶。</p>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<p class="ex">高频检测标记所在位置的方块是否发生变化。若不符合要求，则表示该方块已被破坏(或被活塞推动)，此时检测附近相应掉落物并修改之，然后US杀死标记。</p>
+<pre class="file">cpp:tick</pre>
 <pre>
-execute as @e[type=armor_stand,tag=cpp_leaves] at @s unless block ~ ~ ~ acacia_leaves run function <a href="#cpp/functions/blocks/break/acacia_leaves">cpp:blocks/break/acacia_leaves</a>
+execute as @e[type=armor_stand,tag=cpp_leaves] at @s unless block ~ ~ ~ acacia_leaves run function <a href="#cpp/functions/blocks/acacia_leaves/break">cpp:blocks/acacia_leaves/break</a>
 </pre>
-<pre class="file" id="cpp/functions/blocks/break/acacia_leaves">cpp:blocks/break/acacia_leaves</pre>
+<pre class="file" id="cpp/functions/blocks/acacia_leaves/break">cpp:blocks/acacia_leaves/break</pre>
 <pre>
 # 树叶
-tag @e[type=item,sort=nearest,nbt={Age:0s,Item:{id:"minecraft:acacia_leaves",Count:1b}},limit=1,distance=..2] add cpp_block_drop
-tag @e[type=item,sort=nearest,nbt={Age:1s,Item:{id:"minecraft:acacia_leaves",Count:1b}},limit=1,distance=..2] add cpp_block_drop
-data modify entity @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..2] Item set from entity @s ArmorItems[3]
-tag @e[type=item,distance=..2,tag=cpp_block_drop] remove cpp_block_drop
+execute as @e[type=item,sort=nearest,predicate=<a href="#cpp/predicates/item/dropped_acacia_leaves">cpp:item/dropped_acacia_leaves</p>,limit=1,distance=..3] unless data entity @s Item.tag.id run tag @s add cpp_block_drop
+data modify entity @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] Item set from entity @s ArmorItems[3]
+tag @e[type=item,distance=..3,tag=cpp_block_drop] remove cpp_block_drop
 # 树苗
-tag @e[type=item,sort=nearest,nbt={Age:0s,Item:{id:"minecraft:acacia_sapling",Count:1b}},limit=1,distance=..2] add cpp_block_drop
-tag @e[type=item,sort=nearest,nbt={Age:1s,Item:{id:"minecraft:acacia_sapling",Count:1b}},limit=1,distance=..2] add cpp_block_drop
-execute as @s[tag=cpp_ore_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..2] run loot spawn ~ ~ ~ loot cpp:ore_sapling
-execute as @s[tag=cpp_wool_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..2] run loot spawn ~ ~ ~ loot cpp:wool_sapling
-execute as @s[tag=cpp_fruit_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..2] run loot spawn ~ ~ ~ loot cpp:fruit_sapling
-kill @e[type=item,distance=..2,tag=cpp_block_drop]
+execute as @e[type=item,sort=nearest,predicate=<a href="#cpp/predicates/item/dropped_acacia_sapling">cpp:item/dropped_acacia_sapling</a>,limit=1,distance=..3] run tag @s add cpp_block_drop
+execute as @s[tag=cpp_ore_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] run loot spawn ~ ~ ~ loot cpp:ore_sapling
+execute as @s[tag=cpp_wool_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] run loot spawn ~ ~ ~ loot cpp:wool_sapling
+execute as @s[tag=cpp_fruit_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] run loot spawn ~ ~ ~ loot cpp:fruit_sapling
+execute as @s[tag=cpp_sakura_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] run loot spawn ~ ~ ~ loot cpp:sakura_sapling
+kill @e[type=item,distance=..3,tag=cpp_block_drop]
 kill @s
 </pre>
-<p>我们将最近的 <code>Age:0s</code> (挖掘)和 <code>Age:1s</code> (自然腐烂)的物品添加标签，然后修改其为盔甲架头部存储物。</p>
+<pre class="file" id="cpp/predicates/item/dropped_acacia_leaves">cpp/predicates/item/dropped_acacia_leaves.json</pre>
+<pre>
+{
+  "condition": "minecraft:entity_properties",
+  "entity": "this",
+  "predicate": {
+    "nbt": "{Age:0s,Item:{id:\"minecraft:acacia_leaves\",Count:1b}}"
+  }
+}</pre>
+<pre class="file" id="cpp/predicates/item/dropped_acacia_sapling">cpp/predicates/item/dropped_acacia_sapling.json</pre>
+<pre>
+{
+  "condition": "minecraft:alternative",
+  "terms": [
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "nbt": "{Age:0s,Item:{id:\"minecraft:acacia_sapling\",Count:1b}}"
+      }
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "nbt": "{Age:1s,Item:{id:\"minecraft:acacia_sapling\",Count:1b}}"
+      }
+    }
+  ]
+}</pre>
+<p>对于树苗我们需要添加 <code>Age:0s</code> (挖掘)和 <code>Age:1s</code> (自然腐烂)两种情形。</p>
 
 <h2 id="模型设置">§6.5 模型设置</h2>
 <p>使用如下的 <code>display</code> 来放缩物品在头部的大小，可以保证其与坐标轴基本对齐。</p>
@@ -5861,7 +5912,8 @@ kill @s
 <p>该模型用于机器的GUI，我们将其大小放大了 <code>12</code> 倍，也就是 <code>192×192</code> 大小。所以我们需要绘制这个大小的整数倍的材质。通过修改z轴高度可调整材质的覆盖次序。</p>
 
 <pre class="file" id="assets/cpp/models/machine/gui/template.json">assets/cpp/models/machine/gui/template.json</pre>
-<pre>{
+<pre>
+{
   "elements": [
     {
       "from": [ -16, 0, 0 ],
@@ -5929,7 +5981,8 @@ kill @s
 <p>对于机器的能源条，我们使用三个模型来实现。这样的优点是如果当我们需要更换材质时，只需要改变能源条的模型和材质即可。</p>
 <p>第一个是能源条，能源条为动态材质，位于最底层</p>
 <pre class="file" id="assets/cpp/models/machine/xp/xp.json">assets/cpp/models/machine/xp/xp.json</pre>
-<pre>{
+<pre>
+{
   "parent": "item/generated",
   "textures": {
     "layer0": "cpp:machine/xp/xp"
@@ -5946,7 +5999,8 @@ kill @s
 }
 </pre>
 <pre class="file" id="assets/cpp/textures/machine/xp/xp.png.mcmeta">assets/cpp/textures/machine/xp/xp.png.mcmeta</pre>
-<pre>{
+<pre>
+{
   "animation": {
     "frametime": 2
   }
@@ -5959,7 +6013,8 @@ kill @s
 
 <p>第二个是能源标尺框架，位于中间层。</p>
 <pre class="file" id="assets/cpp/models/machine/xp/frame.json">assets/cpp/models/machine/xp/frame.json</pre>
-<pre>{
+<pre>
+{
   "parent": "item/generated",
   "display": {
     "gui": {
@@ -5982,7 +6037,8 @@ kill @s
 
 <p>我们将能源条划分为<code>0~100</code>共101种情形，第三层是用于遮挡能源条的101个与背景色相同的纯色方块。通过设置方块的高度放缩比例和平移，我们可以组合出只显示部分能源条的效果。公式为 <code>scale[1]=0.03125×(100-n),translation[1]=1+0.25n</code>。</p>
 <pre class="file" id="assets/cpp/models/machine/xp/88.json">assets/cpp/models/machine/xp/88.json</pre>
-<pre>{
+<pre>
+{
   "parent": "cpp:machine/xp/temp",
   "display": {
     "gui": {
@@ -5993,7 +6049,8 @@ kill @s
 } 
 </pre>
 <pre class="file" id="assets/cpp/models/machine/xp/temp.json">assets/cpp/models/machine/xp/temp.json</pre>
-<pre>{
+<pre>
+{
   "parent": "item/generated",
   "textures": {
       "layer0": "cpp:pt"
@@ -6022,7 +6079,7 @@ kill @s
 <p>我们为所有的机器背景物品添加 <code>exClear:1b</code>。我们假设这个物品都是 <code>firework_star</code>。如果是多种物品的话，我们可以将这些物品 <code>id</code> 添加至一个物品标签内来统一清理。</p>
 
 <p>清理玩家背包和地面的相应物品。</p>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 clear @a firework_star{exClear:1b}
 kill @e[type=item,nbt={Item:{tag:{exClear:1b}}}]
@@ -6031,7 +6088,8 @@ execute as @e[type=armor_stand,tag=machine_machine] at @s run function <a href="
 
 <p>禁用机器下方的漏斗矿车内，并将下方漏斗的冷却时间高频设置为2。</p>
 <pre class="file" id="cpp/functions/blocks/machine">cpp:blocks/machine</pre>
-<pre>execute positioned ~-1 ~-2 ~-1 as @e[type=hopper_minecart,dx=2,dy=2,dz=2] run data modify entity @s Enabled set value 0b
+<pre>
+execute positioned ~-1 ~-2 ~-1 as @e[type=hopper_minecart,dx=2,dy=2,dz=2] run data modify entity @s Enabled set value 0b
 execute if block ~ ~-1 ~ hopper run data modify block ~ ~-1 ~ TransferCooldown set value 2
 </pre>
 
@@ -6039,28 +6097,43 @@ execute if block ~ ~-1 ~ hopper run data modify block ~ ~-1 ~ TransferCooldown s
 <p>我们需要对机器高频固定住其GUI，同时对于玩家误放入的物品进行弹出处理，并操作机器选项和经验条。</p>
 
 <pre class="file" id="cpp/functions/all_in_one_machine/tick">cpp:all_in_one_machine/tick</pre>
-<pre>function <a href="#cpp/functions/misc/xp">cpp:misc/xp</a>
-execute unless predicate cpp:all_in_one_machine/gui run function <a href="#cpp/functions/all_in_one_machine/gui">cpp:all_in_one_machine/gui</a>
+<pre>
+function <a href="#cpp/functions/misc/xp">cpp:misc/xp</a>
+execute unless predicate <a href="#cpp/predicates/all_in_one_machine/gui">cpp:all_in_one_machine/gui</a> run function <a href="#cpp/functions/all_in_one_machine/gui">cpp:all_in_one_machine/gui</a>
 execute unless data block ~ ~ ~ Items[{Slot:21b}] run item block ~ ~ ~ container.21 replace firework_star{cppClear:1b,display:{Name:'{"italic":false,"translate":"item.cpp.output_slot"}'},CustomModelData:12970000}
 execute unless data block ~ ~ ~ Items[{Slot:22b}] run item block ~ ~ ~ container.22 replace firework_star{cppClear:1b,display:{Name:'{"italic":false,"translate":"item.cpp.output_slot"}'},CustomModelData:12970000}
 execute as @s[tag=!cpp_machine_work] run function <a href="#cpp/functions/all_in_one_machine/idle">cpp:all_in_one_machine/idle</a>
 tag @s remove cpp_machine_work
-execute unless predicate cpp:power/strong as @s[scores={cppExp=1..}] if block ~ ~ ~ barrel{Items:[{Slot:3b},{Slot:4b},{Slot:21b,tag:{cppClear:1b}},{Slot:22b,tag:{cppClear:1b}}]} run function <a href="#cpp/functions/all_in_one_machine/type">cpp:all_in_one_machine/type</a>
+execute unless predicate <a href="cpp/predicates/power/strong">cpp:power/strong</a> as @s[scores={cppExp=1..}] if block ~ ~ ~ barrel{Items:[{Slot:3b},{Slot:4b},{Slot:21b,tag:{cppClear:1b}},{Slot:22b,tag:{cppClear:1b}}]} run function <a href="#cpp/functions/all_in_one_machine/type">cpp:all_in_one_machine/type</a>
 execute unless data block ~ ~ ~ Items[{Slot:21b,tag:{cppClear:1b}}] run function <a href="#cpp/functions/dist/dist21">cpp:dist/dist21</a>
 execute unless data block ~ ~ ~ Items[{Slot:22b,tag:{cppClear:1b}}] run function <a href="#cpp/functions/dist/dist22">cpp:dist/dist22</a>
+</pre>
+<pre class="file" id="cpp/predicates/all_in_one_machine/gui">cpp/predicates/all_in_one_machine/gui.json</pre>
+<pre>
+{
+	"condition": "minecraft:location_check",
+	"predicate": {
+		"block": {
+			"nbt": "{Items:[{Slot:0b,tag:{cppClear:1b}},{Slot:1b,tag:{cppClear:1b}},{Slot:2b,tag:{cppClear:1b}},{Slot:5b,tag:{cppClear:1b}},{Slot:6b,tag:{cppClear:1b}},{Slot:8b,tag:{cppClear:1b}},{Slot:9b,tag:{cppClear:1b}},{Slot:10b,tag:{cppClear:1b}},{Slot:11b,tag:{cppClear:1b}},{Slot:12b,tag:{cppClear:1b}},{Slot:13b,tag:{cppClear:1b}},{Slot:14b,tag:{cppClear:1b}},{Slot:15b,tag:{cppClear:1b}},{Slot:16b,tag:{cppClear:1b}},{Slot:17b,tag:{cppClear:1b}},{Slot:18b,tag:{cppClear:1b}},{Slot:19b,tag:{cppClear:1b}},{Slot:20b,tag:{cppClear:1b}},{Slot:23b,tag:{cppClear:1b}},{Slot:24b,tag:{cppClear:1b}},{Slot:25b,tag:{cppClear:1b}},{Slot:26b,tag:{cppClear:1b}}]}"
+		}
+	}
+}
 </pre>
 
 <p>处理经验：当经验瓶栏放入了附魔之瓶时，进行清理和增加经验的操作，并刷新显示能源条。我们用战利品表来动态设置能源数值显示。</p>
 <pre class="file" id="cpp/functions/misc/xp">cpp:misc/xp</pre>
-<pre>execute as @s[scores={cppExp=0..991}] if data block ~ ~ ~ Items[{Slot:7b,id:"minecraft:experience_bottle"}] run function <a href="#cpp/functions/misc/xp_add">cpp:misc/xp_add</a>
+<pre>
+execute as @s[scores={cppExp=0..991}] if data block ~ ~ ~ Items[{Slot:7b,id:"minecraft:experience_bottle"}] run function <a href="#cpp/functions/misc/xp_add">cpp:misc/xp_add</a>
 </pre>
 <pre class="file" id="cpp/functions/misc/xp_add">cpp:misc/xp_add</pre>
-<pre>item block ~ ~ ~ container.7 modify cpp:minus
+<pre>
+item block ~ ~ ~ container.7 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
 scoreboard players add @s cppExp 9
 function <a href="#cpp/functions/misc/xp_show">cpp:misc/xp_show</a>
 </pre>
 <pre class="file" id="cpp/functions/misc/xp_show">cpp:misc/xp_show</pre>
-<pre>loot replace block ~ ~ ~ container.8 1 loot cpp:misc/xp_show1
+<pre>
+loot replace block ~ ~ ~ container.8 1 loot cpp:misc/xp_show1
 loot replace block ~ ~ ~ container.17 1 loot cpp:misc/xp_show1
 loot replace block ~ ~ ~ container.26 1 loot cpp:misc/xp_show2
 scoreboard players operation #t cppValue = @s cppExp
@@ -6098,7 +6171,8 @@ execute store result block ~ ~ ~ Items[{Slot:17b}].tag.CustomModelData int 0.1 r
 }
 </pre>
 <pre class="file" id="cpp/loot_tables/xp_show2">cpp/loot_tables/xp_show2.json</pre>
-<pre>{
+<pre>
+{
   "pools": [
     {
       "rolls": 1,
@@ -6129,7 +6203,8 @@ execute store result block ~ ~ ~ Items[{Slot:17b}].tag.CustomModelData int 0.1 r
 
 <p>对于玩家误放入背景的物品，我们使用 <a href="#修改玩家背包">§10.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
 <pre class="file" id="cpp/functions/all_in_one_machine/gui">cpp:all_in_one_machine/gui</pre>
-<pre># 动态弹出非法放入的物品
+<pre>
+# 动态弹出非法放入的物品
 setblock ~ 255 ~ shulker_box
 data modify block ~ 255 ~ Items set from block ~ ~ ~ Items
 data remove block ~ 255 ~ Items[{tag:{cppClear:1b}}]
@@ -6169,13 +6244,15 @@ function <a href="#cpp/functions/misc/xp_show">cpp:misc/xp_show</a>
 
 <p>当玩家点击按钮时，调整选项。</p>
 <pre class="file" id="cpp/functions/all_in_one_machine/option/pressure">cpp:all_in_one_machine/option/pressure</pre>
-<pre>scoreboard players add @s cppAiomPres 1
+<pre>
+scoreboard players add @s cppAiomPres 1
 scoreboard players set @s[scores={cppAiomPres=3..}] cppAiomPres 0
 scoreboard players set @s[tag=!cpp_high_pressure,scores={cppAiomPres=2}] cppAiomPres 0
 scoreboard players set @s[tag=!cpp_low_pressure,scores={cppAiomPres=0}] cppAiomPres 1
 </pre>
 <pre class="file" id="cpp/loot_tables/all_in_one_machine/pressure">cpp/loot_tables/all_in_one_machine/pressure.json</pre>
-<pre>{
+<pre>
+{
   "pools": [
     {
       "rolls": 1,
@@ -6237,14 +6314,16 @@ scoreboard players set @s[tag=!cpp_low_pressure,scores={cppAiomPres=0}] cppAiomP
 
 <p>机器空闲时进行一些重置操作。</p>
 <pre class="file" id="cpp/functions/all_in_one_machine/idle">cpp:all_in_one_machine/idle</pre>
-<pre>data modify block ~ ~ ~ Items[{Slot:12b}].tag.CustomModelData set value 12971080
+<pre>
+data modify block ~ ~ ~ Items[{Slot:12b}].tag.CustomModelData set value 12971080
 data modify entity @s ArmorItems[3].tag.CustomModelData set value 12970001
 scoreboard players set @s cppTick 0
 </pre>
 
 <p>然后判断机器处是否有红石信号强充能，断言 <code>cpp:power/strong</code> 见 <a href="#红石信号">§10.3 红石信号</a>。当机器未被强充能、有经验值、有输入物、输出栏空闲时，进入配方判断。这里我们根据要求的温度压强来分类。</p>
 <pre class="file" id="cpp/functions/all_in_one_machine/type">cpp:all_in_one_machine/type</pre>
-<pre>function #cpp:all_in_one_machine
+<pre>
+function #cpp:all_in_one_machine
 execute as @s[scores={cppAiomTemp=0,cppAiomPres=0}] run function <a href="#cpp/functions/all_in_one_machine/recipes/ll/ll_1_1">cpp:all_in_one_machine/recipes/ll/ll_1_1</a>
 execute as @s[scores={cppAiomTemp=0,cppAiomPres=1}] run function <a href="#cpp/functions/all_in_one_machine/recipes/ln/ln_1_1">cpp:all_in_one_machine/recipes/ln/ln_1_1</a>
 execute as @s[scores={cppAiomTemp=0,cppAiomPres=2}] run function <a href="#cpp/functions/all_in_one_machine/recipes/lh">cpp:all_in_one_machine/recipes/lh</a>
@@ -6261,7 +6340,8 @@ data modify entity @s[tag=cpp_machine_work] ArmorItems[3].tag.CustomModelData se
 
 <p>显示进度条。这里我们预先计算了半个进度条的刻数，然后加到当前刻数，计算后取整，这样得到进度条更加准确。</p>
 <pre class="file" id="cpp/functions/all_in_one_machine/option/process">cpp:all_in_one_machine/option/process</pre>
-<pre>scoreboard players set #t cppValue 16
+<pre>
+scoreboard players set #t cppValue 16
 scoreboard players operation #t cppValue *= @s cppTick
 scoreboard players operation #t cppValue += #process_pre cppValue
 scoreboard players operation #t cppValue /= $allInOneMachinePeriod cppConfig
@@ -6270,7 +6350,8 @@ execute store result block ~ ~ ~ Items[{Slot:12b}].tag.CustomModelData int 1 run
 
 <p>最后我们将输出栏的物品输入到邻近的容器内。</p>
 <pre class="file" id="cpp/functions/dist/dist21">cpp:dist/dist21</pre>
-<pre>data modify storage cpp:dist Item set from block ~ ~ ~ Items[{Slot:21b}]
+<pre>
+data modify storage cpp:dist Item set from block ~ ~ ~ Items[{Slot:21b}]
 tag @s remove cpp_dist_success
 function <a href="#cpp/functions/dist/machine">cpp:dist/machine</a>
 execute as @s[tag=cpp_dist_success] run item block ~ ~ ~ container.21 replace firework_star{cppClear:1b,display:{Name:'{"italic":false,"translate":"item.cpp.output_slot"}'},CustomModelData:12970000}
@@ -6281,7 +6362,8 @@ execute as @s[tag=cpp_dist_success] run item block ~ ~ ~ container.21 replace fi
 
 <p>根据机器的输出方向调整位置。</p>
 <pre class="file" id="cpp/functions/dist/machine">cpp:dist/machine</pre>
-<pre>execute as @s[scores={cppMacOut=1}] positioned ~1 ~ ~ run function <a href="#cpp/functions/dist/pos">cpp:dist/pos</a>
+<pre>
+execute as @s[scores={cppMacOut=1}] positioned ~1 ~ ~ run function <a href="#cpp/functions/dist/pos">cpp:dist/pos</a>
 execute as @s[scores={cppMacOut=2}] positioned ~ ~ ~1 run function <a href="#cpp/functions/dist/pos">cpp:dist/pos</a>
 execute as @s[scores={cppMacOut=3}] positioned ~-1 ~ ~ run function <a href="#cpp/functions/dist/pos">cpp:dist/pos</a>
 execute as @s[scores={cppMacOut=4}] positioned ~ ~ ~-1 run function <a href="#cpp/functions/dist/pos">cpp:dist/pos</a>
@@ -6291,7 +6373,8 @@ execute as @s[scores={cppMacOut=6}] positioned ~ ~1 ~ run function <a href="#cpp
 
 <p>我们把大箱子添加至方块标签中。如果是大箱子的右半个，将其修改为左半个位置。</p>
 <pre class="file" id="cpp/function/dist/pos">cpp/function/dist/pos</pre>
-<pre>execute if block ~ ~ ~ #cpp:chests[type=left,facing=east] positioned ~ ~ ~1 run function <a href="#cpp/functions/dist/pos2">cpp:dist/pos2</a>
+<pre>
+execute if block ~ ~ ~ #cpp:chests[type=left,facing=east] positioned ~ ~ ~1 run function <a href="#cpp/functions/dist/pos2">cpp:dist/pos2</a>
 execute if block ~ ~ ~ #cpp:chests[type=left,facing=west] positioned ~ ~ ~-1 run function <a href="#cpp/functions/dist/pos2">cpp:dist/pos2</a>
 execute if block ~ ~ ~ #cpp:chests[type=left,facing=south] positioned ~-1 ~ ~ run function <a href="#cpp/functions/dist/pos2">cpp:dist/pos2</a>
 execute if block ~ ~ ~ #cpp:chests[type=left,facing=north] positioned ~1 ~ ~ run function <a href="#cpp/functions/dist/pos2">cpp:dist/pos2</a>
@@ -6300,7 +6383,8 @@ execute unless block ~ ~ ~ #cpp:chests[type=left] run function <a href="#cpp/fun
 
 <p>我们通过插入包含一个不可堆叠的物品的战利品表，并比较有物品的栏位数有没有发生改变来判断其是否有空栏位。如果当前位置没有空栏位且为大箱子，调整输出的位置。</p>
 <pre class="file" id="cpp/function/dist/pos2">cpp/function/dist/pos2</pre>
-<pre>clone ~ ~ ~ ~ ~ ~ ~ 255 ~
+<pre>
+clone ~ ~ ~ ~ ~ ~ ~ 255 ~
 execute store result score #t cppValue run data get block ~ 255 ~ Items
 loot insert ~ 255 ~ loot cpp:misc/iron_axe
 execute store result score #s cppValue run data get block ~ 255 ~ Items
@@ -6314,7 +6398,8 @@ execute as @s[tag=!cpp_dist_success,tag=cpp_container_full] if block ~ ~ ~ #cpp:
 tag @s remove cpp_container_full
 </pre>
 <pre class="file" id="cpp/functions/dist/double">cpp:dist/double</pre>
-<pre>clone ~ ~ ~ ~ ~ ~ ~ 255 ~
+<pre>
+clone ~ ~ ~ ~ ~ ~ ~ 255 ~
 execute store result score #t cppValue run data get block ~ 255 ~ Items
 loot insert ~ 255 ~ loot cpp:misc/iron_axe
 execute store result score #s cppValue run data get block ~ 255 ~ Items
@@ -6324,7 +6409,8 @@ execute unless score #t cppValue = #s cppValue run function <a href="#cpp/functi
 
 <p>最后使用 <a href="#修改玩家背包">§10.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
 <pre class="file" id="cpp/functions/dist/dist">cpp:dist/dist</pre>
-<pre>tag @s add cpp_dist_success
+<pre>
+tag @s add cpp_dist_success
 setblock ~ 255 ~ shulker_box
 data remove storage cpp:dist Item.Slot
 data modify block ~ 255 ~ Items[{Slot:0b}] merge from storage cpp:dist Item
@@ -6336,10 +6422,11 @@ setblock ~ 255 ~ air
 <p>我们使用断言判断机器的物品是否满足相应配方的条件，然后进入计时。计时完成后进行产物生成，产物的生成通过使用战利品表判断当前位置的NBT得到。</p>
 <pre class="file" id="cpp/functions/all_in_one_machine/recipes/nn">cpp:all_in_one_machine/recipes/nn</pre>
 <pre>
-execute as @s[scores={cppExp=2..}] if predicate cpp:all_in_one_machine/nn_2_2 run function <a href="#cpp/functions/all_in_one_machine/recipes/nn/nn_2_2">cpp:all_in_one_machine/recipes/nn/nn_2_2</a>
+execute as @s[scores={cppExp=2..}] if predicate <a href="#cpp/predicates/all_in_one_machine/nn_2_2">cpp:all_in_one_machine/nn_2_2</a> run function <a href="#cpp/functions/all_in_one_machine/recipes/nn/nn_2_2">cpp:all_in_one_machine/recipes/nn/nn_2_2</a>
 </pre>
 <pre class="file" id="cpp/predicates/all_in_one_machine/nn_2_2">cpp/predicates/all_in_one_machine/nn_2_2.json</pre>
-<pre>{
+<pre>
+{
   "condition": "minecraft:alternative",
   "terms": [
     {
@@ -6381,12 +6468,14 @@ execute as @s[scores={cppExp=2..}] if predicate cpp:all_in_one_machine/nn_2_2 ru
 <p>这里需要注意一种极端情形，如果同一条件下的函数中，有多条判断原材料的命令，而且这些为无序配方（即不检测具体栏位），而且所有产物和原材料中，有部分物品可以进行其它合成，那么我们需要在这些判断中添加 <code>as @s[tag=!mac_machine_work]</code> 或者 <code>if block ~ ~ ~ barrel{Items:[{Slot:16b,tag:{exClear:1b}}]}</code> 来对机器是否已工作进行判断，否则有可能导致前一个配方的产物正常被后一个配方识别到，而导致配方出现混乱。</p>
 
 <pre class="file" id="cpp/functions/all_in_one_machine/recipes/nn/nn_2_2">cpp:all_in_one_machine/recipes/nn/nn_2_2</pre>
-<pre>tag @s add cpp_machine_work
+<pre>
+tag @s add cpp_machine_work
 scoreboard players add @s cppTick 30
 execute if score @s cppTick >= $allInOneMachinePeriod cppConfig run function <a href="#cpp/functions/all_in_one_machine/recipes/nn/nn_2_2_done">cpp:all_in_one_machine/recipes/nn/nn_2_2_done</a>
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/recipes/nn/nn_2_2_done">cpp:all_in_one_machine/recipes/nn/nn_2_2_done</pre>
-<pre>scoreboard players remove @s cppExp 2
+<pre>
+scoreboard players remove @s cppExp 2
 loot replace block ~ ~ ~ container.21 2 loot <a href="#cpp/loot_tables/all_in_one_machine/nn_2_2">cpp:all_in_one_machine/nn_2_2</a>
 </pre>
 <pre class="file" id="cpp/loot_tables/all_in_one_machine/nn_2_2">cpp/loot_tables/all_in_one_machine/nn_2_2.json</pre>
@@ -6477,19 +6566,22 @@ loot replace block ~ ~ ~ container.21 2 loot <a href="#cpp/loot_tables/all_in_on
 
 <p>这样，输出槽就产生了物品，然后通过上一节中相关函数命令，进入清理环节。如果你的配方并不是100%有产物的，则需要在计时完成中添加机器完成工作的标签，然后根据标签来判断是否进入清理环节。</p>
 <pre class="file" id="cpp/functions/all_in_one_machine/clear">cpp:all_in_one_machine/clear</pre>
-<pre>scoreboard players set @s cppTick 0
+<pre>
+scoreboard players set @s cppTick 0
 item block ~ ~ ~ container.4 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
 item block ~ ~ ~ container.3 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
 function <a href="#cpp/functions/misc/xp_show">cpp:misc/xp_show</a>
 </pre>
 
 <p>对于特殊的物品，例如药水、水桶等，我们可能希望能够返还玻璃瓶、桶等，此时我们需要进行额外的预处理。</p>
-<pre>execute if data block ~ ~ ~ Items[{id:"minecraft:water_bucket"}] run function <a href="#cpp/functions/crafting_machine/craft/clear/water_bucket">cpp:crafting_machine/craft/clear/water_bucket</a>
+<pre>
+execute if data block ~ ~ ~ Items[{id:"minecraft:water_bucket"}] run function <a href="#cpp/functions/crafting_machine/craft/clear/water_bucket">cpp:crafting_machine/craft/clear/water_bucket</a>
 </pre>
 
 <p>我们通过计算单个堆叠和多个堆叠的栏位数，来得到该有多少玻璃瓶进入输出的容器。如果容器满了，计算进入玩家背包的数量，处理应当留下的数量。尽管水桶等物品不可堆叠，但我们仍保留考虑其它模组使其可堆叠的情形。</p>
 <pre class="file" id="cpp/functions/crafting_machine/craft/clear/water_bucket">cpp:crafting_machine/craft/clear/water_bucket</pre>
-<pre>data modify storage cpp:_ Items set from block ~ ~ ~ Items
+<pre>
+data modify storage cpp:_ Items set from block ~ ~ ~ Items
 execute store result score #t1 cppValue run data remove storage cpp:_ Items[{id:"minecraft:water_bucket",Count:1b}]
 execute store result score #t2 cppValue run data remove storage cpp:_ Items[{id:"minecraft:water_bucket"}]
 data modify storage cpp:dist Item set value {id:"minecraft:bucket",Count:1b}
@@ -6506,39 +6598,47 @@ execute as @s[tag=!cpp_dist_success] run loot give @p loot cpp:crafting_machine/
 <p>我们省略副手情形的处理。</p>
 
 <pre class="file">cpp:tick</pre>
-<pre>execute as @a[scores={cppUseCSt=1..}] run function <a href="#cpp/functions/use_cst/type">cpp:use_cst/type</a>
+<pre>
+execute as @a[scores={cppUseCSt=1..}] run function <a href="#cpp/functions/use_cst/type">cpp:use_cst/type</a>
 </pre>
 <pre class="file" id="cpp/functions/use_cst/type">cpp:use_cst/type</pre>
-<pre>scoreboard players reset @s cppUseCSt
+<pre>
+scoreboard players reset @s cppUseCSt
 execute as @s[predicate=<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] run function <a href="#cpp/functions/use_cst/mainhand">cpp:use_cst/mainhand</a>
 execute as @s[predicate=!<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] run function <a href="#cpp/functions/use_cst/offhand">cpp:use_cst/offhand</a>
 </pre>
 <pre class="file" id="cpp/functions/use_cst/mainhand">cpp:use_cst/mainhand</pre>
-<pre>execute as @s[predicate=cpp:mainhand/machine_plugin] at @s anchored eyes run function <a href="#cpp/functions/all_in_one_machine/plugin/ray">cpp:all_in_one_machine/plugin/ray</a>
+<pre>
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/machine_plugin">cpp:mainhand/machine_plugin</a>] at @s anchored eyes run function <a href="#cpp/functions/all_in_one_machine/plugin/ray">cpp:all_in_one_machine/plugin/ray</a>
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/ray">cpp:all_in_one_machine/ray</pre>
-<pre>function <a href="#cpp/functions/locate/init">cpp:locate/init</a>
+<pre>
+function <a href="#cpp/functions/locate/init">cpp:locate/init</a>
 execute as @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] at @s if block ~ ~ ~ barrel align xyz positioned ~0.5 ~ ~0.5 if entity @e[type=armor_stand,distance=..0.5,tag=cpp_all_in_one_machine] run tag @s add cpp_locate_block_position
 execute anchored eyes positioned ^ ^ ^ at @e[type=area_effect_cloud,distance=..6.1,tag=cpp_locate_block_position,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/all_in_one_machine/plugin/type">cpp:all_in_one_machine/plugin/type</a>
 kill @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block]
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/plugin/type">cpp:all_in_one_machine/plugin/type</pre>
-<pre>execute as @s[predicate=!<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] run function <a href="#cpp/functions/all_in_one_machine/plugin/off">cpp:all_in_one_machine/plugin/off</a>
+<pre>
+execute as @s[predicate=!<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] run function <a href="#cpp/functions/all_in_one_machine/plugin/off">cpp:all_in_one_machine/plugin/off</a>
 execute as @s[predicate=<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] run function <a href="#cpp/functions/all_in_one_machine/plugin/main">cpp:all_in_one_machine/plugin/main</a>
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/plugin/main">cpp:all_in_one_machine/plugin/main</pre>
-<pre>execute as @s[predicate=cpp:mainhand/high_pressure_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1,tag=!cpp_high_pressure] run function <a href="#cpp/functions/all_in_one_machine/plugin/hp">cpp:all_in_one_machine/plugin/hp</a>
-execute as @s[predicate=cpp:mainhand/low_pressure_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1,tag=!cpp_low_pressure] run function <a href="#cpp/functions/all_in_one_machine/plugin/lp">cpp:all_in_one_machine/plugin/lp</a>
-execute as @s[predicate=cpp:mainhand/high_temperature_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1,tag=!cpp_high_temperature] run function <a href="#cpp/functions/all_in_one_machine/plugin/ht">cpp:all_in_one_machine/plugin/ht</a>
-execute as @s[predicate=cpp:mainhand/low_temperature_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1,tag=!cpp_low_temperature] run function <a href="#cpp/functions/all_in_one_machine/plugin/lt">cpp:all_in_one_machine/plugin/lt</a>
+<pre>
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/high_pressure_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1">cpp:mainhand/high_pressure_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1</a>,tag=!cpp_high_pressure] run function <a href="#cpp/functions/all_in_one_machine/plugin/hp">cpp:all_in_one_machine/plugin/hp</a>
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/low_pressure_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1">cpp:mainhand/low_pressure_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1</a>,tag=!cpp_low_pressure] run function <a href="#cpp/functions/all_in_one_machine/plugin/lp">cpp:all_in_one_machine/plugin/lp</a>
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/high_temperature_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1">cpp:mainhand/high_temperature_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1</a>,tag=!cpp_high_temperature] run function <a href="#cpp/functions/all_in_one_machine/plugin/ht">cpp:all_in_one_machine/plugin/ht</a>
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/low_temperature_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1">cpp:mainhand/low_temperature_plugin] if entity @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1</a>,tag=!cpp_low_temperature] run function <a href="#cpp/functions/all_in_one_machine/plugin/lt">cpp:all_in_one_machine/plugin/lt</a>
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/plugin/hp">cpp:all_in_one_machine/plugin/hp</pre>
-<pre>tellraw @s [{"translate":"info.cpp.high_pressure_plugin"}]
+<pre>
+tellraw @s [{"translate":"info.cpp.high_pressure_plugin"}]
 tag @e[type=armor_stand,tag=cpp_all_in_one_machine,distance=..0.5,limit=1,tag=!cpp_high_pressure] add cpp_high_pressure
 function <a href="#cpp/functions/all_in_one_machine/plugin/clear">cpp:all_in_one_machine/plugin/clear</a>
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/plugin/clear">cpp:all_in_one_machine/plugin/clear</pre>
-<pre>item entity @s[gamemode=!creative,predicate=!<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] weapon.offhand replace air
+<pre>
+item entity @s[gamemode=!creative,predicate=!<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] weapon.offhand replace air
 item entity @s[gamemode=!creative,predicate=<a href="#cpp/predicates/mainhand/carrot_on_a_stick">cpp:mainhand/carrot_on_a_stick</a>] weapon.mainhand replace air  
 </pre>
 
@@ -6549,7 +6649,8 @@ item entity @s[gamemode=!creative,predicate=<a href="#cpp/predicates/mainhand/ca
 <p>在 <a href="#物品输出">§7.4 物品输出</a>中，方块标签 <code>#cpp:chests</code> 记录了各种大箱子。如果添加更多可支持的容器，我们只需添加它们至该方块标签即可。</p>
 
 <pre class="file" id="cpp/tags/blocks/chests">cpp/tags/blocks/chests.json</pre>
-<pre>{
+<pre>
+{
   "replace": false,
   "values": [
     "minecraft:chest",
@@ -6598,116 +6699,116 @@ execute as @s[scores={cppTemperature=0,cppPressure=0}] run function foo:all_in_o
 <h3 id="无线传输">§7.9.1 无线传输</h3>
 <p>优点是简洁易操作，判断输出电力的机器附近是否有需要输入电力的机器并计算即可。</p>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
-execute as @e[type=armor_stand,tag=machine_machine,tag=cpp_power_source,scores={exPower=1..}] at @s if entity @e[type=armor_stand,tag=machine_machine,tag=cpp_power_target,distance=..16] run function <a href="#cpp/functions/machine/power/translate">cpp:machine/power/translate</a>
+execute as @e[type=armor_stand,tag=machine_machine,tag=cpp_power_source,scores={cppPower=1..}] at @s if entity @e[type=armor_stand,tag=machine_machine,tag=cpp_power_target,distance=..16] run function <a href="#cpp/functions/machine/power/translate">cpp:machine/power/translate</a>
 </pre>
 <pre class="file" id="cpp/functions/machine/power/translate">cpp:machine/power/translate</pre>
 <pre>
 tag @s add cpp_power_out
-scoreboard players operation #t0 exPower = @e[type=armor_stand,tag=machine_machine,tag=cpp_power_source,scores={exPower=1..},distance=..1,limit=1] exPower
-execute as @e[type=armor_stand,tag=machine_machine,tag=cpp_power_target] if score @s exPower &lt; @s exPowerMax run function <a href="#cpp/functions/machine/power/translate1">cpp:machine/power/translate1</a>
-scoreboard players operation @e[type=armor_stand,tag=machine_machine,tag=cpp_power_source,scores={exPower=1..},distance=..1,limit=1] exPower -= #t0 exPower
+scoreboard players operation #t0 cppPower = @e[type=armor_stand,tag=machine_machine,tag=cpp_power_source,scores={cppPower=1..},distance=..1,limit=1] cppPower
+execute as @e[type=armor_stand,tag=machine_machine,tag=cpp_power_target] if score @s cppPower &lt; @s cppPowerMax run function <a href="#cpp/functions/machine/power/translate1">cpp:machine/power/translate1</a>
+scoreboard players operation @e[type=armor_stand,tag=machine_machine,tag=cpp_power_source,scores={cppPower=1..},distance=..1,limit=1] cppPower -= #t0 cppPower
 tag @s remove cpp_power_out
 </pre>
 <pre class="file" id="cpp/functions/machine/power/translate1">cpp:machine/power/translate1</pre>
 <pre>
-scoreboard players operation #t exPower = @s exPowerMax
-scoreboard players operation #t exPower -= @s exPower
-execute if score #t exPower &gt; #t0 exPower run scoreboard players operation #t exPower = #t0 exPower
-scoreboard players operation @s exPower += #t exPower
-scoreboard players operation #t0 exPower -= #t exPower
+scoreboard players operation #t cppPower = @s cppPowerMax
+scoreboard players operation #t cppPower -= @s cppPower
+execute if score #t cppPower &gt; #t0 cppPower run scoreboard players operation #t cppPower = #t0 cppPower
+scoreboard players operation @s cppPower += #t cppPower
+scoreboard players operation #t0 cppPower -= #t cppPower
 </pre>
 
 <p>我们也可以在传输中添加类似投射物的特效来提高视觉效果。</p>
 
-<h3 id="管道式">§7.9.2 管道式 (WIP)</h3>
-<p>优点是具有传统科技模组的风格，缺点是每个管道都是一个实体（仅有原版方块限制颇多），管道多的时候会较为卡顿。</p>
+<h3 id="管道式">§7.9.2 管道式</h3>
+<p>优点是具有传统科技模组的风格，缺点是每个管道都是一个实体，管道多的时候会较为卡顿。若不用实体仅用原版特定方块来表示导线，则限制颇多。</p>
 <p>涌流式：能量从高处向周围比它低的管道/机器处流动，来最终实现能量传输。管道内会留有缓存。实现和无线传输类似，只是范围限定在1米内。</p>
 <p>遍历式：从能量源出发，遇到过的管道做标记一直向下，如果遇到终点就回溯到分叉点，一直循环直到返回源头。</p>
+<p>具体实现方式省略。</p>
 
 <h3 id="激光式">§7.9.3 激光式</h3>
 <p>为了降低管道式的管道数量，我们可以将管道替换为可以一次传输多格的激光式管道。这里我们使用展示框来表示，计算其与前方方块的距离并调整外观（长度）。</p>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
-execute as @e[type=item_frame,tag=ind_wire] at @s run function indcore:wire/face
-execute as @e[type=armor_stand,tag=ind_power_out,scores={indPower=1..}] at @s run function indcore:power/face
+execute as @e[type=item_frame,tag=cpp_wire] at @s run function <a href="#cpp/functions/wire/face">cpp:wire/face</a>
+execute as @e[type=armor_stand,tag=cpp_power_out,scores={cppPower=1..}] at @s run function <a href="#cpp/functions/power/face">cpp:power/face</a>
 </pre>
-<pre class="file" id="indcore:wire/face">indcore:wire/face</pre>
+<pre class="file" id="cpp/functions/wire/face">cpp:wire/face</pre>
 <pre>
-scoreboard players set @s indValue 7500000
-execute as @s[nbt={Facing:0b}] align xyz positioned ~0.5 ~-1 ~0.5 run function indcore:wire/down
-execute as @s[nbt={Facing:1b}] align xyz positioned ~0.5 ~1 ~0.5 run function indcore:wire/up
-execute as @s[nbt={Facing:2b}] align xyz positioned ~0.5 ~ ~-0.5 run function indcore:wire/north
-execute as @s[nbt={Facing:3b}] align xyz positioned ~0.5 ~ ~1.5 run function indcore:wire/south
-execute as @s[nbt={Facing:4b}] align xyz positioned ~-0.5 ~ ~0.5 run function indcore:wire/west
-execute as @s[nbt={Facing:5b}] align xyz positioned ~1.5 ~ ~0.5 run function indcore:wire/east
-execute store result entity @s Item.tag.CustomModelData int 1 run scoreboard players get @s indValue
+scoreboard players set @s cppValue 7500000
+execute as @s[nbt={Facing:0b}] align xyz positioned ~0.5 ~-1 ~0.5 run function <a href="#cpp/functions/wire/down">cpp:wire/down</a>
+execute as @s[nbt={Facing:1b}] align xyz positioned ~0.5 ~1 ~0.5 run function <a href="#cpp/functions/wire/up">cpp:wire/up</a>
+execute as @s[nbt={Facing:2b}] align xyz positioned ~0.5 ~ ~-0.5 run function <a href="#cpp/functions/wire/north">cpp:wire/north</a>
+execute as @s[nbt={Facing:3b}] align xyz positioned ~0.5 ~ ~1.5 run function <a href="#cpp/functions/wire/south">cpp:wire/south</a>
+execute as @s[nbt={Facing:4b}] align xyz positioned ~-0.5 ~ ~0.5 run function <a href="#cpp/functions/wire/west">cpp:wire/west</a>
+execute as @s[nbt={Facing:5b}] align xyz positioned ~1.5 ~ ~0.5 run function <a href="#cpp/functions/wire/east">cpp:wire/east</a>
+execute store result entity @s Item.tag.CustomModelData int 1 run scoreboard players get @s cppValue
 </pre>
-<pre class="file" id="indcore:wire/east">indcore:wire/east</pre>
+<pre class="file" id="cpp/functions/wire/east">cpp:wire/east</pre>
 <pre>
-scoreboard players add @s indValue 1
-execute if block ~ ~ ~ #indcore:fluid positioned ~1 ~ ~ run function indcore:wire/east
+scoreboard players add @s cppValue 1
+execute if block ~ ~ ~ #cpp:fluid positioned ~1 ~ ~ run function <a href="#cpp/functions/wire/east">cpp:wire/east</a>
 </pre>
 <p>同样我们递归向前来获得接收能量的方块。</p>
 
-<pre class="file" id="indcore:power/face">indcore:power/face</pre>
+<pre class="file" id="cpp/functions/power/face">cpp:power/face</pre>
 <pre>
-execute positioned ~0.5 ~0.5 ~ if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~1.5 ~ ~0.5 run function indcore:power/east
-execute positioned ~-0.5 ~0.5 ~ if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~-1.5 ~ ~0.5 run function indcore:power/west
-execute positioned ~ ~0.5 ~0.5 if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~0.5 ~ ~1.5 run function indcore:power/south
-execute positioned ~ ~0.5 ~-0.5 if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~0.5 ~ ~-1.5 run function indcore:power/north
-execute positioned ~ ~1 ~ if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~0.5 ~2 ~0.5 run function indcore:power/up
-execute if entity @e[tag=ind_wire,distance=..0.1] align xyz positioned ~0.5 ~-2 ~0.5 run function indcore:power/down
+execute positioned ~0.5 ~0.5 ~ if entity @e[tag=cpp_wire,distance=..0.1] align xyz positioned ~1.5 ~ ~0.5 run function <a href="#cpp/functions/power/east">cpp:power/east</a>
+execute positioned ~-0.5 ~0.5 ~ if entity @e[tag=cpp_wire,distance=..0.1] align xyz positioned ~-1.5 ~ ~0.5 run function <a href="#cpp/functions/power/west">cpp:power/west</a>
+execute positioned ~ ~0.5 ~0.5 if entity @e[tag=cpp_wire,distance=..0.1] align xyz positioned ~0.5 ~ ~1.5 run function <a href="#cpp/functions/power/south">cpp:power/south</a>
+execute positioned ~ ~0.5 ~-0.5 if entity @e[tag=cpp_wire,distance=..0.1] align xyz positioned ~0.5 ~ ~-1.5 run function <a href="#cpp/functions/power/north">cpp:power/north</a>
+execute positioned ~ ~1 ~ if entity @e[tag=cpp_wire,distance=..0.1] align xyz positioned ~0.5 ~2 ~0.5 run function <a href="#cpp/functions/power/up">cpp:power/up</a>
+execute if entity @e[tag=cpp_wire,distance=..0.1] align xyz positioned ~0.5 ~-2 ~0.5 run function <a href="#cpp/functions/power/down">cpp:power/down</a>
 </pre>
-<pre class="file" id="indcore:power/east">indcore:power/east</pre>
+<pre class="file" id="cpp/functions/power/east">cpp:power/east</pre>
 <pre>
-execute if entity @s[distance=..16] if entity @e[tag=ind_power_in,distance=..0.1] entity @e[tag=ind_power_in,distance=..0.1,limit=1,scores={indPower=..9999}] if score @e[tag=ind_power_in,distance=..0.1,limit=1] indPower &lt; @e[tag=ind_power_in,distance=..0.1,limit=1] indPowerLimit run function indcore:power/in
-execute if entity @s[distance=..16] unless entity @e[tag=ind_power_in,distance=..0.1] positioned ~1 ~ ~ run function indcore:power/east
+execute if entity @s[distance=..16] if entity @e[tag=cpp_power_in,distance=..0.1] entity @e[tag=cpp_power_in,distance=..0.1,limit=1,scores={cppPower=..9999}] if score @e[tag=cpp_power_in,distance=..0.1,limit=1] cppPower &lt; @e[tag=cpp_power_in,distance=..0.1,limit=1] cppPowerLimit run function <a href="#cpp/functions/power/in">cpp:power/in</a>
+execute if entity @s[distance=..16] unless entity @e[tag=cpp_power_in,distance=..0.1] positioned ~1 ~ ~ run function <a href="#cpp/functions/power/east">cpp:power/east</a>
 </pre>
-<pre class="file" id="indcore:power/in">indcore:power/in</pre>
+<pre class="file" id="cpp/functions/power/in">cpp:power/in</pre>
 <pre>
-scoreboard players remove @s indPower 1
-scoreboard players add @e[tag=ind_power_in,distance=..0.1,limit=1] indPower 1
+scoreboard players remove @s cppPower 1
+scoreboard players add @e[tag=cpp_power_in,distance=..0.1,limit=1] cppPower 1
 </pre>
 
 <h3 id="载体式">§7.9.4 载体式</h3>
 <p>我们使用一个可移动的实体来传输能量，这个实体受方块控制。</p>
 
-<pre class="file" id="wire:golem/tick">wire:golem/tick</pre>
+<pre class="file" id="cpp/functions/golem/tick">cpp:golem/tick</pre>
 <pre>
 data merge entity @s {PortalCooldown:900}
-execute if block ~ ~ ~ #cpp:golem_east run scoreboard players set @s exGolemFace 0
-execute if block ~ ~ ~ #cpp:golem_south run scoreboard players set @s exGolemFace 1
-execute if block ~ ~ ~ #cpp:golem_west run scoreboard players set @s exGolemFace 2
-execute if block ~ ~ ~ #cpp:golem_north run scoreboard players set @s exGolemFace 3
-execute if block ~ ~ ~ #cpp:golem_up run scoreboard players set @s exGolemFace 4
-execute if block ~ ~ ~ #cpp:golem_down run scoreboard players set @s exGolemFace 5
-execute as @s[scores={exGolemFace=0}] run tp @s ~1 ~0 ~0 270 0
-execute as @s[scores={exGolemFace=1}] run tp @s ~0 ~0 ~1 0 0
-execute as @s[scores={exGolemFace=2}] run tp @s ~-1 ~0 ~0 90 0
-execute as @s[scores={exGolemFace=3}] run tp @s ~0 ~0 ~-1 180 0
-execute as @s[scores={exGolemFace=4}] run tp @s ~0 ~1 ~0 0 90
-execute as @s[scores={exGolemFace=5}] run tp @s ~0 ~-1 ~0 0 -90
-execute as @s[scores={exPower=1..}] if entity @e[type=armor_stand,tag=machine_machine,tag=cpp_power_in] run function <a href="#cpp/functions/power/translate">cpp:power/translate</a>
+execute if block ~ ~ ~ #cpp:golem_east run scoreboard players set @s cppGolemFace 0
+execute if block ~ ~ ~ #cpp:golem_south run scoreboard players set @s cppGolemFace 1
+execute if block ~ ~ ~ #cpp:golem_west run scoreboard players set @s cppGolemFace 2
+execute if block ~ ~ ~ #cpp:golem_north run scoreboard players set @s cppGolemFace 3
+execute if block ~ ~ ~ #cpp:golem_up run scoreboard players set @s cppGolemFace 4
+execute if block ~ ~ ~ #cpp:golem_down run scoreboard players set @s cppGolemFace 5
+execute as @s[scores={cppGolemFace=0}] run tp @s ~1 ~0 ~0 270 0
+execute as @s[scores={cppGolemFace=1}] run tp @s ~0 ~0 ~1 0 0
+execute as @s[scores={cppGolemFace=2}] run tp @s ~-1 ~0 ~0 90 0
+execute as @s[scores={cppGolemFace=3}] run tp @s ~0 ~0 ~-1 180 0
+execute as @s[scores={cppGolemFace=4}] run tp @s ~0 ~1 ~0 0 90
+execute as @s[scores={cppGolemFace=5}] run tp @s ~0 ~-1 ~0 0 -90
+execute as @s[scores={cppPower=1..}] if entity @e[type=armor_stand,tag=machine_machine,tag=cpp_power_in] run function <a href="#cpp/functions/power/translate">cpp:power/translate</a>
 </pre>
 <p>然后和其它传输方式一样，计算传输值即可。</p>
 
 <h3 id="管道设计">§7.9.5 管道设计</h3>
-<p>我们可以使用屏障方块来作为管道的本体方块，使用扳手(胡萝卜钓竿)来右键拆解。</p>
-
+<p>管道模型通常是不完整方块，我们可以使用屏障方块来作为管道的本体方块，使用扳手(胡萝卜钓竿)来右键拆解。</p>
 <p>管道需要高频判断是否与周边方块连接，以调整其自身显示。</p>
 <pre class="file" id="cpp/functions/pipe/tick">cpp:pipe/tick</pre>
 <pre>
-scoreboard players set @s exModel 12970000
-execute positioned ~1 ~ ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s exModel 1
-execute positioned ~-1 ~ ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s exModel 2
-execute positioned ~ ~ ~1 if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s exModel 4
-execute positioned ~ ~ ~-1 if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s exModel 8
-execute positioned ~ ~1 ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s exModel 16
-execute positioned ~ ~-1 ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s exModel 32
-execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s exModel
+scoreboard players set @s cppModel 12970000
+execute positioned ~1 ~ ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 1
+execute positioned ~-1 ~ ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 2
+execute positioned ~ ~ ~1 if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 4
+execute positioned ~ ~ ~-1 if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 8
+execute positioned ~ ~1 ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 16
+execute positioned ~ ~-1 ~ if entity @e[type=armor_stand,tag=cpp_pipe,distance=..0.2] run scoreboard players add @s cppModel 32
+execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run scoreboard players get @s cppModel
 </pre>
 
 <h1 id="NBT合成与烧炼">§8 NBT合成与烧炼</h1>
@@ -6716,7 +6817,7 @@ execute store result entity @s ArmorItems[3].tag.CustomModelData int 1 run score
 
 <p class="ex">将磁铁（<code>id:"cpp:magnet"</code>）和4个钻石合成为充能指南针（<code>id:"cpp:powered_magnet"</code>）。</p>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @e[type=item,nbt={Item:{tag:{id:"cpp:magnet"}}}] at @s if entity @e[type=item,distance=..1,nbt={Item:{id:"minecraft:diamond",Count:4b}}] run function <a href="#cpp/functions/powered_magnet">cpp:powered_magnet</a>
 </pre>
@@ -6736,7 +6837,7 @@ summon item ~ ~ ~ {Item:{id:"minecraft:compass",Count:1b,tag:{id:"cpp:powered_ma
 
 <p class="ex">利用玩家背包的右方3×3区域进行合成。</p>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 scoreboard players set @a cppCraftSlot 0
 scoreboard players add @a[nbt={Inventory:[{Slot:15b}]}] cppCraftSlot 1
@@ -6752,34 +6853,287 @@ execute as @a[scores={cppCraftSlot=1..}] run function <a href="#cpp/functions/cr
 </pre>
 <pre class="file" id="cpp/functions/craft">cpp:craft</pre>
 <pre>
-execute as @s[scores={cppCraftSlot=1}] run function <a href="#cpp/functions/craft/items1">cpp:craft/items1</a>
-execute as @s[scores={cppCraftSlot=2}] run function <a href="#cpp/functions/craft/items2">cpp:craft/items2</a>
-execute as @s[scores={cppCraftSlot=3}] run function <a href="#cpp/functions/craft/items3">cpp:craft/items3</a>
-execute as @s[scores={cppCraftSlot=4}] run function <a href="#cpp/functions/craft/items4">cpp:craft/items4</a>
-execute as @s[scores={cppCraftSlot=5}] run function <a href="#cpp/functions/craft/items5">cpp:craft/items5</a>
-execute as @s[scores={cppCraftSlot=6}] run function <a href="#cpp/functions/craft/items6">cpp:craft/items6</a>
-execute as @s[scores={cppCraftSlot=7}] run function <a href="#cpp/functions/craft/items7">cpp:craft/items7</a>
-execute as @s[scores={cppCraftSlot=8}] run function <a href="#cpp/functions/craft/items8">cpp:craft/items8</a>
-execute as @s[scores={cppCraftSlot=9}] run function <a href="#cpp/functions/craft/items9">cpp:craft/items9</a>
+execute if predicate <a href="#cpp/predicate/craft/items">cpp:craft/items</a> run tag @s add cpp_craft
+execute if predicate <a href="#cpp/predicate/craft/items">cpp:craft/items</a> run loot replace entity @s inventory.16 1 loot cpp:craft/items
+item entity @s[tag=cpp_craft] inventory.6 replace air
+item entity @s[tag=cpp_craft] inventory.7 replace air
+item entity @s[tag=cpp_craft] inventory.8 replace air
+item entity @s[tag=cpp_craft] inventory.15 replace air
+item entity @s[tag=cpp_craft] inventory.17 replace air
+item entity @s[tag=cpp_craft] inventory.24 replace air
+item entity @s[tag=cpp_craft] inventory.25 replace air
+item entity @s[tag=cpp_craft] inventory.26 replace air
+tag @s remove cpp_craft
 </pre>
-<pre class="file" id="cpp/functions/craft/items5">cpp:craft/items5</pre>
+<pre class="file" id="cpp/predicate/craft/items">cpp/predicates/craft/items</pre>
 <pre>
-execute as @s[nbt={Inventory:[{Slot:15b,id:"minecraft:sugar",Count:1b},{Slot:16b,id:"minecraft:rotten_flesh",Count:1b},{Slot:17b,id:"minecraft:glistering_melon_slice",Count:1b},{Slot:24b,id:"minecraft:gunpowder",Count:1b},{Slot:25b,id:"minecraft:potion",tag:{Potion:"minecraft:water"},Count:1b}]} run function <a href="#cpp/functions/craft/items5/acid">cpp:craft/items5/acid</a>
+{
+  "condition": "minecraft:alternative",
+  "terms": [
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items1"
+    },
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items2"
+    },
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items3"
+    },
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items4"
+    },
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items5"
+    },
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items6"
+    },
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items7"
+    },
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items8"
+    },
+    {
+      "condition": "minecraft:reference",
+      "name": "cpp:craft/items9"
+    }
+  ]
+}
 </pre>
-<pre class="file" id="cpp/functions/craft/items5/acid">cpp:craft/items5/acid</pre>
+<pre class="file" id="cpp/predicate/craft/items5">cpp/predicates/craft/items5</pre>
 <pre>
-loot replace entity @s inventory.16 loot cpp:acid
-item entity @s inventory.6 replace minecraft:air
-item entity @s inventory.7 replace minecraft:air
-item entity @s inventory.8 replace minecraft:air
-item entity @s inventory.15 replace minecraft:air
-item entity @s inventory.17 replace minecraft:air
+[
+  {
+    "condition": "minecraft:entity_scores",
+    "entity": "this",
+    "scores": {
+      "cppCraftSlot": 5
+    }
+  },
+  {
+    "condition": "minecraft:alternative",
+    "terms": [
+      {
+        "_comment": "酸水",
+        "condition": "minecraft:location_check",
+        "predicate": {
+          "block": {
+            "nbt": "{Items:[{Slot:6b,Count:1b,id:\"minecraft:sugar\"},{Slot:7b,Count:1b,id:\"minecraft:rotten_flesh\"},{Slot:8b,Count:1b,id:\"minecraft:glistering_melon_slice\"},{Slot:15b,Count:1b,id:\"minecraft:gunpowder\"},{Slot:16b,Count:1b,id:\"minecraft:potion\",tag:{Potion:\"minecraft:water\"}}]}"
+          }
+        }
+      }
+    ]
+  }
+]
 </pre>
+<pre class="file" id="cpp/loot_tables/craft/items">cpp/loot_tables/craft/items</pre>
+<pre>
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 1
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items1"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 2
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items2"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 3
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items3"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 4
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items4"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 5
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items5"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 6
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items6"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 7
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items7"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 8
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items8"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_scores",
+                  "entity": "this",
+                  "scores": {
+                    "cppCraftSlot": 9
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:craft/items9"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</pre>
+<pre class="file" id="cpp/loot_tables/craft/items">cpp/loot_tables/craft/items5</pre>
+<pre>
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "_comment": "酸水",
+              "conditions": [
+                {
+                  "condition": "minecraft:location_check",
+                  "predicate": {
+                    "block": {
+                      "nbt": "{Items:[{Slot:6b,id:\"minecraft:sugar\"},{Slot:7b,id:\"minecraft:rotten_flesh\"},{Slot:8b,id:\"minecraft:glistering_melon_slice\"},{Slot:15b,id:\"minecraft:gunpowder\"},{Slot:16b,id:\"minecraft:potion\",tag:{Potion:\"minecraft:water\"}}]}"
+                    }
+                  }
+                }
+              ],
+              "type": "minecraft:loot_table",
+              "name": "cpp:acid"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</pre>
+
 
 <h2 id="容器合成">§8.3 容器合成</h2>
 <p>使用投掷器、箱子、木桶等容器可以更为便捷地实现合成。我们可以直接使用容器，或者使用 <a href="#机器设计">§7 机器设计</a>的方法设计好自定义工作台的GUI。</p>
-
 <p>输出方式我们可以选择输出到输出栏（木桶）、输出到自身（精准匹配+投掷器）、弹出。具体实现与 <a href="#机器设计">§7 机器设计</a>并无二致。</p>
+<p>和上一节类似，我们仍然使用战利品表谓词来进行判断并使用战利品表得到产物。最后做清理。对于需要返还物品的处理，见 <a href="#配方处理">§7.5 配方处理</a>。</p>
+
+<pre class="file" id="cpp/functions/crafting_machine/type">cpp:crafting_machine/type</pre>
+<pre>
+execute if predicate cpp:crafting_machine/items run loot replace block ~ ~ ~ container.16 1 loot cpp:crafting_machine/items
+execute unless data block ~ ~ ~ Items[{Slot:16b,tag:{cppClear:1b}}] run function <a href="#cpp/functions/crafting_machine/clear/input">cpp:crafting_machine/clear/input</a>
+</pre>
+<pre class="file" id="cpp/functions/crafting_machine/clear/input">cpp:crafting_machine/clear/input</pre>
+<pre>
+execute if data block ~ ~ ~ Items[{id:"minecraft:water_bucket"}] run function cpp:crafting_machine/clear/water_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:lava_bucket"}] run function cpp:crafting_machine/clear/lava_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:milk_bucket"}] run function cpp:crafting_machine/clear/milk_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:cod_bucket"}] run function cpp:crafting_machine/clear/cod_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:salmon_bucket"}] run function cpp:crafting_machine/clear/salmon_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:tropical_fish_bucket"}] run function cpp:crafting_machine/clear/tropical_fish_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:pufferfish_bucket"}] run function cpp:crafting_machine/clear/pufferfish_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:axolot_bucket"}] run function cpp:crafting_machine/clear/axolot_bucket
+execute if data block ~ ~ ~ Items[{id:"minecraft:potion"}] run function cpp:crafting_machine/clear/potion
+execute if data block ~ ~ ~ Items[{id:"minecraft:honey_bottle"}] run function cpp:crafting_machine/clear/honey_bottle
+item block ~ ~ ~ container.1 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+item block ~ ~ ~ container.2 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+item block ~ ~ ~ container.3 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+item block ~ ~ ~ container.10 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+item block ~ ~ ~ container.11 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+item block ~ ~ ~ container.12 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+item block ~ ~ ~ container.19 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+item block ~ ~ ~ container.20 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+item block ~ ~ ~ container.21 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+</pre>
 
 <h2 id="NBT烧炼">§8.4 NBT烧炼</h2>
 <h2 id="替换产物法">§8.4.1 替换产物法</h2>
@@ -6798,7 +7152,7 @@ item entity @s inventory.17 replace minecraft:air
 }
 </pre>
 <p class="noindent">然后在烧炼时间达到 <code>199s</code> 时，替换熔炉内的物品。</p>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @e[type=armor_stand,tag=cpp_furnace] at @s unless block ~ ~ ~ furnace run kill @s
 execute as @e[type=armor_stand,tag=cpp_furnace] at @s if block ~ ~ ~ furnace{CookTime:199s} run function <a href="#cpp/functions/foods/cook/check">cpp:foods/cook/check</a>
@@ -6851,28 +7205,17 @@ data merge block ~ ~ ~ {CookTime:0s}
 <pre>
 execute unless block ~ ~ ~ furnace run kill @s
 execute as @s[tag=cpp_check_fuel] run function <a href="#cpp/functions/furnace/fuel_get">cpp:furnace/fuel_get</a>
-execute unless predicate cpp:furnace/outfull if predicate cpp:furnace/furnace run function <a href="#cpp/functions/furnace/type">cpp:furnace/type</a>
+execute unless block ~ ~ ~ furnace{Items:[{Slot:2b,Count:64b}]} unless block ~ ~ ~ furnace{Items:[{Slot:2b,Count:16b,id:"minecraft:ender_pearl"}]} if predicate <a href="cpp/predicates/furnace/furnace">cpp:furnace/furnace</a> run function <a href="#cpp/functions/furnace/type">cpp:furnace/type</a>
 </pre>
 <p>当检测到燃料改变时，重新计算燃烧值。注意这需要在检测到改变的下一刻才能获得，因此该部分在最前面。</p>
 <pre class="file" id="cpp/functions/furnace/fuel_get">cpp:furnace/fuel_get</pre>
 <pre>
 tag @s remove cpp_check_fuel
 execute store result score @s cppValue run data get block ~ ~ ~ BurnTime
-item block ~ ~ ~ container.0 replaceair
+item block ~ ~ ~ container.0 replace air
 data modify block ~ ~ ~ {} merge from entity @s HandItems[0].tag.storage
 </pre>
-<pre class="file" id="cpp/predicates/furnace/outfull">cpp/predicates/furnace/outfull.json</pre>
-<pre>
-{
-  "condition": "minecraft:location_check",
-  "predicate": {
-    "block": {
-      "nbt": "{Items:[{Slot:2b,Count:64b}]}"
-    }
-  }
-}
-</pre>
-<p>使用断言和战利品表来记录配方。这里断言需要分输出栏空和输出栏为相应产物两种情形。</p>
+<p>使用断言和战利品表来记录配方。这里断言需要分输出栏空和输出栏为相应产物两种情形。注意我们需要排除输出栏已满的情形，而这项判断又需要对部分不是64堆叠数的物品单独判断。</p>
 <pre class="file" id="cpp/predicates/furnace/furnace">cpp/predicates/furnace/furnace.json</pre>
 <pre>
 {
@@ -6887,7 +7230,7 @@ data modify block ~ ~ ~ {} merge from entity @s HandItems[0].tag.storage
             "condition": "minecraft:inverted",
             "term": {
               "condition": "minecraft:reference",
-              "name": "cpp:furnace/furnace1"
+              "name": "<a href="#cpp/predicates/furnace/furnace1">cpp:furnace/furnace1</a>"
             }
           },
           {
@@ -6947,17 +7290,17 @@ data modify block ~ ~ ~ {} merge from entity @s HandItems[0].tag.storage
 <pre class="file" id="cpp/functions/furnace/type">cpp:furnace/type</pre>
 <pre>
 # 燃料改变
-execute if block ~ ~ ~ furnace{BurnTime:0s,Items:[{Slot:1b}]} if data block ~ ~ ~ Items[{Slot:1b}] run function <a href="#cpp/functions/furnace/fuel_change_check">cpp:furnace/fuel_change_check</a>
+execute if block ~ ~ ~ furnace{BurnTime:0s,Items:[{Slot:1b}]} run function <a href="#cpp/functions/furnace/fuel_change_check">cpp:furnace/fuel_change_check</a>
 # 消耗燃料
 execute as @s[tag=!cpp_check_fuel] if block ~ ~ ~ furnace{BurnTime:0s,Items:[{Slot:1b}]} run function <a href="#cpp/functions/furnace/fuel_use">cpp:furnace/fuel_use</a>
 # 进度
-execute unless block ~ ~ ~ furnace{BurnTime:0s} store result block ~ ~ ~ CookTime short 1 run scoreboard players add @s exTick 1
-execute if score @s exTick matches 200.. run function <a href="#cpp/functions/furnace/done">cpp:furnace/done</a>
+execute unless block ~ ~ ~ furnace{BurnTime:0s} store result block ~ ~ ~ CookTime short 1 run scoreboard players add @s cppTick 1
+execute if score @s cppTick matches 199.. run function <a href="#cpp/functions/furnace/done">cpp:furnace/done</a>
 # 停止
-execute if block ~ ~ ~ furnace{BurnTime:0s} run scoreboard players reset @s exTick
+execute if block ~ ~ ~ furnace{BurnTime:0s} run scoreboard players reset @s cppTick
 # 发光
-execute if block ~ ~ ~ furnace[lit=false] unless block ~ ~ ~ furnace{BurnTime:0s} run function <a href="#cpp/functions/furnace/lit_true">cpp:furnace/lit_true</a>
-execute if block ~ ~ ~ furnace[lit=true]{BurnTime:0s} run function <a href="#cpp/functions/furnace/lit_false">cpp:furnace/lit_false</a>
+execute if predicate cpp:furnace/lit run function <a href="#cpp/functions/furnace/lit_true">cpp:furnace/lit_true</a>
+execute if predicate cpp:furnace/unlit run function <a href="#cpp/functions/furnace/lit_false">cpp:furnace/lit_false</a>
 </pre>
 <p>在熔炉的盔甲架添加手持物来记录燃料的变化。</p>
 <pre class="file" id="cpp/functions/furnace/fuel_change_check">cpp:furnace/fuel_change_check</pre>
@@ -6975,22 +7318,22 @@ tag @s add cpp_check_fuel
 <pre class="file" id="cpp/functions/furnace/fuel_use">cpp:furnace/fuel_use</pre>
 <pre>
 execute store result block ~ ~ ~ BurnTime short 1 run scoreboard players get @s cppValue
-execute store result block ~ ~ ~ Items[{Slot:1b}].Count byte 1 run data get block ~ ~ ~ Items[{Slot:1b}].Count 0.9999
+execute if data block ~ ~ ~ Items[{Slot:1b,id:"minecraft:lava_bucket",Count:1b}] run item block ~ ~ ~ container.1 replace bucket 2
+item block ~ ~ ~ container.1 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
 </pre>
 <p>烧炼完成时添加获取经验的配方记录，这里我们统一设定为每次0.15点，可以根据需要实现不同配方不同经验值。</p>
 <pre class="file" id="cpp/functions/furnace/done">cpp:furnace/done</pre>
-<pre>
-execute if data block ~ ~ ~ Items[{Slot:2b}] store result block ~ ~ ~ Items[{Slot:2b}].Count byte -1 run data get block ~ ~ ~ Items[{Slot:2b}].Count -1.0001
-execute unless data block ~ ~ ~ Items[{Slot:2b}] run function <a href="#cpp/functions/furnace/done_loot">cpp:furnace/done_loot</a>
-execute store result block ~ ~ ~ Items[{Slot:0b}].Count byte 1 run data get block ~ ~ ~ Items[{Slot:0b}].Count 0.9999
-scoreboard players reset @s exTick
+<pre>execute if data block ~ ~ ~ {Items:[{Slot:2b}]} run item block ~ ~ ~ container.2 modify <a href="#cpp/item_modifiers/plus">cpp:plus</a>
+execute unless data block ~ ~ ~ {Items:[{Slot:2b}]} run function <a href="#cpp/functions/furnace/done_loot">cpp:smelt/furnace/done_loot</a>
+item block ~ ~ ~ container.0 modify <a href="#cpp/item_modifiers/minus">cpp:minus</a>
+scoreboard players reset @s cppTick
 data modify block ~ ~ ~ CookTime set value 0s
 execute store result score #t cppValue run data get block ~ ~ ~ RecipesUsed."minecraft:charcoal"
 execute store result block ~ ~ ~ RecipesUsed."minecraft:charcoal" int 1 run scoreboard players add #t cppValue 1
 </pre>
 <p>烧炼完毕时，通过战利品表生成产物，注意不能直接 loot replace 进熔炉的输出槽。</p>
 <pre class="file" id="cpp/functions/furnace/done_loot">cpp:furnace/done_loot</pre>
-<pre>
+<pre>data remove block ~ ~ ~ RecipesUsed
 clone ~ ~ ~ ~ ~ ~ ~ 255 ~
 loot replace block ~ 255 ~ container.0 loot cpp:furnace/furnace
 data modify block ~ 255 ~ Items[{Slot:0b}].Slot set value 2b
@@ -7045,30 +7388,30 @@ setblock ~ 255 ~ air
 <p>修改熔炉的火焰外观。</p>
 <pre class="file" id="cpp/functions/furnace/lit_true">cpp:furnace/lit_true</pre>
 <pre>
-data modify storage cpp:furnace {} merge from block ~ ~ ~ {}
+data modify storage cpp:furnace {} set from block ~ ~ ~ {}
 execute if block ~ ~ ~ furnace[facing=east] run setblock ~ ~ ~ furnace[lit=true,facing=east]
 execute if block ~ ~ ~ furnace[facing=west] run setblock ~ ~ ~ furnace[lit=true,facing=west]
 execute if block ~ ~ ~ furnace[facing=south] run setblock ~ ~ ~ furnace[lit=true,facing=south]
 execute if block ~ ~ ~ furnace[facing=north] run setblock ~ ~ ~ furnace[lit=true,facing=north]
-data modify block ~ ~ ~ {} merge from storage cpp:furnace {}
+data modify block ~ ~ ~ {} set from storage cpp:furnace {}
 </pre>
 <pre class="file" id="cpp/functions/furnace/lit_false">cpp:furnace/lit_false</pre>
 <pre>
-data modify storage cpp:furnace {} merge from block ~ ~ ~ {}
-execute if block ~ ~ ~ furnace[facing=east] run setblock ~ 255 ~ furnace[lit=false,facing=east]
-execute if block ~ ~ ~ furnace[facing=west] run setblock ~ 255 ~ furnace[lit=false,facing=west]
-execute if block ~ ~ ~ furnace[facing=south] run setblock ~ 255 ~ furnace[lit=false,facing=south]
-execute if block ~ ~ ~ furnace[facing=north] run setblock ~ 255 ~ furnace[lit=false,facing=north]
-data modify block ~ ~ ~ {} merge from storage cpp:furnace {}
+data modify storage cpp:furnace {} set from block ~ ~ ~ {}
+execute if block ~ ~ ~ furnace[facing=east] run setblock ~ ~ ~ furnace[lit=false,facing=east]
+execute if block ~ ~ ~ furnace[facing=west] run setblock ~ ~ ~ furnace[lit=false,facing=west]
+execute if block ~ ~ ~ furnace[facing=south] run setblock ~ ~ ~ furnace[lit=false,facing=south]
+execute if block ~ ~ ~ furnace[facing=north] run setblock ~ ~ ~ furnace[lit=false,facing=north]
+data modify block ~ ~ ~ {} set from storage cpp:furnace {}
 </pre>
-<p>对于烟熏炉和高炉，操作是类似的，但是需要每次增加exTick 2。营火由于会判断材料是否合法，因此无法用该方法。</p>
+<p>对于烟熏炉和高炉，操作是类似的，但是需要每次增加cppTick 2。营火由于会判断材料是否合法，因此无法用该方法。</p>
 
 <h2 id="NBT酿造">§8.5 NBT酿造</h2>
 <p>类似于自定义烧炼的方法，我们可以自定义酿造。但是由于酿造台的限制，酿造材料必须为原版酿造材料物品，待酿造的物品只能为药水或玻璃瓶。除了红石、萤石、火药、龙息外，建议使用兔子腿，因为兔子腿只有酿造功能。</p>
 <p>如果酿造材料和待酿造的物品本身就属于原版可酿造的配方，我们只需在酿造即将完成时，将药水替换掉即可。例如：使用大地之证 (兔子腿 <code>cpp:certification_of_earth</code>) 将粗制的药水酿造成有多重药水效果的大地药水（<code>potion_of_earth</code>），同时支持延长、加强、喷溅、滞留版本。</p>
 
 <p>放置和探测酿造台的部分省略。</p>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @e[type=armor_stand,tag=cpp_brewing_stand] at @s run function <a href="#cpp/functions/brewing/tick">cpp:brewing/tick</a>
 </pre>
@@ -7564,7 +7907,7 @@ item entity @s weapon.mainhand replace air
 }
 </pre>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @e[type=armor_stand,tag=cpp_beetroots_plants] at @s unless block ~ ~ ~ beetroots run function <a href="#cpp/functions/plants/break/beetroots">cpp:plants/break/beetroots</a>
 </pre>
@@ -7579,7 +7922,7 @@ execute as @s[tag=cpp_iron_seeds] as @e[type=item,nbt={Item:{id:"minecraft:beetr
 <h2 id="花草">§9.2 花草</h2>
 <p>我们使用金合欢树苗作为花草原型。方块的放置部分我们省略，只需要注意花草的模型通常和物品模型是不同的，因此在放置后需要修改CustomModelData，破坏情形也是同理。</p>
 <p class="ex">放置花草种子，长大后收获成熟的花草。</p>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @e[type=armor_stand,tag=cpp_plants] at @s run function <a href="#cpp/functions/plants/tick">cpp:plants/tick</a>
 </pre>
@@ -7927,13 +8270,15 @@ kill @s
 <p>我们将物品信息复制到存储区 <code>cpp:damage</code> 的 <code>Item</code> 中，然后使用断言判断是否减少耐久。最后判断其是否已经耐久耗尽，若耗尽则清除之。</p>
 
 <pre class="file" id="cpp/functions/damage">cpp:damage</pre>
-<pre>execute store result score @s cppValue run data get entity @s SelectItem.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
+<pre>
+execute store result score @s cppValue run data get entity @s SelectItem.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
 execute store result score #damage cppValue run data get entity @s SelectedItem.tag.Damage
 execute if predicate cpp:damage store result storage cpp:storage Damage int 1 run scoreboard players add #damage cppValue 1
-item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modify cpp:set_damage_score
+item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modify <a href="#cpp/item_modifiers/set_damage_score">cpp:set_damage_score</a>]
 </pre>
 <pre class="file" id="cpp/predicate/damage">cpp/predicate/damage.json</pre>
-<pre>{
+<pre>
+{
   "condition": "minecraft:value_check",
   "value": {
     "type": "minecraft:uniform",
@@ -7950,7 +8295,8 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
   "range": 0
 }</pre>
 <pre class="file" id="exmaple/item_modifiers/set_damage_score.json">exmaple/item_modifiers/set_damage_score.json</pre>
-<pre>{
+<pre>
+{
   "function": "minecraft:copy_nbt",
   "source": {
     "type": "storage",
@@ -7972,7 +8318,8 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
 <p>为了检测当前方块是否被强充能了，我们将所有能激活当前方块的红石元件和方块状态记录在断言文件中来判断。注意我们没有对当前方块是否完整进行检测。陷阱箱触发的红石信号也是无法直接探测到的。</p>
 
 <pre class="file" id="cpp/predicates/power/strong">cpp/predicates/power/strong.json</pre>
-<pre>{
+<pre>
+{
   "condition": "minecraft:alternative",
   "terms": [
     {
@@ -8452,7 +8799,8 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
   ]
 }</pre>
 <pre class="file" id="cpp/predicates/power/has_power_block">cpp/predicates/power/has_power_block.json</pre>
-<pre>[
+<pre>
+[
   {
     "condition": "minecraft:location_check",
     "predicate": {
@@ -8477,7 +8825,8 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
 ]
 </pre>
 <pre class="file" id="cpp/tags/blocks/has_power">cpp/tags/blocks/has_power.json</pre>
-<pre>{
+<pre>
+{
   "replace": false,
   "values": [
     "minecraft:target",
@@ -8500,7 +8849,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
 <pre>
 scoreboard objectives add cppBsdIntFur minecraft.custom:minecraft.interact_with_furnace
 </pre>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @a[scores={cppBsdIntFur=1..}] at @s anchored eyes run function <a href="#cpp/functions/block_breaker/ray">cpp:block_breaker/ray</a>
 </pre>
@@ -8530,12 +8879,12 @@ execute if block ~ ~1 ~ cobblestone run setblock ~ ~1 ~ sand
 
 <pre class="file" id="cpp/functions/load">cpp:load</pre>
 <pre>
-scoreboard objectives add macOpenFrame minecraft.custom:minecraft.open_barrel
+scoreboard objectives add cppOpenFrame minecraft.custom:minecraft.open_barrel
 </pre>
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @a[tag=machine_close_gui] at @s positioned ~ ~-256 ~ run function <a href="#cpp/functions/misc/close_gui_back">cpp:misc/close_gui_back</a>
-execute as @a[scores={macOpenFrame=1..}] if predicate cpp:all_in_one_machine/hand_machine_plugin at @s anchored eyes run function <a href="#cpp/functions/all_in_one_machine/ray">cpp:all_in_one_machine/ray</a>
+execute as @a[scores={cppOpenFrame=1..}] if predicate <a href="cpp/predicates/all_in_one_machine/hand_machine_plugin">cpp:all_in_one_machine/hand_machine_plugin</a> at @s anchored eyes run function <a href="#cpp/functions/all_in_one_machine/ray">cpp:all_in_one_machine/ray</a>
 </pre>
 <pre class="file" id="cpp/predicates/all_in_one_machine/hand_machine_plugin">cpp/predicates/all_in_one_machine/hand_machine_plugin.json</pre>
 <pre>
@@ -8608,10 +8957,10 @@ execute at @s facing entity @e[type=area_effect_cloud,tag=machine_close_gui_faci
 
 <p class="ex">手持绿宝石块的玩家吸引 <code>16</code> 米内的村民到自身位置。</p>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 tag @a remove cpp_player_hand_emerald_block
-execute as @e[type=villager] at @s if entity @a[distance=1..16,predicate=cpp:hand_emerald_block] run function <a href="#cpp/functions/misc/attract_villager">cpp:misc/attract_villager</a>
+execute as @e[type=villager] at @s if entity @a[distance=1..16,predicate=<a href="#cpp/predicates/hand_emerald_block">cpp:hand_emerald_block</a>] run function <a href="#cpp/functions/misc/attract_villager">cpp:misc/attract_villager</a>
 </pre>
 <pre class="file" id="cpp/predicates/hand_emerald_block">cpp/predicates/hand_emerald_block.json</pre>
 <pre>
@@ -8645,7 +8994,7 @@ execute as @e[type=villager] at @s if entity @a[distance=1..16,predicate=cpp:han
 </pre>
 <pre class="file" id="cpp/functions/misc/attract_villager">cpp:misc/attract_villager</pre>
 <pre>
-tag @p[distance=1..16,predicate=cpp:hand_emerald_block] add cpp_player_hand_emerald_block
+tag @p[distance=1..16,predicate=<a href="#cpp/predicates/hand_emerald_block">cpp:hand_emerald_block</a>] add cpp_player_hand_emerald_block
 tp @s ~ ~ ~ facing entity @p[tag=cpp_player_hand_emerald_block]
 data merge entity @s {Motion:[0.0d,-1.0d,0.0d]}
 execute facing entity @p[tag=cpp_player_hand_emerald_block] feet positioned ^ ^ ^0.75 unless block ~ ~ ~ #cpp:attract_through if block ~ ~1 ~ #cpp:air run data merge entity @s {Motion:[0.0d,1.0d,0.0d]}
@@ -8939,7 +9288,7 @@ tag @s add trade_trade_added
 
 <p>在自动种植、自动繁殖或放置方块等情形，我们需要对容器内的特定物品进行消耗。例如：当含有 <code>cpp:toughen_hand</code> 的物品展示框下方容器内有胡萝卜、金胡萝卜、蒲公英时，令附近的兔子进入繁殖状态并清除一个相应物品。</p>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @e[type=item_frame,nbt={Item:{tag:{id:"cpp:toughen_hand"}}}] at @s if entity @e[type=rabbit,distance=..9,nbt={Age:0,InLove:0}] run function <a href="#cpp/functions/toughen_hand/rabbit_check">cpp:toughen_hand/rabbit_check</a>
 </pre>
@@ -8968,7 +9317,7 @@ data merge entity @e[type=item_framerabbit,distance=..9,nbt={Age:0,InLove:0},lim
 <p>当玩家使用原版镐时，破坏所有相连的矿石。</p>
 <p>我们将允许使用连锁的工具添加至<code>cpp:mainhand/axe</code>等物品标签中，其中镐根据方块所需挖掘等级不同而划分为不同标签。相应可挖掘方块被记录在<code>cpp:chain/axe</code>等方块标签中。</p>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @a at @s at @e[type=item,nbt={Age:0s,PickupDelay:10s},distance=..6.5,limit=1] run function <a href="#cpp/functions/chain/init">cpp:chain/init</a>
 </pre>
@@ -8976,27 +9325,18 @@ execute as @a at @s at @e[type=item,nbt={Age:0s,PickupDelay:10s},distance=..6.5,
 <pre>
 execute store result score @s cppValue run data get entity @s SelectedItem.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
 execute store result score #damage cppValue run data get entity @s SelectedItem.tag.Damage
-function <a href="#cpp/functions/chain/get_durality">cpp:chain/get_durality</a>
-execute as @s[predicate=cpp:mainhand/axe] run function <a href="#cpp/functions/chain/axe/mark">cpp:chain/axe/mark</a>
-execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/shovel] run function <a href="#cpp/functions/chain/shovel/mark">cpp:chain/shovel/mark</a>
-execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/hoe] run function <a href="#cpp/functions/chain/hoe/mark">cpp:chain/hoe/mark</a>
-execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/pickaxe3] run function <a href="#cpp/functions/chain/pickaxe3/mark">cpp:chain/pickaxe3/mark</a>
-execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/pickaxe2] run function <a href="#cpp/functions/chain/pickaxe2/mark">cpp:chain/pickaxe2/mark</a>
-execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/pickaxe1] run function <a href="#cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</a>
-execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=cpp:mainhand/pickaxe] run function <a href="#cpp/functions/chain/pickaxe/mark">cpp:chain/pickaxe/mark</a>
-setblock ~ 255 ~ barrel
-item block ~ 255 ~ container.0 copy entity @s weapon.mainhand
-execute store result block ~ 255 ~ Items[0].tag.Damage int 1 run scoreboard players get #damage cppValue
-item entity @s weapon.mainhand copy block ~ 255 ~ container.0
-setblock ~ 255 ~ air
-</pre>
-<pre class="file" id="cpp/functions/chain/get_durality">cpp:chain/get_durality</pre>
-<pre>
-setblock ~ 255 ~ barrel
-item block ~ 255 ~ container.0 copy entity @s weapon.mainhand
-item block ~ 255 ~ container.0 modify cpp:set_damage
-execute store result score #max_durality cppValue run data get block ~ 255 ~ Items[0].tag.Damage
-setblock ~ 255 ~ air
+function <a href="#cpp/functions/get_durality">cpp:get_durality</a>
+execute if entity @s[nbt={SelectedItem:{tag:{Unbreakable:1b}}}] run scoreboard players set #max_durality cppValue 2147483647
+scoreboard players set #mined cppValue 0
+execute as @s[predicate=<a href="#cpp/predicates/mainhand/axe">cpp:mainhand/axe</a>] run function <a href="#cpp/functions/chain/axe/mark">cpp:chain/axe/mark</a>
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a href="#cpp/predicates/mainhand/shovel">cpp:mainhand/shovel</a>] run function <a href="#cpp/functions/chain/shovel/mark">cpp:chain/shovel/mark</a>
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a href="#cpp/predicates/mainhand/hoe">cpp:mainhand/hoe</a>] run function <a href="#cpp/functions/chain/hoe/mark">cpp:chain/hoe/mark</a>
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a href="#cpp/predicates/mainhand/pickaxe3">cpp:mainhand/pickaxe3</a>] run function <a href="#cpp/functions/chain/pickaxe3/mark">cpp:chain/pickaxe3/mark</a>
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a href="#cpp/predicates/mainhand/pickaxe2">cpp:mainhand/pickaxe2</a>] run function <a href="#cpp/functions/chain/pickaxe2/mark">cpp:chain/pickaxe2/mark</a>
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a href="#cpp/predicates/mainhand/pickaxe1">cpp:mainhand/pickaxe1</a>] run function <a href="#cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</a>
+execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a href="#cpp/predicates/mainhand/pickaxe">cpp:mainhand/pickaxe</a>] run function <a href="#cpp/functions/chain/pickaxe/mark">cpp:chain/pickaxe/mark</a>
+execute store result storage cpp:_ Damage int 1 run scoreboard players get #damage cppValue
+item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modify <a href="cpp/item_modifiers/chain_tool">cpp:chain_tool</a>
 </pre>
 <pre class="file" id="chain:chain/pickaxe1/mark">chain:chain/pickaxe1/mark</pre>
 <pre>
@@ -9008,7 +9348,8 @@ execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~1 
 execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~-1 if block ~ ~ ~ #cpp:chain/pickaxe1 run function <a href="#cpp/functions/chain/pickaxe1/damage">cpp:chain/pickaxe1/damage</a>
 </pre>
 <pre class="file" id="chain/tags/blocks/pickaxe1.json">chain/tags/blocks/pickaxe1.json</pre>
-<pre>{
+<pre>
+{
   "replace": false,
   "values": [
     "#cpp:chain/pickaxe",
@@ -9020,14 +9361,46 @@ execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~-1
 }
 </pre>
 <pre class="file" id="chain:chain/pickaxe1/damage">chain:chain/pickaxe1/damage</pre>
-<pre>
+<pre># 挖矿经验
 execute as @s[predicate=!cpp:mainhand/silk_touch] run function <a href="#cpp/functions/chain/xp">cpp:chain/xp</a>
 function <a href="#cpp/functions/chain/mine">cpp:chain/mine</a>
-execute unless predicate cpp:no_damage run scoreboard players add #damage cppValue 1
-execute if score #damage cppValue &lt; #max_durality cppValue run function <a href="#cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</a>
+execute if predicate <a href="#cpp/predicates/damage">cpp:damage</a> run scoreboard players add #damage cppValue 1
+scoreboard players add #mined cppValue 1
+execute if score #mined cppValue &lt; $maxChainBlocks cppConfig if score #damage cppValue &lt; #max_durality cppValue run function <a href="cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</a>
+</pre>
+<pre class="file" id="cpp/functions/chain/xp">cpp:chain/xp</pre>
+<pre>
+execute if block ~ ~ ~ coal_ore run xp add @s 1
+execute if block ~ ~ ~ #redstone_ores run xp add @s 3
+execute if block ~ ~ ~ nether_quartz_ore run xp add @s 3
+execute if block ~ ~ ~ #lapis_ores run xp add @s 4
+execute if block ~ ~ ~ #diamond_ores run xp add @s 5
+execute if block ~ ~ ~ emerald_ore run xp add @s 5
+</pre>
+<pre class="file" id="cpp/functions/chain/mine">cpp:chain/mine</pre>
+<pre>
+loot spawn ~ ~ ~ mine ~ ~ ~ mainhand
+tp @e[type=item,distance=..1] @s
+setblock ~ ~ ~ air
+</pre>
+<pre class="file" id="cpp/item_modifiers/chain_tool">cpp/item_modifiers/chain_tool.json</pre>
+<pre>
+{
+  "function": "minecraft:copy_nbt",
+  "source": {
+    "type": "storage",
+    "source": "cpp:_"
+  },
+  "ops": [
+    {
+      "op": "replace",
+      "source": "Damage",
+      "target": "Damage"
+    }
+  ]
+}
 </pre>
 
-<p>函数 <code>cpp:damage</code> 见 <a href="耐久处理">§10.3 耐久处理</a>。</p>
 
 <h1 id="算法">§11 算法</h1>
 
@@ -9044,14 +9417,14 @@ execute if score #damage cppValue &lt; #max_durality cppValue run function <a hr
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:stone",
+          "name": "minecraft:tnt",
           "functions": [
             {
               "function": "minecraft:set_attributes",
               "modifiers": [
                 {
                   "slot": "mainhand",
-                  "name": "random_luck",
+                  "name": "1",
                   "attribute": "generic.luck",
                   "operation": "addition",
                   "amount": {
@@ -9096,6 +9469,55 @@ scoreboard players operation #random_interval cppValue -= #random_min cppValue
 scoreboard players add #random_interval cppValue 1
 scoreboard players operation #rand cppValue %= #random_interval cppValue
 scoreboard players operation #rand cppValue += #random_min cppValue
+</pre>
+
+<p>对于1.17，我们可以直接将记分板分数作为战利品表的数值使用。</p>
+<pre class="file" id="cpp/loot_tables/random">cpp/loot_tables/loot_tablesrandom</pre>
+<pre>{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tnt",
+          "functions": [
+            {
+              "function": "minecraft:set_attributes",
+              "modifiers": [
+                {
+                  "slot": "legs",
+                  "name": "1",
+                  "attribute": "generic.luck",
+                  "operation": "addition",
+                  "amount": {
+                    "type": "minecraft:uniform",
+                    "min": {
+                      "type": "minecraft:score",
+                      "target": {
+                        "type": "minecraft:fixed",
+                        "name": "#random_min"
+                      },
+                      "score": "cppValue"
+                    },
+                    "max": {
+                      "type": "minecraft:score",
+                      "target": {
+                        "type": "minecraft:fixed",
+                        "name": "#random_max"
+                      },
+                      "score": "cppValue"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 </pre>
 
 <h2 id="定长均匀分布">§11.1.2 定长均匀分布</h2>
@@ -9240,8 +9662,8 @@ setblock ~ 255 ~ air
 <pre class="file" id="cpp/functions/misc/rand_123">cpp:misc/rand_123</pre>
 <pre>
 scoreboard players set #rand cppValue 1
-execute if predicate cpp:misc/rand_50 run scoreboard players set #rand cppValue 2
-execute if predicate cpp:misc/rand_30 run scoreboard players set #rand cppValue 3
+execute if predicate <a href="#cpp/predicates/misc/rand_50">cpp:misc/rand_50</a> run scoreboard players set #rand cppValue 2
+execute if predicate <a href="#cpp/predicates/misc/rand_30">cpp:misc/rand_30</a> run scoreboard players set #rand cppValue 3
 </pre>
 
 <h2 id="二项分布和泊松分布">§11.1.4 二项分布</h2>
@@ -9300,7 +9722,8 @@ setblock ~ 255 ~ air
 <p>我们首先来创建一个生物群系，并将它添加到我们自定义的维度中。</p>
 
 <pre class="file" id="cpp/worldgen/biome/test">cpp/worldgen/biome/test.json</pre>
-<pre>{
+<pre>
+{
   "effects": {
     "mood_sound": {
       "sound": "minecraft:ambient.cave",
@@ -9474,7 +9897,8 @@ setblock ~ 255 ~ air
 }</pre>
 <p>然后创建一个地物文件，里面指定了一个灌木丛。将它添加到生物群系的特征列表中类型为 <code>VEGETAL_DECORATION</code> 的项。</p>
 <pre class="file" id="cpp/worldgen/configured_feature/small_bush">cpp/worldgen/configured_feature/small_bush.json</pre>
-<pre>{
+<pre>
+{
   "config": {
     "max_water_depth": 0,
     "ignore_vines": true,
@@ -9526,7 +9950,8 @@ setblock ~ 255 ~ air
 <p>利用结构地物和拼图模板池，我们可以实现自定义的结构的自然生成。<a href="#结构地物">结构地物</a>可选的类型有堡垒遗迹、掠夺者前哨站或村庄，但由于这样生成的会被视为相应结构，因此具有它们的性质，其中掠夺者前哨站会生成灾厄村民，堡垒遗迹会触发进度“光辉岁月”，因此村庄是最合适的。尽管村庄也可以被 <code>locate village</code> 指令定位。此外堡垒遗迹生成在地下而非地表。</p>
 <p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用类型的结构地物来自定义拼图模板池。</p>
 <pre class="file" id="cpp/worldgen/configured_structure_feature/totem_pillar">cpp/worldgen/configured_structure_feature/totem_pillar.json</pre>
-<pre>{
+<pre>
+{
   "config": {
     "start_pool": "cpp:totem_pillar",
     "size": 1
@@ -9534,7 +9959,8 @@ setblock ~ 255 ~ air
   "type": "minecraft:pillager_outpost"
 }</pre>
 <pre class="file" id="cpp/worldgen/template_pool/totem_pillar">cpp/worldgen/template_pool/totem_pillar.json</pre>
-<pre>{
+<pre>
+{
   "name": "cpp:tp_overworld",
   "fallback": "minecraft:empty",
   "elements": [
@@ -9560,7 +9986,7 @@ setblock ~ 255 ~ air
 <h3 id="区块标记法">§11.2.4 区块标记法</h3>
 <p class="ex">世界生成时，随机生成结构。判断玩家东南32×32范围内是否有标记，如无，添加相应标记在32整数倍坐标处，然后生成战利品表、分散，通过战利品表掉落物来生成结构。也可以使用方块来标记，例如普通生存下y=0使用屏障替换基岩或超平坦生存y=255处使用air替换void_air来实现，这在某些对实体加载有修改的服务端会很有效。</p>
 
-<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre class="file">cpp:tick</pre>
 <pre>
 execute as @a at @s unless block ~ 0 ~ bedrock run function <a href="#cpp/functions/generate/check">cpp:generate/check</a>
 </pre>
