@@ -274,9 +274,9 @@
 <h1 id="引言">§1 引言</h1>
 <p>原版模组指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。之所以称之为原版模组，乃是为了和使用 Mod Loader/API 环境基于 Java 开发的 Mod 作区分，这些 Mod Loader/API 包括 Forge，Liteloader，Fabric 等。自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。本文内的原版模组便是指利用数据包和可能的配套资源包对游戏的可玩性做出修改。</p>
 
-<p>本文内容适用于 Minecraft Java 版 1.17 版本，但大部分内容也适合 1.13-1.16 版本，或只需要做简单修改，请读者自行区分。系统环境为 Windows 10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议、教程等，无法一一列出，在此一并表示感谢。</p>
+<p>本文内容适用于 Minecraft Java 版 1.17 版本，但大部分内容也适合 1.13-1.16 版本，或只需要做简单修改，请读者自行区分。系统环境为 Windows 10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议和教程等，无法一一列出，在此一并表示感谢。</p>
 
-<p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
+<p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 往往更新更及时且内容更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
@@ -285,19 +285,19 @@
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
 <ul>
-  <li><strong><a href="https://wiki.biligame.com/mc/命令" class="wiki"><ruby>命令<rt>command</rt></ruby></a></strong>为官方 wiki 的命令页面，其中包括了命令的基本参数介绍：坐标、目标选择器、数据标签(NBT 格式)、原始JSON文本、命名空间ID等内容。读者需在学习命令过程中逐步了解这些概念。</li>
+  <li><strong><a href="https://wiki.biligame.com/mc/命令" class="wiki"><ruby>命令<rt>command</rt></ruby></a></strong>为官方 wiki 的命令页面，其中包括了命令的基本参数介绍：坐标、目标选择器、<ruby>数据标签<rt>NBT</rt></ruby>、原始JSON文本、命名空间ID等内容。读者需在学习命令过程中逐步了解这些概念。</li>
   <li class="noindent"><strong><a href="https://wiki.biligame.com/mc/记分板" class="wiki"><ruby>记分板<rt>scoreboard</rt></ruby></a></strong>为官方 wiki 的记分板页面，其中包括了记分板的所有准则和相关命令格式，也包含了<ruby>标签<rt>tag</rt></ruby>和<ruby>组<rt>team</rt></ruby>的相关内容。</li>
-  <li class="noindent"><strong><a href="https://wiki.biligame.com/mc/区块格式">区块格式</a>，<a href="https://wiki.biligame.com/mc/Player.dat格式" class="wiki">player.dat格式</a></strong>两个页面给出了所有物品和实体(含方块实体)的 NBT。在游戏中，实体的 NBT 可通过命令 <code>data get entity/block</code> 来获取，物品的 NBT 可通过手持并输入命令 <code>data get entity @s SelectedItem</code> 来获取，以避免记忆大量的 NBT。</li>
-  <li class="noindent"><strong><a href="https://commandtutorials.neocities.org/">新人手册-MC命令方块资源</a></strong>包含了很多基础的教程，不过很多内容会有些过时。还包含少量进阶的内容，对于初学者可能较为复杂，请以理解其逻辑为主。</li>
-  <li class="noindent"><strong><a href="http://mc-command.oschina.io/command-tutorial/">命令进阶</a></strong> 名为命令进阶，实际上比前一项页面更为初等，不过更为系统。</li>
+  <li class="noindent"><strong><a href="https://wiki.biligame.com/mc/区块格式">区块格式</a></strong>和<strong><a href="https://wiki.biligame.com/mc/Player.dat格式" class="wiki">player.dat格式</a></strong>两个页面给出了所有物品和实体(含方块实体)的 NBT。在游戏中，实体的 NBT 可通过命令 <code>data get entity/block</code> 来获取，物品的 NBT 可通过手持并输入命令 <code>data get entity @s SelectedItem</code> 来获取，以避免记忆大量的 NBT。</li>
+  <li class="noindent"><strong><a href="https://commandtutorials.neocities.org/">新人手册-MC命令方块资源</a></strong>，包含了很多基础的教程，不过很多内容会有些过时。还包含少量进阶的内容，对于初学者可能较为复杂，请以理解其逻辑为主。</li>
+  <li class="noindent"><strong><a href="http://mc-command.oschina.io/command-tutorial/">命令进阶</a></strong>，名为命令进阶，实际上比前一项页面更为初等，不过更为系统。</li>
 </ul>
-<p>若你已对 1.16 之前版本的命令较为熟悉，可在<a href="https://wiki.biligame.com/mc/Java版版本记录" class="wiki">Java版版本记录</a>中查看各版本间差异。</p>
+<p>若你已对 1.17 之前版本的命令较为熟悉，可在<a href="https://wiki.biligame.com/mc/Java版版本记录" class="wiki">Java版版本记录</a>中查看各版本间差异。</p>
 
 <h2 id="工具准备">§1.2 工具准备</h2>
 <h3 id="文本编辑器">§1.2.1 文本编辑器</h3>
 <p>原版模组涉及的文本文件，包括文本文档(.txt)、函数文件(.mcfunction)、JSON文件(.json, .mcmeta)，均需使用 <code>UTF-8</code> 编码格式。以下列出的文本编辑器均默认为 <code>UTF-8</code> 编码，可以在编辑器页面的右下角状态栏看到。</p>
 <ul>
-  <li><strong><a href="https://code.visualstudio.com/">Visual Studio Code</a></strong> 为功能较丰富的编辑器。下载安装后，可以安装如下插件：
+  <li><a href="https://code.visualstudio.com/">Visual Studio Code</a> 为功能较丰富的编辑器。下载安装后，可以安装如下插件：
     <ul>
       <li><em>Chinese (Simplified) Language Pack for Visual Studio Code</em> 用于支持中文语言</li>
       <li><em>Datapack Helper Plus (JSON)</em> 用于JSON语法补全和纠错</li>
@@ -305,25 +305,21 @@
       <li><em>language-mcfunction</em> 用于函数语法高亮</li>
     </ul>
   </li>
-  <li><strong>记事本</strong>为 Windows 系统自带的极简编辑器。Windows10 的记事本已经默认是 <code>UTF-8</code> 编码了。点击<code>查看->状态栏</code>可以在右下角状态栏看到，因此可以正常使用。旧版本 Windows 的记事本仍然不是，请勿使用。</li>
-  <li><strong><a href="https://notepad-plus-plus.org/">Notepad++</a></strong>复杂程度介于二者之间。可从 <a href="http://www.mcbbs.net/thread-806816-1-1.html">mcfunction 的语言样式和自动补全</a>帖中下载相关文件并导入以支持语法高亮和补全。另外请将 Notepad++ 中<code>设置->首选项->其它->自动检测字符编码</code>选项关闭。</li>
+  <li>记事本为 Windows 系统自带的极简编辑器。Windows10 的记事本已经默认是 <code>UTF-8</code> 编码了。点击<code>查看->状态栏</code>可以在右下角状态栏看到，因此可以正常使用。旧版本 Windows 的记事本仍然不是，请勿使用。</li>
+  <li><a href="https://notepad-plus-plus.org/">Notepad++</a>复杂程度介于二者之间。可从 <a href="http://www.mcbbs.net/thread-806816-1-1.html">mcfunction 的语言样式和自动补全</a>帖中下载相关文件并导入以支持语法高亮和补全。另外请将 Notepad++ 中<code>设置->首选项->其它->自动检测字符编码</code>选项关闭。</li>
 </ul>
-<p>编辑器右下角可以看到 <code>LF</code> 或 <code>CRLF</code>，分别表示两种换行符，二者均可正常使用，建议使用 <code>LF</code>。</p>
-<p>注意编码不要误选了 <code>UTF-8 with BOM</code> 格式。</p>
-<p>由于编辑器插件相比 Minecraft 版本更新具有延后性，因此上述语法补全/高亮/纠错等未必准确。</p>
+<p>编辑器右下角可以看到 <code>LF</code> 或 <code>CRLF</code>，分别表示两种换行符，二者均可正常使用，建议使用 <code>LF</code>。注意编码不要误选了 <code>UTF-8 with BOM</code> 格式。由于编辑器插件相比 Minecraft 版本更新具有延后性，因此上述语法补全/高亮/纠错等未必准确。</p>
 <p>除 <code>txt</code> 以外的文本文件均可通过新建文本文件后修改后缀得到。为便于查看文件后缀，请将<code>文件->文件夹选项->查看->隐藏已知文件类型的扩展名</code>选项去掉勾选。</p>
 
 <h3 id="压缩工具">§1.2.2 压缩工具</h3>
-<p>数据包和资源包均可以为文件夹或 zip 压缩文件格式。游戏本体和模组本体的 jar 文件也需要压缩工具来打开。</p>
+<p>数据包和资源包均可以为文件夹或 zip 压缩文件格式。游戏本体和模组本体的 jar 文件也需要压缩工具来打开。我们推荐使用 <a href="http://www.7-zip.org/">7-Zip</a>。其它可选的软件包括：</p>
 <ul>
-  <li><strong>Windows 资源管理器</strong> Windows10 系统自带 zip 格式的压缩和解压缩。zip 格式可如文件夹般直接打开，压缩则用<code>选择->右键->发送到->压缩文件夹</code>。</li>
-  <li><strong><a href="http://www.7-zip.org/">7-Zip</a></strong> 免费软件。</li>
-  <li><strong><a href="http://www.winrar.com.cn/">WinRAR</a></strong> 付费软件。</li>
+  <li>Windows 资源管理器是 Windows10 系统自带 zip 格式的压缩和解压缩。zip 格式可如文件夹般直接打开，压缩则用<code>选择->右键->发送到->压缩文件夹</code>。jar 文件可以通过重命名为 zip 文件直接用 Windows 资源管理器打开。显然，这不如<code>右键->7-zip->打开压缩包</code>方便。</li>
+  <li><a href="http://www.winrar.com.cn/">WinRAR</a> 是一款付费的压缩软件。</li>
 </ul>
-<p>jar 文件可以通过重命名为 zip 文件直接用 Windows 资源管理器打开。显然，这不如<code>右键->7-zip->打开压缩包</code>方便。</p>
 
 <h3 id="NBT_编辑器">§1.2.3 NBT 编辑器</h3>
-<p>推荐使用 <a href="https://github.com/jaquadro/NBTExplorer/releases">NBTExplorer</a> 来打开 dat 文件和其它 NBT 格式文件。汉化版本可<a href="https://www.mcbbs.net/thread-735265-1-1.html">由此下载</a>。</p>
+<p>推荐使用 <a href="https://github.com/tryashtar/nbt-studio/releases/">NBTStudio</a> 来打开 dat 文件和其它 NBT 格式文件。</p>
 
 <h3 id="绘图工具">§1.2.4 绘图工具</h3>
 <p>推荐使用 <a href="https://www.adobe.com/cn/products/photoshop.html">Adobe Photoshop</a> 或其它绘图工具来绘制材质。Windows 自带的画图由于无法生成透明背景，因此不推荐使用。</p>
@@ -346,25 +342,26 @@
   <figcaption>图1.1 游戏本体文件结构</figcaption>
 </figure>
 
-<p class="noindent"><strong>资源包文件夹</strong>位于<code>resourcepacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个资源包，具体结构见 <a href="#资源包">§3 资源包</a>。服务器下载的资源包位于 <code>server-resource-packs/<i>服务器</i></code>，可使用压缩工具打开。</p>
+<p class="noindent"><strong>资源包文件夹</strong>位于<code>resourcepacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个资源包，具体结构见<a href="#资源包">资源包</a>。服务器下载的资源包位于 <code>server-resource-packs/<i>服务器</i></code>，可使用压缩工具打开。</p>
 
-<p class="noindent"><strong>资源文件</strong> 部分资源文件不被包含在原版资源包内，而是位于资源文件夹下，这主要包括各种语言文本和音效文件。资源文件索引位于 <code>assets/indexes/<i>版本号</i>.json</code>，打开后通过键值可知相应资源的 hash 值，对应的资源位于 <code>assets/objects/<i>hash开头</i>/<i>hash</i></code>。例如打开 <code>>assets/indexes/1.16.json</code>，找到键 <code>minecraft/lang/zh_cn.json</code> 的 <code>hash</code> 为 <code>74f282093eaa509909f04fa3311757320445a27f</code>，因此简体中文的语言文本位于文件夹 <code>assets/objects/74/74f282093eaa509909f04fa3311757320445a27f</code>，使用文本编辑器打开即可看到游戏内的所有名称的中文译名。注意该文件中的中文均被转化为相应的 Unicode 表达方式，参考<a href="#字体">字体</a>。</p>
+<p class="noindent"><strong>资源文件</strong> 部分资源文件不被包含在原版资源包内，而是位于资源文件夹下，这主要包括各种语言文本和音效文件。资源文件索引位于 <code>assets/indexes/<i>版本号</i>.json</code>，打开后通过键值可知相应资源的 hash 值，对应的资源位于 <code>assets/objects/<i>hash开头</i>/<i>hash</i></code>。例如打开 <code>assets/indexes/1.16.json</code>，找到键 <code>minecraft/lang/zh_cn.json</code> 的 <code>hash</code> 为 <code>74f282093eaa509909f04fa3311757320445a27f</code>，因此简体中文的语言文本位于文件夹 <code>assets/objects/74/74f282093eaa509909f04fa3311757320445a27f</code>，使用文本编辑器打开即可看到游戏内的所有名称的中文译名。注意该文件中的中文均被转化为相应的 Unicode 表达方式，参考<a href="#字体">字体</a>。</p>
 
-<p class="noindent"><strong>日志</strong>位于 <code>logs/latest.log</code>，可由此实时查看游戏内加载资源包和数据包时的错误信息，包括错误的文件名称、位置、错误的行列数等，因此这对于我们调试非常重要。简体中文下需要设置文件编码为 Simplified Chinese (GBK)，否则除 ASCII 外的字符会显示乱码。历史日志位于 <code>logs/<i>年-月-日-序号</i>.log.gz</code>，使用压缩工具打开后使用文本编辑器打开。崩溃报告位于 <code>crash-reports/<i>crash-年-月-日_时.分.秒-server</i>.txt</code>，如果是由于资源包或数据包引起的崩溃，可以在该文件中看到原因。</p>
-<p class="noindent"><strong>存储的物品栏</strong> 位于 <code>hotbar.nbt</code>，存储了游戏内使用<code>C+<i>数字</i></code>存储、<code>X+<i>数字</i></code>取出的创造模式物品快捷栏。</p>
+<p class="noindent"><strong>日志</strong>位于 <code>logs/latest.log</code>，可由此实时查看游戏内加载资源包和数据包时的错误信息，包括错误的文件名称、位置、错误的行列数等，因此这对于我们调试非常重要。简体中文下需要设置文件编码为 Simplified Chinese (GBK)，否则除 ASCII 外的字符会显示乱码。历史日志位于 <code>logs/<i>年</i>-<i>月</i>-<i>日</i>-<i>序号</i>.log.gz</code>，使用压缩工具打开后使用文本编辑器打开。崩溃报告位于 <code>crash-reports/crash-<i>年</i>-<i>月</i>-<i>日</i>_<i>时</i>.<i>分</i>.<i>秒</i>-server.txt</code>，如果是由于资源包或数据包引起的崩溃，可以在该文件中看到原因。</p>
 
-<p class="noindent"><strong>存档文件</strong>位于 <code>saves/<i>世界名称</i></code>，由于<a href="https://wiki.biligame.com/mc/世界格式">世界格式</a>上该内容已较为详尽且与原版模组联系甚远，因此我们仅提及部分内容。该文件夹包含的区块文件、地图文件等不建议使用 NBT 编辑器来编辑，而是用 MCEdit、地图文件生成工具等专门的工具来编辑。存档的备份文件位于 <code>backups/<i>年-月-日_时-分-秒_世界名称</i>.zip</code>，为存档的备份文件，解压后复制到 <code>saves</code> 即可使用。</p>
+<p class="noindent"><strong>存储的物品栏</strong>位于 <code>hotbar.nbt</code>，存储了游戏内使用<code>C+<i>数字</i></code>存储、<code>X+<i>数字</i></code>取出的创造模式物品快捷栏。</p>
+
+<p class="noindent"><strong>存档文件</strong>位于 <code>saves/<i>世界名称</i></code>，由于<a href="https://wiki.biligame.com/mc/世界格式">世界格式</a>上该内容已较为详尽且与原版模组联系甚远，因此我们仅提及部分内容。该文件夹包含的区块文件、地图文件等不建议使用 NBT 编辑器来编辑，而是用 MCEdit、地图文件生成工具等专门的工具来编辑。存档的备份文件位于 <code>backups/<i>年</i>-<i>月</i>-<i>日</i>_<i>时</i>.<i>分</i>.<i>秒</i>_<i>世界名称</i>.zip</code>，为存档的备份文件，解压后复制到 <code>saves</code> 即可使用。</p>
 <ul>
   <li><strong>进度</strong>位于 <code>advancements/<i>玩家 UUID</i>.json</code>，记录了玩家已完成的进度和进度判据的完成时间。对于需要完成多个判据才能达成的进度，该文件中记录了已完成的那些判据的完成时间。</li>
-  <li><strong>区块、村民兴趣点、袭击、常加载区块</strong>等信息分维度存储，主世界、下界、末地、自定义维度的相应文件分别位于根文件夹、<code>DIM-1</code>、<code>DIM1</code>、<code>dimensions/<i>命名空间</i>/<i>路径</i></code>下。</li>
+  <li><strong><a href="https://wiki.biligame.com/mc/%E5%8C%BA%E5%9D%97%E6%A0%BC%E5%BC%8F">区块</a>、实体、实体兴趣点、<a href="https://wiki.biligame.com/mc/Raids.dat%E6%A0%BC%E5%BC%8F">袭击</a></strong>等信息分维度存储，主世界、下界、末地、自定义维度的相应文件分别位于根文件夹、<code>DIM-1</code>、<code>DIM1</code>、<code>dimensions/<i>命名空间</i>/<i>路径</i></code>下。</li>
   <li><strong>世界信息</strong>文件 <code>level.dat</code> 中 <code>WorldGenSettings</code> 包含了世界生成时的所有维度的生成信息，这和<code>创建新的世界->更多世界的选项->导入设置</code>所使用的JSON文件有关，而和数据包中自定义的维度无关，格式见<a href="#自定义世界">自定义世界</a>。</li>
-  <li><strong>数据包文件夹</strong>位于<code>datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包，具体结构见 <a href="#数据包">§3 数据包</a>。</li>
+  <li><strong>数据包文件夹</strong>位于<code>datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包，具体结构见 <a href="#数据包">数据包</a>。</li>
   <li><strong>结构</strong>位于<code>generated/<i>命名空间</i>/structures/<i>文件</i>.nbt</code>，其记录了游戏内使用结构方块保存的结构，将其移动至数据包内方可使用。</li>
 </ul>
 
 <h3 id="JSON文件">§1.4 JSON文件</h3>
-<p>参考<a href="https://wiki.biligame.com/mc/JSON" class="wiki">JSON</a>。数据包的进度、战利品表、标签、断言（谓词）、配方、维度、维度类型、世界生成，资源包的语言文件、模型等文件均为JSON格式文件。<code>.mcmeta</code> 文件也是JSON文件，因此格式也是相同的。编写时，使用空格或制表符(Tab)缩进，以便于查看括号匹配和层次。wiki 上有关页面使用了 NBT 的数据类型标注，但其实并不适用于JSON格式。</p>
-<p>JSON文件通常包含用于封装文件数据的一对大括号<code>{}</code>（<a href="#断言">断言</a>文件的根数据类型可以为数组），包含类似 <code>"abc":"def"</code> (<code>"键":值</code>)的对，一般使用单引号也可以。同一个文件中如果允许有相同的键，则后者会覆盖前者。JSON数据类型有</p>
+<p>参考<a href="https://wiki.biligame.com/mc/JSON" class="wiki">JSON</a>。数据包的进度、战利品表、战利品表谓词、物品修饰器、配方、标签、维度、维度类型、世界生成，资源包的语言文件、模型、音效、字体等文件均为JSON格式文件。<code>.mcmeta</code> 文件也是JSON文件，因此格式也是相同的。编写时，使用空格或制表符(Tab)缩进，以便于查看括号匹配和层次。wiki 上有关页面使用了 NBT 的数据类型标注，但其实并不适用于JSON格式。</p>
+<p>JSON文件通常包含用于封装文件数据的一对大括号<code>{}</code>，即它是一个JSON对象，但<a href="#战利品表谓词">战利品表谓词</a>和<a href="#物品修饰器">物品修饰器</a>文件的根数据类型还可以为JSON数组。它包含类似 <code>"abc":"def"</code> 这样的 <code>"键":值</code> 对，一般使用单引号也可以。同一个文件中如果允许有相同的键，则后者会覆盖前者。JSON数据类型有</p>
 
 <p class="noindent"><strong id="JSON布尔型">布尔型</strong>，值为<code>true</code>和<code>false</code>。</p>
 <pre>
@@ -427,16 +424,16 @@
 
 <h1 id="数据包">§2 数据包</h1>
 <p>参考<a href="https://wiki.biligame.com/mc/数据包">数据包</a>，<a href="https://wiki.biligame.com/mc/教程/安装数据包">教程/安装数据包</a>，<a href="https://wiki.biligame.com/mc/教程/制作数据包" class="wiki">教程/制作数据包</a>。<ruby>数据包<rt>datapacks</rt></ruby>可用于覆盖或添加新的函数、进度、战利品表、断言、配方、结构、标签、维度。数据包文件夹位于 <code>.minecraft/saves/<i>世界名称</i>/datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包。</p>
-<p></p>
 
-<p class="noindent"><strong>安装数据包</strong> 单人游戏中，对于新创建的世界，在创建时点击<code>创建新的世界->世界预设->数据包</code>，将数据包拖入并选择至右侧即可。对于已生成的世界，选择你需要安装数据包的世界，点击<code>编辑->打开世界文件夹->打开文件夹 datapacks</code>，并将数据包 <code>.zip</code> 文件或文件夹放入其中。</p>
-<p>多人游戏中，打开<code>服务器文件夹->worlds->datapacks</code>文件夹，并将数据包 <code>.zip</code> 文件或文件夹放入其中。</p>
-<p>数据包放置好后，将在重新进入该世界/下次服务器启动时为该世界启用该数据包。如果世界已经被打开并且你已经开启作弊，请键入 <code>/reload</code> 以加载数据包；若无法开启作弊，你可以使用F3+T加载数据包。注意该做法不能重新加载数据包定义的<a href="#维度">维度</a>和<a href="#世界生成">世界生成</a>。</p>
-<p>对于创建世界时添加的数据包，可以在数据包选择页面调整加载次序。其它情形添加的数据包优先级最高，即最后加载。同时加入的数据包优先级则和文件名顺序相关。数据包的优先级顺序储存在文件 <code>level.dat</code> 中，可以通过 <code>/datapack</code> 命令查看或修改。在游戏中通过命令 <code>/datapack</code> 可以禁用/启用数据包，最后启用的优先级最高。由于数据包记载顺序不定，因此在制作数据包的过程中，尽量不要依赖数据包的加载顺序。</p>
+<p class="noindent"><strong>安装数据包</strong> 单人游戏中，对于新创建的世界，在创建时点击<code>创建新的世界->世界预设->数据包</code>，将数据包拖入并选择至右侧即可。对于已生成的世界，选择你需要安装数据包的世界，点击<code>编辑->打开世界文件夹->打开文件夹 datapacks</code>，并将数据包 <code>.zip</code> 文件或文件夹放入其中。多人游戏中，打开<code>服务器文件夹->worlds->datapacks</code>文件夹，并将数据包 <code>.zip</code> 文件或文件夹放入其中。</p>
+
+<p>数据包放置好后，管理员可以输入 <code>/reload</code> 以加载数据包，或者在首次生成该世界/重新进入该世界/下次服务器启动时启用该数据包。注意数据包定义的<a href="#维度">维度</a>和<a href="#世界生成">世界生成</a>内容需要重新进入世界/重新启动服务器才会生效。</p>
+
+<p>对于创建世界时添加的数据包，可以在数据包选择页面调整加载次序。其它情形添加的数据包优先级最高，即最后加载。同时加入的数据包优先级则和文件名顺序相关。数据包的优先级顺序储存在文件 <code>level.dat</code> 中，可以通过 <code>/datapack</code> 命令查看或修改。在游戏中通过命令 <code>/datapack</code> 可以禁用/启用数据包，最后启用的优先级最高。由于数据包加载顺序不定，因此在制作数据包的过程中，尽量不要依赖数据包的加载顺序。</p>
 <p>使用 <code>/datapack list</code> 命令显示数据包名称时，原版数据包为 <code>[vanilla]</code>，玩家自定义的数据包应该是 <code>[file/<i>数据包名称</i>]</code>。</p>
 
 <p class="noindent"><strong>文件夹结构</strong></p>
-<pre class="file" id="datapacks/<i>数据包名称</i>或<i>数据包名称</i>.zip/">datapacks/<i>数据包名称</i>或<i>数据包名称</i>.zip/</pre>
+<pre class="file">datapacks/<i>数据包名称</i>或<i>数据包名称</i>.zip/</pre>
 <pre>
 pack.mcmeta
 pack.png
@@ -449,7 +446,9 @@ data
     loot_tables
       <i>战利品表名称</i>.json
     predicates
-      <i>谓词名称</i>.json
+      <i>战利品表谓词名称</i>.json
+    item_modifiers
+      <i>物品修饰器名称</i>.json
     structures
       <i>结构名称</i>.nbt
     recipes
@@ -471,27 +470,27 @@ data
       <i>维度名称</i>.json
     dimension_type
       <i>维度类型名称</i>.json
-    worldgen‌        
+    worldgen‌
+      noise_settings
+        <i>噪声设置名称</i>.json    
       biome
         <i>生物群系名称</i>.json
       configured_carver
         <i>地形雕刻器名称</i>.json
+      configured_surface_builder
+        <i>地表生成器名称</i>.json
       configured_feature
         <i>地物名称</i>.json
       configured_structure_feature
         <i>结构地物名称</i>.json
-      configured_surface_builder
-        <i>地表生成器名称</i>.json
-      noise_settings
-        <i>噪声设置名称</i>.json
-      processor_list
-        <i>处理器列表名称</i>.json
       template_pool
         <i>拼图池名称</i>.json
+      processor_list
+        <i>处理器列表名称</i>.json
 </pre>
-<p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-(折线)，_(下划线)，.(点)来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>。</p>
+<p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-(折线)，_(下划线)，.(点)来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>或<code>打开文件夹->全选->7-Zip->添加到 "<i>文件夹名</i>.zip"</code>。</p>
 
-<p class="noindent"><strong id="原版数据包"><ruby>原版数据包<rt>vanilla</rt></ruby></strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、配方、结构、战利品表等内容，是制作数据包的文件样板。</p>
+<p class="noindent"><strong id="原版数据包"><ruby>原版数据包<rt>vanilla</rt></ruby></strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、战利品表、配方、结构和标签等内容，是制作数据包的文件样板。但它不包括原版的维度和世界生成的信息。</p>
 
 <h2 id="数据包/元信息和图标">§2.1 元信息和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
@@ -500,7 +499,7 @@ data
 {
   "pack": {
     "pack_format": 6, <span class="comment">数据包版本，1.13-1.14 版本为 4，1.15-1.16.1 版本为 5，1.16.2-1.16.4 版本为 6，1.17 版本为 7</span>
-    "description": "§6数据包名称\n§a简要介绍 6by 某某作者" <span class="comment">数据包描述</span>
+    "description": "§6数据包名称\n§a简要介绍 §6by 某某作者" <span class="comment">数据包描述</span>
   }
 }
 </pre>
@@ -560,11 +559,6 @@ data
   <td><code><i>命名空间</i>/strutures/<i>路径</i>/<i>文件名</i>.nbt</code></td>
 </tr>
 <tr>
-  <th>标签-函数</th>
-  <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
-  <td><code><i>命名空间</i>/tags/functions/<i>路径</i>/<i>文件名</i>.json</code></td>
-</tr>
-<tr>
   <th>标签-方块</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/tags/blocks/<i>路径</i>/<i>文件名</i>.json</code></td>
@@ -575,9 +569,19 @@ data
   <td><code><i>命名空间</i>/tags/items/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
+  <th>标签-函数</th>
+  <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+  <td><code><i>命名空间</i>/tags/functions/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
   <th>标签-实体类型</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/tags/entity_types/<i>路径</i>/<i>文件名</i>.json</code></td>
+</tr>
+<tr>
+  <th>标签-流体类型</th>
+  <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
+  <td><code><i>命名空间</i>/tags/fluids/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
   <th>标签-游戏事件</th>
@@ -4559,6 +4563,7 @@ function #foo:item_processer
 
 <h2 id="发布">§4.4 发布</h2>
 <p>当你设计并制作好全部内容且通过测试后，将你的数据包以及其它可能的内容，如资源包、地图、data文件等一同发布。采用合适的版本号管理，并在发布时注明你所使用的命名空间、记分板、组、标签、地图区段、资源包等内容，以便于其他开发者整合或避免冲突。</p>
+<p>如果你认为分别发布数据包和资源包两个压缩文件不够方便的话，你可以将二者内容放在同一个文件夹下压缩，使得二者共用 <code>pack.mcmeta</code> 和 <code>pack.png</code>。使用时，只需将其分别复制一份到数据包和资源包文件夹使用即可。</p>
 <p>如果你的模组内容较多，可以建立一个wiki页面来方便玩家查询资料。例如国内最大的中文 Minecraft 模组百科<a href="https://www.mcmod.cn/">MC 百科</a>，建立模组后，可以申请编辑员来方便地管理你的模组wiki页面。也可以 Github 的项目中创建 wiki。</p>
 
 
@@ -5584,7 +5589,7 @@ advancement revoke @s only cpp:blocks/acacia_leaves
 execute as @s[predicate=<a href="#cpp/predicates/mainhand/acacia_leaves">cpp:mainhand/acacia_leaves</a>] run data modify storage cpp:_ weapon.Item set from entity @s SelectedItem
 execute as @s[predicate=!cpp:mainhand/acacia_leaves] run data modify storage cpp:_ weapon.Item set from entity @s Inventory[{Slot:-106b}]
 execute store result score #put_block_cmd cppValue run data get storage cpp:_ weapon.Item.tag.CustomModelData
-execute if score #put_block_cmd cppValue matches 12970000..12979999 at @s anchored eyes positioned ^ ^ ^ anchored feet run function <a href="#cpp/functions/blocks/acacia_leaves/locate">cpp:blocks/acacia_leaves/locate</a>
+execute if score #put_block_cmd cppValue matches 12970000..12979999 at @s anchored eyes positioned ^ ^ ^ run function <a href="#cpp/functions/blocks/acacia_leaves/locate">cpp:blocks/acacia_leaves/locate</a>
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/locate">cpp:blocks/acacia_leaves/locate</pre>
 <pre>
@@ -6615,7 +6620,7 @@ execute as @s[predicate=<a href="#cpp/predicates/mainhand/machine_plugin">cpp:ma
 <pre>
 function <a href="#cpp/functions/locate/init">cpp:locate/init</a>
 execute as @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] at @s if block ~ ~ ~ barrel align xyz positioned ~0.5 ~ ~0.5 if entity @e[type=armor_stand,distance=..0.5,tag=cpp_all_in_one_machine] run tag @s add cpp_locate_block_position
-execute anchored eyes positioned ^ ^ ^ at @e[type=area_effect_cloud,distance=..6.1,tag=cpp_locate_block_position,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/all_in_one_machine/plugin/type">cpp:all_in_one_machine/plugin/type</a>
+execute at @e[type=area_effect_cloud,distance=..6.1,tag=cpp_locate_block_position,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/all_in_one_machine/plugin/type">cpp:all_in_one_machine/plugin/type</a>
 kill @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block]
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/plugin/type">cpp:all_in_one_machine/plugin/type</pre>
