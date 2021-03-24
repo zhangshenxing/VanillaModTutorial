@@ -1988,7 +1988,7 @@ execute unless block ^ ^ ^ #cpp:fluid
 <h3 id="维度实例">§2.11.3 实例</h3>
 <p>定义好新的维度之后，我们还需要为其设计传送方式。简单的可以使用物品触发，见<a href="#右键交互">右键交互</a>。更常见的则是使用多方块结构为传送检测方式。</p>
 <p class="ex">定义一个新的维度，其中仅有繁花森林生物群系。使用高花摆放成八边形并在中间放置白色羊毛激活传送门。</p>
-<pre class="file" id="<a href="files/cpp/data/cpp/dimension/flower">cpp/dimension/flower.json</a>"><a href="files/cpp/data/cpp/dimension/flower">cpp/dimension/flower.json</a></pre>
+<pre class="file" id="cpp/dimension/flower">cpp/dimension/flower.json</pre>
 <pre>
 {
   "type": "cpp:flower",
@@ -2057,7 +2057,7 @@ execute unless block ^ ^ ^ #cpp:fluid
   }
 }
 </pre>
-<pre class="file" id="<a href="files/cpp/data/cpp/dimension_type/flower">cpp/dimension_type/flower.json</a>"><a href="files/cpp/data/cpp/dimension_type/flower">cpp/dimension_type/flower.json</a></pre>
+<pre class="file" id="cpp/dimension_type/flower">cpp/dimension_type/flower.json</pre>
 <pre>
 {
   "ultrawarm": false,
@@ -2076,7 +2076,7 @@ execute unless block ^ ^ ^ #cpp:fluid
 }
 </pre>
 
-<pre class="file" id="<a href="files/cpp/data/cpp/advancements/block/white_wool">cpp/advancements/block/white_wool.json</a>"><a href="files/cpp/data/cpp/advancements/block/white_wool">cpp/advancements/block/white_wool.json</a></pre>
+<pre class="file" id="cpp/advancements/block/white_wool">cpp/advancements/block/white_wool.json</pre>
 <pre>
 {
   "criteria": {
@@ -3965,14 +3965,14 @@ assets
 
 <h2 id="语言文件">§3.3 <ruby>语言文件<rt>lang</rt></ruby></h2>
 <p>语言文件可以放在任一命名空间下的 <code>lang</code> 文件夹下。语言文件中可以使用样式代码来实现彩色文字。建议至少支持中文简体(<code>zh_cn</code>)、中文繁体(<code>zh_tw</code>)和英文(<code>en_us</code>)三种语言。建议所有物品、进度、游戏提示等文本均采用 <code>translate</code> 文本。例如：</p>
-<pre class="file" id="assets/命名空间/lang/zh_cn.json">assets/命名空间/lang/zh_cn.json</pre>
+<pre class="file">assets/命名空间/lang/zh_cn.json</pre>
 <pre>
 {
   "item.ex.magnet":"r磁铁",
   ...
 }
 </pre>
-<pre class="file" id="assets/命名空间/lang/en_us.json">assets/命名空间/lang/en_us.json</pre>
+<pre class="file">assets/命名空间/lang/en_us.json</pre>
 <pre>
 {
   "item.ex.magnet":"rMagnet",
@@ -3981,7 +3981,7 @@ assets
 </pre>
 
 <p>也可以用此方法修改物品的默认名称等内容。例如：</p>
-<pre class="file" id="assets/命名空间/lang/zh_cn.json">assets/命名空间/lang/zh_cn.json</pre>
+<pre class="file">assets/命名空间/lang/zh_cn.json</pre>
 <pre>
 {
   "item.minecraft.potion.effect.empty": "r神秘药水",
@@ -3991,7 +3991,7 @@ assets
 <p class="noindent">则未知的药水的名称不再是<code>不可合成的药水</code>，而是<code>神秘药水</code>。</p>
 
 <p><code>translate</code> 还有个有趣但不一定实用的用法。</p>
-<pre class="file" id="assets/命名空间/lang/zh_cn.json">assets/命名空间/lang/zh_cn.json</pre>
+<pre class="file">assets/命名空间/lang/zh_cn.json</pre>
 <pre>
 {
   "The":"a原版模组《更多的合成》已成功加载,",      
