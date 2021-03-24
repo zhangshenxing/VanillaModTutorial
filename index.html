@@ -1711,7 +1711,7 @@ setblock ~ ~1 ~ air
     "minecraft:bubble_column",
     "minecraft:water",
     "minecraft:lava",
-    "minecraft:fires"
+    "#minecraft:fires"
   ]
 }
 </pre>
@@ -5805,7 +5805,7 @@ execute as @e[type=armor_stand,tag=cpp_leaves] at @s unless block ~ ~ ~ acacia_l
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/break">cpp:blocks/acacia_leaves/break</pre>
 <pre>
 # 树叶
-execute as @e[type=item,sort=nearest,predicate=<a href="#cpp/predicates/item/dropped_acacia_leaves">cpp:item/dropped_acacia_leaves</p>,limit=1,distance=..3] unless data entity @s Item.tag.id run tag @s add cpp_block_drop
+execute as @e[type=item,sort=nearest,predicate=<a href="#cpp/predicates/item/dropped_acacia_leaves">cpp:item/dropped_acacia_leaves</a>,limit=1,distance=..3] unless data entity @s Item.tag.id run tag @s add cpp_block_drop
 data modify entity @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] Item set from entity @s ArmorItems[3]
 tag @e[type=item,distance=..3,tag=cpp_block_drop] remove cpp_block_drop
 # 树苗
@@ -8884,7 +8884,7 @@ scoreboard objectives add cppOpenFrame minecraft.custom:minecraft.open_barrel
 <pre class="file">cpp:tick</pre>
 <pre>
 execute as @a[tag=machine_close_gui] at @s positioned ~ ~-256 ~ run function <a href="#cpp/functions/misc/close_gui_back">cpp:misc/close_gui_back</a>
-execute as @a[scores={cppOpenFrame=1..}] if predicate <a href="cpp/predicates/all_in_one_machine/hand_machine_plugin">cpp:all_in_one_machine/hand_machine_plugin</a> at @s anchored eyes run function <a href="#cpp/functions/all_in_one_machine/ray">cpp:all_in_one_machine/ray</a>
+execute as @a[scores={cppOpenFrame=1..}] if predicate <a href="cpp/predicates/all_in_one_machine/hand_machine_plugin">cpp:all_in_one_machine/hand_machine_plugin</a> at @s anchored eyes run function <a href="#cpp/functions/all_in_one_machine/plugin/ray">cpp:all_in_one_machine/plugin/ray</a>
 </pre>
 <pre class="file" id="cpp/predicates/all_in_one_machine/hand_machine_plugin">cpp/predicates/all_in_one_machine/hand_machine_plugin.json</pre>
 <pre>
@@ -8916,10 +8916,10 @@ execute as @a[scores={cppOpenFrame=1..}] if predicate <a href="cpp/predicates/al
   ]
 }
 </pre>
-<pre class="file" id="cpp/functions/all_in_one_machine/ray">cpp:all_in_one_machine/ray</pre>
+<pre class="file" id="cpp/functions/all_in_one_machine/plugin/ray">cpp:all_in_one_machine/plugin/ray</pre>
 <pre>
 execute as @s[distance=..6] if block ~ ~ ~ barrel align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/all_in_one_machine/init">cpp:all_in_one_machine/init</a>
-execute as @s[distance=..6] unless block ~ ~ ~ barrel positioned ^ ^ ^0.005 anchored feet run function <a href="#cpp/functions/all_in_one_machine/ray">cpp:all_in_one_machine/ray</a>
+execute as @s[distance=..6] unless block ~ ~ ~ barrel positioned ^ ^ ^0.005 anchored feet run function <a href="#cpp/functions/all_in_one_machine/plugin/ray">cpp:all_in_one_machine/plugin/ray</a>
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/init">cpp:all_in_one_machine/init</pre>
 <pre>
@@ -9004,21 +9004,6 @@ execute store result entity @s Motion[0] double 0.0005 run scoreboard players op
 execute store result score #temp0 cppValue run data get entity @p[tag=cpp_player_hand_emerald_block] Pos[2] 100
 execute store result score #temp1 cppValue run data get entity @s Pos[2] 100
 execute store result entity @s Motion[2] double 0.0005 run scoreboard players operation #temp0 cppValue -= #temp1 cppValue
-</pre>
-<pre class="file" id="cpp/tags/blocks/fluid">cpp/tags/blocks/fluid.json</pre>
-<pre>
-{
-  "replace": false,
-  "values": [
-    "minecraft:air",
-    "minecraft:cave_air",
-    "minecraft:void_air",
-    "minecraft:bubble_column",
-    "minecraft:water",
-    "minecraft:lava",
-    "minecraft:fire"
-  ]
-}
 </pre>
 <pre class="file" id="cpp/tags/blocks/attract_through">cpp/tags/blocks/attract_through.json</pre>
 <pre>
