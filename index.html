@@ -938,7 +938,7 @@ advancement revoke @s only cpp:food/citrus
 <h3 id="战利品表/语法">§2.5.1 语法</h3>
 <p>可参考<a href="https://wiki.biligame.com/mc/战利品表#标签">战利品表</a>和<a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a>。战利品表用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品等。战利品表文件为JSON文件。例如：</p>
 
-<pre class="file" id="minecraft/loot_tables/entities/cow.json">minecraft/loot_tables/entities/cow.json</pre>
+<pre class="file" id="minecraft/loot_tables/entities/cow">minecraft/loot_tables/entities/cow.json</pre>
 <pre>
 {
   "type": "minecraft:entity",
@@ -1490,7 +1490,7 @@ setblock ~ 255 ~ air
 <p>如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 <code>.jar</code> 文件，依次打开 <code>data/minecraft/recipes</code>，找到相应的配方文件，然后在自己的数据包中的相同位置（必然是 <code>minecraft</code> 命名空间下）放入同名文件即可覆盖默认的配方。</p>
 <p class="ex">将橡木台阶合成数量改为8。</p>
 
-<pre class="file" id="minecraft/recipes/oak_stairs.json">minecraft/recipes/oak_stairs.json</pre>
+<pre class="file" id="minecraft/recipes/oak_stairs">minecraft/recipes/oak_stairs.json</pre>
 <pre>
 {
   "type": "minecraft:crafting_shaped",
@@ -1537,7 +1537,7 @@ setblock ~ 255 ~ air
   ]
 }
 </pre>
-<pre class="file" id="minecraft/recipes/black_bed_from_white_bed.json">minecraft/recipes/black_bed_from_white_bed.json</pre>
+<pre class="file" id="minecraft/recipes/black_bed_from_white_bed">minecraft/recipes/black_bed_from_white_bed.json</pre>
 <pre>
 {
   "type": "crafting_shapeless",
@@ -4011,7 +4011,7 @@ assets
 <p>由于1.14添加了 <code>CustomModelData</code>，我们可以拥有几乎无穷多的物品模型。为了便于他人整合和解决冲突，建议将 <code>CustomModelData</code> 的前四位固定以确定模组的独有区段，后四位作为模组不同模型的值，例如 <code>12340000-12349999</code> 之间。此外，建议 <code>CustomModelData</code> 不要超过 <code>16777216</code>，原因见 <a href="https://www.mcbbs.net/thread-867051-1-1.html">custom_model_data 的使用限制</a>。</p>
 
 <p>我们会给出一个例子来说明实现流程。首先在 <code>minecraft</code> 下的胡萝卜钓竿物品模型中添加额外的模型 (<code>overrides</code>)，并引用我们自定义的模型。</p>
-<pre class="file" id="assets/minecraft/models/item/carrot_on_a_stick.json">assets/minecraft/models/item/carrot_on_a_stick.json</pre>
+<pre class="file" id="assets/minecraft/models/item/carrot_on_a_stick">assets/minecraft/models/item/carrot_on_a_stick.json</pre>
 <pre>
 {
   "parent": "item/handheld_rod",
@@ -4029,7 +4029,7 @@ assets
 }
 </pre>
 <p class="noindent">注意 <code>custom_model_data</code> 需要按照从小往大的次序，否则会导致后面的覆盖前面的。然后创建自定义的模型</p>
-<pre class="file" id="assets/cpp/models/element/red_force_of_fire.json">assets/cpp/models/element/red_force_of_fire.json</pre>
+<pre class="file" id="assets/cpp/models/element/red_force_of_fire">assets/cpp/models/element/red_force_of_fire.json</pre>
 <pre>
 {
   "parent": "item/handheld",
@@ -4044,7 +4044,7 @@ assets
 <p>模型是一个描述形状和指定材质的JSON文件。模型可以理解成一些可以旋转的长方体的拼接，每个长方体的若干个面贴上了材质图案。长方体的厚度可以为0，也可以只有若干个面。</p>
 <p>只有 <code>minecraft</code> 命名空间下特定名称的文件才对应特定的物品/方块模型，例如 <code>minecraft/models/item/carrot_on_a_stick.json</code> 表示胡萝卜钓竿的物品模型，<code>minecraft/models/block/stone.json</code> 表示石头的方块模型。</p>
 <p>我们通过几个例子来理解下模型文件的语法。</p>
-<pre class="file" id="minecraft/models/item/handheld.json">minecraft/models/item/handheld.json</pre>
+<pre class="file" id="minecraft/models/item/handheld">minecraft/models/item/handheld.json</pre>
 <pre>
 {
   "parent": "item/generated",
@@ -4320,7 +4320,7 @@ assets
 
 <h2 id="音效">§3.7 音效</h2>
 <p><ruby>音效<rt>sounds</rt></ruby>文件为 <code>assets/命名空间/sounds</code> 文件夹下的 <code>ogg</code> 文件，它需要JSON文件 <code>assets/命名空间/sounds.json</code> 来调用。例如：</p>
-<pre class="file" id="assets/rf/sounds.json">assets/rf/sounds.json</pre>
+<pre class="file" id="assets/rf/sounds">assets/rf/sounds.json</pre>
 <pre>
 {
   "juicer": {
@@ -4365,7 +4365,7 @@ assets
 
 <h2 id="字体">§3.8 <ruby>字体<rt>font</rt></ruby></h2>
 <p>我们着重介绍字体图片。添加下述路径文件可以追加/覆盖特殊字符的显示：</p>
-<pre class="file" id="assets/minecraft/font/default.json">assets/minecraft/font/default.json</pre>
+<pre class="file" id="assets/minecraft/font/default">assets/minecraft/font/default.json</pre>
 <pre>
 {
   "providers": [
@@ -4609,7 +4609,7 @@ function #foo:item_processer
 </tbody></table>
 
 <p class="noindent">然后为物品添加模型，见 <a href="#模型">§3.5 模型</a>。</p>
-<pre class="file" id="assets/minecraft/models/item/carrot_on_a_stick.json">assets/minecraft/models/item/carrot_on_a_stick.json</pre>
+<pre class="file" id="assets/minecraft/models/item/carrot_on_a_stick">assets/minecraft/models/item/carrot_on_a_stick.json</pre>
 <pre>
 {
   "parent": "item/handheld_rod",
@@ -4621,7 +4621,7 @@ function #foo:item_processer
   ]
 }
 </pre>
-<pre class="file" id="assets/cpp/models/tools/red_force_of_fire.json">assets/cpp/models/tools/red_force_of_fire.json</pre>
+<pre class="file" id="assets/cpp/models/tools/red_force_of_fire">assets/cpp/models/tools/red_force_of_fire.json</pre>
 <pre>
 {
   "parent": "item/handheld_rod",
@@ -5091,7 +5091,7 @@ title @s[scores={exChainTick=..19}] actionbar [{"text":" "}]
 </pre>
 
 <p>我们无法在背包页面显示图标和时长，但是我们可以在特定分辨率下在右上角显示图标。这里需要使用<a href="3.8_字体">§3.8 字体</a>的负空格字体技巧。我们假设当前分辨率为<code>1920×1080</code>，通过试验得知使用<code>actionbar</code>占据整个右上角需要的大小为<code>480×182</code>，因此我们使用<code>298</code>像素宽的空格和<code>182×182</code>的图案。</p>
-<pre class="file" id="assets/cpp/font/default.json">assets/cpp/font/default.json</pre>
+<pre class="file" id="assets/cpp/font/default">assets/cpp/font/default.json</pre>
 <pre>
 {
   "providers": [
@@ -5173,7 +5173,7 @@ tag @e[type=item,tag=cpp_temp,distance=..0.1,limit=1] remove cpp_temp
 <p>我们将资源包内文件 <code>assets/minecraft/textures/misc/pumpkinblur.png</code> 设置为完全透明的图片以清除雕刻过的南瓜戴在头上的视野限制效果。</p>
 <p>对于头饰而言，我们希望其像盔甲一样在背包物品栏显示为物品的平面材质，而在玩家头部显示为立体模型。因此我们需要两套模型，并处理物品进入玩家头部和手部的事件，见<a href="https://www.mcbbs.net/thread-833056-1-1.html">【1.14】物品头部/背包/手持显示不同材质/模型</a>。</p>
 
-<pre class="file" id="minecraft/models/item/carved_pumpkin.json">minecraft/models/item/carved_pumpkin.json</pre>
+<pre class="file" id="minecraft/models/item/carved_pumpkin">minecraft/models/item/carved_pumpkin.json</pre>
 <pre>
 {
   "parent": "block/orientable",
@@ -5406,7 +5406,7 @@ setblock ~ 255 ~ air
 </pre>
 
 <p>我们对所有的玻璃和玻璃板的战利品表进行修改。</p>
-<pre class="file" id="minecraft/loot_tables/blocks/red_stained_glass.json">minecraft/loot_tables/blocks/red_stained_glass.json</pre>
+<pre class="file" id="minecraft/loot_tables/blocks/red_stained_glass">minecraft/loot_tables/blocks/red_stained_glass.json</pre>
 <pre>
 {
   "type": "minecraft:block",
@@ -5763,7 +5763,7 @@ summon area_effect_cloud ~ ~ ~-1 {Tags:["cpp_locate_block","cpp_locate_block_nei
   ]
 }
 </pre>
-<pre class="file" id="cpp/functions/advancements/blocks/petrified_oak_slab.json">cpp:advancements/blocks/petrified_oak_slab.json</pre>
+<pre class="file" id="cpp/advancements/blocks/petrified_oak_slab">cpp:advancements/blocks/petrified_oak_slab.json</pre>
 <pre>
 {
   "criteria": {
@@ -5851,7 +5851,7 @@ kill @s
 
 <h2 id="模型设置">§6.5 模型设置</h2>
 <p>使用如下的 <code>display</code> 来放缩物品在头部的大小，可以保证其与坐标轴基本对齐。</p>
-<pre class="file" id="assets/cpp/models/material/moon_stone.json">assets/cpp/models/material/moon_stone.json</pre>
+<pre class="file" id="assets/cpp/models/material/moon_stone">assets/cpp/models/material/moon_stone.json</pre>
 <pre>
 {
   "parent": "block/cube_all",
@@ -5911,7 +5911,7 @@ kill @s
 
 <p>该模型用于机器的GUI，我们将其大小放大了 <code>12</code> 倍，也就是 <code>192×192</code> 大小。所以我们需要绘制这个大小的整数倍的材质。通过修改z轴高度可调整材质的覆盖次序。</p>
 
-<pre class="file" id="assets/cpp/models/machine/gui/template.json">assets/cpp/models/machine/gui/template.json</pre>
+<pre class="file" id="assets/cpp/models/machine/gui/template">assets/cpp/models/machine/gui/template.json</pre>
 <pre>
 {
   "elements": [
@@ -5935,7 +5935,7 @@ kill @s
   }
 }
 </pre>
-<pre class="file" id="assets/cpp/models/machine/gui/all_in_one_machine.json">assets/cpp/models/machine/gui/all_in_one_machine.json</pre>
+<pre class="file" id="assets/cpp/models/machine/gui/all_in_one_machine">assets/cpp/models/machine/gui/all_in_one_machine.json</pre>
 <pre>
 {
   "parent": "cpp:machine/gui/template",
@@ -5954,7 +5954,7 @@ kill @s
 <p>若想要绘制各边缘超过这个距离限制的，可以重新调整 <code>display.gui.translation</code> 来对齐。更多注意事项请参阅<a href="#模型">§3.6 模型</a>。</p>
 
 <p>对于机器的按钮，为了保证我们点击时不会出现按钮乱跑的问题，我们可以在按钮的实际模型放置在点击处的右一格，但这并不能避免玩家点击右一格时按钮的闪烁问题。为简便起见，我们不采用该技巧。</p>
-<pre class="file" id="assets/cpp/models/machine/option/temp.json">assets/cpp/models/machine/option/temp.json</pre>
+<pre class="file" id="assets/cpp/models/machine/option/temp">assets/cpp/models/machine/option/temp.json</pre>
 <pre>
 {
   "parent": "item/generated",
@@ -5968,7 +5968,7 @@ kill @s
   }
 }
 </pre>
-<pre class="file" id="assets/cpp/models/machine/option/high_pressure.json">assets/cpp/models/machine/option/high_pressure.json</pre>
+<pre class="file" id="assets/cpp/models/machine/option/high_pressure">assets/cpp/models/machine/option/high_pressure.json</pre>
 <pre>
 {
   "parent": "cpp:machine/option/temp",
@@ -5980,7 +5980,7 @@ kill @s
 
 <p>对于机器的能源条，我们使用三个模型来实现。这样的优点是如果当我们需要更换材质时，只需要改变能源条的模型和材质即可。</p>
 <p>第一个是能源条，能源条为动态材质，位于最底层</p>
-<pre class="file" id="assets/cpp/models/machine/xp/xp.json">assets/cpp/models/machine/xp/xp.json</pre>
+<pre class="file" id="assets/cpp/models/machine/xp/xp">assets/cpp/models/machine/xp/xp.json</pre>
 <pre>
 {
   "parent": "item/generated",
@@ -6012,7 +6012,7 @@ kill @s
 </figure>
 
 <p>第二个是能源标尺框架，位于中间层。</p>
-<pre class="file" id="assets/cpp/models/machine/xp/frame.json">assets/cpp/models/machine/xp/frame.json</pre>
+<pre class="file" id="assets/cpp/models/machine/xp/frame">assets/cpp/models/machine/xp/frame.json</pre>
 <pre>
 {
   "parent": "item/generated",
@@ -6036,7 +6036,7 @@ kill @s
 </figure>
 
 <p>我们将能源条划分为<code>0~100</code>共101种情形，第三层是用于遮挡能源条的101个与背景色相同的纯色方块。通过设置方块的高度放缩比例和平移，我们可以组合出只显示部分能源条的效果。公式为 <code>scale[1]=0.03125×(100-n),translation[1]=1+0.25n</code>。</p>
-<pre class="file" id="assets/cpp/models/machine/xp/88.json">assets/cpp/models/machine/xp/88.json</pre>
+<pre class="file" id="assets/cpp/models/machine/xp/88">assets/cpp/models/machine/xp/88.json</pre>
 <pre>
 {
   "parent": "cpp:machine/xp/temp",
@@ -6048,7 +6048,7 @@ kill @s
   }
 } 
 </pre>
-<pre class="file" id="assets/cpp/models/machine/xp/temp.json">assets/cpp/models/machine/xp/temp.json</pre>
+<pre class="file" id="assets/cpp/models/machine/xp/temp">assets/cpp/models/machine/xp/temp.json</pre>
 <pre>
 {
   "parent": "item/generated",
@@ -8188,7 +8188,7 @@ kill @s
 
 <p>另一种方式是对潜影盒战利品表使用项目 <code>dynamic</code>，该项目配合 <code>"name": "minecraft:contents"</code> 可以将潜影盒内物品作为战利品表输出。</p>
 
-<pre class="file" id="minecraft/loot_tables/blocks/shulker_box.json">minecraft/loot_tables/blocks/shulker_box.json</pre>
+<pre class="file" id="minecraft/loot_tables/blocks/shulker_box">minecraft/loot_tables/blocks/shulker_box.json</pre>
 <pre>
 {
   "type": "minecraft:block",
@@ -8294,7 +8294,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
   },
   "range": 0
 }</pre>
-<pre class="file" id="exmaple/item_modifiers/set_damage_score.json">exmaple/item_modifiers/set_damage_score.json</pre>
+<pre class="file" id="cpp/item_modifiers/set_damage_score">cpp/item_modifiers/set_damage_score.json</pre>
 <pre>
 {
   "function": "minecraft:copy_nbt",
@@ -9115,7 +9115,7 @@ data modify entity @s Offers.Recipes[9].buy.Count set from entity @s HandItems[0
 item entity @s weapon.mainhand replace air
 tag @s add trade_trade_added
 </pre>
-<pre class="file" id="trade/loot_tables/trade/buy.json">trade/loot_tables/trade/buy.json</pre>
+<pre class="file" id="trade/loot_tables/trade/buy">trade/loot_tables/trade/buy.json</pre>
 <pre>
 {
   "pools": [
@@ -9211,7 +9211,7 @@ tag @s add trade_trade_added
   ]
 }
 </pre>
-<pre class="file" id="trade/loot_tables/trade/sell.json">trade/loot_tables/trade/sell.json</pre>
+<pre class="file" id="trade/loot_tables/trade/sell">trade/loot_tables/trade/sell.json</pre>
 <pre>
 {
   "pools": [
@@ -9338,7 +9338,7 @@ execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a
 execute store result storage cpp:_ Damage int 1 run scoreboard players get #damage cppValue
 item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modify <a href="cpp/item_modifiers/chain_tool">cpp:chain_tool</a>
 </pre>
-<pre class="file" id="chain:chain/pickaxe1/mark">chain:chain/pickaxe1/mark</pre>
+<pre class="file" id="cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</pre>
 <pre>
 execute positioned ~1 ~ ~ if block ~ ~ ~ #cpp:chain/pickaxe1 run function <a href="#cpp/functions/chain/pickaxe1/damage">cpp:chain/pickaxe1/damage</a>
 execute if score #damage cppValue &lt; #max_durality cppValue positioned ~-1 ~ ~ if block ~ ~ ~ #cpp:chain/pickaxe1 run function <a href="#cpp/functions/chain/pickaxe1/damage">cpp:chain/pickaxe1/damage</a>
@@ -9347,7 +9347,7 @@ execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~-1 ~
 execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~1 if block ~ ~ ~ #cpp:chain/pickaxe1 run function <a href="#cpp/functions/chain/pickaxe1/damage">cpp:chain/pickaxe1/damage</a>
 execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~-1 if block ~ ~ ~ #cpp:chain/pickaxe1 run function <a href="#cpp/functions/chain/pickaxe1/damage">cpp:chain/pickaxe1/damage</a>
 </pre>
-<pre class="file" id="chain/tags/blocks/pickaxe1.json">chain/tags/blocks/pickaxe1.json</pre>
+<pre class="file" id="cpp/tags/blocks/pickaxe1">cpp/tags/blocks/pickaxe1.json</pre>
 <pre>
 {
   "replace": false,
@@ -9360,7 +9360,7 @@ execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~-1
   ]
 }
 </pre>
-<pre class="file" id="chain:chain/pickaxe1/damage">chain:chain/pickaxe1/damage</pre>
+<pre class="file" id="cpp/functions/chain/pickaxe1/damage">cpp:chain/pickaxe1/damage</pre>
 <pre># 挖矿经验
 execute as @s[predicate=!cpp:mainhand/silk_touch] run function <a href="#cpp/functions/chain/xp">cpp:chain/xp</a>
 function <a href="#cpp/functions/chain/mine">cpp:chain/mine</a>
