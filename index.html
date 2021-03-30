@@ -516,7 +516,7 @@ data
 }
 </pre>
 
-<p>数据包可以包含一个 <a href="files/vanilla/pack.png"><code>pack.png</code></a>，它是大小为 <code>16×16</code> 的图片，用于创建新的世界时在数据包菜单中显示。</p>
+<p>数据包可以包含一个 <a href="vanilla/pack.png"><code>pack.png</code></a>，它是大小为 <code>16×16</code> 的图片，用于创建新的世界时在数据包菜单中显示。</p>
 
 <h2 id="数据包/命名空间">§2.2 命名空间</h2>
 <p>参考<a href="https://wiki.biligame.com/mc/命名空间" class="wiki">命名空间</a>。<ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
@@ -641,101 +641,72 @@ data
 </tbody></table>
 
 <p>1.16-1.16.1 版本的维度、维度类型和世界生成文件位置为 <code>minecraft/<i>类型</i>/<i>命名空间</i>/<i>路径</i>/<i>文件名</i>.json</code> 而不是 <code><i>命名空间</i>/<i>类型</i>/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。除此之外，如战利品表JSON的 <code>type</code>、战利品表条件JSON的 <code>condition</code> 等诸多情形的值也是 <code>minecraft</code> 命名空间下的命名空间ID，因此此时也可以省略 <code>minecraft:</code>。</p>
+<p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。除此之外，如战利品表的 <code>type</code>、战利品表谓词的 <code>condition</code> 等诸多情形的值也是 <code>minecraft</code> 命名空间下的命名空间ID，因此此时也可以省略 <code>minecraft:</code>。</p>
 
 <h2 id="函数">§2.3 函数</h2>
-<p>参考<a href="https://wiki.biligame.com/mc/函数（Java版）" class="wiki">函数</a>。<ruby>函数<rt>functions</rt></ruby>是一系列顺次执行的命令。函数文件为纯文本文件，后缀为 <code>mcfunction</code>，每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行为注释行。游戏内或函数内使用 <code>function <i>命名空间</i>:<i>路径</i></code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
-<p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute" class="wiki">命令/execute</a>的各项子命令。</p>
+<p>参考<a href="https://wiki.biligame.com/mc/函数（Java版）" class="wiki">函数</a>。<ruby>函数<rt>functions</rt></ruby>是一系列顺次执行的命令。函数文件为纯文本文件。函数的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/functions/<i>路径</i>/<i>文件名</i>.mcfunction</code>。</p>
+<p>函数每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行是注释。游戏内或函数内使用 <code>function <i>命名空间ID</i></code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
+<p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。如果函数被进度奖励，执行者为完成进度的玩家，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute" class="wiki">命令/execute</a>的各项子命令。</p>
 
 <p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考<a href="#函数标签">函数标签</a>。</p>
 
-<h2 id="进度">§2.4 <ruby>进度<rt>advancements</rt></ruby></h2>
-<p>参考<a href="https://wiki.biligame.com/mc/进度/JSON格式" class="wiki">进度/JSON格式</a>。进度为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。我们先通过两个例子来看进度文件的格式。</p>
+<h2 id="进度">§2.4 进度</h2>
+<p>参考<a href="https://wiki.biligame.com/mc/进度/JSON格式" class="wiki">进度/JSON格式</a>。<ruby>进度<rt>advancements</rt></ruby>为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。进度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/advancements/<i>路径</i>/<i>文件名</i>.json</code>。</p>
 
-<p class="noindent"><strong>显示效果</strong> 当一个进度没有 <code>parent</code> 时，称之为根进度，即它没有上游进度。此时我们一般会指定 <code>display</code> 来规定显示效果，例如</p>
-<pre class="file" id="cpp/advancements/root">cpp/advancements/root.json</pre>
+<pre class="file" id="进度JSON格式">进度JSON格式</pre>
 <pre>
 {
-  "display": {
-    "icon": {
-      "item": "minecraft:carrot_on_a_stick",
-      "nbt": "{CustomModelData:12970010}"
+  "display": { <span class="comment">可选，显示数据</span>
+    "icon": { <span class="comment">一个物品，用于显示进度的图标</span>
+      "item": "物品命名空间ID", <span class="comment">图标物品 ID</span>
+      "nbt": 字符串 <span class="comment">图标物品nbt标签，可能会影响图标，例如指定 CustomModelData</span>
     },
-    "title":{
-      "translate": "advancements.ex.root.title"
-    },
-    "description": {
-      "translate": "advancements.ex.root.description"
-    },
-    "frame": "goal",
-    "background": "cpp:bg.png"
+    "title": 字符串 或 <a href="https://wiki.biligame.com/mc/原始JSON文本格式">JSON文本</a>, <span class="comment">进度的名称</span>
+    "description": 字符串 或 <a href="https://wiki.biligame.com/mc/原始JSON文本格式">JSON文本</a>, <span class="comment">进度的描述，格式和名称相同</span>
+    "frame": "task" (默认) 或 "challenge" 或 "goal", <span class="comment">可选，图标边框，分别为方形边框(任务)、尖形边框(挑战)、圆形边框(目标)</span>
+    "background": "<a href="#材质">材质</a>命名空间ID", <span class="comment">仅根进度有，决定该选项卡的背景图</span>
+    "show_toast": true (默认值) 或 false, <span class="comment">可选，是否在完成此进度后显示提示信息，若无显示效果则无效。</span>
+    "announce_to_chat": true (默认值) 或 false, <span class="comment">可选，是否在完成此进度时在聊天窗口提示，若无显示效果则无效。</span>
+    "hideen": true 或 false (默认值), <span class="comment">可选，在进度屏幕隐藏此进度，直到完成进度，会影响其子进度。当父进度值为true后便无法覆盖。一般仅用于隐藏的进度。</span>
   },
-  "criteria": {
-    "dream_wand": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions":{
-        "items":[
-          {
-            "nbt":"{id:\"cpp:dream_wand\"}"
-          }
-        ]
+  "parent": "<a href="#进度">进度</a>命名空间ID", <span class="comment">表示上游进度，不适用于根进度</span>
+  "criteria": { <span class="comment">需要达成的条件</span>
+    "条件名称": { <span class="comment">其中一个条件</span>
+      "trigger": "触发器名称", 
+      "conditions": { <span class="comment">该触发器达成时需要满足的条件</span>
       }
     }
+  },
+  "requirements": [ <span class="comment">可选，每一组条件中至少有一个达成时，该进度才会完成。默认所有条件都需要达成。</span>
+    [
+      "条件1",
+      "条件2",
+    ],
+    [
+      "条件3",
+      "条件4",
+    ]
+  ],
+  "rewards": { <span class="comment">完成进度的奖励</span>
+    "function":
+      "<a href="#函数">函数</a>命名空间ID", <span class="comment">完成进度时执行该函数，不可为函数标签。</span>
+    "loot": [ <span class="comment">完成进度时给予玩家这些战利品表</span>
+      "<a href="#战利品表">战利品表</a>命名空间ID",
+      "<a href="#战利品表">战利品表</a>命名空间ID"
+    ],
+    "recipes": [ <span class="comment">完成进度时玩家解锁这些配方</span>
+      "<a href="#配方">配方</a>命名空间ID",
+      "<a href="#配方">配方</a>命名空间ID"
+    ],
+    "experience": 正整数 <span class="comment">完成进度时玩家获得的经验</span>
   }
 }
 </pre>
-<p class="noindent">其中各个键的含义为</p>
-<table><thead><tr><th style="width:7em;">含义</th><th style="width:6em;">层次和键</th><th>说明</th></tr></thead><tbody>
-<tr>
-  <th rowspan="3">图标</th>
-  <td><code>display.icon</code></td>
-  <td>图标，这里为胡萝卜钓竿的自定义物品模型。</td>
-</tr>
-<tr>
-  <td><code>display.icon.item</code></td>
-  <td>图标物品 ID，这里为胡萝卜钓竿。</td>
-</tr>
-<tr>
-  <td><code>display.icon.nbt</code></td>
-  <td>图标物品 NBT，物品的材质模型可能会根据 NBT 不同而不同。</td>
-</tr>
-<tr>
-  <th>标题</th>
-  <td><code>display.title</code></td>
-  <td>进度的名称，可以是单个字符串或一个<a href="https://wiki.biligame.com/mc/原始JSON文本格式">原始JSON文本格式</a>，样例中 <code>translate</code> 文本是会随着语言改变的文本，参考 <a href="资源包">§3 资源包</a>。</td>
-</tr>
-<tr>
-  <th>描述</th>
-  <td><code>display.description</code></td>
-  <td>格式同上。</td>
-</tr>
-<tr>
-  <th>边框</th>
-  <td><code>display.frame</code></td>
-  <td>分为 <code>task</code>(任务 方形边框)，<code>challenge</code>(挑战 尖形边框)，<code>goal</code>(目标 圆形边框)。</td>
-</tr>
-<tr>
-  <th>选项卡背景</th>
-  <td><code>display.background</code></td>
-  <td>仅根进度有，决定该选项卡的背景图，为资源包内图片引用，参考 <a href="#texture">§3.6 材质</a>，这里为资源包中图片文件 <code>cpp/textures/bg.png</code>。</td>
-</tr>
-<tr>
-  <th rowspan="3">其它显示开关</th>
-  <td><code>display.show_toast</code></td>
-  <td>为true或false。是否在完成此进度后显示提示信息。默认为true，若无显示效果则无效。一般可省略。</td>
-</tr>
-<tr>
-  <td><code>display.announce_to_chat</code></td>
-  <td>为true或false。是否在完成此进度时在聊天窗口提示。默认为true，若无显示效果则无效。一般可省略。</td>
-</tr>
-<tr>
-  <td><code>display.hidden</code></td>
-  <td>可以为true或false。是否在进度屏幕隐藏此进度，直到完成进度。会影响其子进度。当父进度值为true后便无法覆盖。默认为false。一般仅用于隐藏的进度。</td>
-</tr>
-</tbody></table>
-<p>若一个进度没有 <code>display</code> 或其根进度无选项卡，则该进度不会出现在进度页面。</p>
 
-<p class="noindent"><strong><ruby>触发条件<rt>criteria</rt></ruby></strong> 进度通过 <code>criteria</code> 来指定触发条件，默认其列出的所有条件均需满足才会完成进度，但我们可以通过 <code>requirements</code> 来指定其它格式。<code>requirements</code> 的格式为或的与(合取范式)，即其列表中的每一个项(该项还是一个列表)中的均有一个列出的触发条件满足。例如 <code>"requirements": [["a","b"],["c","d"]]</code> 表示当 <code>a</code> 和 <code>b</code> 至少有一个满足且 <code>c</code> 和 <code>d</code> 至少有一个满足时，进度会完成。例如下例中两个判据 <code>sealing_wand</code>, <code>dream_wand</code> 分别表示玩家获取了相应 NBT 物品的触发器，只要其中有一个满足即可完成进度。</p>
+<p>没有 <code>parent</code> 的进度被称为根进度。若其有 <code>display</code>，则它定义了一个进度的选项卡。</p>
+<p>当一个进度没有 <code>display</code> 时，或者其根进度没有 <code>display</code> 时，它不会显示在进度页面中。解锁配方的进度，以及我们只是用来实现某些效果而并非希望将其添加到进度页面的进度，应当不定义 <code>display</code> 以隐藏之。</p>
+<p>当进度需要所有的条件都达成时才能完成时，我们不需要定义 <code>requirements</code>，这等价于 <code>"requirements": [["条件 1"],["条件 2"],...,["条件 n"]]</code>。如果我们需要复杂的组合条件时，就需要使用该字段。<code>requirements</code> 的格式为或的与(合取范式)，即其列表中的每一个项(该项还是一个条件的列表)中的均至少有一个条件满足。例如 <code>"requirements": [["a","b"],["c","d"]]</code> 表示当 <code>a</code> 和 <code>b</code> 至少有一个满足且 <code>c</code> 和 <code>d</code> 至少有一个满足时，进度会完成。不过较为常见的还是所有条件只要有一个满足即可，这时写作 <code>"requirements": [["条件 1","条件 2",...,"条件 n"]]</code>。例如下例中两个条件 <code>sealing_wand</code>, <code>dream_wand</code> 分别表示玩家获取了相应 NBT 物品的触发器，只要其中有一个满足即可完成进度。</p>
+
 <pre class="file" id="cpp/advancements/wand">cpp/advancements/wand.json</pre>
 <pre>
 {
@@ -746,10 +717,10 @@ data
       "nbt":"{CustomModelData:12970062}"
     },
     "title":{
-      "translate": "advancements.ex.wand.title"
+      "translate": "advancements.cpp.wand.title"
     },
     "description": {
-      "translate": "advancements.ex.wand.description"
+      "translate": "advancements.cpp.wand.description"
     },
     "frame": "challenge"
   },
@@ -776,9 +747,6 @@ data
     }
   },
   "rewards": {
-    "function": "cpp:foo",
-    "loot": ["cpp:bar"],
-    "recipes": ["minecraft:crafting_table","cpp:strange_block"],
     "experience": 200
   },
   "requirements": [
@@ -788,37 +756,38 @@ data
     ]
   ]
 }</pre>
-<p>触发条件下为触发条件的名称、触发器和触发器的条件，完整的触发器和触发器的条件请查看<a href="https://wiki.biligame.com/mc/进度/JSON格式#触发器列表">进度/JSON格式#触发器列表</a>。我们简要列出常见的触发器：</p>
+
+<p>完整的触发器和触发器的条件请查看<a href="https://wiki.biligame.com/mc/进度/JSON格式#触发器列表">进度/JSON格式#触发器列表</a>。我们简要列出常见的触发器：</p>
 
 <table><thead><tr><th>触发器</th><th>触发器的条件</th></tr></thead><tbody>
 <tr>
   <td><code>minecraft:impossible</code></td>
-  <td>仅可使用命令触发，例如使用触发器以外的条件来触发的进度。</td>
+  <td>仅可使用命令触发。这样的进度一般使用函数来判断并直接给予玩家。</td>
 </tr>
 <tr>
   <td><code>minecraft:tick</code></td>
-  <td>每个游戏刻触发。</td>
+  <td>每个游戏刻触发。当玩家第一次进入游戏时便可自动获取。也可用来仅需判断玩家的战利品表谓词来完成的进度。</td>
 </tr>
 <tr>
   <td><code>minecraft:location</code></td>
-  <td>检查玩家的位置，例如玩家进入某个维度或生物群系等。</td>
+  <td>检查玩家的位置，例如玩家进入某个维度、生物群系、结构等，或者玩家进入某种流体、某个高度等。有些也可以用其它触发器实现。</td>
 </tr>
 <tr>
   <td><code>minecraft:enter_block</code></td>
   <td>玩家进入方块时触发，例如水、传送门、花等。</td>
 </tr>
+
 <tr>
   <td><code>minecraft:placed_block</code></td>
-  <td>玩家放置方块时触发，例如玩家放置了木桶、熔炉、树苗等。</td>
+  <td>玩家放置方块时触发，例如玩家放置了木桶、熔炉、树苗等。在我们自定义方块时很有用。</td>
 </tr>
-
 <tr>
   <td><code>minecraft:inventory_changed</code></td>
   <td>玩家物品栏变化时触发，例如玩家获取物品。</td>
 </tr>
 <tr>
   <td><code>minecraft:consume_item</code></td>
-  <td>玩家消耗了相应物品，例如食用食物、饮用药水等。</td>
+  <td>玩家消耗了相应物品，例如食用食物、饮用药水等。在我们自定义食物和药水时很有用。</td>
 </tr>
 
 <tr>
@@ -839,19 +808,20 @@ data
 </tr>
 <tr>
   <td><code>minecraft:player_interacted_with_entity</code></td>
-  <td>玩家用手中物品与实体互动时触发，例如驯服、喂养、上鞍、交易、剪羊毛、旋转物品展示框、收集龙息、与猪灵换物、桶装牛奶、桶装鱼、碗装蘑菇煲、碗装迷之炖菜等。</td>
+  <td>玩家用手中物品与实体互动时触发，例如交易、修改实体数据(驯服、喂养、上鞍、剪羊毛、旋转物品展示框或放入物品、收集龙息、与猪灵换物、修补铁傀儡)、桶装牛奶、桶装鱼、碗装蘑菇煲、碗装迷之炖菜等。</td>
 </tr>
 
 <tr>
   <td><code>minecraft:item_durability_changed</code></td>
-  <td>物品栏中任何物品以任何形式损害时触发，例如使用工具消耗了耐久。</td>
+  <td>物品栏中任何物品以任何形式损害时触发，例如使用工具消耗了耐久。当使用拥有耐久附魔的工具而未消耗耐久时，不会触发。</td>
 </tr>
 <tr>
   <td><code>minecraft:item_used_on_block</code></td>
-  <td>玩家对方块使用物品时触发，例如对着篝火放置食物、斧给木头剥皮等。</td>
+  <td>玩家对方块使用物品时触发，例如对着篝火放置食物、斧给木头剥皮、向花盆中放入花等改变目标方块数据的，或者右击告示牌，或者对着任意方块放置方块。</td>
 </tr>
 </tbody></table>
-<p>所有的触发器条件均有 <code>player</code> 字段用于判断玩家是否满足相应的断言。例如</p>
+
+<p>所有的触发器条件均有一个<a href="#战利品表谓词">战利品表谓词</a>列表 <code>player</code> 字段用于要求玩家额外需要满足的战利品表谓词。例如</p>
 <pre class="file" id="cpp/functions/fatness">cpp:fatness</pre>
 <pre>
 {
@@ -860,10 +830,10 @@ data
       "item": "minecraft:enchanted_golden_apple"
     },
     "title":{
-      "translate": "advancements.ex.fatness.title"
+      "translate": "advancements.cpp.fatness.title"
     },
     "description": {
-      "translate": "advancements.ex.fatness.description"
+      "translate": "advancements.cpp.fatness.description"
     },
     "frame": "challenge"
   },
@@ -877,7 +847,7 @@ data
             "condition": "minecraft:entity_scores",
             "entity": "this",
             "scores": {
-              "exHealth": {
+              "cppHealth": {
                 "min": 40,
                 "max": 2147483647
               }
@@ -889,32 +859,9 @@ data
   }
 }</pre>
 
-<p class="noindent"><strong><ruby>奖励<rt>rewards</rt></ruby></strong> 完成进度后的奖励可以为：</p>
-<table><thead><tr><th style="width:7em;">触发器</th><th style="width:6em;">触发器的条件</th><th>说明</th></tr></thead><tbody>
-<tr>
-  <th>函数</th>
-  <td><code>rewards.function</code></td>
-  <td>为函数引用格式。完成进度时执行之，不可为函数标签。</td>
-</tr>
-<tr>
-  <th>战利品表</th>
-  <td><code>rewards.loot</code></td>
-  <td>为战利品表引用格式列表。完成进度时给予玩家列表中的所有战利品。</td>
-</tr>
-<tr>
-  <th>解锁配方</th>
-  <td><code>rewards.recipes</code></td>
-  <td>为配方引用格式列表。数据包添加的配方也应当有相应进度来解锁，参考<a href="recipe">§2.8 配方</a>。</td>
-</tr>
-<tr>
-  <th>经验</th>
-  <td><code>rewards.experience</code></td>
-  <td>为数值。建议仅在高难度进度完成时给予。</td>
-</tr>
-</tbody></table>
-<p class="noindent">上例中进度完成后会执行函数 <code>cpp:foo</code>，给予玩家战利品表 <code>cpp:bar</code> 的物品，解锁玩家配方 <code>minecraft:crafting_table</code> 和 <code>cpp:strange_block</code>，并给予玩家 <code>200</code> 点经验。</p>
-
-<p>游戏内或函数内使用 <code>advancement</code> 命令可以手动给予或剥夺进度。进度配合奖励函数剥夺玩家该进度，则该进度可反复触发，可用于诸如检测玩家生物群系、饮食等需要循环检测的情形。此时我们通常缺省进度的 <code>display</code> 以对玩家隐藏，例如：</p>
+<p>奖励中的解锁配方一般适用于数据包添加的配方相应的解锁进度，这样的进度无需 <code>display</code> 字段，参考<a href="#配方">配方</a>。奖励中的经验建议仅在高难度进度完成时给予，这样的进度通常设置 <code>frame</code> 为挑战。奖励中的函数的执行者为完成进度的玩家，位置为玩家的位置。</p>
+  
+<p>游戏内或函数内使用 <code>advancement</code> 命令可以手动给予或剥夺进度。进度配合奖励函数剥夺玩家该进度，则该进度可反复触发，可用于诸如检测玩家生物群系、饮食、放置方块等需要循环检测的情形。这样的进度需要缺省 <code>display</code> 字段。例如：</p>
 <pre class="file" id="cpp/advancements/food/citrus">cpp/advancements/food/citrus.json</pre>
 <pre>
 {
@@ -929,18 +876,171 @@ data
     }
   },
   "rewards":{
-    "function": "cpp:food/citrus"
+    "function": "cpp:diet/citrus"
   }
 }</pre>
-<pre class="file" id="cpp/functions/food/citrus.mcfunction">cpp/functions/food/citrus.mcfunction</pre>
+<pre class="file" id="cpp/functions/diet/citrus.mcfunction">cpp:diet/citrus</pre>
 <pre>
+advancement revoke @s only cpp:diet/citrus
 effect give @s saturation 1 1 true
-advancement revoke @s only cpp:food/citrus
 </pre>
 
-<h2 id="战利品表">§2.5 <ruby>战利品表<rt>loot_tables</rt></ruby></h2>
-<h3 id="战利品表/语法">§2.5.1 语法</h3>
-<p>可参考<a href="https://wiki.biligame.com/mc/战利品表#标签">战利品表</a>和<a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a>。战利品表用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品等。战利品表文件为JSON文件。例如：</p>
+<h2 id="战利品表">§2.5 战利品表</h2>
+<p>可参考<a href="https://wiki.biligame.com/mc/战利品表">战利品表</a>和<a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a>。<ruby>战利品表<rt>loot_tables</rt></ruby>用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品、进度的完成奖励等。战利品表文件为JSON文件。战利品表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/loot_tables/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<pre class="file" id="战利品表JSON格式">战利品表JSON格式</pre>
+<pre>
+{
+  "type": <span class="comment">可选的战利品表种类，为 </span>"minecraft:empty"<span class="comment">无任何战利品</span>
+  或 "minecraft:entity"<span class="comment">只可用于实体掉落物</span>
+  或 "minecraft:block" <span class="comment">只可用于方块掉落物</span>
+  或 "minecraft:chest"<span class="comment">只可用于箱子战利品表</span>
+  或 "minecraft:fishing"<span class="comment">只可用于钓鱼战利品表</span>
+  或 "minecraft:barter"<span class="comment">只可用于猪灵以物易物战利品表</span>
+  或 "minecraft:gift"<span class="comment">只可用于猫或村民赠送的礼物战利品表</span>
+  或 "minecraft:advancement_reward"<span class="comment">只可用于进度奖励</span>
+  或 "minecraft:command"<span class="comment">只可用于命令</span>
+  或 "minecraft:selector"<span class="comment">未知</span>
+  或 "minecraft:advancement_entity"<span class="comment">未知</span>
+  或 "minecraft:generic",<span class="comment">无限制，默认值</span>
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              }
+            },
+            {
+              "function": "minecraft:looting_enchant",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": false
+                    }
+                  }
+                }
+              ],
+              "type": "minecraft:item",
+              "name": "minecraft:beef",
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 1,
+                    "max": 3
+                  }
+                },
+                {
+                  "function": "minecraft:looting_enchant",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 0,
+                    "max": 1
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:cooked_beef",
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 1,
+                    "max": 3
+                  }
+                },
+                {
+                  "function": "minecraft:looting_enchant",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 0,
+                    "max": 1
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_looting",
+          "chance": 0.025,
+          "looting_multiplier": 0.01
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "cpp:limb_of_ridge"
+        }
+      ]
+    },
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_looting",
+          "chance": 0.025,
+          "looting_multiplier": 0.01
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "cpp:cow_head"
+        }
+      ]
+    }
+  ]
+}
+</pre>
+<p>在战利品表、战利品表谓词和物品修饰器中，很多数值可以有如下形式之一：</p>
+<pre class="file" id="战利品表数值">战利品表数值</pre>
+<pre></pre>
+
+<p>即使没有指定战利品表种类，或指定为 <code>minecraft:generic</code>，游戏也会根据实际应用的场景来决定它的类型。这意味着在相应情形无效的条件和函数不会生效，而且游戏不会报错提示。例如在方块战利品表中检测击杀者。</p>
 
 <pre class="file" id="minecraft/loot_tables/entities/cow">minecraft/loot_tables/entities/cow.json</pre>
 <pre>
@@ -1087,33 +1187,6 @@ advancement revoke @s only cpp:food/citrus
   <li>被玩家杀死时，有 <code>(2.5+抢夺等级)%</code> 几率掉落战利品表 <code>cpp:limb_of_ridge</code> 的物品；</li>
   <li>被玩家杀死时，有 <code>(2.5+抢夺等级)%</code> 几率掉落战利品表 <code>cpp:cow_head</code> 的物品。</li>
 </ul>
-<p class="noindent"><strong><ruby>战利品表类型<rt>type</rt></ruby></strong> 战利品表的 <code>type</code> 表示类型，特定类型不可使用某些函数/条件，例如方块战利品不可检测被击杀者。可选值如下：</p>
-<table><thead><tr><th>值</th><th>说明</th></tr></thead><tbody>
-<tr>
-  <td><code>minecraft:empty</code></td>
-  <td>无任何战利品。</td>
-</tr>
-<tr>
-  <td><code>minecraft:block</code></td>
-  <td>用于方块掉落物。</td>
-</tr>
-<tr>
-  <td><code>minecraft:entity</code></td>
-  <td>用于实体掉落物。</td>
-</tr>
-<tr>
-  <td><code>minecraft:chest</code></td>
-  <td>用于箱子物品。</td>
-</tr>
-<tr>
-  <td><code>minecraft:fishing</code></td>
-  <td>用于钓鱼物品。</td>
-</tr>
-<tr>
-  <td><code>minecraft:generic</code></td>
-  <td>无限制，等价于不填写该键值。</td>
-</tr>
-</tbody></table>
 <p class="noindent"><strong><ruby>随机池<rt>pools</rt></ruby></strong> <code>pools</code> 为随机池列表，每个随机池都会随机生成物品。每个随机池包含随机次数 <code>rolls</code> 和每点幸运额外随机次数 <code>bonus_rolls</code>，为数值或范围 <code>{"type": "minecraft:uniform", "min": 1, "max": 3}</code> 之类的；项目列表，其中每个项目会根据权重 <code>weight</code> 来随机选取一个，若不指定则权重默认为 <code>1</code>。键 <code>quality</code> 则规定了每点幸运对权重的加成。</p>
 <p><strong><ruby>项目<rt>entry</rt></ruby></strong> 项目中需指定项目类型，可选值如下：</p>
 <table><thead><tr><th>值</th><th>说明</th></tr></thead><tbody>
@@ -1949,9 +2022,9 @@ execute unless block ^ ^ ^ #cpp:fluid
 
 <p>原版的维度包括</p>
 <pre>
-<a href="files/vanilla/data/minecraft/dimension/overworld.json">overworld</a> <span class="comment">主世界</span>
-<a href="files/vanilla/data/minecraft/dimension/the_nether.json">the_nether</a> <span class="comment">下界</span>
-<a href="files/vanilla/data/minecraft/dimension/the_end.json">the_end</a> <span class="comment">末地</span>
+<a href="vanilla/data/minecraft/dimension/overworld.json">overworld</a> <span class="comment">主世界</span>
+<a href="vanilla/data/minecraft/dimension/the_nether.json">the_nether</a> <span class="comment">下界</span>
+<a href="vanilla/data/minecraft/dimension/the_end.json">the_end</a> <span class="comment">末地</span>
 </pre>
 
 <h3 id="维度类型">§2.11.2 维度类型</h3>
@@ -1983,10 +2056,10 @@ execute unless block ^ ^ ^ #cpp:fluid
 <h4 id="可用的维度类型">可用的维度类型</h4>
 <p>这些是 Minecraft 内部已生成的维度类型命名空间ID，可直接使用。已省略 minecraft:。</p>
 <pre>
-<a href="files/vanilla/data/minecraft/dimension_type/overworld.json">overworld</a> <span class="comment">主世界</span>
-<a href="files/vanilla/data/minecraft/dimension_type/overworld_caves.json">overworld_caves</a> <span class="comment">主世界洞穴</span>
-<a href="files/vanilla/data/minecraft/dimension_type/the_nether.json">the_nether</a> <span class="comment">下界</span>
-<a href="files/vanilla/data/minecraft/dimension_type/the_end.json">the_end</a> <span class="comment">末路之地</span> 
+<a href="vanilla/data/minecraft/dimension_type/overworld.json">overworld</a> <span class="comment">主世界</span>
+<a href="vanilla/data/minecraft/dimension_type/overworld_caves.json">overworld_caves</a> <span class="comment">主世界洞穴</span>
+<a href="vanilla/data/minecraft/dimension_type/the_nether.json">the_nether</a> <span class="comment">下界</span>
+<a href="vanilla/data/minecraft/dimension_type/the_end.json">the_end</a> <span class="comment">末路之地</span> 
 </pre>
 
 <h3 id="维度实例">§2.11.3 实例</h3>
@@ -2464,12 +2537,12 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h4 id="可用的噪声设置">可用的噪声设置</h4>
 <p>这些是 Minecraft 内部已生成的噪声设置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-<a href="files/vanilla/data/minecraft/worldgen/noise_settings/overworld.json">overworld</a> <span class="comment">生成普通的主世界</span>
-<a href="files/vanilla/data/minecraft/worldgen/noise_settings/amplified.json">amplified</a> <span class="comment">放大化的主世界</span>
-<a href="files/vanilla/data/minecraft/worldgen/noise_settings/nether.json">nether</a> <span class="comment">常规的下界</span>
-<a href="files/vanilla/data/minecraft/worldgen/noise_settings/caves.json">caves</a> <span class="comment">类似下界的洞穴却拥有主世界地形特征的世界</span>
-<a href="files/vanilla/data/minecraft/worldgen/noise_settings/end.json">end</a> <span class="comment">末地主岛</span>
-<a href="files/vanilla/data/minecraft/worldgen/noise_settings/floating_islands.json">floating_islands</a> <span class="comment">末地浮岛</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/overworld.json">overworld</a> <span class="comment">生成普通的主世界</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/amplified.json">amplified</a> <span class="comment">放大化的主世界</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/nether.json">nether</a> <span class="comment">常规的下界</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/caves.json">caves</a> <span class="comment">类似下界的洞穴却拥有主世界地形特征的世界</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/end.json">end</a> <span class="comment">末地主岛</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/floating_islands.json">floating_islands</a> <span class="comment">末地浮岛</span>
 </pre>
 
 <h4 id="默认世界结构参数">默认世界结构参数</h4>
@@ -2629,85 +2702,85 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h4 id="可用的生物群系">可用的生物群系</h4>
 <p>这些是 Minecraft 内部已生成的生物群系命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-<a href="files/vanilla/data/minecraft/worldgen/biome/badlands.json">badlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/badlands_plateau.json">badlands_plateau</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/bamboo_jungle.json">bamboo_jungle</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/bamboo_jungle_hills.json">bamboo_jungle_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/basalt_deltas.json">basalt_deltas</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/beach.json">beach</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/birch_forest.json">birch_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/birch_forest_hills.json">birch_forest_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/cold_ocean.json">cold_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/crimson_forest.json">crimson_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/dark_forest.json">dark_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/dark_forest_hills.json">dark_forest_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/deep_cold_ocean.json">deep_cold_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/deep_frozen_ocean.json">deep_frozen_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/deep_lukewarm_ocean.json">deep_lukewarm_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/deep_ocean.json">deep_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/deep_warm_ocean.json">deep_warm_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/desert.json">desert</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/desert_hills.json">desert_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/desert_lakes.json">desert_lakes</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/end_barrens.json">end_barrens</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/end_highlands.json">end_highlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/end_midlands.json">end_midlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/eroded_badlands.json">eroded_badlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/flower_forest.json">flower_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/forest.json">forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/frozen_ocean.json">frozen_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/frozen_river.json">frozen_river</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga.json">giant_spruce_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga_hills.json">giant_spruce_taiga_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/giant_tree_taiga.json">giant_tree_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/giant_tree_taiga_hills.json">giant_tree_taiga_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/gravelly_mountains.json">gravelly_mountains</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/ice_spikes.json">ice_spikes</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/jungle.json">jungle</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/jungle_edge.json">jungle_edge</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/jungle_hills.json">jungle_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/lukewarm_ocean.json">lukewarm_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/modified_badlands_plateau.json">modified_badlands_plateau</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/modified_gravelly_mountains.json">modified_gravelly_mountains</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/modified_jungle.json">modified_jungle</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/modified_jungle_edge.json">modified_jungle_edge</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/modified_wooded_badlands_plateau.json">modified_wooded_badlands_plateau</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/mountains.json">mountains</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/mountain_edge.json">mountain_edge</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/mushroom_fields.json">mushroom_fields</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/mushroom_field_shore.json">mushroom_field_shore</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/nether_wastes.json">nether_wastes</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/ocean.json">ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/plains.json">plains</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/river.json">river</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/savanna.json">savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/savanna_plateau.json">savanna_plateau</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/shattered_savanna.json">shattered_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/shattered_savanna_plateau.json">shattered_savanna_plateau</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/small_end_islands.json">small_end_islands</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_beach.json">snowy_beach</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_mountains.json">snowy_mountains</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_taiga.json">snowy_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_taiga_hills.json">snowy_taiga_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_taiga_mountains.json">snowy_taiga_mountains</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/snowy_tundra.json">snowy_tundra</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/soul_sand_valley.json">soul_sand_valley</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/stone_shore.json">stone_shore</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/sunflower_plains.json">sunflower_plains</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/swamp.json">swamp</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/swamp_hills.json">swamp_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/taiga.json">taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/taiga_hills.json">taiga_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/taiga_mountains.json">taiga_mountains</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/tall_birch_forest.json">tall_birch_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/tall_birch_hills.json">tall_birch_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/the_end.json">the_end</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/the_void.json">the_void</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/warm_ocean.json">warm_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/warped_forest.json">warped_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/wooded_badlands_plateau.json">wooded_badlands_plateau</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/wooded_hills.json">wooded_hills</a>
-<a href="files/vanilla/data/minecraft/worldgen/biome/wooded_mountains.json">wooded_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/badlands.json">badlands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/badlands_plateau.json">badlands_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/bamboo_jungle.json">bamboo_jungle</a>
+<a href="vanilla/data/minecraft/worldgen/biome/bamboo_jungle_hills.json">bamboo_jungle_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/basalt_deltas.json">basalt_deltas</a>
+<a href="vanilla/data/minecraft/worldgen/biome/beach.json">beach</a>
+<a href="vanilla/data/minecraft/worldgen/biome/birch_forest.json">birch_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/birch_forest_hills.json">birch_forest_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/cold_ocean.json">cold_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/crimson_forest.json">crimson_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/dark_forest.json">dark_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/dark_forest_hills.json">dark_forest_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_cold_ocean.json">deep_cold_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_frozen_ocean.json">deep_frozen_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_lukewarm_ocean.json">deep_lukewarm_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_ocean.json">deep_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_warm_ocean.json">deep_warm_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/desert.json">desert</a>
+<a href="vanilla/data/minecraft/worldgen/biome/desert_hills.json">desert_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/desert_lakes.json">desert_lakes</a>
+<a href="vanilla/data/minecraft/worldgen/biome/end_barrens.json">end_barrens</a>
+<a href="vanilla/data/minecraft/worldgen/biome/end_highlands.json">end_highlands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/end_midlands.json">end_midlands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/eroded_badlands.json">eroded_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/flower_forest.json">flower_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/forest.json">forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/frozen_ocean.json">frozen_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/frozen_river.json">frozen_river</a>
+<a href="vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga.json">giant_spruce_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga_hills.json">giant_spruce_taiga_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/giant_tree_taiga.json">giant_tree_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/biome/giant_tree_taiga_hills.json">giant_tree_taiga_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/gravelly_mountains.json">gravelly_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/ice_spikes.json">ice_spikes</a>
+<a href="vanilla/data/minecraft/worldgen/biome/jungle.json">jungle</a>
+<a href="vanilla/data/minecraft/worldgen/biome/jungle_edge.json">jungle_edge</a>
+<a href="vanilla/data/minecraft/worldgen/biome/jungle_hills.json">jungle_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/lukewarm_ocean.json">lukewarm_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_badlands_plateau.json">modified_badlands_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_gravelly_mountains.json">modified_gravelly_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_jungle.json">modified_jungle</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_jungle_edge.json">modified_jungle_edge</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_wooded_badlands_plateau.json">modified_wooded_badlands_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/mountains.json">mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/mountain_edge.json">mountain_edge</a>
+<a href="vanilla/data/minecraft/worldgen/biome/mushroom_fields.json">mushroom_fields</a>
+<a href="vanilla/data/minecraft/worldgen/biome/mushroom_field_shore.json">mushroom_field_shore</a>
+<a href="vanilla/data/minecraft/worldgen/biome/nether_wastes.json">nether_wastes</a>
+<a href="vanilla/data/minecraft/worldgen/biome/ocean.json">ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/plains.json">plains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/river.json">river</a>
+<a href="vanilla/data/minecraft/worldgen/biome/savanna.json">savanna</a>
+<a href="vanilla/data/minecraft/worldgen/biome/savanna_plateau.json">savanna_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/shattered_savanna.json">shattered_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/biome/shattered_savanna_plateau.json">shattered_savanna_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/small_end_islands.json">small_end_islands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_beach.json">snowy_beach</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_mountains.json">snowy_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga.json">snowy_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga_hills.json">snowy_taiga_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga_mountains.json">snowy_taiga_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_tundra.json">snowy_tundra</a>
+<a href="vanilla/data/minecraft/worldgen/biome/soul_sand_valley.json">soul_sand_valley</a>
+<a href="vanilla/data/minecraft/worldgen/biome/stone_shore.json">stone_shore</a>
+<a href="vanilla/data/minecraft/worldgen/biome/sunflower_plains.json">sunflower_plains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/swamp.json">swamp</a>
+<a href="vanilla/data/minecraft/worldgen/biome/swamp_hills.json">swamp_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/taiga.json">taiga</a>
+<a href="vanilla/data/minecraft/worldgen/biome/taiga_hills.json">taiga_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/taiga_mountains.json">taiga_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/tall_birch_forest.json">tall_birch_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/tall_birch_hills.json">tall_birch_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/the_end.json">the_end</a>
+<a href="vanilla/data/minecraft/worldgen/biome/the_void.json">the_void</a>
+<a href="vanilla/data/minecraft/worldgen/biome/warm_ocean.json">warm_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/warped_forest.json">warped_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/wooded_badlands_plateau.json">wooded_badlands_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/wooded_hills.json">wooded_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/wooded_mountains.json">wooded_mountains</a>
 </pre>
 
 <h3 id="地形雕刻器">§2.12.3 地形雕刻器</h3>
@@ -2726,11 +2799,11 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h4 id="可用的地形雕刻器">可用的地形雕刻器</h4>
 <p>这些是 Minecraft 内部已生成的地形雕刻器命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-<a href="files/vanilla/data/minecraft/worldgen/configured_carver/canyon.json">cave</a> <span class="comment">洞穴</span>
-<a href="files/vanilla/data/minecraft/worldgen/configured_carver/nether_cave.json">nether_cave</a> <span class="comment">下界洞穴</span>
-<a href="files/vanilla/data/minecraft/worldgen/configured_carver/canyon.json">canyon</a> <span class="comment">峡谷</span>
-<a href="files/vanilla/data/minecraft/worldgen/configured_carver/underwater_canyon.json">underwater_canyon</a> <span class="comment">水下峡谷</span>
-<a href="files/vanilla/data/minecraft/worldgen/configured_carver/underwater_cave.json">underwater_cave</a> <span class="comment">水下洞穴</span> 
+<a href="vanilla/data/minecraft/worldgen/configured_carver/canyon.json">cave</a> <span class="comment">洞穴</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/nether_cave.json">nether_cave</a> <span class="comment">下界洞穴</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/canyon.json">canyon</a> <span class="comment">峡谷</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/underwater_canyon.json">underwater_canyon</a> <span class="comment">水下峡谷</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/underwater_cave.json">underwater_cave</a> <span class="comment">水下洞穴</span> 
 </pre>
 
 
@@ -2766,29 +2839,29 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h4 id="可用的地表生成器">可用的地表生成器</h4>
 <p>这些是 Minecraft 内部已生成的地表生成器命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/badlands.json">badlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/basalt_deltas.json">basalt_deltas</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/crimson_forest.json">crimson_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/desert.json">desert</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/end.json">end</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/eroded_badlands.json">eroded_badlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/frozen_ocean.json">frozen_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/full_sand.json">full_sand</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/giant_tree_taiga.json">giant_tree_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/grass.json">grass</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/gravelly_mountain.json">gravelly_mountain</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/ice_spikes.json">ice_spikes</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/mountain.json">mountain</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/mycelium.json">mycelium</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/nether.json">nether</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/nope.json">nope</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/ocean_sand.json">ocean_sand</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/shattered_savanna.json">shattered_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/soul_sand_valley.json">soul_sand_valley</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/stone.json">stone</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/swamp.json">swamp</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/warped_forest.json">warped_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_surface_builder/wooded_badlands.json">wooded_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/badlands.json">badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/basalt_deltas.json">basalt_deltas</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/crimson_forest.json">crimson_forest</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/desert.json">desert</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/end.json">end</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/eroded_badlands.json">eroded_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/frozen_ocean.json">frozen_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/full_sand.json">full_sand</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/giant_tree_taiga.json">giant_tree_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/grass.json">grass</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/gravelly_mountain.json">gravelly_mountain</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/ice_spikes.json">ice_spikes</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/mountain.json">mountain</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/mycelium.json">mycelium</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/nether.json">nether</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/nope.json">nope</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/ocean_sand.json">ocean_sand</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/shattered_savanna.json">shattered_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/soul_sand_valley.json">soul_sand_valley</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/stone.json">stone</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/swamp.json">swamp</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/warped_forest.json">warped_forest</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/wooded_badlands.json">wooded_badlands</a>
 </pre>
 
 
@@ -3311,197 +3384,197 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <h4 id="可用的地物">可用的地物</h4>
 <p>这些是 Minecraft 内部已生成的地物命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/acacia.json">acacia</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/bamboo.json">bamboo</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/bamboo_light.json">bamboo_light</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/bamboo_vegetation.json">bamboo_vegetation</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/basalt_blobs.json">basalt_blobs</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/basalt_pillar.json">basalt_pillar</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/birch.json">birch</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/birch_bees_0002.json">birch_bees_0002</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/birch_bees_002.json">birch_bees_002</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/birch_bees_005.json">birch_bees_005</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/birch_other.json">birch_other</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/birch_tall.json">birch_tall</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/blackstone_blobs.json">blackstone_blobs</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/blue_ice.json">blue_ice</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/bonus_chest.json">bonus_chest</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_giant.json">brown_mushroom_giant</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_nether.json">brown_mushroom_nether</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_normal.json">brown_mushroom_normal</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_swamp.json">brown_mushroom_swamp</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_taiga.json">brown_mushroom_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/chorus_plant.json">chorus_plant</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/crimson_forest_vegetation.json">crimson_forest_vegetation</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/crimson_fungi.json">crimson_fungi</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/crimson_fungi_planted.json">crimson_fungi_planted</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/dark_forest_vegetation_brown.json">dark_forest_vegetation_brown</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/dark_forest_vegetation_red.json">dark_forest_vegetation_red</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/dark_oak.json">dark_oak</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/delta.json">delta</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/desert_well.json">desert_well</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/disk_clay.json">disk_clay</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/disk_gravel.json">disk_gravel</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/disk_sand.json">disk_sand</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/end_gateway.json">end_gateway</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/end_gateway_delayed.json">end_gateway_delayed</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/end_island.json">end_island</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/end_island_decorated.json">end_island_decorated</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/end_spike.json">end_spike</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/fancy_oak.json">fancy_oak</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/fancy_oak_bees_0002.json">fancy_oak_bees_0002</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/fancy_oak_bees_002.json">fancy_oak_bees_002</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/fancy_oak_bees_005.json">fancy_oak_bees_005</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/flower_default.json">flower_default</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/flower_forest.json">flower_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/flower_plain.json">flower_plain</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/flower_plain_decorated.json">flower_plain_decorated</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/flower_swamp.json">flower_swamp</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/flower_warm.json">flower_warm</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/forest_flower_trees.json">forest_flower_trees</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/forest_flower_vegetation.json">forest_flower_vegetation</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/forest_flower_vegetation_common.json">forest_flower_vegetation_common</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/forest_rock.json">forest_rock</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/fossil.json">fossil</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/freeze_top_layer.json">freeze_top_layer</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/glowstone.json">glowstone</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/glowstone_extra.json">glowstone_extra</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/huge_brown_mushroom.json">huge_brown_mushroom</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/huge_red_mushroom.json">huge_red_mushroom</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/iceberg_blue.json">iceberg_blue</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/iceberg_packed.json">iceberg_packed</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ice_patch.json">ice_patch</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ice_spike.json">ice_spike</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/jungle_bush.json">jungle_bush</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/jungle_tree.json">jungle_tree</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/jungle_tree_no_vine.json">jungle_tree_no_vine</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/kelp_cold.json">kelp_cold</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/kelp_warm.json">kelp_warm</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/lake_lava.json">lake_lava</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/lake_water.json">lake_water</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/large_basalt_columns.json">large_basalt_columns</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/mega_jungle_tree.json">mega_jungle_tree</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/mega_pine.json">mega_pine</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/mega_spruce.json">mega_spruce</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/monster_room.json">monster_room</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/mushroom_field_vegetation.json">mushroom_field_vegetation</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/nether_sprouts.json">nether_sprouts</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/oak.json">oak</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/oak_badlands.json">oak_badlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/oak_bees_0002.json">oak_bees_0002</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/oak_bees_002.json">oak_bees_002</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/oak_bees_005.json">oak_bees_005</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_andesite.json">ore_andesite</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_blackstone.json">ore_blackstone</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_coal.json">ore_coal</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_debris_large.json">ore_debris_large</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_debris_small.json">ore_debris_small</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_diamond.json">ore_diamond</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_diorite.json">ore_diorite</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_dirt.json">ore_dirt</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_emerald.json">ore_emerald</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_gold.json">ore_gold</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_gold_deltas.json">ore_gold_deltas</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_gold_extra.json">ore_gold_extra</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_gold_nether.json">ore_gold_nether</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_granite.json">ore_granite</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_gravel.json">ore_gravel</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_gravel_nether.json">ore_gravel_nether</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_infested.json">ore_infested</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_iron.json">ore_iron</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_lapis.json">ore_lapis</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_magma.json">ore_magma</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_quartz_deltas.json">ore_quartz_deltas</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_quartz_nether.json">ore_quartz_nether</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_redstone.json">ore_redstone</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/ore_soul_sand.json">ore_soul_sand</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_berry_bush.json">patch_berry_bush</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_berry_decorated.json">patch_berry_decorated</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_berry_sparse.json">patch_berry_sparse</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_brown_mushroom.json">patch_brown_mushroom</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_cactus.json">patch_cactus</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_cactus_decorated.json">patch_cactus_decorated</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_cactus_desert.json">patch_cactus_desert</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_crimson_roots.json">patch_crimson_roots</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_dead_bush.json">patch_dead_bush</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_dead_bush_2.json">patch_dead_bush_2</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_dead_bush_badlands.json">patch_dead_bush_badlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_fire.json">patch_fire</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_grass_badlands.json">patch_grass_badlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_grass_forest.json">patch_grass_forest</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_grass_jungle.json">patch_grass_jungle</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_grass_normal.json">patch_grass_normal</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_grass_plain.json">patch_grass_plain</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_grass_savanna.json">patch_grass_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_grass_taiga.json">patch_grass_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_grass_taiga_2.json">patch_grass_taiga_2</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_large_fern.json">patch_large_fern</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_melon.json">patch_melon</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_pumpkin.json">patch_pumpkin</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_red_mushroom.json">patch_red_mushroom</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_soul_fire.json">patch_soul_fire</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_sugar_cane.json">patch_sugar_cane</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_sugar_cane_badlands.json">patch_sugar_cane_badlands</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_sugar_cane_desert.json">patch_sugar_cane_desert</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_sugar_cane_swamp.json">patch_sugar_cane_swamp</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_sunflower.json">patch_sunflower</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_taiga_grass.json">patch_taiga_grass</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_tall_grass.json">patch_tall_grass</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_tall_grass_2.json">patch_tall_grass_2</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/patch_waterlilly.json">patch_waterlilly</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/pile_hay.json">pile_hay</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/pile_ice.json">pile_ice</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/pile_melon.json">pile_melon</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/pile_pumpkin.json">pile_pumpkin</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/pile_snow.json">pile_snow</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/pine.json">pine</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/plain_vegetation.json">plain_vegetation</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_giant.json">red_mushroom_giant</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_nether.json">red_mushroom_nether</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_normal.json">red_mushroom_normal</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_swamp.json">red_mushroom_swamp</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_taiga.json">red_mushroom_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_cold.json">seagrass_cold</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_deep.json">seagrass_deep</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_deep_cold.json">seagrass_deep_cold</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_deep_warm.json">seagrass_deep_warm</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_normal.json">seagrass_normal</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_river.json">seagrass_river</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_simple.json">seagrass_simple</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_swamp.json">seagrass_swamp</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/seagrass_warm.json">seagrass_warm</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/sea_pickle.json">sea_pickle</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/small_basalt_columns.json">small_basalt_columns</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spring_closed.json">spring_closed</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spring_closed_double.json">spring_closed_double</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spring_delta.json">spring_delta</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spring_lava.json">spring_lava</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spring_lava_double.json">spring_lava_double</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spring_open.json">spring_open</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spring_water.json">spring_water</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spruce.json">spruce</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/spruce_snowy.json">spruce_snowy</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/super_birch_bees_0002.json">super_birch_bees_0002</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/swamp_tree.json">swamp_tree</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/taiga_vegetation.json">taiga_vegetation</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_birch.json">trees_birch</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_giant.json">trees_giant</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_giant_spruce.json">trees_giant_spruce</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_jungle.json">trees_jungle</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_jungle_edge.json">trees_jungle_edge</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_mountain.json">trees_mountain</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_mountain_edge.json">trees_mountain_edge</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_savanna.json">trees_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_shattered_savanna.json">trees_shattered_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/trees_water.json">trees_water</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/twisting_vines.json">twisting_vines</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/vines.json">vines</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/void_start_platform.json">void_start_platform</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/warm_ocean_vegetation.json">warm_ocean_vegetation</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/warped_forest_vegetation.json">warped_forest_vegetation</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/warped_fungi.json">warped_fungi</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/warped_fungi_planted.json">warped_fungi_planted</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_feature/weeping_vines.json">weeping_vines</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/acacia.json">acacia</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/bamboo.json">bamboo</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/bamboo_light.json">bamboo_light</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/bamboo_vegetation.json">bamboo_vegetation</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/basalt_blobs.json">basalt_blobs</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/basalt_pillar.json">basalt_pillar</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/birch.json">birch</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/birch_bees_0002.json">birch_bees_0002</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/birch_bees_002.json">birch_bees_002</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/birch_bees_005.json">birch_bees_005</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/birch_other.json">birch_other</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/birch_tall.json">birch_tall</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/blackstone_blobs.json">blackstone_blobs</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/blue_ice.json">blue_ice</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/bonus_chest.json">bonus_chest</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_giant.json">brown_mushroom_giant</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_nether.json">brown_mushroom_nether</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_normal.json">brown_mushroom_normal</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_swamp.json">brown_mushroom_swamp</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/brown_mushroom_taiga.json">brown_mushroom_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/chorus_plant.json">chorus_plant</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/crimson_forest_vegetation.json">crimson_forest_vegetation</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/crimson_fungi.json">crimson_fungi</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/crimson_fungi_planted.json">crimson_fungi_planted</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/dark_forest_vegetation_brown.json">dark_forest_vegetation_brown</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/dark_forest_vegetation_red.json">dark_forest_vegetation_red</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/dark_oak.json">dark_oak</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/delta.json">delta</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/desert_well.json">desert_well</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/disk_clay.json">disk_clay</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/disk_gravel.json">disk_gravel</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/disk_sand.json">disk_sand</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/end_gateway.json">end_gateway</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/end_gateway_delayed.json">end_gateway_delayed</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/end_island.json">end_island</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/end_island_decorated.json">end_island_decorated</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/end_spike.json">end_spike</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/fancy_oak.json">fancy_oak</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/fancy_oak_bees_0002.json">fancy_oak_bees_0002</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/fancy_oak_bees_002.json">fancy_oak_bees_002</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/fancy_oak_bees_005.json">fancy_oak_bees_005</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/flower_default.json">flower_default</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/flower_forest.json">flower_forest</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/flower_plain.json">flower_plain</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/flower_plain_decorated.json">flower_plain_decorated</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/flower_swamp.json">flower_swamp</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/flower_warm.json">flower_warm</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/forest_flower_trees.json">forest_flower_trees</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/forest_flower_vegetation.json">forest_flower_vegetation</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/forest_flower_vegetation_common.json">forest_flower_vegetation_common</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/forest_rock.json">forest_rock</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/fossil.json">fossil</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/freeze_top_layer.json">freeze_top_layer</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/glowstone.json">glowstone</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/glowstone_extra.json">glowstone_extra</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/huge_brown_mushroom.json">huge_brown_mushroom</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/huge_red_mushroom.json">huge_red_mushroom</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/iceberg_blue.json">iceberg_blue</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/iceberg_packed.json">iceberg_packed</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ice_patch.json">ice_patch</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ice_spike.json">ice_spike</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/jungle_bush.json">jungle_bush</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/jungle_tree.json">jungle_tree</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/jungle_tree_no_vine.json">jungle_tree_no_vine</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/kelp_cold.json">kelp_cold</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/kelp_warm.json">kelp_warm</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/lake_lava.json">lake_lava</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/lake_water.json">lake_water</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/large_basalt_columns.json">large_basalt_columns</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/mega_jungle_tree.json">mega_jungle_tree</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/mega_pine.json">mega_pine</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/mega_spruce.json">mega_spruce</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/monster_room.json">monster_room</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/mushroom_field_vegetation.json">mushroom_field_vegetation</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/nether_sprouts.json">nether_sprouts</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/oak.json">oak</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/oak_badlands.json">oak_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/oak_bees_0002.json">oak_bees_0002</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/oak_bees_002.json">oak_bees_002</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/oak_bees_005.json">oak_bees_005</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_andesite.json">ore_andesite</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_blackstone.json">ore_blackstone</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_coal.json">ore_coal</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_debris_large.json">ore_debris_large</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_debris_small.json">ore_debris_small</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_diamond.json">ore_diamond</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_diorite.json">ore_diorite</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_dirt.json">ore_dirt</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_emerald.json">ore_emerald</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_gold.json">ore_gold</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_gold_deltas.json">ore_gold_deltas</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_gold_extra.json">ore_gold_extra</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_gold_nether.json">ore_gold_nether</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_granite.json">ore_granite</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_gravel.json">ore_gravel</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_gravel_nether.json">ore_gravel_nether</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_infested.json">ore_infested</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_iron.json">ore_iron</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_lapis.json">ore_lapis</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_magma.json">ore_magma</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_quartz_deltas.json">ore_quartz_deltas</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_quartz_nether.json">ore_quartz_nether</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_redstone.json">ore_redstone</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/ore_soul_sand.json">ore_soul_sand</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_berry_bush.json">patch_berry_bush</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_berry_decorated.json">patch_berry_decorated</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_berry_sparse.json">patch_berry_sparse</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_brown_mushroom.json">patch_brown_mushroom</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_cactus.json">patch_cactus</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_cactus_decorated.json">patch_cactus_decorated</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_cactus_desert.json">patch_cactus_desert</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_crimson_roots.json">patch_crimson_roots</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_dead_bush.json">patch_dead_bush</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_dead_bush_2.json">patch_dead_bush_2</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_dead_bush_badlands.json">patch_dead_bush_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_fire.json">patch_fire</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_grass_badlands.json">patch_grass_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_grass_forest.json">patch_grass_forest</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_grass_jungle.json">patch_grass_jungle</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_grass_normal.json">patch_grass_normal</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_grass_plain.json">patch_grass_plain</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_grass_savanna.json">patch_grass_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_grass_taiga.json">patch_grass_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_grass_taiga_2.json">patch_grass_taiga_2</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_large_fern.json">patch_large_fern</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_melon.json">patch_melon</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_pumpkin.json">patch_pumpkin</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_red_mushroom.json">patch_red_mushroom</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_soul_fire.json">patch_soul_fire</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_sugar_cane.json">patch_sugar_cane</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_sugar_cane_badlands.json">patch_sugar_cane_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_sugar_cane_desert.json">patch_sugar_cane_desert</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_sugar_cane_swamp.json">patch_sugar_cane_swamp</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_sunflower.json">patch_sunflower</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_taiga_grass.json">patch_taiga_grass</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_tall_grass.json">patch_tall_grass</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_tall_grass_2.json">patch_tall_grass_2</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/patch_waterlilly.json">patch_waterlilly</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/pile_hay.json">pile_hay</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/pile_ice.json">pile_ice</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/pile_melon.json">pile_melon</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/pile_pumpkin.json">pile_pumpkin</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/pile_snow.json">pile_snow</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/pine.json">pine</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/plain_vegetation.json">plain_vegetation</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_giant.json">red_mushroom_giant</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_nether.json">red_mushroom_nether</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_normal.json">red_mushroom_normal</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_swamp.json">red_mushroom_swamp</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/red_mushroom_taiga.json">red_mushroom_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_cold.json">seagrass_cold</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_deep.json">seagrass_deep</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_deep_cold.json">seagrass_deep_cold</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_deep_warm.json">seagrass_deep_warm</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_normal.json">seagrass_normal</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_river.json">seagrass_river</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_simple.json">seagrass_simple</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_swamp.json">seagrass_swamp</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/seagrass_warm.json">seagrass_warm</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/sea_pickle.json">sea_pickle</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/small_basalt_columns.json">small_basalt_columns</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spring_closed.json">spring_closed</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spring_closed_double.json">spring_closed_double</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spring_delta.json">spring_delta</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spring_lava.json">spring_lava</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spring_lava_double.json">spring_lava_double</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spring_open.json">spring_open</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spring_water.json">spring_water</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spruce.json">spruce</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/spruce_snowy.json">spruce_snowy</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/super_birch_bees_0002.json">super_birch_bees_0002</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/swamp_tree.json">swamp_tree</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/taiga_vegetation.json">taiga_vegetation</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_birch.json">trees_birch</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_giant.json">trees_giant</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_giant_spruce.json">trees_giant_spruce</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_jungle.json">trees_jungle</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_jungle_edge.json">trees_jungle_edge</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_mountain.json">trees_mountain</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_mountain_edge.json">trees_mountain_edge</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_savanna.json">trees_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_shattered_savanna.json">trees_shattered_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/trees_water.json">trees_water</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/twisting_vines.json">twisting_vines</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/vines.json">vines</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/void_start_platform.json">void_start_platform</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/warm_ocean_vegetation.json">warm_ocean_vegetation</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/warped_forest_vegetation.json">warped_forest_vegetation</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/warped_fungi.json">warped_fungi</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/warped_fungi_planted.json">warped_fungi_planted</a>
+<a href="vanilla/data/minecraft/worldgen/configured_feature/weeping_vines.json">weeping_vines</a>
 </pre>
 
 <h4 id="装饰物">装饰物</h4>
@@ -3670,37 +3743,37 @@ decorated
 <h4 id="可用的结构地物">可用的结构地物</h4>
 <p>这些是 Minecraft 内部已生成的结构地物命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/bastion_remnant.json">bastion_remnant</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/buried_treasure.json">buried_treasure</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/desert_pyramid.json">desert_pyramid</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/end_city.json">end_city</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/fortress.json">fortress</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/igloo.json">igloo</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/jungle_pyramid.json">jungle_pyramid</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/mansion.json">mansion</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/mineshaft.json">mineshaft</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/mineshaft_mesa.json">mineshaft_mesa</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/monument.json">monument</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/nether_fossil.json">nether_fossil</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ocean_ruin_cold.json">ocean_ruin_cold</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ocean_ruin_warm.json">ocean_ruin_warm</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/pillager_outpost.json">pillager_outpost</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal.json">ruined_portal</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_desert.json">ruined_portal_desert</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_jungle.json">ruined_portal_jungle</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_mountain.json">ruined_portal_mountain</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_nether.json">ruined_portal_nether</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_ocean.json">ruined_portal_ocean</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_swamp.json">ruined_portal_swamp</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/shipwreck.json">shipwreck</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/shipwreck_beached.json">shipwreck_beached</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/stronghold.json">stronghold</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/swamp_hut.json">swamp_hut</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_desert.json">village_desert</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_plains.json">village_plains</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_savanna.json">village_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_snowy.json">village_snowy</a>
-<a href="files/vanilla/data/minecraft/worldgen/configured_structure_feature/village_taiga.json">village_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/bastion_remnant.json">bastion_remnant</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/buried_treasure.json">buried_treasure</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/desert_pyramid.json">desert_pyramid</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/end_city.json">end_city</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/fortress.json">fortress</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/igloo.json">igloo</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/jungle_pyramid.json">jungle_pyramid</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/mansion.json">mansion</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/mineshaft.json">mineshaft</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/mineshaft_mesa.json">mineshaft_mesa</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/monument.json">monument</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/nether_fossil.json">nether_fossil</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ocean_ruin_cold.json">ocean_ruin_cold</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ocean_ruin_warm.json">ocean_ruin_warm</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/pillager_outpost.json">pillager_outpost</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal.json">ruined_portal</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_desert.json">ruined_portal_desert</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_jungle.json">ruined_portal_jungle</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_mountain.json">ruined_portal_mountain</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_nether.json">ruined_portal_nether</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_ocean.json">ruined_portal_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/ruined_portal_swamp.json">ruined_portal_swamp</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/shipwreck.json">shipwreck</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/shipwreck_beached.json">shipwreck_beached</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/stronghold.json">stronghold</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/swamp_hut.json">swamp_hut</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/village_desert.json">village_desert</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/village_plains.json">village_plains</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/village_savanna.json">village_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/village_snowy.json">village_snowy</a>
+<a href="vanilla/data/minecraft/worldgen/configured_structure_feature/village_taiga.json">village_taiga</a>
 </pre>
 
 
@@ -3819,36 +3892,36 @@ decorated
 <h4 id="可用的处理器列表">可用的处理器列表</h4>
 <p>这些是 Minecraft 内部已生成的处理器列表命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
 <pre>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/bastion_generic_degradation.json">bastion_generic_degradation</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/bottom_rampart.json">bottom_rampart</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/bridge.json">bridge</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/empty.json">empty</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/entrance_replacement.json">entrance_replacement</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_desert.json">farm_desert</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_plains.json">farm_plains</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_savanna.json">farm_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_snowy.json">farm_snowy</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/farm_taiga.json">farm_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/high_rampart.json">high_rampart</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/high_wall.json">high_wall</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/housing.json">housing</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/mossify_10_percent.json">mossify_10_percent</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/mossify_20_percent.json">mossify_20_percent</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/mossify_70_percent.json">mossify_70_percent</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/rampart_degradation.json">rampart_degradation</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/outpost_rot.json">outpost_rot</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/roof.json">roof</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/side_wall_degradation.json">side_wall_degradation</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/stable_degradation.json">stable_degradation</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/street_plains.json">street_plains</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/street_savanna.json">street_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/street_snowy_or_taiga.json">street_snowy_or_taiga</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/treasure_rooms.json">treasure_rooms</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_desert.json">zombie_desert</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_plains.json">zombie_plains</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_savanna.json">zombie_savanna</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_snowy.json">zombie_snowy</a>
-<a href="files/vanilla/data/minecraft/worldgen/processor_list/zombie_taiga.json">zombie_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/bastion_generic_degradation.json">bastion_generic_degradation</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/bottom_rampart.json">bottom_rampart</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/bridge.json">bridge</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/empty.json">empty</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/entrance_replacement.json">entrance_replacement</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/farm_desert.json">farm_desert</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/farm_plains.json">farm_plains</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/farm_savanna.json">farm_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/farm_snowy.json">farm_snowy</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/farm_taiga.json">farm_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/high_rampart.json">high_rampart</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/high_wall.json">high_wall</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/housing.json">housing</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/mossify_10_percent.json">mossify_10_percent</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/mossify_20_percent.json">mossify_20_percent</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/mossify_70_percent.json">mossify_70_percent</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/rampart_degradation.json">rampart_degradation</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/outpost_rot.json">outpost_rot</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/roof.json">roof</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/side_wall_degradation.json">side_wall_degradation</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/stable_degradation.json">stable_degradation</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/street_plains.json">street_plains</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/street_savanna.json">street_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/street_snowy_or_taiga.json">street_snowy_or_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/treasure_rooms.json">treasure_rooms</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/zombie_desert.json">zombie_desert</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/zombie_plains.json">zombie_plains</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/zombie_savanna.json">zombie_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/zombie_snowy.json">zombie_snowy</a>
+<a href="vanilla/data/minecraft/worldgen/processor_list/zombie_taiga.json">zombie_taiga</a>
 </pre>
 
 
@@ -3935,7 +4008,7 @@ assets
 }
 </pre>
 
-<p>资源包可以包含一个 <a href="files/vanilla/pack.png"><code>pack.png</code></a>，它是大小为 <code>16×16</code> 的图片，用于在资源包菜单中显示。</p>
+<p>资源包可以包含一个 <a href="vanilla/pack.png"><code>pack.png</code></a>，它是大小为 <code>16×16</code> 的图片，用于在资源包菜单中显示。</p>
 
 <h2 id="资源包/命名空间">§3.2 命名空间</h2>
 <p><ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。资源包下可以有多个命名空间，如果不同资源包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的模型材质只需在你的资源包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
@@ -6109,7 +6182,7 @@ execute unless data block ~ ~ ~ Items[{Slot:21b}] run item block ~ ~ ~ container
 execute unless data block ~ ~ ~ Items[{Slot:22b}] run item block ~ ~ ~ container.22 replace firework_star{cppClear:1b,display:{Name:'{"italic":false,"translate":"item.cpp.output_slot"}'},CustomModelData:12970000}
 execute as @s[tag=!cpp_machine_work] run function <a href="#cpp/functions/all_in_one_machine/idle">cpp:all_in_one_machine/idle</a>
 tag @s remove cpp_machine_work
-execute unless predicate <a href="cpp/predicates/power/strong">cpp:power/strong</a> as @s[scores={cppExp=1..}] if block ~ ~ ~ barrel{Items:[{Slot:3b},{Slot:4b},{Slot:21b,tag:{cppClear:1b}},{Slot:22b,tag:{cppClear:1b}}]} run function <a href="#cpp/functions/all_in_one_machine/type">cpp:all_in_one_machine/type</a>
+execute unless predicate <a href="#cpp/predicates/power/strong">cpp:power/strong</a> as @s[scores={cppExp=1..}] if block ~ ~ ~ barrel{Items:[{Slot:3b},{Slot:4b},{Slot:21b,tag:{cppClear:1b}},{Slot:22b,tag:{cppClear:1b}}]} run function <a href="#cpp/functions/all_in_one_machine/type">cpp:all_in_one_machine/type</a>
 execute unless data block ~ ~ ~ Items[{Slot:21b,tag:{cppClear:1b}}] run function <a href="#cpp/functions/dist/dist21">cpp:dist/dist21</a>
 execute unless data block ~ ~ ~ Items[{Slot:22b,tag:{cppClear:1b}}] run function <a href="#cpp/functions/dist/dist22">cpp:dist/dist22</a>
 </pre>
@@ -7210,7 +7283,7 @@ data merge block ~ ~ ~ {CookTime:0s}
 <pre>
 execute unless block ~ ~ ~ furnace run kill @s
 execute as @s[tag=cpp_check_fuel] run function <a href="#cpp/functions/furnace/fuel_get">cpp:furnace/fuel_get</a>
-execute unless block ~ ~ ~ furnace{Items:[{Slot:2b,Count:64b}]} unless block ~ ~ ~ furnace{Items:[{Slot:2b,Count:16b,id:"minecraft:ender_pearl"}]} if predicate <a href="cpp/predicates/furnace/furnace">cpp:furnace/furnace</a> run function <a href="#cpp/functions/furnace/type">cpp:furnace/type</a>
+execute unless block ~ ~ ~ furnace{Items:[{Slot:2b,Count:64b}]} unless block ~ ~ ~ furnace{Items:[{Slot:2b,Count:16b,id:"minecraft:ender_pearl"}]} if predicate <a href="#cpp/predicates/furnace/furnace">cpp:furnace/furnace</a> run function <a href="#cpp/functions/furnace/type">cpp:furnace/type</a>
 </pre>
 <p>当检测到燃料改变时，重新计算燃烧值。注意这需要在检测到改变的下一刻才能获得，因此该部分在最前面。</p>
 <pre class="file" id="cpp/functions/furnace/fuel_get">cpp:furnace/fuel_get</pre>
@@ -8889,7 +8962,7 @@ scoreboard objectives add cppOpenFrame minecraft.custom:minecraft.open_barrel
 <pre class="file">cpp:tick</pre>
 <pre>
 execute as @a[tag=machine_close_gui] at @s positioned ~ ~-256 ~ run function <a href="#cpp/functions/misc/close_gui_back">cpp:misc/close_gui_back</a>
-execute as @a[scores={cppOpenFrame=1..}] if predicate <a href="cpp/predicates/all_in_one_machine/hand_machine_plugin">cpp:all_in_one_machine/hand_machine_plugin</a> at @s anchored eyes run function <a href="#cpp/functions/all_in_one_machine/plugin/ray">cpp:all_in_one_machine/plugin/ray</a>
+execute as @a[scores={cppOpenFrame=1..}] if predicate <a href="#cpp/predicates/all_in_one_machine/hand_machine_plugin">cpp:all_in_one_machine/hand_machine_plugin</a> at @s anchored eyes run function <a href="#cpp/functions/all_in_one_machine/plugin/ray">cpp:all_in_one_machine/plugin/ray</a>
 </pre>
 <pre class="file" id="cpp/predicates/all_in_one_machine/hand_machine_plugin">cpp/predicates/all_in_one_machine/hand_machine_plugin.json</pre>
 <pre>
@@ -9326,7 +9399,7 @@ execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a
 execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a href="#cpp/predicates/mainhand/pickaxe1">cpp:mainhand/pickaxe1</a>] run function <a href="#cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</a>
 execute if score #damage cppValue &lt; #max_durality cppValue as @s[predicate=<a href="#cpp/predicates/mainhand/pickaxe">cpp:mainhand/pickaxe</a>] run function <a href="#cpp/functions/chain/pickaxe/mark">cpp:chain/pickaxe/mark</a>
 execute store result storage cpp:_ Damage int 1 run scoreboard players get #damage cppValue
-item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modify <a href="cpp/item_modifiers/chain_tool">cpp:chain_tool</a>
+item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modify <a href="#cpp/item_modifiers/chain_tool">cpp:chain_tool</a>
 </pre>
 <pre class="file" id="cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</pre>
 <pre>
@@ -9356,7 +9429,7 @@ execute as @s[predicate=!cpp:mainhand/silk_touch] run function <a href="#cpp/fun
 function <a href="#cpp/functions/chain/mine">cpp:chain/mine</a>
 execute if predicate <a href="#cpp/predicates/damage">cpp:damage</a> run scoreboard players add #damage cppValue 1
 scoreboard players add #mined cppValue 1
-execute if score #mined cppValue &lt; $maxChainBlocks cppConfig if score #damage cppValue &lt; #max_durality cppValue run function <a href="cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</a>
+execute if score #mined cppValue &lt; $maxChainBlocks cppConfig if score #damage cppValue &lt; #max_durality cppValue run function <a href="#cpp/functions/chain/pickaxe1/mark">cpp:chain/pickaxe1/mark</a>
 </pre>
 <pre class="file" id="cpp/functions/chain/xp">cpp:chain/xp</pre>
 <pre>
