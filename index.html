@@ -276,11 +276,11 @@
 
 <p>本文内容适用于 Minecraft Java 版 1.17 版本，但大部分内容也适合 1.13-1.16 版本，或只需要做简单修改，请读者自行区分。系统环境为 Windows 10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议和教程等，无法一一列出，在此一并表示感谢。</p>
 
-<p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft-zh.gamepedia.com/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.gamepedia.com/">Minecraft 英文 Wiki</a> 往往更新更及时且内容更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
+<p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft.fandom.com/zh/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.fandom.com/">Minecraft 英文 Wiki</a> 往往更新更及时且内容更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。</p>
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/03/24</p>
+<p>by ruhuasiyu 2021/03/31 计划：添加物品修饰器的JSON格式</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -416,6 +416,29 @@
       "operation": "addition",
       "amount": 4,
       "slot": "legs"
+    }
+  ]
+}
+</pre>
+<p>JSON中没有注释的语法，但可以通过不被使用的键来表示注释。通常使用 <code>"_comment", "_comment1", "_comment2"</code> 这种键。</p>
+<pre>
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          <span class="comment">"_comment": "咸味粽子",</span>
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_cod",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{display:{Name:'{\"italic\":false,\"translate\":\"item.cpp.zongzi\"}',Lore:['{\"italic\":false,\"translate\":\"item.cpp.zongzi.salt\"}']},id:'cpp:zongzi',CustomModelData:12970027}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
@@ -648,10 +671,28 @@ data
 <p>函数每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行是注释。游戏内或函数内使用 <code>function <i>命名空间ID</i></code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
 <p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。如果函数被进度奖励，执行者为完成进度的玩家，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute" class="wiki">命令/execute</a>的各项子命令。</p>
 
+<pre class="file" id="#cpp/functions/tick">cpp:tick</pre>
+<pre>
+<span class="comment"># 玩家</span>
+execute as @e[type=player] at @s run function cpp:players/tick
+<span class="comment"># 僵尸</span>
+execute if score $doZombieImproving cppConfig matches 1 at @e[type=#cpp:zombies] run function cpp:entities/enhance_mobs/tick
+<span class="comment"># 附魔之瓶</span>
+execute as @e[type=experience_bottle] at @s run function cpp:xp/tick
+<span class="comment"># 物品展示框</span>
+execute as @e[type=#cpp:item_frames] at @s run function cpp:entities/item_frame/tick
+<span class="comment"># 物品</span>
+execute as @e[type=item] at @s run function cpp:entities/item/tick
+<span class="comment"># 药水云</span>
+execute as @e[type=area_effect_cloud] at @s run function cpp:entities/area_effect_cloud/tick
+<span class="comment"># 盔甲架</span>
+execute as @e[type=armor_stand] at @s run function cpp:entities/armor_stand/tick
+</pre>
+
 <p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考<a href="#函数标签">函数标签</a>。</p>
 
 <h2 id="进度">§2.4 进度</h2>
-<p>参考<a href="https://wiki.biligame.com/mc/进度/JSON格式" class="wiki">进度/JSON格式</a>。<ruby>进度<rt>advancements</rt></ruby>为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。进度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/advancements/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>参考<a href="https://wiki.biligame.com/mc/进度/JSON格式" class="wiki">进度/JSON格式</a>。<ruby>进度<rt>advancements</rt></ruby>为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。进度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/advancements/<i>路径</i>/<i>文件名</i>.json</code>。进度可被用作命令 <code>advancement</code> 的参数，以授予或移除玩家的特定进度。</p>
 
 <pre class="file" id="进度JSON格式">进度JSON格式</pre>
 <pre>
@@ -876,17 +917,28 @@ data
     }
   },
   "rewards":{
-    "function": "cpp:diet/citrus"
+    "function": "<a href="#cpp/functions/diet/citrus.mcfunction">cpp:diet/citrus</a>"
   }
 }</pre>
 <pre class="file" id="cpp/functions/diet/citrus.mcfunction">cpp:diet/citrus</pre>
 <pre>
-advancement revoke @s only cpp:diet/citrus
+advancement revoke @s only <a href="#cpp/advancements/food/citrus">cpp:diet/citrus</a>
 effect give @s saturation 1 1 true
 </pre>
 
+<p class="noindent"><strong id="原版进度">原版进度</strong> 如果需要修改原版的进度，只需要在数据包中添加相同路径的相应名称文件并修改之即可。原版的进度被划分为5个选项卡，命名空间ID分别为 <code>minecraft:story/*</code>, <code>minecraft:nether/*</code>, <code>minecraft:end/*</code>, <code>minecraft:adventure/*</code>, <code>minecraft:husbandry/*</code>。其中 <code>minecraft:nether/all_effects</code>, <code>minecraft:adventure/hero_of_the_village</code>, <code>minecraft:adventure/arbalistic</code> 为隐藏进度。这些进度没有奖励，或只有奖励经验值。</p>
+<p>除此之外，原版获取配方的进度命名空间ID为 <code>minecraft:recipes/*</code>。</p>
+
+
 <h2 id="战利品表">§2.5 战利品表</h2>
-<p>可参考<a href="https://wiki.biligame.com/mc/战利品表">战利品表</a>和<a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a>。<ruby>战利品表<rt>loot_tables</rt></ruby>用于实体的掉落物、方块的掉落物、钓鱼、箱子的随机物品、进度的完成奖励等。战利品表文件为JSON文件。战利品表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/loot_tables/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>可参考<a href="https://wiki.biligame.com/mc/战利品表">战利品表</a>和<a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a>。<ruby>战利品表<rt>loot_tables</rt></ruby>用于生成随机的一些物品以被调用。战利品表文件为JSON文件。战利品表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/loot_tables/<i>路径</i>/<i>文件名</i>.json</code>。战利品表可作为容器的随机物品、实体的掉落物、方块的掉落物、钓鱼的战利品、猪灵以物换物的内容、猫和村民的礼物、进度的完成奖励、<code>loot</code> 命令的参数以给予玩家特定战利品表物品等。</p>
+<ul>
+  <li><code>setblock ~ ~ ~ chest{LootTable:"cpp:chests/something"}</code></li>
+  <li><code>give @s barrel{BlockEntityTag:{LootTable:"cpp:chests/something"}}</code></li>
+  <li><code>summon bat ~ ~ ~ {DeathLootTable:"cpp:entities/something"}</code></li>
+  <li><code>loot spawn ~ ~ ~ loot cpp:something</code></li>
+</ul>
+
 <pre class="file" id="战利品表JSON格式">战利品表JSON格式</pre>
 <pre>
 {
@@ -902,146 +954,154 @@ effect give @s saturation 1 1 true
   或 "minecraft:selector"<span class="comment">未知</span>
   或 "minecraft:advancement_entity"<span class="comment">未知</span>
   或 "minecraft:generic",<span class="comment">无限制，默认值</span>
-  "pools": [
+  "functions": [<span class="comment">可选，将会应用到该战利品表所有物品的函数</span>
+    <a href="#战利品表函数JSON对象">战利品表函数JSON对象</a>1,
+    <a href="#战利品表函数JSON对象">战利品表函数JSON对象</a>2
+  ],
+  "pools": [<span class="comment">随机池列表，随机池之间相互独立</span>
     {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0,
-                "max": 2
-              }
-            },
-            {
-              "function": "minecraft:looting_enchant",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0,
-                "max": 1
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": false
-                    }
-                  }
-                }
-              ],
-              "type": "minecraft:item",
-              "name": "minecraft:beef",
-              "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "min": 1,
-                    "max": 3
-                  }
-                },
-                {
-                  "function": "minecraft:looting_enchant",
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "min": 0,
-                    "max": 1
-                  }
-                }
-              ]
-            },
-            {
-              "type": "minecraft:item",
-              "name": "minecraft:cooked_beef",
-              "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "min": 1,
-                    "max": 3
-                  }
-                },
-                {
-                  "function": "minecraft:looting_enchant",
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "min": 0,
-                    "max": 1
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
-        },
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.025,
-          "looting_multiplier": 0.01
-        }
+      "rolls": <a href="#值提供器">值提供器</a>, <span class="comment">指定在该随机池的抽取的次数</span>
+      "bonus_rolls": <a href="#值提供器">值提供器</a>, <span class="comment">可选，默认为0，每点幸运提供的额外抽取次数。最终次数为 rolls+bonus_rolls×幸运 向下取整</span>
+      "conditions": [<span class="comment">可选，抽取该随机池需要满足的条件</span>
+        <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>1,
+        <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>2
       ],
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:loot_table",
-          "name": "cpp:limb_of_ridge"
-        }
-      ]
-    },
-    {
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
-        },
-        {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.025,
-          "looting_multiplier": 0.01
-        }
+      "functions": [<span class="comment">可选，将会应用到该随机池所有物品的函数</span>
+        <a href="#战利品表函数JSON对象">战利品表函数JSON对象</a>1,
+        <a href="#战利品表函数JSON对象">战利品表函数JSON对象</a>2
       ],
-      "rolls": 1,
-      "entries": [
+      "entries": [<span class="comment">项目列表</span>
         {
-          "type": "minecraft:loot_table",
-          "name": "cpp:cow_head"
+          "conditions": [<span class="comment">可选，抽取该项目需要满足的条件，如果不满足，该项目会被忽略</span>
+            <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>1,
+            <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>2
+          ],
+          "type": 项目类型,
+          "functions": [<span class="comment">可选，将会应用到该项目所有物品的函数</span>
+            <a href="#战利品表函数JSON对象">战利品表函数JSON对象</a>1,
+            <a href="#战利品表函数JSON对象">战利品表函数JSON对象</a>2
+          ],
+          "weight": <a href="#值提供器">值提供器</a>, <span class="comment">可选，默认为1，该项目的基础权重</span>
+          "quality": <a href="#值提供器">值提供器</a>, <span class="comment">可选，默认为0，每点幸运属性对权重的加成, 最终被选中的概率为 (weight+quality×幸运)/所有项目(weight+quality×幸运)之和</span>
         }
       ]
     }
   ]
 }
 </pre>
-<p>在战利品表、战利品表谓词和物品修饰器中，很多数值可以有如下形式之一：</p>
-<pre class="file" id="战利品表数值">战利品表数值</pre>
-<pre></pre>
 
 <p>即使没有指定战利品表种类，或指定为 <code>minecraft:generic</code>，游戏也会根据实际应用的场景来决定它的类型。这意味着在相应情形无效的条件和函数不会生效，而且游戏不会报错提示。例如在方块战利品表中检测击杀者。</p>
 
+<p>rolls, bonus_rolls, 以及在战利品表、战利品表谓词和物品修饰器中的大部分数值可以有如下形式之一：</p>
+<pre class="file" id="值提供器">值提供器</pre>
+<pre>
+    任意数值(可以为小数)
+或  {<span class="comment">指定该数值为常数，和前面的写法等价</span>
+      "type": "minecraft:constant",
+      "value": 任意数值(可以为小数)
+    }
+或  {<span class="comment">指定该数值的范围</span>
+      "type": "minecraft:uniform",
+      "min": 任意数值(可以为小数),
+      "max": 任意数值(可以为小数)
+    }
+或  {<span class="comment">指定该数值服从的二项分布</span>
+      "type": "minecraft:binomial",
+      "n": 任意数值(可以为小数), <span class="comment">尝试次数</span>
+      "p": 0~1之间的小数 <span class="comment">每增加一次的概率</span>
+    }
+或  {<span class="comment">指定该数值来自于记分板</span>
+      "type": "minecraft:score",
+      "target": "this" 或 "killer" 或 "direct_killer" 或 "player_killer", <span class="comment">指定为该实体、杀死它的实体、直接杀死它的实体(例如箭), 杀死它的玩家</span>
+    或
+      "target": {
+        "type": "context",
+        "target": "this" 或 "killer" 或 "direct_killer" 或 "player_killer" <span class="comment">和前面的写法等价</span>
+      或
+        "type": "fixed",
+        "name": "UUID或玩家名"
+      },
+      "objective": "记分板名称",
+      "scale": 数值 <span class="comment">可选，放缩比例</span>
+    }
+</pre>
+
+<p>项目会根据种类的不同而拥有不同的JSON格式：</p>
+<pre class="file">空</pre>
+<pre>
+{
+  "type": "minecraft:empty"
+}
+</pre>
+<pre class="file">指定物品</pre>
+<pre>
+{
+  "type": "minecraft:item",
+  "name": "物品命名空间ID"
+}
+</pre>
+<pre class="file">指定战利品表</pre>
+<pre>
+{
+  "type": "minecraft:loot_table",
+  "name": "<a href="#战利品表">战利品表</a>命名空间ID"
+}
+</pre>
+<pre class="file">指定物品标签</pre>
+<pre>
+{
+  "type": "minecraft:tag",
+  "name": "<a href="#物品标签">物品标签</a>命名空间ID",
+  "expand": true 或 false <span class="comment">true 时，从该标签等概率随机选取一个；false 时，选出该标签下所有物品。</span>
+}
+</pre>
+<pre class="file">从子项目中选取第一个满足条件的，这些子项目通常都指定了条件。</pre>
+<pre>
+{
+  "type": "minecraft:alternatives",
+  "children": [<span class="comment">项目列表</span>
+    项目JSON对象1,
+    项目JSON对象2
+  ]
+}
+</pre>
+<pre class="file">从所有满足条件的子项目中随机选取，逻辑和随机池类似。</pre>
+<pre>
+{
+  "type": "minecraft:group",
+  "children": [<span class="comment">项目列表</span>
+    项目JSON对象1,
+    项目JSON对象2
+  ]
+}
+</pre>
+<pre class="file">从第一个条件不满足的子项目之前的所有的子项目中随机选取，即第一个不满足条件的子项目和之后的子项目会被忽略。</pre>
+<pre>
+{
+  "type": "minecraft:sequence",
+  "children": [<span class="comment">项目列表</span>
+    项目JSON对象1,
+    项目JSON对象2
+  ]
+}
+</pre>
+<pre class="file">动态指定物品，一般只对原版的某些方块掉落物有效。</pre>
+<pre>
+{
+  "type": "minecraft:dynamic",
+  "name": "minecraft:self" <span class="comment">仅适用于玩家头颅、旗帜等，用于返回相同样式物品</span>
+  或      "minecraft:content" <span class="comment">仅适用于潜影盒，用于返回潜影盒内所有物品</span>
+}
+</pre>
+
+<p>我们在设计物品时，可以将物品信息打包成一个战利品表。之后我们便可以在其它战利品表中使用 <code>loot_table</code> 类型来方便地引用，见<a href="#物品设计">物品设计</a>。<code>alternatives</code> 类型在需要判断条件时很有用，例如原版的树叶掉落物就使用了该类型。当工具为剪刀或附有精准采集魔咒时，掉落树叶，否则掉落树苗。<code>dynamic</code> 类型配合潜影盒可以掉落不定 <code>id</code> 的物品，见<a href="#物品输出">物品输出</a>和<a href="#修改玩家背包">修改玩家背包</a>。</p>
+
+<p class="noindent"><strong id="战利品表条件JSON对象">战利品表条件</strong> 用于对战利品表进行一些条件判断。仅当条件列表 <code>conditions</code> 中每一个条件都被满足时，其同层次的随机池/项目/函数才会被选取。战利品表条件和<a href="#战利品表谓词">战利品表谓词</a>JSON对象的格式完全相同。</p>
+
+<p class="noindent"><strong id="战利品表函数JSON对象">战利品表函数</strong> 用于对战利品表进行一些修改。函数列表 <code>functions</code> 中每一个函数会依次应用于同层次的随机池/项目生成的战利品上，函数的不同顺序可能有不同效果。战利品表函数和<a href="#物品修饰器">物品修饰器</a>JSON对象的格式完全相同。</p>
+
+
+<p>下面这个例子是对原版牛的掉落物进行的修改。</p>
 <pre class="file" id="minecraft/loot_tables/entities/cow">minecraft/loot_tables/entities/cow.json</pre>
 <pre>
 {
@@ -1187,82 +1247,251 @@ effect give @s saturation 1 1 true
   <li>被玩家杀死时，有 <code>(2.5+抢夺等级)%</code> 几率掉落战利品表 <code>cpp:limb_of_ridge</code> 的物品；</li>
   <li>被玩家杀死时，有 <code>(2.5+抢夺等级)%</code> 几率掉落战利品表 <code>cpp:cow_head</code> 的物品。</li>
 </ul>
-<p class="noindent"><strong><ruby>随机池<rt>pools</rt></ruby></strong> <code>pools</code> 为随机池列表，每个随机池都会随机生成物品。每个随机池包含随机次数 <code>rolls</code> 和每点幸运额外随机次数 <code>bonus_rolls</code>，为数值或范围 <code>{"type": "minecraft:uniform", "min": 1, "max": 3}</code> 之类的；项目列表，其中每个项目会根据权重 <code>weight</code> 来随机选取一个，若不指定则权重默认为 <code>1</code>。键 <code>quality</code> 则规定了每点幸运对权重的加成。</p>
-<p><strong><ruby>项目<rt>entry</rt></ruby></strong> 项目中需指定项目类型，可选值如下：</p>
-<table><thead><tr><th>值</th><th>说明</th></tr></thead><tbody>
-<tr>
-  <td><code>minecraft:empty</code></td>
-  <td>空。</td>
-</tr>
-<tr>
-  <td><code>minecraft:item</code></td>
-  <td>一个物品，<code>name</code> 指定相应物品的命名空间ID。</td>
-</tr>
-<tr>
-  <td><code>minecraft:tag</code></td>
-  <td>一个物品标签，<code>name</code> 指定相应物品标签的命名空间ID。如果<code>expand</code> 为 <code>true</code>，则从该物品标签中随机选取一个；如果<code>expand</code> 为 <code>false</code> 或不指定，则返回该物品标签中每一个物品。</td>
-</tr>
-<tr>
-  <td><code>minecraft:loot_table</code></td>
-  <td>一个战利品表，<code>name</code> 指定相应战利品表的命名空间ID。</td>
-</tr>
-<tr>
-  <td><code>minecraft:alternatives</code></td>
-  <td>从项目列表 <code>children</code> 中选择一个项目，会返回第一个条件满足的子项目，并忽略剩下的项目。</td>
-</tr>
-<tr>
-  <td><code>minecraft:group</code></td>
-  <td>从项目列表 <code>children</code> 中选择一个项目，会从条件满足的所有子项目中根据权重随机选取一个，并忽略条件不满足的子项目。</td>
-</tr>
-<tr>
-  <td><code>minecraft:sequence</code></td>
-  <td>从项目列表 <code>children</code> 中选择一个项目，会从第一个条件不满足的子项目以前的所有子项目中根据权重随机选取一个，并忽略其余的子项目。</td>
-</tr>
-<tr>
-  <td><code>minecraft:dynamic</code></td>
-  <td>动态返回。<code>name</code> 决定返回的内容类别，值为 <code>minecraft:self</code> 时被玩家头颅、旗帜执行时，会返回与其样式相同的物品； 值为 <code>minecraft:contents</code>时被潜影盒执行时，会返回其内容物。其它情形没有效果。</td>
-</tr>
-</tbody></table>
-<p>可以看出，不同的项目类型可以用来方便地确定不同的逻辑情形下的子项目取舍。<code>minecraft:dynamic</code> 由于可以返回潜影盒内容物，因此可以用来产生不特定物品ID的战利品，我们后续会看到它的应用。</p>
 
-<p class="noindent"><strong><ruby>条件<rt>condition</rt></ruby></strong> 仅当条件列表 <code>conditions</code> 中每一个条件都被满足时，其同层次的随机池/项目/函数才会被选取。战利品表条件和<a href="#战利品表谓词">§2.6 战利品表谓词</a>的格式完全相同。</p>
+<p>战利品表除上述用途外，还可用于生成随机数，见<a href="#随机数">随机数</a>；指定自定义机器的配方，见<a href="#配方处理">配方处理</a>等诸多场景。</p>
 
-<p class="noindent"><strong><ruby>函数<rt>function</rt></ruby></strong> 函数列表 <code>functions</code> 中每一个函数会应用于同层次的随机池/项目生成的战利品上。战利品表函数和物品修饰器<a href="#品修饰器">§2.7 物品修饰器</a>的格式完全相同。</p>
-
-<h3 id="战利品表/引用">§2.5.2 引用</h3>
-<p>战利品表可以以如下等方式调用</p>
-<ul>
-  <li><code>setblock ~ ~ ~ chest{LootTable:"cpp:chests/something"}</code></li>
-  <li><code>give @s minecraft:chest{BlockEntityTag:{LootTable:"cpp:chests/something"}}</code></li>
-  <li><code>summon minecraft:bat ~ ~ ~ {DeathLootTable:"cpp:entities/something"}</code></li>
-  <li><code>loot spawn ~ ~ ~ loot cpp:something</code></li>
-</ul>
-<p><code>minecraft</code> 命名空间下记录了实体的默认掉落物、方块的掉落物、钓鱼和箱子战利品的战利品表，玩家可通过 <code>jar</code> 文件查看其文件结构。若要修改这些内容，在数据包中创建 <code>minecraft</code> 命名空间以及同名文件来覆盖之。</p>
-
-<h3 id="战利品表/应用">§2.5.3 应用</h3>
-<p>战利品表除上述常规用途外，还可用于</p>
-<ul>
-  <li>生成随机数，见 <a href="#随机数">随机数</a>。</li>
-  <li>修改玩家背包物品，见 <a href="#修改玩家背包">修改玩家背包</a>，<a href="https://www.mcbbs.net/thread-879073-1-1.html">戴帽子</a>。</li>
-  <li>将特定物品输出至容器内，见 <a href="#修改玩家背包">修改玩家背包</a>，<a href="物品输出">物品输出</a>，<a href="https://www.mcbbs.net/thread-898170-1-1.html">物品分类器</a>。</li>
-  <li>指定自定义机器的配方，见 <a href="#配方处理">配方处理</a>。</li>
-</ul>
+<p class="noindent"><strong id="原版战利品表">原版战利品表</strong>用于决定方块、实体的默认掉落物以及游戏的一些默认内容。如果需要修改原版的战利品表，只需要在数据包中添加相同路径的相应名称文件并修改之即可。原版的战利品表被划分为实体掉落物 <code>minecraft:entities/*</code>, 方块掉落物 <code>minecraft:blocks/*</code>, 箱子战利品表 <code>minecraft:chests/*</code>和游戏内容(钓鱼、猪灵以物换物、村民礼物、猫的礼物) <code>minecraft:gameplay/*</code>。</p>
 
 
-<h2 id="战利品表谓词">§2.6 <ruby>战利品表谓词<rt>predicates</rt></ruby></h2>
-<p>战利品表谓词为JSON文件，被用作</p>
-<ul>
-  <li>战利品表条件</li>
-  <li>命令 <code>execute</code> 的条件子命令 <code>(if|unless) predicate foo:bar</code></li>
-  <li>目标选择器参数 <code>predicate={foo:bar}</code></li>
-  <li>进度中判断实体条件</li>
-</ul>
-<p>可参考<a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.16] ㄆㄧㄉㄧㄎㄞㄊㄜ —— 数据包的组成文件之一</a>。例如</p>
-<ul>
-  <li>判断某个物品是否属于某个物品标签，将物品复制到盔甲架主手，然后判断是否满足相应战利品表谓词即可。</li>
-  <li>按一定概率执行命令，使用 <code>minecraft:random_chance</code> 即可。</li>
-</ul>
-<p>诸如此类，虽然以前也可以通过在相应位置执行对应的带条件的战利品表执行，但用战利品表谓词无疑方便更多。</p>
+<h2 id="战利品表谓词">§2.6 战利品表谓词</h2>
+<p>可参考<a href="https://wiki.biligame.com/mc/战利品表谓词">战利品表谓词</a>和<a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.16] ㄆㄧㄉㄧㄎㄞㄊㄜ —— 数据包的组成文件之一</a>。<ruby>战利品表谓词<rt>predicates</rt></ruby>用于对所在情形进行条件判断。战利品表谓词文件为JSON文件。战利品表谓词的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/predicates/<i>路径</i>/<i>文件名</i>.json</code>。<a href="#战利品表">战利品表</a>的条件和战利品表谓词格式相同，战利品表谓词可作为战利品表的条件、命令 <code>execute</code> 的条件子命令 <code>(if|unless) predicate foo:bar</code>、目标选择器参数 <code>predicate={foo:bar}</code>、<a href="#进度">进度</a>中判断实体条件等。</p>
+
+<pre class="file" id="战利品表谓词JSON格式">战利品表谓词JSON格式</pre>
+<pre><span class="comment">我们省略了部分信息的格式，请自行前往 wiki 查阅。</span>
+{
+  "condition": "minecraft:alternative",<span class="comment">下述任一条件满足时通过</span>
+  "terms": [
+    <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>1,
+    <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>2
+  ]
+}
+或
+{
+  "condition": "minecraft:inverted",<span class="comment">下述条件不满足时通过</span>
+  "term": <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>
+}
+或
+{
+  "condition": "minecraft:reference",<span class="comment">引用其它的战利品表谓词，注意避免循环引用</span>
+  "name": "战利品表谓词命名空间ID"
+}
+或
+{
+  "condition": "minecraft:random_chance",<span class="comment">以一定概率通过，通过几率为 chance</span>
+  "chance": 数值
+}
+或
+{
+  "condition": "minecraft:random_chance",<span class="comment">以一定概率通过，通过几率为 chance+looting_multiplier×抢夺等级</span>
+  "chance": 数值,
+  "looting_multiplier": 数值 <span class="comment">若并非 entity 类型战利品表该项会被忽略</span>
+}
+或
+{
+  "condition": "minecraft:survives_explosion",<span class="comment">block 类型战利品表若方块是被爆炸破坏的，该条件有 1/爆炸半径 的几率通过。其它情形永远通过。</span>
+}
+或
+{
+  "condition": "minecraft:location_check",<span class="comment">检查死亡的实体位置/方块位置/命令执行位置</span>
+  "offsetX": 数值, <span class="comment">可选，默认为0，X轴偏移量</span>
+  "offsetY": 数值, <span class="comment">可选，默认为0，Y轴偏移量</span>
+  "offsetZ": 数值, <span class="comment">可选，默认为0，Z轴偏移量</span>
+  "predicate": 位置信息共通标签  <span class="comment">检查偏移后的位置</span>
+}
+或
+{
+  "condition": "minecraft:time_check",<span class="comment">检测当前游戏内的时间</span>
+  "value": <a href="#范围谓词">范围谓词</a>,
+  "period": 数值 <span class="comment">可选，判断前先对该数值取模</span>
+}
+或
+{
+  "condition": "minecraft:weather_check",<span class="comment">检测当前游戏内的天气</span>
+  "raining": "true" 或 "false", <span class="comment">可选，是否正在下雨(含雷雨天)</span>
+  "thundering": "true" 或 "false", <span class="comment">可选，是否正在打雷</span>
+}
+或
+{
+  "condition": "minecraft:value_check",<span class="comment">检测 value 是否位于 range 范围内</span>
+  "value": <a href="#值提供器">值提供器</a>,
+  "range": <a href="#值提供器">值提供器</a>
+  或 {
+    "min": <a href="#值提供器">值提供器</a>,
+    "max": <a href="#值提供器">值提供器</a>
+  }
+}
+
+下述战利品表谓词仅对 block 或 fishing 类型战利品表可用。
+{
+  "condition": "minecraft:match_tool",<span class="comment">检查挖掘/钓鱼的工具</span>
+  "predicate": 物品共通标签
+}
+或
+{
+  "condition": "minecraft:block_state_property",<span class="comment">检查方块</span>
+  "terms": [
+    "block": "方块命名空间ID",
+    "properties": {
+      "方块状态名": 字符串 或 布尔值 或 <a href="#范围谓词">范围谓词</a>
+    }
+  ]
+}
+或
+{
+  "condition": "minecraft:table_bonus",<span class="comment">定义不同级别的附魔等级下条件的通过几率</span>
+  "enchantment": "魔咒命名空间ID", <span class="comment">探测的魔咒</span>
+  "chances": [
+    数值, <span class="comment">没有该魔咒时的通过几率</span>
+    数值, <span class="comment">该魔咒为1级时的通过几率</span>
+    数值, <span class="comment">该魔咒为2级时的通过几率</span>
+    ...
+    数值 <span class="comment">该魔咒为至少n级时的通过几率</span>
+  ]
+}
+
+下述战利品表谓词仅对 entity 或 generic 类型战利品表可用。
+{
+  "condition": "minecraft:damage_source_properties",<span class="comment">检查当前伤害</span>
+  "predicate": 伤害类型共通标签
+}
+或
+{
+  "condition": "minecraft:killed_by_player",<span class="comment">判断击杀者是否为玩家</span>
+  "inverted": "true" (默认) 或 "false" <span class="comment">可选，true 时当击杀者是玩家时通过，false 时当击杀者不是玩家时通过。</span>
+}
+
+下述战利品表谓词仅对 entity 或 generic 类型战利品表以及命令可用。
+{
+  "condition": "minecraft:entity_properties",<span class="comment">检查实体</span>
+  "entity": "this" <span class="comment">死亡的实体或命令执行者</span>或 "killer" <span class="comment">击杀者</span>或 "player_killer", <span class="comment">击杀目标的玩家</span>
+  "scores": {
+    "记分板名称1": <a href="#范围谓词">范围谓词</a>,
+    "记分板名称2": <a href="#范围谓词">范围谓词</a>
+  }
+}
+或
+{
+  "condition": "minecraft:entity_scores",<span class="comment">检查实体记分板</span>
+  "entity": "this" 或 "killer" 或 "player_killer", <span class="comment">含义同上</span>
+  "predicate": 实体共通标签
+}
+
+</pre>
+
+<pre class="file" id="范围谓词">范围谓词</pre>
+<pre>
+  数值
+或
+  {
+    "min": 数值, <span class="comment">可选, 最小值</span>
+    "max": 数值, <span class="comment">可选, 最大值</span>
+  }
+</pre>
+
+<p>这个例子表示玩家的分数 <code>cppChainTick</code> 至少为 <code>1</code> 时，或者手持物具有特定标签时通过。</p>
+<pre class="file">cpp/predicates/chain_effect.json</pre>
+<pre>{
+  "condition": "minecraft:alternative",
+  "terms": [
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "cppChainTick": {
+          "min": 1,
+          "max": 2147483647
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "equipment": {
+          "mainhand": {
+            "nbt": "{cppStoredEffects:[{id:\"chain\"}]}"
+          }
+        }
+      }
+    }
+  ]
+}</pre>
+
+<p>战利品表谓词文件也可以为战利品表谓词JSON对象的列表。这个例子表示玩家的手持物或盔甲拥有指定标签，且玩家不拥有 <code>cpp:temperancer</code> 时通过。</p>
+<pre class="file">cpp/predicates/stored_effects</pre>
+<pre>[
+  {
+    "condition": "minecraft:alternative",
+    "terms": [
+      {
+        "condition": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "equipment": {
+            "mainhand": {
+              "nbt": "{cppStoredEffects:[{}]}"
+            }
+          }
+        }
+      },
+      {
+        "condition": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "equipment": {
+            "head": {
+              "nbt": "{cppStoredEffects:[{}]}"
+            }
+          }
+        }
+      },
+      {
+        "condition": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "equipment": {
+            "chest": {
+              "nbt": "{cppStoredEffects:[{}]}"
+            }
+          }
+        }
+      },
+      {
+        "condition": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "equipment": {
+            "legs": {
+              "nbt": "{cppStoredEffects:[{}]}"
+            }
+          }
+        }
+      },
+      {
+        "condition": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "equipment": {
+            "feet": {
+              "nbt": "{cppStoredEffects:[{}]}"
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "condition": "minecraft:inverted",
+    "term": {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "nbt": "{Inventory:[{tag:{id:\"cpp:temperancer\"}}]}"
+      }
+    }
+  }
+]</pre>
+
 
 <h2 id="物品修饰器">§2.7 <ruby>物品修饰器<rt>item_modifiers</rt></ruby></h2>
 <p>物品修饰器为JSON文件，被用作 <code>/item</code> 命令：</p>
@@ -6189,12 +6418,12 @@ execute unless data block ~ ~ ~ Items[{Slot:22b,tag:{cppClear:1b}}] run function
 <pre class="file" id="cpp/predicates/all_in_one_machine/gui">cpp/predicates/all_in_one_machine/gui.json</pre>
 <pre>
 {
-	"condition": "minecraft:location_check",
-	"predicate": {
-		"block": {
-			"nbt": "{Items:[{Slot:0b,tag:{cppClear:1b}},{Slot:1b,tag:{cppClear:1b}},{Slot:2b,tag:{cppClear:1b}},{Slot:5b,tag:{cppClear:1b}},{Slot:6b,tag:{cppClear:1b}},{Slot:8b,tag:{cppClear:1b}},{Slot:9b,tag:{cppClear:1b}},{Slot:10b,tag:{cppClear:1b}},{Slot:11b,tag:{cppClear:1b}},{Slot:12b,tag:{cppClear:1b}},{Slot:13b,tag:{cppClear:1b}},{Slot:14b,tag:{cppClear:1b}},{Slot:15b,tag:{cppClear:1b}},{Slot:16b,tag:{cppClear:1b}},{Slot:17b,tag:{cppClear:1b}},{Slot:18b,tag:{cppClear:1b}},{Slot:19b,tag:{cppClear:1b}},{Slot:20b,tag:{cppClear:1b}},{Slot:23b,tag:{cppClear:1b}},{Slot:24b,tag:{cppClear:1b}},{Slot:25b,tag:{cppClear:1b}},{Slot:26b,tag:{cppClear:1b}}]}"
-		}
-	}
+  "condition": "minecraft:location_check",
+  "predicate": {
+    "block": {
+      "nbt": "{Items:[{Slot:0b,tag:{cppClear:1b}},{Slot:1b,tag:{cppClear:1b}},{Slot:2b,tag:{cppClear:1b}},{Slot:5b,tag:{cppClear:1b}},{Slot:6b,tag:{cppClear:1b}},{Slot:8b,tag:{cppClear:1b}},{Slot:9b,tag:{cppClear:1b}},{Slot:10b,tag:{cppClear:1b}},{Slot:11b,tag:{cppClear:1b}},{Slot:12b,tag:{cppClear:1b}},{Slot:13b,tag:{cppClear:1b}},{Slot:14b,tag:{cppClear:1b}},{Slot:15b,tag:{cppClear:1b}},{Slot:16b,tag:{cppClear:1b}},{Slot:17b,tag:{cppClear:1b}},{Slot:18b,tag:{cppClear:1b}},{Slot:19b,tag:{cppClear:1b}},{Slot:20b,tag:{cppClear:1b}},{Slot:23b,tag:{cppClear:1b}},{Slot:24b,tag:{cppClear:1b}},{Slot:25b,tag:{cppClear:1b}},{Slot:26b,tag:{cppClear:1b}}]}"
+    }
+  }
 }
 </pre>
 
@@ -9151,20 +9380,20 @@ execute store result entity @s Motion[2] double 0.0005 run scoreboard players op
 
 
 <h2 id="交易">§10.6 交易</h2>
-<p>使用村民交易是一种常见的特殊物品获得方式。在1.14+版本，建议使用流浪商人而不是村民，因为村民的交易会根据工作方块而进行变化，导致设定的交易被覆盖或出现不想要的交易。如果不希望交易产生经验值，需将 <code>rewardExp</code> 设置为 <code>0b</code>。通过让村民佩戴物品，可以让村民头部实现不同的外观，但是其它部位不能如此修改，使用佩戴在头部全身模型也会因村民头部移动而发生错乱。</p>
+<p>使用村民或流浪商人交易是一种常见的特殊物品获得方式。对于村民，我们需要将村民的经验设定为 <code>250</code> 或更高以保证村民是大师，以避免其因工作方块而进行变化，导致设定的交易被覆盖或出现不想要的交易。对于流浪商人，我们需要设置 <code>DespawnDelay</code> 充分大以避免其消失。如果不希望交易产生经验值，需将 <code>rewardExp</code> 设置为 <code>0b</code>。通过让村民佩戴物品，可以让村民头部实现不同的外观，但是其它部位不能如此修改，使用佩戴在头部全身模型也会因村民头部移动而发生错乱。</p>
 
 <p>建议使用战利品来随机生成村民的交易项。</p>
 
-<pre class="file" id="trade:load">trade:load</pre>
+<pre class="file" id="trade/functions/load">trade:load</pre>
 <pre>
 function trade:tick20 20t
 </pre>
-<pre class="file" id="trade:tick20">trade:tick20</pre>
+<pre class="file" id="trade/functions/tick20">trade:tick20</pre>
 <pre>
 execute as @e[type=wandering_trader,tag=!trade_trade_added] run function trade:check
 schedule function trade:tick20 20t
 </pre>
-<pre class="file" id="trade:check">trade:check</pre>
+<pre class="file" id="trade/functions/check">trade:check</pre>
 <pre>
 data merge entity @s {ArmorItems:[{},{},{},{id:"minecraft:carved_pumpkin",Count:1b,tag:{CustomModelData:12970051}}],ArmorDropChances:[-1.0f,-1.0f,-1.0f,-1.0f]}
 data modify entity @s Offers.Recipes prepend value {buy:{id:"minecraft:stone",Count:64b},sell:{id:"minecraft:emerald",Count:1b},maxUses:12}
