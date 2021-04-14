@@ -9,29 +9,36 @@
                 "targets": [
                   {
                     "target": {
-                      "tag": "minecraft:base_stone_overworld",
+                      "tag": "minecraft:stone_ore_replaceables",
                       "predicate_type": "minecraft:tag_match"
                     },
                     "state": {
-                      "Name": "minecraft:copper_ore"
+                      "Name": "minecraft:diamond_ore"
+                    }
+                  },
+                  {
+                    "target": {
+                      "tag": "minecraft:deepslate_ore_replaceables",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Name": "minecraft:deepslate_diamond_ore"
                     }
                   }
                 ],
-                "size": 10,
-                "discard_chance_on_air_exposure": 0.0
+                "size": 12,
+                "discard_chance_on_air_exposure": 0.7
               },
               "type": "minecraft:ore"
             },
             "decorator": {
               "config": {
-                "bottom_inclusive": {
-                  "absolute": 0
+                "baseline": {
+                  "above_bottom": 0
                 },
-                "top_inclusive": {
-                  "absolute": 63
-                }
+                "spread": 80
               },
-              "type": "minecraft:range"
+              "type": "minecraft:depth_average"
             }
           },
           "type": "minecraft:decorated"
@@ -45,9 +52,9 @@
     },
     "decorator": {
       "config": {
-        "count": 10
+        "chance": 9
       },
-      "type": "minecraft:count"
+      "type": "minecraft:chance"
     }
   },
   "type": "minecraft:decorated"

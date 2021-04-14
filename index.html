@@ -280,7 +280,7 @@
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/03/31 计划：添加物品修饰器的JSON格式</p>
+<p>by ruhuasiyu 2021/04/14 计划：添加核心着色器的应用</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -820,7 +820,7 @@ execute as @e[type=armor_stand] at @s run function cpp:entities/armor_stand/tick
 
 <tr>
   <td><code>minecraft:placed_block</code></td>
-  <td>玩家放置方块时触发，例如玩家放置了木桶、熔炉、树苗等。在我们自定义方块时很有用。</td>
+  <td>玩家放置方块时触发，例如玩家放置了木桶、熔炉、树苗等。在我们自定义方块时很有用。该进度被触发时，方块已经被放置在世界中但玩家手持的方块尚未被清除，因此可以检测玩家手持物的信息。</td>
 </tr>
 <tr>
   <td><code>minecraft:inventory_changed</code></td>
@@ -828,7 +828,7 @@ execute as @e[type=armor_stand] at @s run function cpp:entities/armor_stand/tick
 </tr>
 <tr>
   <td><code>minecraft:consume_item</code></td>
-  <td>玩家消耗了相应物品，例如食用食物、饮用药水等。在我们自定义食物和药水时很有用。</td>
+  <td>玩家消耗了相应物品，例如食用食物、饮用药水等。在我们自定义食物和药水时很有用。该进度被触发时，玩家手持的物品尚未被消耗，因此可以检测玩家手持物的信息。</td>
 </tr>
 
 <tr>
@@ -889,8 +889,7 @@ execute as @e[type=armor_stand] at @s run function cpp:entities/armor_stand/tick
             "entity": "this",
             "scores": {
               "cppHealth": {
-                "min": 40,
-                "max": 2147483647
+                "min": 40
               }
             }
           }
@@ -992,7 +991,7 @@ effect give @s saturation 1 1 true
 
 <p>即使没有指定战利品表种类，或指定为 <code>minecraft:generic</code>，游戏也会根据实际应用的场景来决定它的类型。这意味着在相应情形无效的条件和函数不会生效，而且游戏不会报错提示。例如在方块战利品表中检测击杀者。</p>
 
-<p>rolls, bonus_rolls, 以及在战利品表、战利品表谓词和物品修饰器中的大部分数值可以有如下形式之一：</p>
+<p><code>rolls</code>, <code>bonus_rolls</code>, 以及在战利品表、战利品表谓词和物品修饰器中的大部分数值可以有如下形式之一：</p>
 <pre class="file" id="值提供器">值提供器</pre>
 <pre>
     任意数值(可以为小数)
@@ -1027,68 +1026,54 @@ effect give @s saturation 1 1 true
 </pre>
 
 <p>项目会根据种类的不同而拥有不同的JSON格式：</p>
-<pre class="file">空</pre>
+<pre class="file" id="战利品表项目">战利品表项目</pre>
 <pre>
 {
-  "type": "minecraft:empty"
+  "type": "minecraft:empty" <span class="comment">空</span>
 }
-</pre>
-<pre class="file">指定物品</pre>
-<pre>
+
 {
-  "type": "minecraft:item",
+  "type": "minecraft:item", <span class="comment">指定物品</span>
   "name": "物品命名空间ID"
 }
-</pre>
-<pre class="file">指定战利品表</pre>
-<pre>
+
 {
-  "type": "minecraft:loot_table",
+  "type": "minecraft:loot_table", <span class="comment">指定战利品表</span>
   "name": "<a href="#战利品表">战利品表</a>命名空间ID"
 }
-</pre>
-<pre class="file">指定物品标签</pre>
-<pre>
+
 {
-  "type": "minecraft:tag",
+  "type": "minecraft:tag", <span class="comment">指定物品标签</span>
   "name": "<a href="#物品标签">物品标签</a>命名空间ID",
   "expand": true 或 false <span class="comment">true 时，从该标签等概率随机选取一个；false 时，选出该标签下所有物品。</span>
 }
-</pre>
-<pre class="file">从子项目中选取第一个满足条件的，这些子项目通常都指定了条件。</pre>
-<pre>
+
 {
-  "type": "minecraft:alternatives",
+  "type": "minecraft:alternatives", <span class="comment">从子项目中选取第一个满足条件的，这些子项目通常都指定了条件。</span>
   "children": [<span class="comment">项目列表</span>
     项目JSON对象1,
     项目JSON对象2
   ]
 }
-</pre>
-<pre class="file">从所有满足条件的子项目中随机选取，逻辑和随机池类似。</pre>
-<pre>
+
 {
-  "type": "minecraft:group",
+  "type": "minecraft:group", <span class="comment">从所有满足条件的子项目中随机选取，逻辑和随机池类似。</span>
   "children": [<span class="comment">项目列表</span>
     项目JSON对象1,
     项目JSON对象2
   ]
 }
-</pre>
-<pre class="file">从第一个条件不满足的子项目之前的所有的子项目中随机选取，即第一个不满足条件的子项目和之后的子项目会被忽略。</pre>
-<pre>
+
 {
-  "type": "minecraft:sequence",
+  "type": "minecraft:sequence", <span class="comment">从第一个条件不满足的子项目之前的所有的子项目中随机选取，即第一个不满足条件的子项目和之后的子项目会被忽略。</span>
   "children": [<span class="comment">项目列表</span>
     项目JSON对象1,
     项目JSON对象2
   ]
 }
-</pre>
-<pre class="file">动态指定物品，一般只对原版的某些方块掉落物有效。</pre>
-<pre>
+
 {
-  "type": "minecraft:dynamic",
+  "type": "minecraft:dynamic", <span class="comment">动态指定物品，一般只对原版的某些方块掉落物有效。</span>
   "name": "minecraft:self" <span class="comment">仅适用于玩家头颅、旗帜等，用于返回相同样式物品</span>
   或      "minecraft:content" <span class="comment">仅适用于潜影盒，用于返回潜影盒内所有物品</span>
 }
@@ -1265,52 +1250,52 @@ effect give @s saturation 1 1 true
     <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>2
   ]
 }
-或
+
 {
   "condition": "minecraft:inverted",<span class="comment">下述条件不满足时通过</span>
   "term": <a href="#战利品表条件JSON对象">战利品表条件JSON对象</a>
 }
-或
+
 {
   "condition": "minecraft:reference",<span class="comment">引用其它的战利品表谓词，注意避免循环引用</span>
   "name": "战利品表谓词命名空间ID"
 }
-或
+
 {
   "condition": "minecraft:random_chance",<span class="comment">以一定概率通过，通过几率为 chance</span>
   "chance": 数值
 }
-或
+
 {
   "condition": "minecraft:random_chance",<span class="comment">以一定概率通过，通过几率为 chance+looting_multiplier×抢夺等级</span>
   "chance": 数值,
   "looting_multiplier": 数值 <span class="comment">若并非 entity 类型战利品表该项会被忽略</span>
 }
-或
+
 {
   "condition": "minecraft:survives_explosion",<span class="comment">block 类型战利品表若方块是被爆炸破坏的，该条件有 1/爆炸半径 的几率通过。其它情形永远通过。</span>
 }
-或
+
 {
-  "condition": "minecraft:location_check",<span class="comment">检查死亡的实体位置/方块位置/命令执行位置</span>
+  "condition": "minecraft:location_check",<span class="comment">检查死亡的实体位置/方块位置/命令执行位置。注意该条件用在方块掉落物战利品表时，方块已经被挖掘掉，因此该位置方块总是空气。</span>
   "offsetX": 数值, <span class="comment">可选，默认为0，X轴偏移量</span>
   "offsetY": 数值, <span class="comment">可选，默认为0，Y轴偏移量</span>
   "offsetZ": 数值, <span class="comment">可选，默认为0，Z轴偏移量</span>
   "predicate": 位置信息共通标签  <span class="comment">检查偏移后的位置</span>
 }
-或
+
 {
   "condition": "minecraft:time_check",<span class="comment">检测当前游戏内的时间</span>
   "value": <a href="#范围谓词">范围谓词</a>,
   "period": 数值 <span class="comment">可选，判断前先对该数值取模</span>
 }
-或
+
 {
   "condition": "minecraft:weather_check",<span class="comment">检测当前游戏内的天气</span>
   "raining": "true" 或 "false", <span class="comment">可选，是否正在下雨(含雷雨天)</span>
   "thundering": "true" 或 "false", <span class="comment">可选，是否正在打雷</span>
 }
-或
+
 {
   "condition": "minecraft:value_check",<span class="comment">检测 value 是否位于 range 范围内</span>
   "value": <a href="#值提供器">值提供器</a>,
@@ -1321,14 +1306,14 @@ effect give @s saturation 1 1 true
   }
 }
 
-下述战利品表谓词仅对 block 或 fishing 类型战利品表可用。
+<span class="comment">下述战利品表谓词仅对 block 或 fishing 类型战利品表可用。</span>
 {
   "condition": "minecraft:match_tool",<span class="comment">检查挖掘/钓鱼的工具</span>
   "predicate": 物品共通标签
 }
-或
+
 {
-  "condition": "minecraft:block_state_property",<span class="comment">检查方块</span>
+  "condition": "minecraft:block_state_property",<span class="comment">检查方块。该条件用在方块掉落物战利品表时，不能被 location_check 替代，因为后者进行判断时方块已经被挖掘掉，其位置总是空气。</span>
   "terms": [
     "block": "方块命名空间ID",
     "properties": {
@@ -1336,7 +1321,7 @@ effect give @s saturation 1 1 true
     }
   ]
 }
-或
+
 {
   "condition": "minecraft:table_bonus",<span class="comment">定义不同级别的附魔等级下条件的通过几率</span>
   "enchantment": "魔咒命名空间ID", <span class="comment">探测的魔咒</span>
@@ -1349,18 +1334,18 @@ effect give @s saturation 1 1 true
   ]
 }
 
-下述战利品表谓词仅对 entity 或 generic 类型战利品表可用。
+<span class="comment">下述战利品表谓词仅对 entity 或 generic 类型战利品表可用。</span>
 {
   "condition": "minecraft:damage_source_properties",<span class="comment">检查当前伤害</span>
   "predicate": 伤害类型共通标签
 }
-或
+
 {
   "condition": "minecraft:killed_by_player",<span class="comment">判断击杀者是否为玩家</span>
   "inverted": "true" (默认) 或 "false" <span class="comment">可选，true 时当击杀者是玩家时通过，false 时当击杀者不是玩家时通过。</span>
 }
 
-下述战利品表谓词仅对 entity 或 generic 类型战利品表以及命令可用。
+<span class="comment">下述战利品表谓词仅对 entity 或 generic 类型战利品表以及命令可用。</span>
 {
   "condition": "minecraft:entity_properties",<span class="comment">检查实体</span>
   "entity": "this" <span class="comment">死亡的实体或命令执行者</span>或 "killer" <span class="comment">击杀者</span>或 "player_killer", <span class="comment">击杀目标的玩家</span>
@@ -1369,13 +1354,12 @@ effect give @s saturation 1 1 true
     "记分板名称2": <a href="#范围谓词">范围谓词</a>
   }
 }
-或
+
 {
   "condition": "minecraft:entity_scores",<span class="comment">检查实体记分板</span>
   "entity": "this" 或 "killer" 或 "player_killer", <span class="comment">含义同上</span>
   "predicate": 实体共通标签
 }
-
 </pre>
 
 <pre class="file" id="范围谓词">范围谓词</pre>
@@ -1398,8 +1382,7 @@ effect give @s saturation 1 1 true
       "entity": "this",
       "scores": {
         "cppChainTick": {
-          "min": 1,
-          "max": 2147483647
+          "min": 1
         }
       }
     },
@@ -1493,14 +1476,279 @@ effect give @s saturation 1 1 true
 ]</pre>
 
 
-<h2 id="物品修饰器">§2.7 <ruby>物品修饰器<rt>item_modifiers</rt></ruby></h2>
-<p>物品修饰器为JSON文件，被用作 <code>/item</code> 命令：</p>
-<ul>
-  <li><code>item 栏位 copy 栏位 foo:bar</code></li>
-  <li><code>item 栏位 modify foo:bar</code></li>
-</ul>
-<p>它的作用是为物品添加战利品表函数。</p>
+<h2 id="物品修饰器">§2.7 物品修饰器</h2>
 
+<p>可参考<a href="https://wiki.biligame.com/mc/物品修饰器">物品修饰器</a>。<ruby>物品修饰器<rt>item_modifiers</rt></ruby>被用在 <code>/item</code> 命令中对物品添加战利品表函数。物品修饰器文件为JSON文件。物品修饰器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/item_modifiers/<i>路径</i>/<i>文件名</i>.json</code>。<a href="#战利品表">战利品表</a>的函数和物品修饰器格式相同，但物品修饰器不可被战利品表的函数引用。</p>
+
+<pre class="file" id="物品修饰器JSON格式">物品修饰器JSON格式</pre>
+<pre>
+<span class="comment">修改物品数量的函数，最终不会超过该物品的最大可堆叠数。</span>
+{
+  "function": "minecraft:set_count", <span class="comment">设置数量</span>
+  "count": <a href="#值提供器">值提供器</a>,
+  "add": true 或 false <span class="comment">将count加到原本的数量中，还是设置数量为count</span>
+}
+
+{
+  "function": "minecraft:apply_bonus",<span class="comment">指定物品数量服从与特定魔咒等级有关的分布</span>
+  "enchantment": "魔咒命名空间ID",<span class="comment">检查该魔咒的等级</span>
+  "formula": "binomial_with_bonus_count", <span class="comment">使用参数为 n=魔咒等级+extra 和 p=probability 的二项分布。</span>
+  "parameters": {
+    "extra": 整数,
+    "probability": 数值
+  }
+或
+  "formula": "uniform_bonus_count", <span class="comment">使用0至 魔咒等级×bonusMultiplier 的均匀分布。</span>
+  "parameters": {
+    "bonusMultiplier": 数值
+  }
+或
+  "formula": "ore_drops", <span class="comment">使用矿物默认掉落数的分布，即有1/(魔咒等级+2)几率为之前的函数已设定的数量×(2至(魔咒等级+1))，有2/(魔咒等级+2)几率为之前的函数已设定的数量。</span>
+}
+
+{
+  "function": "minecraft:limit_count", <span class="comment">限制每一种物品的堆叠数量，即其它函数得到的物品堆叠数量如果超过这个值，会被设定为该值</span>
+  "limit": <a href="#值提供器">值提供器</a> <span class="comment">限制堆叠数量</span>
+        或 {
+          "min": <a href="#值提供器">值提供器</a>, <span class="comment">限制堆叠数量最小值</span>
+          "min": <a href="#值提供器">值提供器</a> <span class="comment">限制堆叠数量最大值</span>
+        }
+}
+
+{
+  "function": "minecraft:looting_enchant", <span class="comment">抢夺魔咒会额外增加物品数量 等级×count</span>
+  "count": <a href="#值提供器">值提供器</a>,
+  "limit": 数值 <span class="comment">可选，默认为0无限制。限制最终数量的上限</span>
+}
+
+{
+  "function": "minecraft:explosion_decay" <span class="comment">仅用于 block 类型战利品表，当目标方块被爆炸摧毁时，执行该函数的每个物品有1/爆炸半径的几率消失，堆叠的物品会被分为多个单独的物品计算。</span>
+}
+
+<span class="comment">下列函数可以改变物品NBT。</span>
+{
+  "function": "minecraft:copy_name", <span class="comment">将方块实体的 CustomName 标签复制到物品的 display.Name 标签。仅用于 block 类型战利品表</span>
+  "source": "block_entity"
+}
+
+{
+  "function": "minecraft:copy_state",<span class="comment">复制方块的方块状态到物品的BlockStateTag标签。仅用于 block 类型战利品表</span>
+  "block": 方块命名空间ID,<span class="comment">仅当目标方块与该ID相符时执行该函数</span>
+  "properties": [<span class="comment">要复制的方块状态列表</span>
+    "字符串1",
+    "字符串2"
+  ]
+}
+
+{
+  "function": "minecraft:copy_nbt", <span class="comment">复制NBT到物品的tag标签</span>
+  "source": "block_entity" <span class="comment">来源为被破坏的方块，仅用于 block 类型战利品表</span>
+          或
+            "this" <span class="comment">命令执行者；entity 类型战利品表的死亡者；进度奖励中获得进度的玩家；block 类型战利品表的打开或破坏容器的玩家</span>
+          或
+            "killer" <span class="comment">entity 类型战利品表的击杀者</span>
+          或
+            "killer_player" <span class="comment">entity 类型战利品表的击杀者，必须是玩家</span>
+          或
+            {
+              "type": "context",
+              "target": "this" 或 "killer" 或 "direct_killer" 或 "player_killer" <span class="comment">和前面的写法等价</span>
+            或
+              "type": "storage", <span class="comment">设置来源为命令存储空间(storage)</span>
+              "source": "命令存储空间的命名空间ID"
+            },
+  "ops": [
+    {
+      "source": "字符串", <span class="comment">要被复制的NBT路径</span>
+      "target": "字符串", <span class="comment">要复制到的NBT路径，从物品的tag标签开始</span>
+      "op": "replace" <span class="comment">替换目标的所有存在的内容</span>
+          或
+            "append" <span class="comment">追加到一个列表</span>
+          或
+            "merge" <span class="comment">融合到一个复合标签</span>
+    }
+  ]
+}
+
+{
+  "function": "minecraft:set_name", <span class="comment">设置物品自定义名称，该函数可以对JSON文本中组件进行解析。</span>
+  "name"："<a href="https://wiki.biligame.com/mc/原始JSON文本格式">原始JSON文本</a>",
+  "entity": <span class="comment">指定JSON文本里中@s表示的实体</span> "this" <span class="comment">命令执行者；entity 类型战利品表的死亡者；进度奖励中获得进度的玩家；block 类型战利品表的打开或破坏容器的玩家</span>
+  或
+    "killer" <span class="comment">entity 类型战利品表的击杀者</span>
+  或
+    "killer_player" <span class="comment">entity 类型战利品表的击杀者，必须是玩家</span>
+}
+
+{
+  "function": "minecraft:set_lore", <span class="comment">设置物品附加文本(lore)标签，该函数可以对JSON文本中组件进行解析。</span>
+  "lore"：[
+    "<a href="https://wiki.biligame.com/mc/原始JSON文本格式">原始JSON文本1</a>",
+    "<a href="https://wiki.biligame.com/mc/原始JSON文本格式">原始JSON文本2</a>"
+  ],
+  "entity": <span class="comment">指定JSON文本里中@s表示的实体</span> "this" <span class="comment">命令执行者；entity 类型战利品表的死亡者；进度奖励中获得进度的玩家；block 类型战利品表的打开或破坏容器的玩家</span>
+  或
+    "killer" <span class="comment">entity 类型战利品表的击杀者</span>
+  或
+    "killer_player", <span class="comment">entity 类型战利品表的击杀者，必须是玩家</span>
+  "replace": true 或 false <span class="comment">如果为true，则替换物品当前的lore；如果为false，则在物品lore后追加内容。</span>
+}
+
+{
+  "function": "minecraft:set_nbt", <span class="comment">为物品添加NBT标签</span>
+  "tag": "NBT对象" <span class="comment">添加NBT标签，和命令的使用方法类似。注意最外层括号需要书写花括号（{}）以及内部的引号需要使用转义符（\）标记。</span>
+}
+
+{
+  "function": "minecraft:set_stew_effect", <span class="comment">为迷之炖菜添加状态效果</span>
+  "effects": [
+    {
+      "type"："<a href="#https://wiki.biligame.com/mc/状态效果/ID">状态效果命名空间ID</a>"
+      "duration"：<a href="#值提供器">值提供器</a> <span class="comment">指定状态效果的持续时间</span>
+    }
+  ]
+}
+
+{
+  "function": "minecraft:enchant_randomly", <span class="comment">为物品附上一个随机的魔咒。魔咒的等级也是随机的。</span>
+  "enchantments"：[ <span class="comment">能够附上的魔咒列表。如果没有此标签，所有可以对该物品附上的魔咒都可能被附上。</span>
+    "魔咒命名空间ID1",
+    "魔咒命名空间ID2"
+  ]
+}
+
+{
+  "function": "minecraft:enchant_with_levels", <span class="comment">使用指定的附魔等级附魔物品</span>
+  "treasure": true 或 false, <span class="comment">该物品是否能被附上宝藏魔咒</span>
+  "levels": <a href="#值提供器">值提供器</a> <span class="comment">指定该附魔的等级</span>
+}
+
+{
+  "function": "minecraft:set_enchantments‌", <span class="comment">设置物品附魔</span>
+  "enchantments": {
+    "魔咒命名空间ID": <a href="#值提供器">值提供器</a>, <span class="comment">该魔咒的等级</span>
+  },
+  "add": true 或 false <span class="comment">追加魔咒还是覆盖原有魔咒</span>
+}
+
+{
+  "function": "minecraft:fill_player_head", <span class="comment">给玩家头颅添加指定物品标签</span>
+  "entity": "this" <span class="comment">命令执行者；entity 类型战利品表的死亡者；进度奖励中获得进度的玩家；block 类型战利品表的打开或破坏容器的玩家</span>
+          或
+            "killer" <span class="comment">entity 类型战利品表的击杀者</span>
+          或
+            "killer_player" <span class="comment">entity 类型战利品表的击杀者，必须是玩家</span>
+}
+
+{
+  "function": "minecraft:set_attributes", <span class="comment">为物品加上属性修饰符</span>
+  "modifiers": [<span class="comment">属性修饰符列表</span>
+    {
+      "name": "字符串", <span class="comment">修改器的名称</span>
+      "attribute": "字符串", <span class="comment">此修改器修改的<a href="https://wiki.biligame.com/mc/属性">属性</a>的名称</span>
+      "operation": "addition" 或 "multiply_base" 或 "multiply_total", <span class="comment">修改数值的方法</span>
+      "amount": <a href="#值提供器">值提供器</a> <span class="comment">要修改的数值</span>
+      或 {
+        "min": <a href="#值提供器">值提供器</a>, <span class="comment">要修改的数值最小值</span>
+        "min": <a href="#值提供器">值提供器</a> <span class="comment">要修改的数值最大值</span>
+      },
+      "id": "字符串", <span class="comment">可选，修改器的UUID。如果没有指定，则生成新的UUID。不建议手动指定。</span>
+      "slot": "mainhand" 或 "offhand" 或 "feet" 或 "legs" 或 "chest" 或 "head" <span class="comment">该属性生效的栏位</span>
+          或
+            [ <span class="comment">随机选择列表中的一个栏位</span>
+              "栏位1",
+              "栏位2",
+            ]
+    }
+  ]
+}
+
+{
+  "function": "minecraft:set_banner_pattern‌", <span class="comment">设置旗帜样式</span>
+  "patterns": [
+    {
+      "pattern": "base" 或 "border" 或 "bricks" 或 "circle" 或 "creeper" 或 "cross" 或 "curly_border" 或 "diagonal_left" 或 "diagonal_right" 或 "diagonal_up_left" 或 "diagonal_up_right" 或 "flower" 或 "globe" 或 "gradient" 或 "gradient_up" 或 "half_horizontal" 或 "half_horizontal_bottom" 或 "half_vertical" 或 "half_vertical_right" 或 "mojang" 或 "piglin" 或 "rhombus" 或 "skull" 或 "small_stripes" 或 "square_bottom_left" 或 "sqaure_bottom_right" 或 "square_top_left" 或 "square_top_right" 或 "straight_cross" 或 "stripe_bottom" 或 "stripe_center" 或 "stripe_downleft" 或 "stripe_downright" 或 "stripe_left" 或 "stripe_middle" 或 "stripe_right" 或 "stripe_top" 或 "triangle_bottom" 或 "triangle_top" 或 "triangles_bottom" 或 "triangles_top", <span class="comment">旗帜样式</span>
+      "color": "white" 或 "orange" 或 "magenta" 或 "light_blue" 或 "yellow" 或 "lime" 或 "pink" 或 "gray" 或 "light_gray" 或 "cyan" 或 "purple" 或 "blue" 或 "brown" 或 "green" 或 "red" 或 "black <span class="comment">该样式的颜色</span>
+    }
+  ],
+  "append": true 或 false <span class="comment">是否是追加到旗帜已有的样式上，若否则覆盖之</span>
+}
+
+{
+  "function": "minecraft:set_damage", <span class="comment">设置物品耐久</span>
+  "damage": <a href="#值提供器">值提供器</a>, <span class="comment">物品已损伤的比例</span>
+  "add": true 或 false <span class="comment">是否相对于当前耐久来设置</span>
+}
+
+{
+  "function": "minecraft:set_loot_table", <span class="comment">设置容器物品的战利品表</span>
+  "name": "<a href="#战利品表">战利品表</a>命名空间ID",
+  "seed": 数值 <span class="comment">战利品表种子，可选。默认为0，不指定种子。</span>
+}
+
+<span class="comment">下列函数可以改变物品ID。</span>
+{
+  "function": "minecraft:furnace_smelt" <span class="comment">物品将变为在熔炉里烧炼后的状态。支持数据包添加的熔炉烧炼配方，但不支持高炉、烟熏炉或营火的烧炼配方。</span>
+}
+
+{
+  "function": "minecraft:exploration_map", <span class="comment">将普通的地图物品变为一个指引到某个结构的探险家地图</span>
+  "destination": "结构类型", <span class="comment">理论上应该和<a href="https://wiki.biligame.com/mc/命令/locate#参数">/locate命令中的参数</a>一样，实际上每个单词都需要首字母大写。</span>
+  "decoration": "<a href="https://wiki.biligame.com/mc/地图#地图图标">地图图标ID</a>", <span class="comment">该结构在地图中显示的图标（大小写敏感）。如果设置为mansion或monument，地图物品的图标将会改变。</span>
+  "zoom": 整数, <span class="comment">默认为2。地图缩放等级</span>
+  "search_radius": 整数, <span class="comment">默认为50。搜寻以当前区块为中心的(search_radius+1)×(search_radius+1)的区块。</span>
+  "skip_existing_chunks": true(默认值) 或 false <span class="comment">是否在搜寻时跳过已生成的区块</span>
+}
+
+{
+  "function": "minecraft:set_contents", <span class="comment">指定掉落物为容器时其内含物，仅对容器的方块战利品表有效</span>
+  "entries": [ 
+    战利品表项目列表 <span class="comment">设置为dynamic类型的content，可使容器保留其内含物。但除潜影盒外的容器被破坏时总会将内含物掉出。</span>
+  ]
+}
+
+</pre>
+<p>物品修饰器也可以为物品修饰器JSON对象的列表。例如下例中我们提前将需要设置的耐久存入 <code>storage cpp:_</code> 的 <code>Damage</code>，且已损伤的耐久不小于 <code>25</code> 时将其数量-1。</p>
+<pre class="file" id="cpp/item_modifiers/chest_transporter">cpp/item_modifiers/chest_transporter.json</pre>
+<pre>
+[
+  {
+    "function": "minecraft:copy_nbt",
+    "source": {
+      "type": "storage",
+      "source": "cpp:_"
+    },
+    "ops": [
+      {
+        "op": "replace",
+        "source": "tag.Damage",
+        "target": "Damage"
+      }
+    ]
+  },
+  {
+    "conditions": [
+      {
+        "condition": "minecraft:value_check",
+        "range": {
+          "min": 25
+        },
+        "value": {
+          "type": "minecraft:score",
+          "target": {
+            "type": "minecraft:fixed",
+            "name": "#damage"
+          },
+          "score": "cppValue"
+        }
+      }
+    ],
+    "function": "minecraft:set_count",
+    "add": false,
+    "count": 0
+  }
+]
+</pre>
 <p>例：将玩家1个副手物品移动到头盔栏。注意引用时应当先检测玩家头盔栏是否为空再执行该函数。</p>
 <pre class="file" id="cpp/item_modifiers/one">cpp/item_modifiers/one.json</pre>
 <pre>
@@ -1914,15 +2162,15 @@ setblock ~ 255 ~ air
 </pre>
 
 
-<h2 id="结构">§2.9 <ruby>结构<rt>structures</rt></ruby></h2>
-<p>结构文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。可参考</p>
+<h2 id="结构">§2.9 结构</h2>
+<p><ruby>结构<rt>structures</rt></ruby>文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。可参考</p>
 <ul>
   <li><a href="http://www.mcbbs.net/thread-652937-1-1.html">建筑党也能愉快享用结构方块-图文并茂教会你使用结构方块</a></li>
   <li><a href="http://www.mcbbs.net/thread-801350-1-1.html">如何使用结构方块</a></li>
   <li><a href="https://wiki.biligame.com/mc/结构方块">结构方块 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
 </ul>
 <p>在游戏中获得结构方块后，放置好所需要的方块结构和实体，然后放置结构方块，设置为保存模式，调整好大小，输入名称，点保存即可（注意区分是否需要实体）。然后从 <code>generated</code> 文件夹复制到数据包内，在结构方块中输入<code>命名空间:文件夹/文件</code>格式加载（注意区分是否需要实体）。</p>
-<p>我们也可以在函数中加载，先放置结构方块，然后放置并清除红石块即可。这个技巧配合战利品表和断言，可用于随机在世界生成结构。例如：</p>
+<p>我们也可以在函数中加载，先放置结构方块，然后放置并清除红石块即可。这个技巧配合战利品表和断言，可用于随机在世界生成结构。也可直接用于<a href="#拼图池">拼图池</a>。例如：</p>
 <pre class="file" id="cpp/functions/generate/enchanting_room.mcfunction">cpp/functions/generate/enchanting_room.mcfunction</pre>
 <pre>
 setblock ~ ~ ~ structure_block{posX:-1,posY:0,posZ:-1,name:"cpp:build/enchanting_room",mode:"LOAD"}
@@ -1947,6 +2195,7 @@ setblock ~ ~1 ~ air
 }
 </pre>
 <p>由于数据包加载次序难以控制，因此 <code>"replace": true</code> 的情形较为少用，一般仅用于覆盖原版标签。</p>
+<p>标签的 <code>required</code> 设置为 false 时，可用于添加其他模组的相应id。这在为数据包添加对模组的支持时很有用，例如<a href="#cpp/tags/blocks/chests">cpp/tags/blocks/chests.json</a>。而函数标签则为数据包添加附属和扩展提供了方便的接口。</p>
 <p>标签共包括5种，以用于不同情形。</p>
 
 <h3 id="方块标签">§2.10.1 方块标签</h3>
@@ -2700,9 +2949,10 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 <pre class="file" id="噪声设置JSON格式">噪声设置JSON格式</pre>
 <pre>
 { 
-  "aquifers_enabled": true 或 false (默认值), <span class="comment">是否生成蓄水层</span>,
-  "noise_caves_enabled": true 或 false (默认值), <span class="comment">是否生成噪声洞穴</span>,
-  "deepslate_enabled": true 或 false (默认值), <span class="comment">是否在y为负处生成坚石</span>,
+  "aquifers_enabled": true 或 false (默认值), <span class="comment">是否生成蓄水层</span>
+  "noise_caves_enabled": true 或 false (默认值), <span class="comment">是否生成噪声洞穴</span>
+  "deepslate_enabled": true 或 false (默认值), <span class="comment">是否将世界底部石头替换为深板岩</span>
+  "min_surface_level": 50, <span class="comment">TBD</span>
   "default_block": { <span class="comment">决定世界地形顶部下方生成的方块</span>
     "Name": "方块命名空间ID",
     "Properties": {
@@ -6102,6 +6352,7 @@ summon armor_stand ~ ~ ~ {Invulnerable:1b,Invisible:1b,Small:1b,Marker:1b,NoGrav
 execute as @e[type=armor_stand,tag=cpp_blocks,distance=..0.1,limit=1] run function <a href="#cpp/functions/blocks/petrified_oak_slab/tag">cpp:blocks/petrified_oak_slab/tag</a>
 </pre>
 
+<p>该方法也可以不借助命令方块。将玩家附近的方块复制到一定高度后，将所有方块破坏之，然后特定掉落物的相对位置就是相应方块位置。不过需要注意可能会影响原有方块或掉落物。也可以使用实体标记，通过修改其 <code>Pos</code> 来遍历玩家附近位置，找到特定方块时执行对应操作即可，不过这至多需要执行1000多次函数，开销并不小。</p>
 
 <h2 id="破坏事件">§6.4 破坏事件</h2>
 <p class="ex">高频检测标记所在位置的方块是否发生变化。若不符合要求，则表示该方块已被破坏(或被活塞推动)，此时检测附近相应掉落物并修改之，然后US杀死标记。</p>
@@ -8133,7 +8384,7 @@ item entity @s weapon.mainhand replace air
     <th>树苗</th>
     <td>任意土</td>
     <td>是</td>
-    <td>模型较大，需要删除原模型，由于金合欢树苗出现场合最少，因此以金合欢为宜。</td>
+    <td>模型较大，需要删除原模型，由于金合欢树苗出现场合最少，因此以金合欢为宜。深色橡木由于其需要2×2才可生长也有一定优势。</td>
     <td>有几率在一刻内直接生长为大树</td>
     <td>花卉、树</td>
   </tr>
@@ -8187,7 +8438,7 @@ item entity @s weapon.mainhand replace air
   </tr>
 </tbody></table>
 
-<p>可以看出，可接受的只有瓜梗+模型覆盖、金合欢树苗+删除原模型、任意方块+完整模型三种做法。对于第二种做法，我们还需要修改村庄等结构中相应的模型，而且在玩家大规模种植时会生成大量实体。</p>
+<p>可以看出，较便捷的只有瓜梗+模型覆盖、金合欢/深色橡木树苗+删除原模型、任意方块+完整模型三种做法。对于第二种做法，我们还需要修改村庄等结构中相应的模型，而且在玩家大规模种植时会生成大量实体。</p>
 
 <p>另一种实现方式即使用<a href="#命令方块替换法">§6.3 命令方块替换法</a>来放置，只需在放置完成后检测下方不是土时将其破坏掉即可。这种方法较为简单，缺点是物品缺少树苗的诸如可作为燃料、可堆肥的特性。</p>
 

@@ -6,20 +6,32 @@
           "config": {
             "feature": {
               "config": {
-                "max_placements": 5,
-                "empty_space_search_radius": 10,
-                "max_offset_from_origin": 2,
-                "chance_of_taller_dripstone": 0.2
+                "targets": [
+                  {
+                    "target": {
+                      "tag": "minecraft:base_stone_overworld",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Properties": {
+                        "axis": "y"
+                      },
+                      "Name": "minecraft:deepslate"
+                    }
+                  }
+                ],
+                "size": 64,
+                "discard_chance_on_air_exposure": 0.0
               },
-              "type": "minecraft:small_dripstone"
+              "type": "minecraft:ore"
             },
             "decorator": {
               "config": {
                 "bottom_inclusive": {
-                  "above_bottom": 0
+                  "absolute": 0
                 },
                 "top_inclusive": {
-                  "absolute": 59
+                  "absolute": 16
                 }
               },
               "type": "minecraft:range"
@@ -36,13 +48,7 @@
     },
     "decorator": {
       "config": {
-        "count": {
-          "type": "minecraft:uniform",
-          "value": {
-            "min_inclusive": 40,
-            "max_inclusive": 120
-          }
-        }
+        "count": 2
       },
       "type": "minecraft:count"
     }
