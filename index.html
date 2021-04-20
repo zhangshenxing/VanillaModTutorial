@@ -280,7 +280,7 @@
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/04/14 计划：添加核心着色器的应用</p>
+<p>by ruhuasiyu 2021/04/20 计划：添加核心着色器的应用</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -683,8 +683,8 @@ execute as @e[type=experience_bottle] at @s run function cpp:xp/tick
 execute as @e[type=#cpp:item_frames] at @s run function cpp:entities/item_frame/tick
 <span class="comment"># 物品</span>
 execute as @e[type=item] at @s run function cpp:entities/item/tick
-<span class="comment"># 药水云</span>
-execute as @e[type=area_effect_cloud] at @s run function cpp:entities/area_effect_cloud/tick
+<span class="comment"># 标记体</span>
+execute as @e[type=marker] at @s run function cpp:entities/marker/tick
 <span class="comment"># 盔甲架</span>
 execute as @e[type=armor_stand] at @s run function cpp:entities/armor_stand/tick
 </pre>
@@ -2266,7 +2266,7 @@ setblock ~ ~1 ~ air
     "minecraft:bubble_column",
     "minecraft:water",
     "minecraft:lava",
-    "#minecraft:fires"
+    "#minecraft:fire"
   ]
 }
 </pre>
@@ -2652,12 +2652,13 @@ execute unless block ^ ^ ^ #cpp:fluid
 advancement revoke @s only cpp:block/white_wool
 scoreboard players set #block_id cppValue 3
 function <a href="#cpp/functions/misc/loc/pos">cpp:misc/loc/pos</a>
-execute as @e[type=area_effect_cloud,distance=..9,tag=cpp_loc_block_pos] at @s align xyz if predicate <a href="#cpp/predicates/flower_portal">cpp:flower_portal</a> run function <a href="#cpp/functions/block/put/white_wool">cpp:block/put/white_wool</a>
-kill @e[type=area_effect_cloud,distance=..9,tag=cpp_loc_block_pos]
+<span class="comment"># 旧版本中我们使用药水云作为标记实体</span>
+execute as @e[type=marker,distance=..9,tag=cpp_loc_block_pos] at @s align xyz if predicate <a href="#cpp/predicates/flower_portal">cpp:flower_portal</a> run function <a href="#cpp/functions/block/put/white_wool">cpp:block/put/white_wool</a>
+kill @e[type=marker,distance=..9,tag=cpp_loc_block_pos]
 </pre>
 <pre class="file" id="cpp/functions/block/put/white_wool">cpp:block/put/white_wool</pre>
 <pre>
-summon area_effect_cloud ~0.5 ~ ~0.5 {Age:0,Duration:2147483647,Tags:["cpp_aec_marker","cpp_flower_portal"]}
+summon marker ~0.5 ~ ~0.5 {Tags:["cpp_aec_marker","cpp_flower_portal"]}
 setblock ~ ~ ~ end_gateway
 </pre>
 <pre class="file" id="cpp/predicates/flower_portal">cpp/predicates/flower_portal.json</pre>
@@ -2882,7 +2883,7 @@ setblock ~ ~ ~ end_gateway
 <p>检测传送门是否完整。检测玩家位置来传送。</p>
 <pre class="file">cpp:tick</pre>
 <pre>
-execute as @e[type=area_effect_cloud,tag=cpp_flower_portal] at @s unless predicate <a href="#cpp/predicates/flower_portal_done">cpp:flower_portal_done</a> run function <a href="#cpp/functions/misc/flower_portal">cpp:misc/flower_portal</a>
+execute as @e[type=marker,tag=cpp_flower_portal] at @s unless predicate <a href="#cpp/predicates/flower_portal_done">cpp:flower_portal_done</a> run function <a href="#cpp/functions/misc/flower_portal">cpp:misc/flower_portal</a>
 execute as @a at @s[predicate=<a href="#cpp/predicates/in_overworld">cpp:in_overworld</a>,predicate=<a href="#cpp/predicates/flower_portal_done">cpp:flower_portal_done</a>] run function <a href="#cpp/functions/misc/to_flower">cpp:misc/to_flower</a>
 execute as @a at @s[predicate=<a href="#cpp/predicates/in_flower">cpp:in_flower</a>,predicate=<a href="#cpp/predicates/flower_portal_done">cpp:flower_portal_done</a>] run function <a href="#cpp/functions/misc/to_overworld">cpp:misc/to_overworld</a>
 </pre>
@@ -6101,13 +6102,26 @@ data modify entity @s[nbt={Item:{tag:{CustomModelData:12974101}}}] Item.tag.Cust
 
 
 <h1 id="方块设计">§6 方块设计</h1>
-<p>原版模组无法添加方块，一般的做法是修改方块物品的 <code>CustomModelData</code>的模型后，在方块位置生成并头戴相应物品的盔甲架。参考</p>
+<p>原版模组无法添加方块，一般的做法是修改方块物品的 <code>CustomModelData</code>的模型后，在方块位置生成用于显示的实体。参考</p>
 <ul>
   <li><a href="https://www.mcbbs.net/thread-771638-1-1.html">使用局部坐标做到找到玩家指的地方</a></li>
   <li><a href="https://www.mcbbs.net/thread-825546-1-1.html">完美的自定义方块堆叠</a></li>
   <li><a href="https://www.mcbbs.net/thread-824528-1-1.html">自定义方块(玩家头颅) </a></li>
 </ul>
-<p>首先我们根据 <a href="#物品设计">§5 物品设计</a>来将方块对应的物品设计好，然后我们需要定位到方块所在位置。我们使用进度判断玩家放置了某物品，然后剥夺进度，获取该方块位置。由于玩家可以紧靠其它不完整方块来放置，这会导致该方块位置不一定在玩家视线上。一种做法是记录所有方块的碰撞箱，然后判断玩家视线与何方块的何面相交，从而得到方块位置，见<a href="#https://www.mcbbs.net/thread-919112-1-1.html">超精准的射线追踪碰撞检测器</a>。另一种在放弃精准度的前提下，我们可以将视线向相邻6个位置移动一格检测。为了简便，我们采用第二种做法。</p>
+<p>实体一般使用头戴相应物品的盔甲架或者存储有相应物品的物品展示框或荧光物品展示框。相比于盔甲架，物品展示框的优点是：</p>
+<ul>
+  <li>渲染卡顿更小；</li>
+  <li>使用荧光物品展示框可以避免对盔甲架修改 <code>Fire</code> 来保持其被实体方块覆盖时不变黑。</li>
+</ul>
+<p>缺点是：</p>
+<ul>
+  <li>不可自由旋转，例如用于显示地面的告示牌模型就相对麻烦一点；</li>
+  <li>不可自由移动，只能位于整数坐标处；</li>
+  <li>不可使用物品标签谓词，盔甲架可以将物品复制到主副手来判断其是否属于某物品标签，而物品展示框不行；</li>
+  <li>不可使用工具进行 <code>loot mine/kill</code>；</li>
+  <li>拥有CustomName时会显示物品名称。</li>
+</ul>
+<p>在这些缺点不影响时，我们更建议使用物品展示框。本节中我们以盔甲架为例。首先我们根据 <a href="#物品设计">§5 物品设计</a>来将方块对应的物品设计好，然后我们需要定位到方块所在位置。我们使用进度判断玩家放置了某物品，然后剥夺进度，获取该方块位置。由于玩家可以紧靠其它不完整方块来放置，这会导致该方块位置不一定在玩家视线上。一种做法是记录所有方块的碰撞箱，然后判断玩家视线与何方块的何面相交，从而得到方块位置，见<a href="#https://www.mcbbs.net/thread-919112-1-1.html">超精准的射线追踪碰撞检测器</a>。另一种在放弃精准度的前提下，我们可以将视线向相邻6个位置移动一格检测。为了简便，我们采用第二种做法。</p>
 <p>最后，我们在方块位置放置盔甲架。我们需要判断玩家是主手还是副手放置的，并将相应的物品信息复制到盔甲架头部。不直接使用 <code>loot</code> 命令复制到盔甲架头部是为了在之后的破坏事件中保留原物品的额外信息，例如玩家重命名的名称等。反之，若我们不希望保留这些额外信息，则可以直接使用 <code>loot</code> 命令输入到盔甲架头部。</p>
 <p>对于特殊的方块物品，我们需要对盔甲架进行预处理或调整，例如</p>
 <ul>
@@ -6146,19 +6160,19 @@ execute if score #put_block_cmd cppValue matches 12970000..12979999 at @s anchor
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/locate">cpp:blocks/acacia_leaves/locate</pre>
 <pre>
 function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
-execute unless entity @e[type=area_effect_cloud,distance=..7,tag=cpp_block_pos] positioned ~ ~1 ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
-execute unless entity @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos] positioned ~ ~-1 ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
-execute unless entity @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos] positioned ~1 ~ ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
-execute unless entity @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos] positioned ~-1 ~ ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
-execute unless entity @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos] positioned ~ ~ ~1 run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
-execute unless entity @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos] positioned ~ ~ ~-1 run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
-execute at @e[type=area_effect_cloud,distance=..8,tag=cpp_block_pos,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/blocks/acacia_leaves/put">cpp:blocks/acacia_leaves/put</a>
-kill @e[type=area_effect_cloud,distance=..10,tag=cpp_block_pos]
+execute unless entity @e[type=marker,distance=..7,tag=cpp_block_pos] positioned ~ ~1 ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
+execute unless entity @e[type=marker,distance=..8,tag=cpp_block_pos] positioned ~ ~-1 ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
+execute unless entity @e[type=marker,distance=..8,tag=cpp_block_pos] positioned ~1 ~ ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
+execute unless entity @e[type=marker,distance=..8,tag=cpp_block_pos] positioned ~-1 ~ ~ run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
+execute unless entity @e[type=marker,distance=..8,tag=cpp_block_pos] positioned ~ ~ ~1 run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
+execute unless entity @e[type=marker,distance=..8,tag=cpp_block_pos] positioned ~ ~ ~-1 run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
+execute at @e[type=marker,distance=..8,tag=cpp_block_pos,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/blocks/acacia_leaves/put">cpp:blocks/acacia_leaves/put</a>
+kill @e[type=marker,distance=..10,tag=cpp_block_pos]
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</pre>
 <pre>
-execute if entity @s[distance=..10] if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,distance=..0.5] run summon area_effect_cloud ~ ~ ~ {Tags:["cpp_block_pos"]}
-execute if entity @s[distance=..10] unless entity @e[type=area_effect_cloud,distance=..6,tag=cpp_block_pos] positioned ^ ^ ^0.005 run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
+execute if entity @s[distance=..10] if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,distance=..0.5] run summon marker ~ ~ ~ {Tags:["cpp_block_pos"]}
+execute if entity @s[distance=..10] unless entity @e[type=marker,distance=..6,tag=cpp_block_pos] positioned ^ ^ ^0.005 run function <a href="#cpp/functions/blocks/acacia_leaves/ray">cpp:blocks/acacia_leaves/ray</a>
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/put">cpp:blocks/acacia_leaves/put</pre>
 <pre>
@@ -6184,19 +6198,19 @@ data modify entity @s ArmorItems[3] set from storage cpp:_ weapon.Item
 <pre class="file">cpp:blocks/acacia_leaves/locate</pre>
 <pre>
 function <a href="#cpp/functions/locate/init">cpp:locate/init</a>
-execute as @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] at @s if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,tag=cpp_leaves,distance=..0.1] run tag @s add cpp_locate_block_position
-execute unless entity @e[type=area_effect_cloud,distance=..6.1,tag=cpp_locate_block_position] run function <a href="#cpp/functions/locate/neighbor">cpp:locate/neighbor</a>
-execute as @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block_neighbor] at @s if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,tag=cpp_leaves,distance=..0.1] run tag @s add cpp_locate_block_position
-execute at @e[type=area_effect_cloud,distance=..7.1,tag=cpp_locate_block_position,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/blocks/acacia_leaves/put">cpp:blocks/acacia_leaves/put</a>
-kill @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block]
+execute as @e[type=marker,distance=..10,tag=cpp_locate_block] at @s if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,tag=cpp_leaves,distance=..0.1] run tag @s add cpp_locate_block_position
+execute unless entity @e[type=marker,distance=..6.1,tag=cpp_locate_block_position] run function <a href="#cpp/functions/locate/neighbor">cpp:locate/neighbor</a>
+execute as @e[type=marker,distance=..10,tag=cpp_locate_block_neighbor] at @s if block ~ ~ ~ acacia_leaves align xyz positioned ~0.5 ~ ~0.5 unless entity @e[type=armor_stand,tag=cpp_leaves,distance=..0.1] run tag @s add cpp_locate_block_position
+execute at @e[type=marker,distance=..7.1,tag=cpp_locate_block_position,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/blocks/acacia_leaves/put">cpp:blocks/acacia_leaves/put</a>
+kill @e[type=marker,distance=..10,tag=cpp_locate_block]
 </pre>
 <p>我们判断玩家离原点的距离来区分三个距离区间，从而离原点更近的地方可以获得不超过 2/7100 的误差，而距离稍远处误差会有所增大。</p>
 <pre class="file" id="cpp/functions/locate/init">cpp:locate/init</pre>
 <pre>
-execute anchored eyes run summon area_effect_cloud ^ ^ ^ {Tags:["cpp_locate_block"]}
-execute anchored eyes run summon area_effect_cloud ^ ^ ^1 {Tags:["cpp_locate_block_front"]}
-execute store result score #x cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[0] 71
-execute store result score #z cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[2] 71
+execute anchored eyes run summon marker ^ ^ ^ {Tags:["cpp_locate_block"]}
+execute anchored eyes run summon marker ^ ^ ^1 {Tags:["cpp_locate_block_front"]}
+execute store result score #x cppValue run data get entity @e[type=marker,distance=..3,tag=cpp_locate_block,limit=1] Pos[0] 71
+execute store result score #z cppValue run data get entity @e[type=marker,distance=..3,tag=cpp_locate_block,limit=1] Pos[2] 71
 scoreboard players operation #tempx cppValue = #x cppValue
 execute if score #x cppValue matches ..-1 run scoreboard players operation #tempx cppValue *= #-1 cppValue
 scoreboard players operation #tempz cppValue = #z cppValue
@@ -6205,18 +6219,18 @@ scoreboard players operation #tempx cppValue > #tempz cppValue
 execute if score #tempx cppValue matches 213000001.. run function <a href="#cpp/functions/locate/init1">cpp:locate/init1</a>
 execute if score #tempx cppValue matches 21300001..213000000 run function <a href="#cpp/functions/locate/init10">cpp:locate/init10</a>
 execute if score #tempx cppValue matches ..21300000 run function <a href="#cpp/functions/locate/init100">cpp:locate/init100</a>
-kill @e[type=area_effect_cloud,tag=cpp_locate_block_front]
+kill @e[type=marker,tag=cpp_locate_block_front]
 </pre>
 
 <p>进行计算的初始化。</p>
 <pre class="file" id="cpp/functions/locate/init1">cpp:locate/init100</pre>
 <pre>
-execute store result score #x cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[0] 7100
-execute store result score #y cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[1] 7100
-execute store result score #z cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block,limit=1] Pos[2] 7100
-execute store result score #f cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block_front,limit=1] Pos[0] 7100
-execute store result score #g cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block_front,limit=1] Pos[1] 7100
-execute store result score #h cppValue run data get entity @e[type=area_effect_cloud,distance=..3,tag=cpp_locate_block_front,limit=1] Pos[2] 7100
+execute store result score #x cppValue run data get entity @e[type=marker,distance=..3,tag=cpp_locate_block,limit=1] Pos[0] 7100
+execute store result score #y cppValue run data get entity @e[type=marker,distance=..3,tag=cpp_locate_block,limit=1] Pos[1] 7100
+execute store result score #z cppValue run data get entity @e[type=marker,distance=..3,tag=cpp_locate_block,limit=1] Pos[2] 7100
+execute store result score #f cppValue run data get entity @e[type=marker,distance=..3,tag=cpp_locate_block_front,limit=1] Pos[0] 7100
+execute store result score #g cppValue run data get entity @e[type=marker,distance=..3,tag=cpp_locate_block_front,limit=1] Pos[1] 7100
+execute store result score #h cppValue run data get entity @e[type=marker,distance=..3,tag=cpp_locate_block_front,limit=1] Pos[2] 7100
 scoreboard players operation #f cppValue -= #x cppValue
 scoreboard players operation #g cppValue -= #y cppValue
 scoreboard players operation #h cppValue -= #z cppValue
@@ -6235,7 +6249,7 @@ function <a href="#cpp/functions/locate/loop100">cpp:locate/loop100</a>
 <p>递归计算视线上的每一个方块交点。</p>
 <pre class="file" id="cpp/functions/locate/loop100">cpp:locate/loop100</pre>
 <pre>
-tag @e[type=area_effect_cloud,distance=..8,tag=cpp_locate_block,tag=cpp_temp] remove cpp_temp
+tag @e[type=marker,distance=..8,tag=cpp_locate_block,tag=cpp_temp] remove cpp_temp
 scoreboard players operation #t1 cppValue = #x cppValue
 scoreboard players operation #t1 cppValue *= #-1 cppValue
 scoreboard players operation #t1 cppValue %= #7100 cppValue
@@ -6268,30 +6282,30 @@ scoreboard players operation #s3 cppValue /= #7100 cppValue
 scoreboard players operation #x cppValue += #s1 cppValue
 scoreboard players operation #y cppValue += #s2 cppValue
 scoreboard players operation #z cppValue += #s3 cppValue
-summon area_effect_cloud ~ ~ ~ {Tags:["cpp_locate_block","cpp_temp"]}
-execute if score #sf cppValue matches 0.. store result entity @e[type=area_effect_cloud,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[0] double 0.00014084507042254 run scoreboard players get #x cppValue
-execute if score #sg cppValue matches 0.. store result entity @e[type=area_effect_cloud,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[1] double 0.00014084507042254 run scoreboard players get #y cppValue
-execute if score #sh cppValue matches 0.. store result entity @e[type=area_effect_cloud,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[2] double 0.00014084507042254 run scoreboard players get #z cppValue
-execute if score #sf cppValue matches ..-1 store result entity @e[type=area_effect_cloud,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[0] double -0.00014084507042254 run scoreboard players get #x cppValue
-execute if score #sg cppValue matches ..-1 store result entity @e[type=area_effect_cloud,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[1] double -0.00014084507042254 run scoreboard players get #y cppValue
-execute if score #sh cppValue matches ..-1 store result entity @e[type=area_effect_cloud,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[2] double -0.00014084507042254 run scoreboard players get #z cppValue
-execute at @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block,tag=cpp_temp] if entity @s[distance=..8] run function <a href="#cpp/functions/locate/loop100">cpp:locate/loop100</a>
+summon marker ~ ~ ~ {Tags:["cpp_locate_block","cpp_temp"]}
+execute if score #sf cppValue matches 0.. store result entity @e[type=marker,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[0] double 0.00014084507042254 run scoreboard players get #x cppValue
+execute if score #sg cppValue matches 0.. store result entity @e[type=marker,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[1] double 0.00014084507042254 run scoreboard players get #y cppValue
+execute if score #sh cppValue matches 0.. store result entity @e[type=marker,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[2] double 0.00014084507042254 run scoreboard players get #z cppValue
+execute if score #sf cppValue matches ..-1 store result entity @e[type=marker,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[0] double -0.00014084507042254 run scoreboard players get #x cppValue
+execute if score #sg cppValue matches ..-1 store result entity @e[type=marker,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[1] double -0.00014084507042254 run scoreboard players get #y cppValue
+execute if score #sh cppValue matches ..-1 store result entity @e[type=marker,distance=..6.5,tag=cpp_locate_block,tag=cpp_temp,limit=1] Pos[2] double -0.00014084507042254 run scoreboard players get #z cppValue
+execute at @e[type=marker,distance=..10,tag=cpp_locate_block,tag=cpp_temp] if entity @s[distance=..8] run function <a href="#cpp/functions/locate/loop100">cpp:locate/loop100</a>
 </pre>
 
 <p>当标记位置所有方块均不符合我们要求时，我们检测邻近6个位置。</p>
 <pre class="file" id="cpp/functions/locate/neighbor">cpp:locate/neighbor</pre>
 <pre>
-execute at @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] run function <a href="#cpp/functions/locate/neighbor_aec">cpp:locate/neighbor_aec</a>
-kill @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block,tag=!cpp_locate_block_neighbor]
+execute at @e[type=marker,distance=..10,tag=cpp_locate_block] run function <a href="#cpp/functions/locate/neighbor_aec">cpp:locate/neighbor_aec</a>
+kill @e[type=marker,distance=..10,tag=cpp_locate_block,tag=!cpp_locate_block_neighbor]
 </pre>
 <pre class="file" id="cpp/functions/locate/neighbor_aec">cpp:locate/neighbor_aec</pre>
 <pre>
-summon area_effect_cloud ~1 ~ ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
-summon area_effect_cloud ~-1 ~ ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
-summon area_effect_cloud ~ ~1 ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
-summon area_effect_cloud ~ ~-1 ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
-summon area_effect_cloud ~ ~ ~1 {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
-summon area_effect_cloud ~ ~ ~-1 {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
+summon marker ~1 ~ ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
+summon marker ~-1 ~ ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
+summon marker ~ ~1 ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
+summon marker ~ ~-1 ~ {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
+summon marker ~ ~ ~1 {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
+summon marker ~ ~ ~-1 {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
 </pre>
 
 <p>尽管看上去比较长，但是递归的次数很少，命令数比视线追踪法还是要少很多。设置为71/710/7100倍是为了保证记分板的计算过程中不会超过记分板的上下限而溢出。</p>
@@ -6362,11 +6376,11 @@ execute as @e[type=armor_stand,tag=cpp_leaves] at @s unless block ~ ~ ~ acacia_l
 </pre>
 <pre class="file" id="cpp/functions/blocks/acacia_leaves/break">cpp:blocks/acacia_leaves/break</pre>
 <pre>
-# 树叶
+<span class="comment"># 树叶</span>
 execute as @e[type=item,sort=nearest,predicate=<a href="#cpp/predicates/item/dropped_acacia_leaves">cpp:item/dropped_acacia_leaves</a>,limit=1,distance=..3] unless data entity @s Item.tag.id run tag @s add cpp_block_drop
 data modify entity @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] Item set from entity @s ArmorItems[3]
 tag @e[type=item,distance=..3,tag=cpp_block_drop] remove cpp_block_drop
-# 树苗
+<span class="comment"># 树苗</span>
 execute as @e[type=item,sort=nearest,predicate=<a href="#cpp/predicates/item/dropped_acacia_sapling">cpp:item/dropped_acacia_sapling</a>,limit=1,distance=..3] run tag @s add cpp_block_drop
 execute as @s[tag=cpp_ore_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] run loot spawn ~ ~ ~ loot cpp:ore_sapling
 execute as @s[tag=cpp_wool_leaves] at @e[type=item,sort=nearest,tag=cpp_block_drop,limit=1,distance=..3] run loot spawn ~ ~ ~ loot cpp:wool_sapling
@@ -6762,7 +6776,7 @@ execute store result block ~ ~ ~ Items[{Slot:17b}].tag.CustomModelData int 0.1 r
 <p>对于玩家误放入背景的物品，我们使用 <a href="#修改玩家背包">§10.2 修改玩家背包</a>中的潜影盒战利品表来将物品输出到容器中。</p>
 <pre class="file" id="cpp/functions/all_in_one_machine/gui">cpp:all_in_one_machine/gui</pre>
 <pre>
-# 动态弹出非法放入的物品
+<span class="comment"># 动态弹出非法放入的物品</span>
 setblock ~ 255 ~ shulker_box
 data modify block ~ 255 ~ Items set from block ~ ~ ~ Items
 data remove block ~ 255 ~ Items[{tag:{cppClear:1b}}]
@@ -6773,11 +6787,11 @@ data remove block ~ 255 ~ Items[{Slot:21b}]
 data remove block ~ 255 ~ Items[{Slot:22b}]
 loot give @p mine ~ 255 ~ tnt{drop_content:1b}
 setblock ~ 255 ~ air
-# 选项
+<span class="comment"># 选项</span>
 execute unless data block ~ ~ ~ Items[{Slot:1b}] run function <a href="#cpp/functions/all_in_one_machine/option/pressure">cpp:all_in_one_machine/option/pressure</a>
 execute unless data block ~ ~ ~ Items[{Slot:10b}] run function <a href="#cpp/functions/all_in_one_machine/option/temperature">cpp:all_in_one_machine/option/temperature</a>
 execute unless data block ~ ~ ~ Items[{Slot:19b}] run function <a href="#cpp/functions/misc/output">cpp:misc/output</a>
-# 重置背景
+<span class="comment"># 重置背景</span>
 item block ~ ~ ~ container.0 replace firework_star{cppClear:1b,display:{Name:'{"italic":false,"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12971003}
 loot replace block ~ ~ ~ container.1 1 loot cpp:all_in_one_machine/pressure
 item block ~ ~ ~ container.2 replace firework_star{cppClear:1b,display:{Name:'{"italic":false,"translate":"item.cpp.all_in_one_machine"}'},CustomModelData:12970000}
@@ -7172,9 +7186,9 @@ execute as @s[predicate=<a href="#cpp/predicates/mainhand/machine_plugin">cpp:ma
 <pre class="file" id="cpp/functions/all_in_one_machine/ray">cpp:all_in_one_machine/ray</pre>
 <pre>
 function <a href="#cpp/functions/locate/init">cpp:locate/init</a>
-execute as @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block] at @s if block ~ ~ ~ barrel align xyz positioned ~0.5 ~ ~0.5 if entity @e[type=armor_stand,distance=..0.5,tag=cpp_all_in_one_machine] run tag @s add cpp_locate_block_position
-execute at @e[type=area_effect_cloud,distance=..6.1,tag=cpp_locate_block_position,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/all_in_one_machine/plugin/type">cpp:all_in_one_machine/plugin/type</a>
-kill @e[type=area_effect_cloud,distance=..10,tag=cpp_locate_block]
+execute as @e[type=marker,distance=..10,tag=cpp_locate_block] at @s if block ~ ~ ~ barrel align xyz positioned ~0.5 ~ ~0.5 if entity @e[type=armor_stand,distance=..0.5,tag=cpp_all_in_one_machine] run tag @s add cpp_locate_block_position
+execute at @e[type=marker,distance=..6.1,tag=cpp_locate_block_position,sort=nearest,limit=1] align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/all_in_one_machine/plugin/type">cpp:all_in_one_machine/plugin/type</a>
+kill @e[type=marker,distance=..10,tag=cpp_locate_block]
 </pre>
 <pre class="file" id="cpp/functions/all_in_one_machine/plugin/type">cpp:all_in_one_machine/plugin/type</pre>
 <pre>
@@ -7847,16 +7861,16 @@ data modify block ~ ~ ~ {} merge from entity @s HandItems[0].tag.storage
 </pre>
 <pre class="file" id="cpp/functions/furnace/type">cpp:furnace/type</pre>
 <pre>
-# 燃料改变
+<span class="comment"># 燃料改变</span>
 execute if block ~ ~ ~ furnace{BurnTime:0s,Items:[{Slot:1b}]} run function <a href="#cpp/functions/furnace/fuel_change_check">cpp:furnace/fuel_change_check</a>
-# 消耗燃料
+<span class="comment"># 消耗燃料</span>
 execute as @s[tag=!cpp_check_fuel] if block ~ ~ ~ furnace{BurnTime:0s,Items:[{Slot:1b}]} run function <a href="#cpp/functions/furnace/fuel_use">cpp:furnace/fuel_use</a>
-# 进度
+<span class="comment"># 进度</span>
 execute unless block ~ ~ ~ furnace{BurnTime:0s} store result block ~ ~ ~ CookTime short 1 run scoreboard players add @s cppTick 1
 execute if score @s cppTick matches 199.. run function <a href="#cpp/functions/furnace/done">cpp:furnace/done</a>
-# 停止
+<span class="comment"># 停止</span>
 execute if block ~ ~ ~ furnace{BurnTime:0s} run scoreboard players reset @s cppTick
-# 发光
+<span class="comment"># 发光</span>
 execute if predicate cpp:furnace/lit run function <a href="#cpp/functions/furnace/lit_true">cpp:furnace/lit_true</a>
 execute if predicate cpp:furnace/unlit run function <a href="#cpp/functions/furnace/lit_false">cpp:furnace/lit_false</a>
 </pre>
@@ -8486,9 +8500,9 @@ execute as @e[type=armor_stand,tag=cpp_plants] at @s run function <a href="#cpp/
 </pre>
 <pre class="file" id="cpp/functions/plants/tick">cpp:plants/tick</pre>
 <pre>
-# 破坏
+<span class="comment"># 破坏</span>
 execute unless block ~ ~ ~ acacia_sapling run function <a href="#cpp/functions/block/break/acacia_sapling">cpp:block/break/acacia_sapling</a>
-# 树生长
+<span class="comment"># 树生长</span>
 execute as @s[tag=!cpp_acacia_sapling] if block ~ ~ ~ acacia_sapling[stage=1] run function <a href="#cpp/functions/plants/type">cpp:plants/type</a>
 </pre>
 <pre class="file" id="cpp/functions/plants/type">cpp:plants/type</pre>
@@ -9499,16 +9513,16 @@ clear @s[tag=machine_plugin_used] minecraft:firework_star{id:"cpp:high_pressure_
 </pre>
 <pre class="file" id="cpp/functions/misc/close_gui">cpp:misc/close_gui</pre>
 <pre>
-summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["machine_close_gui_pos"],Duration:2}
-summon minecraft:area_effect_cloud ^ ^ ^3 {Tags:["machine_close_gui_facing"],Duration:2}
+summon minecraft:marker ~ ~ ~ {Tags:["machine_close_gui_pos"],Duration:2}
+summon minecraft:marker ^ ^ ^3 {Tags:["machine_close_gui_facing"],Duration:2}
 tp @s ~ ~256 ~
 tag @s add machine_close_gui
 </pre>
 <pre class="file" id="cpp/functions/misc/close_gui_back">cpp:misc/close_gui_back</pre>
 <pre>
-tp @s @e[type=area_effect_cloud,tag=machine_close_gui_pos,distance=..10,sort=nearest,limit=1]
+tp @s @e[type=marker,tag=machine_close_gui_pos,distance=..10,sort=nearest,limit=1]
 tag @s remove machine_close_gui
-execute at @s facing entity @e[type=area_effect_cloud,tag=machine_close_gui_facing,distance=..10,sort=nearest,limit=1] feet run tp ~ ~ ~
+execute at @s facing entity @e[type=marker,tag=machine_close_gui_facing,distance=..10,sort=nearest,limit=1] feet run tp ~ ~ ~
 </pre>
 
 <h2 id="生物移动">§10.5 生物移动</h2>
@@ -9904,7 +9918,8 @@ execute if score #damage cppValue &lt; #max_durality cppValue positioned ~ ~ ~-1
 }
 </pre>
 <pre class="file" id="cpp/functions/chain/pickaxe1/damage">cpp:chain/pickaxe1/damage</pre>
-<pre># 挖矿经验
+<pre>
+<span class="comment"># 挖矿经验</span>
 execute as @s[predicate=!cpp:mainhand/silk_touch] run function <a href="#cpp/functions/chain/xp">cpp:chain/xp</a>
 function <a href="#cpp/functions/chain/mine">cpp:chain/mine</a>
 execute if predicate <a href="#cpp/predicates/damage">cpp:damage</a> run scoreboard players add #damage cppValue 1
@@ -9913,12 +9928,12 @@ execute if score #mined cppValue &lt; $maxChainBlocks cppConfig if score #damage
 </pre>
 <pre class="file" id="cpp/functions/chain/xp">cpp:chain/xp</pre>
 <pre>
-execute if block ~ ~ ~ coal_ore run xp add @s 1
+execute if block ~ ~ ~ #coal_ores run xp add @s 1
 execute if block ~ ~ ~ #redstone_ores run xp add @s 3
 execute if block ~ ~ ~ nether_quartz_ore run xp add @s 3
 execute if block ~ ~ ~ #lapis_ores run xp add @s 4
 execute if block ~ ~ ~ #diamond_ores run xp add @s 5
-execute if block ~ ~ ~ emerald_ore run xp add @s 5
+execute if block ~ ~ ~ #emerald_ores run xp add @s 5
 </pre>
 <pre class="file" id="cpp/functions/chain/mine">cpp:chain/mine</pre>
 <pre>
@@ -10001,12 +10016,12 @@ scoreboard players operation #rand cppValue += #random_min cppValue
 
 <p>先设置 <code>#random_min</code> 和 <code>#random_max</code> 的 <code>cppValue</code> 为随机数的上下界，然后执行该函数，则 <code>#rand</code> 的 <code>cppValue</code> 即为该区间的一个随机数。</p>
 
-<p>另一种做法更为简单，生成一个药水云并将其 <code>UUID[0]</code> 作为随机数来源即可。</p>
+<p>另一种做法更为简单，生成一个标记体并将其 <code>UUID[0]</code> 作为随机数来源即可。</p>
 <pre class="file" id="cpp/functions/random">cpp:random</pre>
 <pre>
-summon area_effect_cloud ~ 0 ~ {Tags:["cpp_random"]}
-execute store result score #rand cppValue run data get entity @e[tag=cpp_random,limit=1,type=area_effect_cloud] UUID[0]
-kill @e[tag=cpp_random,type=area_effect_cloud]
+summon marker ~ 0 ~ {Tags:["cpp_random"]}
+execute store result score #rand cppValue run data get entity @e[tag=cpp_random,limit=1,type=marker] UUID[0]
+kill @e[tag=cpp_random,type=marker]
 scoreboard players operation #random_interval cppValue = #random_max cppValue
 scoreboard players operation #random_interval cppValue -= #random_min cppValue
 scoreboard players add #random_interval cppValue 1
@@ -10535,20 +10550,20 @@ execute as @a at @s unless block ~ 0 ~ bedrock run function <a href="#cpp/functi
 </pre>
 <pre class="file" id="cpp/functions/generate/check">cpp:generate/check</pre>
 <pre>
-execute positioned ~-64 -1 ~-64 unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
-execute positioned ~-64 -1 ~-32 unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
-execute positioned ~-64 -1 ~ unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
-execute positioned ~-32 -1 ~-64 unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
-execute positioned ~-32 -1 ~-32 unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
-execute positioned ~-32 -1 ~ unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
-execute positioned ~ -1 ~-64 unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
-execute positioned ~ -1 ~-32 unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
-execute positioned ~ -1 ~ unless entity @e[type=area_effect_cloud,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~-64 -1 ~-64 unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~-64 -1 ~-32 unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~-64 -1 ~ unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~-32 -1 ~-64 unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~-32 -1 ~-32 unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~-32 -1 ~ unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~ -1 ~-64 unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~ -1 ~-32 unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
+execute positioned ~ -1 ~ unless entity @e[type=marker,tag=cpp_chunk,dx=32,dy=2,dz=32] run function <a href="#cpp/functions/generate/mark">cpp:generate/mark</a>
 </pre>
 <pre class="file" id="cpp/functions/generate/mark">cpp:generate/mark</pre>
 <pre>
-summon area_effect_cloud ~32 0 ~32 {Age:0,Duration:2147483647,Tags:["cpp_aec_marker","cpp_chunk","cpp_temp"]}
-execute as @e[type=area_effect_cloud,tag=cpp_temp] run function <a href="#cpp/functions/generate/aec">cpp:generate/aec</a>
+summon marker ~32 0 ~32 {Tags:["cpp_aec_marker","cpp_chunk","cpp_temp"]}
+execute as @e[type=marker,tag=cpp_temp] run function <a href="#cpp/functions/generate/aec">cpp:generate/aec</a>
 loot spawn ~ ~ ~ loot cpp:misc/generate
 execute store result score #t cppValue run spreadplayers ~ ~ 0 15 false @e[type=item,nbt={Item:{tag:{cpp_generate_marker:1b}}}]
 execute as @e[type=item,nbt={Item:{tag:{cpp_generate_marker:1b}}}] at @s if block ~ ~-1 ~ #cpp:replacable run tp ~ ~-1 ~
@@ -10563,26 +10578,20 @@ tag @s remove cpp_temp
 </pre>
 <pre class="file" id="cpp/functions/generate/build">cpp:generate/build</pre>
 <pre>
-# 附魔室
+<span class="comment"># 附魔室</span>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"enchanting_room"}}}] if score #t cppValue matches 1.. run function <a href="#cpp/functions/generate/structures/enchanting_room">cpp:generate/structures/enchanting_room</a>
-# 图腾柱
+<span class="comment"># 图腾柱</span>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"tp_overworld"}}}] run function <a href="#cpp/functions/generate/structures/tp_overworld">cpp:generate/structures/tp_overworld</a>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"tp_the_nether"}}}] run function <a href="#cpp/functions/generate/structures/tp_the_nether">cpp:generate/structures/tp_the_nether</a>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"tp_flower"}}}] run function <a href="#cpp/functions/generate/structures/tp_flower">cpp:generate/structures/tp_flower</a>
-# 树
+<span class="comment"># 树</span>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"fruit_tree"}}}] if block ~ ~-1 ~ #cpp:sapling_plantable_on align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/plants/trees/fruit0">cpp:plants/trees/fruit0</a>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"ore_tree"}}}] if block ~ ~-1 ~ #cpp:sapling_plantable_on align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/plants/trees/ore0">cpp:plants/trees/ore0</a>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"wool_tree"}}}] if block ~ ~-1 ~ #cpp:sapling_plantable_on align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/plants/trees/wool0">cpp:plants/trees/wool0</a>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"sakura_tree"}}}] if block ~ ~-1 ~ #cpp:sapling_plantable_on align xyz positioned ~0.5 ~ ~0.5 run function <a href="#cpp/functions/plants/trees/sakura0">cpp:plants/trees/sakura0</a>
-# 死珊瑚扇
-execute as @s[nbt={Item:{tag:{cpp_generate_type:"dead_coral_fan"}}}] run function <a href="#cpp/functions/generate/structures/dead_coral_fan">cpp:generate/structures/dead_coral_fan</a>
-# 灌木丛
-execute as @s[nbt={Item:{tag:{cpp_generate_type:"small_bush"}}}] if block ~ ~-1 ~ #cpp:sapling_plantable_on run function <a href="#cpp/functions/generate/structures/small_bush">cpp:generate/structures/small_bush</a>
-# 死云杉树
-execute as @s[nbt={Item:{tag:{cpp_generate_type:"dead_spruce"}}}] if block ~ ~-1 ~ #cpp:sapling_plantable_on run function <a href="#cpp/functions/generate/structures/dead_spruce">cpp:generate/structures/dead_spruce</a>
-# 农作物
+<span class="comment"># 农作物</span>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"crops"}}}] if block ~ ~-1 ~ minecraft:grass_block run function <a href="#cpp/functions/generate/structures/crops">cpp:generate/structures/crops</a>
-# 花草
+<span class="comment"># 花草</span>
 execute as @s[nbt={Item:{tag:{cpp_generate_type:"modcrops"}}}] run function <a href="#cpp/functions/generate/structures/modcrops">cpp:generate/structures/modcrops</a>
 kill @s
 </pre>
