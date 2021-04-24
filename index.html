@@ -67,9 +67,20 @@
     thiselement.style.display='none';
     thiselement.previousElementSibling.previousElementSibling.style.display='block';
   }
+  function loadpage(){
+    var files=document.getElementsByClassName("file");
+    for (var i=0;i<files.length;i++) {
+      files[i].onclick=function (){
+        var j=1;
+        if (this.nextElementSibling.style.display=='none') j=0;
+        if (j==1) this.nextElementSibling.style.display='none';
+        else this.nextElementSibling.style.display='block';
+      }
+    }
+  }
 </script>
 </head>
-<body>
+<body onload="loadpage();">
 <nav>
 <ul>
   <li><a href="#引言" style="font-weight: bold; text-align: center;">理论篇</a></li>
@@ -112,33 +123,17 @@
       <li><a href="#流体标签">§2.10.5 流体标签</a></li>
       <li><a href="#游戏事件标签">§2.10.6 游戏事件标签</a></li>
     </ul></li>
-    <li><a href="#维度和维度类型">§2.11 维度和维度类型</a><img src="https://www.mcbbs.net/template/mcbbs/image/hot_1.gif" alt="hot" /><ul>
+    <li><a href="#维度和维度类型">§2.11 维度和维度类型</a><ul>
       <li><a href="#维度">§2.11.1 维度</a></li>
-      <li><a href="#维度类型">§2.11.2 维度类型</a><ul>
-        <li><a href="#维度类型/JSON格式">JSON格式</a></li>
-        <li><a href="#可用的维度类型">可用的维度类型</a></li>
-      </ul></li>
+      <li><a href="#维度类型">§2.11.2 维度类型</a></li>
       <li><a href="#维度实例">§2.11.3 实例</a></li>
       <li><a href="#自定义世界">§2.11.4 自定义世界</a></li>
     </ul></li>
-    <li><a href="#世界生成">§2.12 世界生成</a><img src="https://www.mcbbs.net/template/mcbbs/image/hot_1.gif" alt="hot" /><ul>
-      <li><a href="#噪声设置">§2.12.1 噪声设置</a><ul>
-        <li><a href="#噪声设置/JSON格式">JSON格式</a></li>
-        <li><a href="#可用的噪声设置">可用的噪声设置</a></li>
-        <li><a href="#默认世界结构参数">默认世界结构参数</a></li>
-      </ul></li>
-      <li><a href="#生物群系">§2.12.2 生物群系</a><ul>
-        <li><a href="#生物群系/JSON格式">JSON格式</a></li>
-        <li><a href="#可用的生物群系">可用的生物群系</a></li>
-      </ul></li>
-      <li><a href="#地形雕刻器">§2.12.3 地形雕刻器</a><ul>
-        <li><a href="#地形雕刻器/JSON格式">JSON格式</a></li>
-        <li><a href="#可用的地形雕刻器">可用的地形雕刻器</a></li>
-      </ul></li>
-      <li><a href="#地表生成器">§2.12.4 地表生成器</a><ul>
-        <li><a href="#地表生成器/JSON格式">JSON格式</a></li>
-        <li><a href="#可用的地表生成器">可用的地表生成器</a></li>
-      </ul></li>
+    <li><a href="#自定义世界生成">§2.12 自定义世界生成</a><ul>
+      <li><a href="#噪声设置">§2.12.1 噪声设置</a></li>
+      <li><a href="#生物群系">§2.12.2 生物群系</a></li>
+      <li><a href="#地形雕刻器">§2.12.3 地形雕刻器</a></li>
+      <li><a href="#地表生成器">§2.12.4 地表生成器</a></li>
       <li><a href="#地物">§2.12.5 地物</a><ul>
         <li><a href="#地物/JSON格式">JSON格式</a></li>
         <li><a href="#可用的地物">可用的地物</a></li>
@@ -165,7 +160,11 @@
     <li><a href="#材质">§3.6 材质</a></li>
     <li><a href="#音效">§3.7 音效</a></li>
     <li><a href="#字体">§3.8 字体</a></li>
-    <li><a href="#着色器">§3.9 着色器</a></li>
+    <li><a href="#着色器">§3.9 着色器</a><ul>
+      <li><a href="#后处理着色器">§3.9.1 后处理着色器</a></li>
+      <li><a href="#核心着色器">§3.9.2 核心着色器</a></li>
+    </ul></li>
+    <li><a href="#着色器">§3.10 文本</a></li>
   </ul></li>
   <li><a href="#规划" style="font-weight: bold; text-align: center;">实践篇</a></li>
   <li><a href="#规划">§4. 规划</a><ul>
@@ -280,13 +279,13 @@
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/04/20 计划：添加核心着色器的应用</p>
+<p>by ruhuasiyu 2021/04/24</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
 <ul>
-  <li><strong><a href="https://wiki.biligame.com/mc/命令" class="wiki"><ruby>命令<rt>command</rt></ruby></a></strong>为官方 wiki 的命令页面，其中包括了命令的基本参数介绍：坐标、目标选择器、<ruby>数据标签<rt>NBT</rt></ruby>、原始JSON文本、命名空间ID等内容。读者需在学习命令过程中逐步了解这些概念。</li>
-  <li class="noindent"><strong><a href="https://wiki.biligame.com/mc/记分板" class="wiki"><ruby>记分板<rt>scoreboard</rt></ruby></a></strong>为官方 wiki 的记分板页面，其中包括了记分板的所有准则和相关命令格式，也包含了<ruby>标签<rt>tag</rt></ruby>和<ruby>组<rt>team</rt></ruby>的相关内容。</li>
+  <li><strong><a href="https://wiki.biligame.com/mc/命令" class="wiki">命令 (Command) </a></strong>为官方 wiki 的命令页面，其中包括了命令的基本参数介绍：坐标、目标选择器、数据标签 (NBT) 、原始JSON文本、命名空间ID等内容。读者需在学习命令过程中逐步了解这些概念。</li>
+  <li class="noindent"><strong><a href="https://wiki.biligame.com/mc/记分板" class="wiki">记分板 (Scoreboard) </a></strong>为官方 wiki 的记分板页面，其中包括了记分板的所有准则和相关命令格式，也包含了标签 (Tag) 和组 (Team) 的相关内容。</li>
   <li class="noindent"><strong><a href="https://wiki.biligame.com/mc/区块格式">区块格式</a></strong>和<strong><a href="https://wiki.biligame.com/mc/Player.dat格式" class="wiki">player.dat格式</a></strong>两个页面给出了所有物品和实体(含方块实体)的 NBT。在游戏中，实体的 NBT 可通过命令 <code>data get entity/block</code> 来获取，物品的 NBT 可通过手持并输入命令 <code>data get entity @s SelectedItem</code> 来获取，以避免记忆大量的 NBT。</li>
   <li class="noindent"><strong><a href="https://commandtutorials.neocities.org/">新人手册-MC命令方块资源</a></strong>，包含了很多基础的教程，不过很多内容会有些过时。还包含少量进阶的内容，对于初学者可能较为复杂，请以理解其逻辑为主。</li>
   <li class="noindent"><strong><a href="http://mc-command.oschina.io/command-tutorial/">命令进阶</a></strong>，名为命令进阶，实际上比前一项页面更为初等，不过更为系统。</li>
@@ -295,7 +294,7 @@
 
 <h2 id="工具准备">§1.2 工具准备</h2>
 <h3 id="文本编辑器">§1.2.1 文本编辑器</h3>
-<p>原版模组涉及的文本文件，包括文本文档(.txt)、函数文件(.mcfunction)、JSON文件(.json, .mcmeta)，均需使用 <code>UTF-8</code> 编码格式。以下列出的文本编辑器均默认为 <code>UTF-8</code> 编码，可以在编辑器页面的右下角状态栏看到。</p>
+<p>原版模组涉及的文本文件，包括文本文档(.txt)、函数文件(.mcfunction)、JSON文件(.json, .mcmeta)、顶点着色器(.vsh)和片段着色器(.fsh)，均需使用 <code>UTF-8</code> 编码格式。以下列出的文本编辑器均默认为 <code>UTF-8</code> 编码，可以在编辑器页面的右下角状态栏看到。</p>
 <ul>
   <li><a href="https://code.visualstudio.com/">Visual Studio Code</a> 为功能较丰富的编辑器。下载安装后，可以安装如下插件：
     <ul>
@@ -329,7 +328,7 @@
 
 <p><code>.minecraft</code> 文件夹通常位于你的启动器目录下。如果启动器中设置为各版本独立，则位于 <code>versions/<i>版本号</i></code>下。另一种方式是在游戏内点击<code>选项->资源包->打开压缩包文件夹</code>并返回上级目录，或者点击<code>单人游戏->选中世界->编辑->打开世界文件夹</code>并返回上上级目录。</p>
 
-<p class="noindent"><strong>游戏本体</strong>位于 <code>versions/<i>版本号</i>/<i>版本号</i>.jar</code>。该文件包含了对应版本的游戏资源和数据文件，使用压缩工具打开后，可以看到</p>
+<p class="noindent" id="游戏本体"><strong>游戏本体</strong>位于 <code>versions/<i>版本号</i>/<i>版本号</i>.jar</code>。该文件包含了对应版本的游戏资源和数据文件，使用压缩工具打开后，可以看到</p>
 <ul>
   <li>原版<a href="#资源包">资源包</a>位于 <code>assets</code> 文件夹内，其中 <code>minecraft</code> 文件夹为命名空间 <code>minecraft</code> 下的资源文件。</li>
   <li>原版<a href="#数据包">数据包</a>位于 <code>data</code> 文件夹内，其中 <code>minecraft</code> 文件夹为命名空间 <code>minecraft</code> 下的数据文件。</li>
@@ -342,9 +341,9 @@
   <figcaption>图1.1 游戏本体文件结构</figcaption>
 </figure>
 
-<p class="noindent"><strong>资源包文件夹</strong>位于<code>resourcepacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个资源包，具体结构见<a href="#资源包">资源包</a>。服务器下载的资源包位于 <code>server-resource-packs/<i>服务器</i></code>，可使用压缩工具打开。</p>
+<p class="noindent" id="资源包文件夹"><strong>资源包文件夹</strong>位于<code>resourcepacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个资源包，具体结构见<a href="#资源包">资源包</a>。服务器下载的资源包位于 <code>server-resource-packs/<i>服务器</i></code>，可使用压缩工具打开。</p>
 
-<p class="noindent"><strong>资源文件</strong> 部分资源文件不被包含在原版资源包内，而是位于资源文件夹下，这主要包括各种语言文本和音效文件。资源文件索引位于 <code>assets/indexes/<i>版本号</i>.json</code>，打开后通过键值可知相应资源的 hash 值，对应的资源位于 <code>assets/objects/<i>hash开头</i>/<i>hash</i></code>。例如打开 <code>assets/indexes/1.16.json</code>，找到键 <code>minecraft/lang/zh_cn.json</code> 的 <code>hash</code> 为 <code>74f282093eaa509909f04fa3311757320445a27f</code>，因此简体中文的语言文本位于文件夹 <code>assets/objects/74/74f282093eaa509909f04fa3311757320445a27f</code>，使用文本编辑器打开即可看到游戏内的所有名称的中文译名。注意该文件中的中文均被转化为相应的 Unicode 表达方式，参考<a href="#字体">字体</a>。</p>
+<p class="noindent" id="资源文件"><strong>资源文件</strong> 部分资源文件不被包含在原版资源包内，而是位于资源文件夹下，这主要包括各种语言文本和音效文件。资源文件索引位于 <code>assets/indexes/<i>版本号</i>.json</code>，打开后通过键值可知相应资源的 hash 值，对应的资源位于 <code>assets/objects/<i>hash开头</i>/<i>hash</i></code>。例如打开 <code>assets/indexes/1.16.json</code>，找到键 <code>minecraft/lang/zh_cn.json</code> 的 <code>hash</code> 为 <code>74f282093eaa509909f04fa3311757320445a27f</code>，因此简体中文的语言文本位于文件夹 <code>assets/objects/74/74f282093eaa509909f04fa3311757320445a27f</code>，使用文本编辑器打开即可看到游戏内的所有名称的中文译名。注意该文件中的中文均被转化为相应的 Unicode 表达方式，参考<a href="#字体">字体</a>。</p>
 
 <p class="noindent"><strong>日志</strong>位于 <code>logs/latest.log</code>，可由此实时查看游戏内加载资源包和数据包时的错误信息，包括错误的文件名称、位置、错误的行列数等，因此这对于我们调试非常重要。简体中文下需要设置文件编码为 Simplified Chinese (GBK)，否则除 ASCII 外的字符会显示乱码。历史日志位于 <code>logs/<i>年</i>-<i>月</i>-<i>日</i>-<i>序号</i>.log.gz</code>，使用压缩工具打开后使用文本编辑器打开。崩溃报告位于 <code>crash-reports/crash-<i>年</i>-<i>月</i>-<i>日</i>_<i>时</i>.<i>分</i>.<i>秒</i>-server.txt</code>，如果是由于资源包或数据包引起的崩溃，可以在该文件中看到原因。</p>
 
@@ -446,11 +445,11 @@
 <p>我们常常在JSON中用RGB颜色的整数形式，值为: <code>65536×R+256×G+B</code>。</p>
 
 <h1 id="数据包">§2 数据包</h1>
-<p>参考<a href="https://wiki.biligame.com/mc/数据包">数据包</a>，<a href="https://wiki.biligame.com/mc/教程/安装数据包">教程/安装数据包</a>，<a href="https://wiki.biligame.com/mc/教程/制作数据包" class="wiki">教程/制作数据包</a>。<ruby>数据包<rt>datapacks</rt></ruby>可用于覆盖或添加新的函数、进度、战利品表、断言、配方、结构、标签、维度。数据包文件夹位于 <code>.minecraft/saves/<i>世界名称</i>/datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包。</p>
+<p>参考<a href="https://wiki.biligame.com/mc/数据包">数据包</a>，<a href="https://wiki.biligame.com/mc/教程/安装数据包">教程/安装数据包</a>，<a href="https://wiki.biligame.com/mc/教程/制作数据包" class="wiki">教程/制作数据包</a>。数据包 (datapacks) 可用于覆盖或添加新的函数、进度、战利品表、断言、配方、结构、标签、维度。数据包文件夹位于 <code>.minecraft/saves/<i>世界名称</i>/datapacks</code>，其下方子文件夹或 <code>zip</code> 压缩文件即为一个数据包。</p>
 
 <p class="noindent"><strong>安装数据包</strong> 单人游戏中，对于新创建的世界，在创建时点击<code>创建新的世界->世界预设->数据包</code>，将数据包拖入并选择至右侧即可。对于已生成的世界，选择你需要安装数据包的世界，点击<code>编辑->打开世界文件夹->打开文件夹 datapacks</code>，并将数据包 <code>.zip</code> 文件或文件夹放入其中。多人游戏中，打开<code>服务器文件夹->worlds->datapacks</code>文件夹，并将数据包 <code>.zip</code> 文件或文件夹放入其中。</p>
 
-<p>数据包放置好后，管理员可以输入 <code>/reload</code> 以加载数据包，或者在首次生成该世界/重新进入该世界/下次服务器启动时启用该数据包。注意数据包定义的<a href="#维度">维度</a>和<a href="#世界生成">世界生成</a>内容需要重新进入世界/重新启动服务器才会生效。</p>
+<p>数据包放置好后，管理员可以输入 <code>/reload</code> 以加载数据包，或者在首次生成该世界/重新进入该世界/下次服务器启动时启用该数据包。注意数据包定义的<a href="#维度">维度</a>和<a href="#自定义世界生成">自定义世界生成</a>内容需要重新进入世界/重新启动服务器才会生效。</p>
 
 <p>对于创建世界时添加的数据包，可以在数据包选择页面调整加载次序。其它情形添加的数据包优先级最高，即最后加载。同时加入的数据包优先级则和文件名顺序相关。数据包的优先级顺序储存在文件 <code>level.dat</code> 中，可以通过 <code>/datapack</code> 命令查看或修改。在游戏中通过命令 <code>/datapack</code> 可以禁用/启用数据包，最后启用的优先级最高。由于数据包加载顺序不定，因此在制作数据包的过程中，尽量不要依赖数据包的加载顺序。</p>
 <p>使用 <code>/datapack list</code> 命令显示数据包名称时，原版数据包为 <code>[vanilla]</code>，玩家自定义的数据包应该是 <code>[file/<i>数据包名称</i>]</code>。</p>
@@ -511,9 +510,9 @@ data
       processor_list
         <i>处理器列表名称</i>.json
 </pre>
-<p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹需使用小写英文、数字或-(折线)，_(下划线)，.(点)来命名，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>或<code>打开文件夹->全选->7-Zip->添加到 "<i>文件夹名</i>.zip"</code>。</p>
+<p>由于命名空间ID的命名要求，<code>data</code> 下所有文件和文件夹可使用的字符为 <code>_-.abcdefghijklmnopqrstuvwxyz0123456789</code>，<strong>不可使用大写字母</strong>，所有文本文件使用 <code>UTF-8</code> 编码。数据包可以为文件夹格式或 <code>zip</code> 格式，发布时可将所有内容压缩为一个 <code>zip</code> 文件。压缩和解压的时候，注意文件层次，应当打开 <code>zip</code> 文件就可以看到数据包的 <code>pack.mcmeta</code> 和 <code>data</code> 文件夹。稳妥的做法是<code>打开文件夹->全选->右键->发送到->压缩文件夹</code>或<code>打开文件夹->全选->7-Zip->添加到 "<i>文件夹名</i>.zip"</code>。</p>
 
-<p class="noindent"><strong id="原版数据包"><ruby>原版数据包<rt>vanilla</rt></ruby></strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、战利品表、配方、结构和标签等内容，是制作数据包的文件样板。但它不包括原版的维度和世界生成的信息。</p>
+<p class="noindent"><strong id="原版数据包">原版数据包 (Vanilla datapack) </strong>是 Minecraft 自带的一个默认开启的数据包，其 <code>data</code> 文件夹位于 <code>.minecraft/versions/<i>版本号</i>/<i>版本号</i>.jar/data</code>，其中包含的原版进度、战利品表、配方、结构和标签等内容，是制作数据包的文件样板。但它不包括原版的维度和世界生成的信息。</p>
 
 <h2 id="数据包/元信息和图标">§2.1 元信息和图标</h2>
 <p>Minecraft 通过文件 <code>pack.mcmeta</code> 来识别数据包，因此该文件是不可或缺的。例如：</p>
@@ -542,7 +541,7 @@ data
 <p>数据包可以包含一个 <a href="vanilla/pack.png"><code>pack.png</code></a>，它是大小为 <code>16×16</code> 的图片，用于创建新的世界时在数据包菜单中显示。</p>
 
 <h2 id="数据包/命名空间">§2.2 命名空间</h2>
-<p>参考<a href="https://wiki.biligame.com/mc/命名空间" class="wiki">命名空间</a>。<ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
+<p>参考<a href="https://wiki.biligame.com/mc/命名空间" class="wiki">命名空间</a>。命名空间 (namespace) 为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
 <p><a href="#标签">标签</a>文件，即 <code>tags</code> 中的文件内容默认追加而不是覆盖。因此标签文件是解决数据包冲突和联动的有力工具。</p>
 
 <table><thead><tr><th>类型</th><th>调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
@@ -667,9 +666,19 @@ data
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。本文中我们会混用两种写法，注意区分。除此之外，如战利品表的 <code>type</code>、战利品表谓词的 <code>condition</code> 等诸多情形的值也是 <code>minecraft</code> 命名空间下的命名空间ID，因此此时也可以省略 <code>minecraft:</code>。</p>
 
 <h2 id="函数">§2.3 函数</h2>
-<p>参考<a href="https://wiki.biligame.com/mc/函数（Java版）" class="wiki">函数</a>。<ruby>函数<rt>functions</rt></ruby>是一系列顺次执行的命令。函数文件为纯文本文件。函数的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/functions/<i>路径</i>/<i>文件名</i>.mcfunction</code>。</p>
-<p>函数每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行是注释。游戏内或函数内使用 <code>function <i>命名空间ID</i></code>命令来依次执行函数的每一条命令。函数还可用于完成进度时的奖励函数。</p>
-<p>如果函数被另一个函数执行，则默认无执行者，执行地点为出生点，除非在执行时继承上一层命令的执行者和执行位置。如果函数被命令方块执行，则无执行者，执行地点为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行地点为玩家位置。如果函数被进度奖励，执行者为完成进度的玩家，执行地点为玩家位置。更多的说明请查看<a href="https://wiki.biligame.com/mc/命令/execute" class="wiki">命令/execute</a>的各项子命令。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/functions/<i>路径</i>/<i>文件名</i>.mcfunction</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/函数（Java版）" class="wiki">函数</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Function_(Java_Edition)" class="wikien">Function</a></li>
+</ul>
+
+<p>函数 (Function) 是一系列顺次执行的命令列表，可以被命令 <code>function <i>命名空间ID</i></code> 来依次执行函数的每一条命令，还可被调用于<a href="#进度">进度</a>JSON文件的 <code>rewards.function</code>。函数每一行表示一个单独的命令，无需/开头。执行时会按顺序依次执行，使用 <code>#</code> 开头的行是注释。</p>
+<p>如果函数被另一个函数执行，则默认无执行者，执行位置为出生点，除非在执行时继承上一层命令的执行者和执行位置，或使用<a href="https://wiki.biligame.com/mc/命令/execute">命令</a> <code>execute</code> 来指定。如果函数被命令方块执行，则无执行者，执行位置为命令方块位置。如果函数被玩家手动执行，则执行者为玩家自身，执行位置为玩家位置。如果函数被进度奖励，执行者为完成进度的玩家，执行位置为玩家位置。</p>
+
+<p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考<a href="#函数标签">函数标签</a>。</p>
 
 <pre class="file" id="#cpp/functions/tick">cpp:tick</pre>
 <pre>
@@ -689,10 +698,17 @@ execute as @e[type=marker] at @s run function cpp:entities/marker/tick
 execute as @e[type=armor_stand] at @s run function cpp:entities/armor_stand/tick
 </pre>
 
-<p>如果需要函数在游戏加载/每刻执行，则需要将其加入函数标签中，参考<a href="#函数标签">函数标签</a>。</p>
-
 <h2 id="进度">§2.4 进度</h2>
-<p>参考<a href="https://wiki.biligame.com/mc/进度/JSON格式" class="wiki">进度/JSON格式</a>。<ruby>进度<rt>advancements</rt></ruby>为游戏内检测玩家行为，触发后完成进度并执行奖励的系统，游戏内按 L 即可查看。进度文件为JSON文件。进度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/advancements/<i>路径</i>/<i>文件名</i>.json</code>。进度可被用作命令 <code>advancement</code> 的参数，以授予或移除玩家的特定进度。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/advancements/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/进度/JSON格式" class="wiki">进度</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Advancement/JSON_format" class="wikien">Advancement</a></li>
+</ul>
+
+<p>进度 (Advancement) 为游戏内检测玩家行为，触发后完成并执行奖励的系统，游戏内按 L 即可查看，可被用作命令 <code>advancement</code> 的参数，以授予或移除玩家的特定进度。</p>
 
 <pre class="file" id="进度JSON格式">进度JSON格式</pre>
 <pre>
@@ -700,10 +716,10 @@ execute as @e[type=armor_stand] at @s run function cpp:entities/armor_stand/tick
   "display": { <span class="comment">可选，显示数据</span>
     "icon": { <span class="comment">一个物品，用于显示进度的图标</span>
       "item": "物品命名空间ID", <span class="comment">图标物品 ID</span>
-      "nbt": 字符串 <span class="comment">图标物品nbt标签，可能会影响图标，例如指定 CustomModelData</span>
+      "nbt": "字符串" <span class="comment">图标物品nbt标签，可能会影响图标，例如指定 CustomModelData</span>
     },
-    "title": 字符串 或 <a href="https://wiki.biligame.com/mc/原始JSON文本格式">JSON文本</a>, <span class="comment">进度的名称</span>
-    "description": 字符串 或 <a href="https://wiki.biligame.com/mc/原始JSON文本格式">JSON文本</a>, <span class="comment">进度的描述，格式和名称相同</span>
+    "title": "字符串" 或 <a href="https://wiki.biligame.com/mc/原始JSON文本格式">JSON文本</a>, <span class="comment">进度的名称</span>
+    "description": "字符串" 或 <a href="https://wiki.biligame.com/mc/原始JSON文本格式">JSON文本</a>, <span class="comment">进度的描述，格式和名称相同</span>
     "frame": "task" (默认) 或 "challenge" 或 "goal", <span class="comment">可选，图标边框，分别为方形边框(任务)、尖形边框(挑战)、圆形边框(目标)</span>
     "background": "<a href="#材质">材质</a>命名空间ID", <span class="comment">仅根进度有，决定该选项卡的背景图</span>
     "show_toast": true (默认值) 或 false, <span class="comment">可选，是否在完成此进度后显示提示信息，若无显示效果则无效。</span>
@@ -930,7 +946,17 @@ effect give @s saturation 1 1 true
 
 
 <h2 id="战利品表">§2.5 战利品表</h2>
-<p>可参考<a href="https://wiki.biligame.com/mc/战利品表">战利品表</a>和<a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a>。<ruby>战利品表<rt>loot_tables</rt></ruby>用于生成随机的一些物品以被调用。战利品表文件为JSON文件。战利品表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/loot_tables/<i>路径</i>/<i>文件名</i>.json</code>。战利品表可作为容器的随机物品、实体的掉落物、方块的掉落物、钓鱼的战利品、猪灵以物换物的内容、猫和村民的礼物、进度的完成奖励、<code>loot</code> 命令的参数以给予玩家特定战利品表物品等。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/loot_tables/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/战利品表" class="wiki">战利品表</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Loot_table" class="wikien">Loot table</a></li>
+  <li><a href="http://www.mcbbs.net/thread-831542-1-1.html">战利品表：从入门到重新入门</a></li>
+</ul>
+
+<p>战利品表 (Loot table) 用于生成随机的一些物品，可作为容器的随机物品、实体的掉落物、方块的掉落物、钓鱼的战利品、猪灵以物换物的内容、猫和村民的礼物、进度的完成奖励、<code>loot</code> 命令的参数以给予玩家特定战利品表物品等。</p>
 <ul>
   <li><code>setblock ~ ~ ~ chest{LootTable:"cpp:chests/something"}</code></li>
   <li><code>give @s barrel{BlockEntityTag:{LootTable:"cpp:chests/something"}}</code></li>
@@ -1239,7 +1265,17 @@ effect give @s saturation 1 1 true
 
 
 <h2 id="战利品表谓词">§2.6 战利品表谓词</h2>
-<p>可参考<a href="https://wiki.biligame.com/mc/战利品表谓词">战利品表谓词</a>和<a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.16] ㄆㄧㄉㄧㄎㄞㄊㄜ —— 数据包的组成文件之一</a>。<ruby>战利品表谓词<rt>predicates</rt></ruby>用于对所在情形进行条件判断。战利品表谓词文件为JSON文件。战利品表谓词的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/predicates/<i>路径</i>/<i>文件名</i>.json</code>。<a href="#战利品表">战利品表</a>的条件和战利品表谓词格式相同，战利品表谓词可作为战利品表的条件、命令 <code>execute</code> 的条件子命令 <code>(if|unless) predicate foo:bar</code>、目标选择器参数 <code>predicate={foo:bar}</code>、<a href="#进度">进度</a>中判断实体条件等。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/predicates/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/战利品表谓词" class="wiki">战利品表谓词</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Predicate" class="wikien">Predicate</a></li>
+  <li><a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.16] Predicate —— 数据包的组成文件之一</a></li>
+</ul>
+
+<p>战利品表谓词 (Predicate) 用于对所在情形进行条件判断，可作为战利品表的条件、命令 <code>execute</code> 的条件子命令 <code>(if|unless) predicate foo:bar</code>、目标选择器参数 <code>predicate={foo:bar}</code>、<a href="#进度">进度</a>中判断实体条件等。<a href="#战利品表">战利品表</a>的条件和战利品表谓词格式相同。</p>
 
 <pre class="file" id="战利品表谓词JSON格式">战利品表谓词JSON格式</pre>
 <pre><span class="comment">我们省略了部分信息的格式，请自行前往 wiki 查阅。</span>
@@ -1317,7 +1353,7 @@ effect give @s saturation 1 1 true
   "terms": [
     "block": "方块命名空间ID",
     "properties": {
-      "方块状态名": 字符串 或 布尔值 或 <a href="#范围谓词">范围谓词</a>
+      "方块状态名": "字符串" 或 布尔值 或 <a href="#范围谓词">范围谓词</a>
     }
   ]
 }
@@ -1477,8 +1513,17 @@ effect give @s saturation 1 1 true
 
 
 <h2 id="物品修饰器">§2.7 物品修饰器</h2>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/item_modifiers/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/物品修饰器" class="wiki">物品修饰器</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Item_modifier" class="wikien">Item modifier</a></li>
+  <li><a href="https://www.mcbbs.net/thread-914817-1-4.html">【CBL|SPG】[1.16] Predicate —— 数据包的组成文件之一</a></li>
+</ul>
 
-<p>可参考<a href="https://wiki.biligame.com/mc/物品修饰器">物品修饰器</a>。<ruby>物品修饰器<rt>item_modifiers</rt></ruby>被用在 <code>/item</code> 命令中对物品添加战利品表函数。物品修饰器文件为JSON文件。物品修饰器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为<code><i>命名空间</i>/item_modifiers/<i>路径</i>/<i>文件名</i>.json</code>。<a href="#战利品表">战利品表</a>的函数和物品修饰器格式相同，但物品修饰器不可被战利品表的函数引用。</p>
+<p>物品修饰器 (Item modifier) 用于在<a href="https://wiki.biligame.com/mc/命令/item">命令</a> <code>/item</code> 中对物品添加战利品表函数。<a href="#战利品表">战利品表</a>的函数和物品修饰器格式相同，但物品修饰器不可被战利品表的函数引用。</p>
 
 <pre class="file" id="物品修饰器JSON格式">物品修饰器JSON格式</pre>
 <pre>
@@ -1535,8 +1580,7 @@ effect give @s saturation 1 1 true
   "function": "minecraft:copy_state",<span class="comment">复制方块的方块状态到物品的BlockStateTag标签。仅用于 block 类型战利品表</span>
   "block": 方块命名空间ID,<span class="comment">仅当目标方块与该ID相符时执行该函数</span>
   "properties": [<span class="comment">要复制的方块状态列表</span>
-    "字符串1",
-    "字符串2"
+    "字符串"
   ]
 }
 
@@ -1791,26 +1835,32 @@ setblock ~ 255 ~ air
 </pre>
 
 <h2 id="配方">§2.8 配方</h2>
-<p><ruby>配方<rt>recipes</rt></ruby>为游戏内指定工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼的格式，<strong>不支持带 NBT 标签</strong>。配方文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/配方" class="wiki">配方</a>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/recipes/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/配方" class="wiki">配方</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Recipe" class="wikien">Recipe</a></li>
+</ul>
+
+<p>配方 (Recipe) 为游戏内指定工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼和锻造台合成的格式，一般<strong>不支持带 NBT 标签</strong>。</p>
 <p>在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，且使用一个配方会使玩家自动发现它。因此建议为你的自定义配方添加合适的进度来获取该配方。一旦配方被发现，就将被加入玩家的配方书。配方只会在玩家使用与当前配方类型所匹配的方块时显示。例如，烧炼配方将只在熔炉的界面中显示。当在背包中使用配方书时，只有能在玩家的 <code>2×2</code> 背包合成栏内使用的配方才会显示。已发现的配方储存在玩家 <code>recipeBook</code> 的NBT中。 </p>
-<p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别NBT(除了特殊合成配方)，因此只能实现原版物品的合成和烧炼。同时原版模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。想要实现带NBT的合成需要藉由其它方式，见<a href="NBT合成与烧炼">NBT合成与烧炼</a>。</p>
+<p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别NBT(除了特殊合成配方)，因此只能实现原版物品的合成和烧炼。同时原版模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。想要实现带NBT的合成需要藉由其它方式，见<a href="#NBT合成与烧炼">NBT合成与烧炼</a>。</p>
 
 <p>大部分配方中所使用的配方材料格式可以为下述几种。</p>
 <pre class="file" id="配方材料">配方材料JSON格式</pre>
 <pre>
 {
-  "item": "物品命名空间ID" <span class="comment">一个物品</span>
+  "item": "物品命名空间ID" <span class="comment">相应物品</span>
 }
 或
 {
-  "tag": "物品标签命名空间ID" <span class="comment">一个物品标签</span>
+  "tag": "<a href="#物品标签">物品标签</a>命名空间ID" <span class="comment">物品标签中的任一物品</span>
 }
 或
-[ <span class="comment">配方材料JSON对象列表</span>
-  配方材料JSON对象1,
-  配方材料JSON对象2,
-  ...,
-  配方材料JSON对象n
+[ <span class="comment">列表中任一对象的物品</span>
+  配方材料JSON对象
 ]
 </pre>
 
@@ -1818,7 +1868,7 @@ setblock ~ 255 ~ air
 <pre class="file" id="有序合成/JSON格式">JSON格式</pre>
 <pre>
 {
-  "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+  "group": "字符串", <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
   "type": "minecraft:crafting_shaped", <span class="comment">表示有序合成</span>
   "pattern": [ <span class="comment">由单字符键所组成的数组，用于描述配方的图案。至多3个字符串，每个字符串长度一致且至多为3。空格代表一个空的合成栏位。</span>
     "###", 
@@ -1867,7 +1917,7 @@ setblock ~ 255 ~ air
 <pre class="file" id="无序合成/JSON格式">JSON格式</pre>
 <pre>
 {
-  "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+  "group": "字符串", <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
   "type": "minecraft:crafting_shapeless", <span class="comment">表示无序合成</span>
   "ingredients": [ <span class="comment">配方材料列表，该无序合成配方的一系列原料，数量应在1至9个之间。 </span>
     <a href="#配方材料">配方材料</a>JSON对象 或 <a href="#配方材料">配方材料</a>JSON对象列表
@@ -1908,7 +1958,7 @@ setblock ~ 255 ~ air
 <pre class="file" id="切石机配方/JSON格式">JSON格式</pre>
 <pre>
 {
-  "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+  "group": "字符串", <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
   "type": "minecraft:stonecutting", <span class="comment">表示切石机配方</span>
   "ingredients": <a href="#配方材料">配方材料</a>JSON对象 或 <a href="#配方材料">配方材料</a>JSON对象列表,
   "result": {
@@ -1936,7 +1986,7 @@ setblock ~ 255 ~ air
 <pre class="file" id="烧炼配方/JSON格式">JSON格式</pre>
 <pre>
 {
-  "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+  "group": "字符串", <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
   "type": "minecraft:smelting"<span class="comment">表示熔炉配方</span> 或 "minecraft:blasting"<span class="comment">表示高炉配方</span> 或 "minecraft:smoking"<span class="comment">表示烟熏炉配方</span> 或 "minecraft:campfire_cooking"<span class="comment">表示营火配方</span>,
   "ingredients": <a href="#配方材料">配方材料</a>JSON对象 或 <a href="#配方材料">配方材料</a>JSON对象列表,
   "result": "物品命名空间ID", <span class="comment">输出的物品</span>,
@@ -1981,7 +2031,7 @@ setblock ~ 255 ~ air
 <pre class="file" id="锻造台配方/JSON格式">JSON格式</pre>
 <pre>
 {
-  "group": 字符串, <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
+  "group": "字符串", <span class="comment">可选，具有相同该标识符的配方会在配方书中显示为一组。</span>
   "type": "minecraft:smithing", <span class="comment">表示锻造台配方</span>
   "base": <a href="#配方材料">配方材料</a>JSON对象, <span class="comment">指定一个要升级的物品</span>
   "addition": <a href="#配方材料">配方材料</a>JSON对象, <span class="comment">升级所需的消耗品</span>
@@ -2163,14 +2213,20 @@ setblock ~ 255 ~ air
 
 
 <h2 id="结构">§2.9 结构</h2>
-<p><ruby>结构<rt>structures</rt></ruby>文件为NBT文件，后缀为 <code>nbt</code>。结构存储了一个长方体区域的方块和实体信息，玩家可以创建、保存、调用这样的结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。可参考</p>
-<ul>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/structures/<i>路径</i>/<i>文件名</i>.nbt</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/结构方块" class="wiki">结构方块</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Structure_Block" class="wikien">Structure Block</a></li>
   <li><a href="http://www.mcbbs.net/thread-652937-1-1.html">建筑党也能愉快享用结构方块-图文并茂教会你使用结构方块</a></li>
   <li><a href="http://www.mcbbs.net/thread-801350-1-1.html">如何使用结构方块</a></li>
-  <li><a href="https://wiki.biligame.com/mc/结构方块">结构方块 - Minecraft Wiki，最详细的官方我的世界百科</a></li>
 </ul>
-<p>在游戏中获得结构方块后，放置好所需要的方块结构和实体，然后放置结构方块，设置为保存模式，调整好大小，输入名称，点保存即可（注意区分是否需要实体）。然后从 <code>generated</code> 文件夹复制到数据包内，在结构方块中输入<code>命名空间:文件夹/文件</code>格式加载（注意区分是否需要实体）。</p>
-<p>我们也可以在函数中加载，先放置结构方块，然后放置并清除红石块即可。这个技巧配合战利品表和断言，可用于随机在世界生成结构。也可直接用于<a href="#拼图池">拼图池</a>。例如：</p>
+
+<p>结构 (Structure) 存储了一个长方体区域的方块和实体信息，玩家可以使用结构方块来创建、保存、调用结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。</p>
+<p>在游戏中获得结构方块后，放置好所需要的方块结构和实体，然后放置结构方块，设置为保存模式，调整好大小，输入名称（命名空间ID），点保存即可（注意区分是否需要保存实体）。然后从 <code>.minecraft/saves/<i>世界名称</i>/generated/<i>命名空间</i>/structures/<i>路径</i>/<i>文件名</i>.nbt</code> 复制到数据包内。调用时，在结构方块中输入命名空间ID来加载（注意区分是否需要加载实体）。</p>
+<p>我们也可以在函数中加载，先放置结构方块，然后放置并清除红石块，最后清除结构方块。这个技巧配合战利品表和断言，可用于随机在世界生成结构。也可直接用于<a href="#拼图池">拼图池</a>。例如：</p>
 <pre class="file" id="cpp/functions/generate/enchanting_room.mcfunction">cpp/functions/generate/enchanting_room.mcfunction</pre>
 <pre>
 setblock ~ ~ ~ structure_block{posX:-1,posY:0,posZ:-1,name:"cpp:build/enchanting_room",mode:"LOAD"}
@@ -2179,8 +2235,13 @@ setblock ~ ~1 ~ air
 </pre>
 
 <h2 id="标签">§2.10 标签</h2>
-<p><ruby>标签<rt>tags</rt></ruby>用于将多个具有相同性质的内容放置在一起以便于调用。文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/标签" class="wiki">标签</a>。Minecraft 中有很多内容都叫做标签，注意区分它们。</p>
-<pre class="file" id="标签/JSON格式">JSON格式</pre>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/标签" class="wiki">标签</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Tag" class="wikien">Tag</a></li>
+</ul>
+
+<p>标签 (Tag) 用于将多个具有相同性质的内容放置在一起以便于调用。Minecraft 中有很多内容都叫做标签，注意区分它们。</p>
+<pre class="file" id="标签/JSON格式">标签JSON格式</pre>
 <pre>
 {
   "replace": true 或 false (默认值), <span class="comment">可选，true 表示覆盖之前原版和其它数据包中该标签的内容，false 表示追加当前内容至该标签</span>
@@ -2195,13 +2256,17 @@ setblock ~ ~1 ~ air
 }
 </pre>
 <p>由于数据包加载次序难以控制，因此 <code>"replace": true</code> 的情形较为少用，一般仅用于覆盖原版标签。</p>
-<p>标签的 <code>required</code> 设置为 false 时，可用于添加其他模组的相应id。这在为数据包添加对模组的支持时很有用，例如<a href="#cpp/tags/blocks/chests">cpp/tags/blocks/chests.json</a>。而函数标签则为数据包添加附属和扩展提供了方便的接口。</p>
-<p>标签共包括5种，以用于不同情形。</p>
+<p>标签的 <code>required</code> 设置为 false 时，可用于添加其他模组的相应ID。这在为数据包添加对模组的支持时很有用，例如<a href="#cpp/tags/blocks/chests">cpp/tags/blocks/chests.json</a>。而函数标签则为数据包添加附属和扩展提供了方便的接口。</p>
+<p>标签共包括6种，分别用于不同情形。</p>
 
 <h3 id="方块标签">§2.10.1 方块标签</h3>
-<p><ruby>方块<rt>blocks</rt></ruby>标签可以在用命令测试方块时以 <code>#<i>命名空间ID</i></code> 的形式调用，只要方块满足了该标签中定义的任何一个方块，命令就会测试通过。方块标签还可在进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。方块标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/blocks/路径/文件名.json</code>。调试模式(F3)下，玩家指向方块时会显示含有该方块的所有方块标签。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/tags/blocks/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<p>方块标签 (Block tag) 可以在用命令测试方块时以 <code>#<i>命名空间ID</i></code> 的格式调用，只要方块满足了该标签中定义的任何一个方块，命令就会测试通过。方块标签还可在进度、断言、战利品表中以 <code>"tag": "<i>命名空间ID</i>"</code> 的格式调用。调试模式(F3)下，玩家指向方块时会显示含有该方块的所有方块标签。</p>
 
-<p>原版方块标签被用于各种方块属性，我们按照功能分类并列出。我们不列出仅用于其它标签、进度、断言、战利品表，影响生物寻路和影响方块连接的方块标签。</p>
+<p>原版方块标签被用于各种方块属性，我们按照功能分类并列出。我们不列出仅用于其它标签、进度、断言、战利品表、影响生物寻路和影响方块连接的方块标签。</p>
 <table><thead><tr><th>方块标签</th><th>用途</th></tr></thead><tbody>
 <tr><td><code>minecraft:enderman_holdableats</code></td><td>末影人可以捡起这些方块</td></tr>
 <tr><td><code>minecraft:dragon_immune</code></td><td>末影龙无法破坏这些方块</td></tr>
@@ -2288,7 +2353,11 @@ execute unless block ^ ^ ^ #cpp:fluid
 </pre>
 
 <h3 id="物品标签">§2.10.2 物品标签</h3>
-<p><ruby>物品<rt>items</rt></ruby>标签在配方、进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。还可在创造模式物品栏输入 <code>#<i>命名空间ID</i></code> 来搜索相应标签物品。物品标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/items/路径/文件名.json</code>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/tags/items/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<p>物品标签 (Item tag) 在配方、进度、断言、战利品表中用 <code>"tag": "<i>命名空间ID</i>"</code> 的格式使用。还可在创造模式物品栏输入 <code>#<i>命名空间ID</i></code> 来搜索相应标签物品。物品标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/items/路径/文件名.json</code>。</p>
 
 <p>原版物品标签被用于各种物品属性，我们按照功能分类并列出。我们不列出仅用于其它标签、配方、进度、断言、战利品表，影响生物寻路和影响方块连接的物品标签。</p>
 
@@ -2334,7 +2403,11 @@ execute unless block ^ ^ ^ #cpp:fluid
 </pre>
 
 <h3 id="函数标签">§2.10.3 函数标签</h3>
-<p><ruby>函数<rt>functions</rt></ruby>标签可以在 <code>function</code> 命令中以 <code>#<i>命名空间ID</i></code> 的形式调用，所有在该标签中指定的函数都会按照它们出现的顺序执行，不会重复执行。函数标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/functions/路径/文件名.json</code>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/tags/functions/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<p>函数标签 (Function tag) 可以在 <code>function</code> 命令中以 <code>#<i>命名空间ID</i></code> 的形式调用，所有在该标签中指定的函数都会按照它们出现的顺序执行，不会重复执行。函数标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/functions/路径/文件名.json</code>。</p>
 <p><code>minecraft</code> 命名空间中的标签</p>
 <ul>
   <li><code>minecraft/tags/functions/load.json</code> 中的函数会在加载时被执行一次，我们常称之为加载函数、load函数。用于初始化的函数应当添加至该标签。</li>
@@ -2343,7 +2416,11 @@ execute unless block ^ ^ ^ #cpp:fluid
 <p>本文中我们有时会不加注明地使用<code><i>命名空间</i>:load</code> 和<code><i>命名空间</i>:tick</code> 表示这两个函数标签中的函数。</p>
 
 <h3 id="实体类型标签">§2.10.4 实体类型标签</h3>
-<p><ruby>实体类型<rt>entity_types</rt></ruby>标签可以在实体选择器参数 <code>type</code> 以及战利品表条件中以 <code>#<i>命名空间ID</i></code> 的形式调用，只要实体满足了该标签中定义的任何一个类型，就会被选中。实体类型标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/entity_types/路径/文件名.json</code>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/tags/entity_types/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<p>实体类型标签 (Entity type tag) 标签可以在实体选择器参数 <code>type</code> 以及战利品表条件中以 <code>#<i>命名空间ID</i></code> 的形式调用，只要实体满足了该标签中定义的任何一个类型，就会被选中。实体类型标签命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/entity_types/路径/文件名.json</code>。</p>
 <p>原版实体类型标签被用于各种实体属性，我们在此列出。</p>
 
 <table><thead><tr><th>物品标签</th><th>用途</th></tr></thead><tbody>
@@ -2355,7 +2432,11 @@ execute unless block ^ ^ ^ #cpp:fluid
 </tbody></table>
 
 <h3 id="流体标签">§2.10.5 流体标签</h3>
-<p><ruby>流体<rt>fluids</rt></ruby>标签很少使用，修改后会影响空气、水和熔岩的性质，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/fluids/路径/文件名.json</code>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/tags/fluids/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<p>流体标签 (Fluid tag) 标签很少使用，修改后会影响空气、水和熔岩的性质，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/fluids/路径/文件名.json</code>。</p>
 <p>流体和流体对应的方块是不同的，例如 <code>flowing_water</code> 不是一个合法的方块，但流体可以为</p>
 <pre>
 {
@@ -2371,22 +2452,37 @@ execute unless block ^ ^ ^ #cpp:fluid
 <p>原版流体标签 <code>minecraft:water</code> 和 <code>minecraft:lava</code> 用来决定何种流体具有类似水和熔岩的性质，具体见<a href="https://wiki.biligame.com/mc/标签#流体" class="wiki">标签#流体</a>，我们在此省略。</p>
 
 <h3 id="游戏事件标签">§2.10.6 游戏事件标签</h3>
-<p><ruby> 游戏事件<rt>game_events</rt></ruby>标签目前仅用于指定影响潜声传感器的事件，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/game_events/路径/文件名.json</code>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/tags/game_events/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<p> 游戏事件标签 (Game event tag) 标签目前仅用于指定影响潜声传感器的事件，其命名空间ID<code>命名空间:路径/文件名</code>对应的文件为 <code>命名空间/tags/game_events/路径/文件名.json</code>。</p>
 <p>原版游戏事件标签 <code>minecraft:vibrations</code> 用于决定哪些事件会被潜声传感器检测到，<code>minecraft:ignore_vibrations_stepping_carefully</code> 用于决定哪些事件在玩家潜行时不会被潜声传感器检测到，具体见<a href="https://wiki.biligame.com/mc/%E6%A0%87%E7%AD%BE#.E6.B8.B8.E6.88.8F.E4.BA.8B.E4.BB.B6.E2.90.8C.5B.E6.96.B0.E5.A2.10E.EF.BC.9AJE_1.17.5D" class="wiki">标签#游戏事件</a>。</p>
 
 <h2 id="维度和维度类型">§2.11 维度和维度类型</h2>
 
-<p>维度和维度类型用于自定义维度，参考 slicedlime 的自定义世界教程 <a href="https://www.bilibili.com/video/BV1z5411a7rH">EP1. 维度与维度类型</a>、<a href="https://www.bilibili.com/video/BV1Gt4y1D7Wx">EP2. 多噪声生物群系源</a>。</p>
+<p>维度和维度类型用于自定义维度。注意原版的维度和维度类型并不保存在原版数据包中。</p>
 
 <h3 id="维度">§2.11.1 维度</h3>
-<p><ruby>维度<rt>dimension</rt></ruby>规定了维度的生成方式和生物群系。维度文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/dimension/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/dimension/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Custom_dimension" class="wikien">Custom dimension</a></li>
+  <li><a href="https://www.bilibili.com/video/BV1z5411a7rH">EP1. 维度与维度类型</a></li>
+  <li><a href="https://www.bilibili.com/video/BV1Gt4y1D7Wx">EP2. 多噪声生物群系源</a></li>
+</ul>
+
+<p>维度 (Dimension) 规定了维度的生成方式和生物群系。</p>
 
 <p>噪声型维度的的地形由<a href="#噪声设置">噪声设置</a> <code>generator.settings</code> 确定，生物群系由 <code>generator.biome_source</code> 的不同可分为五种情形，其中类型为 <code>multi_noise</code> 时，游戏会生成四维柏林噪声图，然后对每个坐标选择噪声最接近的生物群系。其中生物群系的 <code>offset</code> 会影响计算接近程度，从而影响该生物群系的大小，<code>offset</code> 越大，该生物群系越难被选中。</p>
 
 <pre class="file" id="噪声型维度JSON格式">噪声型维度JSON格式</pre>
 <pre>
 {
-  "type": "<a href="#生物群系">生物群系</a>命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象,
+  "type": "<a href="#维度类型">维度类型</a>命名空间ID" 或 <a href="#维度类型">维度类型</a>JSON对象,
   "generator": {
     "type"："minecraft:noise",
     "seed"：整数, <span class="comment">种子</span>
@@ -2398,32 +2494,32 @@ execute unless block ^ ^ ^ #cpp:fluid
       "large_biomes": true 或 false, <span class="comment">是否为巨型生物群系</span>
     或
       "type": "minecraft:multi_noise", <span class="comment">多维噪声型</span>
-      "humidity_noise": {<span class="comment">用于生成柏林噪声图</span>
-        "firstOctave": -7,<span class="comment">该柏林噪声维度的主倍频，影响噪声的频率</span>
-        "amplitudes": [<span class="comment">该柏林噪声维度的振幅</span>
-        1.0,
-        1.0
+      "humidity_noise": { <span class="comment">用于生成柏林噪声图</span>
+        "firstOctave": -7, <span class="comment">该柏林噪声维度的主倍频，影响噪声的频率</span>
+        "amplitudes": [ <span class="comment">该柏林噪声维度的振幅</span>
+          1.0,
+          1.0
         ]
       },
       "altitude_noise": {
         "firstOctave": -7,
         "amplitudes": [
-        1.0,
-        1.0
+          1.0,
+          1.0
         ]
       },
       "weirdness_noise": {
         "firstOctave": -7,
         "amplitudes": [
-        1.0,
-        1.0
+          1.0,
+          1.0
         ]
       },
       "temperature_noise": {
         "firstOctave": -7,
         "amplitudes": [
-        1.0,
-        1.0
+          1.0,
+          1.0
         ]
       },
       "biomes": [ <span class="comment">生物群系列表</span>
@@ -2440,7 +2536,7 @@ execute unless block ^ ^ ^ #cpp:fluid
       ]
     或
       "type": "minecraft:fixed", <span class="comment">单生物群系维度</span>
-      biome": "<a href="#生物群系">生物群系</a>命名空间ID"
+      "biome": "<a href="#生物群系">生物群系</a>命名空间ID"
     或
       "type": "minecraft:checkerboard", <span class="comment">生物群系单元呈正方形按棋盘状排列</span>
       "scale": 正整数, <span class="comment">正方形单元的大小</span>
@@ -2454,7 +2550,7 @@ execute unless block ^ ^ ^ #cpp:fluid
 }
 </pre>
 
-<p>超平坦型维度仅需指定方块层的分布、生物群系和使用的结构参数即可。</p>
+<p id="超平坦型维度">超平坦型维度仅需指定方块层的分布、生物群系和使用的结构参数即可。如果生成要塞，则要塞由原点向外逐个生成在一系列的环上，直到总数达到 <code>count</code>。其中第 <code>i</code> 个环的要塞数量为 <code>spread × (i+1) × (i+2)/6</code> 向下取整，第 <code>i</code> 个环到原点的平均距离为 <code>distance × (6i-2)</code> 个区块。</p>
 <pre class="file" id="超平坦型维度JSON格式">超平坦型维度JSON格式</pre>
 <pre>
 {
@@ -2470,16 +2566,16 @@ execute unless block ^ ^ ^ #cpp:fluid
       ],
       "biome": "<a href="#生物群系">生物群系</a>命名空间ID", <span class="comment">该维度使用的单一生物群系</span>
       "structures": { <span class="comment">结构设置</span>
-        "stronghold": { <span class="comment">可选，要塞的生成设置，要塞从中间的第一个环开始生成，然后在第二个环生成，然后在第三个环生成，以此类推，其中第 i 个环的要塞数量为 spread × (i+1) × (i+2) / 6，向下取整，直到总数达到 count。第 i 个环到原点的平均距离为 distance × (6i-2) 区块</span>
-          "count": 1~4095 之间的整数, 默认值为128, <span class="comment">要塞的最大数量</span>
-          "spread": 0~1023 之间的整数, 默认值为3, <span class="comment">第一个环的要塞数量，设置为0时会使世界中某些位置上反复生成多个要塞</span>
-          "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
+        "stronghold": { <span class="comment">可选，要塞的生成设置</span>
+          "count": 1~4095 之间的整数,
+          "spread": 0~1023 之间的整数, <span class="comment">设置为0时会使世界中某些位置上反复生成多个要塞</span>
+          "distance": 0~1023 之间的整数
         },
-        "structures": [ <span class="comment">该维度中使用的结构。如果需要生成要塞也需在此列出。</span>
-          "<a href="https://wiki.biligame.com/mc/Java%E7%89%88%E6%95%B0%E6%8D%AE%E5%80%BC#%E7%BB%93%E6%9E%84">结构</a>命名空间ID": { <span class="comment">未列出的结构不会生成。注意这不是<a href="#结构地物">结构地物</a>命名空间ID。对于自定义的结构地物，其生成几率设置随同其对应的原版结构</span>
+        "structures": [ <span class="comment">该维度中会生成的结构，如果需要生成要塞也需在此列出</span>
+          "<a href="https://wiki.biligame.com/mc/Java版数据值#结构">结构</a>命名空间ID": { <span class="comment">注意这不是<a href="#结构地物">结构地物</a>命名空间ID，自定义的结构地物生成几率设置随同其对应的原版结构</span>
             "spacing": 正整数, <span class="comment">两个该种类的结构之间的平均距离，以区块为单位</span>
-            "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>,
-            "salt": 整数 <span class="comment">盐，不影响结构生成的位置，影响结构内部生成</span>
+            "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>
+            "salt": 整数 <span class="comment">影响结构内部生成</span>
           }
         ]
       }
@@ -2499,32 +2595,160 @@ execute unless block ^ ^ ^ #cpp:fluid
 </pre>
 
 <p>原版的维度包括</p>
+<pre class="file"><a href="vanilla/data/minecraft/dimension/overworld.json">minecraft:overworld</a></pre>
 <pre>
-<a href="vanilla/data/minecraft/dimension/overworld.json">overworld</a> <span class="comment">主世界</span>
-<a href="vanilla/data/minecraft/dimension/the_nether.json">the_nether</a> <span class="comment">下界</span>
-<a href="vanilla/data/minecraft/dimension/the_end.json">the_end</a> <span class="comment">末地</span>
+{
+  "type": "<a href="#minecraft/dimension_type/overworld">minecraft:overworld</a>",
+  "generator": {
+    "biome_source": {
+      "seed": 0,
+      "large_biomes": false,
+      "type": "minecraft:vanilla_layered"
+    },
+    "seed": 0,
+    "settings": "<a href="#minecraft/worldgen/noise_settings/overworld">minecraft:overworld</a>",
+    "type": "minecraft:noise"
+  }
+}
+</pre>
+<pre class="file"><a href="vanilla/data/minecraft/dimension/the_nether.json">minecraft:the_nether</a></pre>
+<pre>
+{
+  "type": "<a href="#minecraft/dimension_type/the_nether">minecraft:the_nether</a>",
+  "generator": {
+    "biome_source": {
+      "humidity_noise": {
+        "firstOctave": -7,
+        "amplitudes": [
+          1.0,
+          1.0
+        ]
+      },
+      "altitude_noise": {
+        "firstOctave": -7,
+        "amplitudes": [
+          1.0,
+          1.0
+        ]
+      },
+      "weirdness_noise": {
+        "firstOctave": -7,
+        "amplitudes": [
+          1.0,
+          1.0
+        ]
+      },
+      "seed": 0,
+      "biomes": [
+        {
+          "parameters": {
+            "altitude": 0.0,
+            "weirdness": 0.0,
+            "offset": 0.0,
+            "temperature": 0.0,
+            "humidity": 0.0
+          },
+          "biome": "minecraft:nether_wastes"
+        },
+        {
+          "parameters": {
+            "altitude": 0.0,
+            "weirdness": 0.0,
+            "offset": 0.0,
+            "temperature": 0.0,
+            "humidity": -0.5
+          },
+          "biome": "minecraft:soul_sand_valley"
+        },
+        {
+          "parameters": {
+            "altitude": 0.0,
+            "weirdness": 0.0,
+            "offset": 0.0,
+            "temperature": 0.4,
+            "humidity": 0.0
+          },
+          "biome": "minecraft:crimson_forest"
+        },
+        {
+          "parameters": {
+            "altitude": 0.0,
+            "weirdness": 0.0,
+            "offset": 0.375,
+            "temperature": 0.0,
+            "humidity": 0.5
+          },
+          "biome": "minecraft:warped_forest"
+        },
+        {
+          "parameters": {
+            "altitude": 0.0,
+            "weirdness": 0.0,
+            "offset": 0.175,
+            "temperature": -0.5,
+            "humidity": 0.0
+          },
+          "biome": "minecraft:basalt_deltas"
+        }
+      ],
+      "temperature_noise": {
+        "firstOctave": -7,
+        "amplitudes": [
+          1.0,
+          1.0
+        ]
+      },
+      "type": "minecraft:multi_noise"
+    },
+    "seed": 0,
+    "settings": "<a href="#minecraft/worldgen/noise_settings/overworld">minecraft:nether</a>",
+    "type": "minecraft:noise"
+  }
+}
+</pre>
+<pre class="file"><a href="vanilla/data/minecraft/dimension/the_end.json">minecraft:the_end</a></pre>
+<pre>
+{
+  "type": "<a href="#minecraft/dimension_type/the_end">minecraft:the_end</a>",
+  "generator": {
+    "biome_source": {
+      "seed": 0,
+      "type": "minecraft:the_end"
+    },
+    "seed": 0,
+    "settings": "<a href="#minecraft/worldgen/noise_settings/overworld">minecraft:end</a>",
+    "type": "minecraft:noise"
+  }
+}
 </pre>
 
 <h3 id="维度类型">§2.11.2 维度类型</h3>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/dimension_type/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/自定义维度#维度类型" class="wiki">维度类型</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Custom_dimension#Dimension_type" class="wikien">Dimension type</a></li>
+</ul>
 
-<p><ruby>维度类型<rt>dimension_type</rt></ruby>规定维度的一些与地形无关的信息。维度类型文件为JSON文件，格式可参考<a href="https://wiki.biligame.com/mc/自定义维度" class="wiki">自定义维度</a>。维度类型的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/dimension_type/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<p>维度类型 (Dimension type) 规定维度的一些与地形无关的信息。</p>
 
-<h4 id="维度类型/JSON格式">JSON格式</h4>
 <pre class="file" id="维度类型JSON格式">维度类型JSON格式</pre>
 <pre>
 {
-  "has_ceiling": true 或 false, <span class="comment">该维度是否拥有一个基岩天花板，影响内部的算法(TBD)，与实际是否拥有基岩天花板无关。</span>
+  "has_ceiling": true 或 false, <span class="comment">该维度是否拥有一个基岩天花板，影响内部的算法，与实际是否拥有基岩天花板无关</span>
   "logical_height": 数值, <span class="comment">玩家使用紫颂果或下界传送门可以到达的最大高度</span>
   "bed_works": true 或 false, <span class="comment">玩家是否可以使用床</span>
   "respawn_anchor_works": true 或 false, <span class="comment">玩家是否可以使用重生锚</span>
   "has_raids": true 或 false, <span class="comment">带有不祥之兆的玩家是否可以触发袭击</span>
   "has_skylight": true 或 false, <span class="comment">该维度是否有天空光照</span>
   "ambient_light": 0~1 之间的数值, <span class="comment">该维度拥有多少环境光</span>
-  "natural": true 或 false, <span class="comment">当为 false 时，指南针会随机转动。当为 true 时，下界传送门会生成僵尸猪灵</span>
+  "natural": true 或 false, <span class="comment">当为 false 时，指南针会随机转动；当为 true 时，下界传送门会生成僵尸猪灵</span>
   "piglin_safe：true 或 false, <span class="comment">猪灵和疣猪兽是否不会僵尸化</span>
-  "coordinate_scale": 数值, <span class="comment">当前维度坐标放缩倍率，例如下界为8，影响下界传送门和 execute in 指令使用相对坐标/局部坐标的情形，此时会根据当前维度和目标维度进行放缩。</span>
+  "coordinate_scale": 数值, <span class="comment">当前维度坐标放缩倍率，影响下界传送门和 execute in 指令使用相对坐标/局部坐标的情形</span>
   "ultrawarm": true 或 false, <span class="comment">维度是否表现得类似于下界水会蒸发，湿海绵会干。这也会使得熔岩流动更快、扩散更远</span>
-  "fixed_time": 0~24000 之间的整数, 缺省则有日夜循环, <span class="comment">可选，游戏内的昼夜时间固定值</span>
+  "fixed_time": 0~24000 之间的整数, <span class="comment">可选，游戏内的昼夜时间固定值, 缺省则有日夜循环</span>
   "min_y": 数值, <span class="comment">此维度中可以存在方块的最低高度</span>
   "height": 不超过4096的16的倍数, <span class="comment">此维度中可以存在方块的总高度。维度中可以存在方块的最大高度的值等于min_y与height值之和</span>
   "infiniburn": "<a href="#方块标签">方块标签</a>命名空间ID" <span class="comment">决定该维度中火可以在什么方块上永久燃烧</span>
@@ -2533,12 +2757,91 @@ execute unless block ^ ^ ^ #cpp:fluid
 
 <h4 id="可用的维度类型">可用的维度类型</h4>
 <p>这些是 Minecraft 内部已生成的维度类型命名空间ID，可直接使用。已省略 minecraft:。</p>
+<pre class="file" id="minecraft/dimension_type/overworld"><a href="vanilla/data/minecraft/dimension_type/overworld.json">minecraft:overworld</a></pre>
 <pre>
-<a href="vanilla/data/minecraft/dimension_type/overworld.json">overworld</a> <span class="comment">主世界</span>
-<a href="vanilla/data/minecraft/dimension_type/overworld_caves.json">overworld_caves</a> <span class="comment">主世界洞穴</span>
-<a href="vanilla/data/minecraft/dimension_type/the_nether.json">the_nether</a> <span class="comment">下界</span>
-<a href="vanilla/data/minecraft/dimension_type/the_end.json">the_end</a> <span class="comment">末路之地</span> 
+{
+  "logical_height": 256,
+  "infiniburn": "minecraft:infiniburn_overworld",
+  "effects": "minecraft:overworld",
+  "ambient_light": 0.0,
+  "respawn_anchor_works": false,
+  "has_raids": true,
+  "min_y": 0,
+  "height": 256,
+  "natural": true,
+  "coordinate_scale": 1.0,
+  "piglin_safe": false,
+  "bed_works": true,
+  "has_skylight": true,
+  "has_ceiling": false,
+  "ultrawarm": false
+}
 </pre>
+<pre class="file" id="minecraft/dimension_type/overworld_caves"><a href="vanilla/data/minecraft/dimension_type/overworld_caves.json">minecraft:overworld_caves</a></pre>
+<pre>
+{
+  "logical_height": 256,
+  "infiniburn": "minecraft:infiniburn_overworld",
+  "effects": "minecraft:overworld",
+  "ambient_light": 0.0,
+  "respawn_anchor_works": false,
+  "has_raids": true,
+  "min_y": 0,
+  "height": 256,
+  "natural": true,
+  "coordinate_scale": 1.0,
+  "piglin_safe": false,
+  "bed_works": true,
+  "has_skylight": true,
+  "has_ceiling": true,
+  "ultrawarm": false
+}
+</pre>
+
+<pre class="file" id="minecraft/dimension_type/the_nether"><a href="vanilla/data/minecraft/dimension_type/the_nether.json">minecraft:the_nether</a></pre>
+<pre>
+{
+  "logical_height": 128,
+  "infiniburn": "minecraft:infiniburn_nether",
+  "effects": "minecraft:the_nether",
+  "ambient_light": 0.1,
+  "respawn_anchor_works": true,
+  "has_raids": false,
+  "min_y": 0,
+  "height": 256,
+  "natural": false,
+  "coordinate_scale": 8.0,
+  "piglin_safe": true,
+  "bed_works": false,
+  "fixed_time": 18000,
+  "has_skylight": false,
+  "has_ceiling": true,
+  "ultrawarm": true
+}
+</pre>
+
+<pre class="file" id="minecraft/dimension_type/the_end"><a href="vanilla/data/minecraft/dimension_type/the_end.json">minecraft:the_end</a></pre>
+<pre>
+{
+  "logical_height": 256,
+  "infiniburn": "minecraft:infiniburn_end",
+  "effects": "minecraft:the_end",
+  "ambient_light": 0.0,
+  "respawn_anchor_works": false,
+  "has_raids": true,
+  "min_y": 0,
+  "height": 256,
+  "natural": false,
+  "coordinate_scale": 1.0,
+  "piglin_safe": false,
+  "bed_works": false,
+  "fixed_time": 6000,
+  "has_skylight": false,
+  "has_ceiling": false,
+  "ultrawarm": false
+}
+</pre>
+
 
 <h3 id="维度实例">§2.11.3 实例</h3>
 <p>定义好新的维度之后，我们还需要为其设计传送方式。简单的可以使用物品触发，见<a href="#右键交互">右键交互</a>。更常见的则是使用多方块结构为传送检测方式。</p>
@@ -2587,7 +2890,7 @@ execute unless block ^ ^ ^ #cpp:fluid
         "height": 128,
         "density_factor": 1.0,
         "density_offset": 0.0,
-        "simplcpp_surface_noise": false
+        "simplex_surface_noise": false
       },
       "structures": {
         "structures": {
@@ -2939,24 +3242,41 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 </pre>
 
 
-<h2 id="世界生成">§2.12 世界生成</h2>
-<p>参考<a href="https://minecraft.gamepedia.com/Custom_world_generation">Custom world generation – Official Minecraft Wiki</a>。<ruby>世界生成<rt>worldgen</rt></ruby>允许数据包改变世界的生成方式。这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。<a href="https://gitee.com/zhangshenxing/VanillaModTutorial/raw/master/files/vanilla_worldgen.zip">点此可下载原版所有的 <code>worldgen</code> 内容</a> (<a href="https://github.com/slicedlime/">slicedlime</a> 提供)。</p>
-<p>所有的 <code>type</code> 都是内部命名空间ID，因此可加上或省略 <code>minecraft:</code>。所有的方块设置中 <code>Properties</code> 必须列出该方块所有的方块状态。</p>
+<h2 id="自定义世界生成">§2.12 自定义世界生成</h2>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/自定义世界生成" class="wiki">自定义世界生成</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Custom_world_generation" class="wikien">Custom world generation</a></li>
+</ul>
+
+<p>自定义世界生成 (Custom world generation) 允许数据包改变世界的生成方式，这需要和<a href="#维度">维度</a>配合使用。本节中列出的很多JSON内容的作用仍然需要测试。<a href="https://gitee.com/zhangshenxing/VanillaModTutorial/raw/master/files/vanilla_worldgen.zip">点此可下载原版所有的 <code>worldgen</code> 内容</a> (<a href="https://github.com/slicedlime/">slicedlime</a> 提供)。注意原版的维度和维度类型并不保存在原版数据包中。</p>
 
 <h3 id="噪声设置">§2.12.1 噪声设置</h3>
-<p><ruby>噪声设置<rt>noise_settings</rt></ruby>用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/noise_settings/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<table><tbody>
+<tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+<tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/noise_settings/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+<li><a href="https://wiki.biligame.com/mc/自定义世界生成#噪声设置" class="wiki">噪声设置</a></li>
+<li><a href="https://minecraft.fandom.com/wiki/Custom_world_generation#Noise_settings" class="wikien">Noise settings</a></li>
+</ul>
 
-<h4 id="噪声设置/JSON格式">JSON格式</h4>
+<p>噪声设置 (noise_settings) 用于设置<a href="#维度">维度</a>生成的噪声。噪声设置文件为JSON文件，格式可参考<a href="https://minecraft.fandom.com/wiki/Biome/Custom_world_generation#Noise_settings">Noise Settings – Official Minecraft Wiki</a>。噪声设置的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/noise_settings/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+
 <pre class="file" id="噪声设置JSON格式">噪声设置JSON格式</pre>
 <pre>
 { 
-  "aquifers_enabled": true 或 false (默认值), <span class="comment">是否生成蓄水层</span>
-  "noise_caves_enabled": true 或 false (默认值), <span class="comment">是否生成噪声洞穴</span>
-  "deepslate_enabled": true 或 false (默认值), <span class="comment">是否将世界底部石头替换为深板岩</span>
-  "min_surface_level": 50, <span class="comment">TBD</span>
+  "bedrock_roof_position": 整数, <span class="comment">世界顶部Y坐标-基岩天花板的Y坐标, 如果它不在 0~世界高度范围 范围内, 则无基岩天花板</span>
+  "bedrock_floor_position": 整数, <span class="comment">基岩地板的Y坐标-世界底部Y坐标，如果它不在 0~世界高度范围 范围内, 则无基岩地板</span>
+  "sea_level": 整数, <span class="comment">海平面高度</span>
+  "disable_mob_generation"：true 或 false, <span class="comment">是否禁止生物生成</span>
+  "noise_caves_enabled": true 或 false, <span class="comment">是否生成噪声洞穴</span>
+  "aquifers_enabled": true 或 false, <span class="comment">是否生成蓄水层</span>
+  "deepslate_enabled": true 或 false, <span class="comment">是否将世界底部石头替换为深板岩</span>
+  "ore_veins_enabled": true 或 false, <span class="comment">是否生成矿脉</span>
+  "min_surface_level": 整数, <span class="comment">TBD</span>
   "default_block": { <span class="comment">决定世界地形顶部下方生成的方块</span>
     "Name": "方块命名空间ID",
-    "Properties": {
+    "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
       "方块状态名": "方块状态值"
     }
   },
@@ -2966,21 +3286,17 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
       "流体状态名": "流体状态值"
     }
   },
-  "bedrock_roof_position": 整数, <span class="comment">TBD，noise.height-基岩天花板的Y坐标, 如果它不在 0-noise.height 范围内, 则无基岩天花板</span>
-  "bedrock_floor_position": 整数, <span class="comment">TBD，基岩地板的Y坐标, 如果它不在 0~noise.height 范围内, 则无基岩地板</span>
-  "sea_level": 0~255 之间的整数, <span class="comment">海平面高度</span>
-  "disable_mob_generation"：true 或 false, <span class="comment">是否禁止生物生成</span>
-  "structures": { <span class="comment">结构设置</span>
-    "stronghold": { <span class="comment">可选，要塞的生成设置，要塞从中间的第一个环开始生成，然后在第二个环生成，然后在第三个环生成，以此类推，其中第 i 个环的要塞数量为 spread × (i+1) × (i+2) / 6，向下取整，直到总数达到 count。第 i 个环到原点的平均距离为 distance × (6i-2) 区块</span>
-      "count": 1~4095 之间的整数, 默认值为128, <span class="comment">要塞的最大数量</span>
-      "spread": 0~1023 之间的整数, 默认值为3, <span class="comment">第一个环的要塞数量，设置为0时会使世界中某些位置上反复生成多个要塞</span>
-      "distance": 0~1023 之间的整数，默认值为32 <span class="comment">控制各环到原点的距离</span>
+  "structures": { <span class="comment">结构设置，参考<a href="#超平坦型维度">超平坦型维度</a>JSON格式的结构设置</span>
+    "stronghold": { <span class="comment">可选，要塞的生成设置</span>
+      "count": 1~4095 之间的整数,
+      "spread": 0~1023 之间的整数, <span class="comment">设置为0时会使世界中某些位置上反复生成多个要塞</span>
+      "distance": 0~1023 之间的整数
     },
-    "structures": [ <span class="comment">该维度中使用的结构</span>
-      "<a href="https://wiki.biligame.com/mc/Java%E7%89%88%E6%95%B0%E6%8D%AE%E5%80%BC#%E7%BB%93%E6%9E%84">结构</a>命名空间ID": { <span class="comment">该维度的 biome_source.type 中所包含的生物群系包含的结构地物如果没有在此被列出，则该结构地物会以大量生成，因此所有的结构地物都应在此罗列清楚以避免不稳定的生成。如果需要生成要塞也需在此列出。注意这不是<a href="#结构地物">结构地物</a>命名空间ID。对于自定义的结构地物，其生成几率设置随同其对应的原版结构。</span>
+    "structures": [ <span class="comment">该维度中会生成的结构，如果需要生成要塞也需在此列出</span>
+      "<a href="https://wiki.biligame.com/mc/Java版数据值#结构">结构</a>命名空间ID": { <span class="comment">注意这不是<a href="#结构地物">结构地物</a>命名空间ID，自定义的结构地物生成几率设置随同其对应的原版结构</span>
         "spacing": 正整数, <span class="comment">两个该种类的结构之间的平均距离，以区块为单位</span>
         "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>
-        "salt": 整数 <span class="comment">盐，不影响结构生成的位置，影响结构内部生成</span>
+        "salt": 整数 <span class="comment">影响结构内部生成</span>
       }
     ]
   }
@@ -3003,90 +3319,65 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     },
     "size_vertical": 正整数, <span class="comment">改变陆块在Y轴上的比例。1至15之间的值可以逐渐地增加山丘高度，大于20的值将会使得所有陆地高于通常的海平面63，比32更高的值会使得通常的陆地高度到达100+</span>
     "size_horizontal": 正整数, <span class="comment">改变陆块在X和Z轴上的比例，生物群系不会因此改变</span>
-    "min_y": 数值, <span class="comment">此噪声中可以存在方块的最低高度</span>
-    "height": 正整数, <span class="comment">将世界生成的最大高度压缩至此, 一般不超过 256</span>
-    "density_factor": 数值, <span class="comment">TBD</span>
-    "density_offset": -1~1 之间的数值, <span class="comment">TBD，影响平均陆地高度</span>
-    "random_density_offset": true 或 false (默认值), <span class="comment">TBD，可选，影响平均陆地高度</span>
-    "simplcpp_surface_noise": true 或 false, <span class="comment">TBD，影响平均陆地高度</span>
-    "island_noise_override": true 或 false (默认值), <span class="comment">TBD，可选，该世界是否像末地一样以小岛环绕着主岛的形式生成</span>
-    "amplified": true 或 false (默认值) <span class="comment">TBD，可选，是否为放大化地形</span>
+    "min_y": -2048~2031 之间的整数, <span class="comment">此噪声中可以存在方块的最低高度</span>
+    "height": 16的正整数倍, <span class="comment">世界的总高度，min_y + height 不能超过 2032</span>
+    "density_factor": 数值, <span class="comment">地形自下而上的梯度的放缩比例，值越大地形越陡峭，负值会使地形上下颠倒。</span>
+    "density_offset": -1~1 之间的数值, <span class="comment">地形中心高度的偏移比例</span>
+    "random_density_offset": true 或 false (默认值), <span class="comment">可选，地形中心高度是否有额外的随机偏移比例</span>
+    "simplex_surface_noise": true 或 false, <span class="comment">是否使用单形噪声替代柏林噪声来生成地形</span>
+    "island_noise_override": true 或 false (默认值), <span class="comment">可选，该世界是否像末地一样以小岛环绕着主岛的形式生成</span>
+    "amplified": true 或 false (默认值) <span class="comment">可选，是否为放大化地形</span>
   }
 }</pre>
 
 <h4 id="可用的噪声设置">可用的噪声设置</h4>
-<p>这些是 Minecraft 内部已生成的噪声设置命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<p>这些是 Minecraft 内部已生成的噪声设置命名空间ID，可直接使用。</p>
 <pre>
-<a href="vanilla/data/minecraft/worldgen/noise_settings/overworld.json">overworld</a> <span class="comment">生成普通的主世界</span>
-<a href="vanilla/data/minecraft/worldgen/noise_settings/amplified.json">amplified</a> <span class="comment">放大化的主世界</span>
-<a href="vanilla/data/minecraft/worldgen/noise_settings/nether.json">nether</a> <span class="comment">常规的下界</span>
-<a href="vanilla/data/minecraft/worldgen/noise_settings/caves.json">caves</a> <span class="comment">类似下界的洞穴却拥有主世界地形特征的世界</span>
-<a href="vanilla/data/minecraft/worldgen/noise_settings/end.json">end</a> <span class="comment">末地主岛</span>
-<a href="vanilla/data/minecraft/worldgen/noise_settings/floating_islands.json">floating_islands</a> <span class="comment">末地浮岛</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/overworld.json">minecraft:overworld</a> <span class="comment">通常的主世界</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/amplified.json">minecraft:amplified</a> <span class="comment">放大化的主世界</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/nether.json">minecraft:nether</a> <span class="comment">通常的下界</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/caves.json">minecraft:caves</a> <span class="comment">类似下界的洞穴却拥有主世界地形特征的世界</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/end.json">minecraft:end</a> <span class="comment">通常的末地</span>
+<a href="vanilla/data/minecraft/worldgen/noise_settings/floating_islands.json">minecraft:floating_islands</a> <span class="comment">浮空岛屿</span>
 </pre>
 
-<h4 id="默认世界结构参数">默认世界结构参数</h4>
-<p>这些是默认世界中 <code>generator.settings.structures</code> 使用的结构参数。</p>
-
-<table><thead><tr><th>结构</th><th>命名空间ID</th><th><code>spacing</code></th><th><code>separation</code></th><th><code>salt</code></th></tr></thead><tbody>
-<tr><td>村庄</td><td><code>minecraft:village</code></td><td><code>32</code></td><td><code>8</code></td><td><code>10387312</code></td></tr>
-<tr><td>沙漠神殿</td><td><code>minecraft:desert_pyramid</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357617</code></td></tr>
-<tr><td>雪屋</td><td><code>minecraft:igloo</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357618</code></td></tr>
-<tr><td>丛林神庙</td><td><code>minecraft:jungle_pyramid</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357619</code></td></tr>
-<tr><td>沼泽小屋</td><td><code>minecraft:swamp_hut</code></td><td><code>32</code></td><td><code>8</code></td><td><code>14357620</code></td></tr>
-<tr><td>掠夺者前哨站</td><td><code>minecraft:pillager_outpost</code></td><td><code>32</code></td><td><code>8</code></td><td><code>165745296</code></td></tr>
-<tr><td>要塞</td><td><code>minecraft:stronghold</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
-<tr><td>海底神殿</td><td><code>minecraft:monument</code></td><td><code>32</code></td><td><code>5</code></td><td><code>10387313</code></td></tr>
-<tr><td>末地城</td><td><code>minecraft:endcity</code></td><td><code>20</code></td><td><code>11</code></td><td><code>10387313</code></td></tr>
-<tr><td>林地府邸</td><td><code>minecraft:mansion</code></td><td><code>80</code></td><td><code>20</code></td><td><code>10387319</code></td></tr>
-<tr><td>埋藏的宝藏</td><td><code>minecraft:buried_treasure</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
-<tr><td>废弃矿井</td><td><code>minecraft:mineshaft</code></td><td><code>1</code></td><td><code>0</code></td><td><code>0</code></td></tr>
-<tr><td>废弃传送门(主世界)</td><td><code>minecraft:ruined_portal</code></td><td><code>40</code></td><td><code>15</code></td><td><code>34222645</code></td></tr>
-<tr><td>废弃传送门(下界)</td><td><code>minecraft:ruined_portal</code></td><td><code>25</code></td><td><code>10</code></td><td><code>34222645</code></td></tr>
-<tr><td>沉船</td><td><code>minecraft:shipwreck</code></td><td><code>24</code></td><td><code>4</code></td><td><code>165745295</code></td></tr>
-<tr><td>海底废墟</td><td><code>minecraft:ocean_ruin</code></td><td><code>20</code></td><td><code>8</code></td><td><code>14357621</code></td></tr>
-<tr><td>堡垒遗迹</td><td><code>minecraft:bastion_remnant</code></td><td><code>27</code></td><td><code>4</code></td><td><code>30084232</code></td></tr>
-<tr><td>下界要塞</td><td><code>minecraft:fortress</code></td><td><code>27</code></td><td><code>4</code></td><td><code>30084232</code></td></tr>
-<tr><td>下界化石</td><td><code>minecraft:nether_fossil</code></td><td><code>2</code></td><td><code>1</code></td><td><code>14357921</code></td></tr>
-</tbody></table>
-
-
 <h3 id="生物群系">§2.12.2 生物群系</h3>
-<p>自定义的<ruby>生物群系<rt>biome</rt></ruby>可用于<a href="#维度">维度</a>的生物群系选项。生物群系文件为JSON文件，生物群系的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/biome/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<table><tbody>
+<tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+<tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/biome/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+<li><a href="https://wiki.biligame.com/mc/自定义世界生成#生物群系" class="wiki">生物群系</a></li>
+<li><a href="https://minecraft.fandom.com/wiki/Biome/JSON_format" class="wikien">Biome/JSON format</a></li>
+</ul>
+<p>生物群系 (Biome) 规定了生物群系的特性，可用于<a href="#维度">维度</a>JSON文件的相应参数。</p>
 
-<h4 id="生物群系/JSON格式">JSON格式</h4>
 <pre class="file" id="生物群系JSON格式">生物群系JSON格式</pre>
 <pre>
 {
-  "precipitation"<span class="comment">降雨量</span>: "none"<span class="comment">永不下雨</span>, "rain"<span class="comment">下雨</span> 或 "snow"<span class="comment">下雪</span>, 
-  "category": "none", "taiga", "extreme_hills", "jungle", "mesa", "plains", "savanna", "icy", "the_end", "beach", "forest", "ocean", "desert", "river", "swamp", "mushroom" 或 "nether", <span class="comment">生物群系分类不同分类会影响温度、音乐、生物生成等，例如除 "ocean" 外的分类受生物群系温度值所控制，"mushroom" 分类下不会生成僵尸围城和灾厄巡逻队，海底神殿不会生成于除 "ocean" 或 "river" 分类下的生物群系</span>
-  "depth": 数值, <span class="comment">深度, 用于地形噪声生成, 正值被认为是陆地, 负值被认为是海洋</span>
-  "scale": 数值, <span class="comment">用于地形噪声生成</span>
-  "spawn_costs": {<span class="comment">TBD</span>
-    "实体命名空间ID": {<span class="comment">TBD，可选</span>
-      "energy_budget": 数值, <span class="comment">TBD</span>
-      "charge": 数值 <span class="comment">TBD</span>
-    }
-  },
-  "player_spawn_friendly": true 或 false, <span class="comment">TBD</span>
-  "creature_spawn_probability": 0~1 之间的数值, <span class="comment">TBD，生成被动生物的几率</span>
+  "depth": 数值, <span class="comment">深度，用于地形噪声生成，正值被认为是陆地，负值被认为是海洋</span>
+  "scale": 数值, <span class="comment">比例，用于地形噪声生成，越大地形越陡峭</span>
+  "precipitation": "none", "rain" 或 "snow", <span class="comment">降雨量，分别表示永不下雨、下雨和下雪。若为 snow 则自然生成的兔子为红眼白毛或黑白斑点</span>
+  "category": "none", "taiga", "extreme_hills", "jungle", "mesa", "plains", "savanna", "icy", "the_end", "beach", "forest", "ocean", "desert", "river", "swamp", "mushroom" 或 "nether", <span class="comment">ocean 会采用海洋的温度体系；若玩家位于 ocean 和 river 水下会听到水下音乐而非一般的音乐；mushroom 不会生成僵尸围城和灾厄巡逻队；desert 且 precipitation 不为 snow 时生成的兔子为金黄色； water_ambient 类别的生物在 river 生成几率更低；海底神殿仅可能在 "ocean" 或 "river" 生成</span>
   "temperature": 数值, <span class="comment">温度, 控制草和树叶的颜色以及雪傀儡是否会受伤</span>
   "temperature_modifier": "none" (默认值) 或 "frozen", <span class="comment">可选，使用特殊的草温度选项</span>
   "downfall": 数值, <span class="comment">控制草和树叶的颜色, 超过 0.85 会使火焰蔓延更快</span>
+  "player_spawn_friendly": true 或 false, <span class="comment">该生物群系是否对新玩家友好，世界重生点会被设置到定义为 true 的生物群系</span>
+  "creature_spawn_probability": 0~1 之间的数值, <span class="comment">生物的基础生成成功率，值越低则该生物群系首次被加载时生成的生物越少</span>
   "effects": {
     "sky_color": RGB颜色的整数形式, <span class="comment">天空的颜色</span>
     "fog_color": RGB颜色的整数形式, <span class="comment">迷雾的颜色</span>
     "water_color": RGB颜色的整数形式, <span class="comment">水的颜色</span>
     "water_fog_color": RGB颜色的整数形式, <span class="comment">水下迷雾的颜色</span>
-    "foliage_color": RGB颜色的整数形式, <span class="comment">可选，树叶的颜色</span>
-    "grass_color": RGB颜色的整数形式, <span class="comment">可选，草的颜色</span>
+    "foliage_color": RGB颜色的整数形式, <span class="comment">可选，树叶的颜色，若无则根据该群系的 humidity 和 temperature 来设定</span>
+    "grass_color": RGB颜色的整数形式, <span class="comment">可选，草的颜色，若无则根据该群系的 humidity 和 temperature 来设定</span>
     "grass_color_modifier": "none" (默认值), "dark_forest" 或 "swamp", <span class="comment">可选，使用特殊的草颜色</span>
     "particle": { <span class="comment">可选, 该生物群系的颗粒效果</span>
       "probability": 数值, <span class="comment">颗粒的生成几率</span>
       "options": {
         "type": "block" 或 "falling_dust", <span class="comment">摧毁方块的颗粒或浮起而未下落的方块颗粒</span>
         "Name": "方块命名空间ID",
-        "Properties": {
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
           "方块状态名": "方块状态值"
         }
       或
@@ -3099,7 +3390,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "type": "item", <span class="comment">消耗物品的颗粒</span>
         "id": "物品命名空间ID"
         "Count": 整数, <span class="comment">物品数量</span>
-        "tag": 字符串 <span class="comment">物品NBT</span>
+        "tag": "字符串" <span class="comment">物品NBT</span>
       }
     },
     "ambient_sound": "<a href="#音效">音效</a>命名空间ID", <span class="comment">可选，环境音效</span>
@@ -3129,7 +3420,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
       "<a href="#地形雕刻器">地形雕刻器</a>命名空间ID"
     ],
   },
-  "features": [ <span class="comment">该列表共10项，每一项为相应分类的地物的列表。决定了地物在哪个阶段生成(TBD)。可以为空列表。</span>
+  "features": [ <span class="comment">该列表共10项，生成时会根据它们生成地物的种子，然后按列表来依次生成每一项列表中的所有地物，可以为空列表。</span>
     [
       "<a href="#地物">地物</a>命名空间ID" <span class="comment">内部特征类型 RAW_GENERATION，原版未使用</span>
     ],
@@ -3156,7 +3447,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     ],
     [
       "<a href="#地物">地物</a>命名空间ID" <span class="comment">
-        内部特征类型 VEGETAL_DECORATION，默认用于生成树、竹子、仙人掌、海带和其它地下和海底作物
+        内部特征类型 VEGETAL_DECORATION，默认用于生成树、竹子、仙人掌、海带、其它地下和海底作物以及涌泉
         注意树的位置是固定的，也就是说如果该列表有多个 "type": "minecraft:tree" 的地物，则只有第一个会生效，之后的生成会被阻挡。想要各种地物都有几率生成，需要使用随机选择的地物(WIP)</span>
     ],
     [
@@ -3176,120 +3467,228 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
         "maxCount": 整数 <span class="comment">最大数量</span>
       }
     ]
+  },
+  "spawn_costs": {<span class="comment">为特定实体设置生成几率</span>
+    "生物命名空间ID": {<span class="comment">可选</span>
+      "energy_budget": 数值, <span class="comment">该实体的生成预算，此值越大生成的越多</span>
+      "charge": 数值 <span class="comment">该实体的生成代价，此值越大生成的越少</span>
+    }
   }
 }</pre>
 
 <h4 id="可用的生物群系">可用的生物群系</h4>
-<p>这些是 Minecraft 内部已生成的生物群系命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<p>这些是 Minecraft 内部已生成的生物群系命名空间ID，可直接使用。</p>
 <pre>
-<a href="vanilla/data/minecraft/worldgen/biome/badlands.json">badlands</a>
-<a href="vanilla/data/minecraft/worldgen/biome/badlands_plateau.json">badlands_plateau</a>
-<a href="vanilla/data/minecraft/worldgen/biome/bamboo_jungle.json">bamboo_jungle</a>
-<a href="vanilla/data/minecraft/worldgen/biome/bamboo_jungle_hills.json">bamboo_jungle_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/basalt_deltas.json">basalt_deltas</a>
-<a href="vanilla/data/minecraft/worldgen/biome/beach.json">beach</a>
-<a href="vanilla/data/minecraft/worldgen/biome/birch_forest.json">birch_forest</a>
-<a href="vanilla/data/minecraft/worldgen/biome/birch_forest_hills.json">birch_forest_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/cold_ocean.json">cold_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/crimson_forest.json">crimson_forest</a>
-<a href="vanilla/data/minecraft/worldgen/biome/dark_forest.json">dark_forest</a>
-<a href="vanilla/data/minecraft/worldgen/biome/dark_forest_hills.json">dark_forest_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/deep_cold_ocean.json">deep_cold_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/deep_frozen_ocean.json">deep_frozen_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/deep_lukewarm_ocean.json">deep_lukewarm_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/deep_ocean.json">deep_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/deep_warm_ocean.json">deep_warm_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/desert.json">desert</a>
-<a href="vanilla/data/minecraft/worldgen/biome/desert_hills.json">desert_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/desert_lakes.json">desert_lakes</a>
-<a href="vanilla/data/minecraft/worldgen/biome/end_barrens.json">end_barrens</a>
-<a href="vanilla/data/minecraft/worldgen/biome/end_highlands.json">end_highlands</a>
-<a href="vanilla/data/minecraft/worldgen/biome/end_midlands.json">end_midlands</a>
-<a href="vanilla/data/minecraft/worldgen/biome/eroded_badlands.json">eroded_badlands</a>
-<a href="vanilla/data/minecraft/worldgen/biome/flower_forest.json">flower_forest</a>
-<a href="vanilla/data/minecraft/worldgen/biome/forest.json">forest</a>
-<a href="vanilla/data/minecraft/worldgen/biome/frozen_ocean.json">frozen_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/frozen_river.json">frozen_river</a>
-<a href="vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga.json">giant_spruce_taiga</a>
-<a href="vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga_hills.json">giant_spruce_taiga_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/giant_tree_taiga.json">giant_tree_taiga</a>
-<a href="vanilla/data/minecraft/worldgen/biome/giant_tree_taiga_hills.json">giant_tree_taiga_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/gravelly_mountains.json">gravelly_mountains</a>
-<a href="vanilla/data/minecraft/worldgen/biome/ice_spikes.json">ice_spikes</a>
-<a href="vanilla/data/minecraft/worldgen/biome/jungle.json">jungle</a>
-<a href="vanilla/data/minecraft/worldgen/biome/jungle_edge.json">jungle_edge</a>
-<a href="vanilla/data/minecraft/worldgen/biome/jungle_hills.json">jungle_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/lukewarm_ocean.json">lukewarm_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/modified_badlands_plateau.json">modified_badlands_plateau</a>
-<a href="vanilla/data/minecraft/worldgen/biome/modified_gravelly_mountains.json">modified_gravelly_mountains</a>
-<a href="vanilla/data/minecraft/worldgen/biome/modified_jungle.json">modified_jungle</a>
-<a href="vanilla/data/minecraft/worldgen/biome/modified_jungle_edge.json">modified_jungle_edge</a>
-<a href="vanilla/data/minecraft/worldgen/biome/modified_wooded_badlands_plateau.json">modified_wooded_badlands_plateau</a>
-<a href="vanilla/data/minecraft/worldgen/biome/mountains.json">mountains</a>
-<a href="vanilla/data/minecraft/worldgen/biome/mountain_edge.json">mountain_edge</a>
-<a href="vanilla/data/minecraft/worldgen/biome/mushroom_fields.json">mushroom_fields</a>
-<a href="vanilla/data/minecraft/worldgen/biome/mushroom_field_shore.json">mushroom_field_shore</a>
-<a href="vanilla/data/minecraft/worldgen/biome/nether_wastes.json">nether_wastes</a>
-<a href="vanilla/data/minecraft/worldgen/biome/ocean.json">ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/plains.json">plains</a>
-<a href="vanilla/data/minecraft/worldgen/biome/river.json">river</a>
-<a href="vanilla/data/minecraft/worldgen/biome/savanna.json">savanna</a>
-<a href="vanilla/data/minecraft/worldgen/biome/savanna_plateau.json">savanna_plateau</a>
-<a href="vanilla/data/minecraft/worldgen/biome/shattered_savanna.json">shattered_savanna</a>
-<a href="vanilla/data/minecraft/worldgen/biome/shattered_savanna_plateau.json">shattered_savanna_plateau</a>
-<a href="vanilla/data/minecraft/worldgen/biome/small_end_islands.json">small_end_islands</a>
-<a href="vanilla/data/minecraft/worldgen/biome/snowy_beach.json">snowy_beach</a>
-<a href="vanilla/data/minecraft/worldgen/biome/snowy_mountains.json">snowy_mountains</a>
-<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga.json">snowy_taiga</a>
-<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga_hills.json">snowy_taiga_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga_mountains.json">snowy_taiga_mountains</a>
-<a href="vanilla/data/minecraft/worldgen/biome/snowy_tundra.json">snowy_tundra</a>
-<a href="vanilla/data/minecraft/worldgen/biome/soul_sand_valley.json">soul_sand_valley</a>
-<a href="vanilla/data/minecraft/worldgen/biome/stone_shore.json">stone_shore</a>
-<a href="vanilla/data/minecraft/worldgen/biome/sunflower_plains.json">sunflower_plains</a>
-<a href="vanilla/data/minecraft/worldgen/biome/swamp.json">swamp</a>
-<a href="vanilla/data/minecraft/worldgen/biome/swamp_hills.json">swamp_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/taiga.json">taiga</a>
-<a href="vanilla/data/minecraft/worldgen/biome/taiga_hills.json">taiga_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/taiga_mountains.json">taiga_mountains</a>
-<a href="vanilla/data/minecraft/worldgen/biome/tall_birch_forest.json">tall_birch_forest</a>
-<a href="vanilla/data/minecraft/worldgen/biome/tall_birch_hills.json">tall_birch_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/the_end.json">the_end</a>
-<a href="vanilla/data/minecraft/worldgen/biome/the_void.json">the_void</a>
-<a href="vanilla/data/minecraft/worldgen/biome/warm_ocean.json">warm_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/biome/warped_forest.json">warped_forest</a>
-<a href="vanilla/data/minecraft/worldgen/biome/wooded_badlands_plateau.json">wooded_badlands_plateau</a>
-<a href="vanilla/data/minecraft/worldgen/biome/wooded_hills.json">wooded_hills</a>
-<a href="vanilla/data/minecraft/worldgen/biome/wooded_mountains.json">wooded_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/badlands.json">minecraft:badlands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/badlands_plateau.json">minecraft:badlands_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/bamboo_jungle.json">minecraft:bamboo_jungle</a>
+<a href="vanilla/data/minecraft/worldgen/biome/bamboo_jungle_hills.json">minecraft:bamboo_jungle_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/basalt_deltas.json">minecraft:basalt_deltas</a>
+<a href="vanilla/data/minecraft/worldgen/biome/beach.json">minecraft:beach</a>
+<a href="vanilla/data/minecraft/worldgen/biome/birch_forest.json">minecraft:birch_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/birch_forest_hills.json">minecraft:birch_forest_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/cold_ocean.json">minecraft:cold_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/crimson_forest.json">minecraft:crimson_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/dark_forest.json">minecraft:dark_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/dark_forest_hills.json">minecraft:dark_forest_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_cold_ocean.json">minecraft:deep_cold_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_frozen_ocean.json">minecraft:deep_frozen_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_lukewarm_ocean.json">minecraft:deep_lukewarm_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_ocean.json">minecraft:deep_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/deep_warm_ocean.json">minecraft:deep_warm_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/desert.json">minecraft:desert</a>
+<a href="vanilla/data/minecraft/worldgen/biome/desert_hills.json">minecraft:desert_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/desert_lakes.json">minecraft:desert_lakes</a>
+<a href="vanilla/data/minecraft/worldgen/biome/dripstone_caves.json">minecraft:dripstone_caves</a>
+<a href="vanilla/data/minecraft/worldgen/biome/end_barrens.json">minecraft:end_barrens</a>
+<a href="vanilla/data/minecraft/worldgen/biome/end_highlands.json">minecraft:end_highlands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/end_midlands.json">minecraft:end_midlands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/eroded_badlands.json">minecraft:eroded_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/flower_forest.json">minecraft:flower_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/forest.json">minecraft:forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/frozen_ocean.json">minecraft:frozen_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/frozen_river.json">minecraft:frozen_river</a>
+<a href="vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga.json">minecraft:giant_spruce_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/biome/giant_spruce_taiga_hills.json">minecraft:giant_spruce_taiga_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/giant_tree_taiga.json">minecraft:giant_tree_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/biome/giant_tree_taiga_hills.json">minecraft:giant_tree_taiga_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/gravelly_mountains.json">minecraft:gravelly_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/ice_spikes.json">minecraft:ice_spikes</a>
+<a href="vanilla/data/minecraft/worldgen/biome/jungle.json">minecraft:jungle</a>
+<a href="vanilla/data/minecraft/worldgen/biome/jungle_edge.json">minecraft:jungle_edge</a>
+<a href="vanilla/data/minecraft/worldgen/biome/jungle_hills.json">minecraft:jungle_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/lukewarm_ocean.json">minecraft:lukewarm_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/lush_caves.json">minecraft:lush_caves</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_badlands_plateau.json">minecraft:modified_badlands_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_gravelly_mountains.json">minecraft:modified_gravelly_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_jungle.json">minecraft:modified_jungle</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_jungle_edge.json">minecraft:modified_jungle_edge</a>
+<a href="vanilla/data/minecraft/worldgen/biome/modified_wooded_badlands_plateau.json">minecraft:modified_wooded_badlands_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/mountains.json">minecraft:mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/mountain_edge.json">minecraft:mountain_edge</a>
+<a href="vanilla/data/minecraft/worldgen/biome/mushroom_fields.json">minecraft:mushroom_fields</a>
+<a href="vanilla/data/minecraft/worldgen/biome/mushroom_field_shore.json">minecraft:mushroom_field_shore</a>
+<a href="vanilla/data/minecraft/worldgen/biome/nether_wastes.json">minecraft:nether_wastes</a>
+<a href="vanilla/data/minecraft/worldgen/biome/ocean.json">minecraft:ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/plains.json">minecraft:plains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/river.json">minecraft:river</a>
+<a href="vanilla/data/minecraft/worldgen/biome/savanna.json">minecraft:savanna</a>
+<a href="vanilla/data/minecraft/worldgen/biome/savanna_plateau.json">minecraft:savanna_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/shattered_savanna.json">minecraft:shattered_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/biome/shattered_savanna_plateau.json">minecraft:shattered_savanna_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/small_end_islands.json">minecraft:small_end_islands</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_beach.json">minecraft:snowy_beach</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_mountains.json">minecraft:snowy_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga.json">minecraft:snowy_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga_hills.json">minecraft:snowy_taiga_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_taiga_mountains.json">minecraft:snowy_taiga_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/snowy_tundra.json">minecraft:snowy_tundra</a>
+<a href="vanilla/data/minecraft/worldgen/biome/soul_sand_valley.json">minecraft:soul_sand_valley</a>
+<a href="vanilla/data/minecraft/worldgen/biome/stone_shore.json">minecraft:stone_shore</a>
+<a href="vanilla/data/minecraft/worldgen/biome/sunflower_plains.json">minecraft:sunflower_plains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/swamp.json">minecraft:swamp</a>
+<a href="vanilla/data/minecraft/worldgen/biome/swamp_hills.json">minecraft:swamp_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/taiga.json">minecraft:taiga</a>
+<a href="vanilla/data/minecraft/worldgen/biome/taiga_hills.json">minecraft:taiga_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/taiga_mountains.json">minecraft:taiga_mountains</a>
+<a href="vanilla/data/minecraft/worldgen/biome/tall_birch_forest.json">minecraft:tall_birch_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/tall_birch_hills.json">minecraft:tall_birch_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/the_end.json">minecraft:the_end</a>
+<a href="vanilla/data/minecraft/worldgen/biome/the_void.json">minecraft:the_void</a>
+<a href="vanilla/data/minecraft/worldgen/biome/warm_ocean.json">minecraft:warm_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/biome/warped_forest.json">minecraft:warped_forest</a>
+<a href="vanilla/data/minecraft/worldgen/biome/wooded_badlands_plateau.json">minecraft:wooded_badlands_plateau</a>
+<a href="vanilla/data/minecraft/worldgen/biome/wooded_hills.json">minecraft:wooded_hills</a>
+<a href="vanilla/data/minecraft/worldgen/biome/wooded_mountains.json">minecraft:wooded_mountains</a>
 </pre>
 
 <h3 id="地形雕刻器">§2.12.3 地形雕刻器</h3>
-<p><ruby>地形雕刻器<rt>configured_carver</rt></ruby>用于在<a href="#生物群系">生物群系</a>中雕刻出空气和液体的区域，例如洞穴、湖泊等。地形雕刻器文件为JSON文件，地形雕刻器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/configured_carver/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/自定义世界生成#地形雕刻器" class="wiki">地形雕刻器</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Custom_world_generation#Carvers" class="wikien">Carvers</a></li>
+</ul>
 
-<h4 id="地形雕刻器/JSON格式">JSON格式</h4>
+<p>地形雕刻器 (Carver) 用来在地形中雕刻出空气或液体的区域，被调用于<a href="#生物群系">生物群系</a>JSON文件的 <code>carvers</code>。</p>
+
 <pre class="file" id="地形雕刻器JSON格式">地形雕刻器JSON格式</pre>
 <pre>
 {
-  "name": "cave", "nether_cave", "canyon", "underwater_canyon" 或 "underwater_cave", <span class="comment">雕刻类型</span>
+  "type": "cave", "nether_cave", "canyon", "underwater_canyon" 或 "underwater_cave", <span class="comment">雕刻类型</span>
   "config": {
-    "probability": 0~1 之间的数值 <span class="comment">每个区块的生成几率</span>
+    "lava_level": {
+      "above_bottom": 整数 <span class="comment">熔岩层与世界最底部高度差</span>
+    },
+    "aquifers_enabled": true 或 false, <span class="comment">是否使用蓄水层</span>
+    "debug_settings": { <span class="comment">TBD，调试设置</span>
+      "water_state": {
+        "Name": "方块命名空间ID",
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+          "方块状态名": "方块状态值"
+        }
+      },
+      "lava_state": {
+        "Name": "方块命名空间ID",
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+          "方块状态名": "方块状态值"
+        }
+      },
+      "barrier_state": {
+        "Name": "方块命名空间ID",
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+          "方块状态名": "方块状态值"
+        }
+      },
+      "air_state": {
+        "Name": "方块命名空间ID",
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+          "方块状态名": "方块状态值"
+        }
+      }
+    },
+    "probability": 0~1 之间的数值, <span class="comment">雕刻几率</span>
+    "y": { <span class="comment">TBD，雕刻的高度范围</span>
+      "type": "minecraft:uniform" 或 "minecraft:biased_to_bottom",
+      "min_inclusive": {
+        "absolute": 正整数
+      或
+        "above_bottom": 正整数
+      },
+      "max_inclusive": {
+        "absolute": 正整数
+      或
+        "below_top": 正整数
+      },
+      "inner": 正整数 <span class="comment">仅 biased_to_bottom 类型适用</span>
+    },
+    "yScale": <a href="#地形雕刻器数值">地形雕刻器数值</a>,
+    "horizontal_radius_multiplier": <a href="#地形雕刻器数值">地形雕刻器数值</a>,
+    "vertical_radius_multiplier": <a href="#地形雕刻器数值">地形雕刻器数值</a>,
+    "floor_level": <a href="#地形雕刻器数值">地形雕刻器数值</a>, <span class="comment">仅 cave, nether_cave, underwater_cave 类型适用</span>
+    "vertical_rotation": <a href="#地形雕刻器数值">地形雕刻器数值</a>, <span class="comment">仅 canyon, underwater_canyon 类型适用</span>
+    "shape": { <span class="comment">仅 canyon, underwater_canyon 类型适用</span>
+      "horizontal_radius_factor": <a href="#地形雕刻器数值">地形雕刻器数值</a>,
+      "vertical_radius_default_factor": <a href="#地形雕刻器数值">地形雕刻器数值</a>,
+      "vertical_radius_center_factor": <a href="#地形雕刻器数值">地形雕刻器数值</a>,
+      "distance_factor": <a href="#地形雕刻器数值">地形雕刻器数值</a>,
+      "thickness": <a href="#地形雕刻器数值">地形雕刻器数值</a>,
+      "width_smoothness": 正整数
+    }
   }
 }</pre>
 
-<h4 id="可用的地形雕刻器">可用的地形雕刻器</h4>
-<p>这些是 Minecraft 内部已生成的地形雕刻器命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<pre class="file" id="地形雕刻器数值">地形雕刻器数值</pre>
 <pre>
-<a href="vanilla/data/minecraft/worldgen/configured_carver/canyon.json">cave</a> <span class="comment">洞穴</span>
-<a href="vanilla/data/minecraft/worldgen/configured_carver/nether_cave.json">nether_cave</a> <span class="comment">下界洞穴</span>
-<a href="vanilla/data/minecraft/worldgen/configured_carver/canyon.json">canyon</a> <span class="comment">峡谷</span>
-<a href="vanilla/data/minecraft/worldgen/configured_carver/underwater_canyon.json">underwater_canyon</a> <span class="comment">水下峡谷</span>
-<a href="vanilla/data/minecraft/worldgen/configured_carver/underwater_cave.json">underwater_cave</a> <span class="comment">水下洞穴</span> 
+  数值
+或
+  {
+    "type": "minecraft:uniform", <span class="comment">均匀分布</span>
+    "value": {
+      "min_inclusive": 数值,
+      "max_exclusive": 数值
+    }
+  }
+或
+  {
+    "type": "minecraft:trapezoid", <span class="comment">梯形分布</span>
+    "value": {
+      "min": 数值,
+      "max": 数值,
+      "plateau": 数值
+    }
+  }
+</pre>
+
+<h4 id="可用的地形雕刻器">可用的地形雕刻器</h4>
+<p>这些是 Minecraft 内部已生成的地形雕刻器命名空间ID，可直接使用。</p>
+<pre>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/canyon.json">minecraft:canyon</a> <span class="comment">峡谷</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/underwater_canyon.json">minecraft:underwater_canyon</a> <span class="comment">水下峡谷</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/canyon.json">minecraft:cave</a> <span class="comment">洞穴</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/underwater_cave.json">minecraft:underwater_cave</a> <span class="comment">水下洞穴</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/nether_cave.json">minecraft:nether_cave</a> <span class="comment">下界洞穴</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/ocean_cave.json">minecraft:ocean_cave</a> <span class="comment">海洋洞穴</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/prototype_canyon.json">minecraft:prototype_canyon</a> <span class="comment">预设峡谷</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/prototype_cave.json">minecraft:prototype_cave</a> <span class="comment">预设洞穴</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/prototype_crevice.json">minecraft:prototype_crevice</a> <span class="comment">预设裂缝</span>
+<a href="vanilla/data/minecraft/worldgen/configured_carver/prototype_ocean_cave.json">minecraft:prototype_ocean_cave</a> <span class="comment">预设海洋洞穴</span>
 </pre>
 
 
 <h3 id="地表生成器">§2.12.4 地表生成器</h3>
-<p><ruby>地表生成器<rt>configured_surface_builder</rt></ruby>用于指定在<a href="#生物群系">生物群系</a>中地面的起伏和方块。地表生成器文件为JSON文件，地表生成器的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<h4 id="地表生成器/JSON格式">JSON格式</h4>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/configured_surface_builder/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/自定义世界生成#地表生成器" class="wiki">地表生成器</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Configured_surface_builder" class="wikien">Configured surface builder</a></li>
+</ul>
+<p>地表生成器 (Surface builder) 用来刻画地面的起伏和构成地形的默认方块，被调用于<a href="#生物群系">生物群系</a>JSON文件中的 <code>surface_builder</code>。</p>
+
 <pre class="file" id="地表生成器JSON格式">地表生成器JSON格式</pre>
 <pre>
 {
@@ -3297,19 +3696,19 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
   "config": {
     "top_material": { <span class="comment">顶层方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "under_material": { <span class="comment">顶层以下的方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "underwater_material": { <span class="comment">水下方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     }
@@ -3317,39 +3716,47 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 }</pre>
 
 <h4 id="可用的地表生成器">可用的地表生成器</h4>
-<p>这些是 Minecraft 内部已生成的地表生成器命名空间ID，可直接使用。已省略 <code>minecraft:</code>。</p>
+<p>这些是 Minecraft 内部已生成的地表生成器命名空间ID，可直接使用。</p>
 <pre>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/badlands.json">badlands</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/basalt_deltas.json">basalt_deltas</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/crimson_forest.json">crimson_forest</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/desert.json">desert</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/end.json">end</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/eroded_badlands.json">eroded_badlands</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/frozen_ocean.json">frozen_ocean</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/full_sand.json">full_sand</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/giant_tree_taiga.json">giant_tree_taiga</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/grass.json">grass</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/gravelly_mountain.json">gravelly_mountain</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/ice_spikes.json">ice_spikes</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/mountain.json">mountain</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/mycelium.json">mycelium</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/nether.json">nether</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/nope.json">nope</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/ocean_sand.json">ocean_sand</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/shattered_savanna.json">shattered_savanna</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/soul_sand_valley.json">soul_sand_valley</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/stone.json">stone</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/swamp.json">swamp</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/warped_forest.json">warped_forest</a>
-<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/wooded_badlands.json">wooded_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/badlands.json">minecraft:badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/basalt_deltas.json">minecraft:basalt_deltas</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/crimson_forest.json">minecraft:crimson_forest</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/desert.json">minecraft:desert</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/end.json">minecraft:end</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/eroded_badlands.json">minecraft:eroded_badlands</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/frozen_ocean.json">minecraft:frozen_ocean</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/full_sand.json">minecraft:full_sand</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/giant_tree_taiga.json">minecraft:giant_tree_taiga</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/grass.json">minecraft:grass</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/gravelly_mountain.json">minecraft:gravelly_mountain</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/ice_spikes.json">minecraft:ice_spikes</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/mountain.json">minecraft:mountain</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/mycelium.json">minecraft:mycelium</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/nether.json">minecraft:nether</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/nope.json">minecraft:nope</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/ocean_sand.json">minecraft:ocean_sand</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/shattered_savanna.json">minecraft:shattered_savanna</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/soul_sand_valley.json">minecraft:soul_sand_valley</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/stone.json">minecraft:stone</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/swamp.json">minecraft:swamp</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/warped_forest.json">minecraft:warped_forest</a>
+<a href="vanilla/data/minecraft/worldgen/configured_surface_builder/wooded_badlands.json">minecraft:wooded_badlands</a>
 </pre>
 
 
 <h3 id="地物">§2.12.5 地物</h3>
-<p><ruby>地物<rt>configured_feature</rt></ruby>用于在<a href="#生物群系">生物群系</a>中指定树、花、矿石的生成等。地物文件为JSON文件，地物的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/features/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/自定义世界生成#地物" class="wiki">地物</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Configured_feature" class="wikien">Configured feature</a></li>
+</ul>
 
-<h4 id="地物/JSON格式">JSON格式</h4>
-<pre class="file" id="树的JSON格式">树的JSON格式</pre>
+<p>地物 (Feature) 是指树、花、矿石等，被调用于<a href="#生物群系">生物群系</a>JSON文件的 <code>features</code> 中。</p>
+
+<pre class="file" id="地物JSON格式">地物JSON格式</pre>
 <pre>
 {
   "type": "minecraft:tree",
@@ -3414,11 +3821,9 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "heightmap": "WORLD_SURFACE_WG", "WORLD_SURFACE", "OCEAN_FLOOR_WG", "OCEAN_FLOOR", "MOTION_BLOCKING" 或 "MOTION_BLOCKING_NO_LEAVES" <span class="comment">高度地图，用于随机</span>
   }
 }
-</pre>
-<pre class="file" id="花或随机堆的JSON格式">花或随机堆的JSON格式</pre>
-<pre>
+
 {
-  "type": "minecraft:flower" 或 "minecraft:random_patch",
+  "type": "minecraft:flower"<span class="comment">花</span> 或 "minecraft:random_patch", <span class="comment">随机堆</span>
   "config": {
     "state_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">所使用的方块</span>
     "block_placer": {
@@ -3433,7 +3838,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "whitelist": [ <span class="comment">TBD，白名单列表</span>
       {
         "Name": "方块命名空间ID",
-        "Properties": {
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
           "方块状态名": "方块状态值"
         }
       }
@@ -3441,7 +3846,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "blacklist": [ <span class="comment">TBD，黑名单列表</span>
       {
         "Name": "方块命名空间ID",
-        "Properties": {
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
           "方块状态名": "方块状态值"
         }
       }
@@ -3456,18 +3861,14 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "need_water": true 或 false (默认值) <span class="comment">可选，是否需要水</span>
   }
 }
-</pre>
-<pre class="file" id="方块堆/下界森林草的JSON格式">方块堆/下界森林草的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:block_pile"<span class="comment">方块堆</span> 或 "minecraft:nether_forest_vegetation"<span class="comment">下界森林草</span>
   "config": {
     "state_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">所使用的方块</span>
   }
 }
-</pre>
-<pre class="file" id="涌泉的JSON格式">涌泉的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:spring_feature"<span class="comment">涌泉</span>,
   "config": {
@@ -3485,29 +3886,25 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     ]
   }
 }
-</pre>
-<pre class="file" id="绿宝石矿的JSON格式">绿宝石矿的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:emerald_ore"<span class="comment">绿宝石矿</span>,
   "config": {
     "target": { <span class="comment">目标方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "state": { <span class="comment">自身方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     }
   }
 }
-</pre>
-<pre class="file" id="巨型蘑菇的JSON格式">巨型蘑菇的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:huge_red_mushroom"<span class="comment">巨型红色蘑菇</span> 或 "minecraft:huge_brown_mushroom"<span class="comment">巨型棕色蘑菇</span>,
   "config": {
@@ -3516,49 +3913,155 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "foliage_radius": 数值, 默认为 2 <span class="comment">可选，顶部大小</span>
   }
 }
-</pre>
-<pre class="file" id="冰山/森林岩石/湖的JSON格式">冰山/森林岩石/湖的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:iceberg"<span class="comment">冰山</span>, "minecraft:forest_rock"<span class="comment">森林岩石</span> 或 "minecraft:lake"<span class="comment">湖</span>,
   "config": {
     "state": { <span class="comment">方块</span>
-      "Name": "方块命名空间ID"
+      "Name": "方块命名空间ID",
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+        "方块状态名": "方块状态值"
+      }
     }
   }
 }
-</pre>
-<pre class="file" id="圆盘/冰堆的JSON格式">圆盘/冰堆的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:disk"<span class="comment">圆盘</span> 或 "minecraft:ice_patch"<span class="comment">冰堆</span>,
   "config": {
     "state": { <span class="comment">方块</span>
-      "Name": "方块命名空间ID"
+      "Name": "方块命名空间ID",
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+        "方块状态名": "方块状态值"
+      }
     },
     "radius": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=4, maxSpread=4) <span class="comment">半径</span>
     "half_height": 0~4 之间的整数, <span class="comment">高度的一半</span>
     "targets": { <span class="comment">目标方块列表</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     }
   }
 }
-</pre>
-<pre class="file" id="矿石/非地表生成矿石的JSON格式">矿石/非地表生成矿石的JSON格式</pre>
-<pre>
+
 {
-  "type": "minecraft:ore"<span class="comment">矿石</span> 或 "minecraft:no_surface_ore"<span class="comment">非地表生成矿石</span>,
+  "type": "minecraft:dripstone_cluster", <span class="comment">滴水石锥</span>
+  "config": {
+    "floor_to_ceiling_search_range": 1~512 之间的整数, <span class="comment">搜寻高度</span>
+    "height": <a href="#均匀分布的整数">均匀分布的整数</a>, <span class="comment">(minBase=1, maxBase=64, maxSpread=64), 高度</span>
+    "radius": <a href="#均匀分布的整数">均匀分布的整数</a>, <span class="comment">(minBase=1, maxBase=64, maxSpread=64), 半径</span>
+    "max_stalagmite_stalactite_height_diff": 1~512 之间的整数, <span class="comment">石笋与钟乳石高度最大差</span>
+    "height_deviation": 1~64 之间的整数, <span class="comment">高度偏差</span>
+    "dripstone_block_layer_thickness": <a href="#均匀分布的整数">均匀分布的整数</a>, <span class="comment">(minBase=0, maxBase=64, maxSpread=64), 滴水石块层厚度</span>
+    "density": 0~1 之间的<a href="#浮点数提供器">浮点数提供器</a>, <span class="comment">密度</span>
+    "wetness": 0~1 之间的<a href="#浮点数提供器">浮点数提供器</a>, <span class="comment">湿度</span>
+    "chance_of_dripstone_column_at_max_distance_from_center": 0~1 之间的浮点数, <span class="comment">距离中心点的最大距离几率</span>
+    "max_distance_from_edge_affecting_chance_of_dripstone_column": 0~64 之间的整数, <span class="comment">边缘最大距离，影响滴水石柱几率</span>
+    "max_distance_from_center_affecting_height_bias": 0~64 之间的整数 <span class="comment">中心最大距离，影响高度偏差</span>
+  }
+}
+
+{
+  "type": "minecraft:geode", <span class="comment">紫晶洞</span>
+  "config": {
+    "blocks": { <span class="comment">用来填充的方块</span>
+      "filling_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">内部填充方块</span>
+      "inner_layer_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">内层方块</span>
+      "alternate_inner_layer_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">镶嵌在内层的方块</span>
+      "middle_layer_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">中间层方块</span>
+      "outer_layer_provider": <a href="#方块状态类型">方块状态类型</a>JSON对象, <span class="comment">外层方块</span>
+      "inner_placements": [ <span class="comment">内层表面方块列表</span>
+        {
+          "Name": "方块命名空间ID",
+          "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+            "方块状态名": "方块状态值"
+          }
+        }
+      ]
+    },
+    "layers": {
+      "filling": 0.01~50之间的数值, <span class="comment">可选，默认为 1.7</span>
+      "inner_layer": 0.01~50之间的数值, <span class="comment">可选，默认为 2.2</span>
+      "middle_layer": 0.01~50之间的数值, <span class="comment">可选，默认为 3.2</span>
+      "outer_layer": 0.01~50之间的数值 <span class="comment">可选，默认为 4.2</span>
+    },
+    "crack": {
+      "generate_crack_chance": 0~1之间的数值, <span class="comment">可选，默认为 1</span>
+      "base_crack_size": 0~1之间的数值, <span class="comment">可选，默认为 2</span>
+      "crack_point_offset": 0~1之间的数值, <span class="comment">可选，默认为 2</span>
+    },
+    "noise_multiplier": 0~1之间的数值, <span class="comment">可选，默认为 0.05</span>
+    "use_potential_placements_chance": 0~1之间的数值, <span class="comment">可选，默认为 0.35</span>
+    "use_alternate_layer0_chance": 0~1之间的数值, <span class="comment">可选，默认为 0.35</span>
+    "placements_require_layer0_alternate": true(默认值) 或 false, <span class="comment">可选，默认为 0.05</span>
+    "min_outer_wall_distance": 0~10之间的整数, <span class="comment">可选，默认为 4</span>
+    "max_outer_wall_distance": 0~20之间的整数, <span class="comment">可选，默认为 6</span>
+    "min_distribution_points": 0~10之间的整数, <span class="comment">可选，默认为 3</span>
+    "max_distribution_points": 0~20之间的整数, <span class="comment">可选，默认为 5</span>
+    "min_point_offset": 0~10之间的整数, <span class="comment">可选，默认为 1</span>
+    "max_point_offset": 0~10之间的整数, <span class="comment">可选，默认为 3</span>
+    "min_gen_offset": 整数, <span class="comment">可选，默认为 -16</span>
+    "max_gen_offset": 整数 <span class="comment">可选，默认为 16</span>
+  }
+}
+
+{
+  "type": "minecraft:glow_lichen", <span class="comment">发光地衣</span>
+  "config": {
+    "search_range": 1~64 之间的整数, <span class="comment">可选，默认为10，搜寻范围</span>
+    "chance_of_spreading": 0~1 之间的数值, <span class="comment">可选，默认为0.5，扩散几率</span>
+    "can_place_on_floor": true 或 false(默认值), <span class="comment">可选，是否可放置在地板上</span>
+    "can_place_on_ceiling": true 或 false(默认值), <span class="comment">可选，是否可放置在天花板上</span>
+    "can_place_on_wall": true 或 false(默认值), <span class="comment">可选，是否可放置在方块侧面上</span>
+    "can_be_placed_on": [ <span class="comment">可放置于之上的方块列表</span>
+      {
+        "Name": "方块命名空间ID",
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+          "方块状态名": "方块状态值"
+        }
+      }
+    ]
+  }
+}
+
+{
+  "type": "minecraft:large_dripstone", <span class="comment">大型滴水石</span>
+  "config": {
+    "floor_to_ceiling_search_range": 1~512 之间的整数, <span class="comment">可选，默认为50，从底部向上的搜寻高度</span>
+    "column_radius": <a href="#均匀分布的整数">均匀分布的整数</a>,
+    "height_scale": 0~20 之间的<a href="#浮点数提供器">浮点数提供器</a>,
+    "max_column_radius_to_cave_height_ratio": 0~1 之间的数值,
+    "stalactite_bluntness": 0.1~10 之间的<a href="#浮点数提供器">浮点数提供器</a>,
+    "stalagmite_bluntness": 0.1~10 之间的<a href="#浮点数提供器">浮点数提供器</a>,
+    "wind_speed": 0~2 之间的<a href="#浮点数提供器">浮点数提供器</a>,
+    "min_radius_for_wind": 0~100 之间的整数,
+    "min_bluntness_for_wind": 0~5 之间的数值
+  }
+}
+
+{
+  "type": "minecraft:small_dripstone", <span class="comment">小型滴水石</span>
+  "config": {
+    "max_placements": 1~100 之间的整数,
+    "empty_space_search_radius": 0~20 之间的整数,
+    "max_offset_from_origin": 0~20 之间的整数,
+    "chance_of_taller_dripstone": 0~1 之间的数值 <span class="comment">可选，默认为0.2</span>
+  }
+}
+
+{
+  "type": "minecraft:ore"<span class="comment">矿石</span> 或 "minecraft:scattered_ore", <span class="comment">散在矿石</span>
   "config": {
     "state": { <span class="comment">方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "size": 0~64 的整数, <span class="comment">矿脉大小</span>
+    "discard_chance_on_air_exposure": 0~1 之间的数值, <span class="comment">暴露在空气中时的丢弃率</span>
 
     "target": { <span class="comment">目标方块要求</span>
       "predicate_type": "minecraft:always_true" <span class="comment">断言类型，总是成立</span>
@@ -3569,7 +4072,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
       "predicate_type": "minecraft:blockstate_match", <span class="comment">断言类型，匹配方块状态</span>
       "block_state": {
         "Name": "方块命名空间ID",
-        "Properties": {
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
           "方块状态名": "方块状态值"
         }
       }
@@ -3584,7 +4087,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
       "predicate_type": "minecraft:random_blockstate_match", <span class="comment">断言类型，随机匹配方块状态</span>
       "block_state": {
         "Name": "方块命名空间ID",
-        "Properties": {
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
           "方块状态名": "方块状态值"
         }
       },
@@ -3592,9 +4095,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     }
   }
 }
-</pre>
-<pre class="file" id="末地黑曜石柱的JSON格式">末地黑曜石柱的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:end_spike"<span class="comment">末地黑曜石柱</span>,
   "config": {
@@ -3614,9 +4115,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     ]
   }
 }
-</pre>
-<pre class="file" id="末地折跃门的JSON格式">末地折跃门的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:end_gateway"<span class="comment">末地折跃门</span>,
   "config": {
@@ -3628,92 +4127,82 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "exact": true 或 false <span class="comment">是否把实体准确传送到指定的坐标而不是传送到这个坐标附近的位置</span>
   }
 }
-</pre>
-<pre class="file" id="海草/竹子的JSON格式">海草/竹子的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:seagrass"<span class="comment">海草</span> 或 "minecraft:bamboo"<span class="comment">竹子</span>,
   "config": {
     "probability": 0~1 之间的数值 <span class="comment">几率</span>
   }
 }
-</pre>
-<pre class="file" id="海泡菜的JSON格式">海泡菜的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:sea_pickle"<span class="comment">海泡菜</span>,
   "config": {
     "count": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=-10, maxBase=128, maxSpread=128)
   }
 }
-</pre>
-<pre class="file" id="单个方块的JSON格式">单个方块的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:simple_block"<span class="comment">单个方块</span>,
   "config": {
     "to_place": { <span class="comment">将要放置的方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "place_on": { <span class="comment">将要放置的位置下方方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "place_in": { <span class="comment">将要放置的位置的方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "place_under": { <span class="comment">将要放置的位置上方方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     }
   }
 }
-</pre>
-<pre class="file" id="巨型菌类的JSON格式">巨型菌类的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:huge_fungus"<span class="comment">巨型菌类</span>,
   "config": {
     "valid_base_block": { <span class="comment">底部基座方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "stem_state": { <span class="comment">菌柄方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "hat_state": { <span class="comment">顶部方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "decor_state": { <span class="comment">装饰方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "planted": true 或 false (默认值) <span class="comment">可选，TBD</span>
   }
 }
-</pre>
-<pre class="file" id="玄武岩柱子的JSON格式">玄武岩柱子的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:basalt_columns"<span class="comment">玄武岩柱子</span>,
   "config": {
@@ -3721,21 +4210,19 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "height": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=1, maxBase=5, maxSpread=5) <span class="comment">高度</span>
   }
 }
-</pre>
-<pre class="file" id="三角洲的JSON格式">三角洲的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:delta_feature"<span class="comment">三角洲</span>,
   "config": {
     "contents": { <span class="comment">三角洲方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "rim": { <span class="comment">三角洲边缘方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
@@ -3743,45 +4230,116 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "rim_size": <a href="#均匀分布的整数">均匀分布的整数</a> (minBase=0, maxBase=8, maxSpread=8) <span class="comment">三角洲边缘尺寸</span>
   }
 }
-</pre>
-<pre class="file" id="下界岩斑纹的JSON格式">下界岩斑纹的JSON格式</pre>
-<pre>
+
 {
   "type": "minecraft:netherrack_replace_blobs"<span class="comment">下界岩斑纹</span>,
   "config": {
     "target": { <span class="comment">替换的目标方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "state": { <span class="comment">方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     },
     "radius": <a href="#均匀分布的整数">均匀分布的整数</a> <span class="comment">半径</span>
   }
 }
-</pre>
-<pre class="file" id="填充层的JSON格式">填充层的JSON格式</pre>
-<pre>
+
 {
-  "type": "minecraft:fill_layer"<span class="comment">填充层</span>,
+  "type": "minecraft:fill_layer", <span class="comment">填充层</span>
   "config": {
     "height": 整数, <span class="comment">高度</span>
     "state": { <span class="comment">方块</span>
       "Name": "方块命名空间ID",
-      "Properties": {
+      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
         "方块状态名": "方块状态值"
       }
     }
   }
 }
-</pre>
-<pre class="file" id="随机选择的JSON格式">随机选择的JSON格式</pre>
-<pre>
+
+{
+  "type": "minecraft:basalt_pillar"<span class="comment">玄武岩柱子</span>
+}
+
+{
+  "type": "minecraft:blue_ice"<span class="comment">蓝冰</span>
+}
+
+{
+  "type": "minecraft:bonus_chest"<span class="comment">出生奖励箱</span>
+}
+
+{
+  "type": "minecraft:chorus_plant"<span class="comment">紫颂植物</span>
+}
+
+{
+  "type": "minecraft:coral_claw"<span class="comment">珊瑚礁</span>
+}
+
+{
+  "type": "minecraft:coral_mushroom"<span class="comment">珊瑚礁</span>
+}
+
+{
+  "type": "minecraft:coral_tree"<span class="comment">珊瑚礁</span>
+}
+
+{
+  "type": "minecraft:desert_well"<span class="comment">沙漠水井</span>
+}
+
+{
+  "type": "minecraft:end_island"<span class="comment">末地岛</span>
+}
+
+{
+  "type": "minecraft:fossil"<span class="comment">化石</span>
+}
+
+{
+  "type": "minecraft:freeze_top_layer"<span class="comment">冰冻顶层</span>
+}
+
+{
+  "type": "minecraft:glowstone_blob"<span class="comment">荧石堆</span>
+}
+
+{
+  "type": "minecraft:ice_spike"<span class="comment">冰刺</span>
+}
+
+{
+  "type": "minecraft:kelp"<span class="comment">海带</span>
+}
+
+{
+  "type": "minecraft:monster_room"<span class="comment">地牢</span>
+}
+
+{
+  "type": "minecraft:no_bonemeal_flower"<span class="comment">不可由骨粉催生的花</span>
+}
+
+{
+  "type": "minecraft:no_op"<span class="comment">空白，用于替换已有地物</span>
+}
+
+{
+  "type": "minecraft:freeze_top_layer"<span class="comment">冰冻顶层</span>
+}
+
+{
+  "type": "minecraft:freeze_top_layer"<span class="comment">冰冻顶层</span>
+}
+
+<span class="comment">下面为地物修饰</span>
 {
   "type": "minecraft:random_selector"<span class="comment">随机选择</span>,
   "config": {
@@ -3813,9 +4371,9 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "feature_false": "命名空间ID" 或 <a href="#地物">地物</a>JSON对象 <span class="comment">地物</span>
   }
 }
-或
+
 {
-  "type": "minecraft:decorated_feature_configuration"<span class="comment">带装饰的地物</span>,
+  "type": "minecraft:decorated"<span class="comment">带装饰的地物</span>,
   "config": {
     "feature": "命名空间ID" 或 <a href="#地物">地物</a>JSON对象, <span class="comment">地物</span>
     "decorator": "命名空间ID" 或 <a href="#装饰物">装饰物</a>JSON对象 <span class="comment">装饰物</span>
@@ -3832,7 +4390,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
   "type": "minecraft:simple_state_provider"<span class="comment">简单情形</span> 或 "minecraft:rotated_block_provider"<span class="comment">可旋转</span>,
   "state": {
     "Name": "方块命名空间ID",
-    "Properties": {
+    "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
       "方块状态名": "方块状态值"
     }
   } 
@@ -3843,7 +4401,7 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
       "weight": 0~1 之间的数值, <span class="comment">权重</span>
       "data": {
         "Name": "方块命名空间ID",
-        "Properties": {
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
           "方块状态名": "方块状态值"
         }
       }
@@ -4170,8 +4728,17 @@ decorated
 </pre>
 
 <h3 id="结构地物">§2.12.6 结构地物</h3>
-<p><ruby>结构地物<rt>configured_structure_feature</rt></ruby>用于指定生物群系生成特定类型的结构以及结构的参数。结构地物文件为JSON文件，结构地物的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<h4 id="结构地物/JSON格式">JSON格式</h4>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/自定义世界生成#结构地物" class="wiki">结构地物</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Configured_structure_feature" class="wikien">Configured structure feature</a></li>
+</ul>
+
+<p>结构地物 (Structure feature) 指定特定类型的结构以及结构的参数，被调用于<a href="#生物群系">生物群系</a>JSON文件的 <code>starts</code>。</p>
+
 <pre class="file" id="结构地物JSON格式">结构地物JSON格式</pre>
 <pre>
 {
@@ -4258,8 +4825,18 @@ decorated
 
 
 <h3 id="拼图池">§2.12.8 拼图池</h3>
-<p>参考<a href="https://wiki.biligame.com/mc/拼图方块" class="wiki">拼图方块</a>，<a href="https://www.mcbbs.net/thread-1093331-1-1.html">拼图方块与拼图池教程</a>。<ruby>拼图池<rt>template_pool</rt></ruby>使用结构文件来生成结构，其中结构包含的拼图方块会工作以生成更复杂的结构。拼图池文件为JSON文件，拼图池的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<p>拼图方块是一个允许游戏使用较小模板生成结构的拼接方块</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/拼图方块" class="wiki">拼图方块</a></li>
+  <li><a href="https://wiki.biligame.com/mc/自定义世界生成#拼图池" class="wiki">拼图池</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Custom_world_generation#Jigsaw_pools" class="wikien">Jigsaw pools</a></li>
+  <li><a href="https://www.mcbbs.net/thread-1093331-1-1.html">拼图方块与拼图池教程</a></li>
+</ul>
+
+<p>拼图池 (Template pool) 使用结构文件来生成结构，其中结构包含的拼图方块会工作以生成更复杂的结构。拼图方块是一个允许游戏使用较小模板生成结构的拼接方块：</p>
 <ul>
   <li><code>name</code> 名称，该拼图方块的标记。</li>
   <li><code>pool</code> 目标池，指的是拼图方块将要使用的拼图池。</li>
@@ -4299,8 +4876,16 @@ decorated
 }</pre>
 
 <h3 id="处理器列表">§2.12.9 处理器列表</h3>
-<p>处理器列表用于指定拼图方块生成结构之后拼图方块本身的处理方式。处理器列表文件为JSON文件，处理器列表的命名空间ID<code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code>对应的文件为 <code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code>。</p>
-<h4 id="处理器列表/JSON格式">JSON格式</h4>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/processor_list/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/自定义世界生成#处理器列表" class="wiki">处理器列表</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Custom_world_generation#Processor_lists" class="wikien">Processor lists</a></li>
+</ul>
+<p>处理器列表 (Processor list) 用于指定拼图方块生成结构之后拼图方块本身的处理方式。</p>
+
 <pre class="file" id="处理器列表JSON格式">处理器列表JSON格式</pre>
 <pre>
 {<span class="comment">TBD</span>
@@ -4314,7 +4899,7 @@ decorated
           "location_predicate": <a href="#方块处理条件">方块处理条件</a>JSON对象, <span class="comment">结构生成前的方块处理条件</span>
           "output_state": { <span class="comment">条件满足时放置的方块</span>
             "Name": "方块命名空间ID",
-            "Properties": {
+            "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
               "方块状态名": "方块状态值"
             }
           }
@@ -4351,7 +4936,7 @@ decorated
   "predicate_type": "blockstate_match", <span class="comment">匹配方块状态</span>
   "block_state": {
     "Name": "方块命名空间ID",
-    "Properties": {
+    "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
       "方块状态名": "方块状态值"
     }
   }
@@ -4408,8 +4993,8 @@ decorated
 
 
 <h1 id="资源包">§3 资源包</h1>
-<p>参考<a href="https://wiki.biligame.com/mc/资源包">资源包</a>，<a href="https://wiki.biligame.com/mc/教程/制作资源包" class="wiki">教程/制作资源包</a>。<ruby>资源包<rt>resourcepacks</rt></ruby>可以极大地提升原版模组的美观程度，因此现在大部分原版模组都需要使用配套的资源包。资源包文件层次为</p>
-<pre class="file" id="resourcepacks/<i>资源包名称</i>或<i>资源包名称</i>.zip/">resourcepacks/<i>资源包名称</i>或<i>资源包名称</i>.zip/</pre>
+<p>参考<a href="https://wiki.biligame.com/mc/资源包">资源包</a>，<a href="https://wiki.biligame.com/mc/教程/制作资源包" class="wiki">教程/制作资源包</a>。资源包 (resourcepacks) 可以极大地提升原版模组的美观程度，因此现在大部分原版模组都需要使用配套的资源包。资源包文件层次为</p>
+<pre class="file">resourcepacks/<i>资源包名称</i>或<i>资源包名称</i>.zip/</pre>
 <pre>
 pack.mcmeta
 pack.png
@@ -4435,11 +5020,15 @@ assets
       <i>颗粒</i>.json
     shaders
       post
-        post.json
+        <i>后处理着色器渲染管线</i>.json
       program
-        <i>片段着色器</i>.fsh
         <i>着色器程序</i>.json
         <i>顶点着色器</i>.vsh
+        <i>片段着色器</i>.fsh
+      core
+        <i>核心着色器程序</i>.json
+        <i>顶点着色器</i>.vsh
+        <i>片段着色器</i>.fsh
     texts
       <i>文本</i>.txt
 </pre>
@@ -4491,7 +5080,7 @@ assets
 <p>资源包可以包含一个 <a href="vanilla/pack.png"><code>pack.png</code></a>，它是大小为 <code>16×16</code> 的图片，用于在资源包菜单中显示。</p>
 
 <h2 id="资源包/命名空间">§3.2 命名空间</h2>
-<p><ruby>命名空间<rt>namespace</rt></ruby>为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。资源包下可以有多个命名空间，如果不同资源包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的模型材质只需在你的资源包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
+<p>命名空间 (Namespace) 为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。资源包下可以有多个命名空间，如果不同资源包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的模型材质只需在你的资源包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
 
 
 <table><thead><tr><th>类型</th><th>调用格式(命名空间ID)</th><th>文件路径</th></tr></thead><tbody>
@@ -4520,51 +5109,60 @@ assets
 <p>若命名空间为 <code>minecraft</code>，则可直接省略 <code>minecraft:</code>。</p>
 <p>建议和数据包使用相同的命名空间名。</p>
 
-<h2 id="语言文件">§3.3 <ruby>语言文件<rt>lang</rt></ruby></h2>
-<p>语言文件可以放在任一命名空间下的 <code>lang</code> 文件夹下。语言文件中可以使用样式代码来实现彩色文字。建议至少支持中文简体(<code>zh_cn</code>)、中文繁体(<code>zh_tw</code>)和英文(<code>en_us</code>)三种语言。建议所有物品、进度、游戏提示等文本均采用 <code>translate</code> 文本。例如：</p>
-<pre class="file">assets/命名空间/lang/zh_cn.json</pre>
+<h2 id="语言文件">§3.3 语言文件</h2>
+<table><tbody>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/lang/<i>语言代码</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/资源包#语言" class="wiki">语言</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Resource_Pack#Language" class="wikien">Language</a></li>
+</ul>
+
+<p>语言文件 (Lang) 可以放在任一命名空间下的 <code>lang</code> 文件夹下。原版的语言文件除了 <code>en_us.json</code> 位于原版资源包外，其它的语言文件位于<a href="#资源文件">资源文件夹</a>下。</p>
+<p>语言文件中可以使用样式代码来实现彩色文字，但我们更建议使用<a href="#原始JSON文本格式">原始JSON文本</a>来实现，以避免在铁砧上重命名时出现多余的字符。建议至少支持简体中文(<code>zh_cn</code>)、繁体中文(<code>zh_tw</code>)和英文(<code>en_us</code>)三种语言，建议所有物品、进度、游戏提示等文本均采用 <code>translate</code> 文本。</p>
+<pre class="file">assets/custom/lang/zh_cn.json</pre>
 <pre>
 {
-  "item.ex.magnet":"r磁铁",
+  "item.ex.magnet":"磁铁",
   ...
 }
 </pre>
-<pre class="file">assets/命名空间/lang/en_us.json</pre>
+<pre class="file">assets/custom/lang/en_us.json</pre>
 <pre>
 {
-  "item.ex.magnet":"rMagnet",
+  "item.ex.magnet":"Magnet",
   ...
 }
 </pre>
 
 <p>也可以用此方法修改物品的默认名称等内容。例如：</p>
-<pre class="file">assets/命名空间/lang/zh_cn.json</pre>
+<pre class="file">assets/custom/lang/zh_cn.json</pre>
 <pre>
 {
-  "item.minecraft.potion.effect.empty": "r神秘药水",
+  "item.minecraft.potion.effect.empty": "神秘药水",
   ...
 }
 </pre>
 <p class="noindent">则未知的药水的名称不再是<code>不可合成的药水</code>，而是<code>神秘药水</code>。</p>
 
 <p><code>translate</code> 还有个有趣但不一定实用的用法。</p>
-<pre class="file">assets/命名空间/lang/zh_cn.json</pre>
+<pre class="file">assets/custom/lang/zh_cn.json</pre>
 <pre>
 {
-  "The":"a原版模组《更多的合成》已成功加载,",      
+  "The":"原版模组《更多的合成》已成功加载,",      
   "resourcepack":"版本",
-  "does":"a1.9.1a.",
-  "not":"a更多内容请",
-  "Install":"e点击此处进入wiki.",
-  "correctly":"a作者:",
-  "or":"aruhuasiyu,",
-  "Launch":"aRubberTree",
+  "does":"1.9.1a.",
+  "not":"更多内容请",
+  "Install":"点击此处进入wiki.",
+  "correctly":"作者:",
+  "or":"ruhuasiyu,",
+  "Launch":"RubberTree",
   ...
 }
 </pre>
 <p class="noindent">则在数据包中输出相应文本时，若无资源包或资源包错误，则会显示 <code>The resourcepack does not Installl correctly or Launch</code> 以提示玩家资源包未加载。</p>
 
-<h2 id="自定义物品模型">§3.4 <ruby>自定义物品模型<rt>CustomModelData</rt></ruby></h2>
+<h2 id="自定义物品模型">§3.4 自定义物品模型</h2>
 <p>由于1.14添加了 <code>CustomModelData</code>，我们可以拥有几乎无穷多的物品模型。为了便于他人整合和解决冲突，建议将 <code>CustomModelData</code> 的前四位固定以确定模组的独有区段，后四位作为模组不同模型的值，例如 <code>12340000-12349999</code> 之间。此外，建议 <code>CustomModelData</code> 不要超过 <code>16777216</code>，原因见 <a href="https://www.mcbbs.net/thread-867051-1-1.html">custom_model_data 的使用限制</a>。</p>
 
 <p>我们会给出一个例子来说明实现流程。首先在 <code>minecraft</code> 下的胡萝卜钓竿物品模型中添加额外的模型 (<code>overrides</code>)，并引用我们自定义的模型。</p>
@@ -4597,8 +5195,16 @@ assets
 </pre>
 <p class="noindent">最后绘制材质，并将其保存为 <code>assets/craftingpp/textures/element/red_force_of_fire.png</code>。这样我们就设计好了这个物品模型，在 <a href="#物品设计">§5 物品设计</a>我们将会说明如何使用该模型。</p>
 
-<h2 id="模型">§3.5 <ruby>模型<rt>models</rt></ruby></h2>
-<p>模型是一个描述形状和指定材质的JSON文件。模型可以理解成一些可以旋转的长方体的拼接，每个长方体的若干个面贴上了材质图案。长方体的厚度可以为0，也可以只有若干个面。</p>
+<h2 id="模型">§3.5 模型</h2>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/models/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/模型" class="wiki">模型</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Models" class="wikien">Models</a></li>
+</ul>
+<p>模型 (Model) 是一个描述形状和指定材质的JSON文件。模型可以理解成一些可以旋转的长方体的拼接，每个长方体的若干个面贴上了材质图案。长方体的厚度可以为0，也可以只有若干个面。</p>
 <p>只有 <code>minecraft</code> 命名空间下特定名称的文件才对应特定的物品/方块模型，例如 <code>minecraft/models/item/carrot_on_a_stick.json</code> 表示胡萝卜钓竿的物品模型，<code>minecraft/models/block/stone.json</code> 表示石头的方块模型。</p>
 <p>我们通过几个例子来理解下模型文件的语法。</p>
 <pre class="file" id="minecraft/models/item/handheld">minecraft/models/item/handheld.json</pre>
@@ -4854,15 +5460,25 @@ assets
 <p>方块状态我们一般不会用到，而且语法比较简单，可直接参阅 wiki，这里不做赘述。</p>
 
 <h2 id="材质">§3.6 材质</h2>
-<p><ruby>材质<rt>textures</rt></ruby>的绘制需要用到诸如 Photoshop 之类的画图软件，具体请参考材质版或网络上的相关教程。</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/textures/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/资源包#材质" class="wiki">材质</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Resource_Pack#Textures" class="wikien">Textures</a></li>
+</ul>
+<p>材质 (Texture) 的绘制需要用到诸如 Photoshop 之类的画图软件，具体请参考材质版或网络上的相关教程。</p>
 <p>当模型调用的材质不存在时，会显示紫黑色的材质。如果模型是正确的，你仍然可以看出正确的模型形状。</p>
-<p>材质可以是动态的。动态材质需要高为宽的整数倍。当材质的高度为宽度的 <code>x</code> 倍时，可以有 <code>x</code> 帧，分别对应材质自上而下均匀划分的 <code>x</code> 个块，从 <code>0</code> 开始。还需要一个 <code>mcmeta</code> 文件确定动画，例如 <code>foo.png</code> 对应</p>
+<p>材质可以是动态的。动态材质需要高为宽的整数倍，除非指定了 <code>width</code> 和 <code>height</code>。当材质的高度为宽度的 <code>x</code> 倍时，可以有 <code>x</code> 帧，分别对应材质自上而下均匀划分的 <code>x</code> 个块，从 <code>0</code> 开始。还需要一个 <code>mcmeta</code> 文件确定动画，例如 <code>foo.png</code> 对应</p>
 <pre class="file" id="foo.png.mcmeta">foo.png.mcmeta</pre>
 <pre>
 {
-    "animation": {
+  "animation": {
     "interpolate": true 或 false, <span class="comment">可选，是否需要插值过渡，默认为 false</span>
     "frametime": 正整数, <span class="comment">每一帧的默认时长，单位刻</span>
+    "width": 数值, <span class="comment">每一帧的宽度所占的比例，在帧不是正方形时需要该项来指定宽度</span>
+    "height": 数值, <span class="comment">每一帧的高度所占的比例，在帧不是正方形时需要该项来指定高度</span>
     "frames": [ <span class="comment">指定播放帧的次序</span>
       0, <span class="comment">帧的序号</span>
       1,
@@ -4871,71 +5487,120 @@ assets
       {"index":2,"time": 2}, <span class="comment">单独指定这一帧的序号和时长，单位刻</span>
       3
     ]
-    }
+  }
 }
 </pre>
 
 <h2 id="音效">§3.7 音效</h2>
-<p><ruby>音效<rt>sounds</rt></ruby>文件为 <code>assets/命名空间/sounds</code> 文件夹下的 <code>ogg</code> 文件，它需要JSON文件 <code>assets/命名空间/sounds.json</code> 来调用。例如：</p>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>音效文件路径</th><td><code><i>命名空间</i>/sounds/<i>路径</i>/<i>文件名</i>.ogg</code></td></tr>
+  <tr><th>sounds.json</th><td><code><i>命名空间</i>/sounds.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/资源包#音效" class="wiki">音效</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Resource_Pack#Sounds" class="wikien">Sounds</a></li>
+  <li><a href="https://wiki.biligame.com/mc/Sounds.json" class="wiki">sounds.json</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Sounds.json" class="wikien">sounds.json</a></li>
+</ul>
+<p>音效 (Sound) 文件为 <code>assets/<i>命名空间</i>/sounds</code> 文件夹下的 <code>ogg</code> 文件，它需要JSON文件 <code>assets/<i>命名空间</i>/sounds.json</code> 来调用。音效文件会覆盖之前资源包的同名文件，但 <code>sounds.json</code> 默认会追加到上一个资源包中的相应内容。原版的音效文件和 <code>sounds.json</code> 并不位于<a href="#游戏本体">游戏本体</a>资源包，而是位于<a href="#资源文件">资源文件夹</a>下。</p>
+<pre class="file" id="音效JSON格式">音效JSON格式</pre>
+<pre>
+{
+  "声音事件名": { <span class="comment">声音事件名通常是按照类别以点(.)分割的</span>
+    "replace": true 或 false (默认值), <span class="comment">替换还是追加之间的资源包中 sounds.json 的定义</span>
+    "subtitle": "字符串", <span class="comment">可选，当游戏中开启了“显示字幕”时会在该声音事件被播放时将该字符串通过语言文件翻译为声音字幕</span>
+    "sounds": [ <span class="comment">此声音事件触发时会随机选择列表中一个音效来播放</span>
+      "音效文件命名空间ID"
+    或
+      {
+        "type": "sound" (默认值) 或 "event", <span class="comment">可选，指定 name 的含义</span>
+        "name": "音效文件命名空间ID" 或 "声音事件名", <span class="comment">type 为 sound 时为音效文件命名空间ID，type 为 event 时为声音事件名</span>
+        "volume": 0~1 之间的数值, <span class="comment">可选，默认为1，该音效的音量</span>
+        "pitch": 数值, <span class="comment">可选，默认为1，该音效的音调</span>
+        "weight": 数值, <span class="comment">可选，默认为1，该音效被选中的权重</span>
+        "stream": true 或 false (默认值), <span class="comment">可选，是否以流式播放，当声音较长时设为true可避免卡顿，例如原版音乐和唱片</span>
+        "attenuation_distance": 数值, <span class="comment">可选，默认为16，基于距离的音效大小衰减率，用于传送门、信标和潮涌核心</span>
+        "preload": true 或 false (默认值), <span class="comment">可选，是否在加载资源包时就加载该音效，而不是在播放音效的时候再加载，水下环境音效为 true</span>
+      }
+    ]
+  }
+}
+
+</pre>
+
+<p>例：</p>
 <pre class="file" id="assets/rf/sounds">assets/rf/sounds.json</pre>
 <pre>
 {
-  "juicer": {
-    "category": "block",
+  "item.rf.juicer": {
+    "subtitle": "item.rf.juicer",
     "sounds": [
       "rf:juicer"
     ]
   },
-  "swing": {
+  "item.rf.swing": {
     "sounds": [
       "rf:lightsaber/swing1",
       "rf:lightsaber/swing2",
       "rf:lightsaber/swing3",
       "rf:lightsaber/swing4"
-    ],
-    "category": "hostile"
+    ]
   }
 }
 </pre>
-<table><thead><tr><th>含义</th><th>键</th><th>说明</th></tr></thead><tbody>
-<tr>
-  <th>替换</th>
-  <td><code>[自定义名称].replace</code></td>
-  <td>是否覆盖原有的声音信息，缺省为<code>false</code>，即不覆盖。</td>
-</tr>
-<tr>
-  <th>声音列表</th>
-  <td><code>[自定义名称].sounds</code></td>
-  <td>触发时会随机选择列表中一个播放。</td>
-</tr>
-<tr>
-  <th>字幕</th>
-  <td><code>[自定义名称].subtitle</code></td>
-  <td>播放声音时显示的字幕。</td>
-</tr>
-<tr>
-  <th>种类</th>
-  <td><code>[自定义名称].category</code></td>
-  <td>在<code>选项->音乐和声音中</code>可以选择开启/关闭特定种类的声音。</td>
-</tr>
-</tbody></table>
+<pre class="file" id="assets/rf/lang/zh_cn">assets/rf/lang/zh_cn.json</pre>
+<pre>
+{
+  "item.rf.juicer": "饮用果汁",
+  "item.rf.swing": "挥出光剑"
+}
+</pre>
 
-<h2 id="字体">§3.8 <ruby>字体<rt>font</rt></ruby></h2>
-<p>我们着重介绍字体图片。添加下述路径文件可以追加/覆盖特殊字符的显示：</p>
-<pre class="file" id="assets/minecraft/font/default">assets/minecraft/font/default.json</pre>
+<h2 id="字体">§3.8 字体 </h2>
+<table><tbody>
+  <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
+  <tr><th>文件路径</th><td><code><i>命名空间</i>/font/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/资源包#字体" class="wiki">字体</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Resource_Pack#Fonts" class="wikien">Fonts</a></li>
+  <li><a href="https://www.mcbbs.net/thread-835539-1-1.html">【1.13】如何添加图片?</a></li>
+  <li><a href="https://www.bilibili.com/video/av67508247">字体黑科技 —— 潜影盒内容预览</a></li>
+</ul>
+<p>字体 (Font) 提供了每个字符对应的资源位置和额外信息，其中 <code>minecraft:default</code> 给出了默认字体的样式，而 <code>minecraft:alt</code> 给出了附魔台所用的默认字体。在<a href="#原始JSON文本格式">原始JSON文本</a>中，若未指定字体则为 <code>minecraft:default</code> 的字体样式。</p>
+
+<pre class="file" id="字体JSON格式">字体JSON格式</pre>
+<pre>
+{
+  "providers": [
+    {
+      "type": "bitmap", <span class="comment">可以为 bitmap (位图)，legacy_unicode (旧版Unicode字体)，ttf (TrueType字体)，我们只考虑第一种</span>
+      "file": "minecraft:font/mana0.png", <span class="comment">这些字符的资源位置，需要包含文件扩展名</span>
+      "chars": [ <span class="comment">一个字符串列表，列表所有元素的字符数必须相同</span>
+        "\ue010" <span class="comment">每一项元素对应材质等距分割的一行，每一项元素中的字符对应等距的一列</span>
+      ],
+      "height": 91, <span class="comment">可选，该字符的显示的像素高度，可以为负</span>
+      "ascent": 85 <span class="comment">该字符向上移动的像素高度，这个值会使得字符的显示结果出现垂直偏移</span>
+    }
+  ]
+}
+</pre>
+<p>例：添加新的字体，对字符 <code>\ue010</code> 和 <code>\ue011</code> 设置新材质。</p>
+<pre class="file" id="assets/custom/font/default">assets/custom/font/default.json</pre>
 <pre>
 {
   "providers": [
     {
       "type": "bitmap",
-      "file": "minecraft:font/mana0.png",
+      "file": "custom:font/mana0.png",
       "height": 91,
       "ascent": 85,
       "chars": ["\ue010"]
     },
     {
       "type": "bitmap",
-      "file": "minecraft:font/mana1.png",
+      "file": "custom:font/mana1.png",
       "height": 91,
       "ascent": 85,
       "chars": ["\ue011"]
@@ -4943,50 +5608,344 @@ assets
   ]
 }
 </pre>
-<p>例子中我们追加了字符 <code>\ue010</code> 和 <code>\ue011</code> 的材质。</p>
-<table><thead><tr><th>含义</th><th>键</th><th>说明</th></tr></thead><tbody>
-<tr>
-  <th>类型</th>
-  <td><code>type</code></td>
-  <td><code>legacy_unicode</code> 指附魔台文字，我们一般设置为 <code>bitmap</code> 即可。</td>
-</tr>
-<tr>
-  <th>字符列表</th>
-  <td><code>chars</code></td>
-  <td>每个字符串可以包含多个字符。</td>
-</tr>
-<tr>
-  <th>材质文件</th>
-  <td><code>file</code></td>
-  <td>该字符列表所用的材质，将该文件划分为若干行以与字符列表的每个字符串一一对应。</td>
-</tr>
-<tr>
-  <th>字符高度</th>
-  <td><code>height</code></td>
-  <td>该字符列表字符的高度。</td>
-</tr>
-<tr>
-  <th>字符重心</th>
-  <td><code>ascent</code></td>
-  <td>该字符图案向上移动的长度。</td>
-</tr>
-</tbody></table>
+<pre class="file">命令</pre>
+<pre>
+tellraw @s {"text": "\ue010\ue011", "font": "custom:default"}
+</pre>
+
 <p>我们可以用 <code>\u</code> 开头来表示不容易打出的字符，参考<a href="https://unicode-table.com">Unicode® Character Table</a>。直接使用字符也是可以的。</p>
-<p>利用这种方式，我们可以做到在成书、玩家快捷栏上方、聊天区域、物品名称等地方显示图片，见<a href="https://www.mcbbs.net/thread-835539-1-1.html">【1.13】如何添加图片?</a>。如果可以包含了使用负长度的空格的字体（需要 Nvidia 显卡以支持），还可以实现更为炫酷的效果，例如字体黑科技 —— 潜影盒内容预览：<a href="https://www.bilibili.com/video/av67508247">https://www.bilibili.com/video/av67508247</a>。</p>
+<p>利用这种方式，我们可以做到在成书、玩家快捷栏上方、聊天区域、物品名称等地方显示图片。利用负长度空格和垂直偏移，我们可以将图片显示在屏幕的任一位置。</p>
+<p>例：我们在自定义字体中将0~9和:的材质放大了一倍，并将其移动到左上角，使得其显示比通常位置高。然后利用负宽度空格将字符位置重新定位到快捷栏左侧，显示第二行文字。</p>
+<pre class="file" id="assets/cpp/font/default">assets/cpp/font/default.json</pre>
+<pre>
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "cpp:font/space.png",
+      "ascent": -32768,
+      "height": 297,
+      "chars": ["A"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/immunized_from_poison.png",
+      "height": 18,
+      "ascent": 18,
+      "chars": ["C"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/immunized_from_blindness.png",
+      "height": 18,
+      "ascent": 18,
+      "chars": ["D"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/immunized_from_mining_fatigue.png",
+      "height": 18,
+      "ascent": 18,
+      "chars": ["E"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/ascii1.png",
+      "height": 18,
+      "ascent": 18,
+      "chars": ["\uF910\uF911\uF912\uF913\uF914\uF915\uF916\uF917\uF918\uF919\uF91A\uF91B\uF91C\uF91D\uF91E\uF91F"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/immunized_from_wither.png",
+      "height": 8,
+      "ascent": 8,
+      "chars": ["F"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/immunized_from_darkness.png",
+      "height": 8,
+      "ascent": 8,
+      "chars": ["G"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/weight_index.png",
+      "height": 8,
+      "ascent": 8,
+      "chars": ["H"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/chain_icon.png",
+      "height": 8,
+      "ascent": 8,
+      "chars": ["I"]
+    },
+    {
+      "type": "bitmap",
+      "file": "cpp:font/space.png",
+      "ascent": -32768,
+      "height": -191,
+      "chars": ["\uF81A"]
+    }
+  ]
+}
+</pre>
+<pre class="file">cpp:misc/info</pre>
+<pre>
+data remove storage cpp:_ title
+setblock ~ 255 ~ oak_sign
+scoreboard players operation #t cppValue = @s cppVacBli
+scoreboard players operation #t cppValue /= #3600 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacBli
+scoreboard players operation #t cppValue /= #600 cppValue
+scoreboard players operation #t cppValue %= #6 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacBli
+scoreboard players operation #t cppValue /= #60 cppValue
+scoreboard players operation #t cppValue %= #10 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacBli
+scoreboard players operation #t cppValue /= #10 cppValue
+scoreboard players operation #t cppValue %= #6 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacBli
+scoreboard players operation #t cppValue %= #10 cppValue
+function cpp:misc/number_to_ascii
+
+scoreboard players operation #t cppValue = @s cppVacMin
+scoreboard players operation #t cppValue /= #3600 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacMin
+scoreboard players operation #t cppValue /= #600 cppValue
+scoreboard players operation #t cppValue %= #6 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacMin
+scoreboard players operation #t cppValue /= #60 cppValue
+scoreboard players operation #t cppValue %= #10 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacMin
+scoreboard players operation #t cppValue /= #10 cppValue
+scoreboard players operation #t cppValue %= #6 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacMin
+scoreboard players operation #t cppValue %= #10 cppValue
+function cpp:misc/number_to_ascii
+
+scoreboard players operation #t1 cppValue = @s cppVacWit
+scoreboard players operation #t1 cppValue /= #3600 cppValue
+scoreboard players operation #t2 cppValue = @s cppVacWit
+scoreboard players operation #t2 cppValue /= #600 cppValue
+scoreboard players operation #t2 cppValue %= #6 cppValue
+scoreboard players operation #t3 cppValue = @s cppVacWit
+scoreboard players operation #t3 cppValue /= #60 cppValue
+scoreboard players operation #t3 cppValue %= #10 cppValue
+scoreboard players operation #t4 cppValue = @s cppVacWit
+scoreboard players operation #t4 cppValue /= #10 cppValue
+scoreboard players operation #t4 cppValue %= #6 cppValue
+scoreboard players operation #t5 cppValue = @s cppVacWit
+scoreboard players operation #t5 cppValue %= #10 cppValue
+data modify block ~ 255 ~ Text1 set value '[{"score":{"name":"#t1","objective":"cppValue"}},":",{"score":{"name":"#t2","objective":"cppValue"}},{"score":{"name":"#t3","objective":"cppValue"}},":",{"score":{"name":"#t4","objective":"cppValue"}},{"score":{"name":"#t5","objective":"cppValue"}}]'
+
+scoreboard players operation #t1 cppValue = @s cppVacDar
+scoreboard players operation #t1 cppValue /= #3600 cppValue
+scoreboard players operation #t2 cppValue = @s cppVacDar
+scoreboard players operation #t2 cppValue /= #600 cppValue
+scoreboard players operation #t2 cppValue %= #6 cppValue
+scoreboard players operation #t3 cppValue = @s cppVacDar
+scoreboard players operation #t3 cppValue /= #60 cppValue
+scoreboard players operation #t3 cppValue %= #10 cppValue
+scoreboard players operation #t4 cppValue = @s cppVacDar
+scoreboard players operation #t4 cppValue /= #10 cppValue
+scoreboard players operation #t4 cppValue %= #6 cppValue
+scoreboard players operation #t5 cppValue = @s cppVacDar
+scoreboard players operation #t5 cppValue %= #10 cppValue
+data modify block ~ 255 ~ Text2 set value '[{"score":{"name":"#t1","objective":"cppValue"}},":",{"score":{"name":"#t2","objective":"cppValue"}},{"score":{"name":"#t3","objective":"cppValue"}},":",{"score":{"name":"#t4","objective":"cppValue"}},{"score":{"name":"#t5","objective":"cppValue"}}]'
+
+execute as @s[scores={cppFat=..-100}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat0"}'
+execute as @s[scores={cppFat=-99..-50}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat1"}'
+execute as @s[scores={cppFat=-49..49}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat2"}'
+execute as @s[scores={cppFat=50..100}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat3"}'
+execute as @s[scores={cppFat=100..}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat4"}'
+
+title @s actionbar [{"text":"C ","font":"cpp:default"},{"storage":"cpp:_","nbt":"title[0]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[1]","interpret":true},{"storage":"cpp:_","nbt":"title[2]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[3]","interpret":true},{"storage":"cpp:_","nbt":"title[4]","interpret":true},"    D ",{"storage":"cpp:_","nbt":"title[5]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[6]","interpret":true},{"storage":"cpp:_","nbt":"title[7]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[8]","interpret":true},{"storage":"cpp:_","nbt":"title[9]","interpret":true},"    E ",{"storage":"cpp:_","nbt":"title[10]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[11]","interpret":true},{"storage":"cpp:_","nbt":"title[12]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[13]","interpret":true},{"storage":"cpp:_","nbt":"title[14]","interpret":true},"    \uF81AF ",{"block":"~ 255 ~","nbt":"Text1","interpret":true,"font":"default"},{"text":"    G ","font":"cpp:default"},{"block":"~ 255 ~","nbt":"Text2","interpret":true,"font":"default"},{"text":"    H ","font":"cpp:default"},{"score":{"name":"@s","objective":"cppFat"},"font":"default"},{"storage":"cpp:_","nbt":"title[15]","interpret":true,"font":"default"}]
+setblock ~ 255 ~ air
+</pre>
+<pre class="file" id="cpp/functions/misc/number_to_ascii">cpp:misc/number_to_ascii</pre>
+<pre>
+execute if score #t cppValue matches 0 run data modify storage cpp:_ title append value '{"text":"\\uF910","font":"cpp:default"}'
+execute if score #t cppValue matches 1 run data modify storage cpp:_ title append value '{"text":"\\uF911","font":"cpp:default"}'
+execute if score #t cppValue matches 2 run data modify storage cpp:_ title append value '{"text":"\\uF912","font":"cpp:default"}'
+execute if score #t cppValue matches 3 run data modify storage cpp:_ title append value '{"text":"\\uF913","font":"cpp:default"}'
+execute if score #t cppValue matches 4 run data modify storage cpp:_ title append value '{"text":"\\uF914","font":"cpp:default"}'
+execute if score #t cppValue matches 5 run data modify storage cpp:_ title append value '{"text":"\\uF915","font":"cpp:default"}'
+execute if score #t cppValue matches 6 run data modify storage cpp:_ title append value '{"text":"\\uF916","font":"cpp:default"}'
+execute if score #t cppValue matches 7 run data modify storage cpp:_ title append value '{"text":"\\uF917","font":"cpp:default"}'
+execute if score #t cppValue matches 8 run data modify storage cpp:_ title append value '{"text":"\\uF918","font":"cpp:default"}'
+execute if score #t cppValue matches 9 run data modify storage cpp:_ title append value '{"text":"\\uF919","font":"cpp:default"}'
+</pre>
 
 <h2 id="着色器">§3.9 着色器</h2>
-<p><ruby>着色器<rt>shaders</rt></ruby>可以对游戏内的视觉效果进行修改，目前可以通过</p>
-<ul>
-  <li>旁观特定生物，可使用 <code>/spectate</code> 命令强制旁观；</li>
-  <li>屏幕中有发光的实体</li>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/资源包#着色器" class="wiki">着色器</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Shaders" class="wikien">Shaders</a></li>
+  <li><a href="https://www.mcbbs.net/thread-916150-1-1.html">原版着色器指导</a></li>
+  <li><a href="https://www.mcbbs.net/thread-917679-1-1.html">几个原版着色器示例</a></li>
+  <li><a href="https://www.mcbbs.net/thread-863730-1-1.html">原版资源包着色器与动画研究心得</a></li>
+  <li><a href="https://www.mcbbs.net/thread-1056196-1-1.html">不会有人看的深度缓冲着色器分析&用途</a></li>
+  <li><a href="https://www.mcbbs.net/thread-1181123-1-1.html">核心着色器浅析</a></li>
 </ul>
-<p class="noindent">两种情形来达成。着色器文件为位于 <code>assets/minecraft/shaders/program</code> 下方的 <code>fsh</code> 文件，具体用法可参考<a href="https://www.mcbbs.net/thread-916150-1-1.html">原版着色器指导</a>和<a href="https://www.mcbbs.net/thread-917679-1-1.html">几个原版着色器示例</a>。</p>
+<p>着色器 (Shader) 用于描绘如何渲染游戏，包含后处理着色器和核心着色器。</p>
 
-<h2 id="颗粒">§3.10 颗粒</h2>
-TBD
+<h3 id="后处理着色器">§3.9.1 后处理着色器</h3>
+<table><tbody>
+  <tr><th>后处理着色器渲染管线文件</th><td><code>minecraft/shaders/post/<i>文件名</i>.json</code></td></tr>
+  <tr><th>着色器程序文件</th><td><code>minecraft/shaders/program/<i>文件名</i>.json</code></td></tr>
+  <tr><th>顶点着色器文件</th><td><code>minecraft/shaders/program/<i>文件名</i>.vsh</code></td></tr>
+  <tr><th>片段着色器文件</th><td><code>minecraft/shaders/program/<i>文件名</i>.fsh</code></td></tr>
+</tbody></table>
+<p>后处理着色器会在游戏已经渲染好画面以后再起效，它们能够接受整个屏幕的像素作为输入，然后逐像素地输出。除了一些有限的特例以外，着色器所能接受到的唯一数据就是正显示在屏幕上的内容。我们只能通过在资源包替换 <code>minecraft/shaders/post/<i>文件名</i>.json</code> 下的下述文件来修改：</p>
+<ul>
+  <li><code>creeper.json</code> 将在以苦力怕视角旁观时启用；</li>
+  <li><code>invert.json</code> 将在以末影人视角旁观时启用；</li>
+  <li><code>spider.json</code> 将在以蜘蛛视角旁观时启用；</li>
+  <li><code>entity_outline.json</code> 将在屏幕中有具有发光状态效果的实体时启用；</li>
+  <li><code>transparency.json</code> 将在玩家启用了“极佳”图像品质时启用。</li>
+</ul>
 
-<h2 id="文本">§3.11 文本</h2>
-TBD
+<p>在后处理着色器渲染管线中，除了玩家自定义的缓冲层，系统还预设了</p>
+<ul>
+  <li>为发光着色器准备的、预先填充好的特殊缓冲层：<code>minecraft:main</code> (没有水、方块实体和其他一些东西) 和 <code>final</code> (纯色的实体，颜色是该实体所在队伍的颜色)；</li>
+  <li>为实体视角着色器准备的、预先填充好的特殊缓冲层：<code>minecraft:main</code> (所有内容都已渲染完成)。</li>
+</ul>
+<p>当屏幕渲染完成时，若玩家处于上述5种情形，则会对调用相应的后处理着色器渲染管线文件来依次对缓冲层进行着色器程序操作，并最终返回到缓冲层 <code>minecraft:main</code>。</p>
+
+<pre class="file" id="后处理着色器渲染管线JSON格式">后处理着色器渲染管线JSON格式</pre>
+<pre>
+{
+  "targets": [ <span class="comment">缓冲层</span>
+    "字符串" <span class="comment">使用默认窗口高度和宽度</span>
+  或
+    {
+      "name": "字符串",
+      "width": 整数, <span class="comment">宽度</span>
+      "height": 整数 <span class="comment">高度</span>
+    }
+  ],
+  "passes": [
+    {
+      "name": "prog1", <span class="comment">着色器程序</span>
+      "intarget": "minecraft:main", <span class="comment">输入缓冲层</span>
+      "outtarget": "foo" <span class="comment">输出缓冲层</span>
+    },
+    {
+      "name": "prog2",
+      "intarget": "foo",
+      "auxtargets": [ <span class="comment">为着色器程序提供缓冲层或图片</span>
+        {
+          "name": "字符串", <span class="comment">该参数名，以便着色器程序能访问它</span>
+          "id": "字符串", <span class="comment">由 targets 定义的缓冲区，或者 assets/<i>命名空间</i>/textures/effect 下的材质(使用命名空间ID来引用)</span>
+          "width": 整数, <span class="comment">如果引用的是材质，该项必须，指材质的宽度</span>
+          "height": 整数, <span class="comment">如果引用的是材质，该项必须，指材质的高度</span>
+          "bilinear": true 或 false <span class="comment">如果引用的是材质，该项必须，指材质的缩放算法为双线性还是邻近</span>
+        }
+      ],
+      "outtarget": "bar"
+    },
+    {
+      "name": "blit", <span class="comment">blit 指仅复制缓冲层内容而不做任何修改</span>
+      "uniforms": { <span class="comment">为着色器程序提供一个浮点数数组</span>
+        {
+          "name": "字符串", <span class="comment">将要传递的参数名</span>
+          "values": 数值
+      },
+      "intarget": "bar",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}
+</pre>
+
+<p>我们可以在 <code>minecraft/shaders/program</code> 文件夹下创建自定义名称的着色器程序文件。其中顶点着色器会对每个顶点起效，将顶点的位置作为输入，并产生一个经过变换的位置作为输出。片段着色器会对每个像素起效，并逐像素产生输出层。</p>
+<pre class="file" id="着色器程序JSON格式">着色器程序JSON格式</pre>
+<pre>
+{
+  "blend": { <span class="comment">OpenGL混合设置，我们使用常用设置</span>
+    "func": "add",
+    "srcrgb": "one",
+    "dstrgb": "zero"
+  },
+  "vertex": "foo", <span class="comment">将要使用的顶点着色器 .vsh 文件的文件名。</span>
+  "fragment": "foo", <span class="comment">将要使用的片段着色器 .fsh 文件的文件名。</span>
+  "attributes": [ "Position" ],
+  "samplers": [ 
+    { "name": "DiffuseSampler" }, <span class="comment">指由 intarget 给予的缓冲层的变量名</span>
+    { "name": "DitherSampler" } <span class="comment">其它名称的需要由 auxtargets 给予</span>
+  ],
+  "uniforms": [ <span class="comment">全局变量，数据类型type为 float, vec2, vec3, vec4, int, ivec2, ivec3, ivec4, matrix4x4, matrix3x3 或 matrix2x2</span>
+    { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+    { "name": "InSize",  "type": "float", "count": 2,  "values": [ 1.0, 1.0 ] },
+    { "name": "OutSize", "type": "float", "count": 2,  "values": [ 1.0, 1.0 ] },
+    { "name": "BlurDir", "type": "float", "count": 2,  "values": [ 1.0, 1.0 ] },
+    { "name": "Radius",  "type": "float", "count": 1,  "values": [ 5.0 ] }
+  ]
+}
+</pre>
+<p>这里全局变量的 <code>count</code> 为 <code>values</code> 数组的长度，当为浮点数 (<code>float</code>) 时，实际为 <code>count</code> 长度的浮点数数组 <code>float, vec2, vec3, vec4</code>；<code>int</code> 类似，为 <code>int, ivec3, ivec3, ivec4</code>；矩阵为 <code>matrix4x4, matrix3x3, matrix2x2</code>。</p>
+
+<p>顶点着色器和片段着色器程序可参考原版着色器的 <code>vsh, fsh</code> 文件。着色器中的数据类型包括标量 <code>bool, int, uint, float, double</code>，向量 <code>bven, iven, uven, ven, dven</code>，<code><i>n</i>=2,3,4</code> 为向量长度；矩阵 <code>mat<i>n</i>, mat<i>n</i>x<i>m</i></code> 为列优先的矩阵，<code><i>n,m</i>=2,3,4</code>。构建变量时，可以使用其它变量作为其部分。全局变量可以被声明为</p>
+<ul>
+  <li><code>in</code>，只能被顶点着色器读取，它自动包含了当前顶点的 Position（位置）属性；</li>
+  <li><code>uniform</code>，可以被顶点着色器与片段着色器读取，对所有的顶点或像素都会保持恒定不变，它们的值可以通过后处理 JSON 文件传入，否则将会使用在着色器程序 JSON 文件中定义的默认值；</li>
+  <li><code>out</code>，由顶点着色器声明并赋值，然后可在片段着色器中被读取，这些值会在顶点间插值计算出来。</li>
+</ul>
+<p>着色器程序中的 <code>main</code> 函数会在该着色器程序被调用时执行。更多关于着色器程序的内容请点击上方链接来阅读。</p>
+
+<p>例：这个片段着色器会放大图像中心圆形区域图案。屏幕上左下角像素坐标为 <code>(0,0)</code>，右上角为 <code>(1,1)</code>。</p>
+<pre>
+#version 150
+
+uniform sampler2D DiffuseSampler;
+
+in vec2 texCoord;
+in vec2 oneTexel;
+
+out vec4 fragColor;
+
+void main(){
+  float distFromCenter = distance(texCoord, vec2(0.5, 0.5));
+  if (distFromCenter &lt; 0.38) {
+    vec2 zoomedCoord = ((texCoord - vec2(0.5, 0.5)) * 0.2) + vec2(0.5, 0.5);
+    fragColor = texture(DiffuseSampler, zoomedCoord);
+  } else if (distFromCenter >= 0.38 && distFromCenter &lt; 0.4) {
+    fragColor = vec4(0.7, 0.4, 0.1, 1.0); 
+  } else {
+    fragColor = texture2D(DiffuseSampler, texCoord);
+  }
+}
+</pre>
+
+<h3 id="核心着色器">§3.9.2 核心着色器</h3>
+<p>所有能在屏幕上看到的东西都是由核心着色器渲染的，核心着色器文件位于 <code>assets/minecraft/shaders/core</code> 文件夹下。游戏的每个部分会调用相应的核心着色器来渲染。如果我们不希望对着色器进行全局修改，我们可以通过纹理坐标检测在渲染什么，然后进行相应的着色器程序。然而，材质的 atlas 依赖于加载的所有资源包，因此一旦添加了材质，纹理坐标将会发生改变。更详细的内容请点击上方链接来阅读。</p>
+
+<h2 id="文本">§3.10 文本</h2>
+
+<table><tbody>
+  <tr><th>制作人员名单</th><td><code>minecraft/texts/credits.txt</code></td></tr>
+  <tr><th>终末之诗</th><td><code>minecraft/texts/end.txt</code></td></tr>
+  <tr><th>闪烁标语</th><td><code>minecraft/texts/splashes.txt</code></td></tr>
+</tbody></table>
+<ul class="link">
+  <li><a href="https://wiki.biligame.com/mc/资源包#文本" class="wiki">文本</a></li>
+  <li><a href="https://minecraft.fandom.com/wiki/Resource_Pack#Texts" class="wikien">Texts</a></li>
+</ul>
+
+<p>玩家首次进入末地的主世界返回传送门时，会播放终末之诗和制作人员名单。该文本可以使用样式代码，以及使用 <code>[C]</code> 来表示居中，文本PLAYERNAME将会被玩家名称代替。我们可以修改之以显示模组的一些内容。</p>
+<p>文件 <code>splashes.txt</code> 中每一行表示一个单独的闪烁标语，可以使用样式代码。</p>
+
 
 <h1 id="规划">§4 规划</h1>
 <p>当我们有了一定的命令基础和数据包与资源包的相关知识之后，我们可以开始考虑做一个模组了。模组的目的是在原版的基础上做出一定的修改，模组的核心是内容，命令和技巧都只是为实现这一目的的手段。通常的设计路线如下图所示：</p>
@@ -5728,7 +6687,7 @@ data modify entity @e[type=item,tag=cpp_temp,distance=..0.1,limit=1] Item set fr
 tag @e[type=item,tag=cpp_temp,distance=..0.1,limit=1] remove cpp_temp
 </pre>
 
-<p>我们将资源包内文件 <code>assets/minecraft/textures/misc/pumpkinblur.png</code> 设置为完全透明的图片以清除雕刻过的南瓜戴在头上的视野限制效果。</p>
+<p>我们将资源包内文件 <code>minecraft/textures/misc/pumpkinblur.png</code> 设置为完全透明的图片以清除雕刻过的南瓜戴在头上的视野限制效果。</p>
 <p>对于头饰而言，我们希望其像盔甲一样在背包物品栏显示为物品的平面材质，而在玩家头部显示为立体模型。因此我们需要两套模型，并处理物品进入玩家头部和手部的事件，见<a href="https://www.mcbbs.net/thread-833056-1-1.html">【1.14】物品头部/背包/手持显示不同材质/模型</a>。</p>
 
 <pre class="file" id="minecraft/models/item/carved_pumpkin">minecraft/models/item/carved_pumpkin.json</pre>

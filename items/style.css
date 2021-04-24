@@ -72,7 +72,7 @@ footer#options div{
 	height: 20px;
 	width: 20px;
 	float: right;
-	margin-left:2px;
+	margin-left: 2px;
 }
 div#main_part{
 	width: 80%;
@@ -80,13 +80,13 @@ div#main_part{
 	z-index: 10;
 }
 article{
-	margin:2em 3em;
+	margin: 2em 3em;
 }
 h1, h2, h3, h4, h5, h6{
 	font-family: verdana, 黑体;
 }
 h1{
-	border-bottom:solid 2px grey;
+	border-bottom: 2px solid grey;
 	padding:30px 0 5px;
 }
 h2{
@@ -109,12 +109,11 @@ p.ex:before{
 p.noindent{
 	text-indent: 0em;
 }
-p.ex{
-	text-indent: 0;
-}
-p.ex:before{ 
-	content:"例：";
-	font-weight: bold;
+ul.link{
+	border-left: 8px solid rosybrown;
+	background-color: lightcyan;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 article a{
 	text-decoration:none;
@@ -128,6 +127,9 @@ a:hover{
 }
 a.wiki:after{
 	content: " - Minecraft Wiki，最详细的官方我的世界百科"
+}
+a.wikien:after{
+	content: " - Official Minecraft Wiki"
 }
 abbr{
 	cursor:help;
@@ -143,7 +145,7 @@ figcaption{
 	font-family: Consolas, 楷体, "Liberation Mono", Menlo, monospace, Courier;
 }
 figure img{
-	border: hsl(40,40%,20%) 2px solid;
+	border: 2px solid hsl(40,40%,20%);
 }
 code{
 	font-weight: normal;
@@ -151,11 +153,14 @@ code{
 	font-family: Consolas, 楷体, "Liberation Mono", Menlo, monospace, Courier;
 	background-color: #EEEEEE;
 }
+th code{
+	background-color: #505050;
+}
 pre{
-	color:black;
+	color: black;
 	font-weight: normal;
-	font-size:100%;
-	background-color:#ddd;
+	font-size: 100%;
+	background-color: #ddd;
 	padding: 8px 10px;
 	font-family: Consolas, 楷体, "Liberation Mono", Menlo, monospace, Courier;
 	white-space: pre-wrap;
@@ -163,7 +168,7 @@ pre{
 	word-break: break-all;
 }
 pre.file{
-	background-color:#c0c0c0;
+	background-color: #c0c0c0;
 	margin-bottom: 0;
 }
 pre.file + pre{
@@ -181,15 +186,18 @@ table{
 	border-collapse:collapse;
 }
 th, td{
-	border:1px solid #aaa;
-	padding:0.2em 0.4em;
-	vertical-align:middle;
+	border: 1px solid #aaa;
+	padding: 0.2em 0.4em;
+	vertical-align: middle;
 }
 thead th{
 	background: #505050;
-	font-weight:bold;
+	font-weight: bold;
 	color: white;
 }
 tbody th{
 	background-color: #d0d0d0;
+}
+table.nmsp{
+
 }

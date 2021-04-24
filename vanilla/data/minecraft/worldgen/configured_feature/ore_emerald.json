@@ -6,23 +6,42 @@
           "config": {
             "feature": {
               "config": {
-                "target": {
-                  "Name": "minecraft:stone"
-                },
-                "state": {
-                  "Name": "minecraft:emerald_ore"
-                }
+                "targets": [
+                  {
+                    "target": {
+                      "tag": "minecraft:stone_ore_replaceables",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Name": "minecraft:emerald_ore"
+                    }
+                  },
+                  {
+                    "target": {
+                      "tag": "minecraft:deepslate_ore_replaceables",
+                      "predicate_type": "minecraft:tag_match"
+                    },
+                    "state": {
+                      "Name": "minecraft:deepslate_emerald_ore"
+                    }
+                  }
+                ]
               },
-              "type": "minecraft:emerald_ore"
+              "type": "minecraft:replace_single_block"
             },
             "decorator": {
               "config": {
-                "baseline": {
-                  "absolute": 256
-                },
-                "spread": 224
+                "height": {
+                  "min_inclusive": {
+                    "absolute": 4
+                  },
+                  "max_inclusive": {
+                    "absolute": 31
+                  },
+                  "type": "minecraft:uniform"
+                }
               },
-              "type": "minecraft:depth_average"
+              "type": "minecraft:range"
             }
           },
           "type": "minecraft:decorated"
@@ -36,7 +55,13 @@
     },
     "decorator": {
       "config": {
-        "count": 50
+        "count": {
+          "type": "minecraft:uniform",
+          "value": {
+            "min_inclusive": 6,
+            "max_inclusive": 24
+          }
+        }
       },
       "type": "minecraft:count"
     }
