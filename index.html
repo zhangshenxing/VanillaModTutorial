@@ -538,7 +538,7 @@ data
 }
 </pre>
 
-<p>数据包可以包含一个 <a href="vanilla/pack.png"><code>pack.png</code></a>，它是大小为 <code>16×16</code> 的图片，用于创建新的世界时在数据包菜单中显示。</p>
+<p>数据包可以包含一个 <a href="vanilla/pack.png"><code>pack.png</code></a>，它是正方形的图片，用于创建新的世界时在数据包菜单中显示。</p>
 
 <h2 id="数据包/命名空间">§2.2 命名空间</h2>
 <p>参考<a href="https://wiki.biligame.com/mc/命名空间" class="wiki">命名空间</a>。命名空间 (namespace) 为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。数据包下可以有多个命名空间，如果不同数据包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的内容只需在你的数据包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
@@ -5077,7 +5077,7 @@ assets
 }
 </pre>
 
-<p>资源包可以包含一个 <a href="vanilla/pack.png"><code>pack.png</code></a>，它是大小为 <code>16×16</code> 的图片，用于在资源包菜单中显示。</p>
+<p>资源包可以包含一个 <a href="vanilla/pack.png"><code>pack.png</code></a>，它是正方形的图片，用于在资源包菜单中显示。</p>
 
 <h2 id="资源包/命名空间">§3.2 命名空间</h2>
 <p>命名空间 (Namespace) 为玩家自定义的、可操作的空间。使用独立的命名空间也有利于解决和他人的冲突。资源包下可以有多个命名空间，如果不同资源包中有相同的命名空间，则其中相同的文件名内容会根据加载先后顺序被覆盖。特别地，原版内容被保存在 <code>minecraft</code> 命名空间，想要修改和替换原版的模型材质只需在你的资源包内建立 <code>minecraft</code> 命名空间和相应的同名文件并修改即可。</p>
@@ -5477,8 +5477,8 @@ assets
   "animation": {
     "interpolate": true 或 false, <span class="comment">可选，是否需要插值过渡，默认为 false</span>
     "frametime": 正整数, <span class="comment">每一帧的默认时长，单位刻</span>
-    "width": 数值, <span class="comment">每一帧的宽度所占的比例，在帧不是正方形时需要该项来指定宽度</span>
-    "height": 数值, <span class="comment">每一帧的高度所占的比例，在帧不是正方形时需要该项来指定高度</span>
+    "width": 数值, <span class="comment">每一帧的宽度，在帧不是正方形时需要该项来指定宽度</span>
+    "height": 数值, <span class="comment">每一帧的高度，在帧不是正方形时需要该项来指定高度</span>
     "frames": [ <span class="comment">指定播放帧的次序</span>
       0, <span class="comment">帧的序号</span>
       1,
