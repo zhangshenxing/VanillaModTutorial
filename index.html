@@ -279,7 +279,7 @@
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/04/24</p>
+<p>by ruhuasiyu 2021/06/09</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -379,7 +379,7 @@
 <p class="noindent"><strong id="JSON字符串">字符串</strong>，值使用双引号/单引号圈住，可以使用颜色代码如§6、换行符\n。</p>
 <pre>
 {
-  "item": "minecraft:shears",
+  "tag": "minecraft:wools",
   "condition": "minecraft:match_tool",
   "layer0": "cpp:crop/bauhinia_seeds",
   "description": "§6更多的合成 1.10\n§6by ruhuasiyu"
@@ -390,10 +390,10 @@
 {
   "chances": [0.05, 0.0625, 0.083333336, 0.1],
   "items": [
-    {"item": "minecraft:zombie_head"},
-    {"item": "minecraft:skeleton_skull"},
-    {"item": minecraft:wither_skeleton_skull"},
-    {"item": "minecraft:creeper_head"}
+    {"items": ["minecraft:zombie_head"]},
+    {"items": ["minecraft:skeleton_skull"]},
+    {"items": ["minecraft:wither_skeleton_skull"]},
+    {"items": ["minecraft:creeper_head"]}
   ],
   "requirements":[
     [
@@ -709,7 +709,7 @@ execute as @e[type=armor_stand] at @s run function cpp:entities/armor_stand/tick
 </ul>
 
 <p>进度 (Advancement) 为游戏内检测玩家行为，触发后完成并执行奖励的系统，游戏内按 L 即可查看，可被用作命令 <code>advancement</code> 的参数，以授予或移除玩家的特定进度。</p>
-
+<p>注意1.17和旧版本的物品谓词和方块谓词有差异。</p>
 <pre class="file" id="进度JSON格式">进度JSON格式</pre>
 <pre>
 {
@@ -1276,7 +1276,7 @@ effect give @s saturation 1 1 true
 </ul>
 
 <p>战利品表谓词 (Predicate) 用于对所在情形进行条件判断，可作为战利品表的条件、命令 <code>execute</code> 的条件子命令 <code>(if|unless) predicate foo:bar</code>、目标选择器参数 <code>predicate={foo:bar}</code>、<a href="#进度">进度</a>中判断实体条件等。<a href="#战利品表">战利品表</a>的条件和战利品表谓词格式相同。</p>
-
+<p>注意1.17和旧版本的物品谓词和方块谓词有差异。</p>
 <pre class="file" id="战利品表谓词JSON格式">战利品表谓词JSON格式</pre>
 <pre><span class="comment">我们省略了部分信息的格式，请自行前往 wiki 查阅。</span>
 {
@@ -1846,7 +1846,8 @@ setblock ~ 255 ~ air
 
 <p>配方 (Recipe) 为游戏内指定工作台合成、切石机合成、熔炉烧炼、高炉烧炼、烟熏炉烧炼、营火烧炼和锻造台合成的格式，一般<strong>不支持带 NBT 标签</strong>。</p>
 <p>在默认情形(限制配方关闭)下，玩家总是可以使用所有的配方，且使用一个配方会使玩家自动发现它。因此建议为你的自定义配方添加合适的进度来获取该配方。一旦配方被发现，就将被加入玩家的配方书。配方只会在玩家使用与当前配方类型所匹配的方块时显示。例如，烧炼配方将只在熔炉的界面中显示。当在背包中使用配方书时，只有能在玩家的 <code>2×2</code> 背包合成栏内使用的配方才会显示。已发现的配方储存在玩家 <code>recipeBook</code> 的NBT中。 </p>
-<p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别NBT(除了特殊合成配方)，因此只能实现原版物品的合成和烧炼。同时原版模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。想要实现带NBT的合成需要藉由其它方式，见<a href="#NBT合成与烧炼">NBT合成与烧炼</a>。</p>
+<p>原版的合成、烧炼使用配方文件即可实现，较为简单，但是无法识别且无视配方材料的NBT(除了特殊合成配方)，因此只能实现原版物品的合成和烧炼。同时原版模组若使用了相关物品，则相应的模组物品亦可代替原物品进行合成。想要实现带NBT的合成需要藉由其它方式，见<a href="#NBT合成与烧炼">NBT合成与烧炼</a>。</p>
+<p>锻造台则会保留要升级的物品的NBT信息而只修改其id。</p>
 
 <p>大部分配方中所使用的配方材料格式可以为下述几种。</p>
 <pre class="file" id="配方材料">配方材料JSON格式</pre>
@@ -2173,7 +2174,7 @@ setblock ~ 255 ~ air
       "conditions": {
         "items": [
           {
-            "item": "minecraft:cobblestone",
+            "items": ["minecraft:cobblestone"],
             "count": {
               "min": 8
             }
@@ -2186,7 +2187,7 @@ setblock ~ 255 ~ air
       "conditions": {
         "items": [
           {
-            "item": "minecraft:snowball"
+            "items": ["minecraft:snowball"]
           }
         ]
       }
@@ -3076,7 +3077,7 @@ setblock ~ ~ ~ end_gateway
     "condition": "minecraft:location_check",
     "predicate": {
       "block": {
-        "block": "minecraft:end_gateway"
+        "blocks": ["minecraft:end_gateway"]
       }
     }
   },
@@ -6177,7 +6178,7 @@ scoreboard players reset @s cppUseCSt
       "predicate": {
         "equipment": {
           "mainhand":{
-            "item": "minecraft:carrot_on_a_stick",
+            "items": ["minecraft:carrot_on_a_stick"],
             "nbt": "{id:'cpp:red_force_of_fire'}"
           }
         }
@@ -6194,7 +6195,7 @@ scoreboard players reset @s cppUseCSt
             "predicate": {
               "equipment": {
                 "mainhand":{
-                  "item": "minecraft:carrot_on_a_stick"
+                  "items": ["minecraft:carrot_on_a_stick"]
                 }
               }
             }
@@ -6207,7 +6208,7 @@ scoreboard players reset @s cppUseCSt
               "predicate": {
                 "equipment": {
                   "offhand":{
-                    "item": "minecraft:carrot_on_a_stick",
+                    "items": ["minecraft:carrot_on_a_stick"],
                     "nbt": "{id:'cpp:red_force_of_fire'}"
                   }
                 }
@@ -6249,7 +6250,7 @@ execute as @s[predicate=<a href="#cpp/predicates/offhand/blue_force_of_sky">cpp:
   "predicate": {
     "equipment": {
       "mainhand":{
-        "item": "minecraft:carrot_on_a_stick"
+        "items": ["minecraft:carrot_on_a_stick"]
       }
     }
   }
@@ -6769,7 +6770,7 @@ tag @e[type=item,tag=cpp_temp,distance=..0.1,limit=1] remove cpp_temp
   "predicate": {
     "equipment": {
       "mainhand":{
-        "item": "minecraft:carved_pumpkin",
+        "items": ["minecraft:carved_pumpkin"],
         "nbt": "{exHatSlot:'head'}"
       }
     }
@@ -6784,7 +6785,7 @@ tag @e[type=item,tag=cpp_temp,distance=..0.1,limit=1] remove cpp_temp
   "predicate": {
     "equipment": {
       "offhand":{
-        "item": "minecraft:carved_pumpkin",
+        "items": ["minecraft:carved_pumpkin"],
         "nbt": "{exHatSlot:'head'}"
       }
     }
@@ -6799,7 +6800,7 @@ tag @e[type=item,tag=cpp_temp,distance=..0.1,limit=1] remove cpp_temp
   "predicate": {
     "equipment": {
       "head":{
-        "item": "minecraft:carved_pumpkin",
+        "items": ["minecraft:carved_pumpkin"],
         "nbt": "{exHatSlot:'hand'}"
       }
     }
@@ -7301,7 +7302,7 @@ summon marker ~ ~ ~-1 {Tags:["cpp_locate_block","cpp_locate_block_neighbor"]}
       "trigger": "minecraft:placed_block",
       "conditions": {
         "item": {
-          "item": "minecraft:petrified_oak_slab"
+          "items": ["minecraft:petrified_oak_slab"]
         }
       }
     }
@@ -9858,7 +9859,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetY": -1,
       "predicate": {
         "block": {
-          "block": "minecraft:lever",
+          "blocks": ["minecraft:lever"],
           "state": {
             "powered": true,
             "face": "ceiling"
@@ -9871,7 +9872,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetY": 1,
       "predicate": {
         "block": {
-          "block": "minecraft:lever",
+          "blocks": ["minecraft:lever"],
           "state": {
             "powered": true,
             "face": "floor"
@@ -9884,7 +9885,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetX": 1,
       "predicate": {
         "block": {
-          "block": "minecraft:lever",
+          "blocks": ["minecraft:lever"],
           "state": {
             "powered": true,
             "face": "wall",
@@ -9898,7 +9899,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetX": -1,
       "predicate": {
         "block": {
-          "block": "minecraft:lever",
+          "blocks": ["minecraft:lever"],
           "state": {
             "powered": true,
             "face": "wall",
@@ -9912,7 +9913,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetZ": 1,
       "predicate": {
         "block": {
-          "block": "minecraft:lever",
+          "blocks": ["minecraft:lever"],
           "state": {
             "powered": true,
             "face": "wall",
@@ -9926,7 +9927,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetZ": -1,
       "predicate": {
         "block": {
-          "block": "minecraft:lever",
+          "blocks": ["minecraft:lever"],
           "state": {
             "powered": true,
             "face": "wall",
@@ -10022,7 +10023,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetY": -1,
       "predicate": {
         "block": {
-          "block": "minecraft:redstone_torch",
+          "blocks": ["minecraft:redstone_torch","minecraft:redstone_wall_torch"],
           "state": {
             "lit": true
           }
@@ -10034,19 +10035,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetY": -1,
       "predicate": {
         "block": {
-          "block": "minecraft:redstone_wall_torch",
-          "state": {
-            "lit": true
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetY": -1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:observer",
+          "blocks": ["minecraft:observer"],
           "state": {
             "powered": true,
             "facing": "down"
@@ -10059,7 +10048,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetY": 1,
       "predicate": {
         "block": {
-          "block": "minecraft:observer",
+          "blocks": ["minecraft:observer"],
           "state": {
             "powered": true,
             "facing": "up"
@@ -10072,7 +10061,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetX": 1,
       "predicate": {
         "block": {
-          "block": "minecraft:observer",
+					"blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
           "state": {
             "powered": true,
             "facing": "east"
@@ -10085,7 +10074,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetX": -1,
       "predicate": {
         "block": {
-          "block": "minecraft:observer",
+					"blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
           "state": {
             "powered": true,
             "facing": "west"
@@ -10098,7 +10087,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetZ": 1,
       "predicate": {
         "block": {
-          "block": "minecraft:observer",
+					"blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
           "state": {
             "powered": true,
             "facing": "south"
@@ -10111,163 +10100,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetZ": -1,
       "predicate": {
         "block": {
-          "block": "minecraft:observer",
-          "state": {
-            "powered": true,
-            "facing": "north"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetX": 1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:repeater",
-          "state": {
-            "powered": true,
-            "facing": "east"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetX": -1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:repeater",
-          "state": {
-            "powered": true,
-            "facing": "west"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetZ": 1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:repeater",
-          "state": {
-            "powered": true,
-            "facing": "south"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetZ": -1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:repeater",
-          "state": {
-            "powered": true,
-            "facing": "north"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetX": 1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:comparator",
-          "state": {
-            "powered": true,
-            "facing": "east"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetX": -1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:comparator",
-          "state": {
-            "powered": true,
-            "facing": "west"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetZ": 1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:comparator",
-          "state": {
-            "powered": true,
-            "facing": "south"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetZ": -1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:comparator",
-          "state": {
-            "powered": true,
-            "facing": "north"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetX": 1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:tripwire_hook",
-          "state": {
-            "powered": true,
-            "facing": "east"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetX": -1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:tripwire_hook",
-          "state": {
-            "powered": true,
-            "facing": "west"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetZ": 1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:tripwire_hook",
-          "state": {
-            "powered": true,
-            "facing": "south"
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetZ": -1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:tripwire_hook",
+					"blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
           "state": {
             "powered": true,
             "facing": "north"
@@ -10292,31 +10125,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetY": 1,
       "predicate": {
         "block": {
-          "block": "minecraft:stone_pressure_plate",
-          "state": {
-            "powered": true
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetY": 1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:light_weighted_pressure_plate",
-          "state": {
-            "powered": true
-          }
-        }
-      }
-    },
-    {
-      "condition": "minecraft:location_check",
-      "offsetY": 1,
-      "predicate": {
-        "block": {
-          "block": "minecraft:heavy_weighted_pressure_plate",
+          "blocks": ["minecraft:stone_pressure_plate","minecraft:light_weighted_pressure_plate","minecraft:heavy_weighted_pressure_plate"],
           "state": {
             "powered": true
           }
@@ -10504,7 +10313,7 @@ execute as @e[type=villager] at @s if entity @a[distance=1..16,predicate=<a href
       "predicate": {
         "equipment": {
           "mainhand":{
-            "item": "minecraft:emerald_block"
+            "items": ["minecraft:emerald_block"]
           }
         }
       }
@@ -10515,7 +10324,7 @@ execute as @e[type=villager] at @s if entity @a[distance=1..16,predicate=<a href
       "predicate": {
         "equipment": {
           "offhand":{
-            "item": "minecraft:emerald_block"
+            "items": ["minecraft:emerald_block"]
           }
         }
       }
