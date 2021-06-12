@@ -49,6 +49,22 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 4.0
+              },
+              "add": false
+            }
+          ],
+          "name": "minecraft:moss_block"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
                 "min": 2.0,
                 "max": 6.0
               },
@@ -97,14 +113,6 @@
               "function": "minecraft:set_stew_effect",
               "effects": [
                 {
-                  "type": "minecraft:weakness",
-                  "duration": {
-                    "type": "minecraft:uniform",
-                    "min": 6.0,
-                    "max": 8.0
-                  }
-                },
-                {
                   "type": "minecraft:poison",
                   "duration": {
                     "type": "minecraft:uniform",
@@ -121,11 +129,11 @@
                   }
                 },
                 {
-                  "type": "minecraft:saturation",
+                  "type": "minecraft:weakness",
                   "duration": {
                     "type": "minecraft:uniform",
-                    "min": 7.0,
-                    "max": 10.0
+                    "min": 6.0,
+                    "max": 8.0
                   }
                 },
                 {
@@ -142,6 +150,14 @@
                     "type": "minecraft:uniform",
                     "min": 5.0,
                     "max": 7.0
+                  }
+                },
+                {
+                  "type": "minecraft:saturation",
+                  "duration": {
+                    "type": "minecraft:uniform",
+                    "min": 7.0,
+                    "max": 10.0
                   }
                 }
               ]

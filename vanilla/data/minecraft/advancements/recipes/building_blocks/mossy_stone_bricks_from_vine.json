@@ -6,12 +6,14 @@
     ]
   },
   "criteria": {
-    "has_mossy_cobblestone": {
+    "has_vine": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:mossy_cobblestone"
+            "items": [
+              "minecraft:vine"
+            ]
           }
         ]
       }
@@ -25,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_mossy_cobblestone",
+      "has_vine",
       "has_the_recipe"
     ]
   ]
