@@ -144,7 +144,7 @@
         <li><a href="#结构地物/JSON格式">JSON格式</a></li>
         <li><a href="#可用的结构地物">可用的结构地物</a></li>
       </ul></li>
-      <li><a href="#拼图池">§2.12.8 拼图池</a></li>
+      <li><a href="#模板池">§2.12.8 模板池</a></li>
       <li><a href="#处理器列表">§2.12.9 处理器列表</a><ul>
         <li><a href="#处理器列表/JSON格式">JSON格式</a></li>
         <li><a href="#可用的处理器列表">可用的处理器列表</a></li>
@@ -241,7 +241,7 @@
       <li><a href="#二项分布和泊松分布">§11.1.4 二项分布</a></li>
     </ul></li>
     <li><a href="#世界生成结构">§11.2 世界生成结构</a><ul>
-      <li><a href="#类原版小型结构">§11.2.1 类原版小型结构</a></li>
+      <li><a href="#自定义地物">§11.2.1 自定义地物</a></li>
       <li><a href="#任意纯方块结构">§11.2.2 任意纯方块结构</a></li>
       <li><a href="#含实体结构">§11.2.3 含实体结构</a></li>
       <li><a href="#区块标记法">§11.2.4 区块标记法</a></li>
@@ -506,7 +506,7 @@ data
       configured_structure_feature
         <i>结构地物名称</i>.json
       template_pool
-        <i>拼图池名称</i>.json
+        <i>模板池名称</i>.json
       processor_list
         <i>处理器列表名称</i>.json
 </pre>
@@ -651,7 +651,7 @@ data
   <td><code><i>命名空间</i>/worldgen‌/configured_structure_feature/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
 <tr>
-  <th>世界生成-拼图池</th>
+  <th>世界生成-模板池</th>
   <td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td>
   <td><code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code></td>
 </tr>
@@ -2227,13 +2227,28 @@ setblock ~ 255 ~ air
 
 <p>结构 (Structure) 存储了一个长方体区域的方块和实体信息，玩家可以使用结构方块来创建、保存、调用结构。结构大小一般至多为 <code>48×48×48</code>，1.15及更早版本则至多为 <code>32×32×32</code>。</p>
 <p>在游戏中获得结构方块后，放置好所需要的方块结构和实体，然后放置结构方块，设置为保存模式，调整好大小，输入名称（命名空间ID），点保存即可（注意区分是否需要保存实体）。然后从 <code>.minecraft/saves/<i>世界名称</i>/generated/<i>命名空间</i>/structures/<i>路径</i>/<i>文件名</i>.nbt</code> 复制到数据包内。调用时，在结构方块中输入命名空间ID来加载（注意区分是否需要加载实体）。</p>
-<p>我们也可以在函数中加载，先放置结构方块，然后放置并清除红石块，最后清除结构方块。这个技巧配合战利品表和断言，可用于随机在世界生成结构。也可直接用于<a href="#拼图池">拼图池</a>。例如：</p>
+<p>我们也可以在函数中加载，先放置结构方块，然后放置并清除红石块，最后清除结构方块。这个技巧配合战利品表和断言，可用于随机在世界生成结构，也可直接用于<a href="#模板池">模板池</a>。例如：</p>
 <pre class="file" id="cpp/functions/generate/enchanting_room.mcfunction">cpp/functions/generate/enchanting_room.mcfunction</pre>
 <pre>
 setblock ~ ~ ~ structure_block{posX:-1,posY:0,posZ:-1,name:"cpp:build/enchanting_room",mode:"LOAD"}
 setblock ~ ~1 ~ redstone_block
 setblock ~ ~1 ~ air
 </pre>
+<p>结构文件的NBT结构为：</p>
+<ul>
+  <li>size 结构的长宽高；</li>
+  <li>entities 结构包含的实体；</li>
+  <li>blocks 结构包含的方块，其中 pos 指定了相对坐标，state 指定了该方块在方块状态列表的编号，从0开始；</li>
+  <li>palette 方块状态列表，其中 Name 为方块命名空间ID，Properties 指定该方块的所有方块状态。也可以为palettes，这个列表的每一个项目都是一个方块状态列表，然后调用结构时会根据种子(坐标和完整度)来确定选择哪一个列表来使用，原版的沉船就使用该方式来存储。</li>
+</ul>
+<p>通过直接编辑结构文件，我们可以绕过使用结构方块保存的一些限制。在游戏内保存好大致的结构后，使用NBT编辑器打开：</p>
+<ul>
+  <li>通过直接修改结构的<code>palettes</code>，可以将设置随机的结构方块状态列表；</li>
+  <li>通过直接修改结构的<code>size</code>，可以将结构设置为大于48的区域，然而根据下一条，结构的大小是无关紧要的；</li>
+  <li>通过修改<code>blocks</code>的<code>pos</code>，我们可以指定长方体区域外位置的方块；</li>
+  <li>通过修改<code>entities</code>，我们可以删除实体不需要保存的一些NBT，这通常包括<code>Air, FallDistance, Fire, Motion, NoGravity, OnGround, PortalCooldown, Pos, Rotation, UUID</code>等，<code>blockPos</code>也可以删除。</li>
+</ul>
+<p>这些技巧的使用请参考<a href="#任意纯方块结构">任意纯方块结构</a>。</p>
 
 <h2 id="标签">§2.10 标签</h2>
 <ul class="link">
@@ -4745,7 +4760,7 @@ decorated
 {
   "type": "minecraft:pillager_outpost"<span class="comment">掠夺者前哨站</span>, "minecraft:village"<span class="comment">村庄</span> 或 "minecraft:bastion_remnant"<span class="comment">堡垒遗迹</span>
   "config": {
-    "start_pool": "<a href="#拼图池">拼图池</a>命名空间ID",
+    "start_pool": "<a href="#模板池">模板池</a>命名空间ID",
     "size": 0~7 之间的整数 <span class="comment">TBD</span>
   }
 }
@@ -4825,22 +4840,23 @@ decorated
 </pre>
 
 
-<h3 id="拼图池">§2.12.8 拼图池</h3>
+<h3 id="模板池">§2.12.8 模板池</h3>
 <table><tbody>
   <tr><th>命名空间ID</th><td><code><i>命名空间</i>:<i>路径</i>/<i>文件名</i></code></td></tr>
   <tr><th>文件路径</th><td><code><i>命名空间</i>/worldgen‌/template_pool/<i>路径</i>/<i>文件名</i>.json</code></td></tr>
 </tbody></table>
 <ul class="link">
   <li><a href="https://wiki.biligame.com/mc/拼图方块" class="wiki">拼图方块</a></li>
-  <li><a href="https://wiki.biligame.com/mc/自定义世界生成#拼图池" class="wiki">拼图池</a></li>
+  <li><a href="https://wiki.biligame.com/mc/自定义世界生成#模板池" class="wiki">模板池</a></li>
   <li><a href="https://minecraft.fandom.com/wiki/Custom_world_generation#Jigsaw_pools" class="wikien">Jigsaw pools</a></li>
-  <li><a href="https://www.mcbbs.net/thread-1093331-1-1.html">拼图方块与拼图池教程</a></li>
+  <li><a href="https://www.mcbbs.net/thread-1093331-1-1.html">拼图方块与模板池教程</a></li>
+  <li><a href="https://www.bilibili.com/video/BV1Vf4y1d7f7">1.16.2pre1支持自定义拼图方块系统</a></li>
 </ul>
 
-<p>拼图池 (Template pool) 使用结构文件来生成结构，其中结构包含的拼图方块会工作以生成更复杂的结构。拼图方块是一个允许游戏使用较小模板生成结构的拼接方块：</p>
+<p>模板池 (Template pool) 使用结构文件来生成结构，其中结构包含的拼图方块会工作以生成更复杂的结构。拼图方块是一个允许游戏使用较小模板生成结构的拼接方块：</p>
 <ul>
   <li><code>name</code> 名称，该拼图方块的标记。</li>
-  <li><code>pool</code> 目标池，指的是拼图方块将要使用的拼图池。</li>
+  <li><code>pool</code> 目标池，指的是拼图方块将要使用的模板池。</li>
   <li><code>target</code> 目标，与该拼图方块连接的另一拼图方块的 <code>name</code>。</li>
   <li><code>joint</code> 连接类型，<code>rollable</code> (默认值) 或 <code>aligned</code>。当拼图方块朝上或朝下时才有，其中 <code>aligned</code> 指拼接的结构位置固定，<code>rollable</code> 指的是拼接的结构可随机旋转。</li>
   <li><code>final_state</code> 转变为：指的是拼图方块在整个功能被放置后会转变的方块。默认为 <code>minecraft:air</code>。</li>
@@ -4856,11 +4872,11 @@ decorated
 </ul>
 <p class="noindent">初始模板和附加模板里的拼图方块都会重复上述流程，直到没有剩余的拼图方块或者结构足够大为止。使用结构方块加载结构不能复现上述过程。</p>
 
-<pre class="file" id="拼图池JSON格式">拼图池JSON格式</pre>
+<pre class="file" id="模板池JSON格式">模板池JSON格式</pre>
 <pre>
 {
   "name": "命名空间ID", <span class="comment">该随机池的名称，用于拼图方块调用</span>
-  "fallback": "<a href="#拼图池">拼图池</a>命名空间ID", <span class="comment">结构生成完毕且无法再尝试生成时，可连接另一个拼图池继续生成</span>
+  "fallback": "<a href="#模板池">模板池</a>命名空间ID", <span class="comment">结构生成完毕且无法再尝试生成时，可连接另一个模板池继续生成</span>
   "elements": [ <span class="comment">结构列表</span>
     {
       "weight": 整数, <span class="comment">权重</span>
@@ -4889,8 +4905,8 @@ decorated
 
 <pre class="file" id="处理器列表JSON格式">处理器列表JSON格式</pre>
 <pre>
-{<span class="comment">TBD</span>
-  "processors": [
+{
+  "processors": [ <span class="comment">处理器列表</span>
     {
       "processor_type": "minecraft:rule",
       "rules": [ <span class="comment">规则列表</span>
@@ -4909,6 +4925,9 @@ decorated
     或
       "processor_type": "minecraft:block_rot", <span class="comment">随机移除方块</span>
       "integrity": 0~1 之间的数值 <span class="comment">几率</span>
+    或
+      "processor_type": "minecraft:protected_blocks", <span class="comment">保护相应标签的方块不被结构所替换</span>
+      "value": <a href="#方块标签">方块标签</a>命名空间ID
     }
   ]
 }</pre>
@@ -11040,12 +11059,12 @@ setblock ~ 255 ~ air
 
 
 <h2 id="世界生成结构">§11.2 世界生成结构</h2>
-<p>在<a href="#维度和维度类型">维度和维度类型</a>中，我们介绍了如何通过数据包修改原有维度和添加新的维度。之后，我们希望能够添加更多的生物群系和各式各样的结构，这些基本可以通过<a href="世界生成">世界生成</a>来实现。本节我们来介绍添加结构的常见方法。参考<a href="https://www.bilibili.com/video/BV1Vf4y1d7f7">1.16.2pre1支持自定义拼图方块系统</a>。</p>
+<p>在<a href="#维度和维度类型">维度和维度类型</a>中，我们介绍了如何通过数据包修改原有维度和添加新的维度。如果想要添加更多的生物群系和各式各样的结构，也可以通过<a href="#自定义世界生成">自定义世界生成</a>来实现。本节我们来介绍添加结构的几种方法。</p>
 
-<h3 id="类原版小型结构">§11.2.1 类原版小型结构</h3>
-<p>类原版小型结构是指和原版的结构类似，只是各项参数有所不同的结构。具体而言，它们可以通过<a href="#地物">地物</a>来添加。</p>
+<h3 id="自定义地物">§11.2.1 自定义地物</h3>
+<p>通过自定义<a href="#地物">地物</a>，我们可以添加形状和生成类似树、花、矿石、紫晶洞等、而方块和尺寸有差异的小型结构。</p>
 
-<p>我们首先来创建一个生物群系，并将它添加到我们自定义的维度中。</p>
+<p>我们在原版的一个生物群系文件基础上做修改来创建一个新的生物群系，并将它添加到我们自定义的维度中。</p>
 
 <pre class="file" id="cpp/worldgen/biome/test">cpp/worldgen/biome/test.json</pre>
 <pre>
@@ -11273,8 +11292,8 @@ setblock ~ 255 ~ air
 <p>注意由于 <code>small_bush</code> 的 <code>"type":"minecraft:tree"</code>，因此它会生成在原有的树的位置。想要二者均可生成，请使用随机选择的地物。</p>
 
 <h3 id="任意纯方块结构">§11.2.2 任意纯方块结构</h3>
-<p>利用结构地物和拼图池，我们可以实现自定义的结构的自然生成。<a href="#结构地物">结构地物</a>可选的类型有堡垒遗迹、掠夺者前哨站或村庄，但由于这样生成的会被视为相应结构，因此具有它们的性质，其中掠夺者前哨站会生成灾厄村民，堡垒遗迹会触发进度“光辉岁月”，因此村庄是最合适的。尽管村庄也可以被 <code>locate village</code> 指令定位。此外堡垒遗迹生成在地下而非地表。</p>
-<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用类型的结构地物来自定义拼图池。</p>
+<p>利用结构地物和模板池，我们可以实现自定义的结构的自然生成。可自定义的结构的<a href="#结构地物">结构地物</a>可选的类型有堡垒遗迹、掠夺者前哨站或村庄。注意这样生成的会被视为相应结构(可用于完成进度和 <code>locate</code> 命令)。掠夺者前哨站附近会生成灾厄村民，堡垒遗迹会触发原版进度“光辉岁月”，因此村庄是最合适的，堡垒遗迹次之。注意村庄类型的结构从地表的一层方块起生成，因此为了避免结构陷下去应当将结构的最底一层设置为空，而堡垒遗迹类型的结构生成在地下而非地表。通过使用拼图方块、或直接修改<a href="#结构">结构</a>文件将方块放置在结构外，无论是村庄还是堡垒遗迹我们都可以使结构任意部分生成在地表、任意部分生成在地下。</p>
+<p class="ex">添加结构文件 <code>cpp/structures/tp_overworld.nbt</code>，然后利用类型的结构地物来自定义模板池。</p>
 <pre class="file" id="cpp/worldgen/configured_structure_feature/totem_pillar">cpp/worldgen/configured_structure_feature/totem_pillar.json</pre>
 <pre>
 {
@@ -11303,7 +11322,7 @@ setblock ~ 255 ~ air
     }
   ]
 }</pre>
-<p>注意这样生成的结构几率非常低，因为原版村庄几率很低，我们可以修改该维度中村庄的生成几率。为了避免在原版可生成村庄的生物群系大量生成村庄，我们可以将其结构设为村庄和自定义结构均有权重的拼图池。</p>
+<p>注意这样生成的结构几率非常低，因为原版村庄几率很低，我们可以修改该维度中村庄的生成几率。为了避免在原版可生成村庄的生物群系大量生成村庄，我们可以将其结构设为村庄和自定义结构均有权重的模板池。</p>
 
 <h3 id="含实体结构">§11.2.3 含实体结构</h3>
 <p>上一节生成的结构中带上实体标记，然后在函数中检测该标记并执行任意命令并清除标记。</p>
