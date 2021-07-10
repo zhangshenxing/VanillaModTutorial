@@ -299,9 +299,7 @@
   <li><a href="https://code.visualstudio.com/">Visual Studio Code</a> 为功能较丰富的编辑器。下载安装后，可以安装如下插件：
     <ul>
       <li><em>Chinese (Simplified) Language Pack for Visual Studio Code</em> 用于支持中文语言</li>
-      <li><em>Datapack Helper Plus (JSON)</em> 用于JSON语法补全和纠错</li>
-      <li><em>Datapack Helper Plus (MCF)</em> 用于函数语法补全和纠错</li>
-      <li><em>language-mcfunction</em> 用于函数语法高亮</li>
+      <li><em>Data-pack Helper Plus</em> 用于JSON和函数语法补全和纠错</li>
     </ul>
   </li>
   <li>记事本为 Windows 系统自带的极简编辑器。Windows10 的记事本已经默认是 <code>UTF-8</code> 编码了。点击<code>查看->状态栏</code>可以在右下角状态栏看到，因此可以正常使用。旧版本 Windows 的记事本仍然不是，请勿使用。</li>
@@ -1664,7 +1662,7 @@ effect give @s saturation 1 1 true
 {
   "function": "minecraft:enchant_with_levels", <span class="comment">使用指定的附魔等级附魔物品</span>
   "treasure": true 或 false, <span class="comment">该物品是否能被附上宝藏魔咒</span>
-  "levels": <a href="#值提供器">值提供器</a> <span class="comment">指定该附魔的等级</span>
+  "levels": <a href="#值提供器">值提供器</a> <span class="comment">指定该附魔的等级，超过99会无效。</span>
 }
 
 {
@@ -2244,11 +2242,12 @@ setblock ~ ~1 ~ air
 <p>通过直接编辑结构文件，我们可以绕过使用结构方块保存的一些限制。在游戏内保存好大致的结构后，使用NBT编辑器打开：</p>
 <ul>
   <li>通过直接修改结构的<code>palettes</code>，可以将设置随机的结构方块状态列表；</li>
-  <li>通过直接修改结构的<code>size</code>，可以将结构设置为大于48的区域，然而根据下一条，结构的大小是无关紧要的；</li>
+  <li>通过直接修改结构的<code>size</code>，可以将结构设置为大于48的区域；</li>
   <li>通过修改<code>blocks</code>的<code>pos</code>，我们可以指定长方体区域外位置的方块；</li>
   <li>通过修改<code>entities</code>，我们可以删除实体不需要保存的一些NBT，这通常包括<code>Air, FallDistance, Fire, Motion, NoGravity, OnGround, PortalCooldown, Pos, Rotation, UUID</code>等，<code>blockPos</code>也可以删除。</li>
 </ul>
 <p>这些技巧的使用请参考<a href="#任意纯方块结构">任意纯方块结构</a>。</p>
+<p>如果结构用于<a href="#结构地物">结构地物</a>中，当结构只有部分在已加载区块中时，系统会根据结构的<code>size</code>来确定还有哪些部分没有被加载。<code>blocks</code>的<code>pos</code>不在长方体区域内，这可能会导致生成的结构不完整。</p>
 
 <h2 id="标签">§2.10 标签</h2>
 <ul class="link">
