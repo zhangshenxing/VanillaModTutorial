@@ -2586,13 +2586,13 @@ execute unless block ^ ^ ^ #cpp:fluid
           "spread": 0~1023 之间的整数, <span class="comment">设置为0时会使世界中某些位置上反复生成多个要塞</span>
           "distance": 0~1023 之间的整数
         },
-        "structures": [ <span class="comment">该维度中会生成的结构，如果需要生成要塞也需在此列出</span>
+        "structures": { <span class="comment">该维度中会生成的结构，如果需要生成要塞也需在此列出</span>
           "<a href="https://wiki.biligame.com/mc/Java版数据值#结构">结构</a>命名空间ID": { <span class="comment">注意这不是<a href="#结构地物">结构地物</a>命名空间ID，自定义的结构地物生成几率设置随同其对应的原版结构</span>
             "spacing": 正整数, <span class="comment">两个该种类的结构之间的平均距离，以区块为单位</span>
             "separation": 1~(spacing-1) 之间的整数, <span class="comment">两个该种类的结构之间的最小距离，以区块为单位</span>
             "salt": 整数 <span class="comment">影响结构内部生成</span>
           }
-        ]
+        }
       }
     }
   }
