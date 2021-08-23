@@ -116,8 +116,10 @@ ul.link{
 	padding-bottom: 10px;
 }
 article a{
-	text-decoration:none;
 	color: hsl(220, 50%, 50%);
+}
+ul.link a{
+	text-decoration: none;
 }
 article a:hover{
 	text-decoration: underline;
@@ -151,16 +153,16 @@ code{
 	font-weight: normal;
 	font-size: 100%;
 	font-family: Consolas, 楷体, "Liberation Mono", Menlo, monospace, Courier;
-	background-color: #EEEEEE;
 }
-th code{
-	background-color: #505050;
+p code{
+	border: solid 1px #AAAAAA;
+	background-color: #EEEEEE;
 }
 pre{
 	color: black;
 	font-weight: normal;
 	font-size: 100%;
-	background-color: #ddd;
+	background-color: #EEEEEE;
 	padding: 8px 10px;
 	font-family: Consolas, 楷体, "Liberation Mono", Menlo, monospace, Courier;
 	white-space: pre-wrap;
@@ -168,7 +170,7 @@ pre{
 	word-break: break-all;
 }
 pre.file{
-	background-color: #c0c0c0;
+	background-color: #DDDDDD;
 	margin-bottom: 0;
 }
 pre.file + pre{
@@ -196,8 +198,5 @@ thead th{
 	color: white;
 }
 tbody th{
-	background-color: #d0d0d0;
-}
-table.nmsp{
-
+	background-color: #DDDDDD;
 }
