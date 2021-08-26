@@ -11873,15 +11873,7 @@ loot insert ~4 ~5 ~3 loot cpp:chests/enchanting_room
 
 <pre class="file" id="cpp/functions/load">cpp:load</pre>
 <pre>
-execute positioned 16000000 -100 16000000 unless entity @e[type=marker,tag=cpp_dim_load,distance=..1] run function cpp:init/dim_marker1
-</pre>
-<pre class="file" id="cpp/functions/init/dim_marker1">cpp:init/dim_marker1</pre>
-<pre>
-forceload add ~ ~
-scoreboard players add #dim_number cppValue 1
-summon marker ~ ~ ~ {Tags:["cpp_dim_marker"]}
-scoreboard players operation @e[type=marker,tag=cpp_dim_marker,limit=1,distance=..1] cppValue = #dim_number cppValue
-data modify storage cpp:_ dim append value "minecraft:overworld"
+advancement grant @a only cpp:misc/new_dim
 </pre>
 <pre class="file" id="cpp/advancements/new_dim">cpp/advancements/new_dim.json</pre>
 <pre>
@@ -11901,13 +11893,17 @@ data modify storage cpp:_ dim append value "minecraft:overworld"
 advancement revoke @s only cpp:new_dim
 execute positioned 16000000 -100 16000000 unless entity @e[type=marker,tag=cpp_dim_marker,distance=..1] run function cpp:init/dim_marker
 </pre>
-<pre class="file" id="cpp/functions/init/dim_marker1">cpp:init/dim_marker</pre>
+<pre class="file" id="cpp/functions/init/dim_marker">cpp:init/dim_marker</pre>
 <pre>
 forceload add ~ ~
 scoreboard players add #dim_number cppValue 1
-summon marker ~ ~ ~ {Tags:["cpp_dim_marker"]}
-scoreboard players operation @e[type=marker,tag=cpp_dim_marker,limit=1,distance=..1] cppValue = #dim_number cppValue
+summon marker ~ ~ ~ {Tags:["cpp_dim_marker","cpp_new"]}
 data modify storage cpp:_ dim append from entity @s Dimension
+</pre>
+<pre class="file" id="cpp/functions/tick">cpp:tick</pre>
+<pre>
+scoreboard players operation @e[type=marker,tag=cpp_new,limit=1] cppValue = #dim_number cppValue
+tag @e[type=marker,tag=cpp_new,limit=1] remove cpp_new
 </pre>
 
 <p>使用时，我们递归探测玩家所在的维度在列表 <code>cpp:_ dim</code> 中的序号。</p>
