@@ -246,10 +246,11 @@
       <li><a href="#含实体结构">§11.2.3 含实体结构</a></li>
       <li><a href="#区块标记法">§11.2.4 区块标记法</a></li>
     </ul></li>
-    <li><a href="#绘制图案">§11.3 绘制图案</a></li>
-    <li><a href="#循环与递归">§11.4 循环与递归</a></li>
-    <li><a href="#字符操作">§11.5 字符操作</a></li>
-    <li><a href="#位运算与种子">§11.6 位运算与种子</a></li>
+    <li><a href="#绘制图案">§11.3 维度探测</a></li>
+    <li><a href="#绘制图案">§11.4 绘制图案</a></li>
+    <li><a href="#循环与递归">§11.5 循环与递归</a></li>
+    <li><a href="#字符操作">§11.6 字符操作</a></li>
+    <li><a href="#位运算与种子">§11.7 位运算与种子</a></li>
     <li><a></a></li>
   </ul></li>
 </ul>
@@ -279,7 +280,7 @@
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/08/23</p>
+<p>by ruhuasiyu 2021/08/26</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -11865,16 +11866,77 @@ loot insert ~4 ~5 ~3 loot cpp:chests/enchanting_room
 <p>我们可以将所有维度的结构标记物均放置在同一战利品表内。</p>
 <p>另一种生成为全局替换，例如将主世界的地牢刷怪笼一部分替换为苦力怕刷怪笼，那么在每次检测时，使用 <code>fill</code> 命令强制替换即可。但是该命令开销很大，会导致较大的卡顿。</p>
 
-<h2 id="绘制图案">§11.3 绘制图案</h2>
+<h2 id="维度探测">§11.3 维度探测</h2>
+<p>由于我们不能预先知道会有哪些维度，因此我们需要在每个维度放置标记来存储该维度的位置，然后记录维度ID。这些操作均需要玩家来主动探测，因此我们使用维度旅行进度来探测新维度。</p>
+
+<p>我们将维度标记存储在区块 <code>(1000000,1000000)</code> 并常加载该区块。</p>
+
+<pre class="file" id="cpp/functions/load">cpp:load</pre>
+<pre>
+execute positioned 16000000 -100 16000000 unless entity @e[type=marker,tag=cpp_dim_load,distance=..1] run function cpp:init/dim_marker1
+</pre>
+<pre class="file" id="cpp/functions/init/dim_marker1">cpp:init/dim_marker1</pre>
+<pre>
+forceload add ~ ~
+scoreboard players add #dim_number cppValue 1
+summon marker ~ ~ ~ {Tags:["cpp_dim_marker"]}
+scoreboard players operation @e[type=marker,tag=cpp_dim_marker,limit=1,distance=..1] cppValue = #dim_number cppValue
+data modify storage cpp:_ dim append value "minecraft:overworld"
+</pre>
+<pre class="file" id="cpp/advancements/new_dim">cpp/advancements/new_dim.json</pre>
+<pre>
+{
+  "criteria": {
+    "entered_dim": {
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "rewards": {
+    "function": "cpp:adv/new_dim"
+  }
+}
+</pre>
+<pre class="file" id="cpp/functions/adv/new_dim">cpp:adv/new_dim</pre>
+<pre>
+advancement revoke @s only cpp:new_dim
+execute positioned 16000000 -100 16000000 unless entity @e[type=marker,tag=cpp_dim_marker,distance=..1] run function cpp:init/dim_marker
+</pre>
+<pre class="file" id="cpp/functions/init/dim_marker1">cpp:init/dim_marker</pre>
+<pre>
+forceload add ~ ~
+scoreboard players add #dim_number cppValue 1
+summon marker ~ ~ ~ {Tags:["cpp_dim_marker"]}
+scoreboard players operation @e[type=marker,tag=cpp_dim_marker,limit=1,distance=..1] cppValue = #dim_number cppValue
+data modify storage cpp:_ dim append from entity @s Dimension
+</pre>
+
+<p>使用时，我们递归探测玩家所在的维度在列表 <code>cpp:_ dim</code> 中的序号。</p>
+<pre class="file" id="cpp/functions/get_dim">cpp:dim_get</pre>
+<pre>
+scoreboard players set #t cppValue 0
+data modify storage cpp:_ dim1 set from storage cpp:_ dim
+execute as @p run function cpp:dim_loop
+execute as @e[type=marker,tag=cpp_dim_marker] if score @s cppValue = #t cppValue at @s run spreadplayers 0 0 1 10 false @p
+</pre>
+<pre class="file" id="cpp/functions/dim_loop">cpp:dim_loop</pre>
+<pre>
+scoreboard players add #t cppValue 1
+execute store result score #s cppValue run data modify storage cpp:_ dim1[0] set from entity @s Dimension
+data remove storage cpp:_ dim1[0]
+execute if score #s cppValue matches 1 if data storage cpp:_ dim1[] run function cpp:dim_loop
+</pre>
+
+
+<h2 id="绘制图案">§11.4 绘制图案</h2>
 TBD
 
-<h2 id="循环和递归">§11.4 循环和递归</h2>
+<h2 id="循环和递归">§11.5 循环和递归</h2>
 TBD
 
-<h2 id="字符操作">§11.5 字符操作</h2>
+<h2 id="字符操作">§11.6 字符操作</h2>
 TBD
 
-<h2 id="位运算与种子">§11.6 位运算与种子</h2>
+<h2 id="位运算与种子">§11.7 位运算与种子</h2>
 TBD
 
 </article>
