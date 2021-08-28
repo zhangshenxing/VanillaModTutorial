@@ -11891,19 +11891,18 @@ advancement grant @a only cpp:misc/new_dim
 <pre class="file" id="cpp/functions/adv/new_dim">cpp:adv/new_dim</pre>
 <pre>
 advancement revoke @s only cpp:new_dim
-execute positioned 16000000 -100 16000000 unless entity @e[type=marker,tag=cpp_dim_marker,distance=..1] run function cpp:init/dim_marker
+execute positioned 16000000 0 16000000 unless entity @e[type=marker,tag=cpp_dim_marker,distance=..1] run function cpp:init/dim_marker
 </pre>
 <pre class="file" id="cpp/functions/init/dim_marker">cpp:init/dim_marker</pre>
 <pre>
 forceload add ~ ~
 scoreboard players add #dim_number cppValue 1
-summon marker ~ ~ ~ {Tags:["cpp_dim_marker","cpp_new"]}
+summon marker ~ ~ ~ {Tags:["cpp_dim_marker"]}
 data modify storage cpp:_ dim append from entity @s Dimension
 </pre>
 <pre class="file" id="cpp/functions/tick">cpp:tick</pre>
 <pre>
-scoreboard players operation @e[type=marker,tag=cpp_new,limit=1] cppValue = #dim_number cppValue
-tag @e[type=marker,tag=cpp_new,limit=1] remove cpp_new
+execute as @e[type=marker,tag=cpp_dim_marker] unless score @s cppValue matches -2147483648..2147483647 run scoreboard players operation @s cppValue = #dim_number cppValue
 </pre>
 
 <p>使用时，我们递归探测玩家所在的维度在列表 <code>cpp:_ dim</code> 中的序号。</p>
