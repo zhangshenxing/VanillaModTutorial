@@ -3,47 +3,19 @@
   "deepslate_enabled": false,
   "ore_veins_enabled": false,
   "noodle_caves_enabled": false,
-  "min_surface_level": 0,
+  "sea_level": 0,
   "disable_mob_generation": true,
   "aquifers_enabled": false,
+  "default_block": {
+    "Name": "minecraft:end_stone"
+  },
   "default_fluid": {
     "Name": "minecraft:air"
   },
   "bedrock_roof_position": -2147483648,
   "bedrock_floor_position": -2147483648,
-  "sea_level": 0,
   "structures": {
     "structures": {
-      "minecraft:endcity": {
-        "spacing": 20,
-        "separation": 11,
-        "salt": 10387313
-      },
-      "minecraft:desert_pyramid": {
-        "spacing": 32,
-        "separation": 8,
-        "salt": 14357617
-      },
-      "minecraft:ruined_portal": {
-        "spacing": 40,
-        "separation": 15,
-        "salt": 34222645
-      },
-      "minecraft:bastion_remnant": {
-        "spacing": 27,
-        "separation": 4,
-        "salt": 30084232
-      },
-      "minecraft:swamp_hut": {
-        "spacing": 32,
-        "separation": 8,
-        "salt": 14357620
-      },
-      "minecraft:pillager_outpost": {
-        "spacing": 32,
-        "separation": 8,
-        "salt": 165745296
-      },
       "minecraft:igloo": {
         "spacing": 32,
         "separation": 8,
@@ -54,35 +26,10 @@
         "separation": 20,
         "salt": 10387319
       },
-      "minecraft:village": {
-        "spacing": 32,
-        "separation": 8,
-        "salt": 10387312
-      },
-      "minecraft:mineshaft": {
-        "spacing": 1,
-        "separation": 0,
-        "salt": 0
-      },
       "minecraft:jungle_pyramid": {
         "spacing": 32,
         "separation": 8,
         "salt": 14357619
-      },
-      "minecraft:buried_treasure": {
-        "spacing": 1,
-        "separation": 0,
-        "salt": 0
-      },
-      "minecraft:ocean_ruin": {
-        "spacing": 20,
-        "separation": 8,
-        "salt": 14357621
-      },
-      "minecraft:fortress": {
-        "spacing": 27,
-        "separation": 4,
-        "salt": 30084232
       },
       "minecraft:nether_fossil": {
         "spacing": 2,
@@ -99,6 +46,61 @@
         "separation": 4,
         "salt": 165745295
       },
+      "minecraft:mineshaft": {
+        "spacing": 1,
+        "separation": 0,
+        "salt": 0
+      },
+      "minecraft:desert_pyramid": {
+        "spacing": 32,
+        "separation": 8,
+        "salt": 14357617
+      },
+      "minecraft:ruined_portal": {
+        "spacing": 40,
+        "separation": 15,
+        "salt": 34222645
+      },
+      "minecraft:fortress": {
+        "spacing": 27,
+        "separation": 4,
+        "salt": 30084232
+      },
+      "minecraft:pillager_outpost": {
+        "spacing": 32,
+        "separation": 8,
+        "salt": 165745296
+      },
+      "minecraft:village": {
+        "spacing": 32,
+        "separation": 8,
+        "salt": 10387312
+      },
+      "minecraft:endcity": {
+        "spacing": 20,
+        "separation": 11,
+        "salt": 10387313
+      },
+      "minecraft:buried_treasure": {
+        "spacing": 1,
+        "separation": 0,
+        "salt": 0
+      },
+      "minecraft:ocean_ruin": {
+        "spacing": 20,
+        "separation": 8,
+        "salt": 14357621
+      },
+      "minecraft:bastion_remnant": {
+        "spacing": 27,
+        "separation": 4,
+        "salt": 30084232
+      },
+      "minecraft:swamp_hut": {
+        "spacing": 32,
+        "separation": 8,
+        "salt": 14357620
+      },
       "minecraft:monument": {
         "spacing": 32,
         "separation": 5,
@@ -107,22 +109,23 @@
     }
   },
   "noise": {
-    "simplex_surface_noise": true,
     "island_noise_override": true,
-    "size_vertical": 1,
+    "use_legacy_random": true,
     "density_factor": 0.0,
     "density_offset": 0.0,
+    "simplex_surface_noise": true,
     "top_slide": {
-      "target": -3000,
+      "target": -23.4375,
       "size": 64,
       "offset": -46
     },
     "bottom_slide": {
-      "target": -30,
+      "target": -0.234375,
       "size": 7,
       "offset": 1
     },
     "size_horizontal": 2,
+    "size_vertical": 1,
     "min_y": 0,
     "height": 128,
     "sampling": {
@@ -132,7 +135,42 @@
       "y_factor": 160.0
     }
   },
-  "default_block": {
-    "Name": "minecraft:end_stone"
+  "octaves": {
+    "erosion": {
+      "firstOctave": 0,
+      "amplitudes": [
+        0.0
+      ]
+    },
+    "weirdness": {
+      "firstOctave": 0,
+      "amplitudes": [
+        0.0
+      ]
+    },
+    "shift": {
+      "firstOctave": 0,
+      "amplitudes": [
+        0.0
+      ]
+    },
+    "temperature": {
+      "firstOctave": 0,
+      "amplitudes": [
+        0.0
+      ]
+    },
+    "humidity": {
+      "firstOctave": 0,
+      "amplitudes": [
+        0.0
+      ]
+    },
+    "continentalness": {
+      "firstOctave": 0,
+      "amplitudes": [
+        0.0
+      ]
+    }
   }
 }

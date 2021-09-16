@@ -274,13 +274,13 @@
 <h1 id="引言">§1 引言</h1>
 <p>原版模组指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。之所以称之为原版模组，乃是为了和使用 Mod Loader/API 环境基于 Java 开发的 Mod 作区分，这些 Mod Loader/API 包括 Forge，Liteloader，Fabric 等。自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。本文内的原版模组便是指利用数据包和可能的配套资源包对游戏的可玩性做出修改。</p>
 
-<p>本文内容适用于 Minecraft Java 版 1.17 版本，但大部分内容也适合 1.13-1.16 版本，或只需要做简单修改，请读者自行区分。系统环境为 Windows 10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议和教程等，无法一一列出，在此一并表示感谢。</p>
+<p>本文内容适用于 Minecraft Java 版 1.18 版本，但大部分内容也适合 1.13-1.17 版本，或只需要做简单修改，请读者自行区分。系统环境为 Windows 10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议和教程等，无法一一列出，在此一并表示感谢。</p>
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft.fandom.com/zh/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.fandom.com/">Minecraft 英文 Wiki</a> 往往更新更及时且内容更准确，因此有英文阅读能力的可直接查看英文 wiki 的相关内容。</p>
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/08/26</p>
+<p>by ruhuasiyu 2021/09/16</p>
 
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
@@ -296,7 +296,7 @@
   <li><a href="http://mc-command.oschina.io/command-tutorial/">命令进阶</a>
     该网站虽名为命令进阶，实际上比前一项页面更为初等，不过更为系统。</li>
 </ul>
-<p>若你已对 1.17 之前版本的命令较为熟悉，可在<a href="https://wiki.biligame.com/mc/Java版版本记录" class="wiki">Java版版本记录</a>中查看各版本间差异。</p>
+<p>若你已对 1.18 之前版本的命令较为熟悉，可在<a href="https://wiki.biligame.com/mc/Java版版本记录" class="wiki">Java版版本记录</a>中查看各版本间差异。</p>
 
 <h2 id="工具准备">§1.2 工具准备</h2>
 <h3 id="文本编辑器">§1.2.1 文本编辑器</h3>
@@ -1760,6 +1760,7 @@ effect give @s saturation 1 1 true
 
 {
   "function": "minecraft:set_loot_table", <span class="comment">设置容器物品的战利品表</span>
+  "type": 方块命名空间ID, <span class="comment">只允许是方块实体</span>
   "name": "<a href="#战利品表">战利品表</a>命名空间ID",
   "seed": 数值 <span class="comment">战利品表种子，可选。默认为0，不指定种子。</span>
 }
@@ -1780,6 +1781,7 @@ effect give @s saturation 1 1 true
 
 {
   "function": "minecraft:set_contents", <span class="comment">指定掉落物为容器时其内含物，仅对容器的方块战利品表有效</span>
+  "type": 方块命名空间ID, <span class="comment">只允许是方块实体</span>
   "entries": [ 
     战利品表项目列表 <span class="comment">设置为dynamic类型的content，可使容器保留其内含物。但除潜影盒外的容器被破坏时总会将内含物掉出。</span>
   ]
@@ -2541,46 +2543,22 @@ execute unless block ^ ^ ^ #cpp:fluid
     "biome_source": { <span class="comment">生物群系设置</span>
       "seed"：整数, <span class="comment">种子</span>
 
-      "type": "minecraft:vanilla_layered", <span class="comment">主世界默认生成和巨型生物群系生成</span>
+      "type": "minecraft:vanilla_layered", <span class="comment">原主世界默认生成和巨型生物群系生成</span>
       "large_biomes": true 或 false, <span class="comment">是否为巨型生物群系</span>
     或
       "type": "minecraft:multi_noise", <span class="comment">多维噪声型</span>
-      "humidity_noise": { <span class="comment">用于生成柏林噪声图</span>
-        "firstOctave": -7, <span class="comment">该柏林噪声维度的主倍频，影响噪声的频率</span>
-        "amplitudes": [ <span class="comment">该柏林噪声维度的振幅</span>
-          1.0,
-          1.0
-        ]
-      },
-      "altitude_noise": {
-        "firstOctave": -7,
-        "amplitudes": [
-          1.0,
-          1.0
-        ]
-      },
-      "weirdness_noise": {
-        "firstOctave": -7,
-        "amplitudes": [
-          1.0,
-          1.0
-        ]
-      },
-      "temperature_noise": {
-        "firstOctave": -7,
-        "amplitudes": [
-          1.0,
-          1.0
-        ]
-      },
+      "min_quart_y": 整数, <span class="comment">TBD</span>
+      "max_quart_y": 整数, <span class="comment">TBD</span>
       "biomes": [ <span class="comment">生物群系列表</span>
         {
           "biome": "<a href="#生物群系">生物群系</a>命名空间ID", <span class="comment">生物群系</span>
           "parameters": { <span class="comment">生物群系属性</span>
-            "altitude": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
-            "temperature": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
-            "humidity": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
-            "weirdness": -2~2 之间的数值, <span class="comment">柏林噪声参数</span>
+            "humidity": -2~2 之间的数值范围, <span class="comment">振幅，柏林噪声参数</span>
+            "erosion": -2~2 之间的数值范围, <span class="comment">振幅，柏林噪声参数</span>
+            "temperature": -2~2 之间的数值范围, <span class="comment">振幅，柏林噪声参数</span>
+            "weirdness": -2~2 之间的数值范围, <span class="comment">振幅，柏林噪声参数</span>
+            "continentalness": -2~2 之间的数值范围, <span class="comment">振幅，柏林噪声参数</span>
+            "depth": 数值, <span class="comment">TBD</span>
             "offset": 0~1 之间的数值 <span class="comment">为地图上的点计算最接近的生物群系时，会根据这个值来调大距离，因此这个值绝对值越大，生物群系越小</span>
           }
         }
@@ -3381,6 +3359,74 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
     "simplex_surface_noise": true 或 false, <span class="comment">是否使用单形噪声替代柏林噪声来生成地形</span>
     "island_noise_override": true 或 false (默认值), <span class="comment">可选，该世界是否像末地一样以小岛环绕着主岛的形式生成</span>
     "amplified": true 或 false (默认值) <span class="comment">可选，是否为放大化地形</span>
+  },    
+  "octaves": {
+    "erosion": {
+      "firstOctave": -9,
+      "amplitudes": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    "weirdness": {
+      "firstOctave": -7,
+      "amplitudes": [
+        1.0,
+        2.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "shift": {
+      "firstOctave": -3,
+      "amplitudes": [
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    "temperature": {
+      "firstOctave": -9,
+      "amplitudes": [
+        1.5,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "humidity": {
+      "firstOctave": -7,
+      "amplitudes": [
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "continentalness": {
+      "firstOctave": -9,
+      "amplitudes": [
+        1.0,
+        1.0,
+        2.0,
+        2.0,
+        2.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
   }
 }</pre>
 
@@ -4199,30 +4245,31 @@ execute at @s run spreadplayers ~ ~ 1 10 false @s
 {
   "type": "minecraft:simple_block"<span class="comment">单个方块</span>,
   "config": {
-    "to_place": { <span class="comment">将要放置的方块</span>
-      "Name": "方块命名空间ID",
-      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
-        "方块状态名": "方块状态值"
+    "to_place": <a href="#方块状态类型">方块状态类型</a>, <span class="comment">将要放置的方块</span>
+    "place_on": [ <span class="comment">将要放置的位置下方方块列表</span>
+      {
+        "Name": "方块命名空间ID",
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+          "方块状态名": "方块状态值"
+        }
       }
-    },
-    "place_on": { <span class="comment">将要放置的位置下方方块</span>
-      "Name": "方块命名空间ID",
-      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
-        "方块状态名": "方块状态值"
+    ],
+    "place_in": [ <span class="comment">将要放置的位置的方块列表</span>
+      {
+        "Name": "方块命名空间ID",
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+          "方块状态名": "方块状态值"
+        }
       }
-    },
-    "place_in": { <span class="comment">将要放置的位置的方块</span>
-      "Name": "方块命名空间ID",
-      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
-        "方块状态名": "方块状态值"
+    ],
+    "place_under": [ <span class="comment">将要放置的位置上方方块列表</span>
+      {
+        "Name": "方块命名空间ID",
+        "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
+          "方块状态名": "方块状态值"
+        }
       }
-    },
-    "place_under": { <span class="comment">将要放置的位置上方方块</span>
-      "Name": "方块命名空间ID",
-      "Properties": { <span class="comment">需要指定该方块的所有方块状态</span>
-        "方块状态名": "方块状态值"
-      }
-    }
+    ]
   }
 }
 
