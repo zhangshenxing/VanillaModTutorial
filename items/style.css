@@ -128,10 +128,10 @@ a:hover{
 	color: #4183c4;
 }
 a.wiki:after{
-	content: " - Minecraft Wiki，最详细的官方我的世界百科"
+	content: " - 中文Minecraft Wiki"
 }
 a.wikien:after{
-	content: " - Official Minecraft Wiki"
+	content: " - Minecraft Wiki"
 }
 abbr{
 	cursor:help;
