@@ -13,10 +13,7 @@
                         "Name": "minecraft:spore_blossom"
                       },
                       "type": "minecraft:simple_state_provider"
-                    },
-                    "place_on": [],
-                    "place_in": [],
-                    "place_under": []
+                    }
                   },
                   "type": "minecraft:simple_block"
                 },
@@ -37,7 +34,7 @@
                     "above_bottom": 0
                   },
                   "max_inclusive": {
-                    "absolute": 120
+                    "absolute": 256
                   },
                   "type": "minecraft:uniform"
                 }
@@ -56,7 +53,7 @@
     },
     "decorator": {
       "config": {
-        "count": 12
+        "count": 21
       },
       "type": "minecraft:count"
     }
