@@ -20,7 +20,7 @@
       "trigger": "minecraft:location",
       "conditions": {
         "location": {
-          "feature": "endcity"
+          "structure": "minecraft:end_city"
         }
       }
     }

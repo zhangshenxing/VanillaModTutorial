@@ -1,54 +1,47 @@
 {
+  "type": "minecraft:random_patch",
   "config": {
-    "tries": 96,
-    "xz_spread": 7,
-    "y_spread": 3,
     "feature": {
-      "config": {
-        "feature": {
-          "config": {
-            "to_place": {
-              "state": {
-                "Properties": {
-                  "age": "3"
-                },
-                "Name": "minecraft:sweet_berry_bush"
-              },
-              "type": "minecraft:simple_state_provider"
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:sweet_berry_bush",
+              "Properties": {
+                "age": "3"
+              }
             }
-          },
-          "type": "minecraft:simple_block"
-        },
-        "decorator": {
-          "config": {
-            "predicate": {
-              "predicates": [
-                {
-                  "blocks": [
-                    "minecraft:air"
-                  ],
-                  "type": "minecraft:matching_blocks"
-                },
-                {
-                  "offset": [
-                    0,
-                    -1,
-                    0
-                  ],
-                  "blocks": [
-                    "minecraft:grass_block"
-                  ],
-                  "type": "minecraft:matching_blocks"
-                }
-              ],
-              "type": "minecraft:all_of"
-            }
-          },
-          "type": "minecraft:block_filter"
+          }
         }
       },
-      "type": "minecraft:decorated"
-    }
-  },
-  "type": "minecraft:random_patch"
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:grass_block",
+                "offset": [
+                  0,
+                  -1,
+                  0
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tries": 96,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
 }

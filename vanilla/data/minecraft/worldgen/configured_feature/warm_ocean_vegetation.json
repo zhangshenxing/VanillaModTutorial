@@ -1,52 +1,28 @@
 {
+  "type": "minecraft:simple_random_selector",
   "config": {
-    "feature": {
-      "config": {
+    "features": [
+      {
         "feature": {
-          "config": {
-            "feature": {
-              "config": {
-                "features": [
-                  {
-                    "config": {},
-                    "type": "minecraft:coral_tree"
-                  },
-                  {
-                    "config": {},
-                    "type": "minecraft:coral_claw"
-                  },
-                  {
-                    "config": {},
-                    "type": "minecraft:coral_mushroom"
-                  }
-                ]
-              },
-              "type": "minecraft:simple_random_selector"
-            },
-            "decorator": {
-              "config": {
-                "heightmap": "OCEAN_FLOOR_WG"
-              },
-              "type": "minecraft:heightmap"
-            }
-          },
-          "type": "minecraft:decorated"
+          "type": "minecraft:coral_tree",
+          "config": {}
         },
-        "decorator": {
-          "config": {},
-          "type": "minecraft:square"
-        }
+        "placement": []
       },
-      "type": "minecraft:decorated"
-    },
-    "decorator": {
-      "config": {
-        "noise_to_count_ratio": 20,
-        "noise_factor": 400.0,
-        "noise_offset": 0.0
+      {
+        "feature": {
+          "type": "minecraft:coral_claw",
+          "config": {}
+        },
+        "placement": []
       },
-      "type": "minecraft:count_noise_biased"
-    }
-  },
-  "type": "minecraft:decorated"
+      {
+        "feature": {
+          "type": "minecraft:coral_mushroom",
+          "config": {}
+        },
+        "placement": []
+      }
+    ]
+  }
 }

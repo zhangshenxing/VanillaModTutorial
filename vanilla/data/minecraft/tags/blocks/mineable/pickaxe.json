@@ -324,6 +324,11 @@
     "#minecraft:shulker_boxes",
     "#minecraft:anvil",
     "#minecraft:cauldrons",
-    "#minecraft:rails"
+    "#minecraft:rails",
+    "minecraft:conduit",
+    "minecraft:mud_bricks",
+    "minecraft:mud_brick_stairs",
+    "minecraft:mud_brick_slab",
+    "minecraft:packed_mud"
   ]
 }

@@ -271,32 +271,31 @@
 <img id="banner" src="items/banner.png" alt="原版模组入门教程" style="width:100%;"/>
 
 <article>
+<p style="font-style: italic;">最后更新于 2022/04/23</p>
 <h1 id="引言">§1 引言</h1>
 <p>原版模组指在不修改 Minecraft 游戏本体的前提下，通过命令方块、一键命令、数据包、资源包等方式对游戏的可玩性做出修改。之所以称之为原版模组，乃是为了和使用 Mod Loader/API 环境基于 Java 开发的 Mod 作区分，这些 Mod Loader/API 包括 Forge，Liteloader，Fabric 等。自 Minecraft Java 版 1.13 起的数据包概念问世之后，原版模组的制作已变得十分便捷。本文内的原版模组便是指利用数据包和可能的配套资源包对游戏的可玩性做出修改。</p>
 
-<p>本文内容适用于 Minecraft Java 版 1.18 版本，但大部分内容也适合 1.13-1.17 版本，或只需要做简单修改，请读者自行区分。系统环境为 Windows 10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议和教程等，无法一一列出，在此一并表示感谢。</p>
+<p>本文内容适用于 Minecraft Java 版 1.19 版本，但大部分内容也适合 1.13-1.18 版本，或只需要做简单修改，请读者自行区分。系统环境为 Windows 10，其它环境下有较小的差异。本文参考和吸取了大量其他玩家的意见、建议和教程等，无法一一列出，在此一并表示感谢。</p>
 
 <p>本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 <a href="https://minecraft.fandom.com/zh/">Minecraft Wiki</a> 速度较慢，因此本文中 wiki 页面链接均使用 <a href="https://wiki.biligame.com/mc/">biligame 的镜像</a>。由于 <a href="https://minecraft.fandom.com/">Minecraft 英文 Wiki</a> 往往更新更及时且内容更准确，因此有英文阅读能力的可直接查看英文 wiki 的相关内容。</p>
 
 <p>本文中<code><i>青铜色楷体</i></code>表示其应当被替换为合适的字符串，<code style="color: rgb(0,129,0);">绿色楷体</code>表示JSON文件中的注释，点击左下角<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">显</span>/<span style="color:white;background-color: rgb(0,129,0);font-weight: bold;">隐</span>可切换显示或隐藏注释。</p>
 
-<p>by ruhuasiyu 2021/09/16</p>
-
 <h2 id="命令基础">§1.1 命令基础</h2>
 <p>本文不会介绍命令的基础知识，相关内容请读者通过如下链接自行了解。</p>
 <ul>
-  <li><a href="https://wiki.biligame.com/mc/命令" class="wiki">命令 (Command) </a>
+  <li><a href="https://wiki.biligame.com/mc/命令">命令</a>
     此为官方 wiki 的命令页面，其中包括了命令的基本参数介绍：坐标、目标选择器、数据标签 (NBT) 、原始JSON文本、命名空间ID等内容。读者需在学习命令过程中逐步了解这些概念。</li>
-  <li><a href="https://wiki.biligame.com/mc/记分板" class="wiki">记分板 (Scoreboard) </a>
-    此为官方 wiki 的记分板页面，其中包括了记分板的所有准则和相关命令格式，也包含了标签 (Tag) 和组 (Team) 的相关内容。</li>
-  <li><a href="https://wiki.biligame.com/mc/区块格式">区块格式</a>和<a href="https://wiki.biligame.com/mc/Player.dat格式" class="wiki">player.dat格式</a>
+  <li><a href="https://wiki.biligame.com/mc/记分板">记分板</a>
+    此为官方 wiki 的记分板页面，其中包括了记分板的所有准则和相关命令格式，也包含了标签 (tag) 和组 (team) 的相关内容。</li>
+  <li><a href="https://wiki.biligame.com/mc/实体格式">实体格式</a>和<a href="https://wiki.biligame.com/mc/Player.dat格式">player.dat格式</a>
     这两个页面给出了所有物品和实体(含方块实体)的 NBT。在游戏中，实体的 NBT 可通过命令 <code>data get entity/block</code> 来获取，物品的 NBT 可通过手持并输入命令 <code>data get entity @s SelectedItem</code> 来获取，以避免记忆大量的 NBT。</li>
   <li><a href="https://commandtutorials.neocities.org/">新人手册-MC命令方块资源</a>
     该网站包含了很多基础的教程，不过很多内容会有些过时。还包含少量进阶的内容，对于初学者可能较为复杂，请以理解其逻辑为主。</li>
   <li><a href="http://mc-command.oschina.io/command-tutorial/">命令进阶</a>
     该网站虽名为命令进阶，实际上比前一项页面更为初等，不过更为系统。</li>
 </ul>
-<p>若你已对 1.18 之前版本的命令较为熟悉，可在<a href="https://wiki.biligame.com/mc/Java版版本记录" class="wiki">Java版版本记录</a>中查看各版本间差异。</p>
+<p>若你已对 1.18 之前版本的命令较为熟悉，可在<a href="https://wiki.biligame.com/mc/Java版版本记录">Java版版本记录</a>中查看各版本间差异。</p>
 
 <h2 id="工具准备">§1.2 工具准备</h2>
 <h3 id="文本编辑器">§1.2.1 文本编辑器</h3>
@@ -548,7 +547,7 @@ data
 <pre>
 {
   "pack": {
-    "pack_format": 6, <span class="comment">数据包版本，1.13-1.14 版本为 4，1.15-1.16.1 版本为 5，1.16.2-1.16.4 版本为 6，1.17 版本为 7</span>
+    "pack_format": 6, <span class="comment">数据包版本，1.13-1.14 版本为 4，1.15-1.16.1 版本为 5，1.16.2-1.16.4 版本为 6，1.17-1.17.1 版本为 7，1.18-1.18.1 版本为 8，1.18.2 版本为 9，1.19 版本为 10</span>
     "description": [<span class="comment">数据包描述</span>
       {
         "text": "数据包名称",
@@ -557,6 +556,14 @@ data
       {
         "text": "简要介绍\nby 某某作者",
         "color": "gold"
+      }
+    ]
+  },
+  "filter": {
+    "block": [<span class="comment">忽略相应命名空间下相应文件</span>
+      {
+        "namespace": "命名空间", 
+        "path": "文件路径" <span class="comment">支持通用标识符 *</span>
       }
     ]
   }
@@ -2128,7 +2135,28 @@ setblock ~ 255 ~ air
 
 
 <h3 id="覆盖原版配方">§2.8.7 覆盖原版配方</h3>
-<p>如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 <code>.jar</code> 文件，依次打开 <code>data/minecraft/recipes</code>，找到相应的配方文件，然后在自己的数据包中的相同位置（必然是 <code>minecraft</code> 命名空间下）放入同名文件即可覆盖默认的配方。</p>
+<p>在数据包的<code>pack.mcmeta</code>中可以指定忽略的数据包文件，例如下面就屏蔽了原版棕色蘑菇合成兔肉煲的配方，以及用于解锁该配方的相应进度。</p>
+<pre class="file">pack.mcmeta</pre>
+<pre>
+{
+  "pack": {
+    "pack_format": 10
+  },
+  "filter": {
+    "block": [
+      {
+        "namespace": "minecraft",
+        "path": "recipes/rabbit_stew_from_brown_mushroom.json"
+      },
+      {
+        "namespace": "minecraft",
+        "path": "advancements/recipes/food/rabbit_stew_from_brown_mushroom.json"
+      }
+    ]
+  }
+}
+</pre>
+<p>1.19之前的版本如果想要修改原版的合成或烧炼配方，先使用压缩软件打开版本 <code>.jar</code> 文件，依次打开 <code>data/minecraft/recipes</code>，找到相应的配方文件，然后在自己的数据包中的相同位置（必然是 <code>minecraft</code> 命名空间下）放入同名文件即可覆盖默认的配方。</p>
 <p class="ex">将橡木台阶合成数量改为8。</p>
 
 <pre class="file" id="minecraft/recipes/oak_stairs">minecraft/recipes/oak_stairs.json</pre>
@@ -5151,7 +5179,7 @@ assets
 <pre>
 {
   "pack": {
-    "pack_format": 6, <span class="comment">资源包版本，1.13-1.14 版本为 4，1.15 版本为 5，1.16.2-1.16.4 版本为 6，1.17 版本为 7</span>
+    "pack_format": 6, <span class="comment">资源包版本，1.13-1.14 版本为 4，1.15 版本为 5，1.16.2-1.16.4 版本为 6，1.17-1.17.1 版本为 7，1.18–1.18.2 版本为8，1.19 版本为9</span>
     "description": [ <span class="comment">资源包描述</span>
       {
         "text": "Crafting++ v1.10 ",
@@ -5163,6 +5191,14 @@ assets
       {
         "text": "\nruhuasiyu RubberTree",
         "color": "green"
+      }
+    ]
+  },
+  "filter": {
+    "block": [<span class="comment">忽略相应命名空间下相应文件</span>
+      {
+        "namespace": "命名空间", 
+        "path": "文件路径" <span class="comment">支持通用标识符 *</span>
       }
     ]
   }
@@ -5691,11 +5727,33 @@ assets
   ]
 }
 </pre>
-<p>例：添加新的字体，对字符 <code>\ue010</code> 和 <code>\ue011</code> 设置新纹理。</p>
+<p>如果 <code>type</code> 为 <code>space</code>，则表示该字符表示空格，此时格式为</p>
+<pre>
+  {
+    "providers": [
+      {
+        "type": "space",
+        "advances": {
+          "\ue010": 91, <span class="comment">
+          该字符表示的空白长度</span>
+          "\ue011": -10
+      }
+    ]
+  }
+</pre>
+<p>我们来看一个例子。</p>
 <pre class="file" id="assets/custom/font/default">assets/custom/font/default.json</pre>
 <pre>
 {
   "providers": [
+    {
+      "type": "space",
+      "advances": {
+        " ": 4,
+        "A": -1024,
+        "\uF81A": -190
+      }
+    },
     {
       "type": "bitmap",
       "file": "custom:font/mana0.png",
@@ -5719,89 +5777,118 @@ tellraw @s {"text": "\ue010\ue011", "font": "custom:default"}
 </pre>
 
 <p>我们可以用 <code>\u</code> 开头来表示不容易打出的字符，参考<a href="https://unicode-table.com">Unicode® Character Table</a>，这与直接使用相应字符是等价的。</p>
+
+<p>对于单纯的空格，我们需要使用 <code>space</code> 字形提供器。</p>
+
 <p>利用这种方式，我们可以做到在成书、玩家快捷栏上方、聊天区域、物品名称等地方显示图片。利用负长度空格和垂直偏移，我们可以将图片显示在屏幕的任一位置。</p>
 <p>例：我们在自定义字体中将0~9和:的纹理放大了一倍，并将其移动到左上角，使得其显示比通常位置高。然后利用负宽度空格将字符位置重新定位到快捷栏左侧，显示第二行文字。</p>
 <pre class="file" id="assets/cpp/font/default">assets/cpp/font/default.json</pre>
-<pre>
-{
-  "providers": [
-    {
-      "type": "bitmap",
-      "file": "cpp:font/space.png",
-      "ascent": -32768,
-      "height": 297,
-      "chars": ["A"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/immunized_from_poison.png",
-      "height": 18,
-      "ascent": 18,
-      "chars": ["C"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/immunized_from_blindness.png",
-      "height": 18,
-      "ascent": 18,
-      "chars": ["D"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/immunized_from_mining_fatigue.png",
-      "height": 18,
-      "ascent": 18,
-      "chars": ["E"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/ascii1.png",
-      "height": 18,
-      "ascent": 18,
-      "chars": ["\uF910\uF911\uF912\uF913\uF914\uF915\uF916\uF917\uF918\uF919\uF91A\uF91B\uF91C\uF91D\uF91E\uF91F"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/immunized_from_wither.png",
-      "height": 8,
-      "ascent": 8,
-      "chars": ["F"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/immunized_from_darkness.png",
-      "height": 8,
-      "ascent": 8,
-      "chars": ["G"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/weight_index.png",
-      "height": 8,
-      "ascent": 8,
-      "chars": ["H"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/chain_icon.png",
-      "height": 8,
-      "ascent": 8,
-      "chars": ["I"]
-    },
-    {
-      "type": "bitmap",
-      "file": "cpp:font/space.png",
-      "ascent": -32768,
-      "height": -191,
-      "chars": ["\uF81A"]
-    }
-  ]
+<pre>{
+	"providers": [
+		{
+			"type": "space",
+			"advances": {
+				" ": 4,
+				"A": -1024,
+				"\uF81A": -190
+			}
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/immunized_from_poison.png",
+			"height": 18,
+			"ascent": 18,
+			"chars": ["C"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/immunized_from_blindness.png",
+			"height": 18,
+			"ascent": 18,
+			"chars": ["D"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/immunized_from_mining_fatigue.png",
+			"height": 18,
+			"ascent": 18,
+			"chars": ["E"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/ascii1.png",
+			"height": 18,
+			"ascent": 18,
+			"chars": ["\uF910\uF911\uF912\uF913\uF914\uF915\uF916\uF917\uF918\uF919\uF91A\uF91B\uF91C\uF91D\uF91E\uF91F"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/immunized_from_wither.png",
+			"height": 8,
+			"ascent": 8,
+			"chars": ["F"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/immunized_from_darkness.png",
+			"height": 8,
+			"ascent": 8,
+			"chars": ["G"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/weight_index.png",
+			"height": 8,
+			"ascent": 8,
+			"chars": ["H"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/chain.png",
+			"height": 8,
+			"ascent": 8,
+			"chars": ["I"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/immunized_from_mutation.png",
+			"height": 8,
+			"ascent": 8,
+			"chars": ["J"]
+		},
+		{
+			"type": "bitmap",
+			"file": "cpp:font/sculking.png",
+			"height": 8,
+			"ascent": 8,
+			"chars": ["K"]
+		}
+	]
 }
 </pre>
-<pre class="file">cpp:misc/info</pre>
+<pre class="file">cpp:misc/fatness</pre>
 <pre>
 data remove storage cpp:_ title
 setblock ~ 255 ~ oak_sign
+scoreboard players operation #t cppValue = @s cppVacPoi
+scoreboard players operation #t cppValue /= #3600 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacPoi
+scoreboard players operation #t cppValue /= #600 cppValue
+scoreboard players operation #t cppValue %= #6 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacPoi
+scoreboard players operation #t cppValue /= #60 cppValue
+scoreboard players operation #t cppValue %= #10 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacPoi
+scoreboard players operation #t cppValue /= #10 cppValue
+scoreboard players operation #t cppValue %= #6 cppValue
+function cpp:misc/number_to_ascii
+scoreboard players operation #t cppValue = @s cppVacPoi
+scoreboard players operation #t cppValue %= #10 cppValue
+function cpp:misc/number_to_ascii
+
 scoreboard players operation #t cppValue = @s cppVacBli
 scoreboard players operation #t cppValue /= #3600 cppValue
 function cpp:misc/number_to_ascii
@@ -5870,13 +5957,28 @@ scoreboard players operation #t5 cppValue = @s cppVacDar
 scoreboard players operation #t5 cppValue %= #10 cppValue
 data modify block ~ 255 ~ Text2 set value '[{"score":{"name":"#t1","objective":"cppValue"}},":",{"score":{"name":"#t2","objective":"cppValue"}},{"score":{"name":"#t3","objective":"cppValue"}},":",{"score":{"name":"#t4","objective":"cppValue"}},{"score":{"name":"#t5","objective":"cppValue"}}]'
 
+scoreboard players operation #t1 cppValue = @s cppVacMut
+scoreboard players operation #t1 cppValue /= #3600 cppValue
+scoreboard players operation #t2 cppValue = @s cppVacMut
+scoreboard players operation #t2 cppValue /= #600 cppValue
+scoreboard players operation #t2 cppValue %= #6 cppValue
+scoreboard players operation #t3 cppValue = @s cppVacMut
+scoreboard players operation #t3 cppValue /= #60 cppValue
+scoreboard players operation #t3 cppValue %= #10 cppValue
+scoreboard players operation #t4 cppValue = @s cppVacMut
+scoreboard players operation #t4 cppValue /= #10 cppValue
+scoreboard players operation #t4 cppValue %= #6 cppValue
+scoreboard players operation #t5 cppValue = @s cppVacMut
+scoreboard players operation #t5 cppValue %= #10 cppValue
+data modify block ~ 255 ~ Text3 set value '[{"score":{"name":"#t1","objective":"cppValue"}},":",{"score":{"name":"#t2","objective":"cppValue"}},{"score":{"name":"#t3","objective":"cppValue"}},":",{"score":{"name":"#t4","objective":"cppValue"}},{"score":{"name":"#t5","objective":"cppValue"}}]'
+
 execute as @s[scores={cppFat=..-100}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat0"}'
 execute as @s[scores={cppFat=-99..-50}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat1"}'
 execute as @s[scores={cppFat=-49..49}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat2"}'
 execute as @s[scores={cppFat=50..100}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat3"}'
 execute as @s[scores={cppFat=100..}] run data modify storage cpp:_ title append value '{"translate":"title.actionbar.fat4"}'
 
-title @s actionbar [{"text":"C ","font":"cpp:default"},{"storage":"cpp:_","nbt":"title[0]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[1]","interpret":true},{"storage":"cpp:_","nbt":"title[2]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[3]","interpret":true},{"storage":"cpp:_","nbt":"title[4]","interpret":true},"    D ",{"storage":"cpp:_","nbt":"title[5]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[6]","interpret":true},{"storage":"cpp:_","nbt":"title[7]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[8]","interpret":true},{"storage":"cpp:_","nbt":"title[9]","interpret":true},"    E ",{"storage":"cpp:_","nbt":"title[10]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[11]","interpret":true},{"storage":"cpp:_","nbt":"title[12]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[13]","interpret":true},{"storage":"cpp:_","nbt":"title[14]","interpret":true},"    \uF81AF ",{"block":"~ 255 ~","nbt":"Text1","interpret":true,"font":"default"},{"text":"    G ","font":"cpp:default"},{"block":"~ 255 ~","nbt":"Text2","interpret":true,"font":"default"},{"text":"    H ","font":"cpp:default"},{"score":{"name":"@s","objective":"cppFat"},"font":"default"},{"storage":"cpp:_","nbt":"title[15]","interpret":true,"font":"default"}]
+title @s actionbar [{"text":"C ","font":"cpp:default"},{"storage":"cpp:_","nbt":"title[0]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[1]","interpret":true},{"storage":"cpp:_","nbt":"title[2]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[3]","interpret":true},{"storage":"cpp:_","nbt":"title[4]","interpret":true},"    D ",{"storage":"cpp:_","nbt":"title[5]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[6]","interpret":true},{"storage":"cpp:_","nbt":"title[7]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[8]","interpret":true},{"storage":"cpp:_","nbt":"title[9]","interpret":true},"    E ",{"storage":"cpp:_","nbt":"title[10]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[11]","interpret":true},{"storage":"cpp:_","nbt":"title[12]","interpret":true},"\uF91A",{"storage":"cpp:_","nbt":"title[13]","interpret":true},{"storage":"cpp:_","nbt":"title[14]","interpret":true},"    \uF81AF ",{"block":"~ 255 ~","nbt":"Text1","interpret":true,"font":"default"},{"text":"    G ","font":"cpp:default"},{"block":"~ 255 ~","nbt":"Text2","interpret":true,"font":"default"},{"text":"    J ","font":"cpp:default"},{"block":"~ 255 ~","nbt":"Text3","interpret":true,"font":"default"},{"text":"    H ","font":"cpp:default"},{"score":{"name":"@s","objective":"cppFat"},"font":"default"},{"storage":"cpp:_","nbt":"title[15]","interpret":true,"font":"default"}]
 setblock ~ 255 ~ air
 </pre>
 <pre class="file" id="cpp/functions/misc/number_to_ascii">cpp:misc/number_to_ascii</pre>
@@ -10165,7 +10267,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetX": 1,
       "predicate": {
         "block": {
-					"blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
+          "blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
           "state": {
             "powered": true,
             "facing": "east"
@@ -10178,7 +10280,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetX": -1,
       "predicate": {
         "block": {
-					"blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
+          "blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
           "state": {
             "powered": true,
             "facing": "west"
@@ -10191,7 +10293,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetZ": 1,
       "predicate": {
         "block": {
-					"blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
+          "blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
           "state": {
             "powered": true,
             "facing": "south"
@@ -10204,7 +10306,7 @@ item entity @s[nbt=!{SelectedItem:{tag:{Unbreakable:1b}}}] weapon.mainhand modif
       "offsetZ": -1,
       "predicate": {
         "block": {
-					"blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
+          "blocks": ["minecraft:observer","minecraft:repeater","minecraft:comparator","minecraft:tripwire_hook"],
           "state": {
             "powered": true,
             "facing": "north"

@@ -1,24 +1,13 @@
 {
+  "type": "minecraft:basalt_columns",
   "config": {
-    "feature": {
-      "config": {
-        "reach": 1,
-        "height": {
-          "type": "minecraft:uniform",
-          "value": {
-            "min_inclusive": 1,
-            "max_inclusive": 4
-          }
-        }
-      },
-      "type": "minecraft:basalt_columns"
+    "height": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 4,
+        "min_inclusive": 1
+      }
     },
-    "decorator": {
-      "config": {
-        "count": 4
-      },
-      "type": "minecraft:count_multilayer"
-    }
-  },
-  "type": "minecraft:decorated"
+    "reach": 1
+  }
 }

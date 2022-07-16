@@ -1,35 +1,30 @@
 {
+  "type": "minecraft:random_patch",
   "config": {
-    "tries": 96,
-    "xz_spread": 7,
-    "y_spread": 3,
     "feature": {
-      "config": {
-        "feature": {
-          "config": {
-            "to_place": {
-              "state": {
-                "Name": "minecraft:brown_mushroom"
-              },
-              "type": "minecraft:simple_state_provider"
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:brown_mushroom"
             }
-          },
-          "type": "minecraft:simple_block"
-        },
-        "decorator": {
-          "config": {
-            "predicate": {
-              "blocks": [
-                "minecraft:air"
-              ],
-              "type": "minecraft:matching_blocks"
-            }
-          },
-          "type": "minecraft:block_filter"
+          }
         }
       },
-      "type": "minecraft:decorated"
-    }
-  },
-  "type": "minecraft:random_patch"
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    },
+    "tries": 96,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
 }

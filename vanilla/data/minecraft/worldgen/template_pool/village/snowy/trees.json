@@ -1,14 +1,14 @@
 {
-  "name": "minecraft:village/snowy/trees",
-  "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
       "element": {
-        "feature": "minecraft:spruce_checked",
-        "projection": "rigid",
-        "element_type": "minecraft:feature_pool_element"
-      }
+        "element_type": "minecraft:feature_pool_element",
+        "feature": "minecraft:spruce",
+        "projection": "rigid"
+      },
+      "weight": 1
     }
-  ]
+  ],
+  "fallback": "minecraft:empty",
+  "name": "minecraft:village/snowy/trees"
 }

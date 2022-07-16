@@ -1,44 +1,29 @@
 {
+  "type": "minecraft:disk",
   "config": {
-    "feature": {
-      "config": {
+    "half_height": 1,
+    "radius": {
+      "type": "minecraft:uniform",
+      "value": {
+        "max_inclusive": 3,
+        "min_inclusive": 2
+      }
+    },
+    "state_provider": {
+      "fallback": {
+        "type": "minecraft:simple_state_provider",
         "state": {
           "Name": "minecraft:clay"
-        },
-        "radius": {
-          "type": "minecraft:uniform",
-          "value": {
-            "min_inclusive": 2,
-            "max_inclusive": 3
-          }
-        },
-        "half_height": 1,
-        "targets": [
-          {
-            "Name": "minecraft:dirt"
-          },
-          {
-            "Name": "minecraft:clay"
-          }
-        ]
-      },
-      "type": "minecraft:disk"
-    },
-    "decorator": {
-      "config": {
-        "outer": {
-          "config": {},
-          "type": "minecraft:square"
-        },
-        "inner": {
-          "config": {
-            "heightmap": "OCEAN_FLOOR_WG"
-          },
-          "type": "minecraft:heightmap"
         }
       },
-      "type": "minecraft:decorated"
+      "rules": []
+    },
+    "target": {
+      "type": "minecraft:matching_blocks",
+      "blocks": [
+        "minecraft:dirt",
+        "minecraft:clay"
+      ]
     }
-  },
-  "type": "minecraft:decorated"
+  }
 }

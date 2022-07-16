@@ -1,22 +1,13 @@
 {
+  "type": "minecraft:nether_forest_vegetation",
   "config": {
-    "feature": {
-      "config": {
-        "state_provider": {
-          "state": {
-            "Name": "minecraft:nether_sprouts"
-          },
-          "type": "minecraft:simple_state_provider"
-        }
-      },
-      "type": "minecraft:nether_forest_vegetation"
-    },
-    "decorator": {
-      "config": {
-        "count": 4
-      },
-      "type": "minecraft:count_multilayer"
+    "spread_height": 4,
+    "spread_width": 8,
+    "state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:nether_sprouts"
+      }
     }
-  },
-  "type": "minecraft:decorated"
+  }
 }

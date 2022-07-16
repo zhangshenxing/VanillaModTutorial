@@ -17,8 +17,13 @@
     "minecraft:birch_leaves",
     "minecraft:azalea_leaves",
     "minecraft:flowering_azalea_leaves",
+    "minecraft:mangrove_leaves",
     "minecraft:sculk_sensor",
     "minecraft:moss_block",
-    "minecraft:moss_carpet"
+    "minecraft:moss_carpet",
+    "minecraft:sculk",
+    "minecraft:sculk_catalyst",
+    "minecraft:sculk_vein",
+    "minecraft:sculk_shrieker"
   ]
 }
