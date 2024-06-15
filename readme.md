@@ -7,7 +7,6 @@
 本文更侧重教程而非开发手册，因此很多内容的完整格式并没有列出，此时请读者自行查阅相关的 wiki 链接。由于国内访问 [Minecraft Wiki](https://minecraft.fandom.com/zh/) 速度较慢，因此本文中 wiki 页面链接均使用 [biligame 的镜像](https://wiki.biligame.com/mc/)。由于 [Minecraft 英文 Wiki](https://minecraft.fandom.com/) 内容往往更准确，因此有英文阅读能力和访问能力的可直接查看英文 wiki 的相关内容。
 
 地址：
-[Github](https://ruhuasiyu.github.io/VanillaModTutorial/)
-[Gitee](https://zhangshenxing.gitee.io/vanillamodtutorial/)
+[Github](https://zhangshenxing.github.io/VanillaModTutorial/)
 
 ruhuasiyu
